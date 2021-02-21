@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace INZFS.Pages
+namespace OrchardCMS.Pages
 {
     public class IndexModel : PageModel
     {
