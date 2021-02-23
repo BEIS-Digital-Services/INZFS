@@ -1,0 +1,60 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net5.0</TargetFramework>
+		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Remove="Views\Shared\ChangePassword.cshtml" />
+		<EmbeddedResource Remove="Views\Shared\ChangePasswordConfirmation.cshtml" />
+		<EmbeddedResource Remove="Views\Shared\LinkExternalLogin.cshtml" />
+		<EmbeddedResource Remove="Views\Shared\RegisterExternalLogin.cshtml" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="Views\Shared\ChangePassword.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="Views\Shared\ChangePasswordConfirmation.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="Views\Shared\LinkExternalLogin.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="Views\Shared\RegisterExternalLogin.cshtml">
+			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="OrchardCore.Admin.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Email.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Data.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Recipes.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.ResourceManagement.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Setup.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Setup" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Contents" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Menu" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Theme.Targets" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.ResourceManagement" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Settings" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Users" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-rc2-15867" />
+		<PackageReference Include="OrchardCore.Users.Core" Version="1.0.0-rc2-15867" />
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="wwwroot\css\main.css">
+	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+</Project>

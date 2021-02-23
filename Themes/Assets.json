@@ -1,0 +1,7 @@
+[
+  {
+    "generateSourceMaps": false,
+    "inputs": [ "wwwroot/scss/main.scss" ],
+    "output": "wwwroot/css/main.css"
+  }
+]
