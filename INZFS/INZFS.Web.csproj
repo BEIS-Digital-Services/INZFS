@@ -17,4 +17,8 @@
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+  </ItemGroup>
+
 </Project>
