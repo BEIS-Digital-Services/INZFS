@@ -1,0 +1,23 @@
+﻿@page "/fundapplication/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+@{
+    var fund = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+}
+
+
+
+<h1 class="govuk-heading-xl">@fund.DisplayText</h1>
+
+<h1 class="govuk-heading-l">Business Name</h1>
+<h1 class="govuk-heading-s">@fund.Content.FundApplication.BusinessName.Text</h1>
+<h1 class="govuk-heading-l">Project Title</h1>
+<h1 class="govuk-heading-s">@fund.Content.FundApplication.ProjectTitle.Text</h1>
+
+@Orchard.ConsoleLog(fund)
+
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
