@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.31005.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.Web", "INZFS\INZFS.Web.csproj", "{A4564465-5EEC-4459-85C5-DB6D7430C46D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.Theme", "Themes\INZFS.Theme.csproj", "{B69A8314-907A-400A-B093-484244419ECD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A4564465-5EEC-4459-85C5-DB6D7430C46D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4564465-5EEC-4459-85C5-DB6D7430C46D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4564465-5EEC-4459-85C5-DB6D7430C46D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B69A8314-907A-400A-B093-484244419ECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B69A8314-907A-400A-B093-484244419ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B69A8314-907A-400A-B093-484244419ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B69A8314-907A-400A-B093-484244419ECD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

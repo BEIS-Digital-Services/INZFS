@@ -12,4 +12,13 @@
 	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\assets\images\" />
+    <Folder Include="wwwroot\images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+  </ItemGroup>
+
 </Project>

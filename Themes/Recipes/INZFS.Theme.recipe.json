@@ -1,0 +1,27 @@
+﻿{
+	"name": "INZFS.Theme",
+	"displayName": "INZFS.Theme",
+	"description": "Sets INZFS.Theme GDS-Complient Theme as the current site's theme.",
+	"author": "BEIS Digital",
+	"website": "http://beis.gov.uk",
+	"version": "0.1",
+	"issetuprecipe": false,
+	"categories": [ "default" ],
+	"tags": [ "theme" ],
+	"steps": [
+		{
+			"name": "feature",
+			"disable": [],
+			"enable": [
+				"OrchardCore.Themes",
+				// Themes
+				"INZFS.Theme",
+				"SafeMode"
+			]
+		},
+		{
+			"name": "Themes",
+			"Site": "INZFS.Theme"
+		}
+	]
+}
