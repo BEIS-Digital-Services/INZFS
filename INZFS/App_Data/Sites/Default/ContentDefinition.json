@@ -106,6 +106,271 @@
           }
         }
       ]
+    },
+    {
+      "Name": "BlogPost",
+      "DisplayName": "Blog Post",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BlogPost",
+          "Name": "BlogPost",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "MarkdownBodyPart",
+          "Name": "MarkdownBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1",
+              "Editor": "Wysiwyg"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownBodyPartSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Form",
+      "DisplayName": "Form",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Stereotype": "Widget"
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "TitlePartSettings": {
+              "RenderTitle": false
+            },
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "FormPart",
+          "Name": "FormPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "FlowPart",
+          "Name": "FlowPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "Label",
+      "DisplayName": "Label",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "TitlePartSettings": {
+              "RenderTitle": false
+            }
+          }
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "LabelPart",
+          "Name": "LabelPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "Input",
+      "DisplayName": "Input",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FormInputElementPart",
+          "Name": "FormInputElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "InputPart",
+          "Name": "InputPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "TextArea",
+      "DisplayName": "Text Area",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FormInputElementPart",
+          "Name": "FormInputElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "TextAreaPart",
+          "Name": "TextAreaPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "Select",
+      "DisplayName": "Select",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FormInputElementPart",
+          "Name": "FormInputElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "SelectPart",
+          "Name": "SelectPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "Button",
+      "DisplayName": "Button",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FormInputElementPart",
+          "Name": "FormInputElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "FormElementPart",
+          "Name": "FormElementPart",
+          "Settings": {}
+        },
+        {
+          "PartName": "ButtonPart",
+          "Name": "ButtonPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ValidationSummary",
+      "DisplayName": "Validation Summary",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ValidationSummaryPart",
+          "Name": "ValidationSummaryPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "Validation",
+      "DisplayName": "Validation",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "Widget"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ValidationPart",
+          "Name": "ValidationPart",
+          "Settings": {}
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -278,7 +543,98 @@
           }
         }
       ]
+    },
+    {
+      "Name": "FormPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Turns your content item into a form."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FormElementPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides attributes common to all form elements."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FormInputElementPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides attributes common to all input form elements."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "LabelPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides label properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "InputPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides input field properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "TextAreaPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides text area properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "SelectPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides select field properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ButtonPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides button properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ValidationSummaryPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Displays a validation summary."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ValidationPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Displays a field validation error."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
     }
   ],
-  "Identifier": "4dpf0d8gs81nrv2gr9wfjp9gdb"
+  "Identifier": "47e9ybh78m59v4k0q05mkrgn5j"
 }
