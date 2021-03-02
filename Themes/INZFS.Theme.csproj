@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
@@ -50,6 +50,9 @@
 		<PackageReference Include="OrchardCore.Users" Version="1.0.0-rc2-15867" />
 		<PackageReference Include="OrchardCore.Users.Abstractions" Version="1.0.0-rc2-15867" />
 		<PackageReference Include="OrchardCore.Users.Core" Version="1.0.0-rc2-15867" />
+    <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-15867" />
+    <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc2-15867" />
+    <PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-13450" />
 	</ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="wwwroot\css\main.css">

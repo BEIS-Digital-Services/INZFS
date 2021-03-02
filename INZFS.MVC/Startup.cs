@@ -27,7 +27,22 @@ namespace INZFS.MVC
                 defaults: new { controller = "FundApplication", action = "Index" }
 
                 );
-            
+
+            routes.MapAreaControllerRoute(
+                name: "FundApplication",
+                areaName: "INZFS.MVC",
+                pattern: "Application/Index",
+                defaults: new { controller = "Application", action = "Index" }
+
+                );
+
+            routes.MapAreaControllerRoute(
+                name: "FundApplication",
+                areaName: "INZFS.MVC",
+                pattern: "Application/Handle",
+                defaults: new { controller = "Application", action = "Handle" }
+
+                );
         }
     }
 }

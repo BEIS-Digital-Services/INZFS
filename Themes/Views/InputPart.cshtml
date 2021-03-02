@@ -1,0 +1,34 @@
+﻿@using OrchardCore.DisplayManagement.Views
+@using OrchardCore.ContentManagement
+@using  OrchardCore.Forms.Models
+
+@model ShapeViewModel<InputPart>
+@{
+    var formElementPart = Model.Value.ContentItem.As<FormElementPart>();
+    var formInputElementPart = Model.Value.ContentItem.As<FormInputElementPart>();
+    // var formElementPart = (FormElementPart)Model.Value.ContentItem;
+    //var formInputElementPart = (FormInputElementPart)Model.Value.ContentItem;
+
+    var elementId = formElementPart.Id;
+    var fieldName = formInputElementPart.Name;
+    var fieldId = !string.IsNullOrEmpty(elementId) ? elementId : !string.IsNullOrEmpty(fieldName) ? Html.GenerateIdFromName(fieldName) : default(string);
+    var fieldValue = Model.Value.DefaultValue;
+    var fieldClass = "govuk-input";
+
+    if (ViewData.ModelState.TryGetValue(fieldName, out var fieldEntry))
+    {
+        fieldValue = fieldEntry.AttemptedValue;
+        if (fieldEntry.Errors.Count > 0)
+        {
+            fieldClass = "form-control input-validation-error";
+        }
+    }
+}
+
+<div class="govuk-form-group">
+    
+    <input id="@fieldId" name="@fieldName" type="@Model.Value.Type" class="@fieldClass" value="@fieldValue" placeholder="@Model.Value.Placeholder" />
+
+</div>
+
+
