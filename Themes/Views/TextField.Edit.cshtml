@@ -19,6 +19,11 @@
         {
             fieldClass = fieldClass + " govuk-input--error";
             isFieldValid = false;
+
+            if (ViewData.ModelState.TryGetValue(key, out var fieldEntry))
+            {
+                errorMessage = fieldEntry.Errors[0].ErrorMessage;
+            }
         }
     }
 }
@@ -31,12 +36,13 @@
             @settings.Hint
         </div>
     }
-    @if(!isFieldValid)
+    @if (!isFieldValid)
     {
-    <span id="name-error" class="govuk-error-message">
-        <span class="govuk-visually-hidden">Error:</span> Enter your full name
-    </span>
+        <span id="name-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @errorMessage
+        </span>
     }
+    @*<span asp-validation-for="Text"></span>*@
 
     <input asp-for="Text" class="govuk-input govuk-input--width-10" dir="@culture.GetLanguageDirection()" />
 
