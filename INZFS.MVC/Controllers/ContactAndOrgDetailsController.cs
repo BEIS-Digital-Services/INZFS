@@ -23,7 +23,7 @@ namespace INZFS.MVC.Controllers
 {
     public class ContactAndOrgDetailsController : Controller
     {
-        private const string contentType = "FundApplication";
+        private const string contentType = "ContactAndOrgDetails";
 
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
