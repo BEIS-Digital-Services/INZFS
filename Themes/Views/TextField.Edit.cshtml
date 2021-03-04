@@ -15,7 +15,7 @@
     if(!ViewData.ModelState.IsValid)
     {
         var key = $"{Model.PartFieldDefinition.PartDefinition.Name}.{Model.PartFieldDefinition.Name}.Text";
-        if(ViewData.ModelState.ContainsKey(key))
+        if (ViewData.ModelState.GetValidationState(key) == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
         {
             fieldClass = fieldClass + " govuk-input--error";
             isFieldValid = false;
