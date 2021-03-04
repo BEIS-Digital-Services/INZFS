@@ -13,11 +13,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>
 

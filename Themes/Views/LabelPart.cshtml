@@ -1,0 +1,10 @@
+@using OrchardCore.DisplayManagement.Views
+@using OrchardCore.ContentManagement
+@using OrchardCore.Forms.Models
+@model ShapeViewModel<LabelPart>
+
+@{
+    var contentItem = Model.Value.ContentItem;
+    var formElementPart = contentItem.As<FormElementPart>();
+}
+<label id="@formElementPart.Id" class="govuk-label" for="@Model.Value.For">@contentItem.DisplayText</label>
