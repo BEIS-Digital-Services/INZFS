@@ -366,6 +366,58 @@
           }
         }
       ]
+    },
+    {
+      "Name": "ContactAndOrgDetails",
+      "DisplayName": "Contact And Org Details",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ContactAndOrgDetails",
+          "Name": "ContactAndOrgDetails",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "FormPart",
+          "Name": "FormPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -659,7 +711,218 @@
           }
         }
       ]
+    },
+    {
+      "Name": "ContactAndOrgDetails",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "OrganisationName",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Organisation Name",
+              "Position": "0"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 1",
+              "Position": "1"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 2",
+              "Position": "2"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 3",
+              "Position": "3"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "TownCity",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Town/City",
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Postcode",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Postcode",
+              "Position": "5"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "County",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "County",
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "Country",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Country",
+              "Position": "7"
+            },
+            "ContentPickerFieldSettings": {
+              "Required": true,
+              "DisplayedContentTypes": []
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "NoFunding",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "No Funding",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "Foundersincludingbankloans",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Founders (including bank loans)",
+              "Position": "9"
+            },
+            "BooleanFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "FriendsandFamily",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Friends and Family",
+              "Position": "10"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "PublicSectorGrants",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Public Sector Grants",
+              "Position": "11"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "AngelInvestment",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Angel Investment",
+              "Position": "12"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "VentureCapital",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Venture Capital",
+              "Position": "13"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "PrivateEquity",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Private Equity",
+              "Position": "14"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "StockMarketFlotation",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Stock Market Flotation",
+              "Position": "15"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "Yes",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Yes",
+              "Position": "16"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "No",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "No",
+              "Position": "17"
+            }
+          }
+        }
+      ]
     }
   ],
-  "Identifier": "4vvk1chh08b9q2mzcthgtvrcc9"
+  "Identifier": "4kbjd8mdqgyaj3jc37w00kr6n4"
 }
