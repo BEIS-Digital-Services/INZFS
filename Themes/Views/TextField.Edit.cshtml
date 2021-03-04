@@ -8,9 +8,22 @@
 @{
     var settings = Model.PartFieldDefinition.GetSettings<TextFieldSettings>();
     var culture = await Orchard.GetContentCultureAsync(Model.Field.ContentItem);
+
+    var fieldClass = "govuk-form-group";
+    var errorMessage = string.Empty;
+    var isFieldValid = true;
+    if(!ViewData.ModelState.IsValid)
+    {
+        var key = $"{Model.PartFieldDefinition.PartDefinition.Name}.{Model.PartFieldDefinition.Name}.Text";
+        if(ViewData.ModelState.ContainsKey(key))
+        {
+            fieldClass = fieldClass + " govuk-input--error";
+            isFieldValid = false;
+        }
+    }
 }
 
-<div class="form-group">
+<div class="@fieldClass">
     <label asp-for="Text" class="govuk-label">@Model.PartFieldDefinition.DisplayName()</label>
     @if (!String.IsNullOrEmpty(settings.Hint))
     {
@@ -18,6 +31,13 @@
             @settings.Hint
         </div>
     }
+    @if(!isFieldValid)
+    {
+    <span id="name-error" class="govuk-error-message">
+        <span class="govuk-visually-hidden">Error:</span> Enter your full name
+    </span>
+    }
+
     <input asp-for="Text" class="govuk-input govuk-input--width-10" dir="@culture.GetLanguageDirection()" />
 
 </div>
