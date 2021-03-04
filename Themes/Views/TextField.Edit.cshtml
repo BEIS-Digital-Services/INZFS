@@ -1,0 +1,23 @@
+@using OrchardCore.ContentFields.Settings
+@using OrchardCore.ContentFields.ViewModels
+@using OrchardCore.ContentManagement.Metadata.Models
+@using OrchardCore.Localization
+
+@model OrchardCore.ContentFields.ViewModels.EditTextFieldViewModel
+
+@{
+    var settings = Model.PartFieldDefinition.GetSettings<TextFieldSettings>();
+    var culture = await Orchard.GetContentCultureAsync(Model.Field.ContentItem);
+}
+
+<div class="form-group">
+    <label asp-for="Text" class="govuk-label">@Model.PartFieldDefinition.DisplayName()</label>
+    @if (!String.IsNullOrEmpty(settings.Hint))
+    {
+        <div id="code-hint" class="govuk-hint">
+            @settings.Hint
+        </div>
+    }
+    <input asp-for="Text" class="govuk-input govuk-input--width-10" dir="@culture.GetLanguageDirection()" />
+
+</div>

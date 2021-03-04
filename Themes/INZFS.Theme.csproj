@@ -53,7 +53,8 @@
     <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-13450" />
-	</ItemGroup>
+    <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-15867" />
+  </ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="wwwroot\css\main.css">
 	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>

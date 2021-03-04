@@ -641,7 +641,11 @@
             "ContentPartFieldSettings": {
               "DisplayName": "Business Name",
               "Position": "0"
-            }
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
           }
         },
         {
@@ -657,5 +661,5 @@
       ]
     }
   ],
-  "Identifier": "4a3ec9ay2bhmtyaevpp5t6gg53"
+  "Identifier": "4vvk1chh08b9q2mzcthgtvrcc9"
 }

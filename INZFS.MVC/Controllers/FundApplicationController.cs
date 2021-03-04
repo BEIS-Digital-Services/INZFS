@@ -55,7 +55,8 @@ namespace INZFS.MVC.Controllers
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
 
             var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(x => x.ContentType == contentType);
+            var newContentType = contentType;
+            query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
             query = query.With<ContentItemIndex>(x => x.Published);
             query = query.OrderByDescending(x => x.PublishedUtc);
 
