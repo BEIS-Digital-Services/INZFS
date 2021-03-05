@@ -386,7 +386,7 @@
           "Name": "ContactAndOrgDetails",
           "Settings": {
             "ContentTypePartSettings": {
-              "Position": "1"
+              "Position": "0"
             }
           }
         },
@@ -395,7 +395,7 @@
           "Name": "AliasPart",
           "Settings": {
             "ContentTypePartSettings": {
-              "Position": "2"
+              "Position": "1"
             }
           }
         },
@@ -404,16 +404,7 @@
           "Name": "FormPart",
           "Settings": {
             "ContentTypePartSettings": {
-              "Position": "3"
-            }
-          }
-        },
-        {
-          "PartName": "TitlePart",
-          "Name": "TitlePart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
+              "Position": "2"
             }
           }
         }
@@ -907,7 +898,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Yes",
-              "Position": "16"
+              "Position": "17"
             }
           }
         },
@@ -917,12 +908,27 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "No",
-              "Position": "17"
+              "Position": "18"
             }
+          }
+        },
+        {
+          "FieldName": "UserPickerField",
+          "Name": "DoestheorganisationhaveaparentcompanyIfyesyouwillbeaskedtoprovidedetails",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Does the organisation have a parent company? (If yes you will be asked to provide details)",
+              "Position": "16"
+            },
+            "UserPickerFieldSettings": {
+              "Required": true,
+              "DisplayedRoles": []
+            },
+            "ContentIndexSettings": {}
           }
         }
       ]
     }
   ],
-  "Identifier": "4kbjd8mdqgyaj3jc37w00kr6n4"
+  "Identifier": "4stzan5nc6ph9xs81pwgrb86d3"
 }
