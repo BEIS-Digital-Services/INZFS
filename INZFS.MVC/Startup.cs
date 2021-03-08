@@ -29,6 +29,14 @@ namespace INZFS.MVC
                 );
 
             routes.MapAreaControllerRoute(
+            name: "ContactAndOrgDetails",
+            areaName: "INZFS.MVC",
+            pattern: "ContactAndOrgDetails/Index",
+            defaults: new { controller = "ContactAndOrgDetails", action = "Index" }
+
+            );
+
+            routes.MapAreaControllerRoute(
                 name: "FundApplication",
                 areaName: "INZFS.MVC",
                 pattern: "Application/Index",

@@ -366,6 +366,83 @@
           }
         }
       ]
+    },
+    {
+      "Name": "ContactAndOrgDetails",
+      "DisplayName": "Contact And Org Details",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ContactAndOrgDetails",
+          "Name": "ContactAndOrgDetails",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "FormPart",
+          "Name": "FormPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "County",
+      "DisplayName": "County",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "County",
+          "Name": "County",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -659,7 +736,220 @@
           }
         }
       ]
+    },
+    {
+      "Name": "ContactAndOrgDetails",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "OrganisationName",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Organisation Name",
+              "Position": "0"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 1",
+              "Position": "2"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 2",
+              "Position": "3"
+            },
+            "TextFieldSettings": {
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AddressLine3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Address Line 3",
+              "Position": "4"
+            },
+            "TextFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "TownCity",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Town/City",
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Postcode",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Postcode",
+              "Position": "6"
+            },
+            "TextFieldSettings": {
+              "Hint": "Format should XY1 4AB",
+              "Required": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "County",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "County",
+              "Position": "7"
+            },
+            "ContentPickerFieldSettings": {
+              "DisplayedContentTypes": [
+                "County"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "ContentPickerField",
+          "Name": "Country",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Country",
+              "Position": "8"
+            },
+            "ContentPickerFieldSettings": {
+              "Required": true,
+              "DisplayedContentTypes": []
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "NoFunding",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "No Funding",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "Foundersincludingbankloans",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Founders (including bank loans)",
+              "Position": "10"
+            },
+            "BooleanFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "FriendsandFamily",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Friends and Family",
+              "Position": "11"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "PublicSectorGrants",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Public Sector Grants",
+              "Position": "12"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "AngelInvestment",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Angel Investment",
+              "Position": "13"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "VentureCapital",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Venture Capital",
+              "Position": "14"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "PrivateEquity",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Private Equity",
+              "Position": "15"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "StockMarketFlotation",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Stock Market Flotation",
+              "Position": "16"
+            }
+          }
+        },
+        {
+          "FieldName": "BooleanField",
+          "Name": "yesnoname",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Does the organisation have a parent company? (If yes you will be asked to provide details)",
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "County",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
     }
   ],
-  "Identifier": "4vvk1chh08b9q2mzcthgtvrcc9"
+  "Identifier": "4zm333vf492vd2yefkyvxddjwy"
 }
