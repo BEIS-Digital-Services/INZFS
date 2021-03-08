@@ -409,6 +409,40 @@
           }
         }
       ]
+    },
+    {
+      "Name": "County",
+      "DisplayName": "County",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "County",
+          "Name": "County",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -727,7 +761,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Address Line 1",
-              "Position": "1"
+              "Position": "2"
             },
             "TextFieldSettings": {
               "Required": true
@@ -741,7 +775,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Address Line 2",
-              "Position": "2"
+              "Position": "3"
             },
             "TextFieldSettings": {
               "Required": true
@@ -755,7 +789,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Address Line 3",
-              "Position": "3"
+              "Position": "4"
             },
             "TextFieldSettings": {},
             "ContentIndexSettings": {}
@@ -767,7 +801,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Town/City",
-              "Position": "4"
+              "Position": "5"
             }
           }
         },
@@ -777,9 +811,10 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Postcode",
-              "Position": "5"
+              "Position": "6"
             },
             "TextFieldSettings": {
+              "Hint": "Format should XY1 4AB",
               "Required": true
             },
             "ContentIndexSettings": {}
@@ -791,8 +826,14 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "County",
-              "Position": "6"
-            }
+              "Position": "7"
+            },
+            "ContentPickerFieldSettings": {
+              "DisplayedContentTypes": [
+                "County"
+              ]
+            },
+            "ContentIndexSettings": {}
           }
         },
         {
@@ -801,7 +842,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Country",
-              "Position": "7"
+              "Position": "8"
             },
             "ContentPickerFieldSettings": {
               "Required": true,
@@ -816,7 +857,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "No Funding",
-              "Position": "8"
+              "Position": "9"
             }
           }
         },
@@ -826,7 +867,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Founders (including bank loans)",
-              "Position": "9"
+              "Position": "10"
             },
             "BooleanFieldSettings": {},
             "ContentIndexSettings": {}
@@ -838,7 +879,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Friends and Family",
-              "Position": "10"
+              "Position": "11"
             }
           }
         },
@@ -848,7 +889,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Public Sector Grants",
-              "Position": "11"
+              "Position": "12"
             }
           }
         },
@@ -858,7 +899,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Angel Investment",
-              "Position": "12"
+              "Position": "13"
             }
           }
         },
@@ -868,7 +909,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Venture Capital",
-              "Position": "13"
+              "Position": "14"
             }
           }
         },
@@ -878,7 +919,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Private Equity",
-              "Position": "14"
+              "Position": "15"
             }
           }
         },
@@ -888,47 +929,27 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Stock Market Flotation",
-              "Position": "15"
+              "Position": "16"
             }
           }
         },
         {
           "FieldName": "BooleanField",
-          "Name": "Yes",
-          "Settings": {
-            "ContentPartFieldSettings": {
-              "DisplayName": "Yes",
-              "Position": "17"
-            }
-          }
-        },
-        {
-          "FieldName": "BooleanField",
-          "Name": "No",
-          "Settings": {
-            "ContentPartFieldSettings": {
-              "DisplayName": "No",
-              "Position": "18"
-            }
-          }
-        },
-        {
-          "FieldName": "UserPickerField",
-          "Name": "DoestheorganisationhaveaparentcompanyIfyesyouwillbeaskedtoprovidedetails",
+          "Name": "yesnoname",
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Does the organisation have a parent company? (If yes you will be asked to provide details)",
-              "Position": "16"
-            },
-            "UserPickerFieldSettings": {
-              "Required": true,
-              "DisplayedRoles": []
-            },
-            "ContentIndexSettings": {}
+              "Position": "1"
+            }
           }
         }
       ]
+    },
+    {
+      "Name": "County",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
     }
   ],
-  "Identifier": "4stzan5nc6ph9xs81pwgrb86d3"
+  "Identifier": "4zm333vf492vd2yefkyvxddjwy"
 }
