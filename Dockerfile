@@ -7,7 +7,7 @@ EXPOSE 443
 # Add the SDK so you can run the dotnet restore and build commands
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
-COPY *.csproj ./
+COPY . . 
 RUN dotnet restore "INZFS.Web.csproj"
 COPY . .
 WORKDIR "/src/"
