@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   inzfs:
-    image: ${DOCKER_REGISTRY-}INZFS
+    image: ${DOCKER_REGISTRY-}inzfs
     build:
       context: .\INZFS\
       dockerfile: Dockerfile
