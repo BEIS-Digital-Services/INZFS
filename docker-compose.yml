@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  INZFS.Web.:
+    image: ${DOCKER_REGISTRY-}/INZFS.Web
+    build:
+      context: .\INZFS
+      dockerfile: Dockerfile
