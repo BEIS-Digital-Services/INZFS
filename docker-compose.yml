@@ -5,4 +5,4 @@ services:
     image: ${DOCKER_REGISTRY-}inzfs
     build:
       context: ./
-      dockerfile: ./Dockerfile
+      dockerfile: ./INZFS/Dockerfile
