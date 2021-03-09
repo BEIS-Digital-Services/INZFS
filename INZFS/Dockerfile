@@ -8,7 +8,7 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
 COPY *.csproj ./
-#RUN dotnet restore "INZFS/INZFS.Web.csproj"
+RUN dotnet restore "INZFS.Web.csproj"
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "INZFS.Web.csproj" -c Release -o /app/build
