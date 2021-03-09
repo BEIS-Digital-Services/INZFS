@@ -15,7 +15,7 @@ RUN dotnet build "INZFS/INZFS.Web.csproj" -c Release -o /app/build
 
 # Create the publish files
 FROM build AS publish
-RUN dotnet publish "INZFS/NZFS.Web.csproj" -c Release -o /app/publish
+RUN dotnet publish "INZFS/INZFS.Web.csproj" -c Release -o /app/publish
 
 # Copy the publish files into the container
 FROM base AS final
