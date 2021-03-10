@@ -21,4 +21,4 @@ RUN dotnet publish "INZFS/INZFS.Web.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "/app/INZFS.Web.dll"]
+ENTRYPOINT ["dotnet", "INZFS.Web.dll"]
