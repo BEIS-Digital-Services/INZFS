@@ -1,7 +1,7 @@
 # Set the base image
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 80
+# EXPOSE 80
 EXPOSE 443
 
 # Add the SDK so you can run the dotnet restore and build commands
