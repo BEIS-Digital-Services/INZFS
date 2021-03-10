@@ -1,8 +1,16 @@
 using System;
+using INZFS.MVC.Drivers;
+using INZFS.MVC.Handlers;
+using INZFS.MVC.Migrations;
+using INZFS.MVC.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
+
 
 namespace INZFS.MVC
 {
@@ -10,6 +18,12 @@ namespace INZFS.MVC
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddContentPart<PersonPart>()
+               .UseDisplayDriver<PersonPartDisplayDriver>()
+               .AddHandler<PersonPartHandler>();
+            services.AddScoped<IDataMigration, PersonMigration>();
+            //services.AddContentPart<PersonPart>();
+            //services.AddScoped<IDataMigration, PersonMigration>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
