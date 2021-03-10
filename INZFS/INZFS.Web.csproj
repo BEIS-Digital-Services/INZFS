@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-      	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-13450" />
+      	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
   <ItemGroup>
