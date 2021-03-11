@@ -1,0 +1,7 @@
+applications:
+- name: davidgnz
+  memory: 512M
+  env:
+    ASPCORE_ENVIRONMENT: Development
+buildpacks:
+  - dotnet-core-buildpack
