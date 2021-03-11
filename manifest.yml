@@ -1,7 +1,10 @@
 applications:
-- name: davidgnz
+- name: inzfs-sandbox
+  docker:
+  image: netzeroregistry.azurecr.io/inzfs:lab
+  username: netzeroregistry
+  instances: 1
   memory: 512M
+  random-route: true
   env:
     ASPCORE_ENVIRONMENT: Development
-buildpacks:
-  - dotnet-core-buildpack
