@@ -9,3 +9,4 @@ applications:
   env:
     ASPCORE_ENVIRONMENT: Development
     CF_DOCKER_PASSWORD: $(CF_DOCKER_PASSWORD)
+    env: $(env)
