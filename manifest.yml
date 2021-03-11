@@ -8,5 +8,5 @@ applications:
   memory: 2G
   no-route: true
   env:
-    ASPCORE_ENVIRONMENT: Development
-    CF_DOCKER_PASSWORD: cJvLfYFFYKCorAGPrPEyjIroOHoR84l+
+    ASPCORE_ENVIRONMENT:Development
+    CF_DOCKER_PASSWORD:cJvLfYFFYKCorAGPrPEyjIroOHoR84l+
