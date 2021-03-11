@@ -23,7 +23,7 @@ namespace INZFS.MVC.Controllers
 {
     public class FundApplicationController : Controller
     {
-        private const string contentType = "FundApplication";
+        private const string contentType = "PersonPage";
 
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -58,6 +58,8 @@ namespace INZFS.MVC.Controllers
             var newContentType = contentType;
             query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
             query = query.With<ContentItemIndex>(x => x.Published);
+            //query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+            
             query = query.OrderByDescending(x => x.PublishedUtc);
 
             var maxPagedCount = siteSettings.MaxPagedCount;
@@ -94,12 +96,23 @@ namespace INZFS.MVC.Controllers
                 return NotFound();
             }
 
-            var contentItem = await _contentManager.NewAsync(id);
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            var newContentType = contentType;
+            query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
-
-            var model = await _contentItemDisplayManager.BuildEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
+            var records = await query.CountAsync();
+            if(records > 0)
+            {
+                var existingContentItem = await query.FirstOrDefaultAsync();
+                return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
+            }
+            var newContentItem = await _contentManager.NewAsync(id);
+            var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
 
             return View(model);
+            
         }
 
         [HttpPost, ActionName("Create")]

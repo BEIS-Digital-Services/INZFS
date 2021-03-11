@@ -443,6 +443,40 @@
           }
         }
       ]
+    },
+    {
+      "Name": "PersonPage",
+      "DisplayName": "Person Page",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "PersonPart",
+          "Name": "PersonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "PersonPage",
+          "Name": "PersonPage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -949,7 +983,31 @@
       "Name": "County",
       "Settings": {},
       "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "PersonPart",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Biography",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Biography",
+              "Editor": "TextArea"
+            },
+            "TextFieldSettings": {
+              "Hint": "Person's biography"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PersonPage",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
     }
   ],
-  "Identifier": "4zm333vf492vd2yefkyvxddjwy"
+  "Identifier": "49pj5d5v146msv4ajdb5ag37wv"
 }
