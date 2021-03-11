@@ -5,7 +5,7 @@
     <UserSecretsId>8de40c70-c70a-4da8-84b7-8d113695fdec</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
-    <DockerfileRunArguments>-p 5001:443</DockerfileRunArguments>
+    <DockerfileRunArguments>-p 44369:443</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>
