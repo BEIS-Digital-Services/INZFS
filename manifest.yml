@@ -1,7 +1,7 @@
 applications:
-- name: inzfs-sandbox
+- name: inzfs-sandbox1
   docker:
-  image: netzeroregistry.azurecr.io/inzfs:lab
+    image: netzeroregistry.azurecr.io/inzfs:lab
   username: netzeroregistry
   instances: 1
   memory: 512M
