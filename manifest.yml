@@ -1,12 +1,12 @@
+---
 applications:
-- name: inzfs-$(env)
+- name: inzfs-dev
   docker:
     image: netzeroregistry.azurecr.io/inzfs:sandbox
-  username: netzeroregistry
+    username: netzeroregistry
   instances: 1
   memory: 2G
   no-route: true
   env:
     ASPCORE_ENVIRONMENT: Development
-    CF_DOCKER_PASSWORD: $(CF_DOCKER_PASSWORD)
-    env: $(env)
+    CF_DOCKER_PASSWORD: cJvLfYFFYKCorAGPrPEyjIroOHoR84l+
