@@ -2,10 +2,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
-EXPOSE 5000
-EXPOSE 5001
-EXPOSE 44369
 
 # Add the SDK so you can run the dotnet restore and build commands
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
