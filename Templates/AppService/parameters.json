@@ -12,13 +12,28 @@
             "value": "UK South"
         },
         "hostingPlanName": {
-            "value": "ASP-rgrefbuildnetzero00-8eff"
+            "value": "inzfs-linux"
         },
         "serverFarmResourceGroup": {
             "value": "rg-refbuild-netzero-00"
         },
         "alwaysOn": {
             "value": true
+        },
+        "sku": {
+            "value": "PremiumV2"
+        },
+        "skuCode": {
+            "value": "P1v2"
+        },
+        "workerSize": {
+            "value": "3"
+        },
+        "workerSizeId": {
+            "value": "3"
+        },
+        "numberOfWorkers": {
+            "value": "1"
         },
         "linuxFxVersion": {
             "value": "DOCKER|netzeroregistry.azurecr.io/inzfs:lab"
