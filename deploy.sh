@@ -1,12 +1,12 @@
 #!/bin/sh
 export password=$(dgpassword)
 
-wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
-echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+///wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+//echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
 
-sudo apt-get update
+//sudo apt-get update
 
-sudo apt-get install cf7-cli
+//sudo apt-get install cf7-cli
 
 cf login -a api.london.cloud.service.gov.uk -u 'david.gardiner@beis.gov.uk' -p $dgpassword -o beis-netzero -s sandbox
 
