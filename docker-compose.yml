@@ -1,8 +1,14 @@
 version: '3.4'
 
 services:
-  INZFS.Web.:
-    image: ${DOCKER_REGISTRY-}/INZFS.Web
+  inzfs:
+    image: ${DOCKER_REGISTRY-}inzfs
+    ports:
+      - 80:443
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=443
     build:
-      context: .\INZFS
-      dockerfile: Dockerfile
+      context: ./
+      dockerfile: ./INZFS/Dockerfile
