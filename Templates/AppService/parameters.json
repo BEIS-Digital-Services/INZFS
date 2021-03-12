@@ -1,0 +1,39 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "subscriptionId": {
+            "value": "05e3312e-4699-4ca0-b837-d8bd55ffa488"
+        },
+        "name": {
+            "value": "inzfs-lab"
+        },
+        "location": {
+            "value": "UK South"
+        },
+        "hostingPlanName": {
+            "value": "ASP-rgrefbuildnetzero00-8eff"
+        },
+        "serverFarmResourceGroup": {
+            "value": "rg-refbuild-netzero-00"
+        },
+        "alwaysOn": {
+            "value": true
+        },
+        "linuxFxVersion": {
+            "value": "DOCKER|netzeroregistry.azurecr.io/inzfs:lab"
+        },
+        "dockerRegistryUrl": {
+            "value": "https://netzeroregistry.azurecr.io"
+        },
+        "dockerRegistryUsername": {
+            "value": "netzeroregistry"
+        },
+        "dockerRegistryPassword": {
+            "value": null
+        },
+        "dockerRegistryStartupCommand": {
+            "value": ""
+        }
+    }
+}
