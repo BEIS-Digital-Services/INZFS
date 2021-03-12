@@ -9,33 +9,33 @@
     <form asp-controller="Registration" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
         <h2 class="govuk-heading-s">@T["Create a new account."]</h2>
         <hr />
-        <div asp-validation-summary="All" class="text-danger"></div>
+        <div asp-validation-summary="All" class="govuk-error-message" id="validationSummary"></div>
         <div class="govuk-form-group">
             <label asp-for="UserName" class="col-md-3 govuk-label">@T["Username"]</label>
             <div class="col-md-9">
                 <input asp-for="UserName" class="govuk-input" autofocus />
-                <span asp-validation-for="UserName" class="text-danger"></span>
+                <span asp-validation-for="UserName" class="govuk-error-message"></span>
             </div>
         </div>
         <div class="govuk-form-group">
             <label asp-for="Email" class="col-md-3 govuk-label">@T["Email"]</label>
             <div class="col-md-9">
                 <input asp-for="Email" class="govuk-input" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <span asp-validation-for="Email" class="govuk-error-message"></span>
             </div>
         </div>
         <div class="govuk-form-group">
             <label asp-for="Password" class="col-md-3 govuk-label">@T["Password"]</label>
             <div class="col-md-9">
                 <input asp-for="Password" class="govuk-input" />
-                <span asp-validation-for="Password" class="text-danger"></span>
+                <span asp-validation-for="Password" class="govuk-error-message"></span>
             </div>
         </div>
         <div class="govuk-form-group">
             <label asp-for="ConfirmPassword" class="col-md-3 govuk-label">@T["Confirm password"]</label>
             <div class="col-md-9">
                 <input asp-for="ConfirmPassword" class="govuk-input" />
-                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                <span asp-validation-for="ConfirmPassword" class="govuk-error-message"></span>
             </div>
         </div>
         @await RenderSectionAsync("AfterRegister", required: false)
@@ -46,3 +46,10 @@
         </div>
     </form>
     </div>
+<script type="text/javascript">
+    errorSummary = document.querySelector('#validationSummary');
+    isValid = document.querySelector('.validation-summary-valid');
+    if (!isValid) {
+        errorSummary.classList.add('govuk-error-summary');
+    }
+</script>
