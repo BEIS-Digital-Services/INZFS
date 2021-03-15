@@ -22,49 +22,20 @@ namespace INZFS.MVC
                .UseDisplayDriver<PersonPartDisplayDriver>()
                .AddHandler<PersonPartHandler>();
             services.AddScoped<IDataMigration, PersonMigration>();
-            //services.AddContentPart<PersonPart>();
-            //services.AddScoped<IDataMigration, PersonMigration>();
+
+            services.AddContentPart<ProposalSummaryPart>()
+               .UseDisplayDriver<ProposalSummaryPartDisplayDriver>();
+            services.AddScoped<IDataMigration, ProposalSummaryMigration>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+
             routes.MapAreaControllerRoute(
-                name: "BlogPost",
+                name: "FundApplication",
                 areaName: "INZFS.MVC",
-                pattern: "BlogPost/Index",
-                defaults: new { controller = "BlogPost", action = "Index" }
+                pattern: "{area:exists}/{controller=Home}/{action=process}/{pageName?}/{id?}"
             );
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "FundApplication/Index",
-                defaults: new { controller = "FundApplication", action = "Index" }
-
-                );
-
-            routes.MapAreaControllerRoute(
-            name: "ContactAndOrgDetails",
-            areaName: "INZFS.MVC",
-            pattern: "ContactAndOrgDetails/Index",
-            defaults: new { controller = "ContactAndOrgDetails", action = "Index" }
-
-            );
-
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "Application/Index",
-                defaults: new { controller = "Application", action = "Index" }
-
-                );
-
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "Application/Handle",
-                defaults: new { controller = "Application", action = "Handle" }
-
-                );
         }
     }
 }

@@ -18,12 +18,11 @@ using OrchardCore.Navigation;
 using OrchardCore.Routing;
 using OrchardCore.Settings;
 using YesSql;
-
 namespace INZFS.MVC.Controllers
 {
     public class FundApplicationController : Controller
     {
-        private const string contentType = "PersonPage";
+        private const string contentType = "ProposalSummaryPart";
 
         private readonly IContentManager _contentManager;
         private readonly IContentDefinitionManager _contentDefinitionManager;
@@ -49,6 +48,10 @@ namespace INZFS.MVC.Controllers
             New = shapeFactory;
         }
 
+        public async Task<IActionResult> Process(string id)
+        {
+            return Content(id );
+        }
         public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
         {
             var siteSettings = await _siteService.GetSiteSettingsAsync();
