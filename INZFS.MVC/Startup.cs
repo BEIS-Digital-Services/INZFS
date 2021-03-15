@@ -34,7 +34,7 @@ namespace INZFS.MVC
             routes.MapAreaControllerRoute(
                 name: "FundApplication",
                 areaName: "INZFS.MVC",
-                pattern: "{area:exists}/{controller=Home}/{action=process}/{pageName?}/{id?}"
+                pattern: "{area:exists}/{controller=Home}/{action=section}/{pageName?}/{id?}"
             );
         }
     }

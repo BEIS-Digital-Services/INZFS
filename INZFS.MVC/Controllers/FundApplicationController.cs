@@ -55,7 +55,7 @@ namespace INZFS.MVC.Controllers
 
         }
 
-        public async Task<IActionResult> Process(string pagename, string id)
+        public async Task<IActionResult> Section(string pagename, string id)
         {
             if(parts.Keys.Contains(pagename.Trim()))
             {
