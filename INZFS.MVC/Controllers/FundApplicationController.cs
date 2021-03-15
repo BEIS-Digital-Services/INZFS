@@ -36,6 +36,7 @@ namespace INZFS.MVC.Controllers
         private readonly ISession _session;
         private readonly ISiteService _siteService;
         private readonly IUpdateModelAccessor _updateModelAccessor;
+        private readonly Dictionary<string, string> parts = new Dictionary<string, string>();
 
         public FundApplicationController(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer, INotifier notifier, ISession session, IShapeFactory shapeFactory, ISiteService siteService, IUpdateModelAccessor updateModelAccessor)
         {
@@ -49,11 +50,21 @@ namespace INZFS.MVC.Controllers
 
             H = htmlLocalizer;
             New = shapeFactory;
+            parts.Add("proposal-summary", "ProposalSummaryPart");
+            parts.Add("person-summary", "PersonPage");
+
         }
 
-        public async Task<IActionResult> Process(string id)
+        public async Task<IActionResult> Process(string pagename, string id)
         {
-            return Content(id );
+            if(parts.Keys.Contains(pagename.Trim()))
+            {
+                return await Create(parts[pagename]);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
         public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
         {
@@ -95,16 +106,15 @@ namespace INZFS.MVC.Controllers
             return View(viewModel);
         }
 
-        public async Task<IActionResult> Create(string id = contentType)
+        public async Task<IActionResult> Create(string contentType)
         {
-            if (String.IsNullOrWhiteSpace(id))
+            if (String.IsNullOrWhiteSpace(contentType))
             {
                 return NotFound();
             }
 
             var query = _session.Query<ContentItem, ContentItemIndex>();
-            var newContentType = contentType;
-            query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
+            query = query.With<ContentItemIndex>(x => x.ContentType == contentType);
             query = query.With<ContentItemIndex>(x => x.Published);
             query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
@@ -114,10 +124,10 @@ namespace INZFS.MVC.Controllers
                 var existingContentItem = await query.FirstOrDefaultAsync();
                 return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
             }
-            var newContentItem = await _contentManager.NewAsync(id);
+            var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
 
-            return View(model);
+            return View("Create", model);
             
         }
 
@@ -129,15 +139,20 @@ namespace INZFS.MVC.Controllers
             // pass a dummy content to the authorization check to check for "own" variations
             var dummyContent = await _contentManager.NewAsync(id);
 
+            returnUrl = $"process/person-summary";
             return await CreatePOST(id, returnUrl, stayOnSamePage, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
 
+                var currentContentType = contentItem.ContentType;
+                
+                /*
                 var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
                 _notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
                     ? H["Your content has been published."]
                     : H["Your {0} has been published.", typeDefinition.DisplayName]);
+                */
             });
         }
 
@@ -160,10 +175,10 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            if ((!string.IsNullOrEmpty(returnUrl)) && (!stayOnSamePage))
-            {
-                return LocalRedirect(returnUrl);
-            }
+            //if ((!string.IsNullOrEmpty(returnUrl)) && (!stayOnSamePage))
+            //{
+            //    return LocalRedirect(returnUrl);
+            //}
 
             //var adminRouteValues = (await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem)).AdminRouteValues;
 
@@ -171,8 +186,8 @@ namespace INZFS.MVC.Controllers
             //{
             //    adminRouteValues.Add("returnUrl", returnUrl);
             //}
-
-            return RedirectToRoute(returnUrl);
+            return RedirectToAction("process", new { pagename = "person-summary" });
+            //return RedirectToRoute(returnUrl);
         }
 
         [HttpGet]
