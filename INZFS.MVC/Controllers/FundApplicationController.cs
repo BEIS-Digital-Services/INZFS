@@ -18,8 +18,11 @@ using OrchardCore.Navigation;
 using OrchardCore.Routing;
 using OrchardCore.Settings;
 using YesSql;
+using Microsoft.AspNetCore.Authorization;
+
 namespace INZFS.MVC.Controllers
 {
+    [Authorize]
     public class FundApplicationController : Controller
     {
         private const string contentType = "ProposalSummaryPart";
