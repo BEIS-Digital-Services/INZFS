@@ -19,6 +19,7 @@ using OrchardCore.Routing;
 using OrchardCore.Settings;
 using YesSql;
 using Microsoft.AspNetCore.Authorization;
+using INZFS.MVC.Models;
 
 namespace INZFS.MVC.Controllers
 {
@@ -57,7 +58,22 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Section(string pagename, string id)
         {
-            if(parts.Keys.Contains(pagename.Trim()))
+            pagename = pagename.ToLower().Trim();
+            if(pagename == "summary")
+            {
+                var query = _session.Query<ContentItem, ContentItemIndex>();
+                query = query.With<ContentItemIndex>(x => x.ContentType == "ProposalSummaryPart" || x.ContentType == "PersonPage");
+                query = query.With<ContentItemIndex>(x => x.Published);
+                query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+                var items = await query.ListAsync();
+
+
+                var contentItem = await _contentManager.GetAsync("ProposalSummaryPart", VersionOptions.Latest);
+                var part = contentItem.ContentItem.As<ProposalSummaryPart>();
+                return View("Summary");
+            }
+            if(parts.Keys.Contains(pagename))
             {
                 return await Create(parts[pagename]);
             }
@@ -122,7 +138,8 @@ namespace INZFS.MVC.Controllers
             if(records > 0)
             {
                 var existingContentItem = await query.FirstOrDefaultAsync();
-                return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
+                //return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
+                return  await Edit(existingContentItem.ContentItemId);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
@@ -186,7 +203,7 @@ namespace INZFS.MVC.Controllers
             //{
             //    adminRouteValues.Add("returnUrl", returnUrl);
             //}
-            return RedirectToAction("process", new { pagename = "person-summary" });
+            return RedirectToAction("section", new { pagename = "person-summary" });
             //return RedirectToRoute(returnUrl);
         }
 
@@ -200,7 +217,7 @@ namespace INZFS.MVC.Controllers
 
             var model = await _contentItemDisplayManager.BuildEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
 
-            return View(model);
+            return View("Edit", model);
         }
 
         [HttpPost, ActionName("Edit")]

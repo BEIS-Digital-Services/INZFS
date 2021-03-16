@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement.TagHelpers;
 using OrchardCore.Modules;
 
 
@@ -18,6 +19,10 @@ namespace INZFS.MVC
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+            //services.AddContentPart(typeof(PersonPart))
+            //        .UseDisplayDriver(typeof(PersonPartDisplayDriver))
+            //        .AddHandler(typeof(PersonPartHandler));
+
             services.AddContentPart<PersonPart>()
                .UseDisplayDriver<PersonPartDisplayDriver>()
                .AddHandler<PersonPartHandler>();
@@ -26,6 +31,9 @@ namespace INZFS.MVC
             services.AddContentPart<ProposalSummaryPart>()
                .UseDisplayDriver<ProposalSummaryPartDisplayDriver>();
             services.AddScoped<IDataMigration, ProposalSummaryMigration>();
+            services.AddTagHelpers<AddClassTagHelper>();
+            services.AddTagHelpers<ValidationMessageTagHelper>();
+            
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
