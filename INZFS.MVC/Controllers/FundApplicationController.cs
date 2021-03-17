@@ -50,7 +50,7 @@ namespace INZFS.MVC.Controllers
 
             H = htmlLocalizer;
             New = shapeFactory;
-            parts.Add("proposal-summary", "ProposalSummaryPart");
+            parts.Add("project-summary", "ProjectSummaryPart");
             parts.Add("person-summary", "PersonPage");
 
         }
