@@ -1,0 +1,51 @@
+@* As you can see the model here is the view model object this time not a ShapeViewModel<T>. *@
+
+@model OrgFundingViewModel
+@using INZFS.MVC.ViewModels
+@using INZFS.MVC.Models
+
+@* Nothing special here regarding the editor fields. However, notice that the Biography (ContentField) editor is not
+    here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
+
+
+<div class="govuk-form-group govuk-form-group--error" asp-validation-class-for="Funding">
+    <<label class="govuk-label" asp-for="Funding"></label>
+        <fieldset class="govuk-fieldset" aria-describedby="nationality-hint nationality-error">
+            <span id="nationality-error" class="govuk-error-message">
+                <span class="govuk-visually-hidden">Error:</span> Select if you are British, Irish or a citizen of a different country
+            </span>
+            <div class="govuk-checkboxes">
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" asp-for="Funding" type="checkbox" value="NoFunding">
+                    <label class="govuk-label govuk-checkboxes__label" asp-for="Funding">
+                        No Funding
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" asp-for="Funding" type="checkbox" value="Founders">
+                    <label class="govuk-label govuk-checkboxes__label" asp-for="Funding">
+                        Funders (including bank loans)
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" asp-for="Funding" type="checkbox" value="FriendsAndFamily">
+                    <label class="govuk-label govuk-checkboxes__label" asp-for="Funding">
+                        Friends and Family
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" asp-for="Funding" type="checkbox" value="PublicSectorGrants">
+                    <label class="govuk-label govuk-checkboxes__label" asp-for="Funding">
+                        Public Sector Grants
+                    </label>
+                </div>
+                <div class="govuk-checkboxes__item">
+                    <input class="govuk-checkboxes__input" asp-for="Funding" type="checkbox" value="AngelInvestment">
+                    <label class="govuk-label govuk-checkboxes__label" asp-for="Funding">
+                        Public Sector Grants
+                    </label>
+                </div>
+            </div>
+
+        </fieldset>
+</div>
