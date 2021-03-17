@@ -69,8 +69,8 @@ namespace INZFS.MVC.Controllers
                 var items = await query.ListAsync();
 
 
-                var contentItem = await _contentManager.GetAsync("ProposalSummaryPart", VersionOptions.Latest);
-                var part = contentItem.ContentItem.As<ProposalSummaryPart>();
+                //var contentItem = await _contentManager.GetAsync("ProposalSummaryPart", VersionOptions.Latest);
+                //var part = contentItem.ContentItem.As<ProposalSummaryPart>();
                 return View("Summary");
             }
             if(parts.Keys.Contains(pagename))
@@ -139,7 +139,7 @@ namespace INZFS.MVC.Controllers
             {
                 var existingContentItem = await query.FirstOrDefaultAsync();
                 //return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
-                return  await Edit(existingContentItem.ContentItemId);
+                return  await Edit(existingContentItem.ContentItemId, contentType);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
@@ -150,26 +150,18 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string id = contentType)
+        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
             // pass a dummy content to the authorization check to check for "own" variations
-            var dummyContent = await _contentManager.NewAsync(id);
+            var dummyContent = await _contentManager.NewAsync(contentType);
 
             returnUrl = $"process/person-summary";
-            return await CreatePOST(id, returnUrl, stayOnSamePage, async contentItem =>
+            return await CreatePOST(contentType, returnUrl, stayOnSamePage, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
 
                 var currentContentType = contentItem.ContentType;
-                
-                /*
-                var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-                _notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
-                    ? H["Your content has been published."]
-                    : H["Your {0} has been published.", typeDefinition.DisplayName]);
-                */
             });
         }
 
@@ -185,30 +177,24 @@ namespace INZFS.MVC.Controllers
             if (!ModelState.IsValid)
             {
                 _session.Cancel();
-                return View(model);
+                return View("Create", model);
             }
 
             await _contentManager.CreateAsync(contentItem, VersionOptions.Draft);
 
             await conditionallyPublish(contentItem);
 
-            //if ((!string.IsNullOrEmpty(returnUrl)) && (!stayOnSamePage))
-            //{
-            //    return LocalRedirect(returnUrl);
-            //}
-
-            //var adminRouteValues = (await _contentManager.PopulateAspectAsync<ContentItemMetadata>(contentItem)).AdminRouteValues;
-
-            //if (!string.IsNullOrEmpty(returnUrl))
-            //{
-            //    adminRouteValues.Add("returnUrl", returnUrl);
-            //}
-            return RedirectToAction("section", new { pagename = "person-summary" });
-            //return RedirectToRoute(returnUrl);
+           var pageToRedirectTo = "summary";
+            if (parts.Values.Contains(contentItem.ContentType) && contentItem.ContentType.ToLower() != "PersonPage".ToLower())
+            {
+                pageToRedirectTo = "person-summary";
+                //pageToRedirectTo = parts.FirstOrDefault(x => x.Value == contentItem.ContentType).Key;
+            }
+            return RedirectToAction("section", new { pagename = pageToRedirectTo });
         }
 
         [HttpGet]
-        public async Task<IActionResult> Edit(string contentItemId)
+        public async Task<IActionResult> Edit(string contentItemId, string contentName)
         {
             var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
 
@@ -239,9 +225,9 @@ namespace INZFS.MVC.Controllers
 
                 var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
-                _notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
-                    ? H["Your content has been published."]
-                    : H["Your {0} has been published.", typeDefinition.DisplayName]);
+                //_notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
+                //    ? H["Your content has been published."]
+                //    : H["Your {0} has been published.", typeDefinition.DisplayName]);
             });
         }
 
@@ -267,20 +253,13 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            //if (returnUrl == null)
-            //{
-            //    return RedirectToAction("Edit", new RouteValueDictionary { { "ContentItemId", contentItem.ContentItemId } });
-            //}
-            //else if (stayOnSamePage)
-            //{
-            //    return RedirectToAction("Edit", new RouteValueDictionary { { "ContentItemId", contentItem.ContentItemId }, { "returnUrl", returnUrl } });
-            //}
-            //else
-            //{
-            //    return LocalRedirect(returnUrl);
-            //}
-
-            return RedirectToRoute(returnUrl);
+            var pageToRedirectTo = "summary";
+            if (parts.Values.Contains(contentItem.ContentType) && contentItem.ContentType.ToLower() != "PersonPage".ToLower())
+            {
+                pageToRedirectTo = "person-summary";
+                //pageToRedirectTo = parts.FirstOrDefault(x => x.Value == contentItem.ContentType).Key;
+            }
+            return RedirectToAction("section", new { pagename = pageToRedirectTo });
         }
 
         public async Task<IActionResult> Remove(string contentItemId, string returnUrl)
