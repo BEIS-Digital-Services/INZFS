@@ -10,7 +10,7 @@ namespace INZFS.MVC.Controllers
     {
         public IActionResult Index()
         {
-            var contentType = "Widget";
+            //var contentType = "Widget";
             return View();
         }
 
