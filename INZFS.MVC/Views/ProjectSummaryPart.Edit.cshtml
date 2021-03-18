@@ -7,9 +7,9 @@
 @* Nothing special here regarding the editor fields. However, notice that the Biography (ContentField) editor is not
     here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
 
+<input type="hidden" name="contentType" value="ProjectSummaryPart" />
 
-
-<div class="govuk-form-group" asp-validation-class-for="Name">
+<div class="govuk-form-group" asp-validation-class-for="ProjectName">
     <label class="govuk-label" asp-for="ProjectName">
     </label>
     @*<div id="name-hint" class="govuk-hint">

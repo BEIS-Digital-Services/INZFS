@@ -338,3 +338,5 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/INZFS/App_Data/Sites/Default/ContentDefinition.json
+/INZFS/App_Data/Sites/Default/yessql.db
