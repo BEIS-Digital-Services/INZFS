@@ -8,13 +8,13 @@
     here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
 
 
-
-<div class="govuk-form-group" asp-validation-class-for="Name">
+<input type="hidden" name="contentType" value="ProposalSummaryPart" />
+<div class="govuk-form-group" asp-validation-class-for="ProjectName">
     <label class="govuk-label" asp-for="ProjectName">
     </label>
     @*<div id="name-hint" class="govuk-hint">
-        @T["Project name"]
-    </div>*@
+            @T["Project name"]
+        </div>*@
     <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
     <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
 </div>
@@ -23,8 +23,8 @@
     <label class="govuk-label" asp-for="EstimatedStartDateUtc">
     </label>
     @*<div id="estimated-start-hint" class="govuk-hint">
-        @T["Estimated Start date"]
-    </div>*@
+            @T["Estimated Start date"]
+        </div>*@
     <span asp-validation-for="EstimatedStartDateUtc" class="govuk-error-message"></span>
     <input class="govuk-input govuk-input--width-10" type="date" asp-for="EstimatedStartDateUtc" aria-describedby="estimated-start-hint">
 </div>
@@ -33,8 +33,8 @@
     <label class="govuk-label" asp-for="ProjectDuration">
     </label>
     @*<div id="project-duration-hint" class="govuk-hint">
-        @T["Project Duration"]
-    </div>*@
+            @T["Project Duration"]
+        </div>*@
     <span asp-validation-for="ProjectDuration" class="govuk-error-message"></span>
     <input class="govuk-input govuk-input--width-10" asp-for="ProjectDuration" spellcheck="false" aria-describedby="project-duration-hint">
 </div>
