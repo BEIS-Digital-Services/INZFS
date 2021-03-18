@@ -15,7 +15,10 @@ namespace INZFS.MVC.Models
         public string ProjectName { get; set; }
 
         [Required(ErrorMessage = "Enter estimated start Date")]
-        [Display(Name = "Estimated Start Date")]
-        public DateTime? EstimatedStartDateUtc { get; set; }
+        public int? Date { get; set; }
+        [Required(ErrorMessage = "Enter estimated start Date")]
+        public int? Month { get; set; }
+        [Required(ErrorMessage = "Enter estimated start Date")]
+        public int? Year { get; set; }
     }
 }

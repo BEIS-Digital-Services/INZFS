@@ -26,8 +26,11 @@ namespace INZFS.MVC.Drivers
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
-            part.EstimatedStartDateUtc = viewModel.EstimatedStartDateUtc;
+        
             part.ProjectName = viewModel.ProjectName;
+            part.Date = viewModel.Date;
+            part.Month = viewModel.Month;
+            part.Year = viewModel.Year;
 
 
             return await EditAsync(part, context);
@@ -37,8 +40,10 @@ namespace INZFS.MVC.Drivers
         {
             viewModel.ProjectSummaryPart = part;
 
-            viewModel.EstimatedStartDateUtc = part.EstimatedStartDateUtc;
             viewModel.ProjectName = part.ProjectName;
+            viewModel.Date = part.Date;
+            viewModel.Month = part.Month;
+            viewModel.Year = part.Year;
  
         }
     }

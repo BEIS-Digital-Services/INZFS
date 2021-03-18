@@ -19,13 +19,40 @@
     <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
 </div>
 
-<div class="govuk-form-group" asp-validation-class-for="EstimatedStartDateUtc">
-    <label class="govuk-label" asp-for="EstimatedStartDateUtc">
-    </label>
-    @*<div id="estimated-start-hint" class="govuk-hint">
-        @T["Estimated Start date"]
-    </div>*@
-    <span asp-validation-for="EstimatedStartDateUtc" class="govuk-error-message"></span>
-    <input class="govuk-input govuk-input--width-10" type="date" asp-for="EstimatedStartDateUtc" aria-describedby="estimated-start-hint">
-</div>
 
+<div class="govuk-form-group">
+  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+        <h1 class="govuk-fieldset__heading">
+            Estimated Start Date
+        </h1>
+    </legend>
+    <div id="passport-issued-hint" class="govuk-hint">
+      For example, 12 11 2007
+    </div>
+    <div class="govuk-date-input" id="passport-issued">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+            Day
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Date" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+            Month
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+            Year
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      </div>
+    </div>
+
+  </fieldset>
+</div>
