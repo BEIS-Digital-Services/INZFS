@@ -52,6 +52,7 @@ namespace INZFS.MVC.Controllers
             New = shapeFactory;
             parts.Add("project-summary", "ProjectSummaryPart");
             parts.Add("project-details", "ProjectDetailsPart");
+            parts.Add("org-funding", "OrgFundingPart");
             parts.Add("person-summary", "PersonPage");
 
         }

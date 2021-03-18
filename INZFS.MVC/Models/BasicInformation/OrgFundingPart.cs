@@ -12,19 +12,19 @@ namespace INZFS.MVC.Models
     {
         [Required(ErrorMessage = "Select Items That Apply")]
         [Display(Name = "How is the organisation funded? (Choose all that apply)")]
-        public OrgFundingOptions Funding { get; set; }
+        public string Funding { get; set; }
 
     }
 
-    public enum OrgFundingOptions
-    {
-        NoFunding,
-        Founders,
-        FriendsAndFamily,
-        PublicSectorGrants,
-        AngelInvestment,
-        VentureCapital,
-        PriavateEquity,
-        SotckMarketFlotation
-    }
+    //public enum OrgFundingOptions
+    //{
+    //    NoFunding,
+    //    Founders,
+    //    FriendsAndFamily,
+    //    PublicSectorGrants,
+    //    AngelInvestment,
+    //    VentureCapital,
+    //    PriavateEquity,
+    //    SotckMarketFlotation
+    //}
 }

@@ -18,10 +18,10 @@ namespace INZFS.MVC.Migrations
 
         public int Create()
         {
-            _contentDefinitionManager.AlterTypeDefinition(nameof(ProjectDetailsPart), type => type
+            _contentDefinitionManager.AlterTypeDefinition(nameof(OrgFundingPart), type => type
                .Creatable()
                .Listable()
-               .WithPart(nameof(ProjectDetailsPart))
+               .WithPart(nameof(OrgFundingPart))
            );
 
             return 1;
