@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Display.ContentDisplay;
 using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement.TagHelpers;
 using OrchardCore.Modules;
 
 
@@ -18,6 +19,10 @@ namespace INZFS.MVC
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddTagHelpers<AddClassTagHelper>();
+            services.AddTagHelpers<ValidationMessageTagHelper>();
+
             services.AddContentPart<PersonPart>()
                .UseDisplayDriver<PersonPartDisplayDriver>()
                .AddHandler<PersonPartHandler>();
