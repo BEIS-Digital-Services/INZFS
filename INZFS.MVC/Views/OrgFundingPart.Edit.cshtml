@@ -8,6 +8,7 @@
     here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
 
 <input type="hidden" name="contentType" value="OrgFundingPart" />
+
 <div class="govuk-form-group" asp-validation-class-for="OrgFundingPart">
     <fieldset class="govuk-fieldset" aria-describedby="nationality-hint nationality-error">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -18,57 +19,49 @@
         <div class="govuk-checkboxes">
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="NoFunding" type="checkbox" value="true">
-                <input asp-for="NoFunding" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="NoFunding">
                     No Funding
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="Funders" type="checkbox" value="true">
-                <input asp-for="Funders" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="Funders">
                     Funders (including bank loans)
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="FriendsAndFamily" type="checkbox" value="true">
-                <input asp-for="FriendsAndFamily" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="FriendsAndFamily">
                     Friends and Family
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="PublicSectorGrants" type="checkbox" value="true">
-                <input asp-for="PublicSectorGrants" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="PublicSectorGrants">
                     Public Sector Grants
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="AngelInvestment" type="checkbox" value="true">
-                <input asp-for="AngelInvestment" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="AngelInvestment">
                     Angel Investment
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="VentureCapital" type="checkbox" value="true">
-                <input asp-for="VentureCapital" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="VentureCapital">
                     Venture Capital
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="PrivateEquity" type="checkbox" value="true">
-                <input asp-for="PrivateEquity" type="hidden" value="false">
                 <label class="govuk-label govuk-checkboxes__label" asp-for="PrivateEquity">
                     Private Equity
                 </label>
             </div>
             <div class="govuk-checkboxes__item">
                 <input class="govuk-checkboxes__input" asp-for="StockMarketFlotation" type="checkbox" value="true">
-                <input asp-for="StockMarketFlotation" type="hidden" value="false">
-                <label class="govuk-label govuk-checkboxes__label" asp-for="StockMarketFlotation">
+                <input asp-for="StockMarketFlotation" type="hidden" value="false">                <label class="govuk-label govuk-checkboxes__label" asp-for="StockMarketFlotation">
                     Stock Market Flotation
                 </label>
             </div>
