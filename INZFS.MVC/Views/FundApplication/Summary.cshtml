@@ -12,13 +12,13 @@
 
                 <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
 
-                <h2 class="govuk-heading-m">Personal details</h2>
+                <h2 class="govuk-heading-m">Project Summary</h2>
 
 
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            ProjectName
+                            Project name
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @Model.ProjectSummaryViewModel.ProjectName
@@ -33,102 +33,59 @@
                             Estimated Start date
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            
-                            5 @DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(Model.ProjectSummaryViewModel.Month.Value) @Model.ProjectSummaryViewModel.Year
+
+                            @Model.ProjectSummaryViewModel.Day.Value @DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.ProjectSummaryViewModel.Month.Value) @Model.ProjectSummaryViewModel.Year
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-details">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">
                                 Change
                                 <span class="govuk-visually-hidden"> estimated start date</span>
                             </a>
                         </dd>
                     </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Address
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            72 Guild Street<br>London<br>SE23 6FH
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> address</span>
-                            </a>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Contact details
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            <p class="govuk-body">07700 900457</p><p class="govuk-body">sarah.phillips@example.com</p>
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> contact details</span>
-                            </a>
-                        </dd>
-                    </div>
+                    
                 </dl>
 
 
 
-                <h2 class="govuk-heading-m">Application details</h2>
+                <h2 class="govuk-heading-m">Project Summary</h2>
 
 
                 <dl class="govuk-summary-list govuk-!-margin-bottom-9">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Previous application number
+                            Will the BEIS project cost end by 2024
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            502135326
+                            @if(Model.ProjectDetailsViewModel.Timing.HasValue && Model.ProjectDetailsViewModel.Timing.Value == 1)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-details">
                                 Change<span class="govuk-visually-hidden"> previous application number</span>
                             </a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Licence type
+                            Summary
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            For personal use
+                            @Model.ProjectDetailsViewModel.Summary
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-details">
                                 Change<span class="govuk-visually-hidden"> licence type</span>
                             </a>
                         </dd>
                     </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Home address
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            72 Guild Street<br>London<br>SE23 6FH
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> home address</span>
-                            </a>
-                        </dd>
-                    </div>
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Licence period
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            Valid for 6 months
-                        </dd>
-                        <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" href="#">
-                                Change<span class="govuk-visually-hidden"> licence period</span>
-                            </a>
-                        </dd>
-                    </div>
+                   
                 </dl>
 
 
