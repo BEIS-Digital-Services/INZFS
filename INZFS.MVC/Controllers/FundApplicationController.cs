@@ -96,7 +96,14 @@ namespace INZFS.MVC.Controllers
                         Timing = projectDetailsPart.Timing
                     } ,
                     OrgFundingViewModel = new OrgFundingViewModel { 
-                        Funding = fundingPart.Funding
+                        NoFunding = fundingPart.NoFunding,
+                        Funders = fundingPart.Funders,
+                        FriendsAndFamily = fundingPart.FriendsAndFamily,
+                        PublicSectorGrants = fundingPart.PublicSectorGrants,
+                        AngelInvestment = fundingPart.AngelInvestment,
+                        VentureCapital = fundingPart.VentureCapital,
+                        PrivateEquity = fundingPart.PrivateEquity,
+                        StockMarketFlotation = fundingPart.StockMarketFlotation
                     },
                 };
 

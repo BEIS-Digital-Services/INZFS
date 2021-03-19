@@ -26,7 +26,14 @@ namespace INZFS.MVC.Drivers
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
-            part.Funding = viewModel.Funding;
+            part.NoFunding = viewModel.NoFunding;
+            part.Funders = viewModel.Funders;
+            part.FriendsAndFamily = viewModel.FriendsAndFamily;
+            part.PublicSectorGrants = viewModel.PublicSectorGrants;
+            part.AngelInvestment = viewModel.AngelInvestment;
+            part.VentureCapital = viewModel.VentureCapital;
+            part.PrivateEquity = viewModel.PrivateEquity;
+            part.StockMarketFlotation = viewModel.StockMarketFlotation;
 
             return await EditAsync(part, context);
         }
@@ -35,8 +42,14 @@ namespace INZFS.MVC.Drivers
         {
             viewModel.OrgFundingPart = part;
 
-            viewModel.Funding = part.Funding;
-
+            viewModel.NoFunding = part.NoFunding;
+            viewModel.Funders = part.Funders;
+            viewModel.FriendsAndFamily = part.FriendsAndFamily;
+            viewModel.PublicSectorGrants = part.PublicSectorGrants;
+            viewModel.AngelInvestment = part.AngelInvestment;
+            viewModel.VentureCapital = part.VentureCapital;
+            viewModel.PrivateEquity = part.PrivateEquity;
+            viewModel.StockMarketFlotation = part.StockMarketFlotation;
         }
     }
 }
