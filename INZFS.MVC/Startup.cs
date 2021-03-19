@@ -1,5 +1,6 @@
 using System;
 using INZFS.MVC.Drivers;
+using INZFS.MVC.Forms;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Migrations;
 using INZFS.MVC.Models;
@@ -43,6 +44,8 @@ namespace INZFS.MVC
             services.AddContentPart<OrgFundingPart>()
            .UseDisplayDriver<OrgFundingDriver>();
             services.AddScoped<IDataMigration, OrgFundingMigration>();
+
+            services.AddScoped<INavigation, Navigation>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

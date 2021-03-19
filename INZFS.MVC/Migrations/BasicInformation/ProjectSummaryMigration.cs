@@ -18,7 +18,7 @@ namespace INZFS.MVC.Migrations
 
         public int Create()
         {
-            _contentDefinitionManager.AlterTypeDefinition(nameof(ProjectSummaryPart), type => type
+            _contentDefinitionManager.AlterTypeDefinition("Project Summary", type => type
                .Creatable()
                .Listable()
                .WithPart(nameof(ProjectSummaryPart))

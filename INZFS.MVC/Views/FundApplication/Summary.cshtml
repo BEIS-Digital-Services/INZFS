@@ -1,5 +1,7 @@
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
+@using System.Globalization 
+@model SummaryViewModel
 
 <div class="govuk-width-container">
     <a href="#" class="govuk-back-link">Back</a>
@@ -19,10 +21,10 @@
                             ProjectName
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            Sarah Philips
+                            @Model.ProjectSummaryViewModel.ProjectName
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-summary">Change
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">Change
                             <span class="govuk-visually-hidden"> name</span></a>
                         </dd>
                     </div>
@@ -31,10 +33,11 @@
                             Estimated Start date
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            5 January 1978
+                            
+                            5 @DateTimeFormatInfo.CurrentInfo.GetAbbreviatedMonthName(Model.ProjectSummaryViewModel.Month.Value) @Model.ProjectSummaryViewModel.Year
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="person-summary">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-details">
                                 Change
                                 <span class="govuk-visually-hidden"> estimated start date</span>
                             </a>

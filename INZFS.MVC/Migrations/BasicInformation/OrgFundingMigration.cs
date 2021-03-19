@@ -18,7 +18,7 @@ namespace INZFS.MVC.Migrations
 
         public int Create()
         {
-            _contentDefinitionManager.AlterTypeDefinition(nameof(OrgFundingPart), type => type
+            _contentDefinitionManager.AlterTypeDefinition("Funding", type => type
                .Creatable()
                .Listable()
                .WithPart(nameof(OrgFundingPart))

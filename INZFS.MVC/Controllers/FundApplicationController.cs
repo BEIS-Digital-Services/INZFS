@@ -20,6 +20,7 @@ using OrchardCore.Settings;
 using YesSql;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
+using INZFS.MVC.Forms;
 
 namespace INZFS.MVC.Controllers
 {
@@ -37,9 +38,12 @@ namespace INZFS.MVC.Controllers
         private readonly ISession _session;
         private readonly ISiteService _siteService;
         private readonly IUpdateModelAccessor _updateModelAccessor;
-        private readonly Dictionary<string, string> parts = new Dictionary<string, string>();
+        private readonly INavigation _navigation;
 
-        public FundApplicationController(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer, INotifier notifier, ISession session, IShapeFactory shapeFactory, ISiteService siteService, IUpdateModelAccessor updateModelAccessor)
+        public FundApplicationController(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, 
+            IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
+            INotifier notifier, ISession session, IShapeFactory shapeFactory, ISiteService siteService, 
+            IUpdateModelAccessor updateModelAccessor, INavigation navigation)
         {
             _contentManager = contentManager;
             _contentDefinitionManager = contentDefinitionManager;
@@ -51,37 +55,62 @@ namespace INZFS.MVC.Controllers
 
             H = htmlLocalizer;
             New = shapeFactory;
-            parts.Add("project-summary", "ProjectSummaryPart");
-            parts.Add("project-details", "ProjectDetailsPart");
-            parts.Add("org-funding", "OrgFundingPart");
-            parts.Add("person-summary", "PersonPage");
-
+            _navigation = navigation;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Section(string pagename, string id)
         {
             pagename = pagename.ToLower().Trim();
-            if(pagename == "summary")
+
+            if (pagename == "summary")
             {
                 var query = _session.Query<ContentItem, ContentItemIndex>();
-                query = query.With<ContentItemIndex>(x => x.ContentType == "ProposalSummaryPart" || x.ContentType == "PersonPage");
+                query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
+                || x.ContentType == "ProjectDetailsPart"
+                || x.ContentType == "OrgFundingPart");
+                //query = query.With<ContentItemIndex>(x => _navigation.PageList().Any(p => p.ContentType == x.ContentType));
                 query = query.With<ContentItemIndex>(x => x.Published);
                 query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
                 var items = await query.ListAsync();
+                var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
+                var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
 
+                var projectDetails = items.FirstOrDefault(item => item.ContentType == "ProjectDetailsPart");
+                var projectDetailsPart = projectDetails?.ContentItem.As<ProjectDetailsPart>();
 
-                //var contentItem = await _contentManager.GetAsync("ProposalSummaryPart", VersionOptions.Latest);
-                //var part = contentItem.ContentItem.As<ProposalSummaryPart>();
-                return View("Summary");
+                var funding = items.FirstOrDefault(item => item.ContentType == "OrgFundingPart");
+                var fundingPart = funding?.ContentItem.As<OrgFundingPart>();
+
+                var model = new SummaryViewModel
+                {
+                    ProjectSummaryViewModel = new ProjectSummaryViewModel { 
+                        ProjectName = projectSummaryPart.ProjectName,
+                        Day = projectSummaryPart.Day,
+                        Month = projectSummaryPart.Month,
+                        Year = projectSummaryPart.Year,
+                    },
+                    ProjectDetailsViewModel = new ProjectDetailsViewModel { 
+                        Summary = projectDetailsPart.Summary,
+                        Timing = projectDetailsPart.Timing
+                    } ,
+                    OrgFundingViewModel = new OrgFundingViewModel { 
+                        Funding = fundingPart.Funding
+                    },
+                };
+
+                return View("Summary", model);
             }
-            if(parts.Keys.Contains(pagename))
+
+            var page = _navigation.GetPage(pagename);
+            if(page == null)
             {
-                return await Create(parts[pagename]);
+                return NotFound();
             }
             else
             {
-                return NotFound();
+                return await Create(page.ContentType);
             }
         }
         public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
@@ -186,13 +215,12 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-           var pageToRedirectTo = "summary";
-            if (parts.Values.Contains(contentItem.ContentType) && contentItem.ContentType.ToLower() != "PersonPage".ToLower())
+            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
+            if (page == null)
             {
-                pageToRedirectTo = "person-summary";
-                //pageToRedirectTo = parts.FirstOrDefault(x => x.Value == contentItem.ContentType).Key;
+                return NotFound();
             }
-            return RedirectToAction("section", new { pagename = pageToRedirectTo });
+            return RedirectToAction("section", new { pagename = page.Name });
         }
 
         [HttpGet]
@@ -255,13 +283,12 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            var pageToRedirectTo = "summary";
-            if (parts.Values.Contains(contentItem.ContentType) && contentItem.ContentType.ToLower() != "PersonPage".ToLower())
+            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
+            if (page == null)
             {
-                pageToRedirectTo = "person-summary";
-                //pageToRedirectTo = parts.FirstOrDefault(x => x.Value == contentItem.ContentType).Key;
+                return NotFound();
             }
-            return RedirectToAction("section", new { pagename = pageToRedirectTo });
+            return RedirectToAction("section", new { pagename = page.Name });
         }
 
         public async Task<IActionResult> Remove(string contentItemId, string returnUrl)

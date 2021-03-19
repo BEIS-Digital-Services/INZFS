@@ -28,7 +28,7 @@ namespace INZFS.MVC.Drivers
 
         
             part.ProjectName = viewModel.ProjectName;
-            part.Date = viewModel.Date;
+            part.Day = viewModel.Day;
             part.Month = viewModel.Month;
             part.Year = viewModel.Year;
 
@@ -41,7 +41,7 @@ namespace INZFS.MVC.Drivers
             viewModel.ProjectSummaryPart = part;
 
             viewModel.ProjectName = part.ProjectName;
-            viewModel.Date = part.Date;
+            viewModel.Day = part.Day;
             viewModel.Month = part.Month;
             viewModel.Year = part.Year;
  

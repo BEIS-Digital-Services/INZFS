@@ -14,11 +14,11 @@ namespace INZFS.MVC.Models
         [Display(Name = "Project Name")]
         public string ProjectName { get; set; }
 
-        [Required(ErrorMessage = "Enter estimated start Date")]
-        public int? Date { get; set; }
-        [Required(ErrorMessage = "Enter estimated start Date")]
+        [Required(ErrorMessage = "Enter estimated start day")]
+        public int? Day { get; set; }
+        [Required(ErrorMessage = "Enter estimated start month")]
         public int? Month { get; set; }
-        [Required(ErrorMessage = "Enter estimated start Date")]
+        [Required(ErrorMessage = "Enter estimated start year")]
         public int? Year { get; set; }
     }
 }
