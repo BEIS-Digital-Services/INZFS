@@ -21,4 +21,8 @@
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Handlers\" />
+  </ItemGroup>
+
 </Project>

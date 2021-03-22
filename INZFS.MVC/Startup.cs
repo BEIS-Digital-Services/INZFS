@@ -1,7 +1,7 @@
 using System;
 using INZFS.MVC.Drivers;
 using INZFS.MVC.Forms;
-using INZFS.MVC.Handlers;
+
 using INZFS.MVC.Migrations;
 using INZFS.MVC.Models;
 using INZFS.MVC.TagHelpers;
@@ -25,17 +25,7 @@ namespace INZFS.MVC
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
-            
-
-            services.AddContentPart<PersonPart>()
-               .UseDisplayDriver<PersonPartDisplayDriver>()
-               .AddHandler<PersonPartHandler>();
-            services.AddScoped<IDataMigration, PersonMigration>();
-
-            services.AddContentPart<ProposalSummaryPart>()
-               .UseDisplayDriver<ProposalSummaryPartDisplayDriver>();
-            services.AddScoped<IDataMigration, ProposalSummaryMigration>();
-
+           
             services.AddContentPart<ProjectSummaryPart>()
               .UseDisplayDriver<ProjectSummaryDriver>();
             services.AddScoped<IDataMigration, ProjectSummaryMigration>();
