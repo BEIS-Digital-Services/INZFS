@@ -4,6 +4,7 @@ using INZFS.MVC.Forms;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Migrations;
 using INZFS.MVC.Models;
+using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,6 +24,8 @@ namespace INZFS.MVC
 
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
+            services.AddTagHelpers<ValidationHighLighterTagHelper>();
+            
 
             services.AddContentPart<PersonPart>()
                .UseDisplayDriver<PersonPartDisplayDriver>()

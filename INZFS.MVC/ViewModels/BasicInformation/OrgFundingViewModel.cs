@@ -10,6 +10,7 @@ namespace INZFS.MVC.ViewModels
 {
     public class OrgFundingViewModel : OrgFundingPart
     {
+        public bool AtLeastOneOptionSelected { get; set; }
         [BindNever]
         public OrgFundingPart OrgFundingPart { get; set; }
     }

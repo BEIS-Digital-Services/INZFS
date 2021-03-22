@@ -4,8 +4,10 @@
 @model SummaryViewModel
 
 <div class="govuk-width-container">
-    <a href="#" class="govuk-back-link">Back</a>
-
+    
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="org-funding">
+        Back
+    </a>
     <main class="govuk-main-wrapper " id="main-content" role="main">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds-from-desktop">
@@ -24,8 +26,10 @@
                             @Model.ProjectSummaryViewModel.ProjectName
                         </dd>
                         <dd class="govuk-summary-list__actions">
-                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">Change
-                            <span class="govuk-visually-hidden"> name</span></a>
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">
+                                Change
+                                <span class="govuk-visually-hidden"> name</span>
+                            </a>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -43,7 +47,7 @@
                             </a>
                         </dd>
                     </div>
-                    
+
                 </dl>
 
 
@@ -57,7 +61,7 @@
                             Will the BEIS project cost end by 2024
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            @if(Model.ProjectDetailsViewModel.Timing.HasValue && Model.ProjectDetailsViewModel.Timing.Value == 1)
+                            @if (Model.ProjectDetailsViewModel.Timing.HasValue && Model.ProjectDetailsViewModel.Timing.Value == 1)
                             {
                                 <p>Yes</p>
                             }
@@ -85,10 +89,59 @@
                             </a>
                         </dd>
                     </div>
-                   
+
                 </dl>
 
 
+                <h2 class="govuk-heading-m">Funding</h2>
+
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Current funding
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @if (Model.OrgFundingViewModel.NoFunding)
+                            {
+                                <p>No Funding</p>
+                            }
+                            @if (Model.OrgFundingViewModel.Funders)
+                            {
+                                <p>Funders (including bank loans)</p>
+                            }
+                            @if (Model.OrgFundingViewModel.FriendsAndFamily)
+                            {
+                                <p>Friends and Family</p>
+                            }
+                            @if (Model.OrgFundingViewModel.PublicSectorGrants)
+                            {
+                                <p>Public Sector Grants</p>
+                            }
+                            @if (Model.OrgFundingViewModel.AngelInvestment)
+                            {
+                                <p>Angel Investment</p>
+                            }
+                            @if (Model.OrgFundingViewModel.VentureCapital)
+                            {
+                                <p>Venture Capital</p>
+                            }
+                            @if (Model.OrgFundingViewModel.PrivateEquity)
+                            {
+                                <p>Private Equity</p>
+                            }
+                            @if (Model.OrgFundingViewModel.StockMarketFlotation)
+                            {
+                                <p>Stock Market Flotation</p>
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="org-funding">
+                                Change<span class="govuk-visually-hidden"> previous application number</span>
+                            </a>
+                        </dd>
+                    </div>
+                </dl>
                 <h2 class="govuk-heading-m">Now send your application</h2>
 
                 <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>

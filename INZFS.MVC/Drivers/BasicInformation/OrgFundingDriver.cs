@@ -35,6 +35,13 @@ namespace INZFS.MVC.Drivers
             part.PrivateEquity = viewModel.PrivateEquity;
             part.StockMarketFlotation = viewModel.StockMarketFlotation;
 
+            if (!(viewModel.NoFunding || viewModel.Funders || viewModel.FriendsAndFamily 
+                || viewModel.PublicSectorGrants || viewModel.PublicSectorGrants || viewModel.AngelInvestment
+                 || viewModel.VentureCapital || viewModel.PrivateEquity || viewModel.StockMarketFlotation))
+            {
+                updater.ModelState.AddModelError("OrgFundingPart.AtLeastOneOptionSelected", "Please select funding options.");
+            }
+
             return await EditAsync(part, context);
         }
 

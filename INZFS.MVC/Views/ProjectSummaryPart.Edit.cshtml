@@ -3,56 +3,62 @@
 @model ProjectSummaryViewModel
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
 
 @* Nothing special here regarding the editor fields. However, notice that the Biography (ContentField) editor is not
     here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
 
+@{
+    var sampleDate = DateTime.Now.AddDays(30);
+}
+
 <input type="hidden" name="contentType" value="ProjectSummaryPart" />
 
-<div class="govuk-form-group" asp-validation-class-for="ProjectName">
+<div class="govuk-form-group" asp-validation-error-class-for="ProjectName">
     <label class="govuk-label" asp-for="ProjectName">
     </label>
     @*<div id="name-hint" class="govuk-hint">
-        @T["Project name"]
-    </div>*@
+            @T["Project name"]
+        </div>*@
     <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
-    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
+    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName"   spellcheck="false" aria-describedby="name-hint">
 </div>
 
 
-<div class="govuk-form-group">
-  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        <h1 class="govuk-fieldset__heading">
+<div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc" >
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint">
+        <legend class="govuk-fieldset__legend">
             Estimated Start Date
-        </h1>
-    </legend>
-    <div id="passport-issued-hint" class="govuk-hint">
-      For example, 12 11 2007
-    </div>
-    <div class="govuk-date-input" id="passport-issued">
-      <div class="govuk-date-input__item">
-        <div class="govuk-form-group">
-          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-            Day
-          </label>
-          <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-      </div>
-      <div class="govuk-date-input__item">
-        <div class="govuk-form-group">
-          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-            Month
-          </label>
-          <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-      </div>
-      <div class="govuk-date-input__item">
-        <div class="govuk-form-group">
-          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-            Year
-          </label>
-          <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
-      </div>
-    </div>
+        </legend>
+        <div id="passport-issued-hint" class="govuk-hint">
+            For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+        </div>
+        <div class="govuk-date-input" id="passport-issued">
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+                        Day
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+                        Month
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+                        Year
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+        </div>
 
-  </fieldset>
+    </fieldset>
 </div>
