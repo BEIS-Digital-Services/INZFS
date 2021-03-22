@@ -176,7 +176,6 @@ namespace INZFS.MVC.Controllers
             if(records > 0)
             {
                 var existingContentItem = await query.FirstOrDefaultAsync();
-                //return RedirectToAction("Edit", new { contentItemId = existingContentItem.ContentItemId });
                 return  await Edit(existingContentItem.ContentItemId, contentType);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
@@ -191,7 +190,6 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-            // pass a dummy content to the authorization check to check for "own" variations
             var dummyContent = await _contentManager.NewAsync(contentType);
 
             returnUrl = $"process/person-summary";
@@ -207,7 +205,7 @@ namespace INZFS.MVC.Controllers
         {
             var contentItem = await _contentManager.NewAsync(id);
 
-            // Set the current user as the owner to check for ownership permissions on creation
+           
             contentItem.Owner = User.Identity.Name;
 
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
@@ -262,9 +260,6 @@ namespace INZFS.MVC.Controllers
 
                 var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
 
-                //_notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
-                //    ? H["Your content has been published."]
-                //    : H["Your {0} has been published.", typeDefinition.DisplayName]);
             });
         }
 
@@ -284,8 +279,7 @@ namespace INZFS.MVC.Controllers
                 return View("Edit", model);
             }
 
-            // The content item needs to be marked as saved in case the drivers or the handlers have
-            // executed some query which would flush the saved entities inside the above UpdateEditorAsync.
+ 
             _session.Save(contentItem);
 
             await conditionallyPublish(contentItem);
