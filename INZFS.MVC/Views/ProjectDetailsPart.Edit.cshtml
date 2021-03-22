@@ -14,16 +14,20 @@
 
 <input type="hidden" name="contentType" value="ProjectDetailsPart" />
 
-<div class="govuk-form-group" asp-validation-error-class-for="Summary">
-    <label class="govuk-label" asp-for="Summary">
+<div class="govuk-form-group" asp-validation-error-class-for="Summary"  data-maxlength="200">
+    <label class="govuk-label govuk-label--l" asp-for="Summary">
     </label>
     <span asp-validation-for="Summary" class="govuk-error-message"></span>
     <textarea class="govuk-textarea" asp-for="Summary" rows="5" aria-describedby="summary-hint"></textarea>
+
+    <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+        You can enter up to 200 characters
+    </div>
 </div>
 
 
 <div class="govuk-form-group" asp-validation-error-class-for="Timing">
-    <label class="govuk-label" asp-for="Timing">
+    <label class="govuk-label govuk-label--l" asp-for="Timing">
     </label>
     <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
         <div class="govuk-radios govuk-radios--inline">

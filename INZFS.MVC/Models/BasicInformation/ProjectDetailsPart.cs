@@ -12,6 +12,7 @@ namespace INZFS.MVC.Models
     {
         [Required(ErrorMessage = "Enter brief summary of the project")]
         [Display(Name = "Please give a brief summary description of the project")]
+        [MaxLength(200, ErrorMessage = "Exceeded Limit of characters")]
         public string Summary { get; set; }
 
         [Required(ErrorMessage = "Please Select Yes or No")]
