@@ -1,12 +1,5 @@
 ---
 applications:
-- name: inzfs-dev
-  docker:
-    image: netzeroregistry.azurecr.io/inzfs:sandbox
-    username: netzeroregistry
-  instances: 1
+- instances: 1
   memory: 2G
-  no-route: true
-  env:
-    ASPCORE_ENVIRONMENT:Development
-    CF_DOCKER_PASSWORD:cJvLfYFFYKCorAGPrPEyjIroOHoR84l+
+  route-path: london.cloudapps.digital
