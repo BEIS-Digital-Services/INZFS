@@ -443,6 +443,108 @@
           }
         }
       ]
+    },
+    {
+      "Name": "PersonPage",
+      "DisplayName": "Person Page",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "PersonPart",
+          "Name": "PersonPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "PersonPage",
+          "Name": "PersonPage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ProposalSummaryPart",
+      "DisplayName": "Proposal Summary Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProposalSummaryPart",
+          "Name": "ProposalSummaryPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectSummaryPart",
+      "DisplayName": "Project Summary Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProjectSummaryPart",
+          "Name": "ProjectSummaryPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectDetailsPart",
+      "DisplayName": "Project Details Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProjectDetailsPart",
+          "Name": "ProjectDetailsPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "OrgFundingPart",
+      "DisplayName": "Org Funding Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "OrgFundingPart",
+          "Name": "OrgFundingPart",
+          "Settings": {}
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -949,7 +1051,31 @@
       "Name": "County",
       "Settings": {},
       "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "PersonPart",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Biography",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Biography",
+              "Editor": "TextArea"
+            },
+            "TextFieldSettings": {
+              "Hint": "Person's biography"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "PersonPage",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": []
     }
   ],
-  "Identifier": "4zm333vf492vd2yefkyvxddjwy"
+  "Identifier": "4t1kffd4ftdvezs1mreb1m48d0"
 }

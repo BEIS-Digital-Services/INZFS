@@ -85,7 +85,12 @@
                                 Register
                             </a>
                         </li>
-                      
+                        <li class="govuk-header__navigation-item">
+                            <a class="govuk-header__link" href="/INZFS.Theme/Account/LogOff">
+                                LogOff
+                            </a>
+                        </li>
+
                     </ul>
 
                 </nav>
@@ -108,7 +113,11 @@
         <a href="/" class="govuk-back-link">Back</a>
 
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-            @RenderBody()
+            <div class="govuk-width-container">
+
+                @RenderBody()
+            </div>
+                
 
         </main>
     </div>

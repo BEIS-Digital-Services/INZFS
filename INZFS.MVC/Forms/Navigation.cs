@@ -1,0 +1,93 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace INZFS.MVC.Forms
+{
+    public interface INavigation
+    {
+        Page GetNextPage(string currentPage);
+        Page GetNextPageByContentType(string contentType);
+        Page GetPreviousPage(string currentPage);
+        Page GetPreviousPageByContentType(string contentType);
+        Page GetPage(string currentPage);
+        IList<Page> PageList();
+    }
+    public class Navigation : INavigation
+    {
+        private readonly IList<Page> _pages;
+        public Navigation()
+        {
+            _pages = new List<Page>();
+            _pages.Add(new Page { Name = "project-summary", ContentType = "ProjectSummaryPart" });
+            _pages.Add(new Page { Name = "project-details", ContentType = "ProjectDetailsPart" });
+            _pages.Add(new Page { Name = "org-funding", ContentType = "OrgFundingPart" });
+            _pages.Add(new Page { Name = "summary" });
+        }
+
+        public IList<Page> PageList()
+        {
+            return _pages;
+        }
+
+        public Page GetPage(string currentPage)
+        {
+           return _pages.FirstOrDefault(predicate => predicate.Name.Equals(currentPage));
+        }
+
+        public Page GetNextPage(string currentPage)
+        {
+            var page = _pages.FirstOrDefault(predicate => predicate.Name.Equals(currentPage));
+            return GetNextPage(page);
+        }
+
+        public Page GetNextPageByContentType(string contentType)
+        {
+            var page = _pages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
+            return GetNextPage(page);
+        }
+
+        private Page GetNextPage(Page page)
+        {
+            if (page == null)
+            {
+                throw new System.ArgumentException("Invalid page name");
+            }
+            var index = _pages.IndexOf(page);
+            if (index + 1 == _pages.Count)
+            {
+                // Last page
+                return null;
+            }
+            return _pages[index + 1];
+        }
+
+        public Page GetPreviousPage(string currentPage)
+        {
+            var page = _pages.FirstOrDefault(predicate => predicate.Name.Equals(currentPage));
+            return GetPreviousPage(page);
+        }
+
+        public Page GetPreviousPageByContentType(string contentType)
+        {
+            var page = _pages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
+            return GetPreviousPage(page);
+        }
+        private Page GetPreviousPage(Page page)
+        {
+            if (page == null)
+            {
+                throw new System.ArgumentException("Invalid page name");
+            }
+            var index = _pages.IndexOf(page);
+            if (index - 1 == -1)
+            {
+                // First Page page
+                return null;
+            }
+            return _pages[index - 1];
+        }
+    }
+}

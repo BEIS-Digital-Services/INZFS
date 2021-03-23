@@ -1,8 +1,19 @@
 using System;
+using INZFS.MVC.Drivers;
+using INZFS.MVC.Forms;
+
+using INZFS.MVC.Migrations;
+using INZFS.MVC.Models;
+using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.Data.Migration;
+using OrchardCore.DisplayManagement.TagHelpers;
 using OrchardCore.Modules;
+
 
 namespace INZFS.MVC
 {
@@ -10,47 +21,34 @@ namespace INZFS.MVC
     {
         public override void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddTagHelpers<AddClassTagHelper>();
+            services.AddTagHelpers<ValidationMessageTagHelper>();
+            services.AddTagHelpers<ValidationHighLighterTagHelper>();
+           
+            services.AddContentPart<ProjectSummaryPart>()
+              .UseDisplayDriver<ProjectSummaryDriver>();
+            services.AddScoped<IDataMigration, ProjectSummaryMigration>();
+
+            services.AddContentPart<ProjectDetailsPart>()
+            .UseDisplayDriver<ProjectDetailsDriver>();
+            services.AddScoped<IDataMigration, ProjectDetailsMigration>();
+
+            services.AddContentPart<OrgFundingPart>()
+           .UseDisplayDriver<OrgFundingDriver>();
+            services.AddScoped<IDataMigration, OrgFundingMigration>();
+
+            services.AddScoped<INavigation, Navigation>();
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+
             routes.MapAreaControllerRoute(
-                name: "BlogPost",
+                name: "FundApplication",
                 areaName: "INZFS.MVC",
-                pattern: "BlogPost/Index",
-                defaults: new { controller = "BlogPost", action = "Index" }
+                pattern: "{area:exists}/{controller=Home}/{action=section}/{pageName?}/{id?}"
             );
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "FundApplication/Index",
-                defaults: new { controller = "FundApplication", action = "Index" }
-
-                );
-
-            routes.MapAreaControllerRoute(
-            name: "ContactAndOrgDetails",
-            areaName: "INZFS.MVC",
-            pattern: "ContactAndOrgDetails/Index",
-            defaults: new { controller = "ContactAndOrgDetails", action = "Index" }
-
-            );
-
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "Application/Index",
-                defaults: new { controller = "Application", action = "Index" }
-
-                );
-
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "Application/Handle",
-                defaults: new { controller = "Application", action = "Handle" }
-
-                );
         }
     }
 }

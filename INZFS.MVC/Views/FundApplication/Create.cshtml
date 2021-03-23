@@ -10,7 +10,7 @@
     var typeDisplayName = contentTypeDefinition?.DisplayName ?? contentItem.ContentType.CamelFriendly();
 }
 
-<h1>@RenderTitleSegments(T["New {0}", Html.Raw(typeDisplayName)])</h1>
+<h1>@RenderTitleSegments(T["{0}", Html.Raw(typeDisplayName.Replace("Part",""))]);</h1>
 
 <form asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
     @if (!ViewData.ModelState.IsValid)
@@ -21,12 +21,13 @@
             </h2>
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
-                    @foreach (var value in ViewData.ModelState.Values)
+                    @foreach (var key in ViewData.ModelState.Keys)
                     {
+                        var value = ViewData.ModelState[key];
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@value">@error.ErrorMessage</a>
+                                <a href="#@key.Replace(".", "_")">@error.ErrorMessage</a>
                             </li>
                         }
                     }
