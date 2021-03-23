@@ -1,9 +1,5 @@
 ---
 applications:
-- name: inzfs-lab-rolling
-  instances: 1
+- instances: 1
   memory: 2G
   route-path: london.cloudapps.digital
-  hostname:  inzfs-lab-rolling
-  docker:
-    username: __dockerRegistryUsername__
