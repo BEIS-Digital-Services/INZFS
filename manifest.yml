@@ -5,3 +5,5 @@ applications:
   memory: 2G
   route-path: london.cloudapps.digital
   hostname:  inzfs-lab-rolling
+  docker:
+    username: $(dockerRegistryUsername)
