@@ -6,4 +6,4 @@ applications:
   route-path: london.cloudapps.digital
   hostname:  inzfs-lab-rolling
   docker:
-    username: $(dockerRegistryUsername)
+    username: __dockerRegistryUsername__
