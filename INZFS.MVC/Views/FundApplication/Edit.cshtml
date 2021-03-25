@@ -21,15 +21,6 @@
             </h2>
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
-                    @*@foreach (var value in ViewData.ModelState.Values)
-        {
-            foreach (var error in value.Errors)
-            {
-                <li>
-                    <a href="#@value.AttemptedValue">@error.ErrorMessage</a>
-                </li>
-            }
-        }*@
                     @foreach (var key in ViewData.ModelState.Keys)
                     {
                         var value = ViewData.ModelState[key];
@@ -44,6 +35,10 @@
             </div>
         </div>
     }
-    @*@Html.ValidationSummary()*@
     @await DisplayAsync(Model)
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+        </div>
+    </div>
 </form>
