@@ -34,7 +34,7 @@ namespace INZFS.MVC.Drivers
             part.Year = viewModel.Year;
             if (viewModel.Day.HasValue && viewModel.Month.HasValue && viewModel.Year.HasValue)
             {
-                viewModel.StartDateUtc = $"{viewModel.Day}-{viewModel.Month}-{viewModel.Year}";
+                viewModel.StartDateUtc = $"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}";
             }
 
             if (string.IsNullOrEmpty(viewModel.StartDateUtc))
@@ -44,7 +44,7 @@ namespace INZFS.MVC.Drivers
             else
             {
                 DateTime startDate;
-                if (!DateTime.TryParseExact($"{viewModel.Day}-{viewModel.Month}-{viewModel.Year}", "dd-MM-yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
+                if (!DateTime.TryParse($"{viewModel.StartDateUtc}", out startDate))
                 {
                     updater.ModelState.AddModelError("ProjectSummaryPart.StartDateUtc", "The start date is not valid.");
                 }
