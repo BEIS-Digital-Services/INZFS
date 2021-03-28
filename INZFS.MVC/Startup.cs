@@ -17,15 +17,33 @@ using OrchardCore.Modules;
 using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
 using System.IO;
-
+using nClam;
+using Microsoft.Extensions.Configuration;
 
 namespace INZFS.MVC
 {
     public class Startup : StartupBase
     {
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddTransient<ClamClient>(x =>
+            {
+                var host = Configuration["ClamAVServerHost"];
+                if (int.TryParse(Configuration["ClamAVServerPort"], out var port))
+                {
+                    return new ClamClient(host, port);
+                }
+                else
+                {
+                    return new ClamClient(host);
+                }
+            });
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
@@ -64,6 +82,7 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+
         }
 
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
