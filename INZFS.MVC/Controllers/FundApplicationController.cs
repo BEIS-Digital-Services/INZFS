@@ -63,13 +63,16 @@ namespace INZFS.MVC.Controllers
         {
             pagename = pagename.ToLower().Trim();
 
+            if (pagename == "application-summary")
+            {
+                return View("ApplicationSummary", new ApplicationSummaryModel());
+            }
             if (pagename == "summary")
             {
                 var query = _session.Query<ContentItem, ContentItemIndex>();
                 query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
                 || x.ContentType == "ProjectDetailsPart"
                 || x.ContentType == "OrgFundingPart");
-                //query = query.With<ContentItemIndex>(x => _navigation.PageList().Any(p => p.ContentType == x.ContentType));
                 query = query.With<ContentItemIndex>(x => x.Published);
                 query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
