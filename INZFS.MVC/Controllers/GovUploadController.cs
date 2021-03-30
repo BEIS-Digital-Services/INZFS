@@ -93,9 +93,18 @@ namespace INZFS.MVC.Controllers
             var mediaFilePath = _mediaFileStore.Combine(UploadedFileFolderRelativePath, file.FileName);
 
             var filePathSplit = mediaFilePath.Split("/");
-            var fileLastName = filePathSplit.ElementAt(6);
+
             var fileLast = filePathSplit.Last();
-            
+
+            var fileInfo = await _mediaFileStore.GetFileInfoAsync(fileLast);
+            if (!(fileInfo == null))
+            {
+                _notifier.Information(H["File Already Exists!"]);
+
+                return RedirectToAction(nameof(UploadFileToMedia));
+            }
+            var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
+           
             using (var stream = file.OpenReadStream())
             {
                 await _mediaFileStore.CreateFileFromStreamAsync(fileLast, stream);
@@ -166,7 +175,8 @@ namespace INZFS.MVC.Controllers
             {
                 Results = log
             };
-
+            _notifier.Information(H["Successfully uploaded file!"]);
+            
             return RedirectToAction(nameof(UploadFileToMedia));
         }
 

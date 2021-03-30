@@ -1,16 +1,32 @@
-﻿@*<div class="govuk-form-group" asp-action="UploadFileToMedia" asp-controller="GovUpload" asp-area="INZFS.MVC" method="post" enctype="multipart/form-data">
-    <label class="govuk-label" for="fileupload">
-        Upload a file
-    </label>
-    <input class="govuk-file-upload" id="fileupload" name="fileupload" type="file">
-    <button class="govuk-button" type="submit">@T["Upload file"]</button>
-</div>*@
-<div class="govuk-form-group">
+﻿<div class="govuk-form-group">
+    <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
+</div>
+
+<div class="govuk-form-group" id="hideForm" style="visibility: hidden">
     <form asp-action="UploadFileToMediaPost" asp-controller="GovUpload" asp-area="INZFS.MVC" method="post" enctype="multipart/form-data">
         <label class="govuk-label" for="file-upload-1">
             Upload a file
         </label>
-        <input type="file" name="file" />
-        <button type="submit">@T["Upload file"]</button>
+        <input class="govuk-file-upload" type="file" name="file" />
+        <button class="govuk-button" type="submit">@T["Upload file"]</button>
     </form>
 </div>
+
+<script>
+    function UploadPage() {
+        document.getElementById("test").style.visibility = "hidden";
+        document.getElementById("GovHyperLink").style.visibility = "hidden";
+        document.getElementById("hideForm").style.visibility = "visible";
+    }
+    function OnSubmitUpload(){
+
+    }
+    function toggleVisibility() {
+        var x = document.getElementById('hideForm');
+        if (x.style.visibility === 'hidden') {
+        x.style.visibility = 'visible';
+        } else {
+        x.style.visibility = 'hidden';
+  }
+}
+</script>
