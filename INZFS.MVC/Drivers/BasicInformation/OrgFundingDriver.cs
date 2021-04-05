@@ -9,17 +9,8 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Drivers
 {
-    public class OrgFundingDriver : ContentPartDisplayDriver<OrgFundingPart>
+    public class OrgFundingDriver : BaseDriver<OrgFundingPart, OrgFundingViewModel>
     {
-        public override IDisplayResult Display(OrgFundingPart part, BuildPartDisplayContext context) =>
-            Initialize<OrgFundingViewModel>(GetDisplayShapeType(context), viewModel => PopulateViewModel(part, viewModel))
-                .Location("Detail", "Content:1")
-                .Location("Summary", "Content:1");
-
-        public override IDisplayResult Edit(OrgFundingPart part, BuildPartEditorContext context) =>
-            Initialize<OrgFundingViewModel>(GetEditorShapeType(context), viewModel => PopulateViewModel(part, viewModel));
-
-
         public override async Task<IDisplayResult> UpdateAsync(OrgFundingPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new OrgFundingViewModel();
@@ -45,7 +36,7 @@ namespace INZFS.MVC.Drivers
             return await EditAsync(part, context);
         }
 
-        private static void PopulateViewModel(OrgFundingPart part, OrgFundingViewModel viewModel)
+        protected override void PopulateViewModel(OrgFundingPart part, OrgFundingViewModel viewModel)
         {
             viewModel.OrgFundingPart = part;
 

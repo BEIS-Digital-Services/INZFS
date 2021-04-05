@@ -1,0 +1,24 @@
+@* As you can see the model here is the view model object this time not a ShapeViewModel<T>. *@
+
+@model ProjectExperienceViewModel
+@using INZFS.MVC.ViewModels
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC.ViewModels.ProposalWritten
+
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="upload-project-plan">
+    Back
+</a>
+
+<input type="hidden" name="contentType" value="ProjectExperience" />
+
+<div class="govuk-form-group" asp-validation-error-class-for="ExperienceSummary" data-maxlength="200">
+    <label class="govuk-label govuk-label--l" asp-for="ExperienceSummary">
+    </label>
+    <span asp-validation-for="ExperienceSummary" class="govuk-error-message"></span>
+    <textarea class="govuk-textarea" asp-for="ExperienceSummary" rows="5" aria-describedby="summary-hint"></textarea>
+
+    <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+        You can enter up to 200 characters
+    </div>
+</div>
