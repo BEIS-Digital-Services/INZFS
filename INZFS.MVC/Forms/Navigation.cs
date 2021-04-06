@@ -21,9 +21,13 @@ namespace INZFS.MVC.Forms
         public Navigation()
         {
             _pages = new List<Page>();
-            _pages.Add(new Page { Name = "project-summary", ContentType = "ProjectSummaryPart" });
-            _pages.Add(new Page { Name = "project-details", ContentType = "ProjectDetailsPart" });
-            _pages.Add(new Page { Name = "org-funding", ContentType = "OrgFundingPart" });
+            _pages.Add(new ContentPage { Name = "project-summary", ContentType = "ProjectSummaryPart" });
+            _pages.Add(new ContentPage { Name = "project-details", ContentType = "ProjectDetailsPart" });
+            _pages.Add(new ContentPage { Name = "org-funding", ContentType = "OrgFundingPart" });
+            _pages.Add(new ContentPage { Name = "proposal-written-details", ContentType = "ProjectProposalDetails" });
+            _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan" });
+            _pages.Add(new ContentPage { Name = "project-experience", ContentType = "ProjectExperience" });
+            _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills" });
             _pages.Add(new Page { Name = "summary" });
         }
 
@@ -45,7 +49,8 @@ namespace INZFS.MVC.Forms
 
         public Page GetNextPageByContentType(string contentType)
         {
-            var page = _pages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
+            var contentPages = _pages.OfType<ContentPage>();
+            var page = contentPages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
             return GetNextPage(page);
         }
 
@@ -72,7 +77,8 @@ namespace INZFS.MVC.Forms
 
         public Page GetPreviousPageByContentType(string contentType)
         {
-            var page = _pages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
+            var contentPages = _pages.OfType<ContentPage>();
+            var page = contentPages.FirstOrDefault(predicate => predicate.ContentType.Equals(contentType));
             return GetPreviousPage(page);
         }
         private Page GetPreviousPage(Page page)

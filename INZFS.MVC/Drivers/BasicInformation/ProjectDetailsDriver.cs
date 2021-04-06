@@ -9,17 +9,8 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Drivers
 {
-    public class ProjectDetailsDriver : ContentPartDisplayDriver<ProjectDetailsPart>
+    public class ProjectDetailsDriver : BaseDriver<ProjectDetailsPart, ProjectDetailsViewModel>
     {
-        public override IDisplayResult Display(ProjectDetailsPart part, BuildPartDisplayContext context) =>
-            Initialize<ProjectDetailsViewModel>(GetDisplayShapeType(context), viewModel => PopulateViewModel(part, viewModel))
-                .Location("Detail", "Content:1")
-                .Location("Summary", "Content:1");
-
-        public override IDisplayResult Edit(ProjectDetailsPart part, BuildPartEditorContext context) =>
-            Initialize<ProjectDetailsViewModel>(GetEditorShapeType(context), viewModel => PopulateViewModel(part, viewModel));
-
-
         public override async Task<IDisplayResult> UpdateAsync(ProjectDetailsPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new ProjectDetailsViewModel();
@@ -33,7 +24,7 @@ namespace INZFS.MVC.Drivers
             return await EditAsync(part, context);
         }
 
-        private static void PopulateViewModel(ProjectDetailsPart part, ProjectDetailsViewModel viewModel)
+        protected override void PopulateViewModel(ProjectDetailsPart part, ProjectDetailsViewModel viewModel)
         {
             viewModel.ProjectDetailsPart = part;
 
