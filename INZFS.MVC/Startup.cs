@@ -58,12 +58,26 @@ namespace INZFS.MVC
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
-            
+            routes.MapAreaControllerRoute(
+               name: "FundApplication",
+               areaName: "INZFS.MVC",
+               pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
+           );
+
+            /*
+            routes.MapAreaControllerRoute(
+                name: "FundApplication1",
+                areaName: "INZFS.MVC",
+                pattern: "{controller=Home}/section/{action}"
+            );
+            */
+            /*
             routes.MapAreaControllerRoute(
                 name: "FundApplication",
                 areaName: "INZFS.MVC",
                 pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
             );
+            */
         }
     }
 }

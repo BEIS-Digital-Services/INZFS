@@ -63,6 +63,10 @@ namespace INZFS.MVC.Controllers
         {
             pagename = pagename.ToLower().Trim();
 
+            if (pagename == "application-summary")
+            {
+                return View("ApplicationSummary", new ApplicationSummaryModel());
+            }
             if (pagename == "summary")
             {
                 var model = await GetSummaryModel();
