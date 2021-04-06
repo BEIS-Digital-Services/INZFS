@@ -1,9 +1,12 @@
 using System;
 using INZFS.MVC.Drivers;
+using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
 
 using INZFS.MVC.Migrations;
+using INZFS.MVC.Migrations.ProposalWritten;
 using INZFS.MVC.Models;
+using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Routing;
@@ -25,9 +28,16 @@ namespace INZFS.MVC
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
-           
+
+            ConfigureContent(services);
+
+            services.AddScoped<INavigation, Navigation>();
+        }
+
+        private void ConfigureContent(IServiceCollection services)
+        {
             services.AddContentPart<ProjectSummaryPart>()
-              .UseDisplayDriver<ProjectSummaryDriver>();
+            .UseDisplayDriver<ProjectSummaryDriver>();
             services.AddScoped<IDataMigration, ProjectSummaryMigration>();
 
             services.AddContentPart<ProjectDetailsPart>()
@@ -38,9 +48,14 @@ namespace INZFS.MVC
            .UseDisplayDriver<OrgFundingDriver>();
             services.AddScoped<IDataMigration, OrgFundingMigration>();
 
-            services.AddScoped<INavigation, Navigation>();
-        }
+            services.AddContentPart<ProjectProposalDetailsPart>()
+            .UseDisplayDriver<ProjectProposalDetailsDriver>();
+            services.AddScoped<IDataMigration, ProjectProposalDetailsMigration>();
 
+            services.AddContentPart<ProjectExperiencePart>()
+            .UseDisplayDriver<ProjectExperienceDriver>();
+            services.AddScoped<IDataMigration, ProjectExperienceMigration>();
+        }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(

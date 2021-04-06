@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Forms
 {
-    public class Page
+    public class ViewPage : Page
     {
-        public string Name { get; set; }
+        public string ViewName { get; set; }
     }
 }

@@ -11,17 +11,8 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Drivers
 {
-    public class ProjectSummaryDriver : ContentPartDisplayDriver<ProjectSummaryPart>
+    public class ProjectSummaryDriver : BaseDriver<ProjectSummaryPart, ProjectSummaryViewModel>
     {
-        public override IDisplayResult Display(ProjectSummaryPart part, BuildPartDisplayContext context) =>
-            Initialize<ProjectSummaryViewModel>(GetDisplayShapeType(context), viewModel => PopulateViewModel(part, viewModel))
-                .Location("Detail", "Content:1")
-                .Location("Summary", "Content:1");
-
-        public override IDisplayResult Edit(ProjectSummaryPart part, BuildPartEditorContext context) =>
-            Initialize<ProjectSummaryViewModel>(GetEditorShapeType(context), viewModel => PopulateViewModel(part, viewModel));
-
-      
         public override async Task<IDisplayResult> UpdateAsync(ProjectSummaryPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new ProjectSummaryViewModel();
@@ -57,8 +48,8 @@ namespace INZFS.MVC.Drivers
             
             return await EditAsync(part, context);
         }
-
-        private static void PopulateViewModel(ProjectSummaryPart part, ProjectSummaryViewModel viewModel)
+        
+        protected override void PopulateViewModel(ProjectSummaryPart part, ProjectSummaryViewModel viewModel)
         {
             viewModel.ProjectSummaryPart = part;
 
@@ -66,7 +57,7 @@ namespace INZFS.MVC.Drivers
             viewModel.Day = part.Day;
             viewModel.Month = part.Month;
             viewModel.Year = part.Year;
-            if(part.Day.HasValue && part.Month.HasValue && part.Year.HasValue)
+            if (part.Day.HasValue && part.Month.HasValue && part.Year.HasValue)
             {
                 viewModel.StartDateUtc = $"{part.Day}-{part.Month}-{part.Year}";
             }
