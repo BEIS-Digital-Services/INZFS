@@ -11,17 +11,8 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Drivers
 {
-    public class ProjectSummaryDriver : ContentPartDisplayDriver<ProjectSummaryPart>
+    public class ProjectSummaryDriver : BaseDriver<ProjectSummaryPart, ProjectSummaryViewModel>
     {
-        public override IDisplayResult Display(ProjectSummaryPart part, BuildPartDisplayContext context) =>
-            Initialize<ProjectSummaryViewModel>(GetDisplayShapeType(context), viewModel => PopulateViewModel(part, viewModel))
-                .Location("Detail", "Content:1")
-                .Location("Summary", "Content:1");
-
-        public override IDisplayResult Edit(ProjectSummaryPart part, BuildPartEditorContext context) =>
-            Initialize<ProjectSummaryViewModel>(GetEditorShapeType(context), viewModel => PopulateViewModel(part, viewModel));
-
-
         public override async Task<IDisplayResult> UpdateAsync(ProjectSummaryPart part, IUpdateModel updater, UpdatePartEditorContext context)
         {
             var viewModel = new ProjectSummaryViewModel();
@@ -35,7 +26,7 @@ namespace INZFS.MVC.Drivers
             part.fileUploadPath = viewModel.fileUploadPath;
             if (viewModel.Day.HasValue && viewModel.Month.HasValue && viewModel.Year.HasValue)
             {
-                viewModel.StartDateUtc = $"{viewModel.Day}-{viewModel.Month}-{viewModel.Year}";
+                viewModel.StartDateUtc = $"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}";
             }
 
             if (string.IsNullOrEmpty(viewModel.StartDateUtc))
@@ -45,7 +36,7 @@ namespace INZFS.MVC.Drivers
             else
             {
                 DateTime startDate;
-                if (!DateTime.TryParseExact($"{viewModel.Day}-{viewModel.Month}-{viewModel.Year}", "dd-MM-yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
+                if (!DateTime.TryParse($"{viewModel.StartDateUtc}", out startDate))
                 {
                     updater.ModelState.AddModelError("ProjectSummaryPart.StartDateUtc", "The start date is not valid.");
                 }
@@ -58,8 +49,8 @@ namespace INZFS.MVC.Drivers
 
             return await EditAsync(part, context);
         }
-
-        private static void PopulateViewModel(ProjectSummaryPart part, ProjectSummaryViewModel viewModel)
+        
+        protected override void PopulateViewModel(ProjectSummaryPart part, ProjectSummaryViewModel viewModel)
         {
             viewModel.ProjectSummaryPart = part;
 

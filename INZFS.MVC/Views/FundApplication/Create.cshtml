@@ -10,7 +10,7 @@
     var typeDisplayName = contentTypeDefinition?.DisplayName ?? contentItem.ContentType.CamelFriendly();
 }
 
-<h1>@RenderTitleSegments(T["{0}", Html.Raw(typeDisplayName.Replace("Part",""))]);</h1>
+<h1>@RenderTitleSegments(T["{0}", Html.Raw(typeDisplayName.Replace("Part",""))])</h1>
 
 <form asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
     @if (!ViewData.ModelState.IsValid)
@@ -35,6 +35,11 @@
             </div>
         </div>
     }
-    @*@Html.ValidationSummary()*@
+
     @await DisplayAsync(Model)
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+        </div>
+    </div>
 </form>

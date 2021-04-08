@@ -76,54 +76,13 @@ namespace INZFS.MVC.Controllers
         {
             pagename = pagename.ToLower().Trim();
 
+            if (pagename == "application-summary")
+            {
+                return View("ApplicationSummary", new ApplicationSummaryModel());
+            }
             if (pagename == "summary")
             {
-                var query = _session.Query<ContentItem, ContentItemIndex>();
-                query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
-                || x.ContentType == "ProjectDetailsPart"
-                || x.ContentType == "OrgFundingPart");
-                //query = query.With<ContentItemIndex>(x => _navigation.PageList().Any(p => p.ContentType == x.ContentType));
-                query = query.With<ContentItemIndex>(x => x.Published);
-                query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-
-                var items = await query.ListAsync();
-                var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
-                var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
-
-                var projectDetails = items.FirstOrDefault(item => item.ContentType == "ProjectDetailsPart");
-                var projectDetailsPart = projectDetails?.ContentItem.As<ProjectDetailsPart>();
-
-                var funding = items.FirstOrDefault(item => item.ContentType == "OrgFundingPart");
-                var fundingPart = funding?.ContentItem.As<OrgFundingPart>();
-
-                var model = new SummaryViewModel
-                {
-                    ProjectSummaryViewModel = new ProjectSummaryViewModel
-                    {
-                        ProjectName = projectSummaryPart.ProjectName,
-                        Day = projectSummaryPart.Day,
-                        Month = projectSummaryPart.Month,
-                        Year = projectSummaryPart.Year,
-                        fileUploadPath = projectSummaryPart.fileUploadPath
-                    },
-                    ProjectDetailsViewModel = new ProjectDetailsViewModel
-                    {
-                        Summary = projectDetailsPart.Summary,
-                        Timing = projectDetailsPart.Timing
-                    },
-                    OrgFundingViewModel = new OrgFundingViewModel
-                    {
-                        NoFunding = fundingPart.NoFunding,
-                        Funders = fundingPart.Funders,
-                        FriendsAndFamily = fundingPart.FriendsAndFamily,
-                        PublicSectorGrants = fundingPart.PublicSectorGrants,
-                        AngelInvestment = fundingPart.AngelInvestment,
-                        VentureCapital = fundingPart.VentureCapital,
-                        PrivateEquity = fundingPart.PrivateEquity,
-                        StockMarketFlotation = fundingPart.StockMarketFlotation
-                    },
-                };
-
+                var model = await GetSummaryModel();
                 return View("Summary", model);
             }
 
@@ -134,7 +93,15 @@ namespace INZFS.MVC.Controllers
             }
             else
             {
-                return await Create(page.ContentType);
+                if(page is ViewPage)
+                {
+                    return View(((ViewPage)page).ViewName);
+                }
+                else
+                {
+
+                }
+                return await Create(((ContentPage)page).ContentType);
             }
         }
         public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
@@ -207,9 +174,6 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-            var dummyContent = await _contentManager.NewAsync(contentType);
-
-            returnUrl = $"process/person-summary";
             return await CreatePOST(contentType, returnUrl, stayOnSamePage, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
@@ -460,6 +424,56 @@ namespace INZFS.MVC.Controllers
             }
 
             return Url.IsLocalUrl(returnUrl) ? (IActionResult)LocalRedirect(returnUrl) : RedirectToAction("Index");
+        }
+
+        private async Task<SummaryViewModel> GetSummaryModel()
+        {
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
+            || x.ContentType == "ProjectDetailsPart"
+            || x.ContentType == "OrgFundingPart");
+            //query = query.With<ContentItemIndex>(x => _navigation.PageList().Any(p => p.ContentType == x.ContentType));
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+            var items = await query.ListAsync();
+            var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
+            var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
+
+            var projectDetails = items.FirstOrDefault(item => item.ContentType == "ProjectDetailsPart");
+            var projectDetailsPart = projectDetails?.ContentItem.As<ProjectDetailsPart>();
+
+            var funding = items.FirstOrDefault(item => item.ContentType == "OrgFundingPart");
+            var fundingPart = funding?.ContentItem.As<OrgFundingPart>();
+
+            var model = new SummaryViewModel
+            {
+                ProjectSummaryViewModel = new ProjectSummaryViewModel
+                {
+                    ProjectName = projectSummaryPart.ProjectName,
+                    Day = projectSummaryPart.Day,
+                    Month = projectSummaryPart.Month,
+                    Year = projectSummaryPart.Year,
+                },
+                ProjectDetailsViewModel = new ProjectDetailsViewModel
+                {
+                    Summary = projectDetailsPart.Summary,
+                    Timing = projectDetailsPart.Timing
+                },
+                OrgFundingViewModel = new OrgFundingViewModel
+                {
+                    NoFunding = fundingPart.NoFunding,
+                    Funders = fundingPart.Funders,
+                    FriendsAndFamily = fundingPart.FriendsAndFamily,
+                    PublicSectorGrants = fundingPart.PublicSectorGrants,
+                    AngelInvestment = fundingPart.AngelInvestment,
+                    VentureCapital = fundingPart.VentureCapital,
+                    PrivateEquity = fundingPart.PrivateEquity,
+                    StockMarketFlotation = fundingPart.StockMarketFlotation
+                },
+            };
+
+            return model;
         }
     }
 }

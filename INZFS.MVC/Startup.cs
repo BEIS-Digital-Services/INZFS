@@ -1,9 +1,12 @@
 using System;
 using INZFS.MVC.Drivers;
+using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
 
 using INZFS.MVC.Migrations;
+using INZFS.MVC.Migrations.ProposalWritten;
 using INZFS.MVC.Models;
+using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.Services;
 using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
@@ -48,8 +51,15 @@ namespace INZFS.MVC
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
 
+            ConfigureContent(services);
+
+            services.AddScoped<INavigation, Navigation>();
+        }
+
+        private void ConfigureContent(IServiceCollection services)
+        {
             services.AddContentPart<ProjectSummaryPart>()
-              .UseDisplayDriver<ProjectSummaryDriver>();
+            .UseDisplayDriver<ProjectSummaryDriver>();
             services.AddScoped<IDataMigration, ProjectSummaryMigration>();
 
             services.AddContentPart<ProjectDetailsPart>()
@@ -84,15 +94,28 @@ namespace INZFS.MVC
             });
 
         }
-
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            routes.MapAreaControllerRoute(
+               name: "FundApplication",
+               areaName: "INZFS.MVC",
+               pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
+           );
 
+            /*
+            routes.MapAreaControllerRoute(
+                name: "FundApplication1",
+                areaName: "INZFS.MVC",
+                pattern: "{controller=Home}/section/{action}"
+            );
+            */
+            /*
             routes.MapAreaControllerRoute(
                 name: "FundApplication",
                 areaName: "INZFS.MVC",
-                pattern: "{area:exists}/{controller=Home}/{action=section}/{pageName?}/{id?}"
+                pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
             );
+            */
         }
     }
 }
