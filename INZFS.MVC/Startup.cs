@@ -54,23 +54,6 @@ namespace INZFS.MVC
             ConfigureContent(services);
 
             services.AddScoped<INavigation, Navigation>();
-        }
-
-        private void ConfigureContent(IServiceCollection services)
-        {
-            services.AddContentPart<ProjectSummaryPart>()
-            .UseDisplayDriver<ProjectSummaryDriver>();
-            services.AddScoped<IDataMigration, ProjectSummaryMigration>();
-
-            services.AddContentPart<ProjectDetailsPart>()
-            .UseDisplayDriver<ProjectDetailsDriver>();
-            services.AddScoped<IDataMigration, ProjectDetailsMigration>();
-
-            services.AddContentPart<OrgFundingPart>()
-           .UseDisplayDriver<OrgFundingDriver>();
-            services.AddScoped<IDataMigration, OrgFundingMigration>();
-
-            services.AddScoped<INavigation, Navigation>();
 
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
@@ -92,6 +75,21 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+        }
+
+        private void ConfigureContent(IServiceCollection services)
+        {
+            services.AddContentPart<ProjectSummaryPart>()
+            .UseDisplayDriver<ProjectSummaryDriver>();
+            services.AddScoped<IDataMigration, ProjectSummaryMigration>();
+
+            services.AddContentPart<ProjectDetailsPart>()
+            .UseDisplayDriver<ProjectDetailsDriver>();
+            services.AddScoped<IDataMigration, ProjectDetailsMigration>();
+
+            services.AddContentPart<OrgFundingPart>()
+           .UseDisplayDriver<OrgFundingDriver>();
+            services.AddScoped<IDataMigration, OrgFundingMigration>();
 
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
@@ -101,21 +99,6 @@ namespace INZFS.MVC
                areaName: "INZFS.MVC",
                pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
            );
-
-            /*
-            routes.MapAreaControllerRoute(
-                name: "FundApplication1",
-                areaName: "INZFS.MVC",
-                pattern: "{controller=Home}/section/{action}"
-            );
-            */
-            /*
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
-            );
-            */
         }
     }
 }
