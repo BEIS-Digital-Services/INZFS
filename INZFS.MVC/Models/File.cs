@@ -16,8 +16,6 @@ namespace INZFS.MVC.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Alias { get; set; }
-        public string Region { get; set; }
-        public string Bucket { get; set; }
         public string ContentType { get; set; }
         public long Size { get; set; }
         public DateTime Uploaded { get; set; }

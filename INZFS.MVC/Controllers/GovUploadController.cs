@@ -122,8 +122,7 @@ namespace INZFS.MVC.Controllers
                     {
                         Name = $"{Guid.NewGuid()}{extension}",
                         Alias = file.FileName,
-                        Region = "uk-sourth",
-                        //Bucket = BUCKET_NAME,
+                       
                         ContentType = file.ContentType,
                         Size = file.Length,
                         Uploaded = DateTime.UtcNow,

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using nClam;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
@@ -21,6 +22,11 @@ using YesSql;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
 using INZFS.MVC.Forms;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using OrchardCore.Media;
+using OrchardCore.FileStorage;
+using Microsoft.Extensions.Logging;
 
 namespace INZFS.MVC.Controllers
 {
@@ -33,26 +39,33 @@ namespace INZFS.MVC.Controllers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentItemDisplayManager _contentItemDisplayManager;
         private readonly IHtmlLocalizer H;
+        private readonly IMediaFileStore _mediaFileStore;
         private readonly dynamic New;
         private readonly INotifier _notifier;
-        private readonly ISession _session;
+        private readonly YesSql.ISession _session;
         private readonly ISiteService _siteService;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly INavigation _navigation;
+        private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
+        private string[] permittedExtensions = { ".txt", ".pdf", ".jpg" };
+        private readonly ILogger _logger;
+        private readonly ClamClient _clam;
 
-        public FundApplicationController(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, 
+        public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
-            INotifier notifier, ISession session, IShapeFactory shapeFactory, ISiteService siteService, 
+            INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory, ISiteService siteService,
             IUpdateModelAccessor updateModelAccessor, INavigation navigation)
         {
             _contentManager = contentManager;
+            _mediaFileStore = mediaFileStore;
             _contentDefinitionManager = contentDefinitionManager;
             _contentItemDisplayManager = contentItemDisplayManager;
             _notifier = notifier;
             _session = session;
             _siteService = siteService;
             _updateModelAccessor = updateModelAccessor;
-
+            _clam = clam;
+            _logger = logger;
             H = htmlLocalizer;
             New = shapeFactory;
             _navigation = navigation;
@@ -85,17 +98,21 @@ namespace INZFS.MVC.Controllers
 
                 var model = new SummaryViewModel
                 {
-                    ProjectSummaryViewModel = new ProjectSummaryViewModel { 
+                    ProjectSummaryViewModel = new ProjectSummaryViewModel
+                    {
                         ProjectName = projectSummaryPart.ProjectName,
                         Day = projectSummaryPart.Day,
                         Month = projectSummaryPart.Month,
                         Year = projectSummaryPart.Year,
+                        fileUploadPath = projectSummaryPart.fileUploadPath
                     },
-                    ProjectDetailsViewModel = new ProjectDetailsViewModel { 
+                    ProjectDetailsViewModel = new ProjectDetailsViewModel
+                    {
                         Summary = projectDetailsPart.Summary,
                         Timing = projectDetailsPart.Timing
-                    } ,
-                    OrgFundingViewModel = new OrgFundingViewModel { 
+                    },
+                    OrgFundingViewModel = new OrgFundingViewModel
+                    {
                         NoFunding = fundingPart.NoFunding,
                         Funders = fundingPart.Funders,
                         FriendsAndFamily = fundingPart.FriendsAndFamily,
@@ -111,7 +128,7 @@ namespace INZFS.MVC.Controllers
             }
 
             var page = _navigation.GetPage(pagename);
-            if(page == null)
+            if (page == null)
             {
                 return NotFound();
             }
@@ -130,7 +147,7 @@ namespace INZFS.MVC.Controllers
             query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
             query = query.With<ContentItemIndex>(x => x.Published);
             //query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-            
+
             query = query.OrderByDescending(x => x.PublishedUtc);
 
             var maxPagedCount = siteSettings.MaxPagedCount;
@@ -173,16 +190,16 @@ namespace INZFS.MVC.Controllers
             query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
             var records = await query.CountAsync();
-            if(records > 0)
+            if (records > 0)
             {
                 var existingContentItem = await query.FirstOrDefaultAsync();
-                return  await Edit(existingContentItem.ContentItemId, contentType);
+                return await Edit(existingContentItem.ContentItemId, contentType);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
 
             return View("Create", model);
-            
+
         }
 
         [HttpPost, ActionName("Create")]
@@ -205,7 +222,7 @@ namespace INZFS.MVC.Controllers
         {
             var contentItem = await _contentManager.NewAsync(id);
 
-           
+
             contentItem.Owner = User.Identity.Name;
 
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
@@ -226,6 +243,141 @@ namespace INZFS.MVC.Controllers
                 return NotFound();
             }
             return RedirectToAction("section", new { pagename = page.Name });
+        }
+
+   
+        [HttpPost]
+        public async Task<IActionResult> Save(IFormFile file,  string pagename)
+        {
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+            {
+                return BadRequest();
+            }
+
+            try
+            {
+                 var containsVirus = await ScanFile(file);
+                if (!containsVirus)
+                {
+                    pagename = pagename.ToLower().Trim();
+
+                    var query = _session.Query<ContentItem, ContentItemIndex>();
+                    query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
+                    || x.ContentType == "ProjectDetailsPart"
+                    || x.ContentType == "OrgFundingPart");
+                    query = query.With<ContentItemIndex>(x => x.Published);
+                    query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+                    var items = await query.ListAsync();
+                    var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
+                    var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
+
+                    if (file == null || file.Length == 0)
+                    {
+                        return Content("File not selected");
+                    }
+                    else
+                    {
+                        var mediaFilePath = _mediaFileStore.Combine(UploadedFileFolderRelativePath, file.FileName);
+
+                        using (var stream = file.OpenReadStream())
+                        {
+                            await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
+                        }
+
+                        _notifier.Information(H["Successfully uploaded file!"]);
+                        var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
+                        projectSummaryPart.fileUploadPath = publicUrl;
+                        var page = _navigation.GetPage(pagename);
+                        if (page == null)
+                        {
+                            return NotFound();
+                        }
+                        else
+                        {
+                            return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
+                        }
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                
+            }
+            catch
+            {
+                return BadRequest();
+            }
+           
+        }
+
+        public async Task<bool> ScanFile(IFormFile file)
+        {
+            var log = new List<ScanResult>();
+            if (file.Length > 0)
+            {
+                var extension = file.FileName.Contains('.')
+                    ? file.FileName.Substring(file.FileName.LastIndexOf('.'), file.FileName.Length - file.FileName.LastIndexOf('.'))
+                    : string.Empty;
+                var newfile = new Models.File
+                {
+                    Name = $"{Guid.NewGuid()}{extension}",
+                    Alias = file.FileName,
+                    ContentType = file.ContentType,
+                    Size = file.Length,
+                    Uploaded = DateTime.UtcNow,
+                };
+                var ping = await _clam.PingAsync();
+
+                if (ping)
+                {
+                    _logger.LogInformation("Successfully pinged the ClamAV server.");
+                    var result = await _clam.SendAndScanFileAsync(file.OpenReadStream());
+
+                    newfile.ScanResult = result.Result.ToString();
+                    newfile.Infected = result.Result == ClamScanResults.VirusDetected;
+                    newfile.Scanned = DateTime.UtcNow;
+                    if (result.InfectedFiles != null)
+                    {
+                        foreach (var infectedFile in result.InfectedFiles)
+                        {
+                            newfile.Viruses.Add(new Virus
+                            {
+                                Name = infectedFile.VirusName
+                            });
+                        } return false;
+                    }
+                    else
+                    {
+                        var metaData = new Dictionary<string, string>
+                        {
+                            { "av-status", result.Result.ToString() },
+                            { "av-timestamp", DateTime.UtcNow.ToString() },
+                            { "alias", newfile.Alias }
+                        };
+
+                        var scanResult = new ScanResult()
+                        {
+                            FileName = file.FileName,
+                            Result = result.Result.ToString(),
+                            Message = result.InfectedFiles?.FirstOrDefault()?.VirusName,
+                            RawResult = result.RawResult
+                        };
+                        log.Add(scanResult);
+                    }
+                    return true;
+                }
+                else
+                {
+                    _logger.LogWarning("Wasn't able to connect to the ClamAV server.");
+                    return false;
+                }
+
+            }
+            return false;
         }
 
         [HttpGet]
@@ -279,7 +431,7 @@ namespace INZFS.MVC.Controllers
                 return View("Edit", model);
             }
 
- 
+
             _session.Save(contentItem);
 
             await conditionallyPublish(contentItem);

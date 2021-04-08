@@ -18,11 +18,11 @@
     <label class="govuk-label govuk-label--l" asp-for="ProjectName">
     </label>
     <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
-    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName"   spellcheck="false" aria-describedby="name-hint">
+    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
 </div>
 
 
-<div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc" >
+<div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-start-date">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             Estimated Start Date
@@ -59,3 +59,39 @@
 
     </fieldset>
 </div>
+<div class="govuk-form-group">
+    @ViewBag.Message
+    <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
+</div>
+<div class="govuk-form-group" >
+    <label class="govuk-label govuk-label--l" asp-for="fileUploadPath">
+    </label>
+    <input class="govuk-input govuk-input--width-10" asp-for="fileUploadPath" spellcheck="false" aria-describedby="name-hint">
+</div>
+<div class="govuk-form-group" id="hideForm" style="visibility: hidden">
+    <label class="govuk-label" asp-for="fileUploadPath">
+        Upload a file
+    </label>
+    <input class="govuk-file-upload" type="file" name="file"/>
+    <input type="submit" value="save" asp-action="save" asp-controller="FundApplication" asp-area="INZFS.MVC" asp-route-pagename="project-summary" method="post" enctype="multipart/form-data" />
+
+
+</div>
+<script>
+    function UploadPage() {
+        document.getElementById("test").style.visibility = "hidden";
+        document.getElementById("GovHyperLink").style.visibility = "hidden";
+        document.getElementById("hideForm").style.visibility = "visible";
+    }
+    function OnSubmitUpload() {
+
+    }
+    function toggleVisibility() {
+        var x = document.getElementById('hideForm');
+        if (x.style.visibility === 'hidden') {
+            x.style.visibility = 'visible';
+        } else {
+            x.style.visibility = 'hidden';
+        }
+    }
+</script>
