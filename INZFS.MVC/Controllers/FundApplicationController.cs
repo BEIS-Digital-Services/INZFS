@@ -258,8 +258,8 @@ namespace INZFS.MVC.Controllers
 
             try
             {
-                 var containsVirus = await ScanFile(file);
-                if (!containsVirus)
+                 var notContainsVirus = await ScanFile(file);
+                if (notContainsVirus)
                 {
                     pagename = pagename.ToLower().Trim();
 
