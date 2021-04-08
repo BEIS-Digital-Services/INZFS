@@ -1,11 +1,14 @@
 using System;
 using INZFS.MVC.Drivers;
+using INZFS.MVC.Drivers.ProposalFinance;
 using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
 
 using INZFS.MVC.Migrations;
+using INZFS.MVC.Migrations.ProposalFinance;
 using INZFS.MVC.Migrations.ProposalWritten;
 using INZFS.MVC.Models;
+using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
@@ -55,6 +58,10 @@ namespace INZFS.MVC
             services.AddContentPart<ProjectExperiencePart>()
             .UseDisplayDriver<ProjectExperienceDriver>();
             services.AddScoped<IDataMigration, ProjectExperienceMigration>();
+
+            services.AddContentPart<FinanceTurnoverPart>()
+           .UseDisplayDriver<FinanceTurnoverDriver>();
+            services.AddScoped<IDataMigration, FinanceTurnoverMigration>();
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
