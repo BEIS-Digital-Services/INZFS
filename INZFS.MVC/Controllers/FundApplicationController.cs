@@ -22,6 +22,8 @@ using YesSql;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
 using INZFS.MVC.Forms;
+using INZFS.MVC.Models.ProposalWritten;
+using INZFS.MVC.ViewModels.ProposalWritten;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
@@ -80,6 +82,13 @@ namespace INZFS.MVC.Controllers
             {
                 return View("ApplicationSummary", new ApplicationSummaryModel());
             }
+
+            // 
+            if (pagename == "proposal-written-summary")
+            {
+                var model = await GetApplicationWrittenSummaryModel();
+                return View("ProposalWrittenSummary", model);
+            }
             if (pagename == "summary")
             {
                 var model = await GetSummaryModel();
@@ -104,7 +113,7 @@ namespace INZFS.MVC.Controllers
                 return await Create(((ContentPage)page).ContentType);
             }
         }
-        public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
+        public async Task<IActionResult> Index(PagerParameters pagerParameters)
         {
             var siteSettings = await _siteService.GetSiteSettingsAsync();
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
@@ -471,6 +480,39 @@ namespace INZFS.MVC.Controllers
                     PrivateEquity = fundingPart.PrivateEquity,
                     StockMarketFlotation = fundingPart.StockMarketFlotation
                 },
+            };
+
+            return model;
+        }
+
+        private async Task<ProposalWrittenSummaryViewModel> GetApplicationWrittenSummaryModel()
+        {
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectProposalDetails"
+            || x.ContentType == "ProjectExperience");
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+            var items = await query.ListAsync();
+            var projectProposal = items.FirstOrDefault(item => item.ContentType == "ProjectProposalDetails");
+            var projectProposalPart = projectProposal?.ContentItem.As<ProjectProposalDetailsPart>();
+
+            var projectExperience = items.FirstOrDefault(item => item.ContentType == "ProjectExperience");
+            var projectExperiencePart = projectExperience?.ContentItem.As<ProjectExperiencePart>();
+
+            var model = new ProposalWrittenSummaryViewModel
+            {
+                ProjectProposalDetailsViewModel = new ProjectProposalDetailsViewModel
+                {
+                    InnovationImpactSummary = projectProposalPart.InnovationImpactSummary,
+                    Day = projectProposalPart.Day,
+                    Month = projectProposalPart.Month,
+                    Year = projectProposalPart.Year,
+                },
+                ProjectExperienceViewModel = new ProjectExperienceViewModel
+                {
+                    ExperienceSummary = projectExperiencePart.ExperienceSummary,
+                }
             };
 
             return model;
