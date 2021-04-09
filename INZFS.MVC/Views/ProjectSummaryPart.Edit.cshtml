@@ -64,17 +64,16 @@
     <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
 </div>
 <div class="govuk-form-group" >
-    <label class="govuk-label govuk-label--l" asp-for="fileUploadPath">
+    <label class="govuk-label govuk-label--l" asp-for="FileUploadPath">
     </label>
-    <input class="govuk-input govuk-input--width-10" asp-for="fileUploadPath" spellcheck="false" aria-describedby="name-hint">
+    <input class="govuk-input govuk-input--width-10" asp-for="FileUploadPath" spellcheck="false" aria-describedby="name-hint">
 </div>
 <div class="govuk-form-group" id="hideForm" style="visibility: hidden">
-    <label class="govuk-label" asp-for="fileUploadPath">
+    <label class="govuk-label" asp-for="FileUploadPath">
         Upload a file
     </label>
-    <input class="govuk-file-upload" type="file" name="file"/>
-    <input type="submit" value="save" asp-action="save" asp-controller="FundApplication" asp-area="INZFS.MVC" asp-route-pagename="project-summary" method="post" enctype="multipart/form-data" />
-
+    <input class="govuk-file-upload" type="file" name="file" />
+    
 
 </div>
 <script>

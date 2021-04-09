@@ -23,7 +23,7 @@ namespace INZFS.MVC.Drivers
             part.Day = viewModel.Day;
             part.Month = viewModel.Month;
             part.Year = viewModel.Year;
-            part.fileUploadPath = viewModel.fileUploadPath;
+            //part.FileUploadPath = viewModel.FileUploadPath;
             if (viewModel.Day.HasValue && viewModel.Month.HasValue && viewModel.Year.HasValue)
             {
                 viewModel.StartDateUtc = $"{viewModel.Day}/{viewModel.Month}/{viewModel.Year}";
@@ -58,7 +58,7 @@ namespace INZFS.MVC.Drivers
             viewModel.Day = part.Day;
             viewModel.Month = part.Month;
             viewModel.Year = part.Year;
-            viewModel.fileUploadPath = part.fileUploadPath;
+            viewModel.FileUploadPath = part.FileUploadPath;
             if (part.Day.HasValue && part.Month.HasValue && part.Year.HasValue)
             {
                 viewModel.StartDateUtc = $"{part.Day}-{part.Month}-{part.Year}";

@@ -180,7 +180,7 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType)
+        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
             return await CreatePOST(contentType, returnUrl, stayOnSamePage, async contentItem =>
@@ -222,11 +222,13 @@ namespace INZFS.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Save(IFormFile file,  string pagename)
         {
-            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-            if (string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext))
+            if (IsValidFileExtension(file))
             {
                 return BadRequest();
+            }
+            if (file == null || file.Length == 0)
+            {
+                return Content("File not selected");
             }
 
             try
@@ -247,31 +249,16 @@ namespace INZFS.MVC.Controllers
                     var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
                     var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
 
-                    if (file == null || file.Length == 0)
+                    var publicUrl  = await SaveFile(file);
+                    projectSummaryPart.FileUploadPath = publicUrl;
+                    var page = _navigation.GetPage(pagename);
+                    if (page == null)
                     {
-                        return Content("File not selected");
+                        return NotFound();
                     }
                     else
                     {
-                        var mediaFilePath = _mediaFileStore.Combine(UploadedFileFolderRelativePath, file.FileName);
-
-                        using (var stream = file.OpenReadStream())
-                        {
-                            await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
-                        }
-
-                        _notifier.Information(H["Successfully uploaded file!"]);
-                        var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
-                        projectSummaryPart.fileUploadPath = publicUrl;
-                        var page = _navigation.GetPage(pagename);
-                        if (page == null)
-                        {
-                            return NotFound();
-                        }
-                        else
-                        {
-                            return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
-                        }
+                        return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
                     }
                 }
                 else
@@ -280,13 +267,33 @@ namespace INZFS.MVC.Controllers
                 }
                 
             }
-            catch
+            catch(Exception ex)
             {
+                // Might want to log at some point
                 return BadRequest();
             }
            
         }
 
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var mediaFilePath = _mediaFileStore.Combine(UploadedFileFolderRelativePath, file.FileName);
+
+            using (var stream = file.OpenReadStream())
+            {
+                await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
+            }
+
+            _notifier.Information(H["Successfully uploaded file!"]);
+            var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
+            return publicUrl;
+        }
+        private bool IsValidFileExtension(IFormFile file)
+        {
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
+        }
         public async Task<bool> ScanFile(IFormFile file)
         {
             var log = new List<ScanResult>();
@@ -368,7 +375,7 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("Edit")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl)
+        public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
 
@@ -377,6 +384,28 @@ namespace INZFS.MVC.Controllers
             if (content == null)
             {
                 return NotFound();
+            }
+            if(file != null)
+            {
+                if (IsValidFileExtension(file))
+                {
+                    return BadRequest();
+                }
+                if (file == null || file.Length == 0)
+                {
+                    return Content("File not selected");
+                }
+                var notContainsVirus = await ScanFile(file);
+                if (!notContainsVirus)
+                {
+                    return BadRequest();
+                }
+                var publicUrl = await SaveFile(file);
+                if(content.ContentType == "ProjectSummaryPart")
+                {
+                    var projectSummaryPart = content.As<ProjectSummaryPart>();
+                    projectSummaryPart.FileUploadPath = publicUrl;
+                }
             }
 
             return await EditPOST(contentItemId, returnUrl, stayOnSamePage, async contentItem =>
