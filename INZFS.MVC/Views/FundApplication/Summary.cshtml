@@ -146,15 +146,9 @@
 
                 <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
 
-                <form action="/form-handler" method="post" novalidate="">
-
-                    <input type="hidden" name="answers-checked" value="true">
-
-                    <button class="govuk-button" data-module="govuk-button">
-                        Accept and send
-                    </button>
-
-                </form>
+                <a class="govuk-button" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
+                    Save and continue
+                </a>
 
             </div>
         </div>
