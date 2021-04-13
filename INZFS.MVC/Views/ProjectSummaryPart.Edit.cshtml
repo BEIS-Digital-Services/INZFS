@@ -60,13 +60,11 @@
     </fieldset>
 </div>
 <div class="govuk-form-group">
+    <a class="govuk-link" download href=@Model.FileUploadPath>Download your file here</a>
+</div>
+<div class="govuk-form-group">
     @ViewBag.Message
     <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
-</div>
-<div class="govuk-form-group" >
-    <label class="govuk-label govuk-label--l" asp-for="FileUploadPath">
-    </label>
-    <input class="govuk-input govuk-input--width-10" asp-for="FileUploadPath" spellcheck="false" aria-describedby="name-hint">
 </div>
 <div class="govuk-form-group" id="hideForm" style="visibility: hidden">
     <label class="govuk-label" asp-for="FileUploadPath">

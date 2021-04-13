@@ -275,6 +275,7 @@ namespace INZFS.MVC.Controllers
                     }
                     else
                     {
+                        ViewBag.Message = "Upload Successful!";
                         return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
                     }
                 }
