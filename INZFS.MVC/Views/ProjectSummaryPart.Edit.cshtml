@@ -10,6 +10,16 @@
 
 @{
     var sampleDate = DateTime.Now.AddDays(30);
+    var isVisible = Model.FileUploadPath != null;
+    var visibilitySetting = "hidden";
+    if (isVisible)
+    {
+        visibilitySetting = "visible";
+    }
+    else
+    {
+        visibilitySetting = "hidden";
+    }
 }
 
 <input type="hidden" name="contentType" value="ProjectSummaryPart" />
@@ -59,7 +69,7 @@
 
     </fieldset>
 </div>
-<div class="govuk-form-group">
+<div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting">
     <a class="govuk-link" download href=@Model.FileUploadPath>Download your file here</a>
 </div>
 <div class="govuk-form-group">
@@ -70,19 +80,9 @@
     <label class="govuk-label" asp-for="FileUploadPath">
         Upload a file
     </label>
-    <input class="govuk-file-upload" type="file" name="file" />
-    
-
+    <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx"/>
 </div>
 <script>
-    function UploadPage() {
-        document.getElementById("test").style.visibility = "hidden";
-        document.getElementById("GovHyperLink").style.visibility = "hidden";
-        document.getElementById("hideForm").style.visibility = "visible";
-    }
-    function OnSubmitUpload() {
-
-    }
     function toggleVisibility() {
         var x = document.getElementById('hideForm');
         if (x.style.visibility === 'hidden') {
@@ -91,4 +91,5 @@
             x.style.visibility = 'hidden';
         }
     }
+    
 </script>
