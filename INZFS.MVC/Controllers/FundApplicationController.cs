@@ -29,6 +29,7 @@ using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
+using System.Globalization;
 
 namespace INZFS.MVC.Controllers
 {
@@ -153,6 +154,16 @@ namespace INZFS.MVC.Controllers
             return View(viewModel);
         }
 
+        public async Task<bool> CreateDirectory(string directoryName)
+        {
+            if(directoryName == null)
+            {
+                return false;
+            }
+            await _mediaFileStore.TryCreateDirectoryAsync(directoryName);
+            return true;
+        }
+
         public async Task<IActionResult> Create(string contentType)
         {
             if (String.IsNullOrWhiteSpace(contentType))
@@ -230,10 +241,10 @@ namespace INZFS.MVC.Controllers
             {
                 return Content("File not selected");
             }
-
+          
             try
             {
-                 var notContainsVirus = await ScanFile(file);
+                var notContainsVirus = true;//await ScanFile(file);
                 if (notContainsVirus)
                 {
                     pagename = pagename.ToLower().Trim();
@@ -244,12 +255,13 @@ namespace INZFS.MVC.Controllers
                     || x.ContentType == "OrgFundingPart");
                     query = query.With<ContentItemIndex>(x => x.Published);
                     query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-
+                    
                     var items = await query.ListAsync();
                     var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
                     var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
-
-                    var publicUrl  = await SaveFile(file);
+                    var directoryName = projectSummary.ContentItemId;
+                    
+                    var publicUrl  = await SaveFile(file, directoryName);
                     projectSummaryPart.FileUploadPath = publicUrl;
                     var page = _navigation.GetPage(pagename);
                     if (page == null)
@@ -270,24 +282,46 @@ namespace INZFS.MVC.Controllers
             }
             catch(Exception ex)
             {
-                // Might want to log at some point
+                _logger.LogError("Cannot save this file: ", ex);
                 return BadRequest();
             }
            
         }
 
-        private async Task<string> SaveFile(IFormFile file)
+        private string ModifyFileName(string originalFileName)
         {
-            var mediaFilePath = _mediaFileStore.Combine(UploadedFileFolderRelativePath, file.FileName);
+            DateTime thisDate = DateTime.UtcNow;
+            CultureInfo culture = new CultureInfo("pt-BR");
+            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
+            dtfi.DateSeparator = "-";
+            var newDate = thisDate.ToString("d", culture);
+            var newFileName = newDate + originalFileName;
+            return newFileName;
+        }
+        private async Task<string> SaveFile(IFormFile file, string directoryName)
+        {
+            var DirectoryCreated = await CreateDirectory(directoryName);
 
-            using (var stream = file.OpenReadStream())
+            if (DirectoryCreated)
             {
-                await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
-            }
+                var newFileName = ModifyFileName(file.FileName);
+                var mediaFilePath = _mediaFileStore.Combine(directoryName, newFileName);
+                using (var stream = file.OpenReadStream())
+                {
+                    await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
+                }
 
-            _notifier.Information(H["Successfully uploaded file!"]);
-            var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
-            return publicUrl;
+                ViewBag.Message = "Upload Successful!";
+                var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
+                return publicUrl;
+            }
+            else
+            {
+                return "Cannot create public url";
+            }
+           
+
+          
         }
         private bool IsValidFileExtension(IFormFile file)
         {
@@ -396,12 +430,12 @@ namespace INZFS.MVC.Controllers
                 {
                     return Content("File not selected");
                 }
-                var notContainsVirus = await ScanFile(file);
+                var notContainsVirus = true;//await ScanFile(file);
                 if (!notContainsVirus)
                 {
                     return BadRequest();
                 }
-                var publicUrl = await SaveFile(file);
+                var publicUrl = await SaveFile(file, contentItemId);
                 if(content.ContentType == "ProjectSummaryPart")
                 {
                     var projectSummaryPart = content.As<ProjectSummaryPart>();
