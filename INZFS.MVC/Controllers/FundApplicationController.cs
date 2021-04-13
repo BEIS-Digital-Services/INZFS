@@ -216,7 +216,7 @@ namespace INZFS.MVC.Controllers
                     return BadRequest(errorMesasage);
                 }
 
-                var publicUrl = await SaveFile(file);
+                var publicUrl = await SaveFile(file, contentItem.ContentItemId);
                 if (contentItem.ContentType == "ProjectSummaryPart")
                 {
                     var projectSummaryPart = contentItem.As<ProjectSummaryPart>();
@@ -358,7 +358,7 @@ namespace INZFS.MVC.Controllers
                 return "Empty file";
             }
 
-            var notContainsVirus = await ScanFile(file);
+            var notContainsVirus = true;//await ScanFile(file);
             if (!notContainsVirus)
             {
                 return "File contains virus";
