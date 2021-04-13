@@ -50,7 +50,7 @@ namespace INZFS.MVC.Controllers
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly INavigation _navigation;
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private string[] permittedExtensions = { ".txt", ".pdf", ".jpg" };
+        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xslx", ".doc",".docx" };
         private readonly ILogger _logger;
         private readonly ClamClient _clam;
 
