@@ -183,7 +183,8 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-            return await CreatePOST(contentType, returnUrl, stayOnSamePage, async contentItem =>
+            
+            return await CreatePOST(contentType, returnUrl, stayOnSamePage, file, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
 
@@ -191,10 +192,26 @@ namespace INZFS.MVC.Controllers
             });
         }
 
-        private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, Func<ContentItem, Task> conditionallyPublish)
+        private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, IFormFile? file, Func<ContentItem, Task> conditionallyPublish)
         {
             var contentItem = await _contentManager.NewAsync(id);
 
+            if (file != null)
+            {
+                var errorMesasage = await Validate(file);
+
+                if (!string.IsNullOrEmpty(errorMesasage))
+                {
+                    return BadRequest(errorMesasage);
+                }
+
+                var publicUrl = await SaveFile(file);
+                if (contentItem.ContentType == "ProjectSummaryPart")
+                {
+                    var projectSummaryPart = contentItem.As<ProjectSummaryPart>();
+                    projectSummaryPart.FileUploadPath = publicUrl;
+                }
+            }
 
             contentItem.Owner = User.Identity.Name;
 
@@ -294,6 +311,28 @@ namespace INZFS.MVC.Controllers
 
             return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
         }
+
+        private async Task<string> Validate(IFormFile file)
+        {
+            if (IsValidFileExtension(file))
+            {
+                return "Cannot accept files other than .doc";
+            }
+            if (file == null || file.Length == 0)
+            {
+                return "Empty file";
+            }
+
+            var notContainsVirus = await ScanFile(file);
+            if (!notContainsVirus)
+            {
+                return "File contains virus";
+            }
+
+            return string.Empty;
+        }
+
+
         public async Task<bool> ScanFile(IFormFile file)
         {
             var log = new List<ScanResult>();
@@ -387,21 +426,15 @@ namespace INZFS.MVC.Controllers
             }
             if(file != null)
             {
-                if (IsValidFileExtension(file))
+                var errorMessage = await Validate(file);
+
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest();
+                    return BadRequest(errorMessage);
                 }
-                if (file == null || file.Length == 0)
-                {
-                    return Content("File not selected");
-                }
-                var notContainsVirus = await ScanFile(file);
-                if (!notContainsVirus)
-                {
-                    return BadRequest();
-                }
+
                 var publicUrl = await SaveFile(file);
-                if(content.ContentType == "ProjectSummaryPart")
+                if (content.ContentType == "ProjectSummaryPart")
                 {
                     var projectSummaryPart = content.As<ProjectSummaryPart>();
                     projectSummaryPart.FileUploadPath = publicUrl;
