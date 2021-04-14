@@ -60,7 +60,7 @@ namespace INZFS.MVC.Forms
         {
             if (page == null)
             {
-                throw new System.ArgumentException("Invalid page name");
+                return page;
             }
             var index = _pages.IndexOf(page);
             if (index + 1 == _pages.Count)
