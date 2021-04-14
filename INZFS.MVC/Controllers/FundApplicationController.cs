@@ -217,11 +217,10 @@ namespace INZFS.MVC.Controllers
                 }
 
                 var publicUrl = await SaveFile(file, contentItem.ContentItemId);
-                if (contentItem.ContentType == "ProjectSummaryPart")
-                {
-                    var projectSummaryPart = contentItem.As<ProjectSummaryPart>();
-                    projectSummaryPart.FileUploadPath = publicUrl;
-                }
+                TempData["UploadDetail"] = new UploadDetail{
+                    ContentItemProperty = Request.Form["contentTypeProperty"],
+                    FileName = publicUrl
+                };
             }
 
             contentItem.Owner = User.Identity.Name;
@@ -238,12 +237,12 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
-            if (page == null)
+            var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
+            if (string.IsNullOrEmpty(nextPageUrl))
             {
                 return NotFound();
             }
-            return RedirectToAction("section", new { pagename = page.Name });
+            return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
    
@@ -470,11 +469,10 @@ namespace INZFS.MVC.Controllers
                     return await Edit(contentItemId,content.ContentType);
                 }
                 var publicUrl = await SaveFile(file, contentItemId);
-                if(content.ContentType == "ProjectSummaryPart")
-                {
-                    var projectSummaryPart = content.As<ProjectSummaryPart>();
-                    projectSummaryPart.FileUploadPath = publicUrl;
-                }
+                TempData["UploadDetail"] = new UploadDetail { 
+                    ContentItemProperty = Request.Form["contentTypeProperty"],
+                    FileName = publicUrl
+                };
             }
 
             return await EditPOST(contentItemId, returnUrl, stayOnSamePage, async contentItem =>
@@ -507,12 +505,12 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
-            if (page == null)
+            var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
+            if (string.IsNullOrEmpty(nextPageUrl))
             {
                 return NotFound();
             }
-            return RedirectToAction("section", new { pagename = page.Name });
+            return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
         public async Task<IActionResult> Remove(string contentItemId, string returnUrl)
@@ -615,5 +613,17 @@ namespace INZFS.MVC.Controllers
 
             return model;
         }
+
+        private string GetNextPageUrl(string contentType)
+        {
+            var page = _navigation.GetNextPageByContentType(contentType);
+            if (page == null)
+            {
+                return Request.Form["nextPage"].ToString();
+            }
+
+            return page.Name;
+        }
+
     }
 }

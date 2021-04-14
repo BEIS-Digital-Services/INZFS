@@ -7,6 +7,20 @@
 
 <h1>Upload Experience and Skills</h1>
 
-<a href="proposal-written-summary" role="button" draggable="false" class="govuk-button " data-module="govuk-button">
-    Continue
-</a>
+<form asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="contentType" value="ApplicationDocument" />
+    <input type="hidden" name="contentTypeProperty" value="ExperienceAndSkills" />
+    <input type="hidden" name="nextPage" value="proposal-written-summary" />
+
+    <div class="govuk-form-group" id="hideForm">
+        @*<label class="govuk-label" asp-for="FileUploadPath">
+                Upload a file
+            </label>*@
+        <input class="govuk-file-upload" type="file" name="file" />
+    </div>
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+        </div>
+    </div>
+</form>

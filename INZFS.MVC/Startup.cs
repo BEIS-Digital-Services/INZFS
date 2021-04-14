@@ -22,6 +22,7 @@ using OrchardCore.Environment.Shell;
 using System.IO;
 using nClam;
 using Microsoft.Extensions.Configuration;
+using INZFS.MVC.Handlers;
 
 namespace INZFS.MVC
 {
@@ -80,8 +81,11 @@ namespace INZFS.MVC
         private void ConfigureContent(IServiceCollection services)
         {
             services.AddContentPart<ProjectSummaryPart>()
-            .UseDisplayDriver<ProjectSummaryDriver>();
+            .UseDisplayDriver<ProjectSummaryDriver>()
+            .AddHandler<ProjectSummaryPartHandler>();
+
             services.AddScoped<IDataMigration, ProjectSummaryMigration>();
+            
 
             services.AddContentPart<ProjectDetailsPart>()
             .UseDisplayDriver<ProjectDetailsDriver>();
@@ -91,6 +95,17 @@ namespace INZFS.MVC
            .UseDisplayDriver<OrgFundingDriver>();
             services.AddScoped<IDataMigration, OrgFundingMigration>();
 
+            services.AddContentPart<ProjectProposalDetailsPart>()
+            .UseDisplayDriver<ProjectProposalDetailsDriver>();
+            services.AddScoped<IDataMigration, ProjectProposalDetailsMigration>();
+
+            services.AddContentPart<ProjectExperiencePart>()
+            .UseDisplayDriver<ProjectExperienceDriver>();
+            services.AddScoped<IDataMigration, ProjectExperienceMigration>();
+
+            services.AddContentPart<ApplicationDocumentPart>()
+                  .AddHandler<ApplicationDocumentPartHandler>();
+            services.AddScoped<IDataMigration, ApplicationDocumentMigration>();
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
