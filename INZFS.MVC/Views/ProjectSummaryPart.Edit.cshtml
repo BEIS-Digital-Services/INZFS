@@ -12,13 +12,28 @@
     var sampleDate = DateTime.Now.AddDays(30);
     var isVisible = Model.FileUploadPath != null;
     var visibilitySetting = "hidden";
+    var toggleVisiblity = "hidden";
     if (isVisible)
     {
         visibilitySetting = "visible";
+
     }
     else
     {
         visibilitySetting = "hidden";
+    }
+    var isVisibleError = ViewBag.ErrorMessage != null;
+    var visibilitySettingError = "hidden";
+    var errorSet = "";
+    if (isVisibleError)
+    {
+        visibilitySettingError = "visible";
+        errorSet = "govuk-form-group--error";
+        toggleVisiblity = "visible";
+    }
+    else
+    {
+        visibilitySettingError = "hidden";
     }
 }
 <header>
@@ -78,22 +93,28 @@
     @ViewBag.Message
     <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
 </div>
-<div class="govuk-form-group" id="hideForm" style="visibility: hidden">
+<div class="govuk-form-group @errorSet" id="hideForm" style="visibility: @toggleVisiblity">
     <label class="govuk-label" asp-for="FileUploadPath">
         Upload a file
     </label>
-    <span id="file-upload-1-error" class="govuk-error-message" style="visibility: hidden">
-        <span class="govuk-visually-hidden">Error:</span> The CSV must be smaller than 2MB
+    <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
+        <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
     </span>
     <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
 </div>
 <script>
     function toggleVisibility() {
         var x = document.getElementById('hideForm');
+        var p = document.getElementById('file-upload-1-error');
         if (x.style.visibility === 'hidden') {
             x.style.visibility = 'visible';
+            p.style.visibility = 'visible';
         } else {
             x.style.visibility = 'hidden';
+            p.style.visibility = 'hidden';
         }
+    }
+    if (isVisibleError) {
+        toggleVisibility();
     }
 </script>

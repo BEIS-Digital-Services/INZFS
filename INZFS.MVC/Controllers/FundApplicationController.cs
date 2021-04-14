@@ -352,7 +352,7 @@ namespace INZFS.MVC.Controllers
         {
             if (IsValidFileExtension(file))
             {
-                return "Cannot accept files other than .doc";
+                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
             }
             if (file == null || file.Length == 0)
             {
@@ -466,7 +466,8 @@ namespace INZFS.MVC.Controllers
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest(errorMessage);
+                    ViewBag.ErrorMessage = errorMessage;
+                    return await Edit(contentItemId,content.ContentType);
                 }
                 var publicUrl = await SaveFile(file, contentItemId);
                 if(content.ContentType == "ProjectSummaryPart")
