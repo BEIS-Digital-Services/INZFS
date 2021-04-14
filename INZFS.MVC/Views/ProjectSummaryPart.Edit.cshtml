@@ -21,7 +21,12 @@
         visibilitySetting = "hidden";
     }
 }
+<header>
+    <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
 
+        <a class="govuk-link" style="color: white;" download href=@Model.FileUploadPath>Your document has been Uploaded. Please Click here to download</a>
+    </div>
+</header>
 <input type="hidden" name="contentType" value="ProjectSummaryPart" />
 
 <div class="govuk-form-group" asp-validation-error-class-for="ProjectName">
@@ -69,9 +74,6 @@
 
     </fieldset>
 </div>
-<div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting">
-    <a class="govuk-link" download href=@Model.FileUploadPath>Download your file here</a>
-</div>
 <div class="govuk-form-group">
     @ViewBag.Message
     <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
@@ -80,7 +82,10 @@
     <label class="govuk-label" asp-for="FileUploadPath">
         Upload a file
     </label>
-    <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx"/>
+    <span id="file-upload-1-error" class="govuk-error-message" style="visibility: hidden">
+        <span class="govuk-visually-hidden">Error:</span> The CSV must be smaller than 2MB
+    </span>
+    <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
 </div>
 <script>
     function toggleVisibility() {
@@ -91,5 +96,4 @@
             x.style.visibility = 'hidden';
         }
     }
-    
 </script>

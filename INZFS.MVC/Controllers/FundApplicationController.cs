@@ -50,7 +50,7 @@ namespace INZFS.MVC.Controllers
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly INavigation _navigation;
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xslx", ".doc",".docx" };
+        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xlsx", ".doc",".docx" };
         private readonly ILogger _logger;
         private readonly ClamClient _clam;
 
@@ -311,7 +311,8 @@ namespace INZFS.MVC.Controllers
             DateTimeFormatInfo dtfi = culture.DateTimeFormat;
             dtfi.DateSeparator = "-";
             var newDate = thisDate.ToString("d", culture);
-            var newFileName = newDate + originalFileName;
+            var newTime = thisDate.ToString("FFFFFF",culture);
+            var newFileName = newDate + newTime + originalFileName;
             return newFileName;
         }
         private async Task<string> SaveFile(IFormFile file, string directoryName)
@@ -333,7 +334,7 @@ namespace INZFS.MVC.Controllers
             }
             else
             {
-                return "Cannot create public url";
+                return string.Empty;
             }
            
 
