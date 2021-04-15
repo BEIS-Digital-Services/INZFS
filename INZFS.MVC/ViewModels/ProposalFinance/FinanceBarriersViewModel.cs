@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.ViewModels.ProposalFinance
 {
-    public class FinanceRecoverVatViewModel : FinanceRecoverVatPart
+    public class FinanceBarriersViewModel : FinanceBarriersPart
     {
         public bool? Placeholder1 { get; set; }
         public bool? Placeholder2 { get; set; }
@@ -16,6 +16,6 @@ namespace INZFS.MVC.ViewModels.ProposalFinance
 
 
         [BindNever]
-        public FinanceRecoverVatPart FinanceRecoverVatPart { get; set; }
+        public FinanceBarriersPart FinanceBarriersPart { get; set; }
     }
 }

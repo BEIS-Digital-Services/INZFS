@@ -352,7 +352,7 @@ namespace INZFS.MVC.Controllers
             var projectExperience = items.FirstOrDefault(item => item.ContentType == "ProjectExperience");
             var projectExperiencePart = projectExperience?.ContentItem.As<ProjectExperiencePart>();
 
-            var model = new ProposalWrittenSummaryViewModel
+            var model = new ProposalWrittenSummaryViewModel()
             {
                 ProjectProposalDetailsViewModel = new ProjectProposalDetailsViewModel
                 {
