@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Serilog;
 
 namespace INZFS
 {
@@ -42,7 +43,7 @@ namespace INZFS
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSerilogRequestLogging(); // <-- Add this line
             app.UseOrchardCore();
         }
     }
