@@ -1,6 +1,21 @@
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
 @using INZFS.MVC.TagHelpers
+@{
+
+    var isVisibleError = ViewBag.ErrorMessage != null;
+    var visibilitySettingError = "hidden";
+    var errorSet = "";
+    if (isVisibleError)
+    {
+        visibilitySettingError = "visible";
+        errorSet = "govuk-form-group--error";
+    }
+    else
+    {
+        visibilitySettingError = "hidden";
+    }
+}
 <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
     Back
 </a>
@@ -11,12 +26,13 @@
     <input type="hidden" name="contentType" value="ApplicationDocument" />
     <input type="hidden" name="contentTypeProperty" value="ProjectPlan" />
     <input type="hidden" name="nextPage" value="project-experience" />
+    <input type="hidden" name="pagename" value="ProjectPlan" />
 
-    <div class="govuk-form-group" id="hideForm">
-        @*<label class="govuk-label" asp-for="FileUploadPath">
-                Upload a file
-            </label>*@
-        <input class="govuk-file-upload" type="file" name="file" />
+    <div class="govuk-form-group @errorSet" id="hideForm">
+        <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
+            <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
+        </span>
+        <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
     </div>
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
