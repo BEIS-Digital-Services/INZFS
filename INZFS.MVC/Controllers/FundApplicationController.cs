@@ -105,7 +105,8 @@ namespace INZFS.MVC.Controllers
             {
                 if(page is ViewPage)
                 {
-                    return View(((ViewPage)page).ViewName);
+                    return View(((ViewPage)page).ViewName, new ApplicationDocumentPart());
+                    
                 }
                 else
                 {
