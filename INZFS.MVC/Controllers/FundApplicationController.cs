@@ -214,6 +214,11 @@ namespace INZFS.MVC.Controllers
                 var page = Request.Form["pagename"].ToString();
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
+                    if(page == "ExperienceSkills" || page == "ProjectPlan")
+                    {
+                        ViewBag.ErrorMessage = errorMessage;
+                        return View(page, new ApplicationDocumentPart());
+                    }
                     ViewBag.ErrorMessage = errorMessage;
                     return View(page);
                 }
