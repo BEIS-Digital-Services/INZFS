@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INZFS.MVC.Drivers
+namespace INZFS.MVC.Models
 {
     public class ApplicationDocumentPart : ContentPart
     {
