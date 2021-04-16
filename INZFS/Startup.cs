@@ -43,7 +43,7 @@ namespace INZFS
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSerilogRequestLogging(); // <-- Add this line
+            app.UseSerilogRequestLogging(); 
             app.UseOrchardCore();
         }
     }
