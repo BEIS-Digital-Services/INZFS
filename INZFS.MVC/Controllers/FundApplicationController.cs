@@ -209,11 +209,12 @@ namespace INZFS.MVC.Controllers
 
             if (file != null)
             {
-                var errorMesasage = await Validate(file);
-
-                if (!string.IsNullOrEmpty(errorMesasage))
+                var errorMessage = await Validate(file);
+                var page = Request.Form["pagename"].ToString();
+                if (!string.IsNullOrEmpty(errorMessage))
                 {
-                    return BadRequest(errorMesasage);
+                    ViewBag.ErrorMessage = errorMessage;
+                    return View(page);
                 }
 
                 var publicUrl = await SaveFile(file, contentItem.ContentItemId);
