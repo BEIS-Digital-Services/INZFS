@@ -32,6 +32,7 @@ namespace INZFS.MVC.Forms
             _pages.Add(new ContentPage { Name = "finance-turnover", ContentType = "FinanceTurnoverPart" });
             _pages.Add(new ContentPage { Name = "finance-balance-sheet", ContentType = "FinanceBalanceSheetPart" });
             _pages.Add(new ContentPage { Name = "finance-recover-vat", ContentType = "FinanceRecoverVatPart" });
+            _pages.Add(new ContentPage { Name = "finance-barriers", ContentType = "FinanceBarriersPart" });
             _pages.Add(new Page { Name = "proposal-written-summary" });
 
         }
