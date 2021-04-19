@@ -42,7 +42,7 @@
 
 <h1>Upload Experience and Skills</h1>
 
-<form asp-action="@formAction" asp-route-returnUrl="@Html.Raw(Context.Request.Query["ReturnUrl"])" asp-route-contentitemid="@ViewBag.ContentItemId" method="post" enctype="multipart/form-data">
+<form asp-action="@formAction" asp-route-contentitemid="@ViewBag.ContentItemId" method="post" enctype="multipart/form-data">
     <input type="hidden" name="contentType" value="ApplicationDocument" />
     <input type="hidden" name="contentTypeProperty" value="ExperienceAndSkills" />
     <input type="hidden" name="nextPage" value="proposal-written-summary" />
