@@ -1,5 +1,5 @@
 
-@model FinanceTurnoverViewModel
+@model ProjectSummaryViewModel
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
 @using INZFS.MVC.TagHelpers
@@ -41,8 +41,8 @@
 </header>
 <input type="hidden" name="contentType" value="ProjectSummaryPart" />
 
-<div class="govuk-form-group" asp-validation-error-class-for="TurnoverAmount">
-    <label class="govuk-label govuk-label--l" asp-for="TurnoverAmount">
+<div class="govuk-form-group" asp-validation-error-class-for="ProjectName">
+    <label class="govuk-label govuk-label--l" asp-for="ProjectName">
     </label>
     <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
     <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
