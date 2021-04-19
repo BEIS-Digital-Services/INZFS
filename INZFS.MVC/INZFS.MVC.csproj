@@ -6,12 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Handlers\**" />
-    <EmbeddedResource Remove="Handlers\**" />
-    <None Remove="Handlers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -22,9 +16,12 @@
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-15867" />
-	  <PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc2-15905" />
-	  <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-15867" />
+	<PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc2-15905" />
+	<PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-15867" />
+	<PackageReference Include="OrchardCore.FileStorage.FileSystem" Version="1.0.0-rc2-15867" />
+	<PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-15867" />
+    <PackageReference Include="nClam" Version="5.0.1" />
   </ItemGroup>
 
 </Project>

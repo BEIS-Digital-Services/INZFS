@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using nClam;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
@@ -21,6 +22,15 @@ using YesSql;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
 using INZFS.MVC.Forms;
+using INZFS.MVC.Models.ProposalWritten;
+using INZFS.MVC.ViewModels.ProposalWritten;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using OrchardCore.Media;
+using OrchardCore.FileStorage;
+using Microsoft.Extensions.Logging;
+using System.Globalization;
+using System.Linq.Expressions;
 
 namespace INZFS.MVC.Controllers
 {
@@ -33,26 +43,33 @@ namespace INZFS.MVC.Controllers
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentItemDisplayManager _contentItemDisplayManager;
         private readonly IHtmlLocalizer H;
+        private readonly IMediaFileStore _mediaFileStore;
         private readonly dynamic New;
         private readonly INotifier _notifier;
-        private readonly ISession _session;
+        private readonly YesSql.ISession _session;
         private readonly ISiteService _siteService;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly INavigation _navigation;
+        private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
+        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xlsx", ".doc",".docx" };
+        private readonly ILogger _logger;
+        private readonly ClamClient _clam;
 
-        public FundApplicationController(IContentManager contentManager, IContentDefinitionManager contentDefinitionManager, 
+        public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
-            INotifier notifier, ISession session, IShapeFactory shapeFactory, ISiteService siteService, 
+            INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory, ISiteService siteService,
             IUpdateModelAccessor updateModelAccessor, INavigation navigation)
         {
             _contentManager = contentManager;
+            _mediaFileStore = mediaFileStore;
             _contentDefinitionManager = contentDefinitionManager;
             _contentItemDisplayManager = contentItemDisplayManager;
             _notifier = notifier;
             _session = session;
             _siteService = siteService;
             _updateModelAccessor = updateModelAccessor;
-
+            _clam = clam;
+            _logger = logger;
             H = htmlLocalizer;
             New = shapeFactory;
             _navigation = navigation;
@@ -67,6 +84,13 @@ namespace INZFS.MVC.Controllers
             {
                 return View("ApplicationSummary", new ApplicationSummaryModel());
             }
+
+            // 
+            if (pagename == "proposal-written-summary")
+            {
+                var model = await GetApplicationWrittenSummaryModel();
+                return View("ProposalWrittenSummary", model);
+            }
             if (pagename == "summary")
             {
                 var model = await GetSummaryModel();
@@ -74,7 +98,7 @@ namespace INZFS.MVC.Controllers
             }
 
             var page = _navigation.GetPage(pagename);
-            if(page == null)
+            if (page == null)
             {
                 return NotFound();
             }
@@ -82,16 +106,18 @@ namespace INZFS.MVC.Controllers
             {
                 if(page is ViewPage)
                 {
-                    return View(((ViewPage)page).ViewName);
+                    var viewPage = (ViewPage)page;
+                    Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == viewPage.ContentType;
+                    var contentItems = await GetContentItems(expression);
+                    var model = contentItems.Any() ? contentItems.First().As<ApplicationDocumentPart>(): new ApplicationDocumentPart();
+                    ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
+                    return View(viewPage.ViewName, model);
                 }
-                else
-                {
-
-                }
+                
                 return await Create(((ContentPage)page).ContentType);
             }
         }
-        public async Task<IActionResult> Index(PagerParameters pagerParameters) //ListContentsViewModel model, 
+        public async Task<IActionResult> Index(PagerParameters pagerParameters)
         {
             var siteSettings = await _siteService.GetSiteSettingsAsync();
             var pager = new Pager(pagerParameters, siteSettings.PageSize);
@@ -101,7 +127,7 @@ namespace INZFS.MVC.Controllers
             query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
             query = query.With<ContentItemIndex>(x => x.Published);
             //query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-            
+
             query = query.OrderByDescending(x => x.PublishedUtc);
 
             var maxPagedCount = siteSettings.MaxPagedCount;
@@ -131,6 +157,16 @@ namespace INZFS.MVC.Controllers
             return View(viewModel);
         }
 
+        public async Task<bool> CreateDirectory(string directoryName)
+        {
+            if(directoryName == null)
+            {
+                return false;
+            }
+            await _mediaFileStore.TryCreateDirectoryAsync(directoryName);
+            return true;
+        }
+
         public async Task<IActionResult> Create(string contentType)
         {
             if (String.IsNullOrWhiteSpace(contentType))
@@ -144,24 +180,25 @@ namespace INZFS.MVC.Controllers
             query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
 
             var records = await query.CountAsync();
-            if(records > 0)
+            if (records > 0)
             {
                 var existingContentItem = await query.FirstOrDefaultAsync();
-                return  await Edit(existingContentItem.ContentItemId, contentType);
+                return await Edit(existingContentItem.ContentItemId, contentType);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
 
             return View("Create", model);
-            
+
         }
 
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType)
+        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-            return await CreatePOST(contentType, returnUrl, stayOnSamePage, async contentItem =>
+            
+            return await CreatePOST(contentType, returnUrl, stayOnSamePage, file, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
 
@@ -169,11 +206,32 @@ namespace INZFS.MVC.Controllers
             });
         }
 
-        private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, Func<ContentItem, Task> conditionallyPublish)
+        private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, IFormFile? file, Func<ContentItem, Task> conditionallyPublish)
         {
             var contentItem = await _contentManager.NewAsync(id);
 
-           
+            if (file != null)
+            {
+                var errorMessage = await Validate(file);
+                var page = Request.Form["pagename"].ToString();
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    if(page == "ExperienceSkills" || page == "ProjectPlan")
+                    {
+                        ViewBag.ErrorMessage = errorMessage;
+                        return View(page, new ApplicationDocumentPart());
+                    }
+                    ViewBag.ErrorMessage = errorMessage;
+                    return View(page);
+                }
+
+                var publicUrl = await SaveFile(file, contentItem.ContentItemId);
+                TempData["UploadDetail"] = new UploadDetail{
+                    ContentItemProperty = Request.Form["contentTypeProperty"],
+                    FileName = publicUrl
+                };
+            }
+
             contentItem.Owner = User.Identity.Name;
 
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, true);
@@ -188,12 +246,201 @@ namespace INZFS.MVC.Controllers
 
             await conditionallyPublish(contentItem);
 
-            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
-            if (page == null)
+            var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
+            if (string.IsNullOrEmpty(nextPageUrl))
             {
                 return NotFound();
             }
-            return RedirectToAction("section", new { pagename = page.Name });
+            return RedirectToAction("section", new { pagename = nextPageUrl });
+        }
+
+   
+        [HttpPost]
+        public async Task<IActionResult> Save(IFormFile file,  string pagename)
+        {
+            if (IsValidFileExtension(file))
+            {
+                return BadRequest();
+            }
+            if (file == null || file.Length == 0)
+            {
+                return Content("File not selected");
+            }
+          
+            try
+            {
+                var notContainsVirus = true;//await ScanFile(file);
+                if (notContainsVirus)
+                {
+                    pagename = pagename.ToLower().Trim();
+
+                    var query = _session.Query<ContentItem, ContentItemIndex>();
+                    query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
+                    || x.ContentType == "ProjectDetailsPart"
+                    || x.ContentType == "OrgFundingPart");
+                    query = query.With<ContentItemIndex>(x => x.Published);
+                    query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+                    
+                    var items = await query.ListAsync();
+                    var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
+                    var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
+                    var directoryName = projectSummary.ContentItemId;
+                    
+                    var publicUrl  = await SaveFile(file, directoryName);
+                    projectSummaryPart.FileUploadPath = publicUrl;
+                    var page = _navigation.GetPage(pagename);
+                    if (page == null)
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Upload Successful!";
+                        return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
+                    }
+                }
+                else
+                {
+                    return BadRequest();
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Cannot save this file: ", ex);
+                return BadRequest();
+            }
+           
+        }
+
+        private string ModifyFileName(string originalFileName)
+        {
+            DateTime thisDate = DateTime.UtcNow;
+            CultureInfo culture = new CultureInfo("pt-BR");
+            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
+            dtfi.DateSeparator = "-";
+            var newDate = thisDate.ToString("d", culture);
+            var newTime = thisDate.ToString("FFFFFF",culture);
+            var newFileName = newDate + newTime + originalFileName;
+            return newFileName;
+        }
+        private async Task<string> SaveFile(IFormFile file, string directoryName)
+        {
+            var DirectoryCreated = await CreateDirectory(directoryName);
+
+            if (DirectoryCreated)
+            {
+                var newFileName = ModifyFileName(file.FileName);
+                var mediaFilePath = _mediaFileStore.Combine(directoryName, newFileName);
+                using (var stream = file.OpenReadStream())
+                {
+                    await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
+                }
+
+                ViewBag.Message = "Upload Successful!";
+                var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
+                return publicUrl;
+            }
+            else
+            {
+                return string.Empty;
+            }
+           
+
+          
+        }
+        private bool IsValidFileExtension(IFormFile file)
+        {
+            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
+
+            return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
+        }
+
+        private async Task<string> Validate(IFormFile file)
+        {
+            if (IsValidFileExtension(file))
+            {
+                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
+            }
+            if (file == null || file.Length == 0)
+            {
+                return "Empty file";
+            }
+
+            var notContainsVirus = true;//await ScanFile(file);
+            if (!notContainsVirus)
+            {
+                return "File contains virus";
+            }
+
+            return string.Empty;
+        }
+
+
+        public async Task<bool> ScanFile(IFormFile file)
+        {
+            var log = new List<ScanResult>();
+            if (file.Length > 0)
+            {
+                var extension = file.FileName.Contains('.')
+                    ? file.FileName.Substring(file.FileName.LastIndexOf('.'), file.FileName.Length - file.FileName.LastIndexOf('.'))
+                    : string.Empty;
+                var newfile = new Models.File
+                {
+                    Name = $"{Guid.NewGuid()}{extension}",
+                    Alias = file.FileName,
+                    ContentType = file.ContentType,
+                    Size = file.Length,
+                    Uploaded = DateTime.UtcNow,
+                };
+                var ping = await _clam.PingAsync();
+
+                if (ping)
+                {
+                    _logger.LogInformation("Successfully pinged the ClamAV server.");
+                    var result = await _clam.SendAndScanFileAsync(file.OpenReadStream());
+
+                    newfile.ScanResult = result.Result.ToString();
+                    newfile.Infected = result.Result == ClamScanResults.VirusDetected;
+                    newfile.Scanned = DateTime.UtcNow;
+                    if (result.InfectedFiles != null)
+                    {
+                        foreach (var infectedFile in result.InfectedFiles)
+                        {
+                            newfile.Viruses.Add(new Virus
+                            {
+                                Name = infectedFile.VirusName
+                            });
+                        } return false;
+                    }
+                    else
+                    {
+                        var metaData = new Dictionary<string, string>
+                        {
+                            { "av-status", result.Result.ToString() },
+                            { "av-timestamp", DateTime.UtcNow.ToString() },
+                            { "alias", newfile.Alias }
+                        };
+
+                        var scanResult = new ScanResult()
+                        {
+                            FileName = file.FileName,
+                            Result = result.Result.ToString(),
+                            Message = result.InfectedFiles?.FirstOrDefault()?.VirusName,
+                            RawResult = result.RawResult
+                        };
+                        log.Add(scanResult);
+                    }
+                    return true;
+                }
+                else
+                {
+                    _logger.LogWarning("Wasn't able to connect to the ClamAV server.");
+                    return false;
+                }
+
+            }
+            return false;
         }
 
         [HttpGet]
@@ -211,7 +458,7 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("Edit")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl)
+        public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
 
@@ -220,6 +467,21 @@ namespace INZFS.MVC.Controllers
             if (content == null)
             {
                 return NotFound();
+            }
+            if(file != null)
+            {
+                var errorMessage = await Validate(file);
+
+                if (!string.IsNullOrEmpty(errorMessage))
+                {
+                    ViewBag.ErrorMessage = errorMessage;
+                    return await Edit(contentItemId,content.ContentType);
+                }
+                var publicUrl = await SaveFile(file, contentItemId);
+                TempData["UploadDetail"] = new UploadDetail { 
+                    ContentItemProperty = Request.Form["contentTypeProperty"],
+                    FileName = publicUrl
+                };
             }
 
             return await EditPOST(contentItemId, returnUrl, stayOnSamePage, async contentItem =>
@@ -247,17 +509,17 @@ namespace INZFS.MVC.Controllers
                 return View("Edit", model);
             }
 
- 
+
             _session.Save(contentItem);
 
             await conditionallyPublish(contentItem);
 
-            var page = _navigation.GetNextPageByContentType(contentItem.ContentType);
-            if (page == null)
+            var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
+            if (string.IsNullOrEmpty(nextPageUrl))
             {
                 return NotFound();
             }
-            return RedirectToAction("section", new { pagename = page.Name });
+            return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
         public async Task<IActionResult> Remove(string contentItemId, string returnUrl)
@@ -327,5 +589,61 @@ namespace INZFS.MVC.Controllers
 
             return model;
         }
+
+        private async Task<ProposalWrittenSummaryViewModel> GetApplicationWrittenSummaryModel()
+        {
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectProposalDetails"
+            || x.ContentType == "ProjectExperience");
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+            var items = await query.ListAsync();
+            var projectProposal = items.FirstOrDefault(item => item.ContentType == "ProjectProposalDetails");
+            var projectProposalPart = projectProposal?.ContentItem.As<ProjectProposalDetailsPart>();
+
+            var projectExperience = items.FirstOrDefault(item => item.ContentType == "ProjectExperience");
+            var projectExperiencePart = projectExperience?.ContentItem.As<ProjectExperiencePart>();
+
+            var model = new ProposalWrittenSummaryViewModel
+            {
+                ProjectProposalDetailsViewModel = new ProjectProposalDetailsViewModel
+                {
+                    InnovationImpactSummary = projectProposalPart.InnovationImpactSummary,
+                    Day = projectProposalPart.Day,
+                    Month = projectProposalPart.Month,
+                    Year = projectProposalPart.Year,
+                },
+                ProjectExperienceViewModel = new ProjectExperienceViewModel
+                {
+                    ExperienceSummary = projectExperiencePart.ExperienceSummary,
+                }
+            };
+
+            return model;
+        }
+
+        private string GetNextPageUrl(string contentType)
+        {
+            string nextPage = Request.Form["nextPage"].ToString();
+            if(string.IsNullOrEmpty(nextPage))
+            {
+                var page = _navigation.GetNextPageByContentType(contentType);
+                return page.Name;
+            }
+
+            return nextPage;
+        }
+
+        private async Task<IEnumerable<ContentItem>> GetContentItems(Expression<Func<ContentItemIndex, bool>> predicate)
+        {
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(predicate);
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+            return await query.ListAsync();
+        }
+
     }
 }

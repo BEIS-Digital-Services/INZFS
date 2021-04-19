@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement;
+﻿using Microsoft.AspNetCore.Http;
+using OrchardCore.ContentManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -20,5 +21,7 @@ namespace INZFS.MVC.Models
         public int? Month { get; set; }
         [Required(ErrorMessage = "Enter estimated start year")]
         public int? Year { get; set; }
+        public string FileUploadPath { get; set; }
+
     }
 }

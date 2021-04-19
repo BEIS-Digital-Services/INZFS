@@ -1,12 +1,63 @@
 @using OrchardCore.ContentManagement;
-@using INZFS.MVC.ViewModels;
+@using INZFS.MVC.Models;
 
+@model ApplicationDocumentPart;
+
+@{
+
+    var isVisibleError = ViewBag.ErrorMessage != null;
+    var visibilitySettingError = "hidden";
+    var errorSet = "";
+    var visibilitySetting = "hidden";
+    var isVisible = Model.ExperienceAndSkills != null;
+    if (isVisible)
+    {
+        visibilitySetting = "visible";
+
+    }
+    else
+    {
+        visibilitySetting = "hidden";
+    }
+    if (isVisibleError)
+    {
+        visibilitySettingError = "visible";
+        errorSet = "govuk-form-group--error";
+    }
+    else
+    {
+        visibilitySettingError = "hidden";
+    }
+    var formAction = string.IsNullOrEmpty(ViewBag.ContentItemId) ? "Create" : $"Edit";
+}
+<header>
+    <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
+
+        <a class="govuk-link" style="color: white;" download href=@Model.ExperienceAndSkills>Your document has been Uploaded. Please Click here to download</a>
+    </div>
+</header>
 <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-experience">
     Back
 </a>
 
 <h1>Upload Experience and Skills</h1>
 
-<a href="summary" role="button" draggable="false" class="govuk-button " data-module="govuk-button">
-    Continue
-</a>
+<form asp-action="@formAction" asp-route-contentitemid="@ViewBag.ContentItemId" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="contentType" value="ApplicationDocument" />
+    <input type="hidden" name="contentTypeProperty" value="ExperienceAndSkills" />
+    <input type="hidden" name="nextPage" value="proposal-written-summary" />
+    <input type="hidden" name="pagename" value="ExperienceSkills" />
+    <input type="hidden" name="uploadModel" value="ProjectExperienceUpload" />
+
+    <div class="govuk-form-group @errorSet" id="hideForm">
+        <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
+            <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
+        </span>
+        <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
+    </div>
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+        </div>
+    </div>
+</form>

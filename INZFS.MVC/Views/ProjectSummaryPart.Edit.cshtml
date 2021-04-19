@@ -7,20 +7,50 @@
 
 @{
     var sampleDate = DateTime.Now.AddDays(30);
-}
+    var isVisible = Model.FileUploadPath != null;
+    var visibilitySetting = "hidden";
+    var toggleVisiblity = "hidden";
+    if (isVisible)
+    {
+        visibilitySetting = "visible";
 
-<input type="hidden" name="contentType" value="FinanceTurnover" />
+    }
+    else
+    {
+        visibilitySetting = "hidden";
+    }
+    var isVisibleError = ViewBag.ErrorMessage != null;
+    var visibilitySettingError = "hidden";
+    var errorSet = "";
+    if (isVisibleError)
+    {
+        visibilitySettingError = "visible";
+        errorSet = "govuk-form-group--error";
+        toggleVisiblity = "visible";
+    }
+    else
+    {
+        visibilitySettingError = "hidden";
+    }
+}
+<header>
+    <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
+
+        <a class="govuk-link" style="color: white;" download href=@Model.FileUploadPath>Your document has been Uploaded. Please Click here to download</a>
+    </div>
+</header>
+<input type="hidden" name="contentType" value="ProjectSummaryPart" />
 
 <div class="govuk-form-group" asp-validation-error-class-for="TurnoverAmount">
     <label class="govuk-label govuk-label--l" asp-for="TurnoverAmount">
     </label>
-    <span asp-validation-for="TurnoverAmount" class="govuk-error-message"></span>
-    <input class="govuk-input govuk-input--width-10" asp-for="TurnoverAmount"   spellcheck="false" aria-describedby="name-hint">
+    <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
+    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
 </div>
 
 
-<div class="govuk-form-group" asp-validation-error-class-for="TurnoverUtc" >
-    <fieldset class="govuk-fieldset" role="group" aria-describedby="turn-over-date">
+<div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc">
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-start-date">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
             Turnover Date (in most recent annual accounts)
         </legend>
@@ -56,3 +86,32 @@
 
     </fieldset>
 </div>
+<div class="govuk-form-group">
+    @ViewBag.Message
+    <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
+</div>
+<div class="govuk-form-group @errorSet" id="hideForm" style="visibility: @toggleVisiblity">
+    <label class="govuk-label" asp-for="FileUploadPath">
+        Upload a file
+    </label>
+    <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
+        <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
+    </span>
+    <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
+</div>
+<script>
+    function toggleVisibility() {
+        var x = document.getElementById('hideForm');
+        var p = document.getElementById('file-upload-1-error');
+        if (x.style.visibility === 'hidden') {
+            x.style.visibility = 'visible';
+            p.style.visibility = 'visible';
+        } else {
+            x.style.visibility = 'hidden';
+            p.style.visibility = 'hidden';
+        }
+    }
+    if (isVisibleError) {
+        toggleVisibility();
+    }
+</script>
