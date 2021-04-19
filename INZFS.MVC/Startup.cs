@@ -110,6 +110,19 @@ namespace INZFS.MVC
            .UseDisplayDriver<FinanceTurnoverDriver>();
             services.AddScoped<IDataMigration, FinanceTurnoverMigration>();
 
+            services.AddContentPart<FinanceBalanceSheetPart>()
+           .UseDisplayDriver<FinanceBalanceSheetDriver>();
+            services.AddScoped<IDataMigration, FinanceBalanceSheetMigration>();
+
+            services.AddContentPart<FinanceRecoverVatPart>()
+           .UseDisplayDriver<FinanceRecoverVatDriver>();
+            services.AddScoped<IDataMigration, FinanceRecoverVatMigration>();
+
+            services.AddContentPart<FinanceBarriersPart>()
+           .UseDisplayDriver<FinanceBarriersDriver>();
+            services.AddScoped<IDataMigration, FinanceBarriersMigration>();
+
+
             services.AddContentPart<ApplicationDocumentPart>()
                 .UseDisplayDriver<ApplicationDocumentDriver>()
                   .AddHandler<ApplicationDocumentPartHandler>();

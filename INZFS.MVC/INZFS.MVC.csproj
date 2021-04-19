@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handlers\**" />
+    <EmbeddedResource Remove="Handlers\**" />
+    <None Remove="Handlers\**" />
+    <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
@@ -24,4 +31,7 @@
     <PackageReference Include="nClam" Version="5.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+  </ItemGroup>
 </Project>
