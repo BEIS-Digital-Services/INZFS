@@ -6,9 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Handlers\**" />
-    <EmbeddedResource Remove="Handlers\**" />
-    <None Remove="Handlers\**" />
     <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
   </ItemGroup>
 
