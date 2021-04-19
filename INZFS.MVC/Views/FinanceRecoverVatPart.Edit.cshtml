@@ -1,0 +1,27 @@
+﻿@model FinanceRecoverVatViewModel
+@using INZFS.MVC.ViewModels.ProposalFinance
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+
+<input type="hidden" name="contentType" value="FinanceRecoverVatPart" />
+
+<div class="govuk-form-group" asp-validation-error-class-for="AbleToRecover">
+    <label class="govuk-label govuk-label--l" asp-for="AbleToRecover">
+    </label>
+    <span asp-validation-for="AbleToRecover" class="govuk-error-message"></span>
+    <div class="govuk-radios govuk-radios--inline">
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" value="true" asp-for="AbleToRecover">
+            <label class="govuk-label govuk-radios__label">
+                Yes
+            </label>
+        </div>
+        <div class="govuk-radios__item">
+            <input class="govuk-radios__input" type="radio" value="false" asp-for="AbleToRecover">
+            <label class="govuk-label govuk-radios__label">
+                No
+            </label>
+        </div>
+    </div>
+</div>
+

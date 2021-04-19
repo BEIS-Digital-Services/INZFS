@@ -24,11 +24,17 @@ namespace INZFS.MVC.Forms
             _pages.Add(new ContentPage { Name = "project-summary", ContentType = "ProjectSummaryPart" });
             _pages.Add(new ContentPage { Name = "project-details", ContentType = "ProjectDetailsPart" });
             _pages.Add(new ContentPage { Name = "org-funding", ContentType = "OrgFundingPart" });
+            _pages.Add(new Page { Name = "summary" });
             _pages.Add(new ContentPage { Name = "proposal-written-details", ContentType = "ProjectProposalDetails" });
             _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan" });
             _pages.Add(new ContentPage { Name = "project-experience", ContentType = "ProjectExperience" });
             _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills" });
-            _pages.Add(new Page { Name = "summary" });
+            _pages.Add(new ContentPage { Name = "finance-turnover", ContentType = "FinanceTurnoverPart" });
+            _pages.Add(new ContentPage { Name = "finance-balance-sheet", ContentType = "FinanceBalanceSheetPart" });
+            _pages.Add(new ContentPage { Name = "finance-recover-vat", ContentType = "FinanceRecoverVatPart" });
+            _pages.Add(new ContentPage { Name = "finance-barriers", ContentType = "FinanceBarriersPart" });
+            _pages.Add(new Page { Name = "proposal-written-summary" });
+
         }
 
         public IList<Page> PageList()

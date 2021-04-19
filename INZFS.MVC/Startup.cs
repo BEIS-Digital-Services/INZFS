@@ -62,6 +62,19 @@ namespace INZFS.MVC
             services.AddContentPart<FinanceTurnoverPart>()
            .UseDisplayDriver<FinanceTurnoverDriver>();
             services.AddScoped<IDataMigration, FinanceTurnoverMigration>();
+
+            services.AddContentPart<FinanceBalanceSheetPart>()
+           .UseDisplayDriver<FinanceBalanceSheetDriver>();
+            services.AddScoped<IDataMigration, FinanceBalanceSheetMigration>();
+
+            services.AddContentPart<FinanceRecoverVatPart>()
+           .UseDisplayDriver<FinanceRecoverVatDriver>();
+            services.AddScoped<IDataMigration, FinanceRecoverVatMigration>();
+
+            services.AddContentPart<FinanceBarriersPart>()
+           .UseDisplayDriver<FinanceBarriersDriver>();
+            services.AddScoped<IDataMigration, FinanceBarriersMigration>();
+
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
@@ -70,21 +83,6 @@ namespace INZFS.MVC
                areaName: "INZFS.MVC",
                pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
            );
-
-            /*
-            routes.MapAreaControllerRoute(
-                name: "FundApplication1",
-                areaName: "INZFS.MVC",
-                pattern: "{controller=Home}/section/{action}"
-            );
-            */
-            /*
-            routes.MapAreaControllerRoute(
-                name: "FundApplication",
-                areaName: "INZFS.MVC",
-                pattern: "{controller=Home}/{action=section}/{pageName?}/{id?}"
-            );
-            */
         }
     }
 }

@@ -9,6 +9,7 @@
     <Compile Remove="Handlers\**" />
     <EmbeddedResource Remove="Handlers\**" />
     <None Remove="Handlers\**" />
+    <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,4 +28,7 @@
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+  </ItemGroup>
 </Project>
