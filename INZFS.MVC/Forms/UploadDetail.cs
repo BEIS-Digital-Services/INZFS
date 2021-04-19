@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Forms
 {
-    public class ViewPage : ContentPage
+    [Serializable]
+    public class UploadDetail
     {
-        public string ViewName { get; set; }
+        public string FileName { get; set; }
+        public string ContentItemProperty { get; set; }
     }
 }
