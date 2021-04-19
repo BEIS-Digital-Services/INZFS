@@ -30,6 +30,7 @@ using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace INZFS.MVC.Controllers
 {
@@ -105,12 +106,14 @@ namespace INZFS.MVC.Controllers
             {
                 if(page is ViewPage)
                 {
-                    return View(((ViewPage)page).ViewName);
+                    var viewPage = (ViewPage)page;
+                    Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == viewPage.ContentType;
+                    var contentItems = await GetContentItems(expression);
+                    var model = contentItems.Any() ? contentItems.First().As<ApplicationDocumentPart>(): new ApplicationDocumentPart();
+                    ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
+                    return View(viewPage.ViewName, model);
                 }
-                else
-                {
-
-                }
+                
                 return await Create(((ContentPage)page).ContentType);
             }
         }
@@ -617,13 +620,24 @@ namespace INZFS.MVC.Controllers
 
         private string GetNextPageUrl(string contentType)
         {
-            var page = _navigation.GetNextPageByContentType(contentType);
-            if (page == null)
+            string nextPage = Request.Form["nextPage"].ToString();
+            if(string.IsNullOrEmpty(nextPage))
             {
-                return Request.Form["nextPage"].ToString();
+                var page = _navigation.GetNextPageByContentType(contentType);
+                return page.Name;
             }
 
-            return page.Name;
+            return nextPage;
+        }
+
+        private async Task<IEnumerable<ContentItem>> GetContentItems(Expression<Func<ContentItemIndex, bool>> predicate)
+        {
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(predicate);
+            query = query.With<ContentItemIndex>(x => x.Published);
+            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+
+            return await query.ListAsync();
         }
 
     }

@@ -39,6 +39,7 @@ namespace INZFS.MVC.Handlers
                 }
                 tempData.Clear();
             }
+            context.UpdatingItem = instance.ContentItem;
             return base.UpdatingAsync(context, instance);
         }
     }

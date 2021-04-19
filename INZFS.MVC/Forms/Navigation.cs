@@ -26,9 +26,9 @@ namespace INZFS.MVC.Forms
             _pages.Add(new ContentPage { Name = "org-funding", ContentType = "OrgFundingPart" });
             _pages.Add(new Page { Name = "summary" });
             _pages.Add(new ContentPage { Name = "proposal-written-details", ContentType = "ProjectProposalDetails" });
-            _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan" });
+            _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan", ContentType = "ApplicationDocument" });
             _pages.Add(new ContentPage { Name = "project-experience", ContentType = "ProjectExperience" });
-            _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills" });
+            _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills", ContentType = "ApplicationDocument" });
             _pages.Add(new Page { Name = "proposal-written-summary" });
 
         }

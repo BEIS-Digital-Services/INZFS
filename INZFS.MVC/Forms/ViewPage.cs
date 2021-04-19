@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Forms
 {
-    public class ViewPage : Page
+    public class ViewPage : ContentPage
     {
         public string ViewName { get; set; }
     }

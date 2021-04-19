@@ -28,6 +28,7 @@
     {
         visibilitySettingError = "hidden";
     }
+    var formAction = string.IsNullOrEmpty(ViewBag.ContentItemId) ? "Create" : $"Edit";
 }
 <header>
     <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
@@ -41,7 +42,7 @@
 
 <h1>Upload Experience and Skills</h1>
 
-<form asp-action="Create" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+<form asp-action="@formAction" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" asp-route-contentitemid="@ViewBag.ContentItemId" method="post" enctype="multipart/form-data">
     <input type="hidden" name="contentType" value="ApplicationDocument" />
     <input type="hidden" name="contentTypeProperty" value="ExperienceAndSkills" />
     <input type="hidden" name="nextPage" value="proposal-written-summary" />

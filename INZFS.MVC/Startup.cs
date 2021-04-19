@@ -104,6 +104,7 @@ namespace INZFS.MVC
             services.AddScoped<IDataMigration, ProjectExperienceMigration>();
 
             services.AddContentPart<ApplicationDocumentPart>()
+                .UseDisplayDriver<ApplicationDocumentDriver>()
                   .AddHandler<ApplicationDocumentPartHandler>();
             services.AddScoped<IDataMigration, ApplicationDocumentMigration>();
         }
