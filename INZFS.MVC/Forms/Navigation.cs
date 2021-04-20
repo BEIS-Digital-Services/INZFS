@@ -30,6 +30,11 @@ namespace INZFS.MVC.Forms
             _pages.Add(new ContentPage { Name = "project-experience", ContentType = "ProjectExperience" });
             _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills", ContentType = "ApplicationDocument" });
             _pages.Add(new Page { Name = "proposal-written-summary" });
+            _pages.Add(new ContentPage { Name = "finance-turnover", ContentType = "FinanceTurnover" });
+            _pages.Add(new ContentPage { Name = "finance-balance-sheet", ContentType = "FinanceBalanceSheet" });
+            _pages.Add(new ContentPage { Name = "finance-recover-vat", ContentType = "FinanceRecoverVat" });
+            _pages.Add(new ContentPage { Name = "finance-barriers", ContentType = "FinanceBarriers" });
+            _pages.Add(new Page { Name = "proposal-finance-summary" });
 
         }
 

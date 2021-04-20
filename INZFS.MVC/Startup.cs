@@ -1,11 +1,14 @@
 using System;
 using INZFS.MVC.Drivers;
+using INZFS.MVC.Drivers.ProposalFinance;
 using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
 
 using INZFS.MVC.Migrations;
+using INZFS.MVC.Migrations.ProposalFinance;
 using INZFS.MVC.Migrations.ProposalWritten;
 using INZFS.MVC.Models;
+using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.Services;
 using INZFS.MVC.TagHelpers;
@@ -102,6 +105,23 @@ namespace INZFS.MVC
             services.AddContentPart<ProjectExperiencePart>()
             .UseDisplayDriver<ProjectExperienceDriver>();
             services.AddScoped<IDataMigration, ProjectExperienceMigration>();
+
+            services.AddContentPart<FinanceTurnoverPart>()
+           .UseDisplayDriver<FinanceTurnoverDriver>();
+            services.AddScoped<IDataMigration, FinanceTurnoverMigration>();
+
+            services.AddContentPart<FinanceBalanceSheetPart>()
+           .UseDisplayDriver<FinanceBalanceSheetDriver>();
+            services.AddScoped<IDataMigration, FinanceBalanceSheetMigration>();
+
+            services.AddContentPart<FinanceRecoverVatPart>()
+           .UseDisplayDriver<FinanceRecoverVatDriver>();
+            services.AddScoped<IDataMigration, FinanceRecoverVatMigration>();
+
+            services.AddContentPart<FinanceBarriersPart>()
+           .UseDisplayDriver<FinanceBarriersDriver>();
+            services.AddScoped<IDataMigration, FinanceBarriersMigration>();
+
 
             services.AddContentPart<ApplicationDocumentPart>()
                 .UseDisplayDriver<ApplicationDocumentDriver>()

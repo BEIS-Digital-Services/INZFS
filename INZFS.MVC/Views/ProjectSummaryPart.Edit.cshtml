@@ -1,12 +1,9 @@
-@* As you can see the model here is the view model object this time not a ShapeViewModel<T>. *@
 
 @model ProjectSummaryViewModel
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
 @using INZFS.MVC.TagHelpers
-
-@* Nothing special here regarding the editor fields. However, notice that the Biography (ContentField) editor is not
-    here, because (as mentioned) it has its own editor and display shape so no need to worry about that. *@
+@using INZFS.MVC.ViewModels.ProposalFinance 
 
 @{
     var sampleDate = DateTime.Now.AddDays(30);
@@ -55,15 +52,15 @@
 <div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc">
     <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-start-date">
         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            Estimated Start Date
+            Turnover Date (in most recent annual accounts)
         </legend>
-        <div id="estimated-start-date-hint" class="govuk-hint">
+        <div id="turn-over-date-hint" class="govuk-hint">
             For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
         </div>
-        <div class="govuk-date-input" id="estimated-start-date">
+        <div class="govuk-date-input" id="turn-over-date">
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="estimated-start-date-day">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-day">
                         Day
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric">
@@ -71,7 +68,7 @@
             </div>
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="estimated-start-date-month">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-month">
                         Month
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric">
@@ -79,7 +76,7 @@
             </div>
             <div class="govuk-date-input__item">
                 <div class="govuk-form-group">
-                    <label class="govuk-label govuk-date-input__label" for="estimated-start-date-year">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-year">
                         Year
                     </label>
                     <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric">

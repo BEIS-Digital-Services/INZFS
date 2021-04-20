@@ -30,7 +30,10 @@ using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
+using INZFS.MVC.Drivers;
 using System.Linq.Expressions;
+using INZFS.MVC.Models.ProposalFinance;
+using INZFS.MVC.ViewModels.ProposalFinance;
 
 namespace INZFS.MVC.Controllers
 {
@@ -78,25 +81,34 @@ namespace INZFS.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Section(string pagename, string id)
         {
+            if(string.IsNullOrEmpty(pagename))
+            {
+                return NotFound();
+            }
             pagename = pagename.ToLower().Trim();
 
             if (pagename == "application-summary")
             {
-                return View("ApplicationSummary", new ApplicationSummaryModel());
+                var model = await GetApplicationSummaryModel();
+                return View("ApplicationSummary", model);
             }
 
-            // 
-            if (pagename == "proposal-written-summary")
-            {
-                var model = await GetApplicationWrittenSummaryModel();
-                return View("ProposalWrittenSummary", model);
-            }
             if (pagename == "summary")
             {
                 var model = await GetSummaryModel();
                 return View("Summary", model);
             }
-
+            if (pagename == "proposal-written-summary")
+            {
+                var model = await GetApplicationWrittenSummaryModel();
+                return View("ProposalWrittenSummary", model);
+            }
+            if (pagename == "proposal-finance-summary")
+            {
+                var model = await GeProposalFinanceModel();
+                return View("ProposalFinanceSummary", model);
+            }
+            
             var page = _navigation.GetPage(pagename);
             if (page == null)
             {
@@ -117,46 +129,7 @@ namespace INZFS.MVC.Controllers
                 return await Create(((ContentPage)page).ContentType);
             }
         }
-        public async Task<IActionResult> Index(PagerParameters pagerParameters)
-        {
-            var siteSettings = await _siteService.GetSiteSettingsAsync();
-            var pager = new Pager(pagerParameters, siteSettings.PageSize);
-
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            var newContentType = contentType;
-            query = query.With<ContentItemIndex>(x => x.ContentType == newContentType);
-            query = query.With<ContentItemIndex>(x => x.Published);
-            //query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-
-            query = query.OrderByDescending(x => x.PublishedUtc);
-
-            var maxPagedCount = siteSettings.MaxPagedCount;
-            if (maxPagedCount > 0 && pager.PageSize > maxPagedCount)
-                pager.PageSize = maxPagedCount;
-
-            var routeData = new RouteData();
-            var pagerShape = (await New.Pager(pager)).TotalItemCount(maxPagedCount > 0 ? maxPagedCount : await query.CountAsync()).RouteData(routeData);
-
-            var pageOfContentItems = await query.Skip(pager.GetStartIndex()).Take(pager.PageSize).ListAsync();
-            IEnumerable<ContentItem> model = await query.ListAsync();
-
-            // Prepare the content items Summary Admin shape
-            var contentItemSummaries = new List<dynamic>();
-            foreach (var contentItem in pageOfContentItems)
-            {
-                contentItemSummaries.Add(await _contentItemDisplayManager.BuildDisplayAsync(contentItem, _updateModelAccessor.ModelUpdater, "Summary"));
-            }
-
-            var viewModel = new ListContentsViewModel
-            {
-                ContentItems = contentItemSummaries,
-                Pager = pagerShape
-                //Options = model.Options
-            };
-
-            return View(viewModel);
-        }
-
+        
         public async Task<bool> CreateDirectory(string directoryName)
         {
             if(directoryName == null)
@@ -174,15 +147,12 @@ namespace INZFS.MVC.Controllers
                 return NotFound();
             }
 
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(x => x.ContentType == contentType);
-            query = query.With<ContentItemIndex>(x => x.Published);
-            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == contentType;
+            var contentItems = await GetContentItems(expression);
 
-            var records = await query.CountAsync();
-            if (records > 0)
+            if (contentItems.Any())
             {
-                var existingContentItem = await query.FirstOrDefaultAsync();
+                var existingContentItem = contentItems.First();
                 return await Edit(existingContentItem.ContentItemId, contentType);
             }
             var newContentItem = await _contentManager.NewAsync(contentType);
@@ -255,64 +225,6 @@ namespace INZFS.MVC.Controllers
         }
 
    
-        [HttpPost]
-        public async Task<IActionResult> Save(IFormFile file,  string pagename)
-        {
-            if (IsValidFileExtension(file))
-            {
-                return BadRequest();
-            }
-            if (file == null || file.Length == 0)
-            {
-                return Content("File not selected");
-            }
-          
-            try
-            {
-                var notContainsVirus = true;//await ScanFile(file);
-                if (notContainsVirus)
-                {
-                    pagename = pagename.ToLower().Trim();
-
-                    var query = _session.Query<ContentItem, ContentItemIndex>();
-                    query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
-                    || x.ContentType == "ProjectDetailsPart"
-                    || x.ContentType == "OrgFundingPart");
-                    query = query.With<ContentItemIndex>(x => x.Published);
-                    query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
-                    
-                    var items = await query.ListAsync();
-                    var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
-                    var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
-                    var directoryName = projectSummary.ContentItemId;
-                    
-                    var publicUrl  = await SaveFile(file, directoryName);
-                    projectSummaryPart.FileUploadPath = publicUrl;
-                    var page = _navigation.GetPage(pagename);
-                    if (page == null)
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        ViewBag.Message = "Upload Successful!";
-                        return await Edit(projectSummary.ContentItemId, projectSummary.ContentType);
-                    }
-                }
-                else
-                {
-                    return BadRequest();
-                }
-                
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError("Cannot save this file: ", ex);
-                return BadRequest();
-            }
-           
-        }
-
         private string ModifyFileName(string originalFileName)
         {
             DateTime thisDate = DateTime.UtcNow;
@@ -542,23 +454,14 @@ namespace INZFS.MVC.Controllers
 
         private async Task<SummaryViewModel> GetSummaryModel()
         {
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectSummaryPart"
-            || x.ContentType == "ProjectDetailsPart"
-            || x.ContentType == "OrgFundingPart");
-            //query = query.With<ContentItemIndex>(x => _navigation.PageList().Any(p => p.ContentType == x.ContentType));
-            query = query.With<ContentItemIndex>(x => x.Published);
-            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectSummaryPart"
+                || x.ContentType == "ProjectDetailsPart"
+                || x.ContentType == "OrgFundingPart";
 
-            var items = await query.ListAsync();
-            var projectSummary = items.FirstOrDefault(item => item.ContentType == "ProjectSummaryPart");
-            var projectSummaryPart = projectSummary?.ContentItem.As<ProjectSummaryPart>();
-
-            var projectDetails = items.FirstOrDefault(item => item.ContentType == "ProjectDetailsPart");
-            var projectDetailsPart = projectDetails?.ContentItem.As<ProjectDetailsPart>();
-
-            var funding = items.FirstOrDefault(item => item.ContentType == "OrgFundingPart");
-            var fundingPart = funding?.ContentItem.As<OrgFundingPart>();
+            var items = await GetContentItems(expression);
+            var projectSummaryPart = GetContentPart<ProjectSummaryPart>(items, "ProjectSummaryPart");
+            var projectDetailsPart = GetContentPart<ProjectDetailsPart>(items, "ProjectDetailsPart");
+            var fundingPart = GetContentPart<OrgFundingPart>(items, "OrgFundingPart");
 
             var model = new SummaryViewModel
             {
@@ -590,22 +493,63 @@ namespace INZFS.MVC.Controllers
             return model;
         }
 
+        private async Task<ProposalFinanceSummaryViewModel> GeProposalFinanceModel()
+        {
+            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "FinanceTurnover"
+                || x.ContentType == "FinanceBalanceSheet"
+                || x.ContentType == "FinanceRecoverVat"
+                || x.ContentType == "FinanceBarriers";
+
+            var items = await GetContentItems(expression);
+            var financeTurnoverPart = GetContentPart<FinanceTurnoverPart>(items, "FinanceTurnover");
+            var financeBalanceSheetPart = GetContentPart<FinanceBalanceSheetPart>(items, "FinanceBalanceSheet");
+            var financeRecoverVatPart = GetContentPart<FinanceRecoverVatPart>(items, "FinanceRecoverVat");
+            var financeBarriersPart = GetContentPart<FinanceBarriersPart>(items, "FinanceBarriers");
+
+            var model = new ProposalFinanceSummaryViewModel
+            {
+                FinanceTurnoverViewModel = new FinanceTurnoverViewModel
+                {
+                    TurnoverAmount = financeTurnoverPart.TurnoverAmount,
+                    Day = financeTurnoverPart.Day,
+                    Month = financeTurnoverPart.Month,
+                    Year = financeTurnoverPart.Year,
+                },
+                FinanceBalanceSheetViewModel = new FinanceBalanceSheetViewModel
+                {
+                    BalanceSheetTotal = financeBalanceSheetPart.BalanceSheetTotal,
+                    Day = financeBalanceSheetPart.Day,
+                    Month = financeBalanceSheetPart.Month,
+                    Year = financeBalanceSheetPart.Year,
+                },
+                FinanceRecoverVatViewModel = new FinanceRecoverVatViewModel
+                {
+                    AbleToRecover = financeRecoverVatPart.AbleToRecover
+                },
+                FinanceBarriersViewModel = new FinanceBarriersViewModel
+                {
+                    Placeholder1 = financeBarriersPart.Placeholder1,
+                    Placeholder2 = financeBarriersPart.Placeholder2,
+                    Placeholder3 = financeBarriersPart.Placeholder3
+                }
+            };
+
+            return model;
+        }
+
         private async Task<ProposalWrittenSummaryViewModel> GetApplicationWrittenSummaryModel()
         {
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(x => x.ContentType == "ProjectProposalDetails"
-            || x.ContentType == "ProjectExperience");
-            query = query.With<ContentItemIndex>(x => x.Published);
-            query = query.With<ContentItemIndex>(x => x.Author == User.Identity.Name);
+            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectProposalDetails"
+                || x.ContentType == "ProjectExperience"
+                || x.ContentType == "ApplicationDocument";
 
-            var items = await query.ListAsync();
-            var projectProposal = items.FirstOrDefault(item => item.ContentType == "ProjectProposalDetails");
-            var projectProposalPart = projectProposal?.ContentItem.As<ProjectProposalDetailsPart>();
+            var items = await GetContentItems(expression);
 
-            var projectExperience = items.FirstOrDefault(item => item.ContentType == "ProjectExperience");
-            var projectExperiencePart = projectExperience?.ContentItem.As<ProjectExperiencePart>();
+            var projectProposalPart = GetContentPart<ProjectProposalDetailsPart>(items, "ProjectProposalDetails");
+            var projectExperiencePart = GetContentPart<ProjectExperiencePart>(items, "ProjectExperience");
+            var applicationDocumentPart = GetContentPart<ApplicationDocumentPart>(items, "ApplicationDocument");
 
-            var model = new ProposalWrittenSummaryViewModel
+            var model = new ProposalWrittenSummaryViewModel()
             {
                 ProjectProposalDetailsViewModel = new ProjectProposalDetailsViewModel
                 {
@@ -645,5 +589,73 @@ namespace INZFS.MVC.Controllers
             return await query.ListAsync();
         }
 
+        private async Task<ApplicationSummaryModel> GetApplicationSummaryModel()
+        {
+            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectSummaryPart"
+                || x.ContentType == "ProjectDetailsPart"
+                || x.ContentType == "OrgFundingPart"
+                || x.ContentType == "ProjectProposalDetails"
+                || x.ContentType == "ProjectExperience"
+                || x.ContentType == "ApplicationDocument"
+                || x.ContentType == "FinanceTurnover"
+                || x.ContentType == "FinanceBalanceSheet"
+                || x.ContentType == "FinanceRecoverVat"
+                || x.ContentType == "FinanceBarriers";
+
+            var items = await GetContentItems(expression);
+
+            var model = new ApplicationSummaryModel()
+            {
+                TotalSections = 11
+            };
+
+            UpdateModel<ProjectSummaryPart>(items, "ProjectSummaryPart", model, Sections.ProjectSummary);
+            UpdateModel<ProjectDetailsPart>(items, "ProjectDetailsPart", model, Sections.ProjectDetails);
+            UpdateModel<OrgFundingPart>(items, "OrgFundingPart", model, Sections.Funding);
+            UpdateModel<ProjectProposalDetailsPart>(items, "ProjectProposalDetails", model, Sections.ProjectProposalDetails);
+            UpdateModel<ProjectExperiencePart>(items, "ProjectExperience", model, Sections.ProjectExperience);
+
+            var contentItem = items.FirstOrDefault(item => item.ContentType == "ApplicationDocument");
+            var applicationDocumentPart = contentItem?.ContentItem.As<ApplicationDocumentPart>();
+            if (applicationDocumentPart != null)
+            {
+                if(!string.IsNullOrEmpty(applicationDocumentPart.ProjectPlan))
+                {
+                    model.TotalCompletedSections++;
+                    model.CompletedSections = model.CompletedSections | Sections.ProjectPlanUpload;
+                }
+                if (!string.IsNullOrEmpty(applicationDocumentPart.ExperienceAndSkills))
+                {
+                    model.TotalCompletedSections++;
+                    model.CompletedSections = model.CompletedSections | Sections.ProjectExperienceSkillsUpload;
+                }
+            }
+
+            UpdateModel<FinanceTurnoverPart>(items, "FinanceTurnover", model, Sections.FinanceTurnover);
+            UpdateModel<FinanceBalanceSheetPart>(items, "FinanceBalanceSheet", model, Sections.FinanceBalanceSheet);
+            UpdateModel<FinanceRecoverVatPart>(items, "FinanceRecoverVat", model, Sections.FinanceRecoverVat);
+            UpdateModel<FinanceBarriersPart>(items, "FinanceBarriers", model, Sections.FinanceBarriers);
+
+            return model;
+        }
+
+
+        private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Sections section) where T : ContentPart
+        {
+            var contentItem = contentItems.FirstOrDefault(item => item.ContentType == contentToFilter);
+            var contentPart = contentItem?.ContentItem.As<T>();
+            
+            if (contentPart != null)
+            {
+                model.TotalCompletedSections++;
+                model.CompletedSections = model.CompletedSections | section;
+            }
+        }
+
+        private T GetContentPart<T>(IEnumerable<ContentItem> contentItems, string contentToFilter) where T : ContentPart
+        {
+            var contentItem = contentItems.FirstOrDefault(item => item.ContentType == contentToFilter);
+            return contentItem?.ContentItem.As<T>();
+        }
     }
 }

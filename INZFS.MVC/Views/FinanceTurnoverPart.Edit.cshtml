@@ -1,0 +1,63 @@
+
+@model FinanceTurnoverViewModel
+@using INZFS.MVC.ViewModels
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC.ViewModels.ProposalFinance 
+
+
+@{
+    var sampleDate = DateTime.Now.AddDays(30);
+}
+
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-summary">
+    Back
+</a>
+
+<input type="hidden" name="contentType" value="FinanceTurnover" />
+
+<div class="govuk-form-group" asp-validation-error-class-for="TurnoverAmount">
+    <label class="govuk-label govuk-label--l" asp-for="TurnoverAmount">
+    </label>
+    <span asp-validation-for="TurnoverAmount" class="govuk-error-message"></span>
+    <input class="govuk-input govuk-input--width-10" asp-for="TurnoverAmount"   spellcheck="false" aria-describedby="name-hint">
+</div>
+
+
+<div class="govuk-form-group" asp-validation-error-class-for="TurnoverUtc" >
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="turnover-date">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            Estimated Start Date
+        </legend>
+        <div id="turnover-date-hint" class="govuk-hint">
+            For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+        </div>
+        <div class="govuk-date-input" id="turnover-date">
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turnover-date-day">
+                        Day
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turnover-date-month">
+                        Month
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turnover-date-year">
+                        Year
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</div>

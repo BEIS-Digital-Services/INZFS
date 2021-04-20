@@ -1,0 +1,43 @@
+@model FinanceBarriersViewModel
+@using INZFS.MVC.ViewModels.ProposalFinance
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+
+
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-recover-vat">
+    Back
+</a>
+
+<input type="hidden" name="contentType" value="FinanceBarriers" />
+
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" role="group">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            What do you think are the barriers to the commercial exploitation of your innovation?
+        </legend>
+        <div id="waste-hint" class="govuk-hint">
+            Select all that apply.
+        </div>
+        <div class="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="Placeholder1" name="Placeholder1" type="checkbox" value="Placeholder1">
+                <label class="govuk-label govuk-checkboxes__label" asp-for="Placeholder1">
+                    Placeholder 1
+                </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="Placeholder2" name="Placeholder2" type="checkbox" value="Placeholder2">
+                <label class="govuk-label govuk-checkboxes__label" asp-for="Placeholder2">
+                    Placeholder 2
+                </label>
+            </div>
+            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" id="Placeholder3" name="Placeholder3" type="checkbox" value="Placeholder3">
+                <label class="govuk-label govuk-checkboxes__label" asp-for="Placeholder3">
+                    Placeholder 3
+                </label>
+            </div>
+        </div>
+
+    </fieldset>
+</div>

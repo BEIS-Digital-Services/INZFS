@@ -1,0 +1,154 @@
+@using INZFS.MVC.ViewModels
+@using INZFS.MVC.Models
+@using System.Globalization 
+@model ProposalFinanceSummaryViewModel
+
+<div class="govuk-width-container">
+    
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="org-funding">
+        Back
+    </a>
+    <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds-from-desktop">
+
+                <h1 class="govuk-heading-l">Check your answers before sending your application</h1>
+
+                <h2 class="govuk-heading-m">Turnover</h2>
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Turnover amount
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @Model.FinanceTurnoverViewModel.TurnoverAmount
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-turnover">
+                                Change
+                                <span class="govuk-visually-hidden"> name</span>
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Turnover date
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+
+                            @Model.FinanceTurnoverViewModel.Day.Value @DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.FinanceTurnoverViewModel.Month.Value) @Model.FinanceTurnoverViewModel.Year
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">
+                                Change
+                                <span class="govuk-visually-hidden"> turnover date</span>
+                            </a>
+                        </dd>
+                    </div>
+
+                </dl>
+
+                <h2 class="govuk-heading-m">Balance Sheet</h2>
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Balance sheet total
+                        </dt>
+                        <dd class="govuk-FinanceBalanceSheetViewModel-list__value">
+                            @Model.FinanceBalanceSheetViewModel.BalanceSheetTotal
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-balance-sheet">
+                                Change
+                                <span class="govuk-visually-hidden"> name</span>
+                            </a>
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Turnover date
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+
+                            @Model.FinanceBalanceSheetViewModel.Day.Value @DateTimeFormatInfo.CurrentInfo.GetMonthName(Model.FinanceBalanceSheetViewModel.Month.Value) @Model.FinanceBalanceSheetViewModel.Year
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary">
+                                Change
+                                <span class="govuk-visually-hidden"> balance sheet date</span>
+                            </a>
+                        </dd>
+                    </div>
+
+                </dl>
+
+                <h2 class="govuk-heading-m">Able to recover VAT</h2>
+
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Able to recover VAT
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @if (Model.FinanceRecoverVatViewModel.AbleToRecover.HasValue && Model.FinanceRecoverVatViewModel.AbleToRecover.Value == true)
+                            {
+                                <p>Yes</p>
+                            }
+                            else
+                            {
+                                <p>No</p>
+                            }
+                        </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-recover-vat">
+                                Change<span class="govuk-visually-hidden">able to recover VAT</span>
+                            </a>
+                        </dd>
+                    </div>
+                </dl>
+
+
+                <h2 class="govuk-heading-m">Finance Barriers</h2>
+
+
+                <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            Current funding
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @if (Model.FinanceBarriersViewModel.Placeholder1.HasValue)
+                            {
+                                <p>Placeholder1</p>
+                            }
+                            @if (Model.FinanceBarriersViewModel.Placeholder2.HasValue)
+                            {
+                                <p>Placeholder2</p> 
+                            }
+                            @if (Model.FinanceBarriersViewModel.Placeholder2.HasValue)
+                            {
+                                <p>Placeholder3</p>
+                            }
+                       </dd>
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-barriers">
+                                Change<span class="govuk-visually-hidden"> Finance Barriers</span>
+                            </a>
+                        </dd>
+                    </div>
+                </dl>
+                <h2 class="govuk-heading-m">Now send your application</h2>
+
+                <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
+
+                <a class="govuk-button" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
+                    Save and continue
+                </a>
+
+            </div>
+        </div>
+    </main>
+</div>
