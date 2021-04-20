@@ -456,15 +456,22 @@ namespace INZFS.MVC.Controllers
         {
             Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectSummaryPart"
                 || x.ContentType == "ProjectDetailsPart"
-                || x.ContentType == "OrgFundingPart";
+                || x.ContentType == "OrgFundingPart"
+                || x.ContentType == "CompanyDetails";
 
             var items = await GetContentItems(expression);
+            var companyDetailsPart = GetContentPart<CompanyDetailsPart>(items, "CompanyDetails");
             var projectSummaryPart = GetContentPart<ProjectSummaryPart>(items, "ProjectSummaryPart");
             var projectDetailsPart = GetContentPart<ProjectDetailsPart>(items, "ProjectDetailsPart");
             var fundingPart = GetContentPart<OrgFundingPart>(items, "OrgFundingPart");
 
             var model = new SummaryViewModel
             {
+                CompanyDetailsViewModel = new CompanyDetailsViewModel 
+                { 
+                    CompanyName = companyDetailsPart.CompanyName,
+                    CompanyNumber = companyDetailsPart.CompanyNumber
+                },
                 ProjectSummaryViewModel = new ProjectSummaryViewModel
                 {
                     ProjectName = projectSummaryPart.ProjectName,
@@ -600,7 +607,8 @@ namespace INZFS.MVC.Controllers
                 || x.ContentType == "FinanceTurnover"
                 || x.ContentType == "FinanceBalanceSheet"
                 || x.ContentType == "FinanceRecoverVat"
-                || x.ContentType == "FinanceBarriers";
+                || x.ContentType == "FinanceBarriers"
+                || x.ContentType == "CompanyDetails";
 
             var items = await GetContentItems(expression);
 
@@ -609,6 +617,7 @@ namespace INZFS.MVC.Controllers
                 TotalSections = 11
             };
 
+            UpdateModel<CompanyDetailsPart>(items, "CompanyDetails", model, Sections.CompanyDetails);
             UpdateModel<ProjectSummaryPart>(items, "ProjectSummaryPart", model, Sections.ProjectSummary);
             UpdateModel<ProjectDetailsPart>(items, "ProjectDetailsPart", model, Sections.ProjectDetails);
             UpdateModel<OrgFundingPart>(items, "OrgFundingPart", model, Sections.Funding);

@@ -1,0 +1,45 @@
+@model ApplicationsSummaryModel
+@using INZFS.MVC.Models
+
+
+
+@{
+    ViewBag.Title = "Applications";
+    var list = @Model.CompanyDetails.ToList();
+}
+
+
+<form asp-controller="Admin" asp-action="GetApplicationsSearch" method="get">
+    <p>
+        Search For Company Name  <input type="text" asp-for="ApplicationSearch" />
+        <input type="submit" value="Search" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyNumber)
+            </th>
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in list)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyNumber)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

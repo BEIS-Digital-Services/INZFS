@@ -3,7 +3,6 @@ using INZFS.MVC.Drivers;
 using INZFS.MVC.Drivers.ProposalFinance;
 using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
-
 using INZFS.MVC.Migrations;
 using INZFS.MVC.Migrations.ProposalFinance;
 using INZFS.MVC.Migrations.ProposalWritten;
@@ -26,6 +25,9 @@ using System.IO;
 using nClam;
 using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Handlers;
+using INZFS.MVC.Navigations;
+using OrchardCore.Navigation;
+
 
 namespace INZFS.MVC
 {
@@ -58,6 +60,7 @@ namespace INZFS.MVC
             ConfigureContent(services);
 
             services.AddScoped<INavigation, Navigation>();
+            services.AddScoped<INavigationProvider, AdminMenu>();
 
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
@@ -83,12 +86,17 @@ namespace INZFS.MVC
 
         private void ConfigureContent(IServiceCollection services)
         {
+
+            services.AddContentPart<CompanyDetailsPart>()
+            .UseDisplayDriver<CompanyDetailsDriver>();
+            services.AddScoped<IDataMigration, CompanyDetailsMigration>();
+
             services.AddContentPart<ProjectSummaryPart>()
             .UseDisplayDriver<ProjectSummaryDriver>()
             .AddHandler<ProjectSummaryPartHandler>();
 
             services.AddScoped<IDataMigration, ProjectSummaryMigration>();
-            
+
 
             services.AddContentPart<ProjectDetailsPart>()
             .UseDisplayDriver<ProjectDetailsDriver>();
@@ -121,7 +129,6 @@ namespace INZFS.MVC
             services.AddContentPart<FinanceBarriersPart>()
            .UseDisplayDriver<FinanceBarriersDriver>();
             services.AddScoped<IDataMigration, FinanceBarriersMigration>();
-
 
             services.AddContentPart<ApplicationDocumentPart>()
                 .UseDisplayDriver<ApplicationDocumentDriver>()
