@@ -12,7 +12,7 @@ namespace INZFS.MVC.Models.ProposalFinance
     {
         [Required(ErrorMessage = "Enter the balance sheet total")]
         [Display(Name = "Balance sheet total")]
-        public decimal BalanceSheetTotal { get; set; }
+        public decimal? BalanceSheetTotal { get; set; }
 
         [Required(ErrorMessage = "Enter balance sheet day")]
         public int? Day { get; set; }

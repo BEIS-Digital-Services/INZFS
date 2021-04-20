@@ -15,7 +15,7 @@
                 </h1>
 
                 <h2 class="govuk-heading-s govuk-!-margin-bottom-2">Application incomplete</h2>
-                <p class="govuk-body govuk-!-margin-bottom-7">You have completed 3 of 4 sections.</p>
+                <p class="govuk-body govuk-!-margin-bottom-7">You have completed @Model.TotalCompletedSections of @Model.TotalSections sections.</p>
 
                 <ol class="app-task-list">
                     <li>
@@ -29,7 +29,7 @@
                                         Project Summary
                                     </a>
                                 </span>
-                                <strong class="govuk-tag app-task-list__tag" id="project-summary">Completed</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="project-summary">@(Model.CompletedSections.HasFlag(Sections.ProjectSummary) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
@@ -37,7 +37,7 @@
                                         Project Details
                                     </a>
                                 </span>
-                                <strong class="govuk-tag app-task-list__tag" id="project-details">Completed</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="project-details">@(Model.CompletedSections.HasFlag(Sections.ProjectDetails ) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
 
                             <li class="app-task-list__item">
@@ -46,7 +46,7 @@
                                         Funding
                                     </a>
                                 </span>
-                                <strong class="govuk-tag app-task-list__tag" id="org-funding">Completed</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="org-funding">@(Model.CompletedSections.HasFlag(Sections.Funding) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                         </ul>
                     </li>
@@ -62,7 +62,7 @@
                                         Project Proposal Details
                                     </a>
                                 </span>
-                                <strong class="govuk-tag app-task-list__tag" id="proposal-written-details">Completed</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="proposal-written-details">@(Model.CompletedSections.HasFlag(Sections.ProjectProposalDetails) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
@@ -70,7 +70,7 @@
                                         Upload Project Plan
                                     </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="upload-project-plan">In progress</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="upload-project-plan">@(Model.CompletedSections.HasFlag(Sections.ProjectPlanUpload) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
@@ -78,7 +78,7 @@
                                         Project Experience and Skills
                                     </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="project-experience">Not started</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="project-experience">@(Model.CompletedSections.HasFlag(Sections.ProjectExperience) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
@@ -86,7 +86,7 @@
                                         Upload Experience Evidence
                                     </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="experience-and-skills">Not started</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="experience-and-skills">@(Model.CompletedSections.HasFlag(Sections.ProjectExperienceSkillsUpload) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                         </ul>
                     </li>
@@ -98,39 +98,35 @@
                         <ul class="app-task-list__items">
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
-                                    <a href="#" aria-describedby="company-information-status">
-                                        Company information
+                                    <a href="finance-turnover" aria-describedby="finance-turnover">
+                                        Finance Turnover
                                     </a>
                                 </span>
-                                <strong class="govuk-tag app-task-list__tag" id="company-information-status">Completed</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="finance-turnover">@(Model.CompletedSections.HasFlag(Sections.FinanceTurnover) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
-                                    <a href="#" aria-describedby="contact-details-status">
-                                        Your contact details
+                                    <a href="finance-balance-sheet" aria-describedby="finance-balance-sheet">
+                                        Finance Balance Sheet
                                     </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--blue app-task-list__tag" id="contact-details-status">In progress</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="finance-balance-sheet">@(Model.CompletedSections.HasFlag(Sections.FinanceBalanceSheet) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
-                                    <a href="#" aria-describedby="list-convictions-status">
-                                        List convictions
+                                    <a href="finance-recover-vat" aria-describedby="finance-recover-vat">
+                                        Finance Recover Vat
                                     </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="list-convictions-status">Not started</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="finance-recover-vat">@(Model.CompletedSections.HasFlag(Sections.FinanceRecoverVat) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
-                                    Provide financial evidence
+                                    <a href="finance-barriers" aria-describedby="finance-barriers">
+                                        Finance Barriers
+                                    </a>
                                 </span>
-                                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="financial-evidence-status">Cannot start yet</strong>
-                            </li>
-                            <li class="app-task-list__item">
-                                <span class="app-task-list__task-name">
-                                    Give medical information
-                                </span>
-                                <strong class="govuk-tag govuk-tag--grey app-task-list__tag" id="medical-information-status">Cannot start yet</strong>
+                                <strong class="govuk-tag app-task-list__tag" id="finance-barriers">@(Model.CompletedSections.HasFlag(Sections.FinanceBarriers) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
                         </ul>
                     </li>

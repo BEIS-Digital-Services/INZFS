@@ -7,7 +7,11 @@
     var sampleDate = DateTime.Now.AddDays(30);
 }
 
-<input type="hidden" name="contentType" value="FinanceBalanceSheetPart" />
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-turnover">
+    Back
+</a>
+
+<input type="hidden" name="contentType" value="FinanceBalanceSheet" />
 
 <div class="govuk-form-group" asp-validation-error-class-for="BalanceSheetTotal">
     <label class="govuk-label govuk-label--l" asp-for="BalanceSheetTotal">

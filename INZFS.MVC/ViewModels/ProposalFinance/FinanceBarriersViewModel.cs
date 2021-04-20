@@ -10,11 +10,6 @@ namespace INZFS.MVC.ViewModels.ProposalFinance
 {
     public class FinanceBarriersViewModel : FinanceBarriersPart
     {
-        public bool? Placeholder1 { get; set; }
-        public bool? Placeholder2 { get; set; }
-        public bool? Placeholder3 { get; set; }
-
-
         [BindNever]
         public FinanceBarriersPart FinanceBarriersPart { get; set; }
     }

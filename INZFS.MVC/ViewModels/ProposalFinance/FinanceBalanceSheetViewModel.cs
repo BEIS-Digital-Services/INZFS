@@ -11,7 +11,6 @@ namespace INZFS.MVC.ViewModels.ProposalFinance
     public class FinanceBalanceSheetViewModel : FinanceBalanceSheetPart
     {
         public string BalanceSheetUtc { get; set; }
-        public decimal BalanceSheetTotal { get; set; }
 
         [BindNever]
         public FinanceBalanceSheetPart FinanceBalanceSheetPart { get; set; }

@@ -12,7 +12,7 @@ namespace INZFS.MVC.Models.ProposalFinance
     {
         [Required(ErrorMessage = "Enter the turnover amount")]
         [Display(Name = "Turnover Amount  (in most recent annual accounts)")]
-        public decimal TurnoverAmount { get; set; }
+        public decimal? TurnoverAmount { get; set; }
 
         [Required(ErrorMessage = "Enter turnover day")]
         public int? Day { get; set; }

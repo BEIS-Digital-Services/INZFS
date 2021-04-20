@@ -10,8 +10,6 @@ namespace INZFS.MVC.ViewModels.ProposalFinance
 {
     public class FinanceRecoverVatViewModel : FinanceRecoverVatPart
     {
-        public bool AbleToRecover { get; set; }
-
         [BindNever]
         public FinanceRecoverVatPart FinanceRecoverVatPart { get; set; }
     }

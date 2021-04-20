@@ -12,7 +12,7 @@ namespace INZFS.MVC.Models.ProposalFinance
     {
         [Required(ErrorMessage = "Select an option")]
         [Display(Name = "Is the organisation able to recover VAT?")]
-        public bool AbleToRecover { get; set; }
+        public bool? AbleToRecover { get; set; }
 
     }
 
