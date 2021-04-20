@@ -614,7 +614,7 @@ namespace INZFS.MVC.Controllers
 
             var model = new ApplicationSummaryModel()
             {
-                TotalSections = 11
+                TotalSections = 12
             };
 
             UpdateModel<CompanyDetailsPart>(items, "CompanyDetails", model, Sections.CompanyDetails);
