@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models
 {
-    public class ApplicationsSummaryModel
+    public class FundManagerApplicationsModel
     {
         public IList<CompanyDetailsPart> CompanyDetails { get; set; }
 

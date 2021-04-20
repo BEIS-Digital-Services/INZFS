@@ -66,7 +66,7 @@ namespace INZFS.MVC.Controllers
 
             var companySearchList = companyLists.ToList();
 
-            var model = new ApplicationsSummaryModel
+            var model = new FundManagerApplicationsModel
             {
                 CompanyDetails = companySearchList
             };
