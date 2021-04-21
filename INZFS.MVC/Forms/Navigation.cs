@@ -21,6 +21,7 @@ namespace INZFS.MVC.Forms
         public Navigation()
         {
             _pages = new List<Page>();
+            _pages.Add(new ContentPage { Name = "company-details", ContentType = "CompanyDetails" });
             _pages.Add(new ContentPage { Name = "project-summary", ContentType = "ProjectSummaryPart" });
             _pages.Add(new ContentPage { Name = "project-details", ContentType = "ProjectDetailsPart" });
             _pages.Add(new ContentPage { Name = "org-funding", ContentType = "OrgFundingPart" });

@@ -25,6 +25,14 @@
                         <ul class="app-task-list__items">
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
+                                    <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="company-details" aria-describedby="project-summary">
+                                       Company Details
+                                    </a>
+                                </span>
+                                <strong class="govuk-tag app-task-list__tag" id="company-details">@(Model.CompletedSections.HasFlag(Sections.CompanyDetails) ? "COMPLETED" : "NOT STARTED")</strong>
+                            </li>
+                            <li class="app-task-list__item">
+                                <span class="app-task-list__task-name">
                                     <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="project-summary" aria-describedby="project-summary">
                                         Project Summary
                                     </a>
@@ -39,7 +47,6 @@
                                 </span>
                                 <strong class="govuk-tag app-task-list__tag" id="project-details">@(Model.CompletedSections.HasFlag(Sections.ProjectDetails ) ? "COMPLETED" : "NOT STARTED")</strong>
                             </li>
-
                             <li class="app-task-list__item">
                                 <span class="app-task-list__task-name">
                                     <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="org-funding" aria-describedby="org-funding">
