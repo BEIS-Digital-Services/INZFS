@@ -19,7 +19,7 @@
         <label class="govuk-label govuk-label--l" asp-for="Summary">
         </label>
         <span asp-validation-for="Summary" class="govuk-error-message"></span>
-        <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="Summary" rows="5"  aria-describedby="summary-hint"></textarea>
+        <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="Summary" rows="5" aria-describedby="summary-hint"></textarea>
 
         <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
             You can enter up to 200 characters
@@ -27,25 +27,25 @@
     </div>
 </div>
 
-    <div class="govuk-form-group" asp-validation-error-class-for="Timing">
-        <label class="govuk-label govuk-label--l" asp-for="Timing">
-        </label>
-        <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
-            <div class="govuk-radios govuk-radios--inline">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" asp-for="Timing" type="radio" value="1">
-                    <label class="govuk-label govuk-radios__label" asp-for="Timing">
-                        Yes
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" asp-for="Timing" type="radio" value="0">
-                    <label class="govuk-label govuk-radios__label" asp-for="Timing">
-                        No
-                    </label>
-                </div>
+<div class="govuk-form-group" asp-validation-error-class-for="Timing">
+    <label class="govuk-label govuk-label--l" asp-for="Timing">
+    </label>
+    <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
+        <div class="govuk-radios govuk-radios--inline">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" asp-for="Timing" type="radio" value="1">
+                <label class="govuk-label govuk-radios__label" asp-for="Timing">
+                    Yes
+                </label>
             </div>
-        </fieldset>
-    </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" asp-for="Timing" type="radio" value="0">
+                <label class="govuk-label govuk-radios__label" asp-for="Timing">
+                    No
+                </label>
+            </div>
+        </div>
+    </fieldset>
+</div>
 
-    <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-742fa5a510a9c8f6d5329e57467e60c7.js"></script>
+<script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-742fa5a510a9c8f6d5329e57467e60c7.js"></script>
