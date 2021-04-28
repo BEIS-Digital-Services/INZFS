@@ -12,13 +12,17 @@
 
 <input type="hidden" name="contentType" value="ProjectExperience" />
 
-<div class="govuk-form-group" asp-validation-error-class-for="ExperienceSummary" data-maxlength="200">
-    <label class="govuk-label govuk-label--l" asp-for="ExperienceSummary">
-    </label>
-    <span asp-validation-for="ExperienceSummary" class="govuk-error-message"></span>
-    <textarea class="govuk-textarea" asp-for="ExperienceSummary" rows="5" aria-describedby="summary-hint"></textarea>
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+    <div class="govuk-form-group" asp-validation-error-class-for="ExperienceSummary">
+        <label class="govuk-label govuk-label--l" asp-for="ExperienceSummary">
+        </label>
+        <span asp-validation-for="ExperienceSummary" class="govuk-error-message"></span>
+        <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="ExperienceSummary" rows="5" aria-describedby="summary-hint"></textarea>
 
-    <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-        You can enter up to 200 characters
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            You can enter up to 200 characters
+        </div>
     </div>
 </div>
+
+<script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-742fa5a510a9c8f6d5329e57467e60c7.js"></script>
