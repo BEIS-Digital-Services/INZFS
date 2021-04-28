@@ -117,15 +117,15 @@
                             Current funding
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            @if (Model.FinanceBarriersViewModel.Placeholder1.HasValue)
+                            @if (Model.FinanceBarriersViewModel.Placeholder1)
                             {
                                 <p>Placeholder1</p>
                             }
-                            @if (Model.FinanceBarriersViewModel.Placeholder2.HasValue)
+                            @if (Model.FinanceBarriersViewModel.Placeholder2)
                             {
                                 <p>Placeholder2</p> 
                             }
-                            @if (Model.FinanceBarriersViewModel.Placeholder2.HasValue)
+                            @if (Model.FinanceBarriersViewModel.Placeholder3)
                             {
                                 <p>Placeholder3</p>
                             }
@@ -137,6 +137,7 @@
                         </dd>
                     </div>
                 </dl>
+
                 <h2 class="govuk-heading-m">Now send your application</h2>
 
                 <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
