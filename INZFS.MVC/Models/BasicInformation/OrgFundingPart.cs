@@ -10,14 +10,14 @@ namespace INZFS.MVC.Models
 {
     public class OrgFundingPart : ContentPart
     {
-        public bool NoFunding { get; set; } = false;
-        public bool Funders { get; set; } = false;
-        public bool FriendsAndFamily { get; set; } = false;
-        public bool PublicSectorGrants { get; set; } = false;
-        public bool AngelInvestment { get; set; } = false;
-        public bool VentureCapital { get; set; } = false;
-        public bool PrivateEquity { get; set; } = false;
-        public bool StockMarketFlotation { get; set; } = false;
+        public bool NoFunding { get; set; } 
+        public bool Funders { get; set; } 
+        public bool FriendsAndFamily { get; set; } 
+        public bool PublicSectorGrants { get; set; } 
+        public bool AngelInvestment { get; set; } 
+        public bool VentureCapital { get; set; } 
+        public bool PrivateEquity { get; set; } 
+        public bool StockMarketFlotation { get; set; } 
 
     }
 
