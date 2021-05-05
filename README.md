@@ -1,1 +1,0 @@
-Checking pull request works on devops pipeline

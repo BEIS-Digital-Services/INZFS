@@ -1,0 +1,71 @@
+{
+  "instance_min_count": 1,
+  "instance_max_count": 4,
+  "scaling_rules": [
+    {
+      "metric_type": "throughput",
+      "breach_duration_secs": 60,
+      "threshold": 90,
+      "operator": "<",
+      "cool_down_secs": 60,
+      "adjustment": "-1"
+    },
+    {
+      "metric_type": "throughput",
+      "breach_duration_secs": 60,
+      "threshold": 90,
+      "operator": ">=",
+      "cool_down_secs": 60,
+      "adjustment": "+1"
+    },
+    {
+      "metric_type":"memoryutil",
+      "stat_window_secs":120,
+      "breach_duration_secs":60,
+      "threshold":40,
+      "operator":"<",
+      "cool_down_secs":60,
+      "adjustment":"-1"
+   },
+   {
+      "metric_type":"memoryutil",
+      "stat_window_secs":120,
+      "breach_duration_secs":60,
+      "threshold":50,
+      "operator":">=",
+      "cool_down_secs":60,
+      "adjustment":"+1"
+   },
+   {
+      "metric_type":"responsetime",
+      "stat_window_secs":120,
+      "breach_duration_secs":60,
+      "threshold":7000,
+      "operator":"<",
+      "cool_down_secs":60,
+      "adjustment":"-1"
+   },
+   {
+      "metric_type":"responsetime",
+      "stat_window_secs":120,
+      "breach_duration_secs":60,
+      "threshold":10000,
+      "operator":">=",
+      "cool_down_secs":60,
+      "adjustment":"+1"
+   }
+  ],
+  "schedules": {
+    "timezone": "Europe/London",
+    "recurring_schedule": [
+      {
+        "start_time": "08:00",
+        "end_time": "18:00",
+        "days_of_week": [1, 2, 3, 4, 5],
+        "instance_min_count": 1,
+        "instance_max_count": 4,
+        "initial_min_instance_count": 1
+      }
+    ]
+  }
+}
