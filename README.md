@@ -1,7 +1,7 @@
 
  <h1> INZFS Service  </h1>
 
-This is the code for the Industrial Net Zero Funding Service, INZFS is Innovate UK’s ‘Open grant funding’ programme.
+This is the code for the Industrial Net Zero Funding Service.
 
 INZFS, part of UK Research and Innovation, is investing up to £25 million in the best game-changing and commercially viable innovative or disruptive ideas. All proposals must be business focused.
 
