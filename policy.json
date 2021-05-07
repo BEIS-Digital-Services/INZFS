@@ -18,15 +18,6 @@
       "cool_down_secs": 60,
       "adjustment": "+1"
     },
-    {
-      "metric_type":"memoryutil",
-      "stat_window_secs":120,
-      "breach_duration_secs":60,
-      "threshold":40,
-      "operator":"<",
-      "cool_down_secs":60,
-      "adjustment":"-1"
-   },
    {
       "metric_type":"memoryutil",
       "stat_window_secs":120,
@@ -37,14 +28,13 @@
       "adjustment":"+1"
    },
    {
-      "metric_type":"responsetime",
-      "stat_window_secs":120,
-      "breach_duration_secs":60,
-      "threshold":7000,
-      "operator":"<",
-      "cool_down_secs":60,
-      "adjustment":"-1"
-   },
+    "metric_type": "cpu",
+    "breach_duration_secs": 120,
+    "threshold": 50,
+    "operator": ">=",
+    "cool_down_secs": 60,
+    "adjustment": "+1"
+  },
    {
       "metric_type":"responsetime",
       "stat_window_secs":120,
