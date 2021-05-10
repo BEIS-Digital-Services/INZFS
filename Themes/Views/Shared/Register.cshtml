@@ -10,28 +10,28 @@
         <h2 class="govuk-heading-s">@T["Create a new account."]</h2>
         <hr />
         <div asp-validation-summary="All" class="govuk-error-message" id="validationSummary"></div>
-        <div class="govuk-form-group">
+        <div class="govuk-form-group" asp-validation-error-class-for="UserName">
             <label asp-for="UserName" class="col-md-3 govuk-label">@T["Username"]</label>
             <div class="col-md-9">
                 <input asp-for="UserName" class="govuk-input" autofocus />
                 <span asp-validation-for="UserName" class="govuk-error-message"></span>
             </div>
         </div>
-        <div class="govuk-form-group">
+        <div class="govuk-form-group" asp-validation-error-class-for="Email">
             <label asp-for="Email" class="col-md-3 govuk-label">@T["Email"]</label>
             <div class="col-md-9">
                 <input asp-for="Email" class="govuk-input" />
                 <span asp-validation-for="Email" class="govuk-error-message"></span>
             </div>
         </div>
-        <div class="govuk-form-group">
+        <div class="govuk-form-group" asp-validation-error-class-for="Password">
             <label asp-for="Password" class="col-md-3 govuk-label">@T["Password"]</label>
             <div class="col-md-9">
                 <input asp-for="Password" class="govuk-input" />
                 <span asp-validation-for="Password" class="govuk-error-message"></span>
             </div>
         </div>
-        <div class="govuk-form-group">
+        <div class="govuk-form-group" asp-validation-error-class-for="ConfirmPassword">
             <label asp-for="ConfirmPassword" class="col-md-3 govuk-label">@T["Confirm password"]</label>
             <div class="col-md-9">
                 <input asp-for="ConfirmPassword" class="govuk-input" />
@@ -52,4 +52,5 @@
     if (!isValid) {
         errorSummary.classList.add('govuk-error-summary');
     }
+
 </script>
