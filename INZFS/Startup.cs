@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OrchardCore.Logging;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -46,7 +47,7 @@ namespace INZFS
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-            app.UseOrchardCore();
+            app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
         }
     }
 }

@@ -14,16 +14,16 @@ namespace INZFS
     {
         public static void Main(string[] args)
         {
-            Log.Logger = new LoggerConfiguration()
-               .ReadFrom.AppSettings()
-               .CreateLogger();
-
-            CreateHostBuilder(args).Build().Run();
-           
+                 CreateHostBuilder(args).Build().Run();      
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
+            .ConfigureLogging(logging => logging.ClearProviders())
+                .UseSerilog((hostingContext, configBuilder) =>
+                {
+                    configBuilder.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext();
+                })
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
