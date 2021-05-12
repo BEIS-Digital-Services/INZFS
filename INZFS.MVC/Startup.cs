@@ -1,4 +1,6 @@
 using System;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using INZFS.MVC.Drivers;
 using INZFS.MVC.Drivers.ProposalFinance;
 using INZFS.MVC.Drivers.ProposalWritten;
@@ -79,6 +81,8 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            services.AddControllers();
         }
 
         private void ConfigureContent(IServiceCollection services)
