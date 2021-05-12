@@ -156,7 +156,7 @@ namespace INZFS.MVC.Controllers
 
             if (containerContentItems.Any())
             {
-                var existingContainerContentItem = containerContentItems.First();
+                var existingContainerContentItem = containerContentItems.FirstOrDefault();
                 var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
                 var existingContentItem = applicationContainer.ContentItems.FirstOrDefault(ci => ci.ContentType == contentType);
                 if (existingContentItem != null)
@@ -397,9 +397,9 @@ namespace INZFS.MVC.Controllers
             Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
             var containerContentItems = await GetContentItems(expression);
 
-            var existingContainerContentItem = containerContentItems.First();
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
             var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
-            var contentItem = applicationContainer.ContentItems.First(ci => ci.ContentItemId == contentItemId);
+            var contentItem = applicationContainer.ContentItems.FirstOrDefault(ci => ci.ContentItemId == contentItemId);
 
             if (contentItem == null)
                 return NotFound();
@@ -447,7 +447,7 @@ namespace INZFS.MVC.Controllers
             Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
             var containerContentItems = await GetContentItems(expression);
 
-            var existingContainerContentItem = containerContentItems.First();
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
             if (existingContainerContentItem == null)
             {
                 return NotFound();
@@ -456,7 +456,7 @@ namespace INZFS.MVC.Controllers
             var bagPart = existingContainerContentItem?.ContentItem.As<BagPart>();
             bagPart.ContentItem = existingContainerContentItem;
 
-            var contentItemToUpdate = bagPart.ContentItems.First(ci => ci.ContentItemId == contentItemId);
+            var contentItemToUpdate = bagPart.ContentItems.FirstOrDefault(ci => ci.ContentItemId == contentItemId);
             if (contentItemToUpdate == null)
             {
                 return NotFound();
@@ -678,7 +678,7 @@ namespace INZFS.MVC.Controllers
         {
             Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
             var containerContentItems = await GetContentItems(expression);
-            var existingContainerContentItem = containerContentItems.First();
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
             var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
             return applicationContainer.ContentItems;
         }
