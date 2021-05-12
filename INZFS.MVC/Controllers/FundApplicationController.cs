@@ -649,7 +649,7 @@ namespace INZFS.MVC.Controllers
             UpdateModel<ProjectProposalDetailsPart>(items, "ProjectProposalDetails", model, Sections.ProjectProposalDetails);
             UpdateModel<ProjectExperiencePart>(items, "ProjectExperience", model, Sections.ProjectExperience);
 
-            var contentItem = items.FirstOrDefault(item => item.ContentType == "ApplicationDocument");
+            var contentItem = items?.FirstOrDefault(item => item.ContentType == "ApplicationDocument");
             var applicationDocumentPart = contentItem?.ContentItem.As<ApplicationDocumentPart>();
             if (applicationDocumentPart != null)
             {
@@ -680,13 +680,13 @@ namespace INZFS.MVC.Controllers
             var containerContentItems = await GetContentItems(expression);
             var existingContainerContentItem = containerContentItems.FirstOrDefault();
             var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
-            return applicationContainer.ContentItems;
+            return applicationContainer?.ContentItems;
         }
 
 
         private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Sections section) where T : ContentPart
         {
-            var contentItem = contentItems.FirstOrDefault(item => item.ContentType == contentToFilter);
+            var contentItem = contentItems?.FirstOrDefault(item => item.ContentType == contentToFilter);
             var contentPart = contentItem?.ContentItem.As<T>();
 
             if (contentPart != null)
