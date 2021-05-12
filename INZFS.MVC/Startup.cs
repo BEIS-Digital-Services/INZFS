@@ -134,6 +134,8 @@ namespace INZFS.MVC
                 .UseDisplayDriver<ApplicationDocumentDriver>()
                   .AddHandler<ApplicationDocumentPartHandler>();
             services.AddScoped<IDataMigration, ApplicationDocumentMigration>();
+
+            services.AddScoped<IDataMigration, ApplicationContainerMigration>();
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
