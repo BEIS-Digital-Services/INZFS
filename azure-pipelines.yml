@@ -1,0 +1,116 @@
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+
+- script: dotnet build --configuration $(buildConfiguration)
+  displayName: 'dotnet Build $(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Publish Project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+- task: AzureRmWebAppDeployment@4
+  displayName: 'Deploy to App Service'
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'My Azure Subscription Service Connection'
+    appType: 'webApp'
+    WebAppName: 'securedevapp'
+    packageForLinux: '$(System.ArtifactsDirectory)/**/*.zip'
+
+- task: owaspzap@1
+  displayName: 'OWASP ZAP'
+  inputs:
+    threshold: '75'
+    scantype: 'targetedScan'
+    url: 'https://inzfs-lab.london.cloudapps.digital/'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Zap Report'
+  inputs:
+    PathtoPublish: '$(Build.SourcesDirectory)/owaspzap'
+    artifactName: 'Zap Report' 
+
+
+- bash: |
+   sudo npm install -g handlebars-cmd
+
+   cat <<EOF > owaspzap/nunit-template.hbs
+   {{#each site}}
+
+   <test-run
+       id="2"
+       name="Owasp test"
+       start-time="{{../[@generated]}}"  >
+       <test-suite
+           id="{{@index}}"
+           type="Assembly"
+           name="{{[@name]}}"
+           result="Failed"
+           failed="{{alerts.length}}">
+           <attachments>
+               <attachment>
+                   <filePath>$(Build.SourcesDirectory)/owaspzap/report.html</filePath>
+               </attachment>
+           </attachments>
+       {{#each alerts}}<test-case
+           id="{{@index}}"
+           name="{{alert}}"
+           result="Failed"
+           fullname="{{alert}}"
+           time="1">
+               <failure>
+                   <message>
+                       <![CDATA[{{{desc}}}]]>
+                   </message>
+                   <stack-trace>
+                       <![CDATA[
+   Solution:
+   {{{solution}}}
+
+   Reference:
+   {{{reference}}}
+
+   instances:{{#each instances}}
+   * {{uri}}
+       - {{method}}
+       {{#if evidence}}- {{{evidence}}}{{/if}}
+                       {{/each}}]]>
+                   </stack-trace>
+               </failure>
+       </test-case>
+       {{/each}}
+       </test-suite>
+   </test-run>
+   {{/each}}
+   EOF
+  displayName: 'owasp nunit template'
+  condition: always()
+
+- bash: ' handlebars owaspzap/report.json < owaspzap/nunit-template.hbs > owaspzap/test-results.xml'
+  displayName: 'generate nunit type file'
+  condition: always()
+
+- task: PublishTestResults@2
+  displayName: 'Publish Test Results **/TEST-*.xml'
+  inputs:
+    testResultsFormat: NUnit
+    testResultsFiles: 'owaspzap/test-results.xml'
+  condition: always()
+
