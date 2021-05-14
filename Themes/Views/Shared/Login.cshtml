@@ -42,15 +42,9 @@
                         <div class="govuk-form-group input-group-append">
                             <span asp-validation-for="Password" class="govuk-error-message"></span>
                             <input asp-for="Password" type="password" class="govuk-input" tabindex="2" />
-                            <div class="input-group-append">
-                                <button tabindex="-1" class="govuk-button" type="button" id="togglePassword"><i class="icon fa fa-eye"></i></button>
-                            </div>
                         </div>
                     </div>
-                    <div class="govuk-form-group custom-control custom-checkbox">
-                        <input asp-for="RememberMe" class="custom-control-input" tabindex="3">
-                        <label asp-for="RememberMe" class="custom-control-label">@T["Remember me"]</label>
-                    </div>
+             
                     <details class="govuk-details">
                         <summary class="govuk-details__summary"><span class="govuk-details__summary-text">Need help signing in or creating an account?</span></summary>
                         <div class="govuk-details__text">
@@ -105,28 +99,6 @@
     </div>
 }
 
-<script type="text/javascript">
-        togglePassword = document.querySelector('#togglePassword');
-        password = document.querySelector('#Password');
-
-        togglePassword.addEventListener('click', function (e) {
-            @* toggle the type attribute *@
-            type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-            password.setAttribute('type', type);
-
-            @* toggle the eye slash icon *@
-            icon = this.getElementsByClassName('icon')[0];
-            if (icon.getAttribute('data-icon')) {
-                @* if the icon is rendered as a svg *@
-                    type === 'password' ? icon.setAttribute('data-icon', 'eye') : icon.setAttribute('data-icon', 'eye-slash');
-            }
-            else {
-                @* if the icon is still a < i > element *@
-                    type === 'password' ? icon.classList.remove('fa-eye-slash') : icon.classList.remove('fa-eye');
-                type === 'password' ? icon.classList.add('fa-eye') : icon.classList.add('fa-eye-slash');
-            }
-        });
-</script>
 <script type="text/javascript">
     errorSummary = document.querySelector('#validationSummary');
     isValid = document.querySelector('.validation-summary-valid');
