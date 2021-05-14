@@ -123,9 +123,8 @@ namespace INZFS.MVC.Controllers
                 if(page is ViewPage)
                 {
                     var viewPage = (ViewPage)page;
-                    Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == viewPage.ContentType;
-                    var contentItems = await GetContentItems(expression);
-                    var model = contentItems.Any() ? contentItems.First().As<ApplicationDocumentPart>(): new ApplicationDocumentPart();
+                    var applicationDocumentPart =await GetContentItemFromBagPart<ApplicationDocumentPart>(viewPage.ContentType);
+                    var model = applicationDocumentPart ?? new ApplicationDocumentPart();
                     ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
                     return View(viewPage.ViewName, model);
                 }
@@ -642,14 +641,14 @@ namespace INZFS.MVC.Controllers
                 TotalSections = 12
             };
 
-            UpdateModel<CompanyDetailsPart>(items, "CompanyDetails", model, Sections.CompanyDetails);
-            UpdateModel<ProjectSummaryPart>(items, "ProjectSummaryPart", model, Sections.ProjectSummary);
-            UpdateModel<ProjectDetailsPart>(items, "ProjectDetailsPart", model, Sections.ProjectDetails);
-            UpdateModel<OrgFundingPart>(items, "OrgFundingPart", model, Sections.Funding);
-            UpdateModel<ProjectProposalDetailsPart>(items, "ProjectProposalDetails", model, Sections.ProjectProposalDetails);
-            UpdateModel<ProjectExperiencePart>(items, "ProjectExperience", model, Sections.ProjectExperience);
+            UpdateModel<CompanyDetailsPart>(items, ContentTypes.CompanyDetails, model, Sections.CompanyDetails);
+            UpdateModel<ProjectSummaryPart>(items, ContentTypes.ProjectSummary, model, Sections.ProjectSummary);
+            UpdateModel<ProjectDetailsPart>(items, ContentTypes.ProjectDetails, model, Sections.ProjectDetails);
+            UpdateModel<OrgFundingPart>(items, ContentTypes.OrgFunding, model, Sections.Funding);
+            UpdateModel<ProjectProposalDetailsPart>(items, ContentTypes.ProjectProposalDetails, model, Sections.ProjectProposalDetails);
+            UpdateModel<ProjectExperiencePart>(items, ContentTypes.ProjectExperience, model, Sections.ProjectExperience);
 
-            var contentItem = items?.FirstOrDefault(item => item.ContentType == "ApplicationDocument");
+            var contentItem = items?.FirstOrDefault(item => item.ContentType == ContentTypes.ApplicationDocument);
             var applicationDocumentPart = contentItem?.ContentItem.As<ApplicationDocumentPart>();
             if (applicationDocumentPart != null)
             {
@@ -665,10 +664,10 @@ namespace INZFS.MVC.Controllers
                 }
             }
 
-            UpdateModel<FinanceTurnoverPart>(items, "FinanceTurnover", model, Sections.FinanceTurnover);
-            UpdateModel<FinanceBalanceSheetPart>(items, "FinanceBalanceSheet", model, Sections.FinanceBalanceSheet);
-            UpdateModel<FinanceRecoverVatPart>(items, "FinanceRecoverVat", model, Sections.FinanceRecoverVat);
-            UpdateModel<FinanceBarriersPart>(items, "FinanceBarriers", model, Sections.FinanceBarriers);
+            UpdateModel<FinanceTurnoverPart>(items, ContentTypes.FinanceTurnover, model, Sections.FinanceTurnover);
+            UpdateModel<FinanceBalanceSheetPart>(items, ContentTypes.FinanceBalanceSheet, model, Sections.FinanceBalanceSheet);
+            UpdateModel<FinanceRecoverVatPart>(items, ContentTypes.FinanceRecoverVat, model, Sections.FinanceRecoverVat);
+            UpdateModel<FinanceBarriersPart>(items, ContentTypes.FinanceBarriers, model, Sections.FinanceBarriers);
 
             return model;
         }
@@ -683,6 +682,11 @@ namespace INZFS.MVC.Controllers
             return applicationContainer?.ContentItems;
         }
 
+        private async Task<T> GetContentItemFromBagPart<T>(string contentToFilter) where T : ContentPart
+        {
+            var items = await GetContentItemListFromBagPart();
+            return GetContentPart<T>(items, contentToFilter);
+        }
 
         private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Sections section) where T : ContentPart
         {
