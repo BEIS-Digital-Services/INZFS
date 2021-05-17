@@ -81,6 +81,8 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary("C:/Users/BenLander/source/repos/UKGovernmentBEIS/INZFS/INZFS.MVC/libwkhtmltox");
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddControllers();
         }

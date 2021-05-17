@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,8 +29,6 @@
 	<PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-15867" />
     <PackageReference Include="nClam" Version="5.0.1" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
-  </ItemGroup>
+	
 </Project>
+
