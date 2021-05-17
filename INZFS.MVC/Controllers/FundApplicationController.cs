@@ -34,6 +34,8 @@ using INZFS.MVC.Drivers;
 using System.Linq.Expressions;
 using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.ViewModels.ProposalFinance;
+using OrchardCore.Flows.Models;
+using Newtonsoft.Json.Linq;
 
 namespace INZFS.MVC.Controllers
 {
@@ -57,11 +59,12 @@ namespace INZFS.MVC.Controllers
         private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xlsx", ".doc",".docx" };
         private readonly ILogger _logger;
         private readonly ClamClient _clam;
+        private readonly ITypeActivatorFactory<ContentPart> _contentPartFactory;
 
         public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory, ISiteService siteService,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation)
+            IUpdateModelAccessor updateModelAccessor, INavigation navigation, ITypeActivatorFactory<ContentPart> contentPartFactory)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -76,6 +79,7 @@ namespace INZFS.MVC.Controllers
             H = htmlLocalizer;
             New = shapeFactory;
             _navigation = navigation;
+            _contentPartFactory = contentPartFactory;
         }
 
         [HttpGet]
@@ -108,7 +112,7 @@ namespace INZFS.MVC.Controllers
                 var model = await GeProposalFinanceModel();
                 return View("ProposalFinanceSummary", model);
             }
-            
+
             var page = _navigation.GetPage(pagename);
             if (page == null)
             {
@@ -119,17 +123,16 @@ namespace INZFS.MVC.Controllers
                 if(page is ViewPage)
                 {
                     var viewPage = (ViewPage)page;
-                    Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == viewPage.ContentType;
-                    var contentItems = await GetContentItems(expression);
-                    var model = contentItems.Any() ? contentItems.First().As<ApplicationDocumentPart>(): new ApplicationDocumentPart();
+                    var applicationDocumentPart =await GetContentItemFromBagPart<ApplicationDocumentPart>(viewPage.ContentType);
+                    var model = applicationDocumentPart ?? new ApplicationDocumentPart();
                     ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
                     return View(viewPage.ViewName, model);
                 }
-                
+
                 return await Create(((ContentPage)page).ContentType);
             }
         }
-        
+
         public async Task<bool> CreateDirectory(string directoryName)
         {
             if(directoryName == null)
@@ -147,14 +150,20 @@ namespace INZFS.MVC.Controllers
                 return NotFound();
             }
 
-            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == contentType;
-            var contentItems = await GetContentItems(expression);
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var containerContentItems = await GetContentItems(expression);
 
-            if (contentItems.Any())
+            if (containerContentItems.Any())
             {
-                var existingContentItem = contentItems.First();
-                return await Edit(existingContentItem.ContentItemId, contentType);
+                var existingContainerContentItem = containerContentItems.FirstOrDefault();
+                var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
+                var existingContentItem = applicationContainer.ContentItems.FirstOrDefault(ci => ci.ContentType == contentType);
+                if (existingContentItem != null)
+                {
+                    return await Edit(existingContentItem.ContentItemId, contentType);
+                }
             }
+
             var newContentItem = await _contentManager.NewAsync(contentType);
             var model = await _contentItemDisplayManager.BuildEditorAsync(newContentItem, _updateModelAccessor.ModelUpdater, true);
 
@@ -167,7 +176,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-            
+
             return await CreatePOST(contentType, returnUrl, stayOnSamePage, file, async contentItem =>
             {
                 await _contentManager.PublishAsync(contentItem);
@@ -178,7 +187,30 @@ namespace INZFS.MVC.Controllers
 
         private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, IFormFile? file, Func<ContentItem, Task> conditionallyPublish)
         {
-            var contentItem = await _contentManager.NewAsync(id);
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var containerContentItems = await GetContentItems(expression);
+
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
+            if (existingContainerContentItem == null)
+            {
+                // Create the container item first - done only once
+                existingContainerContentItem = await _contentManager.NewAsync(ContentTypes.INZFSApplicationContainer);
+                _session.Save(existingContainerContentItem);
+                await _contentManager.CreateAsync(existingContainerContentItem, VersionOptions.Draft);
+                await conditionallyPublish(existingContainerContentItem);
+
+                containerContentItems = await GetContentItems(expression);
+                existingContainerContentItem = containerContentItems.FirstOrDefault();
+            }
+
+            var bagPart = existingContainerContentItem?.ContentItem.As<BagPart>();
+            bagPart.ContentItem = existingContainerContentItem;
+
+            var contentItem = bagPart.ContentItems.FirstOrDefault(ci => ci.ContentItemId == id);
+            if (contentItem == null)
+            {
+                contentItem = await _contentManager.NewAsync(id);
+            }
 
             if (file != null)
             {
@@ -196,7 +228,8 @@ namespace INZFS.MVC.Controllers
                 }
 
                 var publicUrl = await SaveFile(file, contentItem.ContentItemId);
-                TempData["UploadDetail"] = new UploadDetail{
+                TempData["UploadDetail"] = new UploadDetail
+                {
                     ContentItemProperty = Request.Form["contentTypeProperty"],
                     FileName = publicUrl
                 };
@@ -212,9 +245,10 @@ namespace INZFS.MVC.Controllers
                 return View("Create", model);
             }
 
-            await _contentManager.CreateAsync(contentItem, VersionOptions.Draft);
-
-            await conditionallyPublish(contentItem);
+            bagPart.ContentItems.Add(contentItem);
+            bagPart.ContentItem.Apply(nameof(BagPart), bagPart);
+            _session.Save(existingContainerContentItem);
+            await conditionallyPublish(existingContainerContentItem);
 
             var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
             if (string.IsNullOrEmpty(nextPageUrl))
@@ -224,7 +258,7 @@ namespace INZFS.MVC.Controllers
             return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
-   
+
         private string ModifyFileName(string originalFileName)
         {
             DateTime thisDate = DateTime.UtcNow;
@@ -257,9 +291,9 @@ namespace INZFS.MVC.Controllers
             {
                 return string.Empty;
             }
-           
 
-          
+
+
         }
         private bool IsValidFileExtension(IFormFile file)
         {
@@ -323,7 +357,8 @@ namespace INZFS.MVC.Controllers
                             {
                                 Name = infectedFile.VirusName
                             });
-                        } return false;
+                        }
+                        return false;
                     }
                     else
                     {
@@ -358,7 +393,12 @@ namespace INZFS.MVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string contentItemId, string contentName)
         {
-            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var containerContentItems = await GetContentItems(expression);
+
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
+            var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
+            var contentItem = applicationContainer.ContentItems.FirstOrDefault(ci => ci.ContentItemId == contentItemId);
 
             if (contentItem == null)
                 return NotFound();
@@ -373,13 +413,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-
-            var content = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
-
-            if (content == null)
-            {
-                return NotFound();
-            }
+           
             if(file != null)
             {
                 var errorMessage = await Validate(file);
@@ -387,10 +421,12 @@ namespace INZFS.MVC.Controllers
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
                     ViewBag.ErrorMessage = errorMessage;
-                    return await Edit(contentItemId,content.ContentType);
+                    var content = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest); // THIS IS NOT NECESSARY
+                    return await Edit(contentItemId, content.ContentType);
                 }
                 var publicUrl = await SaveFile(file, contentItemId);
-                TempData["UploadDetail"] = new UploadDetail { 
+                TempData["UploadDetail"] = new UploadDetail
+                {
                     ContentItemProperty = Request.Form["contentTypeProperty"],
                     FileName = publicUrl
                 };
@@ -407,26 +443,38 @@ namespace INZFS.MVC.Controllers
 
         private async Task<IActionResult> EditPOST(string contentItemId, string returnUrl, bool stayOnSamePage, Func<ContentItem, Task> conditionallyPublish)
         {
-            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.DraftRequired);
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var containerContentItems = await GetContentItems(expression);
 
-            if (contentItem == null)
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
+            if (existingContainerContentItem == null)
             {
                 return NotFound();
             }
 
-            var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItem, _updateModelAccessor.ModelUpdater, false);
+            var bagPart = existingContainerContentItem?.ContentItem.As<BagPart>();
+            bagPart.ContentItem = existingContainerContentItem;
+
+            var contentItemToUpdate = bagPart.ContentItems.FirstOrDefault(ci => ci.ContentItemId == contentItemId);
+            if (contentItemToUpdate == null)
+            {
+                return NotFound();
+            }
+
+            var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItemToUpdate, _updateModelAccessor.ModelUpdater, false);
             if (!ModelState.IsValid)
             {
                 _session.Cancel();
                 return View("Edit", model);
             }
 
+            bagPart.ContentItem.Apply(nameof(BagPart), bagPart);
 
-            _session.Save(contentItem);
 
-            await conditionallyPublish(contentItem);
+            _session.Save(existingContainerContentItem);
+            await conditionallyPublish(existingContainerContentItem);
 
-            var nextPageUrl = GetNextPageUrl(contentItem.ContentType);
+            var nextPageUrl = GetNextPageUrl(contentItemToUpdate.ContentType);
             if (string.IsNullOrEmpty(nextPageUrl))
             {
                 return NotFound();
@@ -454,17 +502,20 @@ namespace INZFS.MVC.Controllers
 
         private async Task<SummaryViewModel> GetSummaryModel()
         {
-            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectSummaryPart"
-                || x.ContentType == "ProjectDetailsPart"
-                || x.ContentType == "OrgFundingPart";
+            var items = await GetContentItemListFromBagPart();
 
-            var items = await GetContentItems(expression);
-            var projectSummaryPart = GetContentPart<ProjectSummaryPart>(items, "ProjectSummaryPart");
-            var projectDetailsPart = GetContentPart<ProjectDetailsPart>(items, "ProjectDetailsPart");
-            var fundingPart = GetContentPart<OrgFundingPart>(items, "OrgFundingPart");
+            var companyDetailsPart = GetContentPart<CompanyDetailsPart>(items, ContentTypes.CompanyDetails);
+            var projectSummaryPart = GetContentPart<ProjectSummaryPart>(items, ContentTypes.ProjectSummary);
+            var projectDetailsPart = GetContentPart<ProjectDetailsPart>(items, ContentTypes.ProjectDetails);
+            var fundingPart = GetContentPart<OrgFundingPart>(items, ContentTypes.OrgFunding);
 
             var model = new SummaryViewModel
             {
+                CompanyDetailsViewModel = new CompanyDetailsViewModel
+                {
+                    CompanyName = companyDetailsPart.CompanyName,
+                    CompanyNumber = companyDetailsPart.CompanyNumber
+                },
                 ProjectSummaryViewModel = new ProjectSummaryViewModel
                 {
                     ProjectName = projectSummaryPart.ProjectName,
@@ -495,16 +546,12 @@ namespace INZFS.MVC.Controllers
 
         private async Task<ProposalFinanceSummaryViewModel> GeProposalFinanceModel()
         {
-            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "FinanceTurnover"
-                || x.ContentType == "FinanceBalanceSheet"
-                || x.ContentType == "FinanceRecoverVat"
-                || x.ContentType == "FinanceBarriers";
+            var items = await GetContentItemListFromBagPart();
 
-            var items = await GetContentItems(expression);
-            var financeTurnoverPart = GetContentPart<FinanceTurnoverPart>(items, "FinanceTurnover");
-            var financeBalanceSheetPart = GetContentPart<FinanceBalanceSheetPart>(items, "FinanceBalanceSheet");
-            var financeRecoverVatPart = GetContentPart<FinanceRecoverVatPart>(items, "FinanceRecoverVat");
-            var financeBarriersPart = GetContentPart<FinanceBarriersPart>(items, "FinanceBarriers");
+            var financeTurnoverPart = GetContentPart<FinanceTurnoverPart>(items, ContentTypes.FinanceTurnover);
+            var financeBalanceSheetPart = GetContentPart<FinanceBalanceSheetPart>(items, ContentTypes.FinanceBalanceSheet);
+            var financeRecoverVatPart = GetContentPart<FinanceRecoverVatPart>(items, ContentTypes.FinanceRecoverVat);
+            var financeBarriersPart = GetContentPart<FinanceBarriersPart>(items, ContentTypes.FinanceBarriers);
 
             var model = new ProposalFinanceSummaryViewModel
             {
@@ -539,15 +586,11 @@ namespace INZFS.MVC.Controllers
 
         private async Task<ProposalWrittenSummaryViewModel> GetApplicationWrittenSummaryModel()
         {
-            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectProposalDetails"
-                || x.ContentType == "ProjectExperience"
-                || x.ContentType == "ApplicationDocument";
+            var items = await GetContentItemListFromBagPart();
 
-            var items = await GetContentItems(expression);
-
-            var projectProposalPart = GetContentPart<ProjectProposalDetailsPart>(items, "ProjectProposalDetails");
-            var projectExperiencePart = GetContentPart<ProjectExperiencePart>(items, "ProjectExperience");
-            var applicationDocumentPart = GetContentPart<ApplicationDocumentPart>(items, "ApplicationDocument");
+            var projectProposalPart = GetContentPart<ProjectProposalDetailsPart>(items, ContentTypes.ProjectProposalDetails);
+            var projectExperiencePart = GetContentPart<ProjectExperiencePart>(items, ContentTypes.ProjectExperience);
+            var applicationDocumentPart = GetContentPart<ApplicationDocumentPart>(items, ContentTypes.ApplicationDocument);
 
             var model = new ProposalWrittenSummaryViewModel()
             {
@@ -591,31 +634,21 @@ namespace INZFS.MVC.Controllers
 
         private async Task<ApplicationSummaryModel> GetApplicationSummaryModel()
         {
-            Expression<Func<ContentItemIndex, bool>> expression = x => x.ContentType == "ProjectSummaryPart"
-                || x.ContentType == "ProjectDetailsPart"
-                || x.ContentType == "OrgFundingPart"
-                || x.ContentType == "ProjectProposalDetails"
-                || x.ContentType == "ProjectExperience"
-                || x.ContentType == "ApplicationDocument"
-                || x.ContentType == "FinanceTurnover"
-                || x.ContentType == "FinanceBalanceSheet"
-                || x.ContentType == "FinanceRecoverVat"
-                || x.ContentType == "FinanceBarriers";
 
-            var items = await GetContentItems(expression);
-
+            var items = await GetContentItemListFromBagPart();
             var model = new ApplicationSummaryModel()
             {
-                TotalSections = 11
+                TotalSections = 12
             };
 
-            UpdateModel<ProjectSummaryPart>(items, "ProjectSummaryPart", model, Sections.ProjectSummary);
-            UpdateModel<ProjectDetailsPart>(items, "ProjectDetailsPart", model, Sections.ProjectDetails);
-            UpdateModel<OrgFundingPart>(items, "OrgFundingPart", model, Sections.Funding);
-            UpdateModel<ProjectProposalDetailsPart>(items, "ProjectProposalDetails", model, Sections.ProjectProposalDetails);
-            UpdateModel<ProjectExperiencePart>(items, "ProjectExperience", model, Sections.ProjectExperience);
+            UpdateModel<CompanyDetailsPart>(items, ContentTypes.CompanyDetails, model, Sections.CompanyDetails);
+            UpdateModel<ProjectSummaryPart>(items, ContentTypes.ProjectSummary, model, Sections.ProjectSummary);
+            UpdateModel<ProjectDetailsPart>(items, ContentTypes.ProjectDetails, model, Sections.ProjectDetails);
+            UpdateModel<OrgFundingPart>(items, ContentTypes.OrgFunding, model, Sections.Funding);
+            UpdateModel<ProjectProposalDetailsPart>(items, ContentTypes.ProjectProposalDetails, model, Sections.ProjectProposalDetails);
+            UpdateModel<ProjectExperiencePart>(items, ContentTypes.ProjectExperience, model, Sections.ProjectExperience);
 
-            var contentItem = items.FirstOrDefault(item => item.ContentType == "ApplicationDocument");
+            var contentItem = items?.FirstOrDefault(item => item.ContentType == ContentTypes.ApplicationDocument);
             var applicationDocumentPart = contentItem?.ContentItem.As<ApplicationDocumentPart>();
             if (applicationDocumentPart != null)
             {
@@ -631,20 +664,35 @@ namespace INZFS.MVC.Controllers
                 }
             }
 
-            UpdateModel<FinanceTurnoverPart>(items, "FinanceTurnover", model, Sections.FinanceTurnover);
-            UpdateModel<FinanceBalanceSheetPart>(items, "FinanceBalanceSheet", model, Sections.FinanceBalanceSheet);
-            UpdateModel<FinanceRecoverVatPart>(items, "FinanceRecoverVat", model, Sections.FinanceRecoverVat);
-            UpdateModel<FinanceBarriersPart>(items, "FinanceBarriers", model, Sections.FinanceBarriers);
+            UpdateModel<FinanceTurnoverPart>(items, ContentTypes.FinanceTurnover, model, Sections.FinanceTurnover);
+            UpdateModel<FinanceBalanceSheetPart>(items, ContentTypes.FinanceBalanceSheet, model, Sections.FinanceBalanceSheet);
+            UpdateModel<FinanceRecoverVatPart>(items, ContentTypes.FinanceRecoverVat, model, Sections.FinanceRecoverVat);
+            UpdateModel<FinanceBarriersPart>(items, ContentTypes.FinanceBarriers, model, Sections.FinanceBarriers);
 
             return model;
         }
 
 
+        private async Task<List<ContentItem>> GetContentItemListFromBagPart()
+        {
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var containerContentItems = await GetContentItems(expression);
+            var existingContainerContentItem = containerContentItems.FirstOrDefault();
+            var applicationContainer = existingContainerContentItem?.ContentItem.As<BagPart>();
+            return applicationContainer?.ContentItems;
+        }
+
+        private async Task<T> GetContentItemFromBagPart<T>(string contentToFilter) where T : ContentPart
+        {
+            var items = await GetContentItemListFromBagPart();
+            return GetContentPart<T>(items, contentToFilter);
+        }
+
         private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Sections section) where T : ContentPart
         {
-            var contentItem = contentItems.FirstOrDefault(item => item.ContentType == contentToFilter);
+            var contentItem = contentItems?.FirstOrDefault(item => item.ContentType == contentToFilter);
             var contentPart = contentItem?.ContentItem.As<T>();
-            
+
             if (contentPart != null)
             {
                 model.TotalCompletedSections++;

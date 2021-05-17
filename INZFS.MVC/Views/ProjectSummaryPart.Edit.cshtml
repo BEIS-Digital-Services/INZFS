@@ -3,7 +3,7 @@
 @using INZFS.MVC.ViewModels
 @using INZFS.MVC.Models
 @using INZFS.MVC.TagHelpers
-@using INZFS.MVC.ViewModels.ProposalFinance 
+@using INZFS.MVC.ViewModels.ProposalFinance
 
 @{
     var sampleDate = DateTime.Now.AddDays(30);
@@ -33,6 +33,9 @@
         visibilitySettingError = "hidden";
     }
 }
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="company-details">
+    Back
+</a>
 <header>
     <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
 
@@ -99,6 +102,9 @@
     </span>
     <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
 </div>
+
+@Html.Partial("_Help")
+
 <script>
     function toggleVisibility() {
         var x = document.getElementById('hideForm');

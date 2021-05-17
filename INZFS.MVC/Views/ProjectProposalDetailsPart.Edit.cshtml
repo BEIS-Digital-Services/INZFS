@@ -16,14 +16,16 @@
 
 <input type="hidden" name="contentType" value="ProjectProposalDetails" />
 
-<div class="govuk-form-group" asp-validation-error-class-for="InnovationImpactSummary" data-maxlength="200">
-    <label class="govuk-label govuk-label--l" asp-for="InnovationImpactSummary">
-    </label>
-    <span asp-validation-for="InnovationImpactSummary" class="govuk-error-message"></span>
-    <textarea class="govuk-textarea" asp-for="InnovationImpactSummary" rows="5" aria-describedby="summary-hint"></textarea>
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
+    <div class="govuk-form-group" asp-validation-error-class-for="InnovationImpactSummary">
+        <label class="govuk-label govuk-label--l" asp-for="InnovationImpactSummary">
+        </label>
+        <span asp-validation-for="InnovationImpactSummary" class="govuk-error-message"></span>
+        <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" asp-for="InnovationImpactSummary" rows="5" aria-describedby="summary-hint"></textarea>
 
-    <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-        You can enter up to 200 characters
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            You can enter up to 200 characters
+        </div>
     </div>
 </div>
 
@@ -64,3 +66,5 @@
 
     </fieldset>
 </div>
+
+@Html.Partial("_Help")

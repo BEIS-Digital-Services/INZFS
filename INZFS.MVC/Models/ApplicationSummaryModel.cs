@@ -28,6 +28,7 @@ namespace INZFS.MVC.Models
         FinanceBalanceSheet = 1 << 8,
         FinanceRecoverVat = 1 << 9,
         FinanceBarriers = 1 << 10,
+        CompanyDetails = 1 << 11,
 
     }
 }

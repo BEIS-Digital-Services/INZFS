@@ -10,7 +10,7 @@ namespace INZFS.Theme.ViewModels
     public class RegisterViewModel : IValidatableObject
     {
         public string UserName { get; set; }
-
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [DataType(DataType.Password)]
