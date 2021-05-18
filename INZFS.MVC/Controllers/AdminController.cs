@@ -47,6 +47,21 @@ namespace INZFS.MVC.Controllers
             return View(model);
         }
 
+        public class ReportController: ControllerBase
+        {
+            private readonly IReportService _reportService;
+            public ReportController(IReportService reportService)
+            {
+                _reportService = reportService;
+            }
+            [HttpGet]
+            public IActionResult GeneratePdf()
+            {
+                var pdfFile = _reportService.GeneratePdfReport();
+                return File(pdfFile, "application/octet-stream", "Placeholder.pdf");
+            }
+        }
+
         private async Task<Dictionary<string, ContentItem>> GetContentItemListFromBagPart(string companyName)
         {
             var applicatinListResult = new Dictionary<string, ContentItem>();
