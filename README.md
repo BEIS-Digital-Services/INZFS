@@ -8,4 +8,4 @@ The Industrial Net Zero Funding Service (INZFS) is a public-facing UK government
 The service is a ASP.NET Core web application using GovPaaS, MySQL and Orchard Core CMS.
 
 ## Licence
-[https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE](MIT Licence)
+[https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE] (MIT Licence)
