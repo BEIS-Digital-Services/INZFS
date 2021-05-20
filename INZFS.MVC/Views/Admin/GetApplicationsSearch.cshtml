@@ -44,14 +44,14 @@
                 </td>
                 <td>
                     @Html.ActionLink(
-                   "Download Individual Application",
-                   "GeneratePdf",
-                   "Report",
-                   new {
+                   linkText: "Download Individual Application",
+                   actionName: "GeneratePdf",
+                   controllerName: "Report",
+                   routeValues: new {
                        title = application.Key,
                        id = application.Value.ContentItemId
                    },
-                   null
+                   htmlAttributes: null
                    );
                 </td>
             </tr>
@@ -59,4 +59,3 @@
     </tbody>
 
 </table>
-@Html.ActionLink("Download Placeholder Application", "GeneratePdf", "Report")
