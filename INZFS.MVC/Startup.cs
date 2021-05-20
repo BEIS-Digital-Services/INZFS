@@ -84,8 +84,13 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+
+            string fileName = "libwkhtmltox.dll";
+            string path = Path.Combine(Environment.CurrentDirectory, @"..\INZFS.MVC\", fileName);
+            System.Diagnostics.Debug.WriteLine("******************************");
+            System.Diagnostics.Debug.WriteLine(path);
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
-            context.LoadUnmanagedLibrary("C:/Users/ben.lander/source/repos/UKGovernmentBEIS/INZFS/INZFS.MVC/libwkhtmltox.dll");
+            context.LoadUnmanagedLibrary(path);
             services.AddScoped<IReportService, ReportService>();
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
             services.AddControllers();
