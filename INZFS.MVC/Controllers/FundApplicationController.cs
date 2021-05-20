@@ -702,7 +702,7 @@ namespace INZFS.MVC.Controllers
 
         private T GetContentPart<T>(IEnumerable<ContentItem> contentItems, string contentToFilter) where T : ContentPart
         {
-            var contentItem = contentItems.FirstOrDefault(item => item.ContentType == contentToFilter);
+            var contentItem = contentItems?.FirstOrDefault(item => item.ContentType == contentToFilter);
             return contentItem?.ContentItem.As<T>();
         }
     }
