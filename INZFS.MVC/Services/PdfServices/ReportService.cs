@@ -11,7 +11,7 @@ public class ReportService: IReportService
     {
         _converter = converter;
     }
-    public byte[] GeneratePdfReport(string title, string id)
+    public byte[] GeneratePdfReport(string companyName, string applicationId)
     {
         var html = $@"
            <!DOCTYPE html>
@@ -19,8 +19,8 @@ public class ReportService: IReportService
            <head>
            </head>
           <body>
-          <h1>{ title }</h1>
-          <p>{ id }</p>
+          <h1>{ companyName }</h1>
+          <p>{ applicationId }</p>
           </body>
           </html>
           ";

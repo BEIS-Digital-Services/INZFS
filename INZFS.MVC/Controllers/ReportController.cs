@@ -16,10 +16,10 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public FileContentResult GeneratePdf(string title, string id)
+        public FileContentResult GeneratePdf(string companyName, string applicationId)
         {
-            var pdfFile = _reportService.GeneratePdfReport(title, id);
-            return File(pdfFile, "application/octet-stream", $"eef_{title}_{id}.pdf");
+            var pdfFile = _reportService.GeneratePdfReport(companyName, applicationId);
+            return File(pdfFile, "application/octet-stream", $"eef_{companyName}_{applicationId}.pdf");
         }
     }
 }
