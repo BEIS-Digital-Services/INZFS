@@ -42,7 +42,7 @@ public class ReportService: IReportService
         FooterSettings footerSettings = new FooterSettings();
         footerSettings.FontSize = 12;
         footerSettings.FontName = "Ariel";
-        footerSettings.Center = "This is for demonstration purposes only.";
+        footerSettings.Center = "Energy Entrepeneurs Fund";
         footerSettings.Line = true;
         objectSettings.HeaderSettings = headerSettings;
         objectSettings.FooterSettings = footerSettings;
