@@ -87,8 +87,7 @@ namespace INZFS.MVC
 
             string fileName = "libwkhtmltox.dll";
             string path = Path.Combine(Environment.CurrentDirectory, @"..\INZFS.MVC\", fileName);
-            System.Diagnostics.Debug.WriteLine("******************************");
-            System.Diagnostics.Debug.WriteLine(path);
+
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(path);
             services.AddScoped<IReportService, ReportService>();
