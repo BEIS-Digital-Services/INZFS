@@ -30,6 +30,9 @@
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-15867" />
     <PackageReference Include="nClam" Version="5.0.1" />
   </ItemGroup>
-	
+
+  <ItemGroup>
+	  <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+  </ItemGroup>
 </Project>
 
