@@ -19,7 +19,7 @@ namespace INZFS.MVC.Controllers
         public FileContentResult GeneratePdf(string title, string id)
         {
             var pdfFile = _reportService.GeneratePdfReport(title, id);
-            return File(pdfFile, "application/octet-stream", "Placeholder.pdf");
+            return File(pdfFile, "application/octet-stream", $"eef_{title}_{id}.pdf");
         }
     }
 }
