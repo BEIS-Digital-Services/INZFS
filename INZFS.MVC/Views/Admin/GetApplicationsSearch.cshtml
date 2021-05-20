@@ -49,4 +49,4 @@
     </tbody>
 
 </table>
-<button asp-controller="Report" asp-action="GeneratePdf">Download Application</button>
+@Html.ActionLink("Download Application", "GeneratePdf", "Report")
