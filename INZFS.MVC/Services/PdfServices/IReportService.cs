@@ -1,4 +1,7 @@
 public interface IReportService
 {
-    public byte[] GeneratePdfReport();
+    public byte[] GeneratePdfReport(
+        string title,
+        string id
+        );
 }

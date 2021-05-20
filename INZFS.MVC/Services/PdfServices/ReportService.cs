@@ -11,17 +11,16 @@ public class ReportService: IReportService
     {
         _converter = converter;
     }
-    public byte[] GeneratePdfReport()
+    public byte[] GeneratePdfReport(string title, string id)
     {
         var html = $@"
            <!DOCTYPE html>
            <html lang=""en"">
            <head>
-               Placeholder head
            </head>
           <body>
-          <h1>Placeholder H1</h1>
-          <p>Placeholder Paragraph</p>
+          <h1>{ title }</h1>
+          <p>{ id }</p>
           </body>
           </html>
           ";
