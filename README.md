@@ -9,4 +9,5 @@ This service lets users check their eligibility for, and apply to, the Energy En
 The service is a ASP.NET Core web application using GovPaaS, MySQL and Orchard Core CMS.
 
 ## Licence
-[https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE] (MIT Licence)
+[MIT Licence](https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE)
+
