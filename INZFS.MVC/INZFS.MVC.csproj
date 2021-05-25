@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DinkToPdf" Version="1.0.8" />
     <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-15904" />
     <PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-13450" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-15867" />
@@ -30,6 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+	<Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
   </ItemGroup>
 </Project>
+

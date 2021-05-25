@@ -1,4 +1,6 @@
 using System;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using INZFS.MVC.Drivers;
 using INZFS.MVC.Drivers.ProposalFinance;
 using INZFS.MVC.Drivers.ProposalWritten;
@@ -82,6 +84,15 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+
+            string fileName = "libwkhtmltox.dll";
+            string path = Path.Combine(Environment.CurrentDirectory, @"..\INZFS.MVC\", fileName);
+
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+            context.LoadUnmanagedLibrary(path);
+            services.AddScoped<IReportService, ReportService>();
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+            services.AddControllers();
         }
 
         private void ConfigureContent(IServiceCollection services)
