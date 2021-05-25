@@ -26,9 +26,7 @@
                 Application Id @*@Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyNumber)*@
             </th>
 
-            <th>
-                Download
-            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -40,22 +38,9 @@
                 </td>
                 <td>
                     <a class="govuk-button govuk-!-margin-top-6" href="Contents/ContentItems/@application.Value.ContentItemId/Edit">@application.Value.ContentItemId</a>
-
-                </td>
-                <td>
-                    @Html.ActionLink(
-                   linkText: "Download as PDF",
-                   actionName: "GeneratePdf",
-                   controllerName: "Report",
-                   routeValues: new {
-                       companyName = application.Key,
-                       applicationId = application.Value.ContentItemId
-                   },
-                   htmlAttributes: null
-                   )
+                   
                 </td>
             </tr>
         }
     </tbody>
-
 </table>
