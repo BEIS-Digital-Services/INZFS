@@ -86,7 +86,7 @@ namespace INZFS.MVC
             });
 
             string fileName = "libwkhtmltox.dll";
-            string path = Path.Combine(Environment.CurrentDirectory, @"..\INZFS.MVC\", fileName);
+            string path = Path.Combine(Environment.CurrentDirectory, @"../INZFS.MVC/", fileName);
 
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
             context.LoadUnmanagedLibrary(path);
