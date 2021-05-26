@@ -1,17 +1,14 @@
-using DinkToPdf;
-using DinkToPdf.Contracts;
+using iText.Html2pdf;
+using iText.Kernel.Pdf;
+using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 
-public class ReportService: IReportService
+public class ReportService
 {
-    private readonly IConverter _converter;
-    public ReportService(IConverter converter)
-    {
-        _converter = converter;
-    }
-    public byte[] GeneratePdfReport(string companyName, string applicationId)
+    public FileStreamResult GeneratePdfReport(string companyName, string applicationId)
     {
         var html = $@"
            <!DOCTYPE html>
@@ -24,50 +21,17 @@ public class ReportService: IReportService
           </body>
           </html>
           ";
-        GlobalSettings globalSettings = new GlobalSettings();
-        globalSettings.ColorMode = ColorMode.Color;
-        globalSettings.Orientation = Orientation.Portrait;
-        globalSettings.PaperSize = PaperKind.A4;
-        globalSettings.Margins = new MarginSettings { Top = 25, Bottom = 25 };
-        ObjectSettings objectSettings = new ObjectSettings();
-        objectSettings.PagesCount = true;
-        objectSettings.HtmlContent = html;
-        WebSettings webSettings = new WebSettings();
-        webSettings.DefaultEncoding = "utf-8";
-        HeaderSettings headerSettings = new HeaderSettings();
-        headerSettings.FontSize = 15;
-        headerSettings.FontName = "Ariel";
-        headerSettings.Right = "Page [page] of [toPage]";
-        headerSettings.Line = true;
-        FooterSettings footerSettings = new FooterSettings();
-        footerSettings.FontSize = 12;
-        footerSettings.FontName = "Ariel";
-        footerSettings.Center = "Energy Entrepeneurs Fund";
-        footerSettings.Line = true;
-        objectSettings.HeaderSettings = headerSettings;
-        objectSettings.FooterSettings = footerSettings;
-        objectSettings.WebSettings = webSettings;
-        HtmlToPdfDocument htmlToPdfDocument = new HtmlToPdfDocument()
-        {
-            GlobalSettings = globalSettings,
-            Objects = { objectSettings },
-        };
-        return _converter.Convert(htmlToPdfDocument);
-    }
-}
 
-public class CustomAssemblyLoadContext : AssemblyLoadContext
-{
-    public IntPtr LoadUnmanagedLibrary(string absolutePath)
-    {
-        return LoadUnmanagedDll(absolutePath);
-    }
-    protected override IntPtr LoadUnmanagedDll(string unmanagedDllName)
-    {
-        return LoadUnmanagedDllFromPath(unmanagedDllName);
-    }
-    protected override Assembly Load(AssemblyName assemblyName)
-    {
-        throw new NotImplementedException();
+        var workstream = new MemoryStream();
+        using (var pdfWriter = new PdfWriter(workstream))
+        {
+            pdfWriter.SetCloseStream(false);
+            using (var document = HtmlConverter.ConvertToDocument(html, pdfWriter))
+            {
+
+            }
+        }
+        workstream.Position = 0;
+        return new FileStreamResult(workstream, "application/pdf");
     }
 }
