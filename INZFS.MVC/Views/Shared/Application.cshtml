@@ -1,0 +1,38 @@
+﻿@using OrchardCore.ContentManagement
+@using OrchardCore.ContentManagement.Metadata
+@using OrchardCore.Mvc.Utilities
+@using Newtonsoft.Json.Linq
+@model List<ContentItem>
+
+@inject IContentDefinitionManager ContentDefinitionManager
+
+@foreach (var contentItem in Model)
+{
+    var contentTypeDefinition = ContentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
+    var typeDisplayName = contentTypeDefinition?.DisplayName ?? contentItem.ContentType.CamelFriendly();
+    var content = contentItem.Content;
+
+    var sectionObject = content[contentTypeDefinition.Parts.First().Name] as JObject;
+    <div><strong>@contentTypeDefinition.DisplayName</strong></div>
+   
+
+    <ul class="list-group">
+        @foreach (var token in sectionObject)
+        {
+            <li class="list-group-item">
+                <div class="row">
+                    <div class="pull-left">
+                        @token.Key : 
+                    </div>
+                    <div class="pull-right">
+                        @token.Value.ToString()
+                    </div>
+                </div>
+            </li>
+        }
+
+    </ul>
+
+
+}
+
