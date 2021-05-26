@@ -78,6 +78,22 @@ namespace INZFS.MVC.Controllers
             return applicatinListResult;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Application(string id)
+        {
+
+            var query = _session.Query<ContentItem, ContentItemIndex>();
+            query = query.With<ContentItemIndex>(index => index.ContentItemId == id.Trim());
+            query = query.With<ContentItemIndex>(x => x.Published);
+
+            var application = await query.FirstOrDefaultAsync();
+
+            var bagPart = application.ContentItem.As<BagPart>();
+            var contents = bagPart.ContentItems;
+
+            return View(contents);
+        }
+
 
     }
 

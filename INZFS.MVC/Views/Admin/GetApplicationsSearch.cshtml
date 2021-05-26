@@ -20,10 +20,13 @@
     <thead>
         <tr>
             <th>
-                Company Name @*@Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyName)*@
+                Company Name 
             </th>
             <th>
-                Application Id @*@Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyNumber)*@
+                Application Id
+            </th>
+            <th>
+                View
             </th>
 
             <th></th>
@@ -32,15 +35,19 @@
     <tbody>
         @foreach (var application in Model.Applications)
         {
-            <tr>
-                <td>
-                    @application.Key
-                </td>
-                <td>
-                    <a class="govuk-button govuk-!-margin-top-6" href="Contents/ContentItems/@application.Value.ContentItemId/Edit">@application.Value.ContentItemId</a>
-                   
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @application.Key
+            </td>
+            <td>
+                <a class="govuk-button govuk-!-margin-top-6" href="Contents/ContentItems/@application.Value.ContentItemId/Edit">@application.Value.ContentItemId</a>
+
+            </td>
+            <td>
+                <a class="govuk-button govuk-!-margin-top-6" href="application?id=@application.Value.ContentItemId">View</a>
+
+            </td>
+        </tr>
         }
     </tbody>
 </table>
