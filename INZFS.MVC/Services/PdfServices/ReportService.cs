@@ -6,9 +6,15 @@ using System.IO;
 using System.Reflection;
 using System.Runtime.Loader;
 
-public class ReportService
+public class ReportService : IReportService
 {
-    public FileStreamResult GeneratePdfReport(string companyName, string applicationId)
+
+    public ReportService()
+    {
+
+    }
+
+    public byte[] GeneratePdfReport(string companyName, string applicationId)
     {
         var html = $@"
            <!DOCTYPE html>
@@ -22,16 +28,11 @@ public class ReportService
           </html>
           ";
 
-        var workstream = new MemoryStream();
+        using (var workstream = new MemoryStream())
         using (var pdfWriter = new PdfWriter(workstream))
         {
-            pdfWriter.SetCloseStream(false);
-            using (var document = HtmlConverter.ConvertToDocument(html, pdfWriter))
-            {
-
-            }
+            HtmlConverter.ConvertToPdf(html, pdfWriter);
+            return workstream.ToArray();
         }
-        workstream.Position = 0;
-        return new FileStreamResult(workstream, "application/pdf");
     }
 }

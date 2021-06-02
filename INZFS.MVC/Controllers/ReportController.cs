@@ -18,8 +18,9 @@ namespace INZFS.MVC.Controllers
         [HttpGet]
         public FileContentResult GeneratePdf(string companyName, string applicationId)
         {
-            var pdfFile = _reportService.GeneratePdfReport(companyName, applicationId);
-            return File(pdfFile, "application/octet-stream", $"eef_{companyName.Trim()}_{applicationId}.pdf");
+            var bytes = _reportService.GeneratePdfReport(companyName, applicationId);
+
+            return File(bytes, "application/pdf");
         }
     }
 }

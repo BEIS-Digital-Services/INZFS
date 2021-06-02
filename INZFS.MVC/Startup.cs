@@ -61,6 +61,7 @@ namespace INZFS.MVC
 
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
