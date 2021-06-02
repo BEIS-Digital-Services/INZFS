@@ -28,6 +28,9 @@
             <th>
                 View
             </th>
+            <th>
+                Download
+            </th>
 
             <th></th>
         </tr>
@@ -46,6 +49,19 @@
             <td>
                 <a class="govuk-button govuk-!-margin-top-6" href="application?id=@application.Value.ContentItemId">View</a>
 
+            </td>
+            <td>
+                @Html.ActionLink(
+               linkText: "Download as PDF",
+               actionName: "GeneratePdf",
+               controllerName: "Report",
+               routeValues: new
+                    {
+                   companyName = application.Key,
+                   applicationId = application.Value.ContentItemId
+               },
+               htmlAttributes: null
+               )
             </td>
         </tr>
         }
