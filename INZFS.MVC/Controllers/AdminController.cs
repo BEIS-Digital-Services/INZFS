@@ -15,21 +15,19 @@ using INZFS.MVC.Models;
 using INZFS.MVC.Forms;
 using OrchardCore.Flows.Models;
 using System.Collections.Generic;
-
+using System.Linq.Expressions;
+using System;
 
 namespace INZFS.MVC.Controllers
 {
     public class AdminController : Controller
     {
 
-        private readonly IContentManager _contentManager;
-        private readonly ISession _session;
+        private readonly IContentRepository _contentRepository;
 
-
-        public AdminController(IContentManager contentManager, ISession session)
+        public AdminController(IContentRepository contentRepository)
         {
-            _contentManager = contentManager;
-            _session = session;
+            _contentRepository = contentRepository;
         }
 
 
@@ -49,13 +47,10 @@ namespace INZFS.MVC.Controllers
 
         private async Task<Dictionary<string, ContentItem>> GetContentItemListFromBagPart(string companyName)
         {
-            var applicatinListResult = new Dictionary<string, ContentItem>();
+            var applicationListResult = new Dictionary<string, ContentItem>();
 
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(index => index.ContentType == ContentTypes.INZFSApplicationContainer);
-            query = query.With<ContentItemIndex>(x => x.Published);
-
-            var applications = await query.ListAsync();
+            Expression<Func<ContentItemIndex, bool>> expression = index => index.ContentType == ContentTypes.INZFSApplicationContainer;
+            var applications = await _contentRepository.GetContentItems(expression, string.Empty);
 
             foreach (var application in applications)
             {
@@ -68,28 +63,22 @@ namespace INZFS.MVC.Controllers
 
                     if (companyDetailsPart.CompanyName.ToLower().Contains(companyName.ToLower()))
                     {
-                        applicatinListResult.Add(companyDetailsPart.CompanyName, application);
+                        applicationListResult.Add(companyDetailsPart.CompanyName, application);
                     }
                 }
 
             }
 
 
-            return applicatinListResult;
+            return applicationListResult;
         }
 
         [HttpGet]
         public async Task<IActionResult> Application(string id)
         {
-
-            var query = _session.Query<ContentItem, ContentItemIndex>();
-            query = query.With<ContentItemIndex>(index => index.ContentItemId == id.Trim());
-            query = query.With<ContentItemIndex>(x => x.Published);
-
-            var application = await query.FirstOrDefaultAsync();
-
-            var bagPart = application.ContentItem.As<BagPart>();
-            var contents = bagPart.ContentItems;
+            var application = await _contentRepository.GetContentItemById(id);
+            var bagPart = application?.ContentItem?.As<BagPart>();
+            var contents = bagPart?.ContentItems;
 
             return View(contents);
         }
