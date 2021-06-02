@@ -28,11 +28,11 @@ public class ReportService : IReportService
           </html>
           ";
 
-        using (var workstream = new MemoryStream())
-        using (var pdfWriter = new PdfWriter(workstream))
+        using (MemoryStream stream = new())
+        using (PdfWriter writer = new(stream))
         {
-            HtmlConverter.ConvertToPdf(html, pdfWriter);
-            return workstream.ToArray();
+            HtmlConverter.ConvertToPdf(html, writer);
+            return stream.ToArray();
         }
     }
 }
