@@ -59,6 +59,7 @@ namespace INZFS.MVC
 
             ConfigureContent(services);
 
+            services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
