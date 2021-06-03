@@ -49,7 +49,7 @@ namespace INZFS.MVC.Controllers
 
         private async Task<Dictionary<string, ContentItem>> GetContentItemListFromBagPart(string companyName)
         {
-            var applicatinListResult = new Dictionary<string, ContentItem>();
+            var applicationListResult = new Dictionary<string, ContentItem>();
 
             var query = _session.Query<ContentItem, ContentItemIndex>();
             query = query.With<ContentItemIndex>(index => index.ContentType == ContentTypes.INZFSApplicationContainer);
@@ -68,14 +68,14 @@ namespace INZFS.MVC.Controllers
 
                     if (companyDetailsPart.CompanyName.ToLower().Contains(companyName.ToLower()))
                     {
-                        applicatinListResult.Add(companyDetailsPart.CompanyName, application);
+                        applicationListResult.Add(companyDetailsPart.CompanyName, application);
                     }
                 }
 
             }
 
 
-            return applicatinListResult;
+            return applicationListResult;
         }
 
         [HttpGet]
