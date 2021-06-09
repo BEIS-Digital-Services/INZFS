@@ -62,6 +62,7 @@ namespace INZFS.MVC
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddScoped<IReportService, ReportService>();
 
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
@@ -83,6 +84,8 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+
+            services.AddControllers();
         }
 
         private void ConfigureContent(IServiceCollection services)
