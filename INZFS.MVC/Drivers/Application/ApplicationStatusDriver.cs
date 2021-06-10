@@ -17,8 +17,8 @@ namespace INZFS.MVC.Drivers
 
             await updater.TryUpdateModelAsync(viewModel, Prefix);
 
-            part.Approved = viewModel.Approved;
-            part.Rejected = viewModel.Rejected;
+            part.ApplicationSatatus = viewModel.ApplicationSatatus;
+          
 
             return await EditAsync(part, context);
         }
@@ -27,9 +27,8 @@ namespace INZFS.MVC.Drivers
         {
             viewModel.ApplicationStatusPart = part;
 
-            viewModel.Approved = part.Approved;
-            viewModel.Rejected = part.Rejected;
-
+            viewModel.ApplicationSatatus = part.ApplicationSatatus;
+          
         }
     }
 }

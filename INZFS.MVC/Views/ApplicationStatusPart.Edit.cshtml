@@ -10,28 +10,15 @@
 
 
 
-div class="govuk-form-group">
-<fieldset class="govuk-fieldset" role="group">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-        What do you think are the barriers to the commercial exploitation of your innovation?
-    </legend>
-    <div id="waste-hint" class="govuk-hint">
-        Select all that apply.
-    </div>
-    <div class="govuk-checkboxes">
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" asp-for="Approved" type="checkbox" value="true">
-            <label class="govuk-label govuk-checkboxes__label" asp-for="Approved">
-                Approved
-            </label>
-        </div>
-        <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" asp-for="Rejected" type="checkbox" value="true">
-            <label class="govuk-label govuk-checkboxes__label" asp-for="Rejected">
-                Rejected
-            </label>
-        </div>
-    </div>
 
-</fieldset>
+
+<div class="govuk-form-group">
+    <label class="govuk-label" for="sort">
+        Application Status 
+    </label>
+    <select class="govuk-select" asp-for="ApplicationSatatus">
+        <option value="@Status.Approved" selected>Approve</option>
+        <option value="@Status.Rejected">Reject</option>
+
+    </select>
 </div>
