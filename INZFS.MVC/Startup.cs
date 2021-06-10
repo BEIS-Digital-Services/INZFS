@@ -91,6 +91,10 @@ namespace INZFS.MVC
         private void ConfigureContent(IServiceCollection services)
         {
 
+            services.AddContentPart<ApplicationStatusPart>()
+            .UseDisplayDriver<ApplicationStatusDriver>();
+            services.AddScoped<IDataMigration, ApplicationStatusMigration>();
+
             services.AddContentPart<CompanyDetailsPart>()
             .UseDisplayDriver<CompanyDetailsDriver>();
             services.AddScoped<IDataMigration, CompanyDetailsMigration>();
