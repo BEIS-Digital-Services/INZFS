@@ -24,5 +24,7 @@ namespace INZFS.MVC.Forms
         public const string FinanceBalanceSheet = "FinanceBalanceSheet";
         public const string FinanceRecoverVat = "FinanceRecoverVat";
         public const string FinanceBarriers = "FinanceBarriers";
+
+        public const string ApplicationStatus = "ApplicationStatus";
     }
 }
