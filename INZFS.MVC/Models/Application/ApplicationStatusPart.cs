@@ -10,14 +10,10 @@ namespace INZFS.MVC.Models
 {
     public class ApplicationStatusPart : ContentPart
     {
-        public ApplictionStatus ApplictionStatus { get; set; }
-
+        public bool Approved { get; set; }
+        public bool Rejected { get; set; }
     }
 
-    public enum ApplictionStatus
-    {
-        Successful,
-        Unsuccesful 
-    }
+  
 
 }
