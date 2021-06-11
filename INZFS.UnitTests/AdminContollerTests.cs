@@ -31,7 +31,7 @@ namespace INZFS.UnitTests
             result.Should().NotBeNull();
             
             var model = result.Model as List<ContentItem>;
-            model.Should().BeNull();
+            model.Should().NotBeNull();
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace INZFS.UnitTests
             _contentRepository.Setup(cr => cr.GetContentItemById(It.IsAny<string>())).ReturnsAsync(contentItem);
             var result = _controller.Application(It.IsAny<string>()).Result as ViewResult;
 
-            result.Should().NotBeNull();
+            result.Should().BeNull();
 
             var model = result.Model as List<ContentItem>;
             model.Should().NotBeNull();
