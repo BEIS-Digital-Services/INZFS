@@ -11,6 +11,7 @@ RUN dotnet restore "INZFS/INZFS.Web.csproj"
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "INZFS/INZFS.Web.csproj" -c Release -o /app/build
+RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" 
 
 # Create the publish files
 FROM build AS publish
