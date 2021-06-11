@@ -718,6 +718,58 @@
           }
         }
       ]
+    },
+    {
+      "Name": "Test",
+      "DisplayName": "Test",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Test",
+          "Name": "Test",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -1248,7 +1300,47 @@
       "Name": "PersonPage",
       "Settings": {},
       "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "Test",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "CodeField",
+          "Name": "Code",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Code",
+              "Position": "0"
+            },
+            "CodeFieldSettings": {
+              "Language": "javascript"
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogPost",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "CodeField",
+          "Name": "Code",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Code",
+              "Position": "0"
+            },
+            "CodeFieldSettings": {
+              "Language": "javascript"
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
     }
   ],
-  "Identifier": "40pzbn080brf0wx3gchreg11mp"
+  "Identifier": "49ye89kmbrr1d2r9em582swdx6"
 }

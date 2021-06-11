@@ -1,27 +1,33 @@
-using System;
+using INZFS.Templates.Drivers;
+using INZFS.Templates.Fields;
+using INZFS.Templates.Settings;
+using INZFS.Templates.ViewModels;
 using Fluid;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
+using OrchardCore.ContentManagement;
+using OrchardCore.ContentManagement.Display.ContentDisplay;
+using OrchardCore.ContentTypes.Editors;
 using OrchardCore.Modules;
+using OrchardCore.DisplayManagement.TagHelpers;
 
 namespace INZFS.Templates
 {
     public class Startup : StartupBase
     {
-        public override void ConfigureServices(IServiceCollection services)
+        public Startup()
         {
-            services.AddControllers();
+            TemplateContext.GlobalMemberAccessStrategy.Register<CodeField>();
+            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayCodeFieldViewModel>();
         }
 
-        public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
+        public override void ConfigureServices(IServiceCollection services)
         {
-            routes.MapAreaControllerRoute(
-                name: "Template",
-                areaName: "INZFS.Templates",
-                pattern: "Template/Index",
-                defaults: new { controller = "Template", action = "Index" }
-            );
+            services.AddTagHelpers<AddClassTagHelper>();
+            services.AddTagHelpers<ValidationMessageTagHelper>();
+            services.AddContentField<CodeField>()
+                .UseDisplayDriver<CodeFieldDisplayDriver>();
+
+            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, CodeFieldSettingsDriver>();
         }
     }
 }

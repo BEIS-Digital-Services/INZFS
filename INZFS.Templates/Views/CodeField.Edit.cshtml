@@ -1,0 +1,53 @@
+﻿@using OrchardCore.ContentManagement.Metadata.Settings
+@using INZFS.Templates
+@using INZFS.Templates.Settings
+
+@model INZFS.Templates.ViewModels.EditCodeFieldViewModel
+
+@{
+    var id = Guid.NewGuid();
+    var displayName = Model.PartFieldDefinition.GetSettings<ContentPartFieldSettings>().DisplayName;
+
+    var language = Model.PartFieldDefinition.GetSettings<CodeFieldSettings>().Language;
+
+    if (string.IsNullOrEmpty(language))
+    {
+        language = Constants.DefaultLanguage;
+    }
+}
+
+<script asp-src="~/INZFS.Web/Scripts/code/ace/ace.js" asp-name="ace" at="Foot" asp-append-version="true"></script>
+
+<script at="Foot">
+    (function () {
+        var editor = window.ace.edit('@id'),
+            $input = document.querySelector('.editor-@id');
+        editor.setTheme('ace/theme/crimson_editor');
+        editor.session.setMode('ace/mode/@language');
+        editor.setOptions({
+            autoScrollEditorIntoView: true,
+            maxLines: 80,
+            showPrintMargin: false
+        });
+        editor.renderer.setScrollMargin(10, 10, 10, 10);
+        editor.session.on('change', function () {
+            $input.value = editor.session.getValue();
+            $(document).trigger('contentpreview:render');
+        });
+    })();
+</script>
+
+<style>
+    .ace_editor {
+        border: 1px solid lightgray;
+        margin: auto;
+        height: 200px;
+        width: 100%;
+    }
+</style>
+
+<div class="form-group">
+    <label asp-for="Value">@displayName</label>
+    <pre id="@id">@Model.Value</pre>
+    <input asp-for="Value" type="hidden" class="editor-@id" />
+</div>
