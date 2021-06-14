@@ -1,0 +1,21 @@
+﻿@model INZFS.Templates.ViewModels.DisplayNumericFieldViewModel
+@using OrchardCore.Mvc.Utilities
+
+@{
+    var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
+}
+
+<div class="field field-type-numericfield field-name-@name">
+    @Model.Value
+</div>
+
+<div class="govuk-details__text">
+    <h1>Gov Uk test</h1>
+</div>
+
+<div class="govuk-inset-text">Inset Text</div>
+<p1>Test</p1>
+
+<div>
+    @Model.Value
+</div>
