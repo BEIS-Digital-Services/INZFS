@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  webapplication:
+  inzfs:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
