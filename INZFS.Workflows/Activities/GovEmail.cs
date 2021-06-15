@@ -1,6 +1,5 @@
 ﻿using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
-using OrchardCore.Email;
 using OrchardCore.Liquid;
 using OrchardCore.Templates.Services;
 using OrchardCore.Workflows.Abstractions.Models;
@@ -33,7 +32,7 @@ namespace INZFS.Workflows.Activities
 
         private IStringLocalizer T { get; }
 
-        public override LocalizedString DisplayText => T["Template Email Task"];
+        public override LocalizedString DisplayText => T["Template Gov.Notify Email Task"];
         public override string Name => nameof(GovEmail);
         public override LocalizedString Category => T["Messaging"];
 
@@ -56,9 +55,9 @@ namespace INZFS.Workflows.Activities
             set => SetProperty(value);
         }
 
-        public Dictionary<string, string> TemplateNames
+        public WorkflowExpression<string> TemplateName
         {
-            get => GetProperty(() => new Dictionary<string, string>());
+            get => GetProperty(() => new WorkflowExpression<string>());
             set => SetProperty(value);
         }
 
@@ -83,14 +82,14 @@ namespace INZFS.Workflows.Activities
         {
             var apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
             var recipientsTask = _expressionEvaluator.EvaluateAsync(Recipients, workflowContext, null);
-            
+            var templateTask = _expressionEvaluator.EvaluateAsync(TemplateName, workflowContext, null);
             await Task.WhenAll(recipientsTask);
             var client = new NotificationClient(apiKey);
             try
             {
                 client.SendEmail(
-                                    emailAddress: "lorenzo.lane@beis.gov.uk",
-                                    templateId: "8ca9aa23-ecf9-4f57-b5f3-0d662d5e7237");
+                                    recipientsTask.Result,
+                                    templateTask.Result);
                 return Outcomes("Succeeded");
             }
             catch (Exception ex)

@@ -16,7 +16,7 @@ namespace INZFS.Workflows.Drivers
             model.SubjectExpression = activity.Subject.Expression;
             model.Body = activity.Body.Expression;
             model.IsBodyHtml = activity.IsBodyHtml;
-            model.TemplateNames = activity.TemplateNames;
+            model.TemplateName = activity.TemplateName.Expression;
         }
 
         protected override void UpdateActivity(GovEmailViewModel model, GovEmail activity)
@@ -26,7 +26,7 @@ namespace INZFS.Workflows.Drivers
             activity.Subject = new WorkflowExpression<string>(model.SubjectExpression);
             activity.Body = new WorkflowExpression<string>(model.Body);
             activity.IsBodyHtml = model.IsBodyHtml;
-            activity.TemplateNames = model.TemplateNames;
+            activity.TemplateName = new WorkflowExpression<string>(model.TemplateName);
         }
 
         #endregion

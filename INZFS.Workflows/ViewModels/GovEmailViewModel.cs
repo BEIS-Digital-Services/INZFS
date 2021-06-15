@@ -12,7 +12,6 @@ namespace INZFS.Workflows.ViewModels
         public string SubjectExpression { get; set; }
         public string Body { get; set; }
         public bool IsBodyHtml { get; set; }
-
-        public Dictionary<string, string> TemplateNames { get; set; }
+        public string TemplateName { get; set; }
     }
 }

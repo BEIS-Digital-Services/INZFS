@@ -5,7 +5,10 @@
 
 @{
 
-    string[] possibleTemplates = { "TemplateA","TemplateB"};
+    Dictionary<string, string> possibleTemplates = new Dictionary<string, string>();
+    possibleTemplates.Add("TemplateA", "8ca9aa23-ecf9-4f57-b5f3-0d662d5e7237");
+    possibleTemplates.Add("TemplateB", "ea7e2180-44df-47d4-9ccd-d6a19c35c256");
+
 }
 
 <fieldset class="form-group" asp-validation-class-for="SenderExpression">
@@ -29,23 +32,23 @@
     <span class="hint">@T["The subject of the email message. With Liquid support."]</span>
 </fieldset>
 
-<fieldset class="form-group" asp-validation-class-for="TemplateNames">
-    <label asp-for="TemplateNames">@T["Template"]</label>
-    <select asp-for="TemplateNames" class="form-control">
+<fieldset class="form-group" asp-validation-class-for="TemplateName">
+    <label asp-for="TemplateName">@T["Template"]</label>
+    <select asp-for="TemplateName" class="form-control">
         <option value="">- Select a template -</option>
         @foreach (var template in possibleTemplates)
         {
-            @if (Model.TemplateNames.Keys.Equals(template))
+            @if (possibleTemplates.Keys.Equals(template))
             {
-                <option value="@template" selected>@template</option>
+                <option value="@template.Value" selected>@template.Key</option>
             }
             else
             {
-                <option value="@template">@template</option>
+                <option value="@template.Value">@template.Key</option>
             }
         }
     </select>
-    <span asp-validation-for="TemplateNames"></span>
+    <span asp-validation-for="TemplateName"></span>
     <span class="hint">@T["Template to use as the outer shell of the email. Body will replace {{ Body }} within the template before being rendered as the email contents."]</span>
 </fieldset>
 
