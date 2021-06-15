@@ -3,11 +3,9 @@
 
 @model GovEmailViewModel
 
-@inject TemplatesManager TemplatesManager
-
 @{
-    var document = await TemplatesManager.GetTemplatesDocumentAsync();
-    var possibleTemplates = document.Templates.Keys.OrderBy(x => x).ToList();
+
+    string[] possibleTemplates = { "TemplateA","TemplateB"};
 }
 
 <fieldset class="form-group" asp-validation-class-for="SenderExpression">
@@ -31,13 +29,13 @@
     <span class="hint">@T["The subject of the email message. With Liquid support."]</span>
 </fieldset>
 
-<fieldset class="form-group" asp-validation-class-for="TemplateName">
-    <label asp-for="TemplateName">@T["Template"]</label>
-    <select asp-for="TemplateName" class="form-control">
+<fieldset class="form-group" asp-validation-class-for="TemplateNames">
+    <label asp-for="TemplateNames">@T["Template"]</label>
+    <select asp-for="TemplateNames" class="form-control">
         <option value="">- Select a template -</option>
         @foreach (var template in possibleTemplates)
         {
-            @if (template == Model.TemplateName)
+            @if (Model.TemplateNames.Keys.Equals(template))
             {
                 <option value="@template" selected>@template</option>
             }
@@ -47,7 +45,7 @@
             }
         }
     </select>
-    <span asp-validation-for="TemplateName"></span>
+    <span asp-validation-for="TemplateNames"></span>
     <span class="hint">@T["Template to use as the outer shell of the email. Body will replace {{ Body }} within the template before being rendered as the email contents."]</span>
 </fieldset>
 

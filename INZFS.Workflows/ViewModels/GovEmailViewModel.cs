@@ -13,6 +13,6 @@ namespace INZFS.Workflows.ViewModels
         public string Body { get; set; }
         public bool IsBodyHtml { get; set; }
 
-        public string TemplateName { get; set; }
+        public Dictionary<string, string> TemplateNames { get; set; }
     }
 }

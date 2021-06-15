@@ -9,6 +9,8 @@ using OrchardCore.Workflows.Models;
 using OrchardCore.Workflows.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Notify.Client;
+using System;
 
 namespace INZFS.Workflows.Activities
 {
@@ -16,23 +18,16 @@ namespace INZFS.Workflows.Activities
     {
         private readonly IWorkflowExpressionEvaluator _expressionEvaluator;
         private readonly ILogger<GovEmail> _logger;
-        private readonly ISmtpService _smtpService;
-        private readonly TemplatesManager _templatesManager;
 
         public GovEmail(
             IWorkflowExpressionEvaluator expressionEvaluator,
             ILiquidTemplateManager liquidTemplateManager,
             IStringLocalizer<GovEmail> localizer,
-            ILogger<GovEmail> logger,
-            ISmtpService smtpService,
-            TemplatesManager templatesManager
+            ILogger<GovEmail> logger
         )
         {
             _expressionEvaluator = expressionEvaluator;
             _logger = logger;
-            _smtpService = smtpService;
-            _templatesManager = templatesManager;
-
             T = localizer;
         }
 
@@ -61,9 +56,9 @@ namespace INZFS.Workflows.Activities
             set => SetProperty(value);
         }
 
-        public string TemplateName
+        public Dictionary<string, string> TemplateNames
         {
-            get => GetProperty(() => string.Empty);
+            get => GetProperty(() => new Dictionary<string, string>());
             set => SetProperty(value);
         }
 
@@ -86,47 +81,24 @@ namespace INZFS.Workflows.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            var senderTask = _expressionEvaluator.EvaluateAsync(Sender, workflowContext, null);
+            var apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
             var recipientsTask = _expressionEvaluator.EvaluateAsync(Recipients, workflowContext, null);
-            var subjectTask = _expressionEvaluator.EvaluateAsync(Subject, workflowContext, null);
-            var body = await _expressionEvaluator.EvaluateAsync(Body, workflowContext, null);
-
-            if (!string.IsNullOrEmpty(TemplateName))
+            
+            await Task.WhenAll(recipientsTask);
+            var client = new NotificationClient(apiKey);
+            try
             {
-                var template = (await _templatesManager.GetTemplatesDocumentAsync()).Templates[TemplateName];
-
-                body = template.Content
-                    .Replace("{{ Body }}", body)
-                    .Replace("{{Body}}", body)
-                    .Replace("{{ body }}", body)
-                    .Replace("{{body}}", body);
+                client.SendEmail(
+                                    emailAddress: "lorenzo.lane@beis.gov.uk",
+                                    templateId: "8ca9aa23-ecf9-4f57-b5f3-0d662d5e7237");
+                return Outcomes("Succeeded");
             }
-
-            await Task.WhenAll(senderTask, recipientsTask, subjectTask);
-
-            var message = new MailMessage
+            catch (Exception ex)
             {
-                Subject = subjectTask.Result.Trim(),
-                Body = body.Trim(),
-                IsBodyHtml = IsBodyHtml
-            };
-
-            message.To = recipientsTask.Result.Trim();
-
-            if (!string.IsNullOrWhiteSpace(senderTask.Result))
-            {
-                message.From = senderTask.Result.Trim();
-            }
-
-            var result = await _smtpService.SendAsync(message);
-            workflowContext.LastResult = result;
-
-            if (!result.Succeeded)
-            {
+                Console.WriteLine("The following error has occurred: " + ex);
                 return Outcomes("Failed");
-            }
-
-            return Outcomes("Done");
+            }                
+               
         }
     }
 }
