@@ -1,14 +1,13 @@
-version: '3.4'
-
+version: '3.5'
 services:
-  inzfs:
-    image: ${DOCKER_REGISTRY-}inzfs
-    ports:
-      - 80:443
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-      - ASPNETCORE_HTTPS_PORT=443
+  webapplication:
+    image: ${DOCKER_REGISTRY-}webapplication
     build:
       context: ./
       dockerfile: ./INZFS/Dockerfile
+  webapplication-tests:
+    image: ${DOCKER_REGISTRY-}webapplication-tests
+    build:
+      context: ./
+      dockerfile: ./INZFS/Dockerfile   
+      target: test

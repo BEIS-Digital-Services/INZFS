@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  webapplication:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_HTTPS_PORT=443
+    ports:
+      - "80:443"
+  webapplication-tests:
+    entrypoint:
+      - dotnet
+      - test
+      - --logger
+      - trx;LogFileName=/tests/test-results.trx
+    volumes: 
+      - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests/}:/tests
