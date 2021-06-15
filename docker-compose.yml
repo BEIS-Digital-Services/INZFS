@@ -1,7 +1,7 @@
 version: '3.5'
 services:
-  webapplication:
-    image: ${DOCKER_REGISTRY-}webapplication
+  inzfs:
+    image: ${DOCKER_REGISTRY-}inzfs
     build:
       context: ./
       dockerfile: ./INZFS/Dockerfile
