@@ -3,6 +3,8 @@
 
 @{
     var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var listenabled = @eligibility.Content.EligibilityResult.Bullet1.Text == null;
+    
 }
 @Orchard.ConsoleLog(eligibility)
 
@@ -19,6 +21,16 @@
             <div class="app-prose-scope" style="padding-top: 20px;">
                 @eligibility.Content.EligibilityResult.Body1.Text
             </div>
+           @if (!listenabled) {
+            <div style="padding-top: 20px;" class="list">
+                <ul >
+                    <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
+                    <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
+                    <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
+                    <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
+                </ul>
+            </div>
+           }
             <div class="app-prose-scope" style="padding-top: 20px;">
                 @eligibility.Content.EligibilityResult.Body2.Text
             </div>
@@ -27,7 +39,7 @@
             </div>
 
 
-            <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityResult.Button1.Text">Continue</a>
+            <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityResult.Button1.Text">Return to funding homepage</a>
 
 
         </main>

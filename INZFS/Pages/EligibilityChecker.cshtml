@@ -3,6 +3,7 @@
 
 @{
     var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
 }
 @Orchard.ConsoleLog(eligibility)
 
@@ -17,56 +18,51 @@
             </div>
             <h1 class="govuk-heading-xl" style="padding-top: 10px;">@eligibility.Content.EligibilityChecker.Header1.Text</h1>
 
+            @if (!listenabled)
+            {
+                <div style="padding-top: 20px;" class="list">
+                    <ul>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+                    </ul>
+                </div>
+            }
+
+            <div class="govuk-form-group" style="padding-top: 20px;">
+                <label class="govuk-label govuk-label--l">
+                </label>
+                <fieldset class="govuk-fieldset">
+                    <div class="govuk-radios govuk-radios--inline">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" type="radio" value="1">
+                            <label class="govuk-label govuk-radios__label">
+                                Yes
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" type="radio" value="0">
+                            <label class="govuk-label govuk-radios__label">
+                                No
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
 
             <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityChecker.Button1.Text">Continue</a>
+
+
 
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
                 <div class="govuk-accordion__section ">
                     <div class="govuk-accordion__section-header">
                         <h2 class="govuk-accordion__section-heading">
                             <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-                                Writing well for the web
+                                @eligibility.Content.EligibilityChecker.Accordion1.Text
                             </span>
                         </h2>
-                    </div>
-                    <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-                        <p class='govuk-body'>This is the content for Writing well for the web.</p>
-                    </div>
-                </div>
-                <div class="govuk-accordion__section ">
-                    <div class="govuk-accordion__section-header">
-                        <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-2">
-                                Writing well for specialists
-                            </span>
-                        </h2>
-                    </div>
-                    <div id="accordion-default-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-2">
-                        <p class='govuk-body'>This is the content for Writing well for specialists.</p>
-                    </div>
-                </div>
-                <div class="govuk-accordion__section ">
-                    <div class="govuk-accordion__section-header">
-                        <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-3">
-                                Know your audience
-                            </span>
-                        </h2>
-                    </div>
-                    <div id="accordion-default-content-3" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-3">
-                        <p class='govuk-body'>This is the content for Know your audience.</p>
-                    </div>
-                </div>
-                <div class="govuk-accordion__section ">
-                    <div class="govuk-accordion__section-header">
-                        <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-4">
-                                How people read
-                            </span>
-                        </h2>
-                    </div>
-                    <div id="accordion-default-content-4" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-4">
-                        <p class='govuk-body'>This is the content for How people read.</p>
                     </div>
                 </div>
             </div>
