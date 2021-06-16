@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
 {
-    public class BasePart : ContentPart
+    public class BaseModel 
     {
 
-        public string Name { get; set; }
+        public string PageName { get; set; }
         public string Question { get; set; }
         public string ErrorMessage { get; set; }
-        public string FieldType { get; set; }
-        public bool? Mandetory { get; set; }
-
- 
+        public bool? Mandatory { get; set; } = true;
+        public string Section { get; set; }
+        public string AccordianReference { get; set; }
 
     }
+
+
 
 }

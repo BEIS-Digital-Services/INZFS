@@ -36,6 +36,7 @@ using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.ViewModels.ProposalFinance;
 using OrchardCore.Flows.Models;
 using Newtonsoft.Json.Linq;
+using INZFS.MVC.Models.DynamicForm;
 
 namespace INZFS.MVC.Controllers
 {
@@ -88,6 +89,22 @@ namespace INZFS.MVC.Controllers
                 return NotFound();
             }
             pagename = pagename.ToLower().Trim();
+
+            if (pagename == "TextInput".ToLower())
+            {
+                var model = new TextInputModel();
+                model.Question = "What is Your Name?";
+                model.PageName = "TextInput";
+                return View("TextInput", model);
+            }
+
+            if (pagename == "TextArea".ToLower())
+            {
+                var model = new TextAreaModel();
+                model.Question = "Tell Me About Yourself?";
+                model.PageName = "TextArea";
+                return View("TextArea", model);
+            }
 
             if (pagename == "application-summary")
             {
@@ -169,9 +186,34 @@ namespace INZFS.MVC.Controllers
 
         }
 
+        [HttpPost, ActionName("CreateNew")]
+        [FormValueRequired("submit.Publish")]
+        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file, TextInputModel textInputModel)
+        {
+
+            var model = textInputModel;
+
+
+            //todo: Reload Model With question
+            model.Question = "What is Your Name?";
+            model.PageName = "TextInput";
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("section", new { pagename = "textarea" });
+            }
+            else
+            {
+                return View("textinput", model);
+            }
+
+            
+        }
+
+
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
+        public async Task<IActionResult> CreateAndPublishPOSTOld([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
 
@@ -180,8 +222,10 @@ namespace INZFS.MVC.Controllers
                 await _contentManager.PublishAsync(contentItem);
 
                 var currentContentType = contentItem.ContentType;
+
             });
         }
+
 
         private async Task<IActionResult> CreatePOST(string id, string returnUrl, bool stayOnSamePage, IFormFile? file, Func<ContentItem, Task> conditionallyPublish)
         {
