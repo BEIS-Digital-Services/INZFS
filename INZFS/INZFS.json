@@ -1,0 +1,39 @@
+{
+  "application": {
+    "name": "INZFS",
+    "sections": {
+      "pages": [
+        {
+          "name": "company-name",
+          "question": "Name of your company details",
+          "error-massage": "Please enter a valid company details",
+          "fieldType": "gdsTextBox",
+          "fieldName": "company-name",
+          "mandatory": true,
+          "accordian-reference": ""
+        },
+        {
+          "name": "company-number",
+          "question": "What's your company number",
+          "error-massage": "Please enter a valid company number",
+          "fieldType": "gdsTextBox",
+          "fieldName": "company-number",
+          "mandatory": true,
+          "accordian-reference": "",
+          "max-length" : 50
+        },
+        {
+          "name": "company-summary",
+          "question": "Company Summary",
+          "error-massage": "Please enter a company summary",
+          "fieldType": "gdsTextArea",
+          "fieldName": "company-summary",
+          "mandatory": true,
+          "accordian-reference": "",
+          "max-length": 500
+        }
+      ]
+    }
+
+  }
+}

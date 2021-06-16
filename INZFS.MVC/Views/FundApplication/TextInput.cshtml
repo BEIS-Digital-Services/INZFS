@@ -4,14 +4,11 @@
 @using INZFS.MVC.TagHelpers
 
 
-
-
-
-
-
 <form asp-action="CreateNew" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="contentType" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
+    
 
     @if (!ViewData.ModelState.IsValid)
     {
@@ -36,7 +33,7 @@
         </div>
     }
 
-    
+
     <div class="govuk-form-group" asp-validation-error-class-for="@Model.Question">
         <label class="govuk-label govuk-label--l">
             @Model.Question

@@ -60,11 +60,12 @@ namespace INZFS.MVC.Controllers
         private readonly ILogger _logger;
         private readonly ClamClient _clam;
         private readonly IContentRepository _contentRepository;
+        private readonly ApplicationDefinition _applicationDefinition;
 
         public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository)
+            IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -79,6 +80,7 @@ namespace INZFS.MVC.Controllers
             New = shapeFactory;
             _navigation = navigation;
             _contentRepository = contentRepository;
+            _applicationDefinition = applicationDefinition;
         }
 
         [HttpGet]
@@ -90,21 +92,12 @@ namespace INZFS.MVC.Controllers
             }
             pagename = pagename.ToLower().Trim();
 
-            if (pagename == "TextInput".ToLower())
+            var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
+            if(currentPage != null)
             {
-                var model = new TextInputModel();
-                model.Question = "What is Your Name?";
-                model.PageName = "TextInput";
-                return View("TextInput", model);
+                return GetViewModel(currentPage);
             }
-
-            if (pagename == "TextArea".ToLower())
-            {
-                var model = new TextAreaModel();
-                model.Question = "Tell Me About Yourself?";
-                model.PageName = "TextArea";
-                return View("TextArea", model);
-            }
+            
 
             if (pagename == "application-summary")
             {
@@ -188,23 +181,36 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("CreateNew")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file, TextInputModel textInputModel)
+        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file, BaseModel model)
         {
-
-            var model = textInputModel;
-
-
-            //todo: Reload Model With question
-            model.Question = "What is Your Name?";
-            model.PageName = "TextInput";
             if (ModelState.IsValid)
             {
+                //TODO : Process data and save 
+                var newContent = new ApplicationContent();
+                newContent.Application = new Application();
+                newContent.Author = User.Identity.Name;
+                newContent.ModifiedUtc = DateTime.UtcNow;
+                newContent.Application.Sections = new Sections();
+                newContent.Application.Sections.Pages = new List<Page>();
+               
 
-                return RedirectToAction("section", new { pagename = "textarea" });
+                _session.Save(newContent);
+
+                var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(contentType));
+                var nextPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index + 1);
+                if(nextPage == null)
+                {
+                    return NotFound();
+                }
+                //TODO: Check of non-existing pages
+                // check for the last page
+                return RedirectToAction("section", new { pagename = nextPage.Name });
             }
             else
             {
-                return View("textinput", model);
+                _session.Cancel();
+                var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(contentType));
+                return PopulateViewModel(currentPage, model);
             }
 
             
@@ -672,12 +678,12 @@ namespace INZFS.MVC.Controllers
                 TotalSections = 12
             };
 
-            UpdateModel<CompanyDetailsPart>(items, ContentTypes.CompanyDetails, model, Sections.CompanyDetails);
-            UpdateModel<ProjectSummaryPart>(items, ContentTypes.ProjectSummary, model, Sections.ProjectSummary);
-            UpdateModel<ProjectDetailsPart>(items, ContentTypes.ProjectDetails, model, Sections.ProjectDetails);
-            UpdateModel<OrgFundingPart>(items, ContentTypes.OrgFunding, model, Sections.Funding);
-            UpdateModel<ProjectProposalDetailsPart>(items, ContentTypes.ProjectProposalDetails, model, Sections.ProjectProposalDetails);
-            UpdateModel<ProjectExperiencePart>(items, ContentTypes.ProjectExperience, model, Sections.ProjectExperience);
+            UpdateModel<CompanyDetailsPart>(items, ContentTypes.CompanyDetails, model, Pages.CompanyDetails);
+            UpdateModel<ProjectSummaryPart>(items, ContentTypes.ProjectSummary, model, Pages.ProjectSummary);
+            UpdateModel<ProjectDetailsPart>(items, ContentTypes.ProjectDetails, model, Pages.ProjectDetails);
+            UpdateModel<OrgFundingPart>(items, ContentTypes.OrgFunding, model, Pages.Funding);
+            UpdateModel<ProjectProposalDetailsPart>(items, ContentTypes.ProjectProposalDetails, model, Pages.ProjectProposalDetails);
+            UpdateModel<ProjectExperiencePart>(items, ContentTypes.ProjectExperience, model, Pages.ProjectExperience);
 
             var contentItem = items?.FirstOrDefault(item => item.ContentType == ContentTypes.ApplicationDocument);
             var applicationDocumentPart = contentItem?.ContentItem.As<ApplicationDocumentPart>();
@@ -686,25 +692,25 @@ namespace INZFS.MVC.Controllers
                 if(!string.IsNullOrEmpty(applicationDocumentPart.ProjectPlan))
                 {
                     model.TotalCompletedSections++;
-                    model.CompletedSections = model.CompletedSections | Sections.ProjectPlanUpload;
+                    model.CompletedSections = model.CompletedSections | Pages.ProjectPlanUpload;
                 }
                 if (!string.IsNullOrEmpty(applicationDocumentPart.ExperienceAndSkills))
                 {
                     model.TotalCompletedSections++;
-                    model.CompletedSections = model.CompletedSections | Sections.ProjectExperienceSkillsUpload;
+                    model.CompletedSections = model.CompletedSections | Pages.ProjectExperienceSkillsUpload;
                 }
             }
 
-            UpdateModel<FinanceTurnoverPart>(items, ContentTypes.FinanceTurnover, model, Sections.FinanceTurnover);
-            UpdateModel<FinanceBalanceSheetPart>(items, ContentTypes.FinanceBalanceSheet, model, Sections.FinanceBalanceSheet);
-            UpdateModel<FinanceRecoverVatPart>(items, ContentTypes.FinanceRecoverVat, model, Sections.FinanceRecoverVat);
-            UpdateModel<FinanceBarriersPart>(items, ContentTypes.FinanceBarriers, model, Sections.FinanceBarriers);
+            UpdateModel<FinanceTurnoverPart>(items, ContentTypes.FinanceTurnover, model, Pages.FinanceTurnover);
+            UpdateModel<FinanceBalanceSheetPart>(items, ContentTypes.FinanceBalanceSheet, model, Pages.FinanceBalanceSheet);
+            UpdateModel<FinanceRecoverVatPart>(items, ContentTypes.FinanceRecoverVat, model, Pages.FinanceRecoverVat);
+            UpdateModel<FinanceBarriersPart>(items, ContentTypes.FinanceBarriers, model, Pages.FinanceBarriers);
 
             return model;
         }
 
 
-        private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Sections section) where T : ContentPart
+        private void UpdateModel<T>(IEnumerable<ContentItem> contentItems, string contentToFilter, ApplicationSummaryModel model, Pages section) where T : ContentPart
         {
             var contentItem = contentItems?.FirstOrDefault(item => item.ContentType == contentToFilter);
             var contentPart = contentItem?.ContentItem.As<T>();
@@ -720,6 +726,43 @@ namespace INZFS.MVC.Controllers
         {
             var contentItem = contentItems?.FirstOrDefault(item => item.ContentType == contentToFilter);
             return contentItem?.ContentItem.As<T>();
+        }
+
+        private ViewResult GetViewModel(Page currentPage)
+        {
+            BaseModel model;
+            switch (currentPage.FieldType)
+            {
+                case FieldType.gdsTextBox:
+                    model = new TextInputModel();
+                    model.Question = currentPage.Question;
+                    model.PageName = currentPage.Name;
+                    return View("TextInput", model);
+                case FieldType.gdsTextArea:
+                    model = new TextAreaModel();
+                    model.Question = currentPage.Question;
+                    model.PageName = currentPage.Name;
+                    return View("TextArea", model);
+                default:
+                    throw new Exception("Invalid field type");
+            }
+        }
+
+        protected ViewResult PopulateViewModel(Page currentPage, BaseModel currentModel)
+        {
+            switch (currentPage.FieldType)
+            {
+                case FieldType.gdsTextBox:
+                    currentModel.Question = currentPage.Question;
+                    currentModel.PageName = currentPage.Name;
+                    return View("TextInput", currentModel);
+                case FieldType.gdsTextArea:
+                    currentModel.Question = currentPage.Question;
+                    currentModel.PageName = currentPage.Name;
+                    return View("TextArea", currentModel);
+                default:
+                    throw new Exception("Invalid field type");
+            }
         }
     }
 }

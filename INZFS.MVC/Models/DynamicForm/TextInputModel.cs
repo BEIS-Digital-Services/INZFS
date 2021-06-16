@@ -19,7 +19,7 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult("Entre Data", new[] { nameof(DataInput) });
+                    yield return new ValidationResult("Enter Data", new[] { nameof(DataInput) });
                 }
             }
         }

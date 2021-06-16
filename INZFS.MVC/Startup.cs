@@ -27,7 +27,9 @@ using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using INZFS.MVC.ModelProviders;
 
 namespace INZFS.MVC
 {
@@ -85,7 +87,22 @@ namespace INZFS.MVC
                 return new GovFileStore(customFolderPath);
             });
 
-            services.AddControllers();
+            services.AddSingleton<ApplicationDefinition>(sp =>
+            {
+                string fileName = "INZFS.json";
+                string jsonString = System.IO.File.ReadAllText(fileName);
+
+                var options = new JsonSerializerOptions();
+                options.PropertyNameCaseInsensitive = true;
+                options.Converters.Add(new JsonStringEnumConverter());
+                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(jsonString, options);
+                return applicationDefinition;
+            });
+            //services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new BaseModelBinderProvider());
+            });
         }
 
         private void ConfigureContent(IServiceCollection services)
