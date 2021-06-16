@@ -13,12 +13,12 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<IResourceManifestProvider, ResourceManifest>();
             serviceCollection.Configure<IdentityOptions>(options =>
             {
-                options.Password.RequireDigit = false;
+                options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireNonAlphanumeric = true;
                 options.Password.RequiredUniqueChars = 3;
-                options.Password.RequiredLength = 7;
+                options.Password.RequiredLength = 8;
             });
         }
     }
