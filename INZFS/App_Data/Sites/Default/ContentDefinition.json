@@ -1788,7 +1788,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body2",
-              "Position": "1"
+              "Position": "2"
             }
           }
         },
@@ -1798,7 +1798,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Header1",
-              "Position": "2"
+              "Position": "3"
             }
           }
         },
@@ -1808,7 +1808,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Header2",
-              "Position": "3"
+              "Position": "4"
             }
           }
         },
@@ -1818,7 +1818,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Accordion1",
-              "Position": "4"
+              "Position": "5"
             }
           }
         },
@@ -1828,7 +1828,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Boolean1",
-              "Position": "5"
+              "Position": "6"
             }
           }
         },
@@ -1838,7 +1838,17 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Boolean2",
-              "Position": "6"
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Button1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Button1",
+              "Position": "1"
             }
           }
         }
@@ -1911,5 +1921,5 @@
       ]
     }
   ],
-  "Identifier": "4w4aykjhgwmx6wbwck3mzbt4xb"
+  "Identifier": "414mgpmhfg4aw5rjsgf19a9x4x"
 }
