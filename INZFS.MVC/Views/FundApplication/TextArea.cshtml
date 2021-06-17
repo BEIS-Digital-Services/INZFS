@@ -26,7 +26,7 @@
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@key.Replace(".", "_")">@error.ErrorMessage</a>
+                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
                             </li>
                         }
                     }
@@ -36,20 +36,19 @@
     }
 
 
-    <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="200">
-        <div class="govuk-form-group" asp-validation-error-class-for="@Model.Question">
+    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error") " data-module="govuk-character-count" data-maxlength="200">
+        <div class="govuk-form-group">
             <label class="govuk-label govuk-label--l">
                 @Model.Question
             </label>
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-            <textarea class="govuk-textarea govuk-js-character-count" id="with-hint" rows="5" aria-describedby="summary-hint">@Model.Question</textarea>
+            <textarea class="govuk-textarea govuk-js-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" rows="5" aria-describedby="summary-hint"></textarea>
 
             <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
                 You can enter up to 200 characters
             </div>
         </div>
     </div>
-
 
 
     <div class="edit-item-secondary group">

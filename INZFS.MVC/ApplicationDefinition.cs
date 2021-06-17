@@ -10,7 +10,8 @@ namespace INZFS.MVC
     public enum FieldType
     {
         gdsTextBox,
-        gdsTextArea
+        gdsTextArea,
+        gdsDatebox
     }
     public class Page
     {
@@ -21,6 +22,8 @@ namespace INZFS.MVC
         public string ErrorMassage { get; set; }
         public FieldType FieldType { get; set; }
         public string FieldName { get; set; }
+        public string FieldName2 { get; set; }
+        public string FieldName3 { get; set; }
         public bool Mandatory { get; set; }
 
         [JsonProperty("accordian-reference")]

@@ -1,0 +1,91 @@
+
+@model DateModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
+    Back
+</a>
+
+<form asp-action="CreateNew" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+
+
+    @{
+        var sampleDate = DateTime.Now.AddDays(30);
+    }
+
+    <input type="hidden" name="contentType" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(DateModel)" />
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var value = ViewData.ModelState[key];
+                        foreach (var error in value.Errors)
+                        {
+                            <li>
+                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+
+    <div class="govuk-form-group">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="balance-sheet-date">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                Balance Sheet Date
+            </legend>
+            <div id="balance-sheet-date-hint" class="govuk-hint">
+                For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+            </div>
+            <div class="govuk-date-input" id="balance-sheet-date">
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-day">
+                            Day
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="@Model.FieldName" name="@Model.FieldName" value="@Model.Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-month">
+                            Month
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="@Model.FieldName2" name="@Model.FieldName2" value="@Model.Month type="text" pattern="[0-9]*" inputmode="numeric">
+                    </div>
+                </div>
+                <div class="govuk-date-input__item">
+                    <div class="govuk-form-group">
+                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-year">
+                            Year
+                        </label>
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="@Model.FieldName3" name="@Model.FieldName3" value="@Model.Year type="text" pattern="[0-9]*" inputmode="numeric">
+                    </div>
+                </div>
+            </div>
+
+        </fieldset>
+    </div>
+
+
+
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+        </div>
+    </div>
+</form>
+
+@Html.Partial("_Help")
