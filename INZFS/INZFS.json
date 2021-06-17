@@ -20,7 +20,7 @@
           "fieldName": "company-number",
           "mandatory": true,
           "accordian-reference": "",
-          "max-length" : 50
+          "max-length": 50
         },
         {
           "name": "company-summary",
@@ -31,6 +31,17 @@
           "mandatory": true,
           "accordian-reference": "",
           "max-length": 500
+        },
+        {
+          "name": "project-date",
+          "question": "Project Start Date",
+          "error-massage": "Please enter a company summary",
+          "fieldType": "gdsDateBox",
+          "fieldName": "start-date",
+          "fieldName2": "start-month",
+          "fieldName3": "start-year",
+          "mandatory": true,
+          "accordian-reference": ""
         }
       ]
     }
