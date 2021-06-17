@@ -28,7 +28,7 @@
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@key.Replace(".", "_")">@error.ErrorMessage</a>
+                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
                             </li>
                         }
                     }
@@ -43,7 +43,7 @@
             @Model.Question
         </label>
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" spellcheck="true" aria-describedby="name-hint">
+        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" spellcheck="true" aria-describedby="name-hint">
     </div>
 
 
