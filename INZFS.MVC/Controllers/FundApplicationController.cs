@@ -361,7 +361,7 @@ namespace INZFS.MVC.Controllers
                 return "Empty file";
             }
 
-            var notContainsVirus = true;//await ScanFile(file);
+            var notContainsVirus = await ScanFile(file);
             if (!notContainsVirus)
             {
                 return "File contains virus";
