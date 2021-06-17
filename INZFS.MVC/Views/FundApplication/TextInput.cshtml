@@ -4,11 +4,15 @@
 @using INZFS.MVC.TagHelpers
 
 
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
+    Back
+</a>
+
 <form asp-action="CreateNew" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="contentType" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
-    
+
 
     @if (!ViewData.ModelState.IsValid)
     {
@@ -34,12 +38,12 @@
     }
 
 
-    <div class="govuk-form-group" asp-validation-error-class-for="@Model.Question">
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <label class="govuk-label govuk-label--l">
             @Model.Question
         </label>
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10" asp-for="@Model.DataInput" spellcheck="true" aria-describedby="name-hint">
+        <input class="govuk-input govuk-input--width-10" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" spellcheck="true" aria-describedby="name-hint">
     </div>
 
 
@@ -50,3 +54,4 @@
     </div>
 </form>
 
+@Html.Partial("_Help")

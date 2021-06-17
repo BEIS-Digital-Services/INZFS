@@ -749,7 +749,7 @@ namespace INZFS.MVC.Controllers
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
-                    return View("TextInput", currentModel);
+                    return View("TextInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsTextArea:
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 default:
