@@ -1,9 +1,38 @@
 ﻿@page "/eligibilityChecker/{slug}"
 @inject OrchardCore.IOrchardHelper Orchard
+@model INZFS.Web.ViewModels.EligibilityCheckerViewModel;
 
 @{
     var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var redirect = @eligibility.Content.EligibilityChecker.Button1.Text;
     var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
+    var titlePart = (string) @eligibility.Content.AliasPart.Alias;
+    var questionSetting = "Question1";
+    switch (titlePart)
+    {
+        case "Question1":
+            questionSetting = "Question1";
+            break;
+        case "Question2":
+            questionSetting = "Question2";
+            break;
+        case "Question3":
+            questionSetting = "Question3";
+            break;
+        case "Question4":
+            questionSetting = "Question4";
+            break;
+        case "Question5":
+            questionSetting = "Question5";
+            break;
+        case "Question6":
+            questionSetting = "Question6";
+            break;
+        default: questionSetting = "Question1"; break;
+
+    }
+
+
 }
 @Orchard.ConsoleLog(eligibility)
 
@@ -29,20 +58,20 @@
                     </ul>
                 </div>
             }
-
+        <form method="post">
             <div class="govuk-form-group" style="padding-top: 20px;">
                 <label class="govuk-label govuk-label--l">
                 </label>
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-radios govuk-radios--inline">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" type="radio" value="1">
+                            <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSetting>
                             <label class="govuk-label govuk-radios__label">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" type="radio" value="0">
+                            <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSetting>
                             <label class="govuk-label govuk-radios__label">
                                 No
                             </label>
@@ -50,8 +79,9 @@
                     </div>
                 </fieldset>
             </div>
-
-            <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityChecker.Button1.Text">Continue</a>
+            <button class="govuk-button govuk-!-margin-top-6">Continue</button>
+        </form>
+           
 
 
 
@@ -70,7 +100,8 @@
         </main>
     </div>
     <style src="/css/application.css"></style>
-  
+
+
 
 
 </body>
@@ -79,4 +110,12 @@
 {
     [FromRoute]
     public string Slug { get; set; }
+
+    bool question1 = false;
+    bool question2 = false;
+    bool question3 = false;
+    bool question4 = false;
+    bool question5 = false;
+    bool question6 = false;
+
 }
