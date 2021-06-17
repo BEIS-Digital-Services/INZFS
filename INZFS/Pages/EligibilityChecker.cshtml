@@ -1,12 +1,15 @@
 ﻿@page "/eligibilityChecker/{slug}"
 @inject OrchardCore.IOrchardHelper Orchard
-@model INZFS.Web.ViewModels.EligibilityCheckerViewModel;
+@using INZFS.Web.POCO
+@model EligibilityCheckerPOCO
+
+
 
 @{
     var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
-    var redirect = @eligibility.Content.EligibilityChecker.Button1.Text;
+    var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
     var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
-    var titlePart = (string) @eligibility.Content.AliasPart.Alias;
+    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
     var questionSetting = "Question1";
     switch (titlePart)
     {
@@ -58,32 +61,29 @@
                     </ul>
                 </div>
             }
-        <form method="post">
-            <div class="govuk-form-group" style="padding-top: 20px;">
-                <label class="govuk-label govuk-label--l">
-                </label>
-                <fieldset class="govuk-fieldset">
-                    <div class="govuk-radios govuk-radios--inline">
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSetting>
-                            <label class="govuk-label govuk-radios__label">
-                                Yes
-                            </label>
+            <form method="post">
+                <div class="govuk-form-group" style="padding-top: 20px;">
+                    <label class="govuk-label govuk-label--l">
+                    </label>
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios govuk-radios--inline">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSetting>
+                                <label class="govuk-label govuk-radios__label">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSetting>
+                                <label class="govuk-label govuk-radios__label">
+                                    No
+                                </label>
+                            </div>
                         </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSetting>
-                            <label class="govuk-label govuk-radios__label">
-                                No
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-            <button class="govuk-button govuk-!-margin-top-6">Continue</button>
-        </form>
-           
-
-
+                    </fieldset>
+                </div>
+                <button class="govuk-button govuk-!-margin-top-6">Continue</button>
+            </form>
 
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
                 <div class="govuk-accordion__section ">
@@ -111,11 +111,28 @@
     [FromRoute]
     public string Slug { get; set; }
 
-    bool question1 = false;
-    bool question2 = false;
-    bool question3 = false;
-    bool question4 = false;
-    bool question5 = false;
-    bool question6 = false;
+    public EligibilityCheckerPOCO poco = new EligibilityCheckerPOCO
+    {
+        Question1 = false,
+        Question2 = false,
+        Question3 = false,
+        Question4 = false,
+        Question5 = false,
+        Question6 = false,
+        RedirectUrl = "/"
+    };
+    public void OnGet()
+    {
+
+
+    }
+    public async Task<IActionResult> OnPostAsync()
+    {
+        @inject OrchardCore.IOrchardHelper Orchard
+        var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+        poco.RedirectUrl = redirect;
+        return Redirect(redirect);
+    }
 
 }
