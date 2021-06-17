@@ -735,14 +735,10 @@ namespace INZFS.MVC.Controllers
             {
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
-                    model.Question = currentPage.Question;
-                    model.PageName = currentPage.Name;
-                    return View("TextInput", model);
+                    return View("TextInput", PopulateModel(currentPage, model));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
-                    model.Question = currentPage.Question;
-                    model.PageName = currentPage.Name;
-                    return View("TextArea", model);
+                    return View("TextArea", PopulateModel(currentPage, model));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -753,16 +749,20 @@ namespace INZFS.MVC.Controllers
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
-                    currentModel.Question = currentPage.Question;
-                    currentModel.PageName = currentPage.Name;
                     return View("TextInput", currentModel);
                 case FieldType.gdsTextArea:
-                    currentModel.Question = currentPage.Question;
-                    currentModel.PageName = currentPage.Name;
-                    return View("TextArea", currentModel);
+                    return View("TextArea", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
+        }
+
+        private BaseModel PopulateModel(Page currentPage, BaseModel currentModel)
+        {
+            currentModel.Question = currentPage.Question;
+            currentModel.PageName = currentPage.Name;
+            currentModel.FieldName = currentPage.FieldName;
+            return currentModel;
         }
     }
 }
