@@ -42,7 +42,7 @@
                 @Model.Question
             </label>
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-            <textarea class="govuk-textarea govuk-js-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" rows="5" aria-describedby="summary-hint"></textarea>
+            <textarea class="govuk-textarea govuk-js-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="DataInput"  rows="5" aria-describedby="summary-hint" spellcheck="true"></textarea>
 
             <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
                 You can enter up to 200 characters

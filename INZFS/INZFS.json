@@ -45,10 +45,11 @@
         },
         {
           "name": "project-delivery",
-          "question": "Has the Project Started",
-          "error-massage": "Select Value ",
-          "fieldType": "SingleRadiInput",
-          "fieldName": "project-delivery",
+          "question": "Project Started",
+          "error-massage": "Please enter a company summary",
+          "fieldType": "gdsSingleLineRadi",
+          "fieldName": "start-project",
+          "fieldName2": "start-test",
           "mandatory": true,
           "accordian-reference": ""
         }

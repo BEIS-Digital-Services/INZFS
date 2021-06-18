@@ -19,7 +19,7 @@ namespace INZFS.MVC.ModelProviders
                 return null;
             }
 
-            var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel)};
+            var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), typeof(DateModel), typeof(SingleRadiInputModel)};
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
             foreach (var type in subclasses)
@@ -55,6 +55,14 @@ namespace INZFS.MVC.ModelProviders
             else if (modelTypeValue == nameof(TextAreaModel))
             {
                 (modelMetadata, modelBinder) = binders[typeof(TextAreaModel)];
+            }
+            else if (modelTypeValue == nameof(DateModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(DateModel)];
+            }
+            else if (modelTypeValue == nameof(SingleRadiInputModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(SingleRadiInputModel)];
             }
             else
             {

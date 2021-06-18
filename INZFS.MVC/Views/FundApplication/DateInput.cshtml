@@ -41,37 +41,37 @@
     }
 
 
-    <div class="govuk-form-group" @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")>
-        <fieldset class="govuk-fieldset" role="group" aria-describedby="balance-sheet-date">
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
+        <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-project-end-date">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                Balance Sheet Date
+                Estimated Project End Date
             </legend>
-            <div id="balance-sheet-date-hint" class="govuk-hint">
+            <div id="estimated-project-end-date-hint" class="govuk-hint">
                 For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
             </div>
-            <div class="govuk-date-input" id="balance-sheet-date">
+            <div class="govuk-date-input" id="estimated-project-end-date">
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-day">
+                        <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-day">
                             Day
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="@Model.FieldName" name="@Model.FieldName" value="@Model.Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2"  id="@Model.FieldName" name="Day"  type="text" pattern="[0-9]*" inputmode="numeric">
                     </div>
                 </div>
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-month">
+                        <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-month">
                             Month
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="@Model.FieldName2" name="@Model.FieldName2" value="@Model.Month" type="text" pattern="[0-9]*" inputmode="numeric">
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="@Model.FieldName" name="Month" type="text" pattern="[0-9]*" inputmode="numeric">
                     </div>
                 </div>
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
-                        <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-year">
+                        <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-year">
                             Year
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="@Model.FieldName3" name="@Model.FieldName2" value="@Model.Year" type="text" pattern="[0-9]*" inputmode="numeric">
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4"  id="@Model.FieldName" name="Year" type="text" pattern="[0-9]*" inputmode="numeric">
                     </div>
                 </div>
             </div>

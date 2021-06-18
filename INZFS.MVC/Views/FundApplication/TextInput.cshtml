@@ -38,12 +38,14 @@
     }
 
 
-    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-        <label class="govuk-label govuk-label--l">
-            @Model.Question
-        </label>
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+                @Model.Question
+            </label>
+        </h1>
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput" spellcheck="true" aria-describedby="name-hint">
+        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="DataInput" type="text" spellcheck="true">
     </div>
 
 

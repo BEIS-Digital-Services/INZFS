@@ -36,7 +36,7 @@
     }
 
 
-    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")"  >
+    @*<div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <label class="govuk-label govuk-label--l">
             @Model.Question
         </label>
@@ -49,12 +49,41 @@
                 </label>
             </div>
             <div class="govuk-radios__item">
-                <input class="govuk-radios__input"  id="@Model.FieldName" name="@Model.FieldName" value="@Model.DataInput">
+                <input class="govuk-radios__input" id="@Model.FieldName2" name="@Model.FieldName2" value="@Model.DataInput">
                 <label class="govuk-label govuk-radios__label">
                     No
                 </label>
             </div>
         </div>
+    </div>*@
+
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+        <fieldset class="govuk-fieldset" aria-describedby="changed-name-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            <div id="changed-name-hint" class="govuk-hint">
+                This includes changing your last name or spelling your name differently.
+            </div>
+            <span asp-validation-for="@Model.Question" class="govuk-error-message  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")"></span>
+            <div class="govuk-radios govuk-radios--inline">
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="@Model.FieldName" name="DataInput" type="radio" value="1">
+                    <label class="govuk-label govuk-radios__label" for="DateInput>
+                        Yes
+                    </label>
+                </div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="@Model.FieldName" name="DataInput" type="radio" value="0">
+                    <label class="govuk-label govuk-radios__label" for="changed-name-2">
+                        No
+                    </label>
+                </div>
+            </div>
+
+        </fieldset>
     </div>
 
     <div class="edit-item-secondary group">
