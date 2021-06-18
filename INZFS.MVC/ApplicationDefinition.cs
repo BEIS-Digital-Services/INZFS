@@ -11,7 +11,8 @@ namespace INZFS.MVC
     {
         gdsTextBox,
         gdsTextArea,
-        gdsDateBox
+        gdsDateBox,
+        gdsSingleLineRadi
     }
     public class Page
     {

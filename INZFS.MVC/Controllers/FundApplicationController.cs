@@ -742,6 +742,9 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsDateBox:
                     model = new DateModel();
                     return View("DateInput", PopulateModel(currentPage, model));
+                case FieldType.gdsSingleLineRadi:
+                    model = new SingleRadiInputModel();
+                    return View("SingleRadiInput", PopulateModel(currentPage, model));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -757,6 +760,8 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsSingleLineRadi:
+                    return View("SingleRadiInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }

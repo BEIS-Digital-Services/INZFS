@@ -42,6 +42,15 @@
           "fieldName3": "start-year",
           "mandatory": true,
           "accordian-reference": ""
+        },
+        {
+          "name": "project-delivery",
+          "question": "Has the Project Started",
+          "error-massage": "Select Value ",
+          "fieldType": "SingleRadiInput",
+          "fieldName": "project-delivery",
+          "mandatory": true,
+          "accordian-reference": ""
         }
       ]
     }
