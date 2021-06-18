@@ -38,8 +38,6 @@
           "error-massage": "Please enter a company summary",
           "fieldType": "gdsDateBox",
           "fieldName": "start-date",
-          "fieldName2": "start-month",
-          "fieldName3": "start-year",
           "mandatory": true,
           "accordian-reference": ""
         },

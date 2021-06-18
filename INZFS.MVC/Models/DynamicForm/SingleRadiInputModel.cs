@@ -11,7 +11,7 @@ namespace INZFS.MVC.Models.DynamicForm
 {
     public class SingleRadiInputModel : BaseModel, IValidatableObject
     {
-        public string DataInput { get; set; }
+        public int? DataInput { get; set; }
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
@@ -19,7 +19,7 @@ namespace INZFS.MVC.Models.DynamicForm
             if (Mandatory == true)
             {
 
-                if (string.IsNullOrEmpty(DataInput))
+                if (!DataInput.HasValue)
                 {
                     yield return new ValidationResult("Make a selection", new[] { nameof(DataInput) });
                 }

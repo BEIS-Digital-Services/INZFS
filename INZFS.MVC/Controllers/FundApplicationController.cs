@@ -772,8 +772,6 @@ namespace INZFS.MVC.Controllers
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
-            currentModel.FieldName2 = currentPage.FieldName2;
-            currentModel.FieldName3 = currentPage.FieldName3;
             return currentModel;
         }
     }
