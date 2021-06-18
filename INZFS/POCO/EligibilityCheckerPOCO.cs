@@ -25,7 +25,6 @@ namespace INZFS.Web.POCO
 
         public EligibilityCheckerPOCO()
         {
-            RedirectUrl = "/";
         }
     }
    
