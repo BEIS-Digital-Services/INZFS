@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetZero.Automated.UI.Tests", "NetZero.Automated.UI.Tests\NetZero.Automated.UI.Tests.csproj", "{B6990E06-A7C0-45F3-B99D-3042E0513AAE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEIS.GDS.UI.Tests.Support", "BEIS.GDS.UI.Tests.Support\BEIS.GDS.UI.Tests.Support.csproj", "{471DE261-52A4-49DD-9CE6-EEDBBF928EFB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6990E06-A7C0-45F3-B99D-3042E0513AAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6990E06-A7C0-45F3-B99D-3042E0513AAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6990E06-A7C0-45F3-B99D-3042E0513AAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6990E06-A7C0-45F3-B99D-3042E0513AAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{471DE261-52A4-49DD-9CE6-EEDBBF928EFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{471DE261-52A4-49DD-9CE6-EEDBBF928EFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{471DE261-52A4-49DD-9CE6-EEDBBF928EFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{471DE261-52A4-49DD-9CE6-EEDBBF928EFB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {00812E00-6496-42E0-93BA-E8363495D8ED}
+	EndGlobalSection
+EndGlobal
