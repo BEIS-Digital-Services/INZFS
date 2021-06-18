@@ -4,7 +4,8 @@
 @{
     var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
     var listenabled = @eligibility.Content.EligibilityResult.Bullet1.Text == null;
-    
+    var Secondlistenabled = @eligibility.Content.EligibilityResult.BulletA.Text == null;
+
 }
 @Orchard.ConsoleLog(eligibility)
 
@@ -21,25 +22,34 @@
             <div class="app-prose-scope" style="padding-top: 20px;">
                 @eligibility.Content.EligibilityResult.Body1.Text
             </div>
-           @if (!listenabled) {
-            <div style="padding-top: 20px;" class="list">
-                <ul >
-                    <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
-                    <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
-                    <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
-                    <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
-                </ul>
-            </div>
-           }
+            @if (!listenabled)
+            {
+                <div style="padding-top: 20px;" class="list">
+                    <ul>
+                        <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
+                    </ul>
+                </div>
+            }
             <div class="app-prose-scope" style="padding-top: 20px;">
                 @eligibility.Content.EligibilityResult.Body2.Text
             </div>
             <div class="app-prose-scope" style="padding-top: 20px;">
                 @eligibility.Content.EligibilityResult.Body3.Text
             </div>
+            @if (!Secondlistenabled)
+            {
+                <div style="padding-top: 10px;" class="list">
+                    <ul>
+                        <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletA.Text</li>
+                        <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletB.Text</li>
+                    </ul>
+                </div>
+            }
 
-
-            <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityResult.Button1.Text">Return to funding homepage</a>
+        <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityResult.Url1.Html">@eligibility.Content.EligibilityResult.Button1.Text</a>
 
 
         </main>

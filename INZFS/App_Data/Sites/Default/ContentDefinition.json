@@ -2043,9 +2043,27 @@
               "DisplayName": "Bullet4"
             }
           }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BulletA",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "BulletA"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BulletB",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "BulletB"
+            }
+          }
         }
       ]
     }
   ],
-  "Identifier": "4f1pw6bys242tt8f5m7tb8kzdd"
+  "Identifier": "4yhg12g329qjfxv6fzc3pjw34h"
 }

@@ -125,6 +125,22 @@
         {
             var Question2 = BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0);
         }
+        if (HttpContext.Session.Get("Question3") != null)
+        {
+            var Question3 = BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0);
+        }
+        if (HttpContext.Session.Get("Question4") != null)
+        {
+            var Question4 = BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0);
+        }
+        if (HttpContext.Session.Get("Question5") != null)
+        {
+            var Question5 = BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0);
+        }
+         if (HttpContext.Session.Get("Question6") != null)
+        {
+            var Question6 = BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0);
+        }
     }
     public async Task<IActionResult> OnPostAsync()
     {
@@ -202,10 +218,43 @@
                 break;
             default: @Orchard.ConsoleLog("Error in switch statement"); break;
 
+        }
+        if(titlePart == "Question6")
+        {
+
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult3");
+            }
+            if(BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0) == false){
+                return Redirect("/eligibilityResult/EligibilityResult4");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult1");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult5");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult6");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult6");
+            }
+            else
+            {
+                return Redirect("/eligibilityResult/EligibilityResult7");
+            }
+        }
+        else
+        {
+            return Redirect(redirect);
+        }
+
     }
-
-
-    return Redirect(redirect);
-}
 
 }
