@@ -68,13 +68,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSetting>
+                                <input class="govuk-radios__input" type="radio" name="Yes" value="1" asp-for=@questionSetting>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSetting>
+                                <input class="govuk-radios__input" type="radio" name="No" value="0" asp-for=@questionSetting>
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -131,8 +131,78 @@
         @inject OrchardCore.IOrchardHelper Orchard
         var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
         var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
-        poco.RedirectUrl = redirect;
-        return Redirect(redirect);
+        var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+        var yes = Request.Form["Yes"].ToString();
+        var no = Request.Form["No"].ToString();
+        switch (titlePart)
+        {
+            case "Question1":
+                if (yes == "1")
+                {
+                    poco.Question1 = true;
+                }
+                else
+                {
+                    poco.Question1 = false;
+                }
+                break;
+            case "Question2":
+                if (yes == "1")
+                {
+                    poco.Question2 = true;
+                }
+                else
+                {
+                    poco.Question2 = false;
+                }
+                break;
+            case "Question3":
+                if (yes == "1")
+                {
+                    poco.Question3 = true;
+                }
+                else
+                {
+                    poco.Question3 = false;
+                }
+                break;
+            case "Question4":
+                if (yes == "1")
+                {
+                    poco.Question4 = true;
+                }
+                else
+                {
+                    poco.Question4 = false;
+                }
+                break;
+            case "Question5":
+                if (yes == "1")
+                {
+                    poco.Question5 = true;
+                }
+                else
+                {
+                    poco.Question5 = false;
+                }
+                break;
+            case "Question6":
+                if (yes == "1")
+                {
+                    poco.Question6 = true;
+                }
+                else
+                {
+                    poco.Question6 = false;
+                }
+                break;
+            default: @Orchard.ConsoleLog("Error in switch statement"); break;
+
     }
+    poco.RedirectUrl = redirect;
+
+
+    return Redirect(redirect);
+}
 
 }
