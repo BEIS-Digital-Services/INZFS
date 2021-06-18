@@ -9,18 +9,19 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
 {
-    public class SingleRadiInputModel : BaseModel
+    public class SingleRadiInputModel : BaseModel, IValidatableObject
     {
-        public int? DataInput { get; set; }
+        public string DataInput { get; set; }
 
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Mandatory == true)
             {
-                if (!DataInput.HasValue)
+
+                if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult("Enter Data", new[] { nameof(DataInput) });
+                    yield return new ValidationResult("Make a selection", new[] { nameof(DataInput) });
                 }
             }
         }
