@@ -125,13 +125,9 @@
         {
             var Question2 = BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0);
         }
-
-        EligibilityCheckerPOCO poco = new EligibilityCheckerPOCO();
-        _poco = poco;
     }
-    public async Task<IActionResult> OnPostAsync(EligibilityCheckerPOCO poco)
+    public async Task<IActionResult> OnPostAsync()
     {
-        _poco = poco;
 
         @inject OrchardCore.IOrchardHelper Orchard
         var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
@@ -147,79 +143,66 @@
             case "Question1":
                 if (yes == "1")
                 {
-                    poco.Question1 = true;
                     HttpContext.Session.Set("Question1", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question1 = false;
                     HttpContext.Session.Set("Question1", BitConverter.GetBytes(false));
                 }
                 break;
             case "Question2":
                 if (yes == "1")
                 {
-                    poco.Question2 = true;
                     HttpContext.Session.Set("Question2", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question2 = false;
                     HttpContext.Session.Set("Question2", BitConverter.GetBytes(false));
                 }
                 break;
             case "Question3":
                 if (yes == "1")
                 {
-                    poco.Question3 = true;
                     HttpContext.Session.Set("Question3", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question3 = false;
                     HttpContext.Session.Set("Question3", BitConverter.GetBytes(false));
                 }
                 break;
             case "Question4":
                 if (yes == "1")
                 {
-                    poco.Question4 = true;
                     HttpContext.Session.Set("Question4", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question4 = false;
                     HttpContext.Session.Set("Question4", BitConverter.GetBytes(false));
                 }
                 break;
             case "Question5":
                 if (yes == "1")
                 {
-                    poco.Question5 = true;
                     HttpContext.Session.Set("Question5", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question5 = false;
                     HttpContext.Session.Set("Question5", BitConverter.GetBytes(false));
                 }
                 break;
             case "Question6":
                 if (yes == "1")
                 {
-                    poco.Question6 = true;
                     HttpContext.Session.Set("Question6", BitConverter.GetBytes(true));
                 }
                 else
                 {
-                    poco.Question6 = false;
                     HttpContext.Session.Set("Question6", BitConverter.GetBytes(false));
                 }
                 break;
             default: @Orchard.ConsoleLog("Error in switch statement"); break;
 
     }
-    poco.RedirectUrl = redirect;
 
 
     return Redirect(redirect);
