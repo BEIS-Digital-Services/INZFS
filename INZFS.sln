@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.Web", "INZFS\INZFS.We
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.Theme", "Themes\INZFS.Theme.csproj", "{B69A8314-907A-400A-B093-484244419ECD}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BEIS.GDS.UI.Tests.Support", "..\NetZeroUITestAutomation\NetZero.Automated.UI.Tests\BEIS.GDS.UI.Tests.Support\BEIS.GDS.UI.Tests.Support.csproj", "{1ABD6A6A-8D81-4558-8FB0-6AC22F9A9149}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetZero.Automated.UI.Tests", "..\NetZeroUITestAutomation\NetZero.Automated.UI.Tests\NetZero.Automated.UI.Tests\NetZero.Automated.UI.Tests.csproj", "{CA7DBB04-A2B7-4A7B-B6E0-568A507C74D6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{B69A8314-907A-400A-B093-484244419ECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B69A8314-907A-400A-B093-484244419ECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B69A8314-907A-400A-B093-484244419ECD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ABD6A6A-8D81-4558-8FB0-6AC22F9A9149}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ABD6A6A-8D81-4558-8FB0-6AC22F9A9149}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ABD6A6A-8D81-4558-8FB0-6AC22F9A9149}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ABD6A6A-8D81-4558-8FB0-6AC22F9A9149}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CA7DBB04-A2B7-4A7B-B6E0-568A507C74D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CA7DBB04-A2B7-4A7B-B6E0-568A507C74D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CA7DBB04-A2B7-4A7B-B6E0-568A507C74D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CA7DBB04-A2B7-4A7B-B6E0-568A507C74D6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
