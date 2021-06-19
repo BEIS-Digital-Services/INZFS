@@ -184,12 +184,11 @@ namespace INZFS.MVC.Controllers
 
         [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file, BaseModel model)
+        public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
             if (ModelState.IsValid)
             {
                 var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                //TODO : Process data and save 
                 if (contentToSave == null)
                 {
                     contentToSave = new ApplicationContent();
@@ -202,7 +201,7 @@ namespace INZFS.MVC.Controllers
 
                 contentToSave.ModifiedUtc = DateTime.UtcNow;
 
-                var field = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(contentType));
+                var field = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
 
                 var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(field.FieldName));
                 if(existingFieldData == null)
@@ -217,7 +216,7 @@ namespace INZFS.MVC.Controllers
 
                 _session.Save(contentToSave);
 
-                var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(contentType));
+                var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var nextPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index + 1);
                 if(nextPage == null)
                 {
@@ -230,7 +229,7 @@ namespace INZFS.MVC.Controllers
             else
             {
                 _session.Cancel();
-                var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(contentType));
+                var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
 

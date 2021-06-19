@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
 {
-    public class TextAreaModel : BaseModel, IValidatableObject
+    public class TextAreaModel : BaseModel
     {
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
             if (Mandatory == true)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult("Enter Data", new[] { nameof(DataInput) });
+                    yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
             }
         }

@@ -16,7 +16,7 @@
         var sampleDate = DateTime.Now.AddDays(30);
     }
 
-    <input type="hidden" name="contentType" value="@Model.PageName" />
+    <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(DateModel)" />
 
     @if (!ViewData.ModelState.IsValid)

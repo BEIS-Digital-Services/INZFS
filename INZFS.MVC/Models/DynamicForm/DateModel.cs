@@ -15,7 +15,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public int? Day { get; set; }
         public int? Month { get; set; }
         public int? Year { get; set; }
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
             if (Mandatory == true)
             {

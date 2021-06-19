@@ -19,16 +19,16 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
 
-        [JsonProperty("error-massage")]
-        public string ErrorMassage { get; set; }
+        //[JsonProperty("error-massage")]
+        public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
         public string FieldName { get; set; }
         public bool Mandatory { get; set; }
 
-        [JsonProperty("accordian-reference")]
+        //[JsonProperty("accordian-reference")]
         public string AccordianReference { get; set; }
 
-        [JsonProperty("max-length")]
+        //[JsonProperty("max-length")]
         public int? MaxLength { get; set; }
     }
 

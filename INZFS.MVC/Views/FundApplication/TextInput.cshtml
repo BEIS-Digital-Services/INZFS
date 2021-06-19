@@ -13,7 +13,7 @@
 
 <form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
-    <input type="hidden" name="contentType" value="@Model.PageName" />
+    <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
 
 

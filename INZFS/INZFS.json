@@ -6,50 +6,50 @@
         {
           "name": "company-name",
           "question": "Name of your company details",
-          "error-massage": "Please enter a valid company details",
+          "errorMessage": "Please enter a valid company details",
           "fieldType": "gdsTextBox",
           "fieldName": "company-name",
           "mandatory": true,
-          "accordian-reference": ""
+          "accordianReference": ""
         },
         {
           "name": "company-number",
           "question": "What's your company number",
-          "error-massage": "Please enter a valid company number",
+          "errorMessage": "Please enter a valid company number",
           "fieldType": "gdsTextBox",
           "fieldName": "company-number",
           "mandatory": true,
-          "accordian-reference": "",
+          "accordianReference": "",
           "max-length": 50
         },
         {
           "name": "company-summary",
           "question": "Company Summary",
-          "error-massage": "Please enter a company summary",
+          "errorMessage": "Please enter a company summary",
           "fieldType": "gdsTextArea",
           "fieldName": "company-summary",
           "mandatory": true,
-          "accordian-reference": "",
+          "accordianReference": "",
           "max-length": 500
         },
         {
           "name": "project-date",
           "question": "Project Start Date",
-          "error-massage": "Please enter a company summary",
+          "errorMessage": "Please enter a project date",
           "fieldType": "gdsDateBox",
           "fieldName": "start-date",
           "mandatory": true,
-          "accordian-reference": ""
+          "accordianReference": ""
         },
         {
           "name": "project-delivery",
           "question": "Project Started",
-          "error-massage": "Please enter a company summary",
+          "errorMessage": "Please make a selection",
           "fieldType": "gdsSingleLineRadi",
           "fieldName": "start-project",
           "fieldName2": "start-test",
           "mandatory": true,
-          "accordian-reference": ""
+          "accordianReference": ""
         }
       ]
     }
