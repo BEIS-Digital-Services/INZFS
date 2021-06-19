@@ -30,6 +30,9 @@ using OrchardCore.Navigation;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using INZFS.MVC.ModelProviders;
+using YesSql.Indexes;
+using INZFS.MVC.Records;
+using INZFS.MVC.Migrations.Indexes;
 
 namespace INZFS.MVC
 {
@@ -107,6 +110,10 @@ namespace INZFS.MVC
 
         private void ConfigureContent(IServiceCollection services)
         {
+            
+            services.AddScoped<IDataMigration, ApplicationContentIndexMigration>();
+            services.AddSingleton<IIndexProvider, ApplicationContentIndexProvider>();
+
 
             services.AddContentPart<CompanyDetailsPart>()
             .UseDisplayDriver<CompanyDetailsDriver>();

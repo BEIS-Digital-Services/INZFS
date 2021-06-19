@@ -50,6 +50,10 @@ namespace INZFS.MVC
 
     public class ApplicationContent
     {
+        public ApplicationContent()
+        {
+            Fields = new List<Field>();
+        }
         public Application Application { get; set; }
 
         //
@@ -100,5 +104,14 @@ namespace INZFS.MVC
         // Summary:
         //     The text representing this content item.
         public string DisplayText { get; set; }
+
+        public List<Field> Fields { get; set; }
     }
+
+    public class Field
+    {
+        public string Name { get; set; }
+        public string Data { get; set; }
+    }
+
 }

@@ -3,12 +3,15 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back
+    </a>
+}
 
-<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
-    Back
-</a>
 
-<form asp-action="CreateNew" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+<form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="contentType" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
@@ -45,7 +48,8 @@
             </label>
         </h1>
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName" name="DataInput" type="text" spellcheck="true">
+        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+               name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
     </div>
 
 

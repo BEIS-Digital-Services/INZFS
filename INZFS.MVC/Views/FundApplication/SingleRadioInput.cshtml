@@ -1,16 +1,19 @@
 
-@model SingleRadiInputModel
+@model SingleRadioInputModel
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-written-details">
-    Back
-</a>
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="Model.PreviousPageName">
+        Back
+    </a>
+}
 
-<form asp-action="CreateNew" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+<form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="contentType" value="@Model.PageName" />
-    <input type="hidden" name="Kind" value="@nameof(SingleRadiInputModel)" />
+    <input type="hidden" name="Kind" value="@nameof(SingleRadioInputModel)" />
 
     @if (!ViewData.ModelState.IsValid)
     {

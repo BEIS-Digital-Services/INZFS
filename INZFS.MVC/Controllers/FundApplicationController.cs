@@ -37,6 +37,7 @@ using INZFS.MVC.ViewModels.ProposalFinance;
 using OrchardCore.Flows.Models;
 using Newtonsoft.Json.Linq;
 using INZFS.MVC.Models.DynamicForm;
+using INZFS.MVC.Records;
 
 namespace INZFS.MVC.Controllers
 {
@@ -95,7 +96,9 @@ namespace INZFS.MVC.Controllers
             var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
             if(currentPage != null)
             {
-                return GetViewModel(currentPage);
+                var content= await _contentRepository.GetApplicationContent(User.Identity.Name);
+                var data = content?.Fields?.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName))?.Data;
+                return GetViewModel(currentPage, data);
             }
             
 
@@ -179,22 +182,40 @@ namespace INZFS.MVC.Controllers
 
         }
 
-        [HttpPost, ActionName("CreateNew")]
+        [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
         public async Task<IActionResult> CreateAndPublishPOST([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string contentType, IFormFile? file, BaseModel model)
         {
             if (ModelState.IsValid)
             {
+                var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
                 //TODO : Process data and save 
-                var newContent = new ApplicationContent();
-                newContent.Application = new Application();
-                newContent.Author = User.Identity.Name;
-                newContent.ModifiedUtc = DateTime.UtcNow;
-                newContent.Application.Sections = new Sections();
-                newContent.Application.Sections.Pages = new List<Page>();
-               
+                if (contentToSave == null)
+                {
+                    contentToSave = new ApplicationContent();
+                    contentToSave.Application = new Application();
+                    contentToSave.Author = User.Identity.Name;
+                    contentToSave.CreatedUtc = DateTime.UtcNow;
+                    //newContent.Application.Sections = new Sections();
+                    //newContent.Application.Sections.Pages = new List<Page>();
+                }
 
-                _session.Save(newContent);
+                contentToSave.ModifiedUtc = DateTime.UtcNow;
+
+                var field = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(contentType));
+
+                var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(field.FieldName));
+                if(existingFieldData == null)
+                {
+                    contentToSave.Fields.Add(new Field { Name = field.FieldName, Data = model.GetData() });
+                }
+                else
+                {
+                    existingFieldData.Data = model.GetData();
+                }
+                
+
+                _session.Save(contentToSave);
 
                 var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(contentType));
                 var nextPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index + 1);
@@ -530,23 +551,6 @@ namespace INZFS.MVC.Controllers
             return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
-        public async Task<IActionResult> Remove(string contentItemId, string returnUrl)
-        {
-            var contentItem = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest);
-
-            if (contentItem != null)
-            {
-                var typeDefinition = _contentDefinitionManager.GetTypeDefinition(contentItem.ContentType);
-
-                await _contentManager.RemoveAsync(contentItem);
-
-                _notifier.Success(string.IsNullOrWhiteSpace(typeDefinition.DisplayName)
-                    ? H["That content has been removed."]
-                    : H["That {0} has been removed.", typeDefinition.DisplayName]);
-            }
-
-            return Url.IsLocalUrl(returnUrl) ? (IActionResult)LocalRedirect(returnUrl) : RedirectToAction("Index");
-        }
 
         private async Task<SummaryViewModel> GetSummaryModel()
         {
@@ -728,23 +732,23 @@ namespace INZFS.MVC.Controllers
             return contentItem?.ContentItem.As<T>();
         }
 
-        private ViewResult GetViewModel(Page currentPage)
+        private ViewResult GetViewModel(Page currentPage, string data)
         {
             BaseModel model;
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
-                    return View("TextInput", PopulateModel(currentPage, model));
+                    return View("TextInput", PopulateModel(currentPage, model, data));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
-                    return View("TextArea", PopulateModel(currentPage, model));
+                    return View("TextArea", PopulateModel(currentPage, model, data));
                 case FieldType.gdsDateBox:
                     model = new DateModel();
-                    return View("DateInput", PopulateModel(currentPage, model));
+                    return View("DateInput", PopulateModel(currentPage, model, data));
                 case FieldType.gdsSingleLineRadi:
-                    model = new SingleRadiInputModel();
-                    return View("SingleRadiInput", PopulateModel(currentPage, model));
+                    model = new SingleRadioInputModel();
+                    return View("SingleRadiInput", PopulateModel(currentPage, model, data));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -767,11 +771,22 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        private BaseModel PopulateModel(Page currentPage, BaseModel currentModel)
+        private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, string data = null)
         {
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
+            if(!string.IsNullOrEmpty(data))
+            {
+                currentModel.DataInput = data;
+            }
+            var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var previousPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index - 1);
+            if (previousPage != null)
+            {
+                currentModel.PreviousPageName = previousPage.Name;
+            }
+           
             return currentModel;
         }
     }

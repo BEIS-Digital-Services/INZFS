@@ -10,9 +10,6 @@ namespace INZFS.MVC.Models.DynamicForm
 {
     public class TextAreaModel : BaseModel, IValidatableObject
     {
-
-        public string DataInput { get; set; }
-
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             if (Mandatory == true)

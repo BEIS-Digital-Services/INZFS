@@ -12,13 +12,19 @@ namespace INZFS.MVC.Models.DynamicForm
     {
         public string Kind { get; set; }
         public string PageName { get; set; }
+        public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
         public string Question { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
         public string AccordianReference { get; set; }
+        public string DataInput { get; set; }
 
+        public virtual string GetData()
+        {
+            return DataInput;
+        }
     }
 
 
