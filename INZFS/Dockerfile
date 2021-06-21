@@ -10,6 +10,7 @@ RUN dotnet restore "INZFS/INZFS.Web.csproj"
 COPY . .
 WORKDIR "/src/"
 RUN dotnet build "INZFS/INZFS.Web.csproj" -c Release -o /app/build
+FROM build as test
 LABEL unittestlayer=true
 LABEL test=true
 # install the report generator tool
