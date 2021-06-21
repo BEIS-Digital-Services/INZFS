@@ -14,11 +14,12 @@ namespace INZFS.MVC.Models.DynamicForm
     {
         
         public List<string> MultipleSelect { get; set; }
+
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
             if (Mandatory == true)
             {
-                if (MultipleSelect == null || MultipleSelect.)
+                if (MultipleSelect == null)
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
