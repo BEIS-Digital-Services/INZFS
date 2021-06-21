@@ -2,7 +2,6 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
-
 # Add the SDK so you can run the dotnet restore and build commands
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
@@ -15,7 +14,7 @@ LABEL unittestlayer=true
 LABEL test=true
 # install the report generator tool
 RUN dotnet tool install --global coverlet.console
-RUN dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.10 --tool-path /tools
+RUN dotnet tool install dotnet-reportgenerator-globaltool --version 4.8.10 --tool-path /tools
 # run the test and collect code coverage (requires coverlet.msbuild to be added to test project)
 # for exclude, use %2c for ,
 RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /out/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
