@@ -13,14 +13,15 @@ RUN dotnet build "INZFS/INZFS.Web.csproj" -c Release -o /app/build
 LABEL unittestlayer=true
 LABEL test=true
 # install the report generator tool
-RUN dotnet tool install --global coverlet.console
-RUN dotnet tool install dotnet-reportgenerator-globaltool --version 4.8.10 --tool-path /tools
+RUN dotnet add package coverlet.collector
+RUN dotnet add package coverlet.msbuild
+RUN dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.10
 # run the test and collect code coverage (requires coverlet.msbuild to be added to test project)
 # for exclude, use %2c for ,
 RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /out/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
 # generate html reports using report generator tool
 RUN /tools/reportgenerator "-reports:/out/testresults/coverage/coverage.cobertura.xml" "-targetdir:/out/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
-RUN ls -la /testresults/coverage/reports
+RUN ls -la /out/testresults/coverage/reports
 
 
 # Create the publish files
