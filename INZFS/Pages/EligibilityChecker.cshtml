@@ -1,7 +1,7 @@
 ﻿@page "/eligibilityChecker/{slug}"
 @inject OrchardCore.IOrchardHelper Orchard
 @using INZFS.Web.POCO
-@model EligibilityCheckerPOCO
+@model INZFS.Web.POCO.EligibilityCheckerPOCO
 @using Microsoft.AspNetCore.Http
 
 
@@ -10,28 +10,28 @@
     var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
     var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
     var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-    var questionSetting = "Question1";
+    var questionSettingA = "Question1";
     switch (titlePart)
     {
         case "Question1":
-            questionSetting = "Question1";
+            questionSettingA = "Question1";
             break;
         case "Question2":
-            questionSetting = "Question2";
+            questionSettingA = "Question2";
             break;
         case "Question3":
-            questionSetting = "Question3";
+            questionSettingA = "Question3";
             break;
         case "Question4":
-            questionSetting = "Question4";
+            questionSettingA = "Question4";
             break;
         case "Question5":
-            questionSetting = "Question5";
+            questionSettingA = "Question5";
             break;
         case "Question6":
-            questionSetting = "Question6";
+            questionSettingA = "Question6";
             break;
-        default: questionSetting = "Question1"; break;
+        default: questionSettingA = "Question1"; break;
 
     }
 
@@ -68,13 +68,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" name="Yes" value="1" asp-for=@questionSetting>
+                                <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" name="No" value="0" asp-for=@questionSetting>
+                                <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -110,8 +110,6 @@
 {
     [FromRoute]
     public string Slug { get; set; }
-
-    public EligibilityCheckerPOCO _poco { get; set; }
     [BindProperty]
     public string RedirectUrl { get; set; }
 
@@ -149,15 +147,15 @@
         var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
         var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
         var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-        var yes = Request.Form["Yes"].ToString();
-        var no = Request.Form["No"].ToString();
+        var QuestionValue = Request.Form["questionSettingA"].ToString();
+        
         HttpContext.Session.SetString("ReturnUrl", redirect);
 
 
         switch (titlePart)
         {
             case "Question1":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question1", BitConverter.GetBytes(true));
                 }
@@ -167,7 +165,7 @@
                 }
                 break;
             case "Question2":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question2", BitConverter.GetBytes(true));
                 }
@@ -177,7 +175,7 @@
                 }
                 break;
             case "Question3":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question3", BitConverter.GetBytes(true));
                 }
@@ -187,7 +185,7 @@
                 }
                 break;
             case "Question4":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question4", BitConverter.GetBytes(true));
                 }
@@ -197,7 +195,7 @@
                 }
                 break;
             case "Question5":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question5", BitConverter.GetBytes(true));
                 }
@@ -207,7 +205,7 @@
                 }
                 break;
             case "Question6":
-                if (yes == "1")
+                if (QuestionValue == "1")
                 {
                     HttpContext.Session.Set("Question6", BitConverter.GetBytes(true));
                 }
