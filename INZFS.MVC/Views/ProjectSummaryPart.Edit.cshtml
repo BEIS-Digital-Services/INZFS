@@ -1,0 +1,123 @@
+
+@model ProjectSummaryViewModel
+@using INZFS.MVC.ViewModels
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC.ViewModels.ProposalFinance
+
+@{
+    var sampleDate = DateTime.Now.AddDays(30);
+    var isVisible = Model.FileUploadPath != null;
+    var visibilitySetting = "hidden";
+    var toggleVisiblity = "hidden";
+    if (isVisible)
+    {
+        visibilitySetting = "visible";
+
+    }
+    else
+    {
+        visibilitySetting = "hidden";
+    }
+    var isVisibleError = ViewBag.ErrorMessage != null;
+    var visibilitySettingError = "hidden";
+    var errorSet = "";
+    if (isVisibleError)
+    {
+        visibilitySettingError = "visible";
+        errorSet = "govuk-form-group--error";
+        toggleVisiblity = "visible";
+    }
+    else
+    {
+        visibilitySettingError = "hidden";
+    }
+}
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="company-details">
+    Back
+</a>
+<header>
+    <div class="govuk-form-group govuk-width-container" id="downloadHide" style="visibility: @visibilitySetting; background: purple; width: 100%; height: 50px;">
+
+        <a class="govuk-link" style="color: white;" download href=@Model.FileUploadPath>Your document has been Uploaded. Please Click here to download</a>
+    </div>
+</header>
+<input type="hidden" name="contentType" value="ProjectSummaryPart" />
+
+<div class="govuk-form-group" asp-validation-error-class-for="ProjectName">
+    <label class="govuk-label govuk-label--l" asp-for="ProjectName">
+    </label>
+    <span asp-validation-for="ProjectName" class="govuk-error-message"></span>
+    <input class="govuk-input govuk-input--width-10" asp-for="ProjectName" spellcheck="false" aria-describedby="name-hint">
+</div>
+
+
+<div class="govuk-form-group" asp-validation-error-class-for="StartDateUtc">
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-start-date">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            Turnover Date (in most recent annual accounts)
+        </legend>
+        <div id="turn-over-date-hint" class="govuk-hint">
+            For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+        </div>
+        <div class="govuk-date-input" id="turn-over-date">
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-day">
+                        Day
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-month">
+                        Month
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="turn-over-date-year">
+                        Year
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+<div class="govuk-form-group">
+    @ViewBag.Message
+    <a class="govuk-link" href="#" id="GovHyperlink" Onclick="toggleVisibility()">Upload a supporting Gant Chart or Project plan</a>
+</div>
+<div class="govuk-form-group @errorSet" id="hideForm" style="visibility: @toggleVisiblity">
+    <label class="govuk-label" asp-for="FileUploadPath">
+        Upload a file
+    </label>
+    <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
+        <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
+    </span>
+    <input class="govuk-file-upload" type="file" name="file" accept=".txt,.pdf,.xlsx,.doc,.docx" />
+</div>
+
+@Html.Partial("_Help")
+
+<script>
+    function toggleVisibility() {
+        var x = document.getElementById('hideForm');
+        var p = document.getElementById('file-upload-1-error');
+        if (x.style.visibility === 'hidden') {
+            x.style.visibility = 'visible';
+            p.style.visibility = 'visible';
+        } else {
+            x.style.visibility = 'hidden';
+            p.style.visibility = 'hidden';
+        }
+    }
+    if (isVisibleError) {
+        toggleVisibility();
+    }
+</script>

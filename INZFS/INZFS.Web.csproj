@@ -5,19 +5,22 @@
     <UserSecretsId>8de40c70-c70a-4da8-84b7-8d113695fdec</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <PreserveCompilationReferences>true</PreserveCompilationReferences>
+    <DockerfileRunArguments>-p 80:443</DockerfileRunArguments>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-15867" />
+      	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>
 

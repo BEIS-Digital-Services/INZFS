@@ -8,7 +8,7 @@
     <link type="image/x-icon" rel="shortcut icon" href="~/INZFS.Theme/favicon.ico" />
     <script asp-name="bootstrap" version="4" at="Foot"></script>
     <style asp-name="font-awesome" version="5"></style>
-    <style asp-src="~/INZFS.Theme/css/main.css"></style>
+    <style asp-src="~/INZFS.Theme/css/application.css"></style>
     <resources type="Meta" />
     <resources type="HeadLink" />
     <resources type="Stylesheet" />
@@ -32,37 +32,13 @@
             </div>
             <div class="govuk-header__content">
                 <a href="#" class="govuk-header__link govuk-header__link--service-name">
-                    Netzero Test Fund
+                    Energy Entrepreneurs Fund (EEF)
                 </a>
                 <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
-                <nav>
-                    <ul id="navigation" class="govuk-header__navigation " aria-label="Navigation menu">
-                        <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-                            <a class="govuk-header__link" href="/Register">
-                                Register
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" href="/">
-                                Home
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" href="/login">
-                                Sign in
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" href="/Admin">
-                                Admin
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
             </div>
-            
+
         </div>
-        
+
     </header>
 
     <div class="govuk-phase-banner">
@@ -76,8 +52,12 @@
         </p>
     </div>
     <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+        <div class="govuk-width-container">
+
+            @await RenderBodyAsync()
+        </div>
         @await RenderSectionAsync("Messages", required: false)
-        @await RenderBodyAsync()
+
     </main>
     <footer class="govuk-footer " role="contentinfo">
         <div class="govuk-width-container ">
@@ -121,5 +101,8 @@
             </div>
         </div>
     </footer>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-742fa5a510a9c8f6d5329e57467e60c7.js"></script>
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 </body>
 </html>

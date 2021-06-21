@@ -1,0 +1,62 @@
+﻿@model FinanceBalanceSheetViewModel
+@using INZFS.MVC.ViewModels.ProposalFinance
+@using INZFS.MVC.Models
+@using INZFS.MVC.TagHelpers
+
+@{
+    var sampleDate = DateTime.Now.AddDays(30);
+}
+
+<a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="finance-turnover">
+    Back
+</a>
+
+<input type="hidden" name="contentType" value="FinanceBalanceSheet" />
+
+<div class="govuk-form-group" asp-validation-error-class-for="BalanceSheetTotal">
+    <label class="govuk-label govuk-label--l" asp-for="BalanceSheetTotal">
+    </label>
+    <span asp-validation-for="BalanceSheetTotal" class="govuk-error-message"></span>
+    <input class="govuk-input govuk-input--width-10" asp-for="BalanceSheetTotal" spellcheck="false" aria-describedby="name-hint">
+</div>
+
+
+<div class="govuk-form-group">
+    <fieldset class="govuk-fieldset" role="group" aria-describedby="balance-sheet-date">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            Balance Sheet Date
+        </legend>
+        <div id="balance-sheet-date-hint" class="govuk-hint">
+            For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+        </div>
+        <div class="govuk-date-input" id="balance-sheet-date">
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-day">
+                        Day
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Day" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-month">
+                        Month
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-2" asp-for="Month" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+            <div class="govuk-date-input__item">
+                <div class="govuk-form-group">
+                    <label class="govuk-label govuk-date-input__label" for="balance-sheet-date-year">
+                        Year
+                    </label>
+                    <input class="govuk-input govuk-date-input__input govuk-input--width-4" asp-for="Year" type="text" pattern="[0-9]*" inputmode="numeric">
+                </div>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+
+@Html.Partial("_Help")

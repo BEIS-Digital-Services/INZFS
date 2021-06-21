@@ -1,0 +1,49 @@
+@using OrchardCore.ContentFields.Settings
+@using OrchardCore.ContentFields.ViewModels
+@using OrchardCore.ContentManagement.Metadata.Models
+@using OrchardCore.Localization
+
+@model OrchardCore.ContentFields.ViewModels.EditTextFieldViewModel
+
+@{
+    var settings = Model.PartFieldDefinition.GetSettings<TextFieldSettings>();
+    var culture = await Orchard.GetContentCultureAsync(Model.Field.ContentItem);
+
+    var fieldClass = "govuk-form-group";
+    var errorMessage = string.Empty;
+    var isFieldValid = true;
+    if(!ViewData.ModelState.IsValid)
+    {
+        var key = $"{Model.PartFieldDefinition.PartDefinition.Name}.{Model.PartFieldDefinition.Name}.Text";
+        if (ViewData.ModelState.GetValidationState(key) == Microsoft.AspNetCore.Mvc.ModelBinding.ModelValidationState.Invalid)
+        {
+            fieldClass = fieldClass + " govuk-input--error";
+            isFieldValid = false;
+
+            if (ViewData.ModelState.TryGetValue(key, out var fieldEntry))
+            {
+                errorMessage = fieldEntry.Errors[0].ErrorMessage;
+            }
+        }
+    }
+}
+
+<div class="@fieldClass">
+    <label asp-for="Text" class="govuk-label">@Model.PartFieldDefinition.DisplayName()</label>
+    @if (!String.IsNullOrEmpty(settings.Hint))
+    {
+        <div id="code-hint" class="govuk-hint">
+            @settings.Hint
+        </div>
+    }
+    @if (!isFieldValid)
+    {
+        <span id="name-error" class="govuk-error-message">
+            <span class="govuk-visually-hidden">Error:</span> @errorMessage
+        </span>
+    }
+    @*<span asp-validation-for="Text"></span>*@
+
+    <input asp-for="Text" class="govuk-input govuk-input--width-10" dir="@culture.GetLanguageDirection()" />
+
+</div>
