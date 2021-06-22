@@ -28,8 +28,8 @@ RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileNa
 # generate html reports using report generator tool
 RUN dotnet tool list -g
 RUN ls -la tools
-RUN tools/reportgenerator "-reports:/tests/testresults/coverage/coverage.cobertura.xml" "-targetdir:/tests/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
-RUN ls -la /tests/testresults/coverage/reports
+RUN tools/reportgenerator "-reports:/tests/reports/coverage.cobertura.xml" "-targetdir:/tests/reports" "-reporttypes:HTMLInline;HTMLChart"
+RUN ls -la /tests/coverage/reports
 
 # Create the publish files
 FROM build AS publish
