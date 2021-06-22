@@ -15,7 +15,8 @@ services:
       - trx;LogFileName=/tests/test-results.trx
       - --logger 
       -  xunit;LogFileName=/tests/coverage.cobertura.xml
-      - --results-directory /tests/testresults/coverage/reports 
+      - --results-directory 
+      - /tests/testresults/coverage/reports 
       - /p:CollectCoverage=true
       - /p:CoverletOutputFormat=cobertura 
       - /p:CoverletOutput=/tests/testresults/coverage/
