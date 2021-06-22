@@ -18,7 +18,10 @@ LABEL test=true
 #RUN dotnet add package coverlet.collector
 #RUN dotnet add package coverlet.msbuild
 #RUN dotnet tool install --global dotnet-reportgenerator-globaltool --version 4.8.10
+RUN dotnet tool install -g dotnet-reportgenerator-globaltool
 RUN dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
+RUN dotnet new tool-manifest
+RUN dotnet tool install dotnet-reportgenerator-globaltool
 # run the test and collect code coverage (requires coverlet.msbuild to be added to test project)
 # for exclude, use %2c for ,
 RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /out/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
