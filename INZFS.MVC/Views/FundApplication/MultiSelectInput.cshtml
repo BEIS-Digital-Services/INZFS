@@ -1,5 +1,5 @@
 
-@model TextAreaModel
+@model MultiSelectInputModel
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
@@ -13,7 +13,7 @@
 <form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
-    <input type="hidden" name="Kind" value="@nameof(TextAreaModel)" />
+    <input type="hidden" name="Kind" value="@nameof(MultiSelectInputModel)" />
 
     @if (!ViewData.ModelState.IsValid)
     {
@@ -42,10 +42,10 @@
         <fieldset class="govuk-fieldset" aria-describedby="org-funding funding-error">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <h1 class="govuk-fieldset__heading">
-                    How is the organisation currently funded? (Choose all that apply)
+                    @Model.Question
                 </h1>
             </legend>
-            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <span asp-validation-for="@Model.MultipleSelect" class="govuk-error-message"></span>
             <div class="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
                     <input class="govuk-checkboxes__input" id="@Model.FieldName" name="MultipleSelect" type="checkbox" value="true">

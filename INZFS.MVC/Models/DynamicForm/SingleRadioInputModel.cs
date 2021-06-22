@@ -15,7 +15,7 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             if (Mandatory == true)
             {
-                if (!string.IsNullOrEmpty(DataInput))
+                if (string.IsNullOrEmpty(DataInput))
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }

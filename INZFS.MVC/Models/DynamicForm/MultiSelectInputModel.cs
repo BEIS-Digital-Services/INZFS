@@ -17,9 +17,9 @@ namespace INZFS.MVC.Models.DynamicForm
 
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
+            if (Mandatory == true )
             {
-                if (MultipleSelect == null)
+                if (MultipleSelect == null )
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
@@ -28,7 +28,7 @@ namespace INZFS.MVC.Models.DynamicForm
 
         public override string GetData()
         {
-            DataInput = string.Join(",", MultipleSelect);
+            DataInput = string.Join(", ", MultipleSelect);
             return DataInput;
         }
 

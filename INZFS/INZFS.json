@@ -50,6 +50,16 @@
           "fieldName2": "start-test",
           "mandatory": true,
           "accordianReference": ""
+        },
+        {
+          "name": "project-select",
+          "question": "Project Multi Select",
+          "errorMessage": "Please make a selection",
+          "fieldType": "gdsMultiSelect",
+          "fieldName": "select-test",
+          "fieldName2": "start-test",
+          "mandatory": true,
+          "accordianReference": ""
         }
       ]
     }
