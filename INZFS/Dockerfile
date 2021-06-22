@@ -24,12 +24,12 @@ RUN dotnet new tool-manifest
 RUN dotnet tool install dotnet-reportgenerator-globaltool
 # run the test and collect code coverage (requires coverlet.msbuild to be added to test project)
 # for exclude, use %2c for ,
-RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /out/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
+RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /tests/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/tests/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
 # generate html reports using report generator tool
 RUN dotnet tool list -g
 RUN ls -la tools
-RUN tools/reportgenerator "-reports:/out/testresults/coverage/coverage.cobertura.xml" "-targetdir:/out/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
-RUN ls -la /out/testresults/coverage/reports
+RUN tools/reportgenerator "-reports:/tests/testresults/coverage/coverage.cobertura.xml" "-targetdir:/tests/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
+RUN ls -la /tests/testresults/coverage/reports
 
 # Create the publish files
 FROM build AS publish
