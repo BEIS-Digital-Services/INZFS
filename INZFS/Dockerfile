@@ -2,9 +2,13 @@
 FROM mcr.microsoft.com/dotnet/aspnet:5.0-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
+
+
 # Add the SDK so you can run the dotnet restore and build commands
 FROM mcr.microsoft.com/dotnet/sdk:5.0-buster-slim AS build
 WORKDIR /src
+# install npm for building
+RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - &amp;&amp; apt-get update &amp;&amp; apt-get install -yq nodejs build-essential make
 COPY ./ ./
 RUN dotnet restore "INZFS/INZFS.Web.csproj"
 COPY . .
