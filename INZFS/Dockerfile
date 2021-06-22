@@ -23,7 +23,7 @@ RUN dotnet tool install dotnet-reportgenerator-globaltool --tool-path tools
 # for exclude, use %2c for ,
 RUN dotnet test "INZFS.UnitTests/INZFS.UnitTests.csproj" --logger "trx;LogFileName=INZFS.trx" --results-directory /out/testresults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=/out/testresults/coverage/ /p:Exclude="[xunit.*]*%2c[StackExchange.*]*"
 # generate html reports using report generator tool
-RUN /tools/reportgenerator.exe "-reports:/out/testresults/coverage/coverage.cobertura.xml" "-targetdir:/out/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
+RUN tools/reportgenerator.exe "-reports:/out/testresults/coverage/coverage.cobertura.xml" "-targetdir:/out/testresults/coverage/reports" "-reporttypes:HTMLInline;HTMLChart"
 RUN ls -la /out/testresults/coverage/reports
 
 # Create the publish files
