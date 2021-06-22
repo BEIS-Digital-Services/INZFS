@@ -14,12 +14,12 @@ services:
       - --logger
       - trx;LogFileName=/tests/test-results.trx
       - --logger 
-      -  xunit;LogFileName=/tests/coverage.cobertura.xml
+      - xunit;LogFileName=/tests/coverage.cobertura.xml
       - --results-directory 
-      - /tests/testresults/coverage/reports 
+      - /tests/coverage/reports 
       - /p:CollectCoverage=true
       - /p:CoverletOutputFormat=cobertura 
-      - /p:CoverletOutput=/tests/testresults/coverage/
+      - /p:CoverletOutput=/tests/coverage/
       - /p:Exclude="[xunit.*]*%2c[StackExchange.*]*
     volumes: 
       - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests/}:/tests
