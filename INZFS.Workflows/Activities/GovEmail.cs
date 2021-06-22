@@ -17,6 +17,7 @@ namespace INZFS.Workflows.Activities
     {
         private readonly IWorkflowExpressionEvaluator _expressionEvaluator;
         private readonly ILogger<GovEmail> _logger;
+        private readonly string apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
 
         public GovEmail(
             IWorkflowExpressionEvaluator expressionEvaluator,
@@ -80,7 +81,6 @@ namespace INZFS.Workflows.Activities
 
         public override async Task<ActivityExecutionResult> ExecuteAsync(WorkflowExecutionContext workflowContext, ActivityContext activityContext)
         {
-            var apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
             var recipientsTask = _expressionEvaluator.EvaluateAsync(Recipients, workflowContext, null);
             var templateTask = _expressionEvaluator.EvaluateAsync(TemplateName, workflowContext, null);
             await Task.WhenAll(recipientsTask);

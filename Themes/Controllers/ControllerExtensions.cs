@@ -17,6 +17,8 @@ using OrchardCore.Users.Events;
 using OrchardCore.Users.Models;
 using OrchardCore.Users.Services;
 using INZFS.Theme.ViewModels;
+using Notify.Client;
+using System;
 
 namespace INZFS.Theme.Controllers
 {
@@ -47,6 +49,27 @@ namespace INZFS.Theme.Controllers
             var result = await smtpService.SendAsync(message);
 
             return result.Succeeded;
+        }
+        internal static bool SendGovEmailAsync(string email, string link)
+        {
+            var apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
+            var templateId = "b5a9a6f4-3817-43ea-9fc7-5235bacd355c";
+            Dictionary<String, dynamic> personalisation = new Dictionary<String, dynamic>();
+            personalisation.Add("link", link);
+            var client = new NotificationClient(apiKey);
+            try
+            {
+                client.SendEmail(
+                                    email,
+                                    templateId,
+                                    personalisation);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("The following error has occurred: " + ex);
+                return false;
+            }
         }
 
         /// <summary>
@@ -99,8 +122,8 @@ namespace INZFS.Theme.Controllers
             var userManager = controller.ControllerContext.HttpContext.RequestServices.GetRequiredService<UserManager<IUser>>();
             var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
             var callbackUrl = controller.Url.Action("ConfirmEmail", "Registration", new { userId = user.UserId, code }, protocol: controller.HttpContext.Request.Scheme);
-            await SendEmailAsync(controller, user.Email, subject, new ConfirmEmailViewModel() { User = user, ConfirmEmailUrl = callbackUrl });
-
+            //await SendEmailAsync(controller, user.Email, subject, new ConfirmEmailViewModel() { User = user, ConfirmEmailUrl = callbackUrl });
+            SendGovEmailAsync(user.Email, callbackUrl);
             return callbackUrl;
         }
     }
