@@ -739,7 +739,7 @@ namespace INZFS.MVC.Controllers
             {
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
-                    return View("TextInput", PopulateModel(currentPage, model, data));
+                    return View("TextInputAreaTwo", PopulateModel(currentPage, model, data));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, data));
@@ -762,7 +762,7 @@ namespace INZFS.MVC.Controllers
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
-                    return View("TextInput", PopulateModel(currentPage, currentModel));
+                    return View("TextInputAreaTwo", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsTextArea:
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
