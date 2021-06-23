@@ -19,7 +19,7 @@ services:
       - /tests 
       - /p:CollectCoverage=true
       - /p:CoverletOutputFormat=cobertura 
-      - /p:CoverletOutput=/tests/
+      - /p:CoverletOutput=/tests
       - /p:Exclude="[xunit.*]*%2c[StackExchange.*]* 
     volumes: 
       - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests/}:/tests
