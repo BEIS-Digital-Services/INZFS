@@ -182,6 +182,7 @@ namespace INZFS.MVC.Controllers
 
         }
 
+        [Route("FundApplication/section/{pageName ?}")]
         [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
         public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string pageName, IFormFile? file, BaseModel model)
