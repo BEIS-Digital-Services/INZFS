@@ -20,6 +20,7 @@ services:
       - /p:CollectCoverage=true
       - /p:CoverletOutputFormat=cobertura 
       - /p:CoverletOutput=/tests/
-      - /p:Exclude="[xunit.*]*%2c[StackExchange.*]*
+      - /p:Exclude="[xunit.*]*%2c[StackExchange.*]* /
+      - tools/reportgenerator -reports:/tests/coverage.cobertura.xml -targetdir:/tests -reporttypes:"Cobertura"
     volumes: 
       - ${BUILD_ARTIFACTSTAGINGDIRECTORY:-./tests/}:/tests
