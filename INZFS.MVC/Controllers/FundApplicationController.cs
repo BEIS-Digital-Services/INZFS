@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using nClam;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
@@ -27,7 +26,6 @@ using INZFS.MVC.ViewModels.ProposalWritten;
 using System.IO;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
-using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Globalization;
 using INZFS.MVC.Drivers;
@@ -58,13 +56,10 @@ namespace INZFS.MVC.Controllers
         private readonly YesSql.ISession _session;
         private readonly IUpdateModelAccessor _updateModelAccessor;
         private readonly INavigation _navigation;
-        private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xlsx", ".doc",".docx" };
         private readonly ILogger _logger;
-        private readonly ClamClient _clam;
         private readonly IContentRepository _contentRepository;
 
-        public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
+        public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
             IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository, IFileUploadService fileUploadService, IVirusScanService virusScanService)
@@ -76,7 +71,6 @@ namespace INZFS.MVC.Controllers
             _notifier = notifier;
             _session = session;
             _updateModelAccessor = updateModelAccessor;
-            _clam = clam;
             _logger = logger;
             H = htmlLocalizer;
             New = shapeFactory;
