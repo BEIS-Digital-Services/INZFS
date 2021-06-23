@@ -36,6 +36,8 @@ using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.ViewModels.ProposalFinance;
 using OrchardCore.Flows.Models;
 using Newtonsoft.Json.Linq;
+using INZFS.MVC.Services.FileUpload;
+using INZFS.MVC.Services.VirusScan;
 
 namespace INZFS.MVC.Controllers
 {
@@ -45,6 +47,8 @@ namespace INZFS.MVC.Controllers
         private const string contentType = "ProposalSummaryPart";
 
         private readonly IContentManager _contentManager;
+        private readonly IVirusScanService _virusScanService;
+        private readonly IFileUploadService _fileUploadService;
         private readonly IContentDefinitionManager _contentDefinitionManager;
         private readonly IContentItemDisplayManager _contentItemDisplayManager;
         private readonly IHtmlLocalizer H;
@@ -63,7 +67,7 @@ namespace INZFS.MVC.Controllers
         public FundApplicationController(ILogger<FundApplicationController> logger, ClamClient clam, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository)
+            IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository, IFileUploadService fileUploadService, IVirusScanService virusScanService)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -78,6 +82,8 @@ namespace INZFS.MVC.Controllers
             New = shapeFactory;
             _navigation = navigation;
             _contentRepository = contentRepository;
+            _virusScanService = virusScanService;
+            _fileUploadService = fileUploadService;
         }
 
         [HttpGet]
@@ -212,7 +218,7 @@ namespace INZFS.MVC.Controllers
 
             if (file != null)
             {
-                var errorMessage = await Validate(file);
+                var errorMessage = await _fileUploadService.Validate(file);
                 var page = Request.Form["pagename"].ToString();
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
@@ -225,7 +231,7 @@ namespace INZFS.MVC.Controllers
                     return View(page);
                 }
 
-                var publicUrl = await SaveFile(file, contentItem.ContentItemId);
+                var publicUrl = await _fileUploadService.SaveFile(file, contentItem.ContentItemId);
                 TempData["UploadDetail"] = new UploadDetail
                 {
                     ContentItemProperty = Request.Form["contentTypeProperty"],
@@ -256,138 +262,6 @@ namespace INZFS.MVC.Controllers
             return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
-
-        private string ModifyFileName(string originalFileName)
-        {
-            DateTime thisDate = DateTime.UtcNow;
-            CultureInfo culture = new CultureInfo("pt-BR");
-            DateTimeFormatInfo dtfi = culture.DateTimeFormat;
-            dtfi.DateSeparator = "-";
-            var newDate = thisDate.ToString("d", culture);
-            var newTime = thisDate.ToString("FFFFFF",culture);
-            var newFileName = newDate + newTime + originalFileName;
-            return newFileName;
-        }
-        private async Task<string> SaveFile(IFormFile file, string directoryName)
-        {
-            var DirectoryCreated = await CreateDirectory(directoryName);
-
-            if (DirectoryCreated)
-            {
-                var newFileName = ModifyFileName(file.FileName);
-                var mediaFilePath = _mediaFileStore.Combine(directoryName, newFileName);
-                using (var stream = file.OpenReadStream())
-                {
-                    await _mediaFileStore.CreateFileFromStreamAsync(mediaFilePath, stream);
-                }
-
-                ViewBag.Message = "Upload Successful!";
-                var publicUrl = _mediaFileStore.MapPathToPublicUrl(mediaFilePath);
-                return publicUrl;
-            }
-            else
-            {
-                return string.Empty;
-            }
-
-
-
-        }
-        private bool IsValidFileExtension(IFormFile file)
-        {
-            var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
-
-            return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
-        }
-
-        private async Task<string> Validate(IFormFile file)
-        {
-            if (IsValidFileExtension(file))
-            {
-                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
-            }
-            if (file == null || file.Length == 0)
-            {
-                return "Empty file";
-            }
-
-            var notContainsVirus = await ScanFile(file);
-            if (!notContainsVirus)
-            {
-                return "File contains virus";
-            }
-
-            return string.Empty;
-        }
-
-
-        public async Task<bool> ScanFile(IFormFile file)
-        {
-            var log = new List<ScanResult>();
-            if (file.Length > 0)
-            {
-                var extension = file.FileName.Contains('.')
-                    ? file.FileName.Substring(file.FileName.LastIndexOf('.'), file.FileName.Length - file.FileName.LastIndexOf('.'))
-                    : string.Empty;
-                var newfile = new Models.File
-                {
-                    Name = $"{Guid.NewGuid()}{extension}",
-                    Alias = file.FileName,
-                    ContentType = file.ContentType,
-                    Size = file.Length,
-                    Uploaded = DateTime.UtcNow,
-                };
-                var ping = await _clam.PingAsync();
-
-                if (ping)
-                {
-                    _logger.LogInformation("Successfully pinged the ClamAV server.");
-                    var result = await _clam.SendAndScanFileAsync(file.OpenReadStream());
-
-                    newfile.ScanResult = result.Result.ToString();
-                    newfile.Infected = result.Result == ClamScanResults.VirusDetected;
-                    newfile.Scanned = DateTime.UtcNow;
-                    if (result.InfectedFiles != null)
-                    {
-                        foreach (var infectedFile in result.InfectedFiles)
-                        {
-                            newfile.Viruses.Add(new Virus
-                            {
-                                Name = infectedFile.VirusName
-                            });
-                        }
-                        return false;
-                    }
-                    else
-                    {
-                        var metaData = new Dictionary<string, string>
-                        {
-                            { "av-status", result.Result.ToString() },
-                            { "av-timestamp", DateTime.UtcNow.ToString() },
-                            { "alias", newfile.Alias }
-                        };
-
-                        var scanResult = new ScanResult()
-                        {
-                            FileName = file.FileName,
-                            Result = result.Result.ToString(),
-                            Message = result.InfectedFiles?.FirstOrDefault()?.VirusName,
-                            RawResult = result.RawResult
-                        };
-                        log.Add(scanResult);
-                    }
-                    return true;
-                }
-                else
-                {
-                    _logger.LogWarning("Wasn't able to connect to the ClamAV server.");
-                    return false;
-                }
-
-            }
-            return false;
-        }
-
         [HttpGet]
         public async Task<IActionResult> Edit(string contentItemId, string contentName)
         {
@@ -414,7 +288,7 @@ namespace INZFS.MVC.Controllers
            
             if(file != null)
             {
-                var errorMessage = await Validate(file);
+                var errorMessage = await _fileUploadService.Validate(file);
 
                 if (!string.IsNullOrEmpty(errorMessage))
                 {
@@ -422,7 +296,7 @@ namespace INZFS.MVC.Controllers
                     var content = await _contentManager.GetAsync(contentItemId, VersionOptions.Latest); // THIS IS NOT NECESSARY
                     return await Edit(contentItemId, content.ContentType);
                 }
-                var publicUrl = await SaveFile(file, contentItemId);
+                var publicUrl = await _fileUploadService.SaveFile(file, contentItemId);
                 TempData["UploadDetail"] = new UploadDetail
                 {
                     ContentItemProperty = Request.Form["contentTypeProperty"],
