@@ -30,7 +30,8 @@ namespace INZFS.MVC.Models.DynamicForm
                     yield return new ValidationResult("Enter Valid Date", new[] { nameof(DateUtc) });
                 }
                 DateTime startDate;
-                if (!DateTime.TryParseExact($"{Day}-{Month}-{Year}", "dd-MM-yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
+                string dateToValidate = $"{Day}/{Month}/{Year}";
+                if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
                 {
                     yield return new ValidationResult("Date is not valid.", new[] { nameof(DateUtc) });
                 }

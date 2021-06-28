@@ -12,7 +12,7 @@ namespace INZFS.MVC
         gdsTextBox,
         gdsTextArea,
         gdsDateBox,
-        gdsSingleLineRadi,
+        gdsSingleLineRadio,
         gdsMultiSelect
     }
     public class Page
@@ -31,17 +31,23 @@ namespace INZFS.MVC
 
         //[JsonProperty("max-length")]
         public int? MaxLength { get; set; }
+        public bool ShowMarkComplete { get; set; }
+        public string Hint { get; set; }
     }
 
-    public class Sections
+    public class Section
     {
+        public string Name { get; set; }
+        public string Url { get; set; }
         public List<Page> Pages { get; set; }
     }
 
     public class Application
     {
         public string Name { get; set; }
-        public Sections Sections { get; set; }
+        public List<Section> Sections { get; set; }
+
+        public List<Page> AllPages => Sections?.SelectMany(c => c.Pages).ToList();
     }
 
     public class ApplicationDefinition
@@ -113,6 +119,7 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Data { get; set; }
+        public bool? MarkAsComplete { get; set; }
     }
 
 }

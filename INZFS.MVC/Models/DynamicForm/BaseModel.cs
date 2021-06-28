@@ -21,6 +21,9 @@ namespace INZFS.MVC.Models.DynamicForm
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
 
+        public bool ShowMarkAsComplete { get; set; }
+        public bool? MarkAsComplete { get; set; }
+        public string Hint { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
 
         public virtual string GetData()
@@ -31,9 +34,11 @@ namespace INZFS.MVC.Models.DynamicForm
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             ApplicationDefinition = (ApplicationDefinition)validationContext.GetService(typeof(ApplicationDefinition));
-            var page = ApplicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(PageName));
-            ErrorMessage = page?.ErrorMessage;
-            Mandatory = page?.Mandatory;
+            var page = ApplicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(PageName));
+            ErrorMessage = page.ErrorMessage;
+            Mandatory = page.Mandatory;
+            Hint = page.Hint;
+            ShowMarkAsComplete = page.ShowMarkComplete;
             return ExtendedValidation(validationContext);
         }
 

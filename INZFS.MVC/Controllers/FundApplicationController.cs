@@ -93,12 +93,12 @@ namespace INZFS.MVC.Controllers
             }
             pagename = pagename.ToLower().Trim();
 
-            var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
+            var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
             if(currentPage != null)
             {
                 var content= await _contentRepository.GetApplicationContent(User.Identity.Name);
-                var data = content?.Fields?.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName))?.Data;
-                return GetViewModel(currentPage, data);
+                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+                return GetViewModel(currentPage, field);
             }
             
 
@@ -202,23 +202,28 @@ namespace INZFS.MVC.Controllers
 
                 contentToSave.ModifiedUtc = DateTime.UtcNow;
 
-                var field = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                var field = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
 
                 var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(field.FieldName));
                 if(existingFieldData == null)
                 {
-                    contentToSave.Fields.Add(new Field { Name = field.FieldName, Data = model.GetData() });
+                    contentToSave.Fields.Add(new Field { 
+                        Name = field.FieldName, 
+                        Data = model.GetData(),
+                        MarkAsComplete =model.ShowMarkAsComplete ? model.MarkAsComplete : null
+                    });
                 }
                 else
                 {
                     existingFieldData.Data = model.GetData();
+                    existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                 }
                 
 
                 _session.Save(contentToSave);
 
-                var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(pageName));
-                var nextPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index + 1);
+                var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
+                var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
                 if(nextPage == null)
                 {
                     return NotFound();
@@ -230,7 +235,7 @@ namespace INZFS.MVC.Controllers
             else
             {
                 _session.Cancel();
-                var currentPage = _applicationDefinition.Application.Sections.Pages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
 
@@ -732,26 +737,33 @@ namespace INZFS.MVC.Controllers
             return contentItem?.ContentItem.As<T>();
         }
 
-        private ViewResult GetViewModel(Page currentPage, string data)
+        private ViewResult GetViewModel(Page currentPage, Field field)
         {
             BaseModel model;
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
-                    return View("TextInputTwo", PopulateModel(currentPage, model, data));
+                    return View("TextInputTwo", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
-                    return View("TextArea", PopulateModel(currentPage, model, data));
+                    return View("TextArea", PopulateModel(currentPage, model, field));
                 case FieldType.gdsDateBox:
-                    model = new DateModel();
-                    return View("DateInput", PopulateModel(currentPage, model, data));
-                case FieldType.gdsSingleLineRadi:
+                    model = PopulateModel(currentPage, new DateModel(), field);
+                    var inputDate = DateTime.Parse(model.DataInput);
+                    var dateModel = (DateModel)model;
+                    dateModel.Day = inputDate.Day;
+                    dateModel.Month = inputDate.Month;
+                    dateModel.Year = inputDate.Year;
+                    
+
+                    return View("DateInput", model);
+                case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
-                    return View("SingleRadioInput", PopulateModel(currentPage, model, data));
+                    return View("SingleRadioInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
                     model = new MultiSelectInputModel();
-                    return View("MultiSelectInput", PopulateModel(currentPage, model, data));
+                    return View("MultiSelectInput", PopulateModel(currentPage, model, field));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -767,7 +779,7 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
-                case FieldType.gdsSingleLineRadi:
+                case FieldType.gdsSingleLineRadio:
                     return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
@@ -776,17 +788,24 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, string data = null)
+        private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
-            if(!string.IsNullOrEmpty(data))
+            currentModel.Hint = currentPage.Hint;
+            currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
+            if(currentPage.ShowMarkComplete)
             {
-                currentModel.DataInput = data;
+                currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field?.MarkAsComplete.Value : false;
             }
-            var index = _applicationDefinition.Application.Sections.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
-            var previousPage = _applicationDefinition.Application.Sections.Pages.ElementAtOrDefault(index - 1);
+
+            if (!string.IsNullOrEmpty(field ?.Data))
+            {
+                currentModel.DataInput = field?.Data;
+            }
+            var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
             if (previousPage != null)
             {
                 currentModel.PreviousPageName = previousPage.Name;

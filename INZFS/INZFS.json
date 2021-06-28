@@ -1,68 +1,81 @@
 {
   "application": {
     "name": "INZFS",
-    "sections": {
-      "pages": [
-        {
-          "name": "company-name",
-          "question": "Name of your company details",
-          "errorMessage": "Please enter a valid company details",
-          "fieldType": "gdsTextBox",
-          "fieldName": "company-name",
-          "mandatory": true,
-          "accordianReference": ""
-        },
-        {
-          "name": "company-number",
-          "question": "What's your company number",
-          "errorMessage": "Please enter a valid company number",
-          "fieldType": "gdsTextBox",
-          "fieldName": "company-number",
-          "mandatory": true,
-          "accordianReference": "",
-          "max-length": 50
-        },
-        {
-          "name": "company-summary",
-          "question": "Company Summary",
-          "errorMessage": "Please enter a company summary",
-          "fieldType": "gdsTextArea",
-          "fieldName": "company-summary",
-          "mandatory": true,
-          "accordianReference": "",
-          "max-length": 500
-        },
-        {
-          "name": "project-date",
-          "question": "Project Start Date",
-          "errorMessage": "Please enter a project date",
-          "fieldType": "gdsDateBox",
-          "fieldName": "start-date",
-          "mandatory": true,
-          "accordianReference": ""
-        },
-        {
-          "name": "project-delivery",
-          "question": "Project Started",
-          "errorMessage": "Please make a selection",
-          "fieldType": "gdsSingleLineRadi",
-          "fieldName": "start-project",
-          "fieldName2": "start-test",
-          "mandatory": true,
-          "accordianReference": ""
-        },
-        {
-          "name": "project-select",
-          "question": "Project Multi Select",
-          "errorMessage": "Please make a selection",
-          "fieldType": "gdsMultiSelect",
-          "fieldName": "select-test",
-          "fieldName2": "start-test",
-          "mandatory": true,
-          "accordianReference": ""
-        }
-      ]
-    }
+    "sections": [
+      {
+        "name": "Business Proposal",
+        "url": "business-proposal",
+        "pages": [
+          {
+            "name": "company-name",
+            "question": "Name of your company details",
+            "errorMessage": "Please enter a valid company details",
+            "fieldType": "gdsTextBox",
+            "fieldName": "company-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "hint": "",
+            "showMarkComplete" : true
+          },
+          {
+            "name": "company-number",
+            "question": "What's your company number",
+            "errorMessage": "Please enter a valid company number",
+            "fieldType": "gdsTextBox",
+            "fieldName": "company-number",
+            "mandatory": true,
+            "accordianReference": "",
+            "max-length": 50,
+            "hint": "",
+            "showMarkComplete": true
+          },
+          {
+            "name": "company-summary",
+            "question": "Company Summary",
+            "errorMessage": "Please enter a company summary",
+            "fieldType": "gdsTextArea",
+            "fieldName": "company-summary",
+            "mandatory": true,
+            "accordianReference": "",
+            "max-length": 500,
+            "hint": "Company summary hint",
+            "showMarkComplete": true
+          },
+          {
+            "name": "project-date",
+            "question": "Project Start Date",
+            "errorMessage": "Please enter a project date",
+            "fieldType": "gdsDateBox",
+            "fieldName": "start-date",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          },
+          {
+            "name": "project-delivery",
+            "question": "Project Started",
+            "errorMessage": "Please make a selection",
+            "fieldType": "gdsSingleLineRadio",
+            "fieldName": "start-project",
+            "fieldName2": "start-test",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          },
+          {
+            "name": "project-select",
+            "question": "Project Multi Select",
+            "errorMessage": "Please make a selection",
+            "fieldType": "gdsMultiSelect",
+            "fieldName": "select-test",
+            "fieldName2": "start-test",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          }
+        ]
+      }
+    ]
 
   }
 }
