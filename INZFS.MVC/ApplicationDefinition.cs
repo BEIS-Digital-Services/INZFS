@@ -15,11 +15,19 @@ namespace INZFS.MVC
         gdsSingleLineRadio,
         gdsMultiSelect
     }
+
+    public enum MaxLengthValidationType
+    {
+        Character,
+        Word
+    }
+
     public class Page
     {
         public string Name { get; set; }
         public string Question { get; set; }
-
+        public string Description { get; set; }
+        public string Hint { get; set; }
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
@@ -32,13 +40,20 @@ namespace INZFS.MVC
         //[JsonProperty("max-length")]
         public int? MaxLength { get; set; }
         public bool ShowMarkComplete { get; set; }
-        public string Hint { get; set; }
+        public bool ShowSaveProgessButton { get; set; }
+        public string ReturnToSummaryPageLinkText { get; set; }
+        public string ContinueButtonText { get; set; }
+        
+        public MaxLengthValidationType MaxLengthValidationType { get; set; }
     }
 
     public class Section
     {
         public string Name { get; set; }
+        public string Tag { get; set; }
         public string Url { get; set; }
+        public string ReturnToSummaryPageLinkText { get; set; }
+        public string ContinueButtonText { get; set; }
         public List<Page> Pages { get; set; }
     }
 

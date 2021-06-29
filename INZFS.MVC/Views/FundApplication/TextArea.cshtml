@@ -2,13 +2,16 @@
 @model TextAreaModel
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
+@using INZFS.MVC
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
     <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back
+        Back to previous question
     </a>
 }
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -38,32 +41,35 @@
         </div>
     }
 
-    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error") " data-module="govuk-character-count" data-maxlength="200">
+    <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error") " data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
         <div class="govuk-form-group">
             <label class="govuk-label govuk-label--l">
                 @Model.Question
             </label>
+            @Html.Partial("_QuestionDescription")
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
             @Html.Partial("_Hint", Model.Hint)
             <textarea class="govuk-textarea govuk-js-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")"
                       id="@Model.FieldName" name="DataInput" rows="5" aria-describedby="summary-hint" spellcheck="true">@Model.DataInput</textarea>
 
             <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-                You can enter up to 200 characters
+                You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
             </div>
         </div>
     </div>
-    
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model.MarkAsComplete.Value)
     }
 
+    @Html.Partial("_Help")
+
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
         </div>
     </div>
 </form>
 
-@Html.Partial("_Help")
+<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>

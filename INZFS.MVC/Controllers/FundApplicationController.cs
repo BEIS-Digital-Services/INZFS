@@ -790,12 +790,14 @@ namespace INZFS.MVC.Controllers
 
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
+            
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
-            if(currentPage.ShowMarkComplete)
+            currentModel.MaxLength = currentPage.MaxLength;
+            if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field?.MarkAsComplete.Value : false;
             }
@@ -805,6 +807,16 @@ namespace INZFS.MVC.Controllers
                 currentModel.DataInput = field?.Data;
             }
             var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+
+            
+            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
+                                         section.Pages.Any(page => page.Name == currentPage.Name));
+            currentModel.QuestionNumber = index + 1;
+            currentModel.TotalQuestions = section.Pages.Count;
+            currentModel.ContinueButtonText = section.ContinueButtonText;
+            currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
+            currentModel.SectionUrl = section.Url;
+            
             var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
             if (previousPage != null)
             {

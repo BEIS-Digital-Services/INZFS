@@ -11,10 +11,13 @@ namespace INZFS.MVC.Models.DynamicForm
     public abstract class BaseModel : IValidatableObject
     {
         public string Kind { get; set; }
+        public int QuestionNumber { get; set; } = 1;
+        public int TotalQuestions { get; set; }
         public string PageName { get; set; }
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
         public string Question { get; set; }
+        public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
@@ -24,6 +27,12 @@ namespace INZFS.MVC.Models.DynamicForm
         public bool ShowMarkAsComplete { get; set; }
         public bool? MarkAsComplete { get; set; }
         public string Hint { get; set; }
+        public int? MaxLength { get; set; }
+        public bool ShowSaveProgessButton { get; set; }
+        public string ReturnToSummaryPageLinkText { get; set; }
+        public string ContinueButtonText { get; set; }
+        public string SectionUrl { get; set; }
+        public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
 
         public virtual string GetData()
