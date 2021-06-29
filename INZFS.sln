@@ -11,9 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.MVC", "INZFS.MVC\INZF
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.UnitTests", "INZFS.UnitTests\INZFS.UnitTests.csproj", "{F3A93620-78CA-405A-8F12-6345F1EEC814}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BEIS.GDS.UI.Tests.Support", "..\INZFS_ADO\NetZero.Automated.UI.Tests\BEIS.GDS.UI.Tests.Support\BEIS.GDS.UI.Tests.Support.csproj", "{5E0D6440-F929-4CF4-8BD7-61FCEB35599E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetZero.Automated.UI.Tests", "NUnitTestProject1\NetZero.Automated.UI.Tests.csproj", "{6A414DE2-EFCA-41A3-B896-E13C01BB98DD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetZero.Automated.UI.Tests", "..\INZFS_ADO\NetZero.Automated.UI.Tests\NetZero.Automated.UI.Tests\NetZero.Automated.UI.Tests.csproj", "{B86DE218-E27F-4490-A671-C31B1468AC8E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BEIS.GDS.UI.Tests.Support", "ClassLibrary1\BEIS.GDS.UI.Tests.Support.csproj", "{DF1F3A41-18BC-43CD-A2CC-64A0C11B3781}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,14 +37,14 @@ Global
 		{F3A93620-78CA-405A-8F12-6345F1EEC814}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3A93620-78CA-405A-8F12-6345F1EEC814}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3A93620-78CA-405A-8F12-6345F1EEC814}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5E0D6440-F929-4CF4-8BD7-61FCEB35599E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5E0D6440-F929-4CF4-8BD7-61FCEB35599E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5E0D6440-F929-4CF4-8BD7-61FCEB35599E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5E0D6440-F929-4CF4-8BD7-61FCEB35599E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B86DE218-E27F-4490-A671-C31B1468AC8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B86DE218-E27F-4490-A671-C31B1468AC8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B86DE218-E27F-4490-A671-C31B1468AC8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B86DE218-E27F-4490-A671-C31B1468AC8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A414DE2-EFCA-41A3-B896-E13C01BB98DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A414DE2-EFCA-41A3-B896-E13C01BB98DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A414DE2-EFCA-41A3-B896-E13C01BB98DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A414DE2-EFCA-41A3-B896-E13C01BB98DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF1F3A41-18BC-43CD-A2CC-64A0C11B3781}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF1F3A41-18BC-43CD-A2CC-64A0C11B3781}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF1F3A41-18BC-43CD-A2CC-64A0C11B3781}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF1F3A41-18BC-43CD-A2CC-64A0C11B3781}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
