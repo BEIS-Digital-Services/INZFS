@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 public interface IReportService
 {
-    public byte[] GeneratePdfReport(
-        string companyName,
+    public Task<byte[]> GeneratePdfReport(
         string applicationId
         );
 }
