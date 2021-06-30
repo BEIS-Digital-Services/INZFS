@@ -39,17 +39,6 @@ public class ReportService : IReportService
         var contents = bagPart?.ContentItems;
 
         PopulateData(contents);
-        
-        //foreach(var contentItem in contents)
-        //{
-        //    foreach(var iterable in contentItem.Content)
-        //    {
-        //        var inner = iterable.Value;
-        //        Debug.WriteLine("Breakpoint");
-        //    }
-        //    dynamic content = contentItem.Content;
-        //   Debug.WriteLine("Loop over");
-        //}
 
         var html = $@"
            <!DOCTYPE html>
