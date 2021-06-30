@@ -17,7 +17,7 @@ namespace INZFS.Workflows.Activities
     {
         private readonly IWorkflowExpressionEvaluator _expressionEvaluator;
         private readonly ILogger<GovEmail> _logger;
-        private readonly string apiKey = "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0";
+        private readonly string apiKey = Environment.GetEnvironmentVariable("ApiKey");
 
         public GovEmail(
             IWorkflowExpressionEvaluator expressionEvaluator,
