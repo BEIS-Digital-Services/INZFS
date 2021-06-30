@@ -2,6 +2,7 @@ using INZFS.MVC;
 using INZFS.MVC.Controllers;
 using INZFS.MVC.Forms;
 using INZFS.MVC.Models;
+using INZFS.MVC.Models.ProposalWritten;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,11 @@ public class ReportService : IReportService
 {
     private IContentRepository _contentRepository;
 
-    private CompanyDetailsPart _companyDetailsPart;
+    private CompanyDetailsPart companyDetails;
+    private ProjectSummaryPart projectSummary;
+    private ProjectDetailsPart projectDetails;
+    private OrgFundingPart orgFunding;
+    private ProjectProposalDetailsPart projectProposalDetails;
 
     public ReportService(IContentRepository contentRepository)
     {
@@ -52,7 +57,7 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-          <h1>{ _companyDetailsPart.CompanyName }</h1>
+          <h1>{ companyDetails.CompanyName }</h1>
           <p>{ applicationId }</p>
           </body>
           </html>
@@ -73,8 +78,25 @@ public class ReportService : IReportService
             switch (contentItem.ContentType)
             {
                 case ContentTypes.CompanyDetails:
-                    _companyDetailsPart = contentItem.ContentItem.As<CompanyDetailsPart>();
+                    companyDetails = contentItem.ContentItem.As<CompanyDetailsPart>();
                     break;
+
+                case ContentTypes.ProjectSummary:
+                    projectSummary = contentItem.ContentItem.As<ProjectSummaryPart>();
+                    break;
+
+                case ContentTypes.ProjectDetails:
+                    projectDetails = contentItem.ContentItem.As<ProjectDetailsPart>();
+                    break;
+
+                case ContentTypes.OrgFunding:
+                    orgFunding = contentItem.ContentItem.As<OrgFundingPart>();
+                    break;
+
+                case ContentTypes.ProjectProposalDetails:
+                    projectProposalDetails = contentItem.ContentItem.As<ProjectProposalDetailsPart>();
+                    break;
+
 
                 default:
                     Debug.WriteLine("Switch statement unable to find content type");
