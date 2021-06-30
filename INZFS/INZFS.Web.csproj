@@ -9,41 +9,10 @@
   </PropertyGroup>
 
 
-  <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\ace.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\mode-css.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\mode-html.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\mode-javascript.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\theme-crimson_editor.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\worker-css.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\worker-html.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="wwwroot\Scripts\code\ace\worker-javascript.js">
-      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
-    </EmbeddedResource>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-15867" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\assets\images\" />
-    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
