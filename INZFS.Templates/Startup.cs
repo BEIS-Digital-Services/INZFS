@@ -18,8 +18,6 @@ namespace INZFS.Templates
     {
         public Startup()
         {
-            TemplateContext.GlobalMemberAccessStrategy.Register<CodeField>();
-            TemplateContext.GlobalMemberAccessStrategy.Register<DisplayCodeFieldViewModel>();
             TemplateContext.GlobalMemberAccessStrategy.Register<GovTextField>();
             TemplateContext.GlobalMemberAccessStrategy.Register<DisplayGovTextFieldViewModel>();
         }
@@ -28,10 +26,6 @@ namespace INZFS.Templates
         {
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
-            services.AddContentField<CodeField>()
-                .UseDisplayDriver<CodeFieldDisplayDriver>();
-
-            services.AddScoped<IContentPartFieldDefinitionDisplayDriver, CodeFieldSettingsDriver>();
             services.AddContentField<GovTextField>()
                .UseDisplayDriver<GovTextFieldDisplayDriver>();
             services.AddScoped<IContentPartFieldDefinitionDisplayDriver, GovTextFieldSettingsDriver>();

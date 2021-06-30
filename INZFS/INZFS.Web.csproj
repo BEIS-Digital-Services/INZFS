@@ -8,16 +8,6 @@
     <DockerfileRunArguments>-p 80:443</DockerfileRunArguments>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="wwwroot\Scripts\code\ace\ace.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\mode-css.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\mode-html.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\mode-javascript.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\theme-crimson_editor.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\worker-css.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\worker-html.js" />
-    <Content Remove="wwwroot\Scripts\code\ace\worker-javascript.js" />
-  </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="wwwroot\Scripts\code\ace\ace.js">
@@ -52,7 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
     <Folder Include="wwwroot\assets\images\" />
     <Folder Include="wwwroot\images\" />
   </ItemGroup>

@@ -17,10 +17,6 @@
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-15867" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Shared\" />
-  </ItemGroup>
-
 
 
 </Project>
