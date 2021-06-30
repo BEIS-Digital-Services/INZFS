@@ -27,7 +27,8 @@ using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
-
+using INZFS.MVC.Services.FileUpload;
+using INZFS.MVC.Services.VirusScan;
 
 namespace INZFS.MVC
 {
@@ -63,7 +64,8 @@ namespace INZFS.MVC
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
-
+            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
