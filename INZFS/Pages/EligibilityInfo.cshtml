@@ -7,35 +7,45 @@
 @Orchard.ConsoleLog(eligibility)
 
 <body class="govuk-template__body competition-overview">
-    <div class="govuk-width-container">
+	<div class="govuk-width-container">
+		<div class="govuk-breadcrumbs">
+			<ol class="govuk-breadcrumbs__list">
+				<li class="govuk-breadcrumbs__list-item">
+					<a class="govuk-breadcrumbs__link" href="/">Energy Entrepreneurs Fund 8B</a>
+				</li>
+				<li class="govuk-breadcrumbs__list-item">
+					<a class="govuk-breadcrumbs__link" href="/eligibilityInfo/Eligibility-Start">@eligibility.Content.EligibilityInfo.Header1.Text</a>
+				</li>
+			</ol>
+		</div>
 
-        <main class="govuk-main-wrapper app-content">
-
-
-
-            <h1 class="govuk-heading-xl">@eligibility.Content.EligibilityInfo.Header1.Text</h1>
-
-
-            <div class="app-prose-scope">
-                @eligibility.Content.EligibilityInfo.Body1.Text
-            </div>
-            <div class="app-prose-scope">
-                @eligibility.Content.EligibilityInfo.Body2.Text
-            </div>
-
-            <h1 class="govuk-heading-xl" style="padding-top: 50px;">@eligibility.Content.EligibilityInfo.Header2.Text</h1>
+		<main class="govuk-main-wrapper app-content">
 
 
-            <div class="app-prose-scope">
-                @eligibility.Content.EligibilityInfo.Body3.Text
-            </div>
+
+			<h1 class="govuk-heading-xl">@eligibility.Content.EligibilityInfo.Header1.Text</h1>
 
 
-            <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityInfo.Button1.Text">Continue</a>
+			<div class="app-prose-scope">
+				@eligibility.Content.EligibilityInfo.Body1.Text
+			</div>
+			<div class="app-prose-scope">
+				@eligibility.Content.EligibilityInfo.Body2.Text
+			</div>
+
+			<h1 class="govuk-heading-xl" style="padding-top: 50px;">@eligibility.Content.EligibilityInfo.Header2.Text</h1>
 
 
-        </main>
-    </div>
+			<div class="app-prose-scope">
+				@eligibility.Content.EligibilityInfo.Body3.Text
+			</div>
+
+
+			<a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityInfo.Button1.Text">Continue</a>
+
+
+		</main>
+	</div>
     <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
     <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
 
