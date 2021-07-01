@@ -4,6 +4,10 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
+
+@*To :
+ Working if only textbox id is set to with-hint*@
+
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
     <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
@@ -32,7 +36,7 @@
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
+                                <a href="#with-hint">@error.ErrorMessage</a>
                             </li>
                         }
                     }
@@ -41,22 +45,26 @@
         </div>
     }
 
-    <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error") " data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
+
+
+    <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
         <div class="govuk-form-group">
-            <label class="govuk-label govuk-label--l">
-                @Model.Question
-            </label>
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="@Model.FieldName">
+                    @Model.Question
+                </label>
+            </h1>
             @Html.Partial("_QuestionDescription")
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
             @Html.Partial("_Hint", Model.Hint)
-            <textarea class="govuk-textarea govuk-js-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")"
-                      id="@Model.FieldName" name="DataInput" rows="5" aria-describedby="summary-hint" spellcheck="true">@Model.DataInput</textarea>
-
-            <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-                You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
-            </div>
+            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint" name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint"></textarea>
         </div>
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
+        </div>
+
     </div>
+
 
     @if (Model.ShowMarkAsComplete)
     {

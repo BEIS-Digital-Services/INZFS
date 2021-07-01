@@ -1,8 +1,10 @@
 @model string
 
-@if(!string.IsNullOrEmpty(Model))
+@if (!string.IsNullOrEmpty(Model))
 {
-    <div id="hint" class="govuk-hint">
+    
+    <label class="govuk-label govuk-label--l" for="with-hint">
         @Model
-    </div>
+    </label>
 }
+
