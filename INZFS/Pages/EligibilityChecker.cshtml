@@ -1,0 +1,258 @@
+﻿@page "/eligibilityChecker/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+@using INZFS.Web.POCO
+@model INZFS.Web.POCO.EligibilityCheckerPOCO
+@using Microsoft.AspNetCore.Http
+
+
+@{
+    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+    var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
+    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+    var questionSettingA = "Question1";
+    switch (titlePart)
+    {
+        case "Question1":
+            questionSettingA = "Question1";
+            break;
+        case "Question2":
+            questionSettingA = "Question2";
+            break;
+        case "Question3":
+            questionSettingA = "Question3";
+            break;
+        case "Question4":
+            questionSettingA = "Question4";
+            break;
+        case "Question5":
+            questionSettingA = "Question5";
+            break;
+        case "Question6":
+            questionSettingA = "Question6";
+            break;
+        default: questionSettingA = "Question1"; break;
+
+    }
+
+
+}
+@Orchard.ConsoleLog(eligibility)
+
+<body class="govuk-template__body competition-overview">
+    <div class="govuk-width-container">
+
+        <main class="govuk-main-wrapper app-content">
+
+
+            <div class="govuk-caption-m">
+                @eligibility.Content.EligibilityChecker.Body1.Text
+            </div>
+            <h1 class="govuk-heading-xl" style="padding-top: 10px;">@eligibility.Content.EligibilityChecker.Header1.Text</h1>
+
+            @if (!listenabled)
+            {
+                <div style="padding-top: 20px;" class="list">
+                    <ul>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+                        <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+                    </ul>
+                </div>
+            }
+            <form method="post">
+                <div class="govuk-form-group" style="padding-top: 20px;">
+                    <label class="govuk-label govuk-label--l">
+                    </label>
+                    <fieldset class="govuk-fieldset">
+                        <div class="govuk-radios govuk-radios--inline">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
+                                <label class="govuk-label govuk-radios__label">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
+                                <label class="govuk-label govuk-radios__label">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <button class="govuk-button govuk-!-margin-top-6">Continue</button>
+            </form>
+
+            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+                <div class="govuk-accordion__section ">
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
+                                @eligibility.Content.EligibilityChecker.Accordion1.Text
+                            </span>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <style src="/css/application.css"></style>
+
+
+
+
+</body>
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+    [BindProperty]
+    public string RedirectUrl { get; set; }
+
+    public void OnGet()
+    {
+        if (HttpContext.Session.Get("Question1") != null)
+        {
+            var Question1 = BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0);
+        }
+        if (HttpContext.Session.Get("Question2") != null)
+        {
+            var Question2 = BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0);
+        }
+        if (HttpContext.Session.Get("Question3") != null)
+        {
+            var Question3 = BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0);
+        }
+        if (HttpContext.Session.Get("Question4") != null)
+        {
+            var Question4 = BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0);
+        }
+        if (HttpContext.Session.Get("Question5") != null)
+        {
+            var Question5 = BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0);
+        }
+         if (HttpContext.Session.Get("Question6") != null)
+        {
+            var Question6 = BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0);
+        }
+    }
+    public async Task<IActionResult> OnPostAsync()
+    {
+
+        @inject OrchardCore.IOrchardHelper Orchard
+        var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+        var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+        var QuestionValue = Request.Form["questionSettingA"].ToString();
+        
+        HttpContext.Session.SetString("ReturnUrl", redirect);
+
+
+        switch (titlePart)
+        {
+            case "Question1":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question1", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question1", BitConverter.GetBytes(false));
+                }
+                break;
+            case "Question2":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question2", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question2", BitConverter.GetBytes(false));
+                }
+                break;
+            case "Question3":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question3", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question3", BitConverter.GetBytes(false));
+                }
+                break;
+            case "Question4":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question4", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question4", BitConverter.GetBytes(false));
+                }
+                break;
+            case "Question5":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question5", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question5", BitConverter.GetBytes(false));
+                }
+                break;
+            case "Question6":
+                if (QuestionValue == "1")
+                {
+                    HttpContext.Session.Set("Question6", BitConverter.GetBytes(true));
+                }
+                else
+                {
+                    HttpContext.Session.Set("Question6", BitConverter.GetBytes(false));
+                }
+                break;
+            default: @Orchard.ConsoleLog("Error in switch statement"); break;
+
+        }
+        if(titlePart == "Question6")
+        {
+
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult3");
+            }
+            if(BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0) == false){
+                return Redirect("/eligibilityResult/EligibilityResult4");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult1");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult5");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult6");
+            }
+            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0) == false)
+            {
+                return Redirect("/eligibilityResult/EligibilityResult6");
+            }
+            else
+            {
+                return Redirect("/eligibilityResult/EligibilityResult7");
+            }
+        }
+        else
+        {
+            return Redirect(redirect);
+        }
+
+    }
+
+}

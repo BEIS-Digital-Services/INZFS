@@ -1,0 +1,116 @@
+﻿@page "/govpage/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+
+}
+
+@Orchard.ConsoleLog(govpage)
+
+<body class="govuk-template__body competition-overview">
+    <div class="govuk-width-container">
+
+        <main class="govuk-main-wrapper">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
+                </div>
+            </div>
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h3 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm.Text</h3>
+                    <p class="govuk-body wysiwyg-styles">@govpage.Content.GovPage.GovMainInfo.Text</p>
+
+                    <ul class="govuk-list">
+                        <li>- @govpage.Content.GovList1.ContentItems[0].DisplayText</li>
+
+                        <li>
+                            - @govpage.Content.GovList1.ContentItems[1].DisplayText
+                        </li>
+                        <li>
+                            - @govpage.Content.GovList1.ContentItems[2].DisplayText
+                        </li>
+                        <li>
+                            - @govpage.Content.GovList1.ContentItems[3].DisplayText
+                        </li>
+                    </ul>
+                    <h1 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm2.Text</h1>
+                    <ul class="govuk-list">
+                        <li>
+                            <a href="@govpage.Content.GovUrls.ContentItems[0].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[0].DisplayText</a>
+                        </li>
+                        <li>
+                            <a href="@govpage.Content.GovUrls.ContentItems[1].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[1].DisplayText</a>
+                        </li>
+                        <li>
+                            <a href="@govpage.Content.GovUrls.ContentItems[2].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[2].DisplayText</a>
+                        </li>
+                    </ul>
+
+
+                    <h1 class="govuk-heading-m">Start your application</h1>
+                    <p class="govuk-body wysiwyg-styles">To start your application you must register your details and create an account. </p>
+                    <p class="govuk-body wysiwyg-styles">We recommend reading the guidance and questions before you decide to register. We also advise checking that you have gathered the necessary information and evidence before you begin.</p>
+                    <p class="govuk-body wysiwyg-styles">Registrations to apply for this fund close on 25th June at 11.59pm.</p>
+
+                    <a class="govuk-button govuk-!-margin-top-6" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="application-summary">Start Now</a>
+                    <p class="govuk-body govuk-!-margin-top-6">
+
+                        <a href="/Login" class="govuk-link">Sign in to your account </a>
+
+
+                    </p>
+                </div>
+
+                <div class="govuk-grid-column-one-third">
+                    <div class="gem-c-contextual-sidebar">
+
+
+                        <div class="gem-c-related-navigation">
+
+                            <h2 id="related-nav-related_items-ab2b060d" class="gem-c-related-navigation__main-heading" data-track-count="sidebarRelatedItemSection">
+                                Registration
+                            </h2>
+                        </div>
+                    </div>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+                    <div class="gem-c-contextual-sidebar__brexit-cta">
+                        <h2 class="gem-c-contextual-sidebar__brexit-heading govuk-heading-s">Events</h2>
+                        <p class="gem-c-contextual-sidebar__brexit-text govuk-body">
+
+                        <p class="govuk-body">Engagement Days</p>
+                        <p class="govuk-body">25 March at 11.59pm</p>
+                        <a href="/Register">Register to attend</a>
+                        <p class="govuk-body">Engagement Days</p>
+                        <p class="govuk-body">25 April at 11.59pm</p>
+                        <a href="/Register">Register to attend</a>
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+    <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
+    <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+
+</body>
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
+

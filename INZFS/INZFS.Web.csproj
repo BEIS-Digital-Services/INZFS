@@ -8,6 +8,8 @@
     <DockerfileRunArguments>-p 80:443</DockerfileRunArguments>
   </PropertyGroup>
 
+
+
   <ItemGroup>
     <Content Remove="INZFS.json" />
   </ItemGroup>
@@ -24,13 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="NewFolder\" />
-    <Folder Include="wwwroot\assets\images\" />
-    <Folder Include="wwwroot\images\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
+    <ProjectReference Include="..\INZFS.Templates\INZFS.Templates.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>
 

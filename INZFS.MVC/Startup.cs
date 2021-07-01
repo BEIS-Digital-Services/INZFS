@@ -33,6 +33,8 @@ using INZFS.MVC.ModelProviders;
 using YesSql.Indexes;
 using INZFS.MVC.Records;
 using INZFS.MVC.Migrations.Indexes;
+using INZFS.MVC.Services.FileUpload;
+using INZFS.MVC.Services.VirusScan;
 
 namespace INZFS.MVC
 {
@@ -68,7 +70,8 @@ namespace INZFS.MVC
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
-
+            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
