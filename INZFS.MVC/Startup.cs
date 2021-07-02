@@ -96,14 +96,12 @@ namespace INZFS.MVC
             services.AddSingleton<ApplicationDefinition>(sp =>
             {
                 string fileName = "INZFS.json";
-                FileInfo file = new FileInfo(fileName);
-                string filepath = file.FullName;
-                string jsonString = System.IO.File.ReadAllText(filepath);
-
+                StreamReader str = new StreamReader(fileName);
+                string filePath = str.ReadToEnd();
                 var options = new JsonSerializerOptions();
                 options.PropertyNameCaseInsensitive = true;
                 options.Converters.Add(new JsonStringEnumConverter());
-                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(jsonString, options);
+                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(filePath, options);
                 return applicationDefinition;
             });
             //services.AddControllers();
