@@ -1676,7 +1676,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "govuk-heading-m2",
-              "Position": "3"
+              "Position": "21"
             }
           }
         },
@@ -1686,7 +1686,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "GovLink1",
-              "Position": "2"
+              "Position": "20"
             }
           }
         },
@@ -1696,7 +1696,187 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "GovMainInfo",
+              "Position": "19"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading1",
               "Position": "1"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading3",
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading4",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading4",
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading2",
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading5",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading5",
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavHeading6",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavHeading6",
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody1",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody2",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody3",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody4",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody4",
+              "Position": "10"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody5",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody5",
+              "Position": "11"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavBody6",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavBody6",
+              "Position": "12"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl1",
+              "Position": "13"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl2",
+              "Position": "14"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl3",
+              "Position": "15"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl4",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl4",
+              "Position": "16"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl5",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl5",
+              "Position": "17"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "NavUrl6",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "NavUrl6",
+              "Position": "18"
             }
           }
         }
@@ -2065,5 +2245,5 @@
       ]
     }
   ],
-  "Identifier": "4yhg12g329qjfxv6fzc3pjw34h"
+  "Identifier": "4tbqxtnxy9pxm2es7zb8s72txz"
 }
