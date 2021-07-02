@@ -96,7 +96,9 @@ namespace INZFS.MVC
             services.AddSingleton<ApplicationDefinition>(sp =>
             {
                 string fileName = "INZFS.json";
-                string jsonString = System.IO.File.ReadAllText(fileName);
+                FileInfo file = new FileInfo(fileName);
+                string filepath = file.FullName;
+                string jsonString = System.IO.File.ReadAllText(filepath);
 
                 var options = new JsonSerializerOptions();
                 options.PropertyNameCaseInsensitive = true;
