@@ -37,27 +37,16 @@
 							- @govpage.Content.GovList1.ContentItems[3].DisplayText
 						</li>
 					</ul>
-					<h1 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm2.Text</h1>
-					<ul class="govuk-list">
-						<li>
-							<a href="@govpage.Content.GovUrls.ContentItems[0].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[0].DisplayText</a>
-						</li>
-						<li>
-							<a href="@govpage.Content.GovUrls.ContentItems[1].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[1].DisplayText</a>
-						</li>
-						<li>
-							<a href="@govpage.Content.GovUrls.ContentItems[2].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[2].DisplayText</a>
-						</li>
-					</ul>
+					
 
 					<div class="govuk-grid-row">
 						<div class="govuk-grid-column-two-thirds">
-							<p>
+							<h3 class="govuk-heading-m">
 								@govpage.Content.GovPage.govukheadingm2.Text
-							</p>
+							</h3>
 
-							<div id="step-by-step-navigation" class="app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all" data-hide-all-text="Hide all">
-								<div class="app-step-nav__controls"><button aria-expanded="false" class="app-step-nav__button app-step-nav__button--controls js-step-controls-button" aria-controls="step-panel-check-youre-allowed-to-drive-1">Show all</button></div>
+							<div id="step-by-step-navigation" class="app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all the steps" data-hide-all-text="Hide all">
+					
 								<ol class="app-step-nav__steps">
 									<li class="app-step-nav__step js-step" id="check-youre-allowed-to-drive">
 										<div class="app-step-nav__header js-toggle-panel" data-position="1">
@@ -81,18 +70,13 @@
 										</div>
 
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-check-youre-allowed-to-drive-1">
-											<p class="app-step-nav__paragraph">Most people can start learning to drive when they’re 17.</p>
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody1.Text</p>
 
 											<ol class="app-step-nav__list " data-length="3">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="1.1" class="app-step-nav__link js-link" href="#">Check what age you can drive </a>
+													<a data-position="1.1" class="govuk-heading-m app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl1.Text>Check Now </a>
 												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="1.2" class="app-step-nav__link js-link" href="#">Requirements for driving legally </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="1.3" class="app-step-nav__link js-link" href="#">Driving eyesight rules </a>
-												</li>
+												
 											</ol>
 										</div>
 
@@ -122,7 +106,7 @@
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-get-a-provisional-licence-2">
 											<ol class="app-step-nav__list " data-length="1">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="2.1" class="app-step-nav__link js-link" href="#">Apply for your first provisional driving licence <span class="app-step-nav__context">£34 to £43</span></a>
+													<a data-position="2.1" class="app-step-nav__link js-link" href="@govpage.Content.GovPage.NavUrl2.Text">@govpage.Content.GovPage.NavBody2.Text</a>
 												</li>
 											</ol>
 										</div>
@@ -151,21 +135,13 @@
 										</div>
 
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-driving-lessons-and-practice-3">
-											<p class="app-step-nav__paragraph">You need a provisional driving licence to take lessons or practice.</p>
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody3.Text</p>
 
 											<ol class="app-step-nav__list " data-length="4">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="3.1" class="app-step-nav__link js-link" href="#">The Highway Code </a>
+													<a data-position="3.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl3.Text>NavUrl3Text </a>
 												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="3.2" class="app-step-nav__link js-link" href="#">Taking driving lessons </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="3.3" class="app-step-nav__link js-link" href="#">Find driving schools, lessons and instructors </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="3.4" class="app-step-nav__link js-link" href="#">Practise vehicle safety questions </a>
-												</li>
+												
 											</ol>
 										</div>
 
@@ -192,24 +168,13 @@
 										</div>
 
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-book-and-manage-your-theory-test-5">
-											<p class="app-step-nav__paragraph">You need a provisional driving licence to book your theory test.</p>
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody4.Text </p>
 
 											<ol class="app-step-nav__list " data-length="5">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="5.1" class="app-step-nav__link js-link" href="#">Book your theory test <span class="app-step-nav__context">£23</span></a>
+													<a data-position="5.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl4.Text>NavUrl4Text</a>
 												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="5.2" class="app-step-nav__link js-link" href="#">What to take to your test </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="5.3" class="app-step-nav__link js-link" href="#">Change your theory test appointment </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="5.4" class="app-step-nav__link js-link" href="#">Check your theory test appointment details </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="5.5" class="app-step-nav__link js-link" href="#">Cancel your theory test </a>
-												</li>
+							
 											</ol>
 										</div>
 
@@ -237,26 +202,14 @@
 										</div>
 
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-book-and-manage-your-driving-test-6">
-											<p class="app-step-nav__paragraph">You must pass your theory test before you can book your driving test.</p>
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody5.Text</p>
 
 											<ol class="app-step-nav__list " data-length="5">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="6.1" class="app-step-nav__link js-link" href="#">Book your driving test <span class="app-step-nav__context">£62 to £75</span></a>
+													<a data-position="6.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl5.Text>NavUrl5Text</a>
 
 												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="6.2" class="app-step-nav__link js-link" href="#">What to take to your test </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="6.3" class="app-step-nav__link js-link" href="#">Change your driving test appointment </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="6.4" class="app-step-nav__link js-link" href="#">Check your driving test appointment details </a>
-												</li>
-												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="6.5" class="app-step-nav__link js-link" href="#">Cancel your driving test </a>
-												</li>
-											</ol>
+												
 										</div>
 
 									</li>
@@ -283,13 +236,11 @@
 										</div>
 
 										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-when-you-pass-7">
-											<p class="app-step-nav__paragraph">You can start driving as soon as you pass your driving test.</p>
-
-											<p class="app-step-nav__paragraph">You must have an insurance policy that allows you to drive without supervision.</p>
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody6.Text</p>
 
 											<ol class="app-step-nav__list " data-length="1">
 												<li class="app-step-nav__list-item js-list-item ">
-													<a data-position="7.1" class="app-step-nav__link js-link" href="#">Find out about Pass Plus training courses </a>
+													<a data-position="7.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl6.Text>NavUrl6Text </a>
 												</li>
 											</ol>
 										</div>
@@ -341,9 +292,16 @@
 
 		</main>
 	</div>
-	
-	
+
+
 	<script src="/js/step-by-step-nav.js" type="text/javascript"></script>
+	<script src="/js/jquery-1.11.3.js" type="text/javascript"></script>
+	<script src="/js/all.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var $element = $('#step-by-step-navigation')
+		var stepByStepNavigation = new GOVUK.Modules.AppStepNav()
+		stepByStepNavigation.start($element)
+	</script>
 
 </body>
 
