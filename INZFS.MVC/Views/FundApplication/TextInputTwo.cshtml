@@ -1,0 +1,30 @@
+@{
+    Layout = "../Shared/_FormLayout.cshtml";
+}
+
+@model TextInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+<input type="hidden" name="PageName" value="@Model.PageName" />
+<input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
+
+<div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+    <h1 class="govuk-label-wrapper">
+        <label class="govuk-label govuk-label--l" for="event-name">
+            @Model.Question
+        </label>
+    </h1>
+    <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+    <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+           name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
+</div>
+
+
+<div class="edit-item-secondary group">
+    <div class="edit-item-actions form-group">
+        <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+    </div>
+</div>
+
