@@ -1,0 +1,227 @@
+{
+  "application": {
+    "name": "INZFS",
+    "sections": [
+      {
+        "title": "Business Proposal",
+        "tag": "business-proposal",
+        "url": "business-proposal-overview",
+        "returnToSummaryPageLinkText": "Return to the business proposal overview",
+        "continueButtonText": "Save and continue to next question",
+        "RazorView": "BusinessProposalOverview",
+        "pages": [
+          {
+            "name": "business-proposal",
+            "question": "5.1. Proposal",
+            "description": "Description",
+            "errorMessage": "Enter business proposal",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-proposal",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-plan",
+            "question": "5.2. Business Plan",
+            "description": "Description",
+            "errorMessage": "Enter business plan",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-plan",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-technology-readiness",
+            "question": "5.3. Technology Readiness Level(TRL)",
+            "description": "Description",
+            "errorMessage": "Enter technology readiness level",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-technology-readiness",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-infrastructure",
+            "question": "5.4. Infrastructure",
+            "description": "Description",
+            "errorMessage": "Enter infrastructure",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-infrastructure",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-environmental-impact",
+            "question": "5.5. Environmental impact",
+            "description": "Description",
+            "errorMessage": "Enter environmental impact",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-environmental-impact",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-regulations",
+            "question": "5.6. Regulations",
+            "description": "Description",
+            "errorMessage": "Enter regulations",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-regulations",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-impact-on-climate-change",
+            "question": "5.7. Impact on climate change",
+            "description": "Description",
+            "errorMessage": "Enter impact on climate change",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-impact-on-climate-change",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-project-plan",
+            "question": "5.8. Project plan",
+            "description": "Description",
+            "errorMessage": "Enter project plan",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-project-plan",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-project-evaluation",
+            "question": "5.9. Project evaluation",
+            "description": "Description",
+            "errorMessage": "Enter project evaluation",
+            "fieldType": "gdsTextArea",
+            "fieldName": "business-project-evaluation",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Company summary hint",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          }
+        ]
+      },
+      {
+        "name": "Business Proposal1",
+        "tag": "business-proposal1",
+        "url": "business-proposal1",
+        "pages": [
+          {
+            "name": "company-name",
+            "question": "Name of your company details",
+            "errorMessage": "Please enter a valid company details",
+            "fieldType": "gdsTextBox",
+            "fieldName": "company-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "hint": "",
+            "showMarkComplete": true
+          },
+          {
+            "name": "company-number",
+            "question": "What's your company number",
+            "errorMessage": "Please enter a valid company number",
+            "fieldType": "gdsTextBox",
+            "fieldName": "company-number",
+            "mandatory": true,
+            "accordianReference": "",
+            "max-length": 50,
+            "hint": "",
+            "showMarkComplete": true
+          },
+          {
+            "name": "company-summary",
+            "question": "Company Summary",
+            "errorMessage": "Please enter a company summary",
+            "fieldType": "gdsTextArea",
+            "fieldName": "company-summary",
+            "mandatory": true,
+            "accordianReference": "",
+            "max-length": 500,
+            "hint": "Company summary hint",
+            "showMarkComplete": true
+          },
+          {
+            "name": "project-date",
+            "question": "Project Start Date",
+            "errorMessage": "Please enter a project date",
+            "fieldType": "gdsDateBox",
+            "fieldName": "start-date",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          },
+          {
+            "name": "project-delivery",
+            "question": "Project Started",
+            "errorMessage": "Please make a selection",
+            "fieldType": "gdsSingleLineRadio",
+            "fieldName": "start-project",
+            "fieldName2": "start-test",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          },
+          {
+            "name": "project-select",
+            "question": "Project Multi Select",
+            "errorMessage": "Please make a selection",
+            "fieldType": "gdsMultiSelect",
+            "fieldName": "select-test",
+            "fieldName2": "start-test",
+            "mandatory": true,
+            "hint": "",
+            "accordianReference": ""
+          }
+        ]
+      }
+    ]
+
+  }
+}

@@ -1,4 +1,5 @@
 ﻿using INZFS.MVC.Forms;
+using INZFS.MVC.Records;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.Flows.Models;
@@ -19,6 +20,8 @@ namespace INZFS.MVC
         public Task<IEnumerable<ContentItem>> GetContentItems(Expression<Func<ContentItemIndex, bool>> predicate, string userName);
 
         public Task<ContentItem> GetContentItemById(string contentId);
+
+        public Task<ApplicationContent> GetApplicationContent(string userName);
     }
     public class ContentRepository : IContentRepository
     {
@@ -47,11 +50,11 @@ namespace INZFS.MVC
             var query = _session.Query<ContentItem, ContentItemIndex>();
             query = query.With<ContentItemIndex>(predicate);
             query = query.With<ContentItemIndex>(x => x.Published);
-            if(!string.IsNullOrEmpty(userName))
+            if (!string.IsNullOrEmpty(userName))
             {
                 query = query.With<ContentItemIndex>(x => x.Author == userName);
             }
-            
+
             return await query.ListAsync();
         }
 
@@ -67,6 +70,13 @@ namespace INZFS.MVC
             query = query.With<ContentItemIndex>(index => index.ContentItemId == contentId.Trim());
             query = query.With<ContentItemIndex>(x => x.Published);
 
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<ApplicationContent> GetApplicationContent(string userName)
+        {
+            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
+            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
             return await query.FirstOrDefaultAsync();
         }
     }

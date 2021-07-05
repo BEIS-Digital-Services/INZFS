@@ -1,0 +1,10 @@
+@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    
+    <label class="govuk-label govuk-label--l" for="with-hint">
+        @Model
+    </label>
+}
+
