@@ -1,0 +1,11 @@
+﻿@model INZFS.Templates.ViewModels.DisplayGovTextFieldViewModel
+@using OrchardCore.Mvc.Utilities
+
+@{
+    var name = (Model.PartFieldDefinition.PartDefinition.Name + "-" + Model.PartFieldDefinition.Name).HtmlClassify();
+}
+
+<div class="govuk-input">
+    @Model.Text
+</div>
+

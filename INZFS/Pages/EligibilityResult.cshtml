@@ -1,0 +1,66 @@
+﻿@page "/eligibilityResult/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var listenabled = @eligibility.Content.EligibilityResult.Bullet1.Text == null;
+    var Secondlistenabled = @eligibility.Content.EligibilityResult.BulletA.Text == null;
+
+}
+@Orchard.ConsoleLog(eligibility)
+
+<body class="govuk-template__body competition-overview">
+    <div class="govuk-width-container">
+
+        <main class="govuk-main-wrapper app-content">
+
+
+
+            <h1 class="govuk-heading-xl">@eligibility.Content.EligibilityResult.Header1.Text</h1>
+
+
+            <div class="app-prose-scope" style="padding-top: 20px;">
+                @eligibility.Content.EligibilityResult.Body1.Text
+            </div>
+            @if (!listenabled)
+            {
+                <div style="padding-top: 20px;" class="list">
+                    <ul>
+                        <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
+                        <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
+                    </ul>
+                </div>
+            }
+            <div class="app-prose-scope" style="padding-top: 20px;">
+                @eligibility.Content.EligibilityResult.Body2.Text
+            </div>
+            <div class="app-prose-scope" style="padding-top: 20px;">
+                @eligibility.Content.EligibilityResult.Body3.Text
+            </div>
+            @if (!Secondlistenabled)
+            {
+                <div style="padding-top: 10px;" class="list">
+                    <ul>
+                        <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletA.Text</li>
+                        <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletB.Text</li>
+                    </ul>
+                </div>
+            }
+
+        <a class="govuk-button govuk-!-margin-top-6" href="@eligibility.Content.EligibilityResult.Url1.Html">@eligibility.Content.EligibilityResult.Button1.Text</a>
+
+
+        </main>
+    </div>
+    <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
+    <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+
+</body>
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
