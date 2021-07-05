@@ -8,6 +8,13 @@
     <DockerfileRunArguments>-p 80:443</DockerfileRunArguments>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\govuk\images\**" />
+    <Content Remove="wwwroot\govuk\images\**" />
+    <EmbeddedResource Remove="wwwroot\govuk\images\**" />
+    <None Remove="wwwroot\govuk\images\**" />
+  </ItemGroup>
+
 
 
   <ItemGroup>
@@ -29,6 +36,10 @@
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\INZFS.Templates\INZFS.Templates.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\govuk\assets\fonts\" />
   </ItemGroup>
 
 </Project>
