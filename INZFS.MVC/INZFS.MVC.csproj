@@ -5,12 +5,6 @@
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 	<PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
-    <EmbeddedResource Remove="Views\_ViewStart.cshtml" />
-  </ItemGroup>
-
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
