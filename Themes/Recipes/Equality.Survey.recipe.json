@@ -1,0 +1,2330 @@
+{
+    "name": "Equality Survey",
+    "displayName": "Equality Survey",
+    "description": "Content, Content Types and Workflow for Equality Survey",
+    "author": "Richard Anderson",
+    "website": "",
+    "version": "",
+    "issetuprecipe": false,
+    "categories": [],
+    "tags": [],
+    "variables": {
+        "varWorkFlowID": "[js:uuid()]",
+        "varQ1ID": "[js:uuid()]",
+        "varQ2ID": "[js:uuid()]",
+        "varQ3IDD": "[js:uuid()]",
+        "varQ4ID": "[js:uuid()]",
+        "varQ5ID": "[js:uuid()]",
+        "varQ6ID": "[js:uuid()]",
+        "varQ7ID": "[js:uuid()]",
+        "varQ8ID": "[js:uuid()]",
+        "varQ9ID": "[js:uuid()]",
+        "varQ10ID": "[js:uuid()]",
+        "varQ11ID": "[js:uuid()]"
+    },
+    "steps": [
+        {
+            "name": "feature",
+            "disable": [],
+            "enable": [
+                "AdminMenu"
+            ]
+        },
+        {
+            "name": "Content",
+            "data": [
+                {
+                    "ContentItemId": "47cczeashpe4e7cshtpp7pq1m8",
+                    "ContentItemVersionId": "43224sm5kjq0c48f0139935x5s",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q8 - Which of the following best describes  your background? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T01:19:00.3896971Z",
+                    "PublishedUtc": "2021-07-02T01:19:00.4560277Z",
+                    "CreatedUtc": "2021-07-02T01:18:50.5147793Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 8.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "47q3tg35pfd7p2x0cd6f4ak1mb",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Which of the following best describes  your background? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T01:19:00.3980779Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Which of the following best describes  your background? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Which of the following best describes  your background? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4smytqge6den4z3xy3fc8f7qns",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:19:00.4017823Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Arab"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4j0n76s5hwe762w66x3eje5gwa",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:19:00.413452Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Any other ethnic group"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4bsewf9c6gtsn5ptzrvtebjjxh",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:19:00.4219241Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q8 - Which of the following best describes  your background? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/8",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "46vgsvey2wwnsyany0mrp9jcdm",
+                    "ContentItemVersionId": "4tmeejw717fkw33r8n658yt2xd",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q9 - Do you have any physical or mental  health conditions or illness lasting or  expected to last 12 months or more? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T01:23:01.6450059Z",
+                    "PublishedUtc": "2021-07-02T01:23:01.6911109Z",
+                    "CreatedUtc": "2021-07-02T01:22:48.8922337Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 9.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "4ps1nf1f710zksh7h9ejm634c2",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Do you have any physical or mental  health conditions or illness lasting or  expected to last 12 months or more? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T01:23:01.6512706Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Do you have any physical or mental  health conditions or illness lasting or  expected to last 12 months or more? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Do you have any physical or mental  health conditions or illness lasting or  expected to last 12 months or more? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4e3wa3w11f8kevkhw9c41tdb47",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:23:01.6544058Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Yes"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4n5ez7pcdtsr20w9nv1s94zd5f",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:23:01.659423Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "No"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4w5096z3x2b92ze8rcawt4rpcv",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:23:01.6657421Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q9 - Do you have any physical or mental  health conditions or illness lasting or  expected to last 12 months or more? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/9",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4kby3kbgsgdrtvwfz8jf88ekwc",
+                    "ContentItemVersionId": "4x356ymfhd3dy50549wgce7v45",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q10 - Do any of your condition or illnesses  reduce your ability to carry out day to  day activities? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T01:32:39.0275928Z",
+                    "PublishedUtc": "2021-07-02T01:32:39.0941379Z",
+                    "CreatedUtc": "2021-07-02T01:27:01.8956656Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 10.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "4e6pqfzcd45fjs2tqzr2cwn65z",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Do any of your condition or illnesses  reduce your ability to carry out day to  day activities? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T01:32:39.0335961Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Do any of your condition or illnesses  reduce your ability to carry out day to  day activities? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Do any of your condition or illnesses  reduce your ability to carry out day to  day activities? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4tebgzgy9cv742wfc5173e1ed2",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:39.0403373Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Yes, a lot"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4v9tnhk9sxkfn3z78ec8zy6adm",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:39.047136Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Yes, a little"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4j1hqkqdm53ehxdsvtbmp34fww",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:39.0554126Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Not at all"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "41fqt58p8j1ms4t6w2v54j1vny",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:39.0627323Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q10 - Do any of your condition or illnesses  reduce your ability to carry out day to  day activities? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/10",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4eqxaxm9v0pzw660n2xv5ws0nm",
+                    "ContentItemVersionId": "4zr0aw2pb1wfd0jbqp2f23f5wq",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q1 - Sex and gender identity",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T01:32:53.0805289Z",
+                    "PublishedUtc": "2021-07-02T01:32:53.1351487Z",
+                    "CreatedUtc": "2021-07-02T00:41:09.4175641Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 1.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "462y5spngcyfewykfaq1xj2mwy",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Sex and gender identity",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T01:32:53.0865455Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "What is your sex?"
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Sex and gender identity"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "428ckwxx3r03dxamh4k37vpxwv",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:53.0907764Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Female"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4b9fje7adpbem6ehdjggah30x5",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:53.1004498Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Male"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4mpx9e2sm8zbk7v3vfkzeaz2ca",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T01:32:53.1100041Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q1 - Sex and gender identity"
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/1",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4k4jycqa6kc0w23zqqhpnjbacw",
+                    "ContentItemVersionId": "4bkxf2r4gpjd4wjhwt37986sc8",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q4 - Which of the following best describes your White background?",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T09:51:35.9367755Z",
+                    "PublishedUtc": "2021-07-02T09:51:36.014509Z",
+                    "CreatedUtc": "2021-07-02T00:57:26.4039513Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 4.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "4kph3pjmnrm943wewwvxmk79cg",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Which of the following best describes your White background?",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T09:51:35.9444007Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Which of the following best describes your White background?"
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Which of the following best describes your White background?"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4haf35bfn3jbh67701qyggdrxd",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T09:51:35.9483019Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "English, Welsh, Scottish, Northern Irish or British"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4bzjycvdqxg5szvh16vse2vg5r",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T09:51:35.9602732Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Irish"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4b0tqenzth0ew0z8bbpn97w74p",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T09:51:35.9698126Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Gypsy or Irish Traveller"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4q05n27nrdfvpypr3zn28ew75y",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T09:51:35.9788987Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Any other White background"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4p2rbygfh3awp1rh86g8pjf94t",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T09:51:35.9865255Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q4 - Which of the following best describes your White background?"
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/4",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4nd9exzmxy42sseqvbj1vssvxm",
+                    "ContentItemVersionId": "43ba84y2nfw0217t4wvy2fsg5x",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q3 - What is your ethnic group?",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T10:06:55.5166687Z",
+                    "PublishedUtc": "2021-07-02T10:06:55.6120348Z",
+                    "CreatedUtc": "2021-07-02T00:47:02.033525Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 3.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "4axsngq6wnbqdr63nq9j3jcgmc",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "What is your ethnic group?",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T10:06:55.5252661Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "What is your ethnic group?"
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "What is your ethnic group?"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4fqxpqs9m4m9837hwvxjt6gpxr",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.5294286Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "White"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "49dp2nn17c9apsfb6pa0qfhvd0",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.5374829Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Mixed or multiple ethnic groups"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "48vz5xg1thwzy6dsvzqt5c56xt"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4f04e0n1wavfc76fw4r92j8cd6",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.5483182Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Asian or Asian British"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "4es1zffcpxky9xe3yanafxfnnd"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4w4qvsh5e2wvcwck8g68j63emx",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.55895Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Black, African, Carribean or Black British"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "4e3kg1wz2vv80zf3zvbnck1v5k"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "42cx8s27mgkd10jbhh9ecpj24b",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.5697463Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Other ethnic group"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "47cczeashpe4e7cshtpp7pq1m8"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4b49rzxth08f55b74rtsk048wd",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:06:55.5795683Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q3 - What is your ethnic group?"
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/3",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "48vz5xg1thwzy6dsvzqt5c56xt",
+                    "ContentItemVersionId": "4gvhntvb6cs2q7pznetmy42mny",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q5 - Which of the following best describes  your Mixed or Multiple ethnic groups  background? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T10:08:10.0064534Z",
+                    "PublishedUtc": "2021-07-02T10:08:10.0829172Z",
+                    "CreatedUtc": "2021-07-02T01:05:48.3354764Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 5.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "47pfx1kg9s67w2ct1466qst54b",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Which of the following best describes  your Mixed or Multiple ethnic groups  background? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T10:08:10.0153647Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Which of the following best describes  your Mixed or Multiple ethnic groups  background? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Which of the following best describes  your Mixed or Multiple ethnic groups  background? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4eyavxtfdd0wywffpf137k81wd",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:08:10.0190753Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Black Caribbean and White"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "47jyczet6wnbb3tjca6c5k2b44",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:08:10.0283543Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Black African and White"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "48d617zfhgam6vv1tywd1mh2ww",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:08:10.0364048Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Asian and White"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "490461cdm2ne16zgd9844ktpmm",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:08:10.0460709Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Any other Mixed or Multiple ethnic background"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4j1tqhfgp0snpthr2v8rtnrkm5",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:08:10.0540517Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q5 - Which of the following best describes  your Mixed or Multiple ethnic groups  background? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/5",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4es1zffcpxky9xe3yanafxfnnd",
+                    "ContentItemVersionId": "45v97897vc1d91cw5nzs8tz3m7",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q6 - Which of the following best describes  your Asian or Asian British background? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T10:09:22.6061775Z",
+                    "PublishedUtc": "2021-07-02T10:09:22.7132043Z",
+                    "CreatedUtc": "2021-07-02T01:10:22.2252422Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 6.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "4gxay2dehtj5c0694mg3qa7nna",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Which of the following best describes  your Asian or Asian British background? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T10:09:22.6181253Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Which of the following best describes  your Asian or Asian British background? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Which of the following best describes  your Asian or Asian British background? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "42drq0g4bbfy9rg74x9g5kaq5z",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6220671Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Indian"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4v426g8n83gej0s28ty444fvmq",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6382229Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Pakistani"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4xvw13yphwaw658k9fwrnnsrxy",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6496872Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Bangladeshi"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4ebecrbza9n1k4q5sjaxhhzydr",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6592539Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Chinese"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4bdskq0qfab5r686t9x2drgbnk",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6687395Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Any other Asian background"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4y80k2s4jvaht419d2haebacm6",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:09:22.6789056Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q6 - Which of the following best describes  your Asian or Asian British background? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/6",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4e3kg1wz2vv80zf3zvbnck1v5k",
+                    "ContentItemVersionId": "4tg6fqpdv0p116aagvdjmgwn5e",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q7 - Which of the following best describes  your Black, African, Caribbean or Black  British background? ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T10:10:11.0921129Z",
+                    "PublishedUtc": "2021-07-02T10:10:11.1591936Z",
+                    "CreatedUtc": "2021-07-02T01:15:36.5132109Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 7.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "47fnsax9cfy8k20kayaxg5mpc9",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Which of the following best describes  your Black, African, Caribbean or Black  British background? ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T10:10:11.1003654Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Which of the following best describes  your Black, African, Caribbean or Black  British background? "
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Which of the following best describes  your Black, African, Caribbean or Black  British background? "
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4jwtcky6sd6d71fp00ehpth2mg",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:10:11.1040501Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "African"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4cffx5zn38exr5cp15fka0f7wy",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:10:11.1141175Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Caribbean"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "478m8gtnjntrp5sadw81v7kamx",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:10:11.1222149Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Any other Black, African or Caribbean background"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4n02th7hn402cx2nqxmv7ky7xt",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T10:10:11.131091Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": [
+                                                        "46vgsvey2wwnsyany0mrp9jcdm"
+                                                    ]
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q7 - Which of the following best describes  your Black, African, Caribbean or Black  British background? "
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/7",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4agsfz88tj9163mngmq2wmrvnw",
+                    "ContentItemVersionId": "4xnnj37pnqx7gyg3edbc9nkxx5",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q11 - Thank you for completing the  equality questions ",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T13:59:46.3980828Z",
+                    "PublishedUtc": "2021-07-02T13:59:46.4341433Z",
+                    "CreatedUtc": "2021-07-02T01:31:24.4847521Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 11.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "40ktphgmwq2gjtq8mxe4k43vxm",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Thank you for completing the equality questions ",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T13:59:46.4081543Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": null
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Thank you for completing the equality questions "
+                                },
+                                "BagPart": {
+                                    "ContentItems": []
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n          <h1 class=\"govuk-heading-xl\">Thank you for completing the equality questions</h1>\r\n\r\n          <p class=\"govuk-body-l\">By answering these questions, you'll help us make our service [enter reason here ]</p>\r\n\r\n          <p class=\"govuk-body\">For more information on how we use your data, read our <a class=\"govuk-link\" href=\"privacyNotice.html\">privacy notice.</a></p>\r\n\r\n          <p class=\"govuk-body\"><a class=\"govuk-link\" href=\"applicationSent.html\">Return to application overview</a></p>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->"
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q11 - Thank you for completing the  equality questions "
+                    },
+                    "FormPart": {
+                        "Action": "/",
+                        "Method": "GET",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/11",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                },
+                {
+                    "ContentItemId": "4n1cf1ebpryafwa5kxt2zb5qx9",
+                    "ContentItemVersionId": "461ct6rwcwfkv0pev0g7nvtyna",
+                    "ContentType": "EQSurveyPage",
+                    "DisplayText": "Q2 - Sex and gender identity",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-07-02T00:57:39.7399197Z",
+                    "PublishedUtc": "2021-07-02T00:57:39.7844174Z",
+                    "CreatedUtc": "2021-07-02T00:45:42.1862051Z",
+                    "Owner": "4eq86m3kb82e15tw79y1qa0cdr",
+                    "Author": "admin",
+                    "EQSurveyPage": {
+                        "PageNumber": {
+                            "Value": 2.0
+                        }
+                    },
+                    "BagPart": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "45bzgjtxhgr0m61knhk05dshmq",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EqualityQuestion",
+                                "DisplayText": "Sex and gender identity",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-07-02T00:57:39.7459547Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "admin",
+                                "EqualityQuestion": {
+                                    "Question": {
+                                        "Text": "Is the gender you identify with the same as your sex registered at birth?"
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Sex and gender identity"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4jq3wv0gvty4y5qvh59gv6dem7",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T00:57:39.7497146Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Yes"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4qda17trq4cmq6ybzy5x728fc3",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T00:57:39.7551987Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "No"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4ytmmvq9a8bj8v6rqb3vwf3d4e",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EqResponse",
+                                            "DisplayText": "",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-07-02T00:57:39.7607173Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "admin",
+                                            "EqResponse": {
+                                                "ResponseText": {
+                                                    "Text": "Prefer not to say"
+                                                },
+                                                "ResponseJump": {
+                                                    "ContentItemIds": []
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    "LiquidPart": {
+                        "Liquid": null
+                    },
+                    "PreviewPart": {},
+                    "TitlePart": {
+                        "Title": "Q2 - Sex and gender identity"
+                    },
+                    "FormPart": {
+                        "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                        "Method": "POST",
+                        "WorkflowTypeId": null,
+                        "EncType": "application/x-www-form-urlencoded",
+                        "EnableAntiForgeryToken": true
+                    },
+                    "AutoroutePart": {
+                        "Path": "EQSurvey/2",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    }
+                }
+            ]
+        },
+        {
+            "name": "AdminMenu",
+            "data": [
+                {
+                    "Id": "c323ce2d0c8e40a78742cbcdad64587a",
+                    "Name": "Equality Questionnaire",
+                    "Enabled": true,
+                    "MenuItems": [
+                        {
+                            "$type": "OrchardCore.AdminMenu.AdminNodes.PlaceholderAdminNode, OrchardCore.AdminMenu",
+                            "LinkText": "Equality Questionnaire",
+                            "IconClass": null,
+                            "PermissionNames": [
+                                "AccessAdminPanel"
+                            ],
+                            "UniqueId": "f9141f02b67646c393f5d6e095cb479f",
+                            "Enabled": true,
+                            "Text": null,
+                            "Id": null,
+                            "Href": null,
+                            "Url": null,
+                            "Position": "1",
+                            "Priority": 0,
+                            "LinkToFirstChild": true,
+                            "LocalNav": false,
+                            "Culture": null,
+                            "Items": [
+                                {
+                                    "$type": "OrchardCore.Contents.AdminNodes.ContentTypesAdminNode, OrchardCore.Contents",
+                                    "ShowAll": false,
+                                    "IconClass": null,
+                                    "ContentTypes": [
+                                        {
+                                            "ContentTypeId": "EQSurveyPage",
+                                            "IconClass": null
+                                        }
+                                    ],
+                                    "UniqueId": "57c9e20fe63944c389d8f41834a5e106",
+                                    "Enabled": true,
+                                    "Text": null,
+                                    "Id": null,
+                                    "Href": null,
+                                    "Url": null,
+                                    "Position": null,
+                                    "Priority": 0,
+                                    "LinkToFirstChild": true,
+                                    "LocalNav": false,
+                                    "Culture": null,
+                                    "Items": [
+                                        {
+                                            "$type": "OrchardCore.Contents.AdminNodes.ContentTypesAdminNode, OrchardCore.Contents",
+                                            "ShowAll": false,
+                                            "IconClass": null,
+                                            "ContentTypes": [
+                                                {
+                                                    "ContentTypeId": "EqSurveyResult",
+                                                    "IconClass": null
+                                                }
+                                            ],
+                                            "UniqueId": "c66153ad7d51432086d53a745bd0f41b",
+                                            "Enabled": true,
+                                            "Text": null,
+                                            "Id": null,
+                                            "Href": null,
+                                            "Url": null,
+                                            "Position": null,
+                                            "Priority": 0,
+                                            "LinkToFirstChild": true,
+                                            "LocalNav": false,
+                                            "Culture": null,
+                                            "Items": [],
+                                            "Classes": []
+                                        }
+                                    ],
+                                    "Classes": []
+                                }
+                            ],
+                            "Classes": []
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "Templates",
+            "Templates": {
+                "Content__LandingPage": {
+                    "Content": "{% zone \"Header\" %}\n<!-- Header -->\n<header class=\"masthead\">\n    <div class=\"container\">\n        <div class=\"masthead-subheading\">Welcome To Our Studio!</div>\n        <div class=\"masthead-heading text-uppercase\">{{ Model.ContentItem | display_text }}</div>\n        <a class=\"btn btn-primary btn-xl text-uppercase\" href=\"#services\">Tell Me More</a>\n    </div>\n</header>\n{% endzone %}\n\n{% if Model.ContentItem.Content.Services.ContentItems.size > 0 %}\n<!-- Services -->\n<section class=\"page-section\" id=\"services\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Services</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row text-center\">\n            {% for service in Model.ContentItem.Content.Services.ContentItems %}\n            <div class=\"col-md-4\">\n                <span class=\"fa-stack fa-4x\">\n                    <i class=\"fas fa-circle fa-stack-2x text-primary\"></i>\n                    <i class=\"fas {{ service.Service.IconClass.Text }} fa-stack-1x fa-inverse\"></i>\n                </span>\n                <h4 class=\"service-heading\">{{ service.DisplayText }}</h4>\n                <p class=\"text-muted\">{{ service.HtmlBodyPart.Html | raw }}</p>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Portfolio.ContentItems.size > 0 %}\n<!-- Portfolio Grid -->\n<section class=\"page-section bg-light\" id=\"portfolio\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Portfolio</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row\">\n            {% for project in Model.ContentItem.Content.Portfolio.ContentItems %}\n            <div class=\"col-lg-4 col-sm-6 mb-4\">\n                <div class=\"portfolio-item\">\n                    <a class=\"portfolio-link\" data-bs-toggle=\"modal\" href=\"#portfolioModal{{ forloop.index }}\">\n                        <div class=\"portfolio-hover\">\n                            <div class=\"portfolio-hover-content\"><i class=\"fas fa-plus fa-3x\"></i></div>\n                        </div>\n                        <img class=\"img-fluid\" src=\"{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'stretch' }}\" alt=\"{{ project.DisplayText }}\" />\n                    </a>\n                    <div class=\"portfolio-caption\">\n                        <div class=\"portfolio-caption-heading\">{{ project.DisplayText }}</div>\n                        <div class=\"portfolio-caption-subheading text-muted\">{{ project.Project.Category.Text }}</div>\n                    </div>\n                </div>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.About.ContentItems.size > 0 %}\n<!-- About -->\n<section class=\"page-section\" id=\"about\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">About</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <ul class=\"timeline\">\n            {% for milestone in Model.ContentItem.Content.About.ContentItems %}\n            <li class=\"{% cycle '', 'timeline-inverted' %}\">\n                <div class=\"timeline-image\">\n                    <img class=\"rounded-circle img-fluid\" src=\"{{ milestone.Milestone.Image.Paths.first | asset_url | resize_url: profile: 'extrasmall', mode: 'stretch' }}\" alt=\"\">\n                </div>\n                <div class=\"timeline-panel\">\n                    <div class=\"timeline-heading\">\n                        <h4>{{ milestone.Milestone.Date.Text }}</h4>\n                        <h4 class=\"subheading\">{{ milestone.DisplayText }}</h4>\n                    </div>\n                    <div class=\"timeline-body\">\n                        <p class=\"text-muted\">{{ milestone.HtmlBodyPart.Html }}</p>\n                    </div>\n                </div>\n            </li>\n            {% endfor %}\n            <li class=\"timeline-inverted\">\n                <div class=\"timeline-image\">\n                    <h4>\n                        Be Part\n                        <br>Of Our\n                        <br>Story!\n                    </h4>\n                </div>\n            </li>\n        </ul>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Team.ContentItems.size > 0 %}\n<!-- Team -->\n<section class=\"page-section bg-light\" id=\"team\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Our Amazing Team</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row\">\n            {% for member in Model.ContentItem.Content.Team.ContentItems %}\n            <div class=\"col-lg-4\">\n                <div class=\"team-member\">\n                    <img class=\"mx-auto rounded-circle\" src=\"{{ member.TeamMember.Picture.Paths.first | asset_url | resize_url: profile: 'small', mode: 'stretch' }}\" alt=\"\">\n                    <h4>{{ member.DisplayText }}</h4>\n                    <p class=\"text-muted\">{{ member.TeamMember.Occupation.Text }}</p>\n                    {% if member.TeamMember.Twitter.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.twitter.com/{{ member.TeamMember.Twitter.Text }}\">\n                        <i class=\"fab fa-twitter\"></i>\n                    </a>\n                    {% endif %}\n                    {% if member.TeamMember.Facebook.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.facebook.com/{{ member.TeamMember.Facebook.Text }}\">\n                        <i class=\"fab fa-facebook\"></i>\n                    </a>\n                    {% endif %}\n                    {% if member.TeamMember.LinkedIn.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.linkedin.com/in/{{ member.TeamMember.LinkedIn.Text }}\">\n                        <i class=\"fab fa-linkedin\"></i>\n                    </a>\n                    {% endif %}\n                </div>\n            </div>\n            {% endfor %}\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-8 mx-auto text-center\">\n                <p class=\"large text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>\n            </div>\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Clients.ContentItems.size > 0 %}\n<!-- Clients -->\n<div class=\"py-5\">\n    <div class=\"container\">\n        <div class=\"row align-items-center\">\n            {% for client in Model.ContentItem.Content.Clients.ContentItems %}\n            <div class=\"col-md-3 col-sm-6 my-3\">\n                <a href=\"{{ client.Client.Url.Text }}\">\n                    <img class=\"img-fluid img-brand d-block mx-auto\" src=\"{{ client.Client.Logo.Paths.first | asset_url }}\" alt=\"\">\n                </a>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</div>\n{% endif %}\n\n<!-- Contact -->\n<section class=\"page-section\" id=\"contact\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Contact Us</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <form id=\"contactForm\" name=\"sentMessage\" novalidate=\"novalidate\">\n            <div class=\"row align-items-stretch mb-5\">\n                <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                        <input class=\"form-control\" id=\"name\" type=\"text\" placeholder=\"Your Name *\" required=\"required\" data-validation-required-message=\"Please enter your name.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                    <div class=\"form-group\">\n                        <input class=\"form-control\" id=\"email\" type=\"email\" placeholder=\"Your Email *\" required=\"required\" data-validation-required-message=\"Please enter your email address.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                    <div class=\"form-group mb-md-0\">\n                        <input class=\"form-control\" id=\"phone\" type=\"tel\" placeholder=\"Your Phone *\" required=\"required\" data-validation-required-message=\"Please enter your phone number.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                </div>\n                <div class=\"col-md-6\">\n                    <div class=\"form-group form-group-textarea mb-md-0\">\n                        <textarea class=\"form-control\" id=\"message\" placeholder=\"Your Message *\" required=\"required\" data-validation-required-message=\"Please enter a message.\"></textarea>\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"text-center\">\n                <div id=\"success\"></div>\n                <button class=\"btn btn-primary btn-xl text-uppercase\" id=\"sendMessageButton\" type=\"submit\">Send Message</button>\n            </div>\n        </form>\n    </div>\n</section>\n\n<!-- Modals -->\n{% for project in Model.ContentItem.Content.Portfolio.ContentItems %}\n<div class=\"portfolio-modal modal fade\" id=\"portfolioModal{{ forloop.index }}\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"close-modal\" data-bs-dismiss=\"modal\"><img src=\"/TheAgencyTheme/assets/img/close-icon.svg\" alt=\"Close modal\" /></div>\n            <div class=\"container\">\n                <div class=\"row justify-content-center\">\n                    <div class=\"col-lg-8\">\n                        <div class=\"modal-body\">\n                            <!-- Project Details Go Here -->\n                            <h2 class=\"text-uppercase\">{{ project.DisplayText }}</h2>\n                            <p class=\"item-intro text-muted\">{{ project.Project.Category.Text }}</p>\n                            <img class=\"img-fluid d-block mx-auto\" src=\"{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'max' }}\" alt=\"{{ project.DisplayText }}\">\n                            <p>{{ project.HtmlBodyPart.Html | raw }}</p>\n                            {% comment %}\n                            <ul class=\"list-inline\">\n                                <li>Date: January 2017</li>\n                                <li>Client: Threads</li>\n                                <li>Category: Illustration</li>\n                            </ul>\n                            {% endcomment %}\n                            <button class=\"btn btn-primary\" data-bs-dismiss=\"modal\" type=\"button\">\n                                <i class=\"fa fa-times me-1\"></i>\n                                Close Project\n                            </button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n{% endfor %}",
+                    "Description": "A template for the Landing Page content type"
+                },
+                "Content__EQSurveyPage": {
+                    "Content": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n{{ Model.ContentItem.Content.LiquidPart.Liquid | liquid }}\r\n<div class=\"govuk-form-group\">\r\n  <fieldset class=\"govuk-fieldset\">\r\n    <legend class=\"govuk-fieldset__legend govuk-fieldset__legend--l\">\r\n      <h1 class=\"govuk-fieldset__heading\">\r\n        {{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\r\n      </h1>\r\n    </legend>\r\n    <div class=\"govuk-radios\">\r\n      {% for response in Model.ContentItem.Content.BagPart.ContentItems[0].BagPart.ContentItems %}\r\n      <div class=\"govuk-radios__item\">\r\n        <input class=\"govuk-radios__input\" id=\"EqResponseTxt\" name=\"EqResponseTxt\" type=\"radio\" value=\"{{ response.EqResponse.ResponseText.Text }} - {{ response.EqResponse.ResponseJump.ContentItemIds[0] | display_url }}\">\r\n        <label class=\"govuk-label govuk-radios__label\" for=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text | slugify }}\">\r\n          {{ response.EqResponse.ResponseText.Text }}\r\n        </label>\r\n      </div>\r\n      {% endfor %}\r\n    </div>\r\n  </fieldset>\r\n</div>\r\n<input type=\"hidden\" id=\"EqQuestionNum\" name=\"EqQuestionNum\" value=\"{{ Model.ContentItem.Content.EQSurveyPage.PageNumber.Value }}\">\r\n<input type=\"hidden\" id=\"EqQuestionTxt\" name=\"EqQuestionTxt\" value=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\">\r\n<button class=\"govuk-button\" data-module=\"govuk-button\">\r\n  Continue\r\n</button>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->",
+                    "Description": "Liquid Template for Equality Survey Page"
+                }
+            }
+        },
+        {
+            "name": "WorkflowType",
+            "data": [
+                {
+                    "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
+                    "Name": "EQSurvey",
+                    "IsEnabled": true,
+                    "IsSingleton": false,
+                    "LockTimeout": 0,
+                    "LockExpiration": 0,
+                    "DeleteFinishedWorkflows": false,
+                    "Activities": [
+                        {
+                            "ActivityId": "4qvf3bv6pw4y4y0z12rfk611wv",
+                            "Name": "HttpRequestEvent",
+                            "X": 10,
+                            "Y": 10,
+                            "IsStart": true,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "EqSurveyPage POST"
+                                },
+                                "HttpMethod": "POST",
+                                "Url": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
+                                "ValidateAntiforgeryToken": true,
+                                "TokenLifeSpan": 0
+                            }
+                        },
+                        {
+                            "ActivityId": "4dd0dzvv12fbb7w4m811khn6c8",
+                            "Name": "CreateContentTask",
+                            "X": 670,
+                            "Y": 120,
+                            "IsStart": false,
+                            "Properties": {
+                                "ContentType": "EqSurveyResult",
+                                "Publish": true,
+                                "ContentProperties": {
+                                    "Expression": "{\r\n  \"EqSurveyResult\": {\r\n    \"EqQuestionTxt\": {\r\n      \"Text\": \"{{ Request.Form.EqQuestionTxt }}\"\r\n    },\r\n    \"EqQuestionNum\": {\r\n      \"Value\": \"{{ Request.Form.EqQuestionNum }}\"\r\n    },\r\n    \"EqResponseTxt\": {\r\n      \"Text\": \"{{ Request.Form.EqResponseTxt | split: \" - \" | first }}\"\r\n    },\r\n    \"EqUserTag\": {\r\n      \"Text\": \"XXX\"\r\n    }\r\n  }\r\n}"
+                                },
+                                "ActivityMetadata": {
+                                    "Title": "Save EqResponse"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "43q3ppn9x7x6xrre6032pktx56",
+                            "Name": "IfElseTask",
+                            "X": 1000,
+                            "Y": 120,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "If Survey Branch Present in Request"
+                                },
+                                "Condition": {
+                                    "Expression": "property(\"EqResponseUrl\").length > 0"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "46nm3zpr3cxkayd41bn8np6e4j",
+                            "Name": "HttpRedirectTask",
+                            "X": 1480,
+                            "Y": 170,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Next Question"
+                                },
+                                "Location": {
+                                    "Expression": "/EQSurvey/{{Workflow.Properties[\"EqQuestionNum\"] | plus: 1}}"
+                                },
+                                "Permanent": false
+                            }
+                        },
+                        {
+                            "ActivityId": "47c5xwvz1dn2g4rstb95mctamg",
+                            "Name": "HttpRedirectTask",
+                            "X": 1480,
+                            "Y": 70,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Redirect to Branch URL"
+                                },
+                                "Location": {
+                                    "Expression": "{{ Workflow.Properties[\"EqResponseUrl\"] }}"
+                                },
+                                "Permanent": false
+                            }
+                        },
+                        {
+                            "ActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk",
+                            "Name": "SetPropertyTask",
+                            "X": 270,
+                            "Y": 10,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Save POST Values - EqQuestionNum"
+                                },
+                                "PropertyName": "EqQuestionNum",
+                                "Value": {
+                                    "Expression": "requestForm(\"EqQuestionNum\")"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4rhyyh34b6m270yeds7qx1xa57",
+                            "Name": "SetPropertyTask",
+                            "X": 270,
+                            "Y": 120,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Save POST Values - EqQuestionTxt"
+                                },
+                                "PropertyName": "EqQuestionTxt",
+                                "Value": {
+                                    "Expression": "requestForm(\"EqQuestionTxt\")"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4v4aept5xe6my1d5e7gbyx7scp",
+                            "Name": "SetPropertyTask",
+                            "X": 270,
+                            "Y": 240,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Save POST Values - EqResponseTxt"
+                                },
+                                "PropertyName": "EqResponseTxt",
+                                "Value": {
+                                    "Expression": "requestForm(\"EqResponseTxt\").split(\" - \")[0]"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "4kcbyv74x9z88y7hhbpmr715wx",
+                            "Name": "SetPropertyTask",
+                            "X": 270,
+                            "Y": 350,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Save POST Values - EqResponseUrl"
+                                },
+                                "PropertyName": "EqResponseUrl",
+                                "Value": {
+                                    "Expression": "requestForm(\"EqResponseTxt\").split(\" - \")[1]"
+                                }
+                            }
+                        }
+                    ],
+                    "Transitions": [
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4dd0dzvv12fbb7w4m811khn6c8",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "43q3ppn9x7x6xrre6032pktx56"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "43q3ppn9x7x6xrre6032pktx56",
+                            "SourceOutcomeName": "False",
+                            "DestinationActivityId": "46nm3zpr3cxkayd41bn8np6e4j"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "43q3ppn9x7x6xrre6032pktx56",
+                            "SourceOutcomeName": "True",
+                            "DestinationActivityId": "47c5xwvz1dn2g4rstb95mctamg"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4qvf3bv6pw4y4y0z12rfk611wv",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4rhyyh34b6m270yeds7qx1xa57"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4rhyyh34b6m270yeds7qx1xa57",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4v4aept5xe6my1d5e7gbyx7scp"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4v4aept5xe6my1d5e7gbyx7scp",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4kcbyv74x9z88y7hhbpmr715wx"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4kcbyv74x9z88y7hhbpmr715wx",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "4dd0dzvv12fbb7w4m811khn6c8"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "ReplaceContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "EqualityQuestion",
+                    "DisplayName": "Equality Question",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EqualityQuestion",
+                            "Name": "EqualityQuestion",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "BagPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Responses",
+                                    "Description": "Provides a collection behavior for your content item where you can place other content items.",
+                                    "Position": "2"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "EqResponse"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EqResponse",
+                    "DisplayName": "Eq Response",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EqResponse",
+                            "Name": "EqResponse",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EQSurveyPage",
+                    "DisplayName": "EQ Survey Page",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EQSurveyPage",
+                            "Name": "EQSurveyPage",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "BagPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Questions",
+                                    "Description": "Provides a collection behavior for your content item where you can place other content items.",
+                                    "Position": "3"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "EqualityQuestion"
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "LiquidPart",
+                            "Name": "LiquidPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "PreviewPart",
+                            "Name": "PreviewPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "6"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "FormPart",
+                            "Name": "FormPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "5"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AutoroutePart",
+                            "Name": "AutoroutePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                },
+                                "AutoroutePartSettings": {
+                                    "AllowCustomPath": true,
+                                    "Pattern": "EQSurvey/{{ ContentItem.PageNumber.Value | floor | slugify }}",
+                                    "AllowUpdatePath": true
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EqSurveyResult",
+                    "DisplayName": "Eq Survey Result",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EqSurveyResult",
+                            "Name": "EqSurveyResult",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "EqualityQuestion",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Question",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Question",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EqResponse",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "ResponseText",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Response Text",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "ContentPickerField",
+                            "Name": "ResponseJump",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Response Jump",
+                                    "Position": "1"
+                                },
+                                "ContentPickerFieldSettings": {
+                                    "Hint": "Jump to this Survey Page if this response is selected",
+                                    "DisplayedContentTypes": [
+                                        "EQSurveyPage"
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EQSurveyPage",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "PageNumber",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Page Number",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EqSurveyResult",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "EqQuestionTxt",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "EqQuestionTxt",
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "NumericField",
+                            "Name": "EqQuestionNum",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "EqQuestionNum",
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "EqResponseTxt",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "EqResponseTxt",
+                                    "Position": "3"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "EqUserTag",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "EqUserTag",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
