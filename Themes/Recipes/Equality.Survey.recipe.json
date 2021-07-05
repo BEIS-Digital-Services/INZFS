@@ -4,30 +4,19 @@
     "description": "Content, Content Types and Workflow for Equality Survey",
     "author": "Richard Anderson",
     "website": "",
-    "version": "",
+    "version": "1.0",
     "issetuprecipe": false,
     "categories": [],
     "tags": [],
     "variables": {
-        "varWorkFlowID": "[js:uuid()]",
-        "varQ1ID": "[js:uuid()]",
-        "varQ2ID": "[js:uuid()]",
-        "varQ3IDD": "[js:uuid()]",
-        "varQ4ID": "[js:uuid()]",
-        "varQ5ID": "[js:uuid()]",
-        "varQ6ID": "[js:uuid()]",
-        "varQ7ID": "[js:uuid()]",
-        "varQ8ID": "[js:uuid()]",
-        "varQ9ID": "[js:uuid()]",
-        "varQ10ID": "[js:uuid()]",
-        "varQ11ID": "[js:uuid()]"
+        "varWorkFlowID": "[js:uuid()]"
     },
     "steps": [
         {
             "name": "feature",
             "disable": [],
             "enable": [
-                "AdminMenu"
+                "OrchardCore.AdminMenu"
             ]
         },
         {
@@ -152,7 +141,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -283,7 +272,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -435,7 +424,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -566,7 +555,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -749,7 +738,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -951,7 +940,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -1134,7 +1123,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -1340,7 +1329,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -1500,7 +1489,7 @@
                     "FormPart": {
                         "Action": "/workflows/Invoke?token=CfDJ8NJ_VAN4rKRIidR7MIprqhVTuv4768evsVoJQKuAf7z332AbEPkY8kQHHIH6VXCtwu4AkN0h-nNCBf-XdshNy5f26vVL1gmoUM0Zjhy0xZ7Pc9vw2mIuw7qYuDgbWOcVv3gnTubezkP0MhCQhkO1DbfMDMMiLfoW082MvgJ7MoptU61i7OWN9rtsWv0G-xL1mzr69Q8Egur_hM4bsp6YvbEWJElpQ3N1g17ShsYPVE-A",
                         "Method": "POST",
-                        "WorkflowTypeId": null,
+                        "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
                         "EncType": "application/x-www-form-urlencoded",
                         "EnableAntiForgeryToken": true
                     },
@@ -1558,7 +1547,7 @@
                         ]
                     },
                     "LiquidPart": {
-                        "Liquid": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n          <h1 class=\"govuk-heading-xl\">Thank you for completing the equality questions</h1>\r\n\r\n          <p class=\"govuk-body-l\">By answering these questions, you'll help us make our service [enter reason here ]</p>\r\n\r\n          <p class=\"govuk-body\">For more information on how we use your data, read our <a class=\"govuk-link\" href=\"privacyNotice.html\">privacy notice.</a></p>\r\n\r\n          <p class=\"govuk-body\"><a class=\"govuk-link\" href=\"applicationSent.html\">Return to application overview</a></p>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->"
+                        "Liquid": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n          <h1 class=\"govuk-heading-xl\">Thank you for completing the equality questions</h1>\r\n\r\n          <p class=\"govuk-body-l\">By answering these questions, you'll help us make our service [enter reason here ]</p>\r\n\r\n          <p class=\"govuk-body\">For more information on how we use your data, read our <a class=\"govuk-link\" href=\"privacyNotice.html\">privacy notice.</a></p>\r\n\r\n          <p class=\"govuk-body\"><a class=\"govuk-link\" href=\"applicationSent.html\">Return to application overview</a></p>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->"
                     },
                     "PreviewPart": {},
                     "TitlePart": {
@@ -1733,7 +1722,7 @@
                             "Id": null,
                             "Href": null,
                             "Url": null,
-                            "Position": "1",
+                            "Position": "100",
                             "Priority": 0,
                             "LinkToFirstChild": true,
                             "LocalNav": false,
@@ -1798,12 +1787,8 @@
         {
             "name": "Templates",
             "Templates": {
-                "Content__LandingPage": {
-                    "Content": "{% zone \"Header\" %}\n<!-- Header -->\n<header class=\"masthead\">\n    <div class=\"container\">\n        <div class=\"masthead-subheading\">Welcome To Our Studio!</div>\n        <div class=\"masthead-heading text-uppercase\">{{ Model.ContentItem | display_text }}</div>\n        <a class=\"btn btn-primary btn-xl text-uppercase\" href=\"#services\">Tell Me More</a>\n    </div>\n</header>\n{% endzone %}\n\n{% if Model.ContentItem.Content.Services.ContentItems.size > 0 %}\n<!-- Services -->\n<section class=\"page-section\" id=\"services\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Services</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row text-center\">\n            {% for service in Model.ContentItem.Content.Services.ContentItems %}\n            <div class=\"col-md-4\">\n                <span class=\"fa-stack fa-4x\">\n                    <i class=\"fas fa-circle fa-stack-2x text-primary\"></i>\n                    <i class=\"fas {{ service.Service.IconClass.Text }} fa-stack-1x fa-inverse\"></i>\n                </span>\n                <h4 class=\"service-heading\">{{ service.DisplayText }}</h4>\n                <p class=\"text-muted\">{{ service.HtmlBodyPart.Html | raw }}</p>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Portfolio.ContentItems.size > 0 %}\n<!-- Portfolio Grid -->\n<section class=\"page-section bg-light\" id=\"portfolio\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Portfolio</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row\">\n            {% for project in Model.ContentItem.Content.Portfolio.ContentItems %}\n            <div class=\"col-lg-4 col-sm-6 mb-4\">\n                <div class=\"portfolio-item\">\n                    <a class=\"portfolio-link\" data-bs-toggle=\"modal\" href=\"#portfolioModal{{ forloop.index }}\">\n                        <div class=\"portfolio-hover\">\n                            <div class=\"portfolio-hover-content\"><i class=\"fas fa-plus fa-3x\"></i></div>\n                        </div>\n                        <img class=\"img-fluid\" src=\"{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'stretch' }}\" alt=\"{{ project.DisplayText }}\" />\n                    </a>\n                    <div class=\"portfolio-caption\">\n                        <div class=\"portfolio-caption-heading\">{{ project.DisplayText }}</div>\n                        <div class=\"portfolio-caption-subheading text-muted\">{{ project.Project.Category.Text }}</div>\n                    </div>\n                </div>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.About.ContentItems.size > 0 %}\n<!-- About -->\n<section class=\"page-section\" id=\"about\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">About</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <ul class=\"timeline\">\n            {% for milestone in Model.ContentItem.Content.About.ContentItems %}\n            <li class=\"{% cycle '', 'timeline-inverted' %}\">\n                <div class=\"timeline-image\">\n                    <img class=\"rounded-circle img-fluid\" src=\"{{ milestone.Milestone.Image.Paths.first | asset_url | resize_url: profile: 'extrasmall', mode: 'stretch' }}\" alt=\"\">\n                </div>\n                <div class=\"timeline-panel\">\n                    <div class=\"timeline-heading\">\n                        <h4>{{ milestone.Milestone.Date.Text }}</h4>\n                        <h4 class=\"subheading\">{{ milestone.DisplayText }}</h4>\n                    </div>\n                    <div class=\"timeline-body\">\n                        <p class=\"text-muted\">{{ milestone.HtmlBodyPart.Html }}</p>\n                    </div>\n                </div>\n            </li>\n            {% endfor %}\n            <li class=\"timeline-inverted\">\n                <div class=\"timeline-image\">\n                    <h4>\n                        Be Part\n                        <br>Of Our\n                        <br>Story!\n                    </h4>\n                </div>\n            </li>\n        </ul>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Team.ContentItems.size > 0 %}\n<!-- Team -->\n<section class=\"page-section bg-light\" id=\"team\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Our Amazing Team</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <div class=\"row\">\n            {% for member in Model.ContentItem.Content.Team.ContentItems %}\n            <div class=\"col-lg-4\">\n                <div class=\"team-member\">\n                    <img class=\"mx-auto rounded-circle\" src=\"{{ member.TeamMember.Picture.Paths.first | asset_url | resize_url: profile: 'small', mode: 'stretch' }}\" alt=\"\">\n                    <h4>{{ member.DisplayText }}</h4>\n                    <p class=\"text-muted\">{{ member.TeamMember.Occupation.Text }}</p>\n                    {% if member.TeamMember.Twitter.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.twitter.com/{{ member.TeamMember.Twitter.Text }}\">\n                        <i class=\"fab fa-twitter\"></i>\n                    </a>\n                    {% endif %}\n                    {% if member.TeamMember.Facebook.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.facebook.com/{{ member.TeamMember.Facebook.Text }}\">\n                        <i class=\"fab fa-facebook\"></i>\n                    </a>\n                    {% endif %}\n                    {% if member.TeamMember.LinkedIn.Text.size > 0 %}\n                    <a class=\"btn btn-dark btn-social mx-2\" href=\"https://www.linkedin.com/in/{{ member.TeamMember.LinkedIn.Text }}\">\n                        <i class=\"fab fa-linkedin\"></i>\n                    </a>\n                    {% endif %}\n                </div>\n            </div>\n            {% endfor %}\n        </div>\n        <div class=\"row\">\n            <div class=\"col-lg-8 mx-auto text-center\">\n                <p class=\"large text-muted\">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>\n            </div>\n        </div>\n    </div>\n</section>\n{% endif %}\n\n{% if Model.ContentItem.Content.Clients.ContentItems.size > 0 %}\n<!-- Clients -->\n<div class=\"py-5\">\n    <div class=\"container\">\n        <div class=\"row align-items-center\">\n            {% for client in Model.ContentItem.Content.Clients.ContentItems %}\n            <div class=\"col-md-3 col-sm-6 my-3\">\n                <a href=\"{{ client.Client.Url.Text }}\">\n                    <img class=\"img-fluid img-brand d-block mx-auto\" src=\"{{ client.Client.Logo.Paths.first | asset_url }}\" alt=\"\">\n                </a>\n            </div>\n            {% endfor %}\n        </div>\n    </div>\n</div>\n{% endif %}\n\n<!-- Contact -->\n<section class=\"page-section\" id=\"contact\">\n    <div class=\"container\">\n        <div class=\"text-center\">\n            <h2 class=\"section-heading text-uppercase\">Contact Us</h2>\n            <h3 class=\"section-subheading text-muted\">Lorem ipsum dolor sit amet consectetur.</h3>\n        </div>\n        <form id=\"contactForm\" name=\"sentMessage\" novalidate=\"novalidate\">\n            <div class=\"row align-items-stretch mb-5\">\n                <div class=\"col-md-6\">\n                    <div class=\"form-group\">\n                        <input class=\"form-control\" id=\"name\" type=\"text\" placeholder=\"Your Name *\" required=\"required\" data-validation-required-message=\"Please enter your name.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                    <div class=\"form-group\">\n                        <input class=\"form-control\" id=\"email\" type=\"email\" placeholder=\"Your Email *\" required=\"required\" data-validation-required-message=\"Please enter your email address.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                    <div class=\"form-group mb-md-0\">\n                        <input class=\"form-control\" id=\"phone\" type=\"tel\" placeholder=\"Your Phone *\" required=\"required\" data-validation-required-message=\"Please enter your phone number.\" />\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                </div>\n                <div class=\"col-md-6\">\n                    <div class=\"form-group form-group-textarea mb-md-0\">\n                        <textarea class=\"form-control\" id=\"message\" placeholder=\"Your Message *\" required=\"required\" data-validation-required-message=\"Please enter a message.\"></textarea>\n                        <p class=\"help-block text-danger\"></p>\n                    </div>\n                </div>\n            </div>\n            <div class=\"text-center\">\n                <div id=\"success\"></div>\n                <button class=\"btn btn-primary btn-xl text-uppercase\" id=\"sendMessageButton\" type=\"submit\">Send Message</button>\n            </div>\n        </form>\n    </div>\n</section>\n\n<!-- Modals -->\n{% for project in Model.ContentItem.Content.Portfolio.ContentItems %}\n<div class=\"portfolio-modal modal fade\" id=\"portfolioModal{{ forloop.index }}\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"true\">\n    <div class=\"modal-dialog\">\n        <div class=\"modal-content\">\n            <div class=\"close-modal\" data-bs-dismiss=\"modal\"><img src=\"/TheAgencyTheme/assets/img/close-icon.svg\" alt=\"Close modal\" /></div>\n            <div class=\"container\">\n                <div class=\"row justify-content-center\">\n                    <div class=\"col-lg-8\">\n                        <div class=\"modal-body\">\n                            <!-- Project Details Go Here -->\n                            <h2 class=\"text-uppercase\">{{ project.DisplayText }}</h2>\n                            <p class=\"item-intro text-muted\">{{ project.Project.Category.Text }}</p>\n                            <img class=\"img-fluid d-block mx-auto\" src=\"{{ project.Project.Image.Paths.first | asset_url | resize_url: profile: 'medium', mode: 'max' }}\" alt=\"{{ project.DisplayText }}\">\n                            <p>{{ project.HtmlBodyPart.Html | raw }}</p>\n                            {% comment %}\n                            <ul class=\"list-inline\">\n                                <li>Date: January 2017</li>\n                                <li>Client: Threads</li>\n                                <li>Category: Illustration</li>\n                            </ul>\n                            {% endcomment %}\n                            <button class=\"btn btn-primary\" data-bs-dismiss=\"modal\" type=\"button\">\n                                <i class=\"fa fa-times me-1\"></i>\n                                Close Project\n                            </button>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>\n{% endfor %}",
-                    "Description": "A template for the Landing Page content type"
-                },
                 "Content__EQSurveyPage": {
-                    "Content": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n{{ Model.ContentItem.Content.LiquidPart.Liquid | liquid }}\r\n<div class=\"govuk-form-group\">\r\n  <fieldset class=\"govuk-fieldset\">\r\n    <legend class=\"govuk-fieldset__legend govuk-fieldset__legend--l\">\r\n      <h1 class=\"govuk-fieldset__heading\">\r\n        {{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\r\n      </h1>\r\n    </legend>\r\n    <div class=\"govuk-radios\">\r\n      {% for response in Model.ContentItem.Content.BagPart.ContentItems[0].BagPart.ContentItems %}\r\n      <div class=\"govuk-radios__item\">\r\n        <input class=\"govuk-radios__input\" id=\"EqResponseTxt\" name=\"EqResponseTxt\" type=\"radio\" value=\"{{ response.EqResponse.ResponseText.Text }} - {{ response.EqResponse.ResponseJump.ContentItemIds[0] | display_url }}\">\r\n        <label class=\"govuk-label govuk-radios__label\" for=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text | slugify }}\">\r\n          {{ response.EqResponse.ResponseText.Text }}\r\n        </label>\r\n      </div>\r\n      {% endfor %}\r\n    </div>\r\n  </fieldset>\r\n</div>\r\n<input type=\"hidden\" id=\"EqQuestionNum\" name=\"EqQuestionNum\" value=\"{{ Model.ContentItem.Content.EQSurveyPage.PageNumber.Value }}\">\r\n<input type=\"hidden\" id=\"EqQuestionTxt\" name=\"EqQuestionTxt\" value=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\">\r\n<button class=\"govuk-button\" data-module=\"govuk-button\">\r\n  Continue\r\n</button>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->",
+                    "Content": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n  <main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n    \r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n{{ Model.ContentItem.Content.LiquidPart.Liquid | liquid }}\r\n<div class=\"govuk-form-group {% if Request.QueryString contains \"err\" %}govuk-form-group--error{% endif %}\">\r\n  <fieldset class=\"govuk-fieldset\">\r\n    <legend class=\"govuk-fieldset__legend govuk-fieldset__legend--l\">\r\n      <h1 class=\"govuk-fieldset__heading\">\r\n        {{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\r\n      </h1>\r\n    </legend>\r\n    {% if Request.QueryString contains \"err\" %}\r\n    <span id=\"no-response\" class=\"govuk-error-message\">\r\n      <span class=\"govuk-visually-hidden\">Error:</span> Please select a response\r\n    </span>\r\n    {% endif %}\r\n    <div class=\"govuk-radios\">\r\n      {% for response in Model.ContentItem.Content.BagPart.ContentItems[0].BagPart.ContentItems %}\r\n      <div class=\"govuk-radios__item\">\r\n        <input class=\"govuk-radios__input\" id=\"EqResponseTxt\" name=\"EqResponseTxt\" type=\"radio\" value=\"{{ response.EqResponse.ResponseText.Text }} - {{ response.EqResponse.ResponseJump.ContentItemIds[0] }}\">\r\n        <label class=\"govuk-label govuk-radios__label\" for=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text | slugify }}\">\r\n          {{ response.EqResponse.ResponseText.Text }}\r\n        </label>\r\n      </div>\r\n      {% endfor %}\r\n    </div>\r\n  </fieldset>\r\n</div>\r\n<input type=\"hidden\" id=\"EqQuestionNum\" name=\"EqQuestionNum\" value=\"{{ Model.ContentItem.Content.EQSurveyPage.PageNumber.Value }}\">\r\n<input type=\"hidden\" id=\"EqQuestionTxt\" name=\"EqQuestionTxt\" value=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\">\r\n<button class=\"govuk-button\" data-module=\"govuk-button\">\r\n  Continue\r\n</button>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n  </main>\r\n</div>\r\n<!-- end main content component -->",
                     "Description": "Liquid Template for Equality Survey Page"
                 }
             }
@@ -1812,12 +1797,10 @@
             "name": "WorkflowType",
             "data": [
                 {
-                    "WorkflowTypeId": "[js: variables('varWorkFlowID')]",
+                    "WorkflowTypeId": "4b4896pkj6nbmt646kcnwg0qdr",
                     "Name": "EQSurvey",
                     "IsEnabled": true,
                     "IsSingleton": false,
-                    "LockTimeout": 0,
-                    "LockExpiration": 0,
                     "DeleteFinishedWorkflows": false,
                     "Activities": [
                         {
@@ -1839,7 +1822,7 @@
                         {
                             "ActivityId": "4dd0dzvv12fbb7w4m811khn6c8",
                             "Name": "CreateContentTask",
-                            "X": 670,
+                            "X": 930,
                             "Y": 120,
                             "IsStart": false,
                             "Properties": {
@@ -1856,7 +1839,7 @@
                         {
                             "ActivityId": "43q3ppn9x7x6xrre6032pktx56",
                             "Name": "IfElseTask",
-                            "X": 1000,
+                            "X": 1130,
                             "Y": 120,
                             "IsStart": false,
                             "Properties": {
@@ -1895,7 +1878,7 @@
                                     "Title": "Redirect to Branch URL"
                                 },
                                 "Location": {
-                                    "Expression": "{{ Workflow.Properties[\"EqResponseUrl\"] }}"
+                                    "Expression": "/EQSurvey/{{ Workflow.Properties[\"EqResponseUrl\"] | display_url | split: \"/\" | last }}"
                                 },
                                 "Permanent": false
                             }
@@ -1903,8 +1886,8 @@
                         {
                             "ActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk",
                             "Name": "SetPropertyTask",
-                            "X": 270,
-                            "Y": 10,
+                            "X": 570,
+                            "Y": 30,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -1919,8 +1902,8 @@
                         {
                             "ActivityId": "4rhyyh34b6m270yeds7qx1xa57",
                             "Name": "SetPropertyTask",
-                            "X": 270,
-                            "Y": 120,
+                            "X": 570,
+                            "Y": 160,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -1935,8 +1918,8 @@
                         {
                             "ActivityId": "4v4aept5xe6my1d5e7gbyx7scp",
                             "Name": "SetPropertyTask",
-                            "X": 270,
-                            "Y": 240,
+                            "X": 570,
+                            "Y": 290,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -1951,8 +1934,8 @@
                         {
                             "ActivityId": "4kcbyv74x9z88y7hhbpmr715wx",
                             "Name": "SetPropertyTask",
-                            "X": 270,
-                            "Y": 350,
+                            "X": 570,
+                            "Y": 420,
                             "IsStart": false,
                             "Properties": {
                                 "ActivityMetadata": {
@@ -1962,6 +1945,37 @@
                                 "Value": {
                                     "Expression": "requestForm(\"EqResponseTxt\").split(\" - \")[1]"
                                 }
+                            }
+                        },
+                        {
+                            "ActivityId": "47x0tfxnj28ynvr39q8fxbf1xa",
+                            "Name": "IfElseTask",
+                            "X": 260,
+                            "Y": 130,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "If Valid Response"
+                                },
+                                "Condition": {
+                                    "Expression": "requestForm(\"EqResponseTxt\") == null"
+                                }
+                            }
+                        },
+                        {
+                            "ActivityId": "464e90qf5m8412cyd7q9e2mcx5",
+                            "Name": "HttpRedirectTask",
+                            "X": 250,
+                            "Y": 310,
+                            "IsStart": false,
+                            "Properties": {
+                                "ActivityMetadata": {
+                                    "Title": "Display Validation Error"
+                                },
+                                "Location": {
+                                    "Expression": "/EQSurvey/{{ Request.Headers.Referer | split: \"/\" | last }}?err=1"
+                                },
+                                "Permanent": false
                             }
                         }
                     ],
@@ -1986,12 +2000,6 @@
                         },
                         {
                             "Id": 0,
-                            "SourceActivityId": "4qvf3bv6pw4y4y0z12rfk611wv",
-                            "SourceOutcomeName": "Done",
-                            "DestinationActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk"
-                        },
-                        {
-                            "Id": 0,
                             "SourceActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4rhyyh34b6m270yeds7qx1xa57"
@@ -2013,6 +2021,24 @@
                             "SourceActivityId": "4kcbyv74x9z88y7hhbpmr715wx",
                             "SourceOutcomeName": "Done",
                             "DestinationActivityId": "4dd0dzvv12fbb7w4m811khn6c8"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "4qvf3bv6pw4y4y0z12rfk611wv",
+                            "SourceOutcomeName": "Done",
+                            "DestinationActivityId": "47x0tfxnj28ynvr39q8fxbf1xa"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "47x0tfxnj28ynvr39q8fxbf1xa",
+                            "SourceOutcomeName": "True",
+                            "DestinationActivityId": "464e90qf5m8412cyd7q9e2mcx5"
+                        },
+                        {
+                            "Id": 0,
+                            "SourceActivityId": "47x0tfxnj28ynvr39q8fxbf1xa",
+                            "SourceOutcomeName": "False",
+                            "DestinationActivityId": "40ef5t0nmjszz4f6hkpv4fjdnk"
                         }
                     ]
                 }
@@ -2180,7 +2206,7 @@
                                 },
                                 "AutoroutePartSettings": {
                                     "AllowCustomPath": true,
-                                    "Pattern": "EQSurvey/{{ ContentItem.PageNumber.Value | floor | slugify }}",
+                                    "Pattern": "EQSurvey/{{ ContentItem.Content.EQSurveyPage.PageNumber.Value | floor }}",
                                     "AllowUpdatePath": true
                                 }
                             }
