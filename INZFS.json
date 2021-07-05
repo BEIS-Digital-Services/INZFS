@@ -3,12 +3,11 @@
     "name": "INZFS",
     "sections": [
       {
-        "title": "Business Proposal",
+        "name": "Business Proposal",
         "tag": "business-proposal",
-        "url": "business-proposal-overview",
+        "url": "business-proposal-section",
         "returnToSummaryPageLinkText": "Return to the business proposal overview",
-        "continueButtonText": "Save and continue to next question",
-        "RazorView": "BusinessProposalOverview",
+        "continueButtonText" : "Save and continue to next question",
         "pages": [
           {
             "name": "business-proposal",
