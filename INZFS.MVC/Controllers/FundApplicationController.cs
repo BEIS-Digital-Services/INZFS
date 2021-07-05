@@ -93,6 +93,8 @@ namespace INZFS.MVC.Controllers
             }
             pagename = pagename.ToLower().Trim();
 
+
+            // Page
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
             if(currentPage != null)
             {
@@ -100,7 +102,55 @@ namespace INZFS.MVC.Controllers
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
                 return GetViewModel(currentPage, field);
             }
-            
+
+            // Section
+            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
+            if (section != null)
+            {
+                var sectionContentModel = new SectionContent();
+                sectionContentModel.Sections = new List<SectionModel>();
+                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+
+                foreach (var pageContent in section.Pages)
+                {
+                    var sectionModel = new SectionModel();
+                    sectionModel.Title = pageContent.Question;
+                    sectionModel.Url = pageContent.Name;
+
+                    var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+                    
+                    if (string.IsNullOrEmpty(field?.Data))
+                    {
+                        sectionModel.Status = "Not started";
+                    }
+                    else
+                    {
+                        
+                        if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
+                        {
+                            sectionModel.Status = "Completed";
+                        }
+                        
+                        else
+                        {
+                            sectionModel.Status = "In Progress";
+                        }
+                        
+                    }
+
+
+                    sectionContentModel.Sections.Add(sectionModel);
+
+                }
+
+                return View(section.RazorView, sectionContentModel);
+            }
+
+            if (pagename == "application-overview")
+            {
+                return View("ApplicationOverview");
+            }
+
 
             if (pagename == "application-summary")
             {

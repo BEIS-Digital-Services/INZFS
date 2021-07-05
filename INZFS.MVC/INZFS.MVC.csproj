@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
+    <EmbeddedResource Remove="Views\_ViewStart.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,10 @@
 
   <ItemGroup>
 	<Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+	<Content Include="Views\_ViewStart.cshtml">
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</Content>
   </ItemGroup>
 </Project>
 
