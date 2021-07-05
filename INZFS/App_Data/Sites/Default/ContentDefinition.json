@@ -1076,6 +1076,64 @@
           }
         }
       ]
+    },
+    {
+      "Name": "Complete",
+      "DisplayName": "Complete",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "Complete",
+          "Name": "Complete",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            },
+            "AliasPartSettings": {},
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "PreviewPart",
+          "Name": "PreviewPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "3"
+            },
+            "PreviewPartSettings": {
+              "Pattern": "/complete/{{ ContentItem.Content.AliasPart.Alias }}"
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -2253,7 +2311,113 @@
           }
         }
       ]
+    },
+    {
+      "Name": "Complete",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "BannerHeader1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Banner Header1",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Header1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Header1",
+              "Position": "3"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Body1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Body1",
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Header2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Header2",
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Body2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Body2",
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Body3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Body3",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "DetailsHeader1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Bool1",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "DetailsBody1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "DetailsBody1",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "DetailsHeader1a",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "DetailsHeader1a",
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "BannerBody1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "BannerBody1",
+              "Position": "1"
+            }
+          }
+        }
+      ]
     }
   ],
-  "Identifier": "483p30922zspbtqp3yng2h08xs"
+  "Identifier": "4s4xntycnerst2erw7f4zds2dx"
 }
