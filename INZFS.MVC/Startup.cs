@@ -27,8 +27,15 @@ using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using INZFS.MVC.ModelProviders;
+using YesSql.Indexes;
+using INZFS.MVC.Records;
+using INZFS.MVC.Migrations.Indexes;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
+using Azure.Storage.Blobs;
 
 namespace INZFS.MVC
 {
@@ -39,6 +46,15 @@ namespace INZFS.MVC
             Configuration = configuration;
         }
 
+        public string AccessBlobstorage()
+        {
+            string connectionString = Configuration["AzureBlobStorage"];
+            string containerName = "inzfs";
+            string blobName = "INZFS.json";
+            var blobToDownload = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
+            string jsonString = blobToDownload.Content.ToString();
+            return jsonString;
+        }
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -87,11 +103,28 @@ namespace INZFS.MVC
                 return new GovFileStore(customFolderPath);
             });
 
-            services.AddControllers();
+            services.AddSingleton<ApplicationDefinition>(sp =>
+            {
+                string jsonString = AccessBlobstorage();
+                var options = new JsonSerializerOptions();
+                options.PropertyNameCaseInsensitive = true;
+                options.Converters.Add(new JsonStringEnumConverter());
+                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(jsonString, options);
+                return applicationDefinition;
+            });
+            //services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new BaseModelBinderProvider());
+            });
         }
 
         private void ConfigureContent(IServiceCollection services)
         {
+            
+            services.AddScoped<IDataMigration, ApplicationContentIndexMigration>();
+            services.AddSingleton<IIndexProvider, ApplicationContentIndexProvider>();
+
 
             services.AddContentPart<CompanyDetailsPart>()
             .UseDisplayDriver<CompanyDetailsDriver>();
