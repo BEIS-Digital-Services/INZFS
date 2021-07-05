@@ -3,6 +3,7 @@ using INZFS.MVC.Controllers;
 using INZFS.MVC.Forms;
 using INZFS.MVC.Models;
 using INZFS.MVC.Models.ProposalWritten;
+using INZFS.MVC.Models.ProposalFinance;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using Microsoft.AspNetCore.Mvc;
@@ -26,6 +27,10 @@ public class ReportService : IReportService
     private ProjectDetailsPart projectDetails;
     private OrgFundingPart orgFunding;
     private ProjectProposalDetailsPart projectProposalDetails;
+    private FinanceBalanceSheetPart financeBalanceSheet;
+    private FinanceBarriersPart financeBarriers;
+    private FinanceRecoverVatPart financeRecoverVat;
+    private FinanceTurnoverPart financeTurnover;
 
     public ReportService(IContentRepository contentRepository)
     {
@@ -99,6 +104,53 @@ public class ReportService : IReportService
               </tr>
             </table>
 
+            <h2>Proposal (Finance)</h2>
+
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Turnover amount (in most recent annual accounts)</th>
+              </tr>
+              <tr>
+                <td>{ financeTurnover?.TurnoverAmount }</td>
+              </tr>
+            </table>
+
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Turnover date</th>
+              </tr>
+              <tr>
+                <td>{ financeTurnover?.Day }/{ financeTurnover?.Month }/{ financeTurnover?.Year }</td>
+              </tr>
+            </table>
+
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Balance sheet total</th>
+              </tr>
+              <tr>
+                <td>{ financeBalanceSheet?.BalanceSheetTotal }</td>
+              </tr>
+            </table>
+
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Balance sheet date</th>
+              </tr>
+              <tr>
+                <td>{ financeBalanceSheet?.Day }/{ financeBalanceSheet?.Month }/{ financeBalanceSheet?.Year }</td>
+              </tr>
+            </table>
+
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Is the organisation able to recover VAT?</th>
+              </tr>
+              <tr>
+                <td>{ financeRecoverVat.AbleToRecover }</td>
+              </tr>
+            </table>
+
 
           </body>
           </html>
@@ -138,6 +190,21 @@ public class ReportService : IReportService
                     projectProposalDetails = contentItem.ContentItem.As<ProjectProposalDetailsPart>();
                     break;
 
+                case ContentTypes.FinanceBalanceSheet:
+                    financeBalanceSheet = contentItem.ContentItem.As<FinanceBalanceSheetPart>();
+                    break;
+
+                case ContentTypes.FinanceBarriers:
+                    financeBarriers = contentItem.ContentItem.As<FinanceBarriersPart>();
+                    break;
+
+                case ContentTypes.FinanceRecoverVat:
+                    financeRecoverVat = contentItem.ContentItem.As<FinanceRecoverVatPart>();
+                    break;
+
+                case ContentTypes.FinanceTurnover:
+                    financeTurnover = contentItem.ContentItem.As<FinanceTurnoverPart>();
+                    break;
 
                 default:
                     Debug.WriteLine("Switch statement unable to find content type");
