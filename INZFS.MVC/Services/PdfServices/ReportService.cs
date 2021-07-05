@@ -38,6 +38,10 @@ public class ReportService : IReportService
         var bagPart = application?.ContentItem?.As<BagPart>();
         var contents = bagPart?.ContentItems;
 
+        var tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
+        var questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
+        var questionHeaderStyle = @"style=""text-align:left;""";
+
         PopulateData(contents);
 
         var html = $@"
@@ -46,49 +50,49 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-            <h1>EEF 8A Application Form </h1>
+            <h1 style=""text-align:center;"">EEF 8A Application Form </h1>
 
             <h2>Proposal Summary</h2>
 
-            <table>
-              <tr>
-                <th>Q1. 1. Name of Bidder (this should be the lead organisation/co-ordinator for the proposed project)</th>
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Q1. 1. Name of Bidder (this should be the lead organisation/co-ordinator for the proposed project)</th>
               </tr>
               <tr>
-                <td>{ companyDetails?.CompanyName }</td>
+                <td>{ companyDetails?.CompanyName } </td>
               </tr>
             </table>
 
-            <table>
-              <tr>
-                <th>Q2. 2. Project Name</th>
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Q2. 2. Project Name</th>
               </tr>
               <tr>
                 <td>{ projectSummary?.ProjectName }</td>
               </tr>
             </table>
 
-            <table>
-              <tr>
-                <th>Q3. 3. Estimated Start Date</th>
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Q3. 3. Estimated Start Date</th>
               </tr>
               <tr>
                 <td>{ projectSummary?.Day }/{ projectSummary?.Month }/{ projectSummary?.Year }</td>
               </tr>
             </table>
 
-            <table>
-              <tr>
-                <th>Q4. 4. Project Duration (months)</th>
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Q4. 4. Project Duration (months)</th>
               </tr>
               <tr>
                 <td></td>
               </tr>
             </table>
 
-            <table>
-              <tr>
-                <th>Q5. 5. Estimated End Date</th>
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>Q5. 5. Estimated End Date</th>
               </tr>
               <tr>
                 <td>{ projectProposalDetails?.Day }/{ projectProposalDetails?.Month }/{ projectProposalDetails?.Year }</td>
