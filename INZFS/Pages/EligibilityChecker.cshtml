@@ -42,62 +42,61 @@
 <body class="govuk-template__body competition-overview">
     <div class="govuk-width-container">
 
-        <main class="govuk-main-wrapper app-content">
+		<main class="govuk-main-wrapper app-content">
 
 
-            <div class="govuk-caption-m">
-                @eligibility.Content.EligibilityChecker.Body1.Text
-            </div>
-            <h1 class="govuk-heading-xl" style="padding-top: 10px;">@eligibility.Content.EligibilityChecker.Header1.Text</h1>
+			<div class="govuk-caption-m">
+				@eligibility.Content.EligibilityChecker.Body1.Text
+			</div>
+			<h1 class="govuk-heading-xl" style="padding-top: 10px;">@eligibility.Content.EligibilityChecker.Header1.Text</h1>
 
-            @if (!listenabled)
-            {
-                <div style="padding-top: 20px;" class="list">
-                    <ul>
-                        <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
-                        <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
-                        <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
-                        <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
-                    </ul>
-                </div>
-            }
-            <form method="post">
-                <div class="govuk-form-group" style="padding-top: 20px;">
-                    <label class="govuk-label govuk-label--l">
-                    </label>
-                    <fieldset class="govuk-fieldset">
-                        <div class="govuk-radios govuk-radios--inline">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
-                                <label class="govuk-label govuk-radios__label">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
-                                <label class="govuk-label govuk-radios__label">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                <button class="govuk-button govuk-!-margin-top-6">Continue</button>
-            </form>
+			@if (!listenabled)
+			{
+				<div style="padding-top: 20px;" class="list">
+					<ul>
+						<li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+						<li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+						<li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+						<li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+					</ul>
+				</div>
+			}
+			<form method="post">
+				<div class="govuk-form-group" style="padding-top: 20px;">
+					<label class="govuk-label govuk-label--l">
+					</label>
+					<fieldset class="govuk-fieldset">
+						<div class="govuk-radios govuk-radios--inline">
+							<div class="govuk-radios__item">
+								<input class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
+								<label class="govuk-label govuk-radios__label">
+									Yes
+								</label>
+							</div>
+							<div class="govuk-radios__item">
+								<input class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
+								<label class="govuk-label govuk-radios__label">
+									No
+								</label>
+							</div>
+						</div>
+					</fieldset>
+				</div>
+				<button class="govuk-button govuk-!-margin-top-6">Continue</button>
+			</form>
 
-            <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-                <div class="govuk-accordion__section ">
-                    <div class="govuk-accordion__section-header">
-                        <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button" id="accordion-default-heading-1">
-                                @eligibility.Content.EligibilityChecker.Accordion1.Text
-                            </span>
-                        </h2>
-                    </div>
-                </div>
-            </div>
+			<details class="govuk-details" data-module="govuk-details">
+				<summary class="govuk-details__summary">
+					<span class="govuk-details__summary-text">
+						@eligibility.Content.EligibilityChecker.Accordion1.Text
+					</span>
+				</summary>
+				<div class="govuk-details__text">
+					@eligibility.Content.EligibilityChecker.AccordionDetails1.Text
+				</div>
+			</details>
 
-        </main>
+		</main>
     </div>
     <style src="/css/application.css"></style>
 
@@ -145,114 +144,87 @@
 
         @inject OrchardCore.IOrchardHelper Orchard
         var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
-        var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
-        var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-        var QuestionValue = Request.Form["questionSettingA"].ToString();
-        
-        HttpContext.Session.SetString("ReturnUrl", redirect);
+		var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+		var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+		var QuestionValue = Request.Form["questionSettingA"].ToString();
+
+		HttpContext.Session.SetString("ReturnUrl", redirect);
 
 
-        switch (titlePart)
-        {
-            case "Question1":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question1", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question1", BitConverter.GetBytes(false));
-                }
-                break;
-            case "Question2":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question2", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question2", BitConverter.GetBytes(false));
-                }
-                break;
-            case "Question3":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question3", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question3", BitConverter.GetBytes(false));
-                }
-                break;
-            case "Question4":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question4", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question4", BitConverter.GetBytes(false));
-                }
-                break;
-            case "Question5":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question5", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question5", BitConverter.GetBytes(false));
-                }
-                break;
-            case "Question6":
-                if (QuestionValue == "1")
-                {
-                    HttpContext.Session.Set("Question6", BitConverter.GetBytes(true));
-                }
-                else
-                {
-                    HttpContext.Session.Set("Question6", BitConverter.GetBytes(false));
-                }
-                break;
-            default: @Orchard.ConsoleLog("Error in switch statement"); break;
+		switch (titlePart)
+		{
+			case "Question1":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question1", BitConverter.GetBytes(true));
+				}
+				else
+				{
+					HttpContext.Session.Set("Question1", BitConverter.GetBytes(false));
+					return Redirect("/eligibilityResult/EligibilityResult3");
+				}
+				break;
+			case "Question2":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question2", BitConverter.GetBytes(true));
+					return Redirect("/eligibilityResult/EligibilityResult4");
+				}
+				else
+				{
+					HttpContext.Session.Set("Question2", BitConverter.GetBytes(false));
+				}
+				break;
+			case "Question3":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question3", BitConverter.GetBytes(true));
+				}
+				else
+				{
+					HttpContext.Session.Set("Question3", BitConverter.GetBytes(false));
+					return Redirect("/eligibilityResult/EligibilityResult1");
+				}
+				break;
+			case "Question4":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question4", BitConverter.GetBytes(true));
+					return Redirect("/eligibilityResult/EligibilityResult5");
+				}
+				else
+				{
+					HttpContext.Session.Set("Question4", BitConverter.GetBytes(false));
+				}
+				break;
+			case "Question5":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question5", BitConverter.GetBytes(true));
+				}
+				else
+				{
+					HttpContext.Session.Set("Question5", BitConverter.GetBytes(false));
+					return Redirect("/eligibilityResult/EligibilityResult6");
+				}
+				break;
+			case "Question6":
+				if (QuestionValue == "1")
+				{
+					HttpContext.Session.Set("Question6", BitConverter.GetBytes(true));
+				}
+				else
+				{
+					HttpContext.Session.Set("Question6", BitConverter.GetBytes(false));
+					return Redirect("/eligibilityResult/EligibilityResult6");
+				}
+				break;
+			default: return Redirect("/eligibilityResult/EligibilityResult7"); 
 
-        }
-        if(titlePart == "Question6")
-        {
+		}
+		
+			return Redirect(redirect);
+		}
 
-            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0) == false)
-            {
-                return Redirect("/eligibilityResult/EligibilityResult3");
-            }
-            if(BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0) == false){
-                return Redirect("/eligibilityResult/EligibilityResult4");
-            }
-            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0) == false)
-            {
-                return Redirect("/eligibilityResult/EligibilityResult1");
-            }
-            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0) == false)
-            {
-                return Redirect("/eligibilityResult/EligibilityResult5");
-            }
-            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0) == false)
-            {
-                return Redirect("/eligibilityResult/EligibilityResult6");
-            }
-            if (BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0) == false)
-            {
-                return Redirect("/eligibilityResult/EligibilityResult6");
-            }
-            else
-            {
-                return Redirect("/eligibilityResult/EligibilityResult7");
-            }
-        }
-        else
-        {
-            return Redirect(redirect);
-        }
-
-    }
 
 }
