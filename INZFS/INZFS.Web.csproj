@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
@@ -8,7 +8,24 @@
     <DockerfileRunArguments>-p 80:443</DockerfileRunArguments>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\govuk\images\**" />
+    <Content Remove="wwwroot\govuk\images\**" />
+    <EmbeddedResource Remove="wwwroot\govuk\images\**" />
+    <None Remove="wwwroot\govuk\images\**" />
+  </ItemGroup>
 
+
+
+  <ItemGroup>
+    <Content Remove="INZFS.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="INZFS.json">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
@@ -19,6 +36,10 @@
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\INZFS.Templates\INZFS.Templates.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\govuk\assets\fonts\" />
   </ItemGroup>
 
 </Project>

@@ -9,102 +9,299 @@
 @Orchard.ConsoleLog(govpage)
 
 <body class="govuk-template__body competition-overview">
-    <div class="govuk-width-container">
+	<div class="govuk-width-container">
 
-        <main class="govuk-main-wrapper">
+		<main class="govuk-main-wrapper">
 
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
-                </div>
-            </div>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					<h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
+				</div>
+			</div>
 
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h3 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm.Text</h3>
-                    <p class="govuk-body wysiwyg-styles">@govpage.Content.GovPage.GovMainInfo.Text</p>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					<h3 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm.Text</h3>
+					<p class="govuk-body wysiwyg-styles">@govpage.Content.GovPage.GovMainInfo.Text</p>
 
-                    <ul class="govuk-list">
-                        <li>- @govpage.Content.GovList1.ContentItems[0].DisplayText</li>
+					<ul class="govuk-list">
+						<li>- @govpage.Content.GovList1.ContentItems[0].DisplayText</li>
 
-                        <li>
-                            - @govpage.Content.GovList1.ContentItems[1].DisplayText
-                        </li>
-                        <li>
-                            - @govpage.Content.GovList1.ContentItems[2].DisplayText
-                        </li>
-                        <li>
-                            - @govpage.Content.GovList1.ContentItems[3].DisplayText
-                        </li>
-                    </ul>
-                    <h1 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm2.Text</h1>
-                    <ul class="govuk-list">
-                        <li>
-                            <a href="@govpage.Content.GovUrls.ContentItems[0].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[0].DisplayText</a>
-                        </li>
-                        <li>
-                            <a href="@govpage.Content.GovUrls.ContentItems[1].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[1].DisplayText</a>
-                        </li>
-                        <li>
-                            <a href="@govpage.Content.GovUrls.ContentItems[2].InputPart.DefaultValue" class="govuk-link">@govpage.Content.GovUrls.ContentItems[2].DisplayText</a>
-                        </li>
-                    </ul>
+						<li>
+							- @govpage.Content.GovList1.ContentItems[1].DisplayText
+						</li>
+						<li>
+							- @govpage.Content.GovList1.ContentItems[2].DisplayText
+						</li>
+						<li>
+							- @govpage.Content.GovList1.ContentItems[3].DisplayText
+						</li>
+					</ul>
+					
+
+					<div class="govuk-grid-row">
+						<div class="govuk-grid-column-two-thirds">
+							<h3 class="govuk-heading-m">
+								@govpage.Content.GovPage.govukheadingm2.Text
+							</h3>
+
+							<div id="step-by-step-navigation" class="app-step-nav app-step-nav--large app-step-nav--active" data-show-text="Show" data-hide-text="Hide" data-show-all-text="Show all the steps" data-hide-all-text="Hide all">
+					
+								<ol class="app-step-nav__steps">
+									<li class="app-step-nav__step js-step" id="check-youre-allowed-to-drive">
+										<div class="app-step-nav__header js-toggle-panel" data-position="1">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 1
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-check-youre-allowed-to-drive-1">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading1.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-check-youre-allowed-to-drive-1">
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody1.Text</p>
+
+											<ol class="app-step-nav__list " data-length="3">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="1.1" class="govuk-heading-m app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl1.Text>Check Now </a>
+												</li>
+												
+											</ol>
+										</div>
+
+									</li>
+
+									<li class="app-step-nav__step js-step" id="get-a-provisional-licence">
+										<div class="app-step-nav__header js-toggle-panel" data-position="2">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 2
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-get-a-provisional-licence-2">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading2.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-get-a-provisional-licence-2">
+											<ol class="app-step-nav__list " data-length="1">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="2.1" class="app-step-nav__link js-link" href="@govpage.Content.GovPage.NavUrl2.Text">@govpage.Content.GovPage.NavBody2.Text</a>
+												</li>
+											</ol>
+										</div>
+
+									</li>
+
+									<li class="app-step-nav__step js-step" id="driving-lessons-and-practice">
+										<div class="app-step-nav__header js-toggle-panel" data-position="3">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 3
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-driving-lessons-and-practice-3">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading3.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-driving-lessons-and-practice-3">
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody3.Text</p>
+
+											<ol class="app-step-nav__list " data-length="4">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="3.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl3.Text>NavUrl3Text </a>
+												</li>
+												
+											</ol>
+										</div>
+
+									</li>
+									<li class="app-step-nav__step js-step" id="book-and-manage-your-theory-test">
+										<div class="app-step-nav__header js-toggle-panel" data-position="4">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 4
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-book-and-manage-your-theory-test-5">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading4.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-book-and-manage-your-theory-test-5">
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody4.Text </p>
+
+											<ol class="app-step-nav__list " data-length="5">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="5.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl4.Text>NavUrl4Text</a>
+												</li>
+							
+											</ol>
+										</div>
+
+									</li>
+
+									<li class="app-step-nav__step js-step" id="book-and-manage-your-driving-test">
+										<div class="app-step-nav__header js-toggle-panel" data-position="6">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 5
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-book-and-manage-your-driving-test-6">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading5.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-book-and-manage-your-driving-test-6">
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody5.Text</p>
+
+											<ol class="app-step-nav__list " data-length="5">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="6.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl5.Text>NavUrl5Text</a>
+
+												</li>
+												
+										</div>
+
+									</li>
+
+									<li class="app-step-nav__step js-step" id="when-you-pass">
+										<div class="app-step-nav__header js-toggle-panel" data-position="7">
+											<h2 class="app-step-nav__title">
+												<span class="app-step-nav__circle app-step-nav__circle--number">
+													<span class="app-step-nav__circle-inner">
+														<span class="app-step-nav__circle-background">
+															<span class="govuk-visually-hidden">Step</span> 6
+														</span>
+													</span>
+												</span>
+
+												<span class="js-step-title">
+													<button class="app-step-nav__button app-step-nav__button--title js-step-title-button" aria-expanded="false" aria-controls="step-panel-when-you-pass-7">
+														<span class="js-step-title-text">
+															@govpage.Content.GovPage.NavHeading6.Text
+														</span><span class="app-step-nav__toggle-link js-toggle-link" aria-hidden="true" hidden="">Show</span>
+													</button>
+												</span>
+											</h2>
+										</div>
+
+										<div class="app-step-nav__panel js-panel js-hidden" id="step-panel-when-you-pass-7">
+											<p class="app-step-nav__paragraph">@govpage.Content.GovPage.NavBody6.Text</p>
+
+											<ol class="app-step-nav__list " data-length="1">
+												<li class="app-step-nav__list-item js-list-item ">
+													<a data-position="7.1" class="app-step-nav__link js-link" href=@govpage.Content.GovPage.NavUrl6.Text>NavUrl6Text </a>
+												</li>
+											</ol>
+										</div>
+
+									</li>
+								</ol>
+							</div>
+
+						</div>
+					</div>
+				</div>
 
 
-                    <h1 class="govuk-heading-m">Start your application</h1>
-                    <p class="govuk-body wysiwyg-styles">To start your application you must register your details and create an account. </p>
-                    <p class="govuk-body wysiwyg-styles">We recommend reading the guidance and questions before you decide to register. We also advise checking that you have gathered the necessary information and evidence before you begin.</p>
-                    <p class="govuk-body wysiwyg-styles">Registrations to apply for this fund close on 25th June at 11.59pm.</p>
-
-                    <a class="govuk-button govuk-!-margin-top-6" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="application-summary">Start Now</a>
-                    <p class="govuk-body govuk-!-margin-top-6">
-
-                        <a href="/Login" class="govuk-link">Sign in to your account </a>
+				<div class="govuk-grid-column-one-third">
+					<div class="gem-c-contextual-sidebar">
 
 
-                    </p>
-                </div>
+						<div class="gem-c-related-navigation">
 
-                <div class="govuk-grid-column-one-third">
-                    <div class="gem-c-contextual-sidebar">
+							<h2 id="related-nav-related_items-ab2b060d" class="gem-c-related-navigation__main-heading" data-track-count="sidebarRelatedItemSection">
+								Registration
+							</h2>
+						</div>
+					</div>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+					<p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+					<div class="gem-c-contextual-sidebar__brexit-cta">
+						<h2 class="gem-c-contextual-sidebar__brexit-heading govuk-heading-s">Events</h2>
+						<p class="gem-c-contextual-sidebar__brexit-text govuk-body">
 
-
-                        <div class="gem-c-related-navigation">
-
-                            <h2 id="related-nav-related_items-ab2b060d" class="gem-c-related-navigation__main-heading" data-track-count="sidebarRelatedItemSection">
-                                Registration
-                            </h2>
-                        </div>
-                    </div>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
-                    <p class="govuk-body">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
-                    <div class="gem-c-contextual-sidebar__brexit-cta">
-                        <h2 class="gem-c-contextual-sidebar__brexit-heading govuk-heading-s">Events</h2>
-                        <p class="gem-c-contextual-sidebar__brexit-text govuk-body">
-
-                        <p class="govuk-body">Engagement Days</p>
-                        <p class="govuk-body">25 March at 11.59pm</p>
-                        <a href="/Register">Register to attend</a>
-                        <p class="govuk-body">Engagement Days</p>
-                        <p class="govuk-body">25 April at 11.59pm</p>
-                        <a href="/Register">Register to attend</a>
-                        </p>
-                    </div>
+						<p class="govuk-body">Engagement Days</p>
+						<p class="govuk-body">25 March at 11.59pm</p>
+						<a href="/Register">Register to attend</a>
+						<p class="govuk-body">Engagement Days</p>
+						<p class="govuk-body">25 April at 11.59pm</p>
+						<a href="/Register">Register to attend</a>
+						</p>
+					</div>
 
 
-                </div>
-            </div>
+				</div>
+			</div>
 
-        </main>
-    </div>
-    <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
-    <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+		</main>
+	</div>
+
+
+	<script src="/js/step-by-step-nav.js" type="text/javascript"></script>
+	<script src="/js/jquery-1.11.3.js" type="text/javascript"></script>
+	<script src="/js/all.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var $element = $('#step-by-step-navigation')
+		var stepByStepNavigation = new GOVUK.Modules.AppStepNav()
+		stepByStepNavigation.start($element)
+	</script>
 
 </body>
 

@@ -10,11 +10,11 @@ namespace INZFS.MVC.Models
     {
         public int TotalSections { get; set; }
         public int TotalCompletedSections { get; set; }
-        public Sections CompletedSections { get; set; }
+        public Pages CompletedSections { get; set; }
     }
 
     [Flags]
-    public enum Sections
+    public enum Pages
     {
         None = 0,
         ProjectSummary = 1 << 0,
