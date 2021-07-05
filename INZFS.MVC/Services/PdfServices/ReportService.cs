@@ -46,8 +46,56 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-          <h1>{ companyDetails.CompanyName }</h1>
-          <p>{ applicationId }</p>
+            <h1>EEF 8A Application Form </h1>
+
+            <h2>Proposal Summary</h2>
+
+            <table>
+              <tr>
+                <th>Q1. 1. Name of Bidder (this should be the lead organisation/co-ordinator for the proposed project)</th>
+              </tr>
+              <tr>
+                <td>{ companyDetails?.CompanyName }</td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+                <th>Q2. 2. Project Name</th>
+              </tr>
+              <tr>
+                <td>{ projectSummary?.ProjectName }</td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+                <th>Q3. 3. Estimated Start Date</th>
+              </tr>
+              <tr>
+                <td>{ projectSummary?.Day }/{ projectSummary?.Month }/{ projectSummary?.Year }</td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+                <th>Q4. 4. Project Duration (months)</th>
+              </tr>
+              <tr>
+                <td></td>
+              </tr>
+            </table>
+
+            <table>
+              <tr>
+                <th>Q5. 5. Estimated End Date</th>
+              </tr>
+              <tr>
+                <td>{ projectProposalDetails?.Day }/{ projectProposalDetails?.Month }/{ projectProposalDetails?.Year }</td>
+              </tr>
+            </table>
+
+
           </body>
           </html>
           ";
