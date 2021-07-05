@@ -84,18 +84,20 @@
                 </span>
             </p>
         </div>
-
-        <a href="/" class="govuk-back-link">Back</a>
-        <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
-            SignOut
-        </a>
-
-        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-            <div class="govuk-width-container">
-
-                @RenderBody()
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">&nbsp;</div>
+            <div class="govuk-grid-column-one-quarter govuk-signout-right">
+                <p><a class="govuk-body-m govuk-link" href="/INZFS.Theme/Account/LogOff">Sign out</a></p>
             </div>
-
+        </div>
+        
+        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+            @RenderBody()
+            <!--
+            <div class="govuk-width-container">
+                
+            </div>
+            -->
 
         </main>
     </div>

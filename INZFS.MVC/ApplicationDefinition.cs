@@ -49,11 +49,12 @@ namespace INZFS.MVC
 
     public class Section
     {
-        public string Name { get; set; }
+        public string Title { get; set; }
         public string Tag { get; set; }
         public string Url { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
+        public string RazorView { get; set; }
         public List<Page> Pages { get; set; }
     }
 
