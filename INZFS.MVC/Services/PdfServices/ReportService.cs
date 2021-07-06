@@ -28,17 +28,6 @@ public class ReportService : IReportService
     private String questionHeaderStyle = @"style=""text-align:left;""";
 
     private CompanyDetailsPart companyDetails;
-    private ProjectSummaryPart projectSummary;
-    private ProjectDetailsPart projectDetails;
-    private OrgFundingPart orgFunding;
-    private ProjectProposalDetailsPart projectProposalDetails;
-    private FinanceBalanceSheetPart financeBalanceSheet;
-    private FinanceBarriersPart financeBarriers;
-    private FinanceRecoverVatPart financeRecoverVat;
-    private FinanceTurnoverPart financeTurnover;
-    private ApplicationDocumentPart applicationDocument;
-
-    private ApplicationContent applicationContent;
 
     public ReportService(IContentRepository contentRepository)
     {
@@ -77,7 +66,7 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-            <h1 style=""text-align:center;"">EEF 8A Application Form </h1>
+            <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
 
             <h2>Proposal Summary</h2>
 
