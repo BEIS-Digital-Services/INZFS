@@ -96,7 +96,7 @@ public class ReportService : IReportService
 
         if (answer == null)
         {
-            return "No response";
+            return @"<span style=""color:red;"">No response</span>";
         }
         else 
         {
