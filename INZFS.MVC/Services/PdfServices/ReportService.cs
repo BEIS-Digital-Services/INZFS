@@ -1,22 +1,9 @@
 using INZFS.MVC;
-using INZFS.MVC.Controllers;
-using INZFS.MVC.Forms;
 using INZFS.MVC.Models;
-using INZFS.MVC.Services;
-using INZFS.MVC.Models.ProposalWritten;
-using INZFS.MVC.Models.ProposalFinance;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using OrchardCore.ContentManagement;
-using OrchardCore.Flows.Models;
 using System;
-using System.Diagnostics;
 using System.IO;
-using System.Reflection;
-using System.Runtime.Loader;
 using System.Threading.Tasks;
 
 public class ReportService : IReportService
@@ -28,7 +15,6 @@ public class ReportService : IReportService
     private String questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
     private String questionHeaderStyle = @"style=""text-align:left;""";
 
-    private CompanyDetailsPart companyDetails;
     private ApplicationDefinition _applicationDefinition;
     private ApplicationContent _applicationContent;
 
@@ -41,17 +27,11 @@ public class ReportService : IReportService
     public async Task<byte[]> GeneratePdfReport(string applicationId)
     {
         var application = await _contentRepository.GetContentItemById(applicationId);
-        var bagPart = application?.ContentItem?.As<BagPart>();
-        var contents = bagPart?.ContentItems;
 
         _applicationContent = _contentRepository.GetApplicationContent(application.Author).Result;
 
-        PopulateData(contents);
-
         OpenHtmlString();
-
         PopulateHtmlSections();
-
         CloseHtmlString();
 
         using (MemoryStream stream = new())
@@ -71,17 +51,6 @@ public class ReportService : IReportService
            </head>
           <body>
             <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
-
-            <h2>Proposal Summary</h2>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Q1. 1. Name of Bidder (this should be the lead organisation/co-ordinator for the proposed project)</th>
-              </tr>
-              <tr>
-                <td>{ companyDetails?.CompanyName } </td>
-              </tr>
-            </table>
           ";
     }
 
@@ -132,23 +101,6 @@ public class ReportService : IReportService
         else 
         {
             return answer.Data;
-        }
-    }
-
-    private void PopulateData(System.Collections.Generic.List<ContentItem> contents)
-    {
-        foreach(var contentItem in contents)
-        {
-            switch (contentItem.ContentType)
-            {
-                case ContentTypes.CompanyDetails:
-                    companyDetails = contentItem.ContentItem.As<CompanyDetailsPart>();
-                    break;
-
-                default:
-                    Debug.WriteLine("Switch statement unable to find content type");
-                    break;
-            }
         }
     }
 }
