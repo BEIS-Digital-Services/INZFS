@@ -2,6 +2,7 @@ using INZFS.MVC;
 using INZFS.MVC.Controllers;
 using INZFS.MVC.Forms;
 using INZFS.MVC.Models;
+using INZFS.MVC.Services;
 using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.Models.ProposalFinance;
 using iText.Html2pdf;
@@ -28,10 +29,12 @@ public class ReportService : IReportService
     private String questionHeaderStyle = @"style=""text-align:left;""";
 
     private CompanyDetailsPart companyDetails;
+    private ApplicationDefinition _applicationDefinition;
 
-    public ReportService(IContentRepository contentRepository)
+    public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
     {
         _contentRepository = contentRepository;
+        _applicationDefinition = applicationDefinition;
     }
 
     public async Task<byte[]> GeneratePdfReport(string applicationId)
@@ -41,6 +44,7 @@ public class ReportService : IReportService
         var contents = bagPart?.ContentItems;
 
         var applicationContent = _contentRepository.GetApplicationContent("admin").Result;
+        var allPages = _applicationDefinition.Application.AllPages;
 
         PopulateData(contents);
 
@@ -88,20 +92,27 @@ public class ReportService : IReportService
 
     private void PopulateHtmlString(ApplicationContent applicationContent)
     {
-        foreach (var field in applicationContent.Fields)
+        foreach (var section in _applicationDefinition.Application.Sections)
         {
-            String toAppend = $@"
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>{ field.Name }</th>
-              </tr>
-              <tr>
-                <td>{ field.Data }</td>
-              </tr>
-            </table>
+            string toAppend = $@"
+                <h2>{ section.Title }</h2>
             ";
-
             html = html + toAppend;
+
+            foreach(var page in section.Pages)
+            {
+                String questionHtml = $@"
+                <table { tableStyle }>
+                  <tr { questionTableStyle }>
+                    <th { questionHeaderStyle }>{ page.Question }</th>
+                  </tr>
+                  <tr>
+                    <td> Answer Data </td>
+                  </tr>
+                </table>
+                ";
+                html = html + questionHtml;
+            }
         }
     }
 
@@ -113,42 +124,6 @@ public class ReportService : IReportService
             {
                 case ContentTypes.CompanyDetails:
                     companyDetails = contentItem.ContentItem.As<CompanyDetailsPart>();
-                    break;
-
-                case ContentTypes.ProjectSummary:
-                    projectSummary = contentItem.ContentItem.As<ProjectSummaryPart>();
-                    break;
-
-                case ContentTypes.ProjectDetails:
-                    projectDetails = contentItem.ContentItem.As<ProjectDetailsPart>();
-                    break;
-
-                case ContentTypes.OrgFunding:
-                    orgFunding = contentItem.ContentItem.As<OrgFundingPart>();
-                    break;
-
-                case ContentTypes.ProjectProposalDetails:
-                    projectProposalDetails = contentItem.ContentItem.As<ProjectProposalDetailsPart>();
-                    break;
-
-                case ContentTypes.FinanceBalanceSheet:
-                    financeBalanceSheet = contentItem.ContentItem.As<FinanceBalanceSheetPart>();
-                    break;
-
-                case ContentTypes.FinanceBarriers:
-                    financeBarriers = contentItem.ContentItem.As<FinanceBarriersPart>();
-                    break;
-
-                case ContentTypes.FinanceRecoverVat:
-                    financeRecoverVat = contentItem.ContentItem.As<FinanceRecoverVatPart>();
-                    break;
-
-                case ContentTypes.FinanceTurnover:
-                    financeTurnover = contentItem.ContentItem.As<FinanceTurnoverPart>();
-                    break;
-
-                case ContentTypes.ApplicationDocument:
-                    applicationDocument = contentItem.ContentItem.As<ApplicationDocumentPart>();
                     break;
 
                 default:
