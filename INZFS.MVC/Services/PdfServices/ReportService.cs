@@ -36,7 +36,6 @@ public class ReportService : IReportService
     {
         _contentRepository = contentRepository;
         _applicationDefinition = applicationDefinition;
-        _applicationContent = _contentRepository.GetApplicationContent("admin").Result;
     }
 
     public async Task<byte[]> GeneratePdfReport(string applicationId)
@@ -44,6 +43,8 @@ public class ReportService : IReportService
         var application = await _contentRepository.GetContentItemById(applicationId);
         var bagPart = application?.ContentItem?.As<BagPart>();
         var contents = bagPart?.ContentItems;
+
+        _applicationContent = _contentRepository.GetApplicationContent(application.Author).Result;
 
         PopulateData(contents);
 
