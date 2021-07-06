@@ -22,6 +22,11 @@ public class ReportService : IReportService
 {
     private IContentRepository _contentRepository;
 
+    private String html;
+    private String tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
+    private String questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
+    private String questionHeaderStyle = @"style=""text-align:left;""";
+
     private CompanyDetailsPart companyDetails;
     private ProjectSummaryPart projectSummary;
     private ProjectDetailsPart projectDetails;
@@ -31,6 +36,9 @@ public class ReportService : IReportService
     private FinanceBarriersPart financeBarriers;
     private FinanceRecoverVatPart financeRecoverVat;
     private FinanceTurnoverPart financeTurnover;
+    private ApplicationDocumentPart applicationDocument;
+
+    private ApplicationContent applicationContent;
 
     public ReportService(IContentRepository contentRepository)
     {
@@ -43,13 +51,27 @@ public class ReportService : IReportService
         var bagPart = application?.ContentItem?.As<BagPart>();
         var contents = bagPart?.ContentItems;
 
-        var tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
-        var questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
-        var questionHeaderStyle = @"style=""text-align:left;""";
+        var applicationContent = _contentRepository.GetApplicationContent("admin").Result;
 
         PopulateData(contents);
 
-        var html = $@"
+        OpenHtmlString();
+
+        PopulateHtmlString(applicationContent);
+
+        CloseHtmlString();
+
+        using (MemoryStream stream = new())
+        using (PdfWriter writer = new(stream))
+        {
+            HtmlConverter.ConvertToPdf(html, writer);
+            return stream.ToArray();
+        }
+    }
+
+    private void OpenHtmlString()
+    {
+        html = $@"
            <!DOCTYPE html>
            <html lang=""en"">
            <head>
@@ -67,100 +89,30 @@ public class ReportService : IReportService
                 <td>{ companyDetails?.CompanyName } </td>
               </tr>
             </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Q2. 2. Project Name</th>
-              </tr>
-              <tr>
-                <td>{ projectSummary?.ProjectName }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Q3. 3. Estimated Start Date</th>
-              </tr>
-              <tr>
-                <td>{ projectSummary?.Day }/{ projectSummary?.Month }/{ projectSummary?.Year }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Q4. 4. Project Duration (months)</th>
-              </tr>
-              <tr>
-                <td></td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Q5. 5. Estimated End Date</th>
-              </tr>
-              <tr>
-                <td>{ projectProposalDetails?.Day }/{ projectProposalDetails?.Month }/{ projectProposalDetails?.Year }</td>
-              </tr>
-            </table>
-
-            <h2>Proposal (Finance)</h2>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Turnover amount (in most recent annual accounts)</th>
-              </tr>
-              <tr>
-                <td>{ financeTurnover?.TurnoverAmount }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Turnover date</th>
-              </tr>
-              <tr>
-                <td>{ financeTurnover?.Day }/{ financeTurnover?.Month }/{ financeTurnover?.Year }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Balance sheet total</th>
-              </tr>
-              <tr>
-                <td>{ financeBalanceSheet?.BalanceSheetTotal }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Balance sheet date</th>
-              </tr>
-              <tr>
-                <td>{ financeBalanceSheet?.Day }/{ financeBalanceSheet?.Month }/{ financeBalanceSheet?.Year }</td>
-              </tr>
-            </table>
-
-            <table { tableStyle }>
-              <tr { questionTableStyle }>
-                <th { questionHeaderStyle }>Is the organisation able to recover VAT?</th>
-              </tr>
-              <tr>
-                <td>{ financeRecoverVat.AbleToRecover }</td>
-              </tr>
-            </table>
-
-
-          </body>
-          </html>
           ";
+    }
 
-        using (MemoryStream stream = new())
-        using (PdfWriter writer = new(stream))
+    private void CloseHtmlString()
+    {
+        html = html + "</body></html>";
+    }
+
+    private void PopulateHtmlString(ApplicationContent applicationContent)
+    {
+        foreach (var field in applicationContent.Fields)
         {
-            HtmlConverter.ConvertToPdf(html, writer);
-            return stream.ToArray();
+            String toAppend = $@"
+            <table { tableStyle }>
+              <tr { questionTableStyle }>
+                <th { questionHeaderStyle }>{ field.Name }</th>
+              </tr>
+              <tr>
+                <td>{ field.Data }</td>
+              </tr>
+            </table>
+            ";
+
+            html = html + toAppend;
         }
     }
 
@@ -204,6 +156,10 @@ public class ReportService : IReportService
 
                 case ContentTypes.FinanceTurnover:
                     financeTurnover = contentItem.ContentItem.As<FinanceTurnoverPart>();
+                    break;
+
+                case ContentTypes.ApplicationDocument:
+                    applicationDocument = contentItem.ContentItem.As<ApplicationDocumentPart>();
                     break;
 
                 default:
