@@ -30,11 +30,13 @@ public class ReportService : IReportService
 
     private CompanyDetailsPart companyDetails;
     private ApplicationDefinition _applicationDefinition;
+    private ApplicationContent _applicationContent;
 
     public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
     {
         _contentRepository = contentRepository;
         _applicationDefinition = applicationDefinition;
+        _applicationContent = _contentRepository.GetApplicationContent("admin").Result;
     }
 
     public async Task<byte[]> GeneratePdfReport(string applicationId)
@@ -43,14 +45,11 @@ public class ReportService : IReportService
         var bagPart = application?.ContentItem?.As<BagPart>();
         var contents = bagPart?.ContentItems;
 
-        var applicationContent = _contentRepository.GetApplicationContent("admin").Result;
-        var allPages = _applicationDefinition.Application.AllPages;
-
         PopulateData(contents);
 
         OpenHtmlString();
 
-        PopulateHtmlString(applicationContent);
+        PopulateHtmlSections();
 
         CloseHtmlString();
 
@@ -90,29 +89,48 @@ public class ReportService : IReportService
         html = html + "</body></html>";
     }
 
-    private void PopulateHtmlString(ApplicationContent applicationContent)
+    private void PopulateHtmlSections()
     {
         foreach (var section in _applicationDefinition.Application.Sections)
         {
-            string toAppend = $@"
+            string sectionHtml = $@"
                 <h2>{ section.Title }</h2>
             ";
-            html = html + toAppend;
+            html = html + sectionHtml;
 
-            foreach(var page in section.Pages)
-            {
-                String questionHtml = $@"
+            PopulateHtmlQuestions(section);
+        }
+    }
+
+    private void PopulateHtmlQuestions(Section section)
+    {
+        foreach (var page in section.Pages)
+        {
+            String questionHtml = $@"
                 <table { tableStyle }>
                   <tr { questionTableStyle }>
                     <th { questionHeaderStyle }>{ page.Question }</th>
                   </tr>
                   <tr>
-                    <td> Answer Data </td>
+                    <td>{ getAnswerString(page) }</td>
                   </tr>
                 </table>
                 ";
-                html = html + questionHtml;
-            }
+            html = html + questionHtml;
+        }
+    }
+
+    private String getAnswerString(INZFS.MVC.Page page)
+    {
+        var answer = _applicationContent.Fields.Find(question => question.Name == page.Name);
+
+        if (answer == null)
+        {
+            return "No response";
+        }
+        else 
+        {
+            return answer.Data;
         }
     }
 
