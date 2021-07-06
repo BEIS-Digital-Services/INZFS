@@ -45,6 +45,7 @@
                     @Model.Question
                 </h1>
             </legend>
+            @Html.Partial("_Hint", Model.Hint)
             <span asp-validation-for="@Model.MultipleSelect" class="govuk-error-message"></span>
             <div class="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">

@@ -55,9 +55,9 @@
                 </label>
             </h1>
             @Html.Partial("_QuestionDescription")
-            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
             @Html.Partial("_Hint", Model.Hint)
-            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint" 
+            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
                       name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
         </div>
         <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
