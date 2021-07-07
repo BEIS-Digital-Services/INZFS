@@ -132,6 +132,13 @@
             <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
             <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download the guidance</a></p>
             <p class="govuk-body-m"><a class="govuk-link" href="#">Download supporting documents</a></p>
+            <p class="govuk-body-m">
+                <a class="govuk-link" 
+                   asp-controller="Report" 
+                   asp-action="GeneratePdf" 
+                   asp-route-companyName="ACME Dynamite" 
+                   asp-route-applicationId="4tz9nvna64zybr2p4acf4qefda">Download a copy of your application</a>
+            </p>
 
         </aside>
 
