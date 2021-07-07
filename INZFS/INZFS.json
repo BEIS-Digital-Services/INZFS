@@ -21,7 +21,6 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -36,7 +35,6 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -51,7 +49,6 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -66,7 +63,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
+            "hint": "You should include evidence where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -81,7 +78,6 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -96,7 +92,6 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -111,7 +106,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
+            "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -126,7 +121,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
+            "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -141,7 +136,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
-            "hint": "Company summary hint",
+            "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           }

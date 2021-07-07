@@ -41,24 +41,29 @@
     }
 
 
-<div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-    <h1 class="govuk-label-wrapper">
-        <label class="govuk-label govuk-label--l" for="event-name">
-            @Model.Question
-        </label>
-    </h1>
-    @Html.Partial("_Hint", Model.Hint)
-    <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-    <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
-           name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
-</div>
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+                @Model.Question
+            </label>
+        </h1>
+        @Html.Partial("_Hint", Model.Hint)
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+               name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
+    </div>
+
+    @Html.Partial("_SaveProgress")
 
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
         </div>
     </div>
+
+    @Html.Partial("_Help")
+
 </form>
 
-@Html.Partial("_Help")
+<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
