@@ -6,42 +6,49 @@
 
 
 @{
-    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
-    var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
-    var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
-    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-    var questionSettingA = "Question1";
-    switch (titlePart)
-    {
-        case "Question1":
-            questionSettingA = "Question1";
-            break;
-        case "Question2":
-            questionSettingA = "Question2";
-            break;
-        case "Question3":
-            questionSettingA = "Question3";
-            break;
-        case "Question4":
-            questionSettingA = "Question4";
-            break;
-        case "Question5":
-            questionSettingA = "Question5";
-            break;
-        case "Question6":
-            questionSettingA = "Question6";
-            break;
-        default: questionSettingA = "Question1"; break;
+	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+	var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+	var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
+	var AccordionListEnabled = @eligibility.Content.EligibilityChecker.AccordionBullet1.Text == null;
+	var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+	var questionSettingA = "Question1";
+	switch (titlePart)
+	{
+		case "Question1":
+			questionSettingA = "Question1";
+			break;
+		case "Question2":
+			questionSettingA = "Question2";
+			break;
+		case "Question3":
+			questionSettingA = "Question3";
+			break;
+		case "Question4":
+			questionSettingA = "Question4";
+			break;
+		case "Question5":
+			questionSettingA = "Question5";
+			break;
+		case "Question6":
+			questionSettingA = "Question6";
+			break;
+		default: questionSettingA = "Question1"; break;
 
-    }
+	}
 
 
 }
 @Orchard.ConsoleLog(eligibility)
 
 <body class="govuk-template__body competition-overview">
-    <div class="govuk-width-container">
-
+	<div class="govuk-width-container">
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-three-quarters">
+				<a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+			</div>
+			<div class="govuk-grid-column-one-quarter govuk-signout-right">
+			</div>
+		</div>
 		<main class="govuk-main-wrapper app-content">
 
 
@@ -52,14 +59,13 @@
 
 			@if (!listenabled)
 			{
-				<div style="padding-top: 20px;" class="list">
-					<ul>
-						<li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
-						<li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
-						<li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
-						<li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
-					</ul>
-				</div>
+				<ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
+					<li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+					<li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+					<li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+					<li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+				</ul>
+				
 			}
 			<form method="post">
 				<div class="govuk-form-group" style="padding-top: 20px;">
@@ -85,65 +91,101 @@
 				<button class="govuk-button govuk-!-margin-top-6">Continue</button>
 			</form>
 
-			<details class="govuk-details" data-module="govuk-details">
-				<summary class="govuk-details__summary">
-					<span class="govuk-details__summary-text">
-						@eligibility.Content.EligibilityChecker.Accordion1.Text
-					</span>
-				</summary>
-				<div class="govuk-details__text">
-					@eligibility.Content.EligibilityChecker.AccordionDetails1.Text
+			<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+
+				<div class="govuk-accordion__section ">
+					<div class="govuk-accordion__section-header">
+						<h2 class="govuk-accordion__section-heading">
+							<span class="govuk-accordion__section-button govuk-!-font-size-19" id="accordion-default-heading-1">
+								@eligibility.Content.EligibilityChecker.Accordion1.Text
+							</span>
+						</h2>
+					</div>
+					<div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+
+						<p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.AccordionDetails1.Text</p>
+						<p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.AccordionDetails2.Text</p>
+						<p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.AccordionDetails3.Text</p>
+						@if (!AccordionListEnabled)
+						{
+							<ul class="govuk-body-s govuk-list govuk-list--bullet">
+								<li>@eligibility.Content.EligibilityChecker.AccordionBullet1.Text</li>
+
+								@if (@eligibility.Content.EligibilityChecker.AccordionBullet2.Text != null)
+								{
+									<li>@eligibility.Content.EligibilityChecker.AccordionBullet2.Text</li>
+								}
+								@if (@eligibility.Content.EligibilityChecker.AccordionBullet3.Text != null)
+								{
+									<li>@eligibility.Content.EligibilityChecker.AccordionBullet3.Text</li>
+								}
+
+								@if (@eligibility.Content.EligibilityChecker.AccordionBullet4.Text != null)
+								{
+									<li>@eligibility.Content.EligibilityChecker.AccordionBullet4.Text</li>
+								}
+								@if (@eligibility.Content.EligibilityChecker.AccordionBullet5.Text != null)
+								{
+									<li>@eligibility.Content.EligibilityChecker.AccordionBullet5.Text</li>
+								}
+
+							</ul>
+						}
+					</div>
 				</div>
-			</details>
+
+			</div>
+
+			<p class="govuk-body">Need help answering this question? <a class="govuk-link" href="#">Contact us</a>.</p>
 
 		</main>
-    </div>
-    <style src="/css/application.css"></style>
-
-
-
-
+	</div>
+	<style src="/css/application.css"></style>
+	<script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+	<script>
+		window.GOVUKFrontend.initAll()
+	</script>
 </body>
 
 @functions
 {
-    [FromRoute]
-    public string Slug { get; set; }
-    [BindProperty]
-    public string RedirectUrl { get; set; }
+	[FromRoute]
+	public string Slug { get; set; }
+	[BindProperty]
+	public string RedirectUrl { get; set; }
 
-    public void OnGet()
-    {
-        if (HttpContext.Session.Get("Question1") != null)
-        {
-            var Question1 = BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0);
-        }
-        if (HttpContext.Session.Get("Question2") != null)
-        {
-            var Question2 = BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0);
-        }
-        if (HttpContext.Session.Get("Question3") != null)
-        {
-            var Question3 = BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0);
-        }
-        if (HttpContext.Session.Get("Question4") != null)
-        {
-            var Question4 = BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0);
-        }
-        if (HttpContext.Session.Get("Question5") != null)
-        {
-            var Question5 = BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0);
-        }
-         if (HttpContext.Session.Get("Question6") != null)
-        {
-            var Question6 = BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0);
-        }
-    }
-    public async Task<IActionResult> OnPostAsync()
-    {
+	public void OnGet()
+	{
+		if (HttpContext.Session.Get("Question1") != null)
+		{
+			var Question1 = BitConverter.ToBoolean(HttpContext.Session.Get("Question1"), 0);
+		}
+		if (HttpContext.Session.Get("Question2") != null)
+		{
+			var Question2 = BitConverter.ToBoolean(HttpContext.Session.Get("Question2"), 0);
+		}
+		if (HttpContext.Session.Get("Question3") != null)
+		{
+			var Question3 = BitConverter.ToBoolean(HttpContext.Session.Get("Question3"), 0);
+		}
+		if (HttpContext.Session.Get("Question4") != null)
+		{
+			var Question4 = BitConverter.ToBoolean(HttpContext.Session.Get("Question4"), 0);
+		}
+		if (HttpContext.Session.Get("Question5") != null)
+		{
+			var Question5 = BitConverter.ToBoolean(HttpContext.Session.Get("Question5"), 0);
+		}
+		if (HttpContext.Session.Get("Question6") != null)
+		{
+			var Question6 = BitConverter.ToBoolean(HttpContext.Session.Get("Question6"), 0);
+		}
+	}
+	public async Task<IActionResult> OnPostAsync()
+	{
 
-        @inject OrchardCore.IOrchardHelper Orchard
-        var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+		@inject OrchardCore.IOrchardHelper Orchard
+		var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
 		var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
 		var titlePart = (string)@eligibility.Content.AliasPart.Alias;
 		var QuestionValue = Request.Form["questionSettingA"].ToString();
@@ -219,12 +261,15 @@
 					return Redirect("/eligibilityResult/EligibilityResult6");
 				}
 				break;
-			default: return Redirect("/eligibilityResult/EligibilityResult7"); 
+			default: return Redirect("/eligibilityResult/EligibilityResult7");
 
 		}
-		
-			return Redirect(redirect);
-		}
+
+		return Redirect(redirect);
+	}
 
 
+}
+@{
+	Layout = "_LayoutWithoutBackBtn";
 }
