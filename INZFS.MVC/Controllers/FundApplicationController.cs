@@ -719,7 +719,7 @@ namespace INZFS.MVC.Controllers
             currentModel.MaxLength = currentPage.MaxLength;
             if (currentPage.ShowMarkComplete)
             {
-                currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field?.MarkAsComplete.Value : false;
+                currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
             }
 
             if (!string.IsNullOrEmpty(field ?.Data))

@@ -25,7 +25,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string DataInput { get; set; }
 
         public bool ShowMarkAsComplete { get; set; }
-        public bool? MarkAsComplete { get; set; }
+        public bool MarkAsComplete { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
         public bool ShowSaveProgessButton { get; set; }
