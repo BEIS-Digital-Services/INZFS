@@ -34,6 +34,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string SectionUrl { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
+        protected Page CurrentPage { get; set; }
 
         public virtual string GetData()
         {
@@ -44,6 +45,7 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             ApplicationDefinition = (ApplicationDefinition)validationContext.GetService(typeof(ApplicationDefinition));
             var page = ApplicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(PageName));
+            CurrentPage = page;
             ErrorMessage = page.ErrorMessage;
             Mandatory = page.Mandatory;
             Hint = page.Hint;
