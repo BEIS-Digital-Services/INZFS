@@ -21,6 +21,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
+            "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },

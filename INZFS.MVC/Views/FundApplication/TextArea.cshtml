@@ -45,8 +45,6 @@
         </div>
     }
 
-
-
     <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
@@ -68,7 +66,7 @@
 
     @Html.Partial("_SaveProgress")
 
-    @Html.Partial("_Help")
+    @Html.Partial("_Accordion", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)
     {

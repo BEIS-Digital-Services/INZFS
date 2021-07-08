@@ -108,6 +108,7 @@ namespace INZFS.MVC.Controllers
             if (section != null)
             {
                 var sectionContentModel = new SectionContent();
+                sectionContentModel.TotalQuestions = section.Pages.Count;
                 sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
@@ -129,6 +130,7 @@ namespace INZFS.MVC.Controllers
                         if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
                         {
                             sectionModel.Status = "Completed";
+                            sectionContentModel.TotalQuestionsCompleted ++;
                         }
                         
                         else

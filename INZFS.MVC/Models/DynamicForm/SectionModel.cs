@@ -20,5 +20,8 @@ namespace INZFS.MVC.Models.DynamicForm
             Sections = new List<SectionModel>();
         }
         public List<SectionModel> Sections { get; set; }
+        public int TotalQuestions { get; set; }
+        public int TotalQuestionsCompleted { get; set; }
     }
 }
+

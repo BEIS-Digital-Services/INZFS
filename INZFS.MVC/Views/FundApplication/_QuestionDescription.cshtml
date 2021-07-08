@@ -1,168 +1,41 @@
+@model string
 
 @if (Model == "business-proposal")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Describe your proposed concept. You should include information and supporting evidence about:
-        <ul>
-            <li>
-                what makes your concept different to existing products or services
-            </li>
-            <li>
-                your target marketplace and its estimated value
-            </li>
-            <li>
-                how your concept provides value to customers
-            </li>
-            <li>
-                other sectors you could target in the concept's first 3 years
-            </li>
-            <li>
-                your competitors
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposal.cshtml")
 }
-
 @if (Model == "business-plan")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Explain how you will make money from your concept. Include information and supporting evidence about:
-        <ul>
-            <li>
-                your concept's business model
-            </li>
-            <li>
-                how you'll sell it
-            </li>
-            <li>
-                the number of sales you might expect from your target market
-            </li>
-            <li>
-                how a successful project might affect your organisation
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessPlan.cshtml")
 }
-
 @if (Model == "business-technology-readiness")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        You need to tell us your concept's current stage of development, including evidence and information about:
-        <ul>
-            <li>
-                the technology readiness level of your concept
-            </li>
-            <li>
-                studies and research you've completed
-            </li>
-            <li>
-                obstacles and risks to your concept, and how likely you are to overcome them
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
 }
-
 @if (Model == "business-infrastructure")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Describe the facilities your project requires, and how they might change over time. This includes:
-        <ul>
-            <li>
-                your location
-            </li>
-            <li>
-                buildings
-            </li>
-            <li>
-                energy and data needs
-            </li>
-            <li>
-                site co-location
-
-            </li>
-            <li>
-                system integration, inputs or conditions
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessInfrastructure.cshtml")
 }
-
 @if (Model == "business-environmental-impact")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Describe any environmental impact that developing your concept may cause. This may include:
-        <ul>
-            <li>
-                emissions
-            </li>
-            <li>
-                noise or vibrations
-            </li>
-            <li>
-                visual intrusions
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessEnvironmentalImpact.cshtml")
 }
-
 @if (Model == "business-regulations")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        List any regulations and requirements that you need to comply with during your project. This may include:
-        <ul>
-            <li>
-                planning consent for buildings
-            </li>
-            <li>
-                environmental permits
-            </li>
-            <li>
-                industry-specific requirements
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessRegulations.cshtml")
 }
-
 @if (Model == "business-impact-on-climate-change")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Describe your concept's potential impact on climnate change. You should include:
-        <ul>
-            <li>
-                how your concept will affect climate change or security of energy supply
-            </li>
-            <li>
-                how the grant will give BEIS value for money
-            </li>
-            <li>
-                potential reductions of carbon or greenhouse gas emissions which could be made once your concept is on the market
-            </li>
-            <li>
-                when your concept will start to have an impact on climate change
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessImpactOnClimateChange.cshtml")
 }
-
+@if (Model == "business-project-plan")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlan.cshtml")
+}
 @if (Model == "business-project-evaluation")
 {
-    <div id="changed-name-hint" class="govuk-hint">
-        Describe how you will judge the success of your concept. Make sure you include:
-        <ul>
-            <li>
-                the top 3 critical success factor and how you will measure them
-            </li>
-            <li>
-                the main challenges you will face
-            </li>
-            <li>
-                project management tools you'll use
-            </li>
-        </ul>
-    </div>
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
-
-
 
 
 
