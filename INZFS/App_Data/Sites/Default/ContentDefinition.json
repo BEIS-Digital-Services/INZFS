@@ -2242,7 +2242,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body1",
-              "Position": "1"
+              "Position": "8"
             }
           }
         },
@@ -2252,7 +2252,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body2",
-              "Position": "2"
+              "Position": "9"
             }
           }
         },
@@ -2262,7 +2262,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body3",
-              "Position": "3"
+              "Position": "10"
             }
           }
         },
@@ -2272,7 +2272,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Button1",
-              "Position": "9"
+              "Position": "16"
             }
           }
         },
@@ -2282,7 +2282,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Url1",
-              "Position": "10"
+              "Position": "17"
             }
           }
         },
@@ -2292,7 +2292,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body4",
-              "Position": "4"
+              "Position": "11"
             }
           }
         },
@@ -2302,7 +2302,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body5",
-              "Position": "5"
+              "Position": "12"
             }
           }
         },
@@ -2312,7 +2312,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body6",
-              "Position": "6"
+              "Position": "13"
             }
           }
         },
@@ -2322,7 +2322,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body7",
-              "Position": "7"
+              "Position": "14"
             }
           }
         },
@@ -2332,7 +2332,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body8",
-              "Position": "8"
+              "Position": "15"
             }
           }
         },
@@ -2341,7 +2341,8 @@
           "Name": "Bullet1",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet1"
+              "DisplayName": "Bullet1",
+              "Position": "2"
             }
           }
         },
@@ -2350,7 +2351,8 @@
           "Name": "Bullet2",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet2"
+              "DisplayName": "Bullet2",
+              "Position": "3"
             }
           }
         },
@@ -2359,7 +2361,8 @@
           "Name": "Bullet3",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet3"
+              "DisplayName": "Bullet3",
+              "Position": "4"
             }
           }
         },
@@ -2368,7 +2371,8 @@
           "Name": "Bullet4",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet4"
+              "DisplayName": "Bullet4",
+              "Position": "5"
             }
           }
         },
@@ -2377,7 +2381,8 @@
           "Name": "BulletA",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "BulletA"
+              "DisplayName": "BulletA",
+              "Position": "6"
             }
           }
         },
@@ -2386,7 +2391,18 @@
           "Name": "BulletB",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "BulletB"
+              "DisplayName": "BulletB",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Header2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Header2",
+              "Position": "1"
             }
           }
         }
@@ -2499,5 +2515,5 @@
       ]
     }
   ],
-  "Identifier": "4s11e9bq2mmg0z69x093y2d0nf"
+  "Identifier": "4cttpwvs4k0x8whrpr0bq63ndx"
 }
