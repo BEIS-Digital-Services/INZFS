@@ -43,7 +43,7 @@
           },
           {
             "name": "business-technology-readiness",
-            "question": "5.3. Technology Readiness Level(TRL)",
+            "question": "5.3. Technology Readiness Level (TRL)",
             "description": "Description",
             "errorMessage": "Enter technology readiness level",
             "fieldType": "gdsTextArea",
