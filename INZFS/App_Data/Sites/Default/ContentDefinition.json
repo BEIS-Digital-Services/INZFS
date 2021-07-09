@@ -2026,7 +2026,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body2",
-              "Position": "2"
+              "Position": "13"
             }
           }
         },
@@ -2036,7 +2036,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Header1",
-              "Position": "3"
+              "Position": "1"
             }
           }
         },
@@ -2046,7 +2046,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Header2",
-              "Position": "4"
+              "Position": "2"
             }
           }
         },
@@ -2056,7 +2056,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Accordion1",
-              "Position": "5"
+              "Position": "3"
             }
           }
         },
@@ -2066,7 +2066,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Boolean1",
-              "Position": "11"
+              "Position": "19"
             }
           }
         },
@@ -2076,7 +2076,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Boolean2",
-              "Position": "12"
+              "Position": "20"
             }
           }
         },
@@ -2086,7 +2086,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Button1",
-              "Position": "10"
+              "Position": "18"
             }
           }
         },
@@ -2096,7 +2096,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Bullet1",
-              "Position": "6"
+              "Position": "14"
             }
           }
         },
@@ -2106,7 +2106,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Bullet2",
-              "Position": "7"
+              "Position": "15"
             }
           }
         },
@@ -2116,7 +2116,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Bullet3",
-              "Position": "8"
+              "Position": "16"
             }
           }
         },
@@ -2126,7 +2126,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Bullet4",
-              "Position": "9"
+              "Position": "17"
             }
           }
         },
@@ -2136,7 +2136,87 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "AccordionDetails1",
-              "Position": "1"
+              "Position": "4"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionDetails2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionDetails2",
+              "Position": "5"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionDetails3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionDetails3",
+              "Position": "6"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionBullet1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionBullet1",
+              "Position": "8"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionBullet2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionBullet2",
+              "Position": "9"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionBullet3",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionBullet3",
+              "Position": "10"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionBullet4",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionBullet4",
+              "Position": "11"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionBullet5",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionBullet5",
+              "Position": "12"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "AccordionDetails4",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "AccordionDetails4",
+              "Position": "7"
             }
           }
         }
@@ -2162,7 +2242,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body1",
-              "Position": "1"
+              "Position": "8"
             }
           }
         },
@@ -2172,7 +2252,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body2",
-              "Position": "2"
+              "Position": "9"
             }
           }
         },
@@ -2182,7 +2262,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body3",
-              "Position": "3"
+              "Position": "10"
             }
           }
         },
@@ -2192,7 +2272,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Button1",
-              "Position": "9"
+              "Position": "16"
             }
           }
         },
@@ -2202,7 +2282,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Url1",
-              "Position": "10"
+              "Position": "17"
             }
           }
         },
@@ -2212,7 +2292,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body4",
-              "Position": "4"
+              "Position": "11"
             }
           }
         },
@@ -2222,7 +2302,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body5",
-              "Position": "5"
+              "Position": "12"
             }
           }
         },
@@ -2232,7 +2312,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body6",
-              "Position": "6"
+              "Position": "13"
             }
           }
         },
@@ -2242,7 +2322,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body7",
-              "Position": "7"
+              "Position": "14"
             }
           }
         },
@@ -2252,7 +2332,7 @@
           "Settings": {
             "ContentPartFieldSettings": {
               "DisplayName": "Body8",
-              "Position": "8"
+              "Position": "15"
             }
           }
         },
@@ -2261,7 +2341,8 @@
           "Name": "Bullet1",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet1"
+              "DisplayName": "Bullet1",
+              "Position": "2"
             }
           }
         },
@@ -2270,7 +2351,8 @@
           "Name": "Bullet2",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet2"
+              "DisplayName": "Bullet2",
+              "Position": "3"
             }
           }
         },
@@ -2279,7 +2361,8 @@
           "Name": "Bullet3",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet3"
+              "DisplayName": "Bullet3",
+              "Position": "4"
             }
           }
         },
@@ -2288,7 +2371,8 @@
           "Name": "Bullet4",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "Bullet4"
+              "DisplayName": "Bullet4",
+              "Position": "5"
             }
           }
         },
@@ -2297,7 +2381,8 @@
           "Name": "BulletA",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "BulletA"
+              "DisplayName": "BulletA",
+              "Position": "6"
             }
           }
         },
@@ -2306,7 +2391,18 @@
           "Name": "BulletB",
           "Settings": {
             "ContentPartFieldSettings": {
-              "DisplayName": "BulletB"
+              "DisplayName": "BulletB",
+              "Position": "7"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Header2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Header2",
+              "Position": "1"
             }
           }
         }
@@ -2419,5 +2515,5 @@
       ]
     }
   ],
-  "Identifier": "4s4xntycnerst2erw7f4zds2dx"
+  "Identifier": "4cttpwvs4k0x8whrpr0bq63ndx"
 }
