@@ -45,6 +45,7 @@
                     @Model.Question
                 </h1>
             </legend>
+            @Html.Partial("_Hint", Model.Hint)
             <span asp-validation-for="@Model.MultipleSelect" class="govuk-error-message"></span>
             <div class="govuk-checkboxes">
                 <div class="govuk-checkboxes__item">
@@ -75,12 +76,15 @@
         </fieldset>
     </div>
 
-    
+    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion","")
+
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
         </div>
     </div>
 </form>
 
-@Html.Partial("_Help")
+<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>

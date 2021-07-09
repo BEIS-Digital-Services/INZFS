@@ -1,8 +1,42 @@
-<div>
-    Describe your proposal concept.
-    <ul>
-        <li>Description1</li>
-        <li>Description2</li>
-        <li>Description3</li>
-    </ul>
-</div>
+@model string
+
+@if (Model == "business-proposal")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposal.cshtml")
+}
+@if (Model == "business-plan")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessPlan.cshtml")
+}
+@if (Model == "business-technology-readiness")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
+}
+@if (Model == "business-infrastructure")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessInfrastructure.cshtml")
+}
+@if (Model == "business-environmental-impact")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessEnvironmentalImpact.cshtml")
+}
+@if (Model == "business-regulations")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessRegulations.cshtml")
+}
+@if (Model == "business-impact-on-climate-change")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessImpactOnClimateChange.cshtml")
+}
+@if (Model == "business-project-plan")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlan.cshtml")
+}
+@if (Model == "business-project-evaluation")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
+}
+
+
+
+

@@ -55,7 +55,7 @@
                         <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-day">
                             Day
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="Day" name="Day" 
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="Day" name="Day"
                                type="text" pattern="[0-9]*" inputmode="numeric" value="@Model.Day">
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                         <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-month">
                             Month
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="Month" name="Month" 
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="Month" name="Month"
                                type="text" pattern="[0-9]*" inputmode="numeric" value="@Model.Month">
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <label class="govuk-label govuk-date-input__label" for="estimated-project-end-date-year">
                             Year
                         </label>
-                        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="Year" name="Year" 
+                        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="Year" name="Year"
                                type="text" pattern="[0-9]*" inputmode="numeric" value="@Model.Year">
                     </div>
                 </div>
@@ -82,13 +82,16 @@
         </fieldset>
     </div>
 
+    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion","")
 
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">Continue</button>
+            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
         </div>
     </div>
 </form>
 
-@Html.Partial("_Help")
+<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>

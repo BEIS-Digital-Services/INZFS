@@ -108,6 +108,7 @@ namespace INZFS.MVC.Controllers
             if (section != null)
             {
                 var sectionContentModel = new SectionContent();
+                sectionContentModel.TotalQuestions = section.Pages.Count;
                 sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
@@ -129,6 +130,7 @@ namespace INZFS.MVC.Controllers
                         if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
                         {
                             sectionModel.Status = "Completed";
+                            sectionContentModel.TotalQuestionsCompleted ++;
                         }
                         
                         else
@@ -717,7 +719,7 @@ namespace INZFS.MVC.Controllers
             currentModel.MaxLength = currentPage.MaxLength;
             if (currentPage.ShowMarkComplete)
             {
-                currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field?.MarkAsComplete.Value : false;
+                currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
             }
 
             if (!string.IsNullOrEmpty(field ?.Data))

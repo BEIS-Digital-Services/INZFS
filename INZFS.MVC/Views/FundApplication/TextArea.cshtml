@@ -45,8 +45,6 @@
         </div>
     }
 
-
-
     <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
@@ -54,10 +52,10 @@
                     @Model.Question
                 </label>
             </h1>
-            @Html.Partial("_QuestionDescription")
-            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            @Html.Partial("_QuestionDescription", Model.PageName)
             @Html.Partial("_Hint", Model.Hint)
-            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint" 
+            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
                       name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
         </div>
         <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
@@ -66,13 +64,15 @@
 
     </div>
 
+    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)
     {
-        @Html.Partial("_MarkAsComplete", Model.MarkAsComplete.Value)
+        @Html.Partial("_MarkAsComplete", Model)
     }
 
-    @Html.Partial("_Help")
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">

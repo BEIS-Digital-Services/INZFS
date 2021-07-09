@@ -32,6 +32,7 @@ namespace INZFS.MVC
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
         public string FieldName { get; set; }
+        public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
         //[JsonProperty("accordian-reference")]

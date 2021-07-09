@@ -25,7 +25,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string DataInput { get; set; }
 
         public bool ShowMarkAsComplete { get; set; }
-        public bool? MarkAsComplete { get; set; }
+        public bool MarkAsComplete { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
         public bool ShowSaveProgessButton { get; set; }
@@ -34,6 +34,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string SectionUrl { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
+        protected Page CurrentPage { get; set; }
 
         public virtual string GetData()
         {
@@ -44,6 +45,7 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             ApplicationDefinition = (ApplicationDefinition)validationContext.GetService(typeof(ApplicationDefinition));
             var page = ApplicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(PageName));
+            CurrentPage = page;
             ErrorMessage = page.ErrorMessage;
             Mandatory = page.Mandatory;
             Hint = page.Hint;
