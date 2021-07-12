@@ -3,6 +3,88 @@
     "name": "INZFS",
     "sections": [
       {
+        "title": "Proposal Summary",
+        "tag": "proposal-summary",
+        "url": "proposal-summary-overview",
+        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
+        "continueButtonText": "Save and continue to next question",
+        "RazorView": "ProposalSummaryOverview",
+        "pages": [
+          {
+            "name": "project-name",
+            "question": "4.1. Project Name",
+            "description": "Description",
+            "errorMessage": "Please entre a valid project name",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Project Name",
+            "fieldName": "project-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "estimated-start-date",
+            "question": "4.2. Estimated start and end date",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Business plan",
+            "fieldName": "business-plan",
+            "mandatory": true,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "project-location",
+            "question": "4.3. Project Location",
+            "description": "Description",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Technology Readiness Level",
+            "fieldName": "business-technology-readiness",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "project-summary",
+            "question": "4.4. Project Summary",
+            "description": "Description",
+            "errorMessage": "Enter project summary details",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "Project Summary",
+            "fieldName": "project-summary",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "This should be a brief description to help introduce your project to assessors",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "grant-justification",
+            "question": "4.5. Grant Justification",
+            "description": "Description",
+            "errorMessage": "Entre Grant Justification",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "Grant Justification",
+            "fieldName": "grant-justification",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          }
+        ]
+      },
+      {
         "title": "Business Proposal",
         "tag": "business-proposal",
         "url": "business-proposal-overview",
