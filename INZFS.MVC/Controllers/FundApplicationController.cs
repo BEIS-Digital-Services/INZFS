@@ -148,7 +148,8 @@ namespace INZFS.MVC.Controllers
 
             if (pagename == "application-overview")
             {
-                return View("ApplicationOverview");
+                var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                return View("ApplicationOverview", model);
             }
 
 
@@ -474,6 +475,11 @@ namespace INZFS.MVC.Controllers
             return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
+        private async Task<String> GetApplicationId()
+        {
+            var items = await _contentRepository.GetContentItemListFromBagPart(User.Identity.Name);
+            return "4tz9nvna64zybr2p4acf4qefda";
+        }
 
         private async Task<SummaryViewModel> GetSummaryModel()
         {

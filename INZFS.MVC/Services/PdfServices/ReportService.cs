@@ -24,11 +24,9 @@ public class ReportService : IReportService
         _applicationDefinition = applicationDefinition;
     }
 
-    public async Task<byte[]> GeneratePdfReport(string applicationId)
+    public async Task<byte[]> GeneratePdfReport(string applicationAuthor)
     {
-        var application = await _contentRepository.GetContentItemById(applicationId);
-
-        _applicationContent = _contentRepository.GetApplicationContent(application.Author).Result;
+        _applicationContent = _contentRepository.GetApplicationContent(applicationAuthor).Result;
 
         OpenHtmlString();
         PopulateHtmlSections();

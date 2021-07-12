@@ -1,3 +1,5 @@
+@model ApplicationContent
+@using INZFS.MVC 
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -112,7 +114,6 @@
         </a>
 
     </div>
-
     <div class="govuk-grid-column-one-third">
 
         <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
@@ -136,8 +137,7 @@
                 <a class="govuk-link" 
                    asp-controller="Report" 
                    asp-action="GeneratePdf" 
-                   asp-route-companyName="ACME Dynamite" 
-                   asp-route-applicationId="4tz9nvna64zybr2p4acf4qefda">Download a copy of your application</a>
+                   asp-route-applicationAuthor=@Model.Author>Download a copy of your application</a>
             </p>
 
         </aside>

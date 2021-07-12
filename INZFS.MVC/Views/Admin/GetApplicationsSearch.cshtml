@@ -48,7 +48,6 @@
             </td>
             <td>
                 <a class="govuk-button govuk-!-margin-top-6" href="application?id=@application.Value.ContentItemId">View</a>
-
             </td>
             <td>
                 @Html.ActionLink(
@@ -57,8 +56,7 @@
                controllerName: "Report",
                routeValues: new
                     {
-                   companyName = application.Key,
-                   applicationId = application.Value.ContentItemId
+                   applicationAuthor = application.Value.Author
                },
                htmlAttributes: null
                )
