@@ -90,7 +90,7 @@ public class ReportService : IReportService
 
     private String getAnswerString(INZFS.MVC.Page page)
     {
-        var answer = _applicationContent.Fields.Find(question => question.Name == page.Name);
+        var answer = _applicationContent?.Fields.Find(question => question.Name == page.Name);
 
         if (answer == null)
         {
