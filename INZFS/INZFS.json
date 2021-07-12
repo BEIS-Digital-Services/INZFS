@@ -13,6 +13,7 @@
           {
             "name": "project-name",
             "question": "4.1. Project Name",
+            "titleQuestion": "4.1. What is the name of your project?",
             "description": "Description",
             "errorMessage": "Please entre a valid project name",
             "fieldType": "gdsTextBox",
@@ -28,19 +29,20 @@
           {
             "name": "estimated-start-date",
             "question": "4.2. Estimated start and end date",
+            "titleQuestion": "4.2. When do you estimate the project will start?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Business plan",
-            "fieldName": "business-plan",
+            "friendlyFieldName": "Estimated Start Date",
+            "fieldName": "estimated-start-date",
             "mandatory": true,
-            "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
           {
             "name": "project-location",
             "question": "4.3. Project Location",
+            "titleQuestion": "4.3. Will your project be mainly carried out at your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsSingleLineRadio",
@@ -79,6 +81,7 @@
             "accordianReference": "",
             "maxLength": 1000,
             "maxLengthValidationType": "Character",
+            "hint": "Explain why public sector funding is required to take this concept forward.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           }

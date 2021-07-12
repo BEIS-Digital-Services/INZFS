@@ -715,6 +715,7 @@ namespace INZFS.MVC.Controllers
         {
             
             currentModel.Question = currentPage.Question;
+            currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
