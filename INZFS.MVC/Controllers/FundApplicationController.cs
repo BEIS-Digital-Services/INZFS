@@ -151,6 +151,16 @@ namespace INZFS.MVC.Controllers
             if (pagename == "application-overview")
             {
                 var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                //Prevent a null reference expcetion by creating the application if one is not found
+                if (model == null)
+                {
+                    model = new ApplicationContent
+                    {
+                        Application = new Application(),
+                        Author = User.Identity.Name,
+                        CreatedUtc = DateTime.UtcNow
+                    };
+                }
                 return View("ApplicationOverview", model);
             }
 
