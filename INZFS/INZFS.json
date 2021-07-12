@@ -28,7 +28,7 @@
           },
           {
             "name": "estimated-start-date",
-            "question": "4.2. Estimated start and end date",
+            "question": "4.2. Estimated start date",
             "titleQuestion": "4.2. When do you estimate the project will start?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
@@ -40,9 +40,22 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "estimated-end-date",
+            "question": "4.3. Estimated end date",
+            "titleQuestion": "4.3. When do you estimate the project will end?",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Estimated End Date",
+            "fieldName": "estimated-end-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
             "name": "project-location",
-            "question": "4.3. Project Location",
-            "titleQuestion": "4.3. Will your project be mainly carried out at your organisation's registered address?",
+            "question": "4.4. Project Location",
+            "titleQuestion": "4.4. Will your project be mainly carried out at your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsSingleLineRadio",
@@ -55,7 +68,7 @@
           },
           {
             "name": "project-summary",
-            "question": "4.4. Project Summary",
+            "question": "4.5. Project Summary",
             "description": "Description",
             "errorMessage": "Enter project summary details",
             "fieldType": "gdsTextArea",
@@ -71,7 +84,7 @@
           },
           {
             "name": "grant-justification",
-            "question": "4.5. Grant Justification",
+            "question": "4.6. Grant Justification",
             "description": "Description",
             "errorMessage": "Entre Grant Justification",
             "fieldType": "gdsTextArea",
