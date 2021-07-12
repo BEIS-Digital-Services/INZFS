@@ -670,11 +670,14 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, model, field));
                 case FieldType.gdsDateBox:
                     model = PopulateModel(currentPage, new DateModel(), field);
-                    var inputDate = DateTime.Parse(model.DataInput);
-                    var dateModel = (DateModel)model;
-                    dateModel.Day = inputDate.Day;
-                    dateModel.Month = inputDate.Month;
-                    dateModel.Year = inputDate.Year;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var inputDate = DateTime.Parse(model.DataInput);
+                        var dateModel = (DateModel)model;
+                        dateModel.Day = inputDate.Day;
+                        dateModel.Month = inputDate.Month;
+                        dateModel.Year = inputDate.Year;
+                    }
                     
 
                     return View("DateInput", model);

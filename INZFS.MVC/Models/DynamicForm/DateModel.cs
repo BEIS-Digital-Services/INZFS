@@ -22,7 +22,7 @@ namespace INZFS.MVC.Models.DynamicForm
 
                 if (Day.HasValue && Month.HasValue && Year.HasValue)
                 {
-                     DateUtc = $"{Day}/{Month}/{ Year}";
+                     DateUtc = $"{Day}/{Month}/{Year}";
                 }
                 var clock = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(DateUtc))
