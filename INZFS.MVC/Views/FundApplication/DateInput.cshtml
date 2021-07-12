@@ -3,10 +3,11 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
+
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
     <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back
+        Back to previous question
     </a>
 }
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
@@ -85,6 +86,10 @@
 
     @Html.Partial("_Accordion", "")
 
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">

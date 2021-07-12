@@ -5,8 +5,8 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="Model.PreviousPageName">
-        Back
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back to previous question
     </a>
 }
 
@@ -61,9 +61,12 @@
         </fieldset>
     </div>
 
-    @Html.Partial("_SaveProgress")
 
-    @Html.Partial("_Accordion","")
+    @Html.Partial("_Accordion", "")
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
