@@ -475,12 +475,6 @@ namespace INZFS.MVC.Controllers
             return RedirectToAction("section", new { pagename = nextPageUrl });
         }
 
-        private async Task<String> GetApplicationId()
-        {
-            var items = await _contentRepository.GetContentItemListFromBagPart(User.Identity.Name);
-            return "4tz9nvna64zybr2p4acf4qefda";
-        }
-
         private async Task<SummaryViewModel> GetSummaryModel()
         {
             var items = await _contentRepository.GetContentItemListFromBagPart(User.Identity.Name);
