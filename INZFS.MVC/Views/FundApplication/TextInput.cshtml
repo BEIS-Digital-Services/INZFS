@@ -50,7 +50,7 @@
         </h1>
         @Html.Partial("_Hint", Model.Hint)
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+        <input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
                name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
     </div>
 

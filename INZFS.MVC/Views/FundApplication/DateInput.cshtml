@@ -10,6 +10,9 @@
         Back to previous question
     </a>
 }
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
     @{
         var sampleDate = DateTime.Now.AddDays(30);
@@ -32,7 +35,7 @@
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
+                                <a href="#Day">@error.ErrorMessage</a>
                             </li>
                         }
                     }
@@ -45,7 +48,7 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-project-end-date">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                Estimated Project End Date
+                @Model.Question
             </legend>
             <div id="estimated-project-end-date-hint" class="govuk-hint">
                 For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year

@@ -10,6 +10,8 @@
     </a>
 }
 
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
 <form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
@@ -78,7 +80,7 @@
 
     @Html.Partial("_SaveProgress")
 
-    @Html.Partial("_Accordion","")
+    @Html.Partial("_Accordion", "")
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
