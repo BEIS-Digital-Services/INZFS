@@ -1,3 +1,5 @@
+@model ApplicationContent
+@using INZFS.MVC 
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -112,7 +114,6 @@
         </a>
 
     </div>
-
     <div class="govuk-grid-column-one-third">
 
         <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
@@ -133,6 +134,16 @@
             <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download the guidance</a></p>
             <p class="govuk-body-m"><a class="govuk-link" href="#">Download supporting documents</a></p>
 
+            <a asp-controller="Report"
+               asp-action="GeneratePdf"
+               asp-route-applicationAuthor=@Model.Author>
+                <button class="govuk-button govuk-button--secondary"
+                        type="button"
+                        asp-controller="Report"
+                        asp-action="GeneratePdf"
+                        asp-route-applicationAuthor=@Model.Author>Download your application
+                </button>
+            </a>
         </aside>
 
     </div>
