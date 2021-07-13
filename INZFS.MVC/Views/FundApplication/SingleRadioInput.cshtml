@@ -5,10 +5,12 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="Model.PreviousPageName">
-        Back
+    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back to previous question
     </a>
 }
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -40,7 +42,15 @@
 
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <label class="govuk-label govuk-label--l">
-            @Model.Question
+            @if (string.IsNullOrEmpty(Model.TitleQuestion))
+            {
+                @Model.Question
+
+            }
+            else
+            {
+                @Model.TitleQuestion
+            }
         </label>
         @Html.Partial("_Hint", Model.Hint)
         <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
@@ -61,9 +71,12 @@
         </fieldset>
     </div>
 
-    @Html.Partial("_SaveProgress")
 
-    @Html.Partial("_Accordion","")
+    @Html.Partial("_Accordion", "")
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">

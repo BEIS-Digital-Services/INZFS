@@ -3,12 +3,16 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
+
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
     <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back
+        Back to previous question
     </a>
 }
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
     @{
         var sampleDate = DateTime.Now.AddDays(30);
@@ -31,7 +35,7 @@
                         foreach (var error in value.Errors)
                         {
                             <li>
-                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
+                                <a href="#Day">@error.ErrorMessage</a>
                             </li>
                         }
                     }
@@ -44,7 +48,15 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-project-end-date">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                Estimated Project End Date
+                @if (string.IsNullOrEmpty(Model.TitleQuestion))
+                {
+                    @Model.Question
+
+                }
+                else
+                {
+                    @Model.TitleQuestion
+                }
             </legend>
             <div id="estimated-project-end-date-hint" class="govuk-hint">
                 For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
@@ -82,10 +94,13 @@
         </fieldset>
     </div>
 
-    @Html.Partial("_SaveProgress")
 
-    @Html.Partial("_Accordion","")
+    @Html.Partial("_Accordion", "")
 
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">

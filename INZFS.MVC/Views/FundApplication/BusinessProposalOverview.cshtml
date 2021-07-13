@@ -39,24 +39,24 @@
                     @foreach (var item in Model.Sections)
                     {
                         <div class="govuk-body-m govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                    @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                </a>
-                            </dt>
-                            <dd class="govuk-summary-list__actions">
-                                @item.Status
-                            </dd>
-                        </div>
-                    }
-                </dl>
+                        <dt class="govuk-summary-list__key">
+                            <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                            </a>
+                        </dt>
+                        <dd class="govuk-summary-list__actions">
+                            @item.Status
+                        </dd>
+                </div>
+            }
+                    </dl>
 
 
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Additional documents<span class="summary-list-section summary-list-section--right"></span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Additional documents<span class="summary-list-section summary-list-section--right"></span></p>
+                    <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-                <dl class="govuk-summary-list">
-                    <div class="govuk-body-m govuk-summary-list__row">
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-body-m govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             <a class="govuk-link govuk-!-font-weight-regular" href="#">
                                 Letter of support<span class="govuk-visually-hidden">Letter of support</span>
@@ -65,18 +65,18 @@
                         <dd class="govuk-summary-list__actions">
                             Not started
                         </dd>
-                    </div>
+                </div>
 
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional business evidence<span class="govuk-visually-hidden"> Additional business evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not started
-                        </dd>
-                    </div>
+                <div class="govuk-body-m govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                            Additional business evidence<span class="govuk-visually-hidden"> Additional business evidence</span>
+                        </a>
+                    </dt>
+                    <dd class="govuk-summary-list__actions">
+                        Not started
+                    </dd>
+                </div>
                 </dl>
 
 
@@ -92,128 +92,128 @@
 
                 <dl class="govuk-summary-list">
                     <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                5.8. Project gantt chart<span class="govuk-visually-hidden">Project gantt chart</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Uploaded
-                        </dd>
-                    </div>
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                5.9. Risks register<span class="govuk-visually-hidden">Risks register</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                6.4. Project costs breakdown<span class="govuk-visually-hidden">Project costs breakdown</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Uploaded
-                        </dd>
-                    </div>
-
-                </dl>
-
-
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Additional documents (optional)<span class="summary-list-section summary-list-section--right">0 out of 5 completed</span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                <dl class="govuk-summary-list">
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Letter of support<span class="govuk-visually-hidden">Letter of support</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional business evidence<span class="govuk-visually-hidden">Additional business evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional financial evidence<span class="govuk-visually-hidden">Additional financial evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional evidence<span class="govuk-visually-hidden">Additional evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                </dl>
-
-
-
-
+                    <dt class="govuk-summary-list__key">
+                        <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                            5.8. Project gantt chart<span class="govuk-visually-hidden">Project gantt chart</span>
+                        </a>
+                    </dt>
+                    <dd class="govuk-summary-list__actions">
+                        Uploaded
+                    </dd>
             </div>
+            <div class="govuk-body-m govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                        5.9. Risks register<span class="govuk-visually-hidden">Risks register</span>
+                    </a>
+                </dt>
+                <dd class="govuk-summary-list__actions">
+                    Not uploaded
+                </dd>
+            </div>
+            <div class="govuk-body-m govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                        6.4. Project costs breakdown<span class="govuk-visually-hidden">Project costs breakdown</span>
+                    </a>
+                </dt>
+                <dd class="govuk-summary-list__actions">
+                    Uploaded
+                </dd>
+            </div>
+
+            </dl>
+
+
+            <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Additional documents (optional)<span class="summary-list-section summary-list-section--right">0 out of 5 completed</span></p>
+            <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
+
+            <dl class="govuk-summary-list">
+
+                <div class="govuk-body-m govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                        Letter of support<span class="govuk-visually-hidden">Letter of support</span>
+                    </a>
+                </dt>
+                <dd class="govuk-summary-list__actions">
+                    Not uploaded
+                </dd>
+        </div>
+
+        <div class="govuk-body-m govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                    Additional business evidence<span class="govuk-visually-hidden">Additional business evidence</span>
+                </a>
+            </dt>
+            <dd class="govuk-summary-list__actions">
+                Not uploaded
+            </dd>
+        </div>
+
+        <div class="govuk-body-m govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                    Additional financial evidence<span class="govuk-visually-hidden">Additional financial evidence</span>
+                </a>
+            </dt>
+            <dd class="govuk-summary-list__actions">
+                Not uploaded
+            </dd>
+        </div>
+
+        <div class="govuk-body-m govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+                <a class="govuk-link govuk-!-font-weight-regular" href="#">
+                    Additional evidence<span class="govuk-visually-hidden">Additional evidence</span>
+                </a>
+            </dt>
+            <dd class="govuk-summary-list__actions">
+                Not uploaded
+            </dd>
+        </div>
+
+        </dl>
+
 
 
 
         </div>
 
-        <a href="applicationOverview.html">
+
+
+        </div>
+
+        <a href="application-overview">
             <button class="govuk-button" data-module="govuk-button">
                 Back to application overview
             </button>
         </a>
 
-    </div>
+        </div>
 
-    <div class="govuk-grid-column-one-third govuk-!-padding-top-9">
+        <div class="govuk-grid-column-one-third govuk-!-padding-top-9">
 
-        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+            <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
 
-        <aside class="app-related-items" role="complementary">
+            <aside class="app-related-items" role="complementary">
 
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
+                <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
+                <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
 
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
+                <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
+                <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
 
-        </aside>
+            </aside>
 
-        <aside class="app-related-items" role="complementary">
+            <aside class="app-related-items" role="complementary">
 
-            <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download the guidance</a></p>
-            <p class="govuk-body-m"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download supporting documents</a></p>
+                <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
+                <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download the guidance</a></p>
+                <p class="govuk-body-m"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download supporting documents</a></p>
 
-        </aside>
+            </aside>
 
-    </div>
-</div>
+        </div>
+        </div>
