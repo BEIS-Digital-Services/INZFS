@@ -10,7 +10,7 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
         Back to previous question
     </a>
 }
@@ -84,7 +84,7 @@
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+            <button type="submit"  id="@Model.ContinueButtonText" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
         </div>
     </div>
 </form>
