@@ -32,7 +32,7 @@
 
             <div class="govuk-tabs__panel" id="write-application" role="tabpanel" aria-labelledby="tab_write-application">
 
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">5. Business proposal<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">4. Proposal summary<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
                 <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                 <dl class="govuk-summary-list">
@@ -40,7 +40,7 @@
                     {
                         <div class="govuk-body-m govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
-                                <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
                                     @item.Title <span class="govuk-visually-hidden">@item.Title</span>
                                 </a>
                             </dt>
@@ -50,9 +50,6 @@
                         </div>
                     }
                 </dl>
-
-
-
 
             </div>
 
