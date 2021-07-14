@@ -334,7 +334,7 @@
         "pages": [
           {
             "name": "project-cost-breakdown",
-            "question": "6.1 Project cost breakdown",
+            "question": "6.1. Project cost breakdown",
             "titleQuestion": "6.1 Project cost breakdown",
             "description": "Provide a breakdown of your costs using the template provided in the download section of this page.",
             "errorMessage": "Please provide a breakdown of your costs",
