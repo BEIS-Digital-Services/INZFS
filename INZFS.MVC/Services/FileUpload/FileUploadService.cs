@@ -78,8 +78,9 @@ namespace INZFS.MVC.Services.FileUpload
                 return "Empty file";
             }
 
-            var notContainsVirus = await _virusScanService.ScanFile(file);
-            if (!notContainsVirus)
+            //TODO : Switch to virus scanning service
+            var containsVirus = false; // await _virusScanService.ScanFile(file);
+            if (containsVirus)
             {
                 return "File contains virus";
             }
