@@ -1,5 +1,6 @@
-@model ApplicationContent
+@model ApplicationOverviewContent
 @using INZFS.MVC 
+@using INZFS.MVC.Models.DynamicForm 
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -56,11 +57,11 @@
 
         <dl class="govuk-summary-list">
             <div class="govuk-body-m govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-                <a class="govuk-link govuk-!-font-weight-regular" id="proposal-summary-overview" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-summary-overview">
-                    4. Proposal summary<span class="govuk-visually-hidden">Proposal summary</span>
-                </a>
-            </dt>
+                <dt class="govuk-summary-list__key">
+                    <a class="govuk-link govuk-!-font-weight-regular" id="proposal-summary-overview" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-summary-overview">
+                        4. Proposal summary<span class="govuk-visually-hidden">Proposal summary</span>
+                    </a>
+                </dt>
                 <dd class="govuk-summary-list__actions">
                     Not started
                 </dd>
@@ -105,9 +106,7 @@
             </div>
         </dl>
 
-
-
-        <a href="applicationSubmit.html">
+        <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="submit">
             <button class="govuk-button" data-module="govuk-button">
                 Submit application
             </button>
@@ -134,9 +133,7 @@
             <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download the guidance</a></p>
             <p class="govuk-body-m"><a class="govuk-link" href="#">Download supporting documents</a></p>
 
-            <a asp-controller="Report"
-               asp-action="GeneratePdf"
-               asp-route-applicationAuthor=@Model.Author>
+            <a asp-controller="Report" asp-action="GeneratePdf">
                 <button class="govuk-button govuk-button--secondary" type="button">
                     Download your application
                 </button>
