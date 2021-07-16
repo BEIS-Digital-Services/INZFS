@@ -1,8 +1,12 @@
+using INZFS.Theme.Migrations;
+using INZFS.Theme.Records;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
+using YesSql.Indexes;
 
 namespace INZFS.Theme
 {
@@ -11,6 +15,9 @@ namespace INZFS.Theme
         public override void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IResourceManifestProvider, ResourceManifest>();
+            serviceCollection.AddScoped<IDataMigration, UserTwoFactorsSettingsIndexMigration>();
+            serviceCollection.AddSingleton<IIndexProvider, UserTwoFactorsSettingsIndexProvider>();
+
             serviceCollection.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireDigit = true;
@@ -20,7 +27,7 @@ namespace INZFS.Theme
                 options.Password.RequiredUniqueChars = 3;
                 options.Password.RequiredLength = 8;
             });
-            //Commit testing
+
         }
     }
 }
