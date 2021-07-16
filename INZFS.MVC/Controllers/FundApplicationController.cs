@@ -290,17 +290,22 @@ namespace INZFS.MVC.Controllers
 
 
 
-
-                //var section = _applicationDefinition.Application.Sections.SelectMany(s => s.Pages).FirstOrDefault(s => s.Name == pageName.ToLower());
-
                 var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+
+                var inSection = section.Pages.Contains(nextPage);
 
                 if (nextPage == null)
                 {
                     return NotFound();
                 }
-                
-             
+
+                if (!inSection)
+                {
+                    return RedirectToAction("section", new { pagename = section.Url });
+
+                }
+
+
                 //TODO: Check of non-existing pages
                 // check for the last page
                 return RedirectToAction("section", new { pagename = nextPage.Name });
