@@ -322,7 +322,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Complete()
         {
-            return View("ApplicationComplete");
+            return Redirect("/complete/applicationcomplete");
         }
 
         [HttpPost, ActionName("Create")]

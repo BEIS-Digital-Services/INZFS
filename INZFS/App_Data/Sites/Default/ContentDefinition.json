@@ -2702,6 +2702,26 @@
               "Position": "1"
             }
           }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Url1",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Url1",
+              "Position": "10"
+            }
+          }
+        },
+        {
+          "FieldName": "TextField",
+          "Name": "Url2",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Url2",
+              "Position": "11"
+            }
+          }
         }
       ]
     },
@@ -2816,5 +2836,5 @@
       ]
     }
   ],
-  "Identifier": "4knxpfskq0s2v7bnev9g3ndpxy"
+  "Identifier": "40v2n59yegmt0sn4s7cntmwccc"
 }
