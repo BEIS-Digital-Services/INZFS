@@ -287,10 +287,20 @@ namespace INZFS.MVC.Controllers
 
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
-                if(nextPage == null)
+
+
+
+
+                var section = _applicationDefinition.Application.Sections.SelectMany(s => s.Pages).FirstOrDefault(s => s.Name == pageName.ToLower());
+
+
+            
+                if (nextPage == null)
                 {
                     return NotFound();
                 }
+                
+             
                 //TODO: Check of non-existing pages
                 // check for the last page
                 return RedirectToAction("section", new { pagename = nextPage.Name });
