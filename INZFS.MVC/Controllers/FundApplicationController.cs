@@ -291,10 +291,10 @@ namespace INZFS.MVC.Controllers
 
 
 
-                var section = _applicationDefinition.Application.Sections.SelectMany(s => s.Pages).FirstOrDefault(s => s.Name == pageName.ToLower());
+                //var section = _applicationDefinition.Application.Sections.SelectMany(s => s.Pages).FirstOrDefault(s => s.Name == pageName.ToLower());
 
+                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
-            
                 if (nextPage == null)
                 {
                     return NotFound();
