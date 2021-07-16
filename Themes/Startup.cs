@@ -20,6 +20,7 @@ namespace INZFS.Theme
                 options.Password.RequiredUniqueChars = 3;
                 options.Password.RequiredLength = 8;
             });
+            //Commit testing
         }
     }
 }
