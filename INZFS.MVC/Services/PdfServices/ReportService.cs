@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 public class ReportService : IReportService
 {
-    private IContentRepository _contentRepository;
+    private string html;
+    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
+    private string questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
+    private string questionHeaderStyle = @"style=""text-align:left;""";
 
-    private String html;
-    private String tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
-    private String questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
-    private String questionHeaderStyle = @"style=""text-align:left;""";
-
-    private ApplicationDefinition _applicationDefinition;
+    private readonly ApplicationDefinition _applicationDefinition;
+    private readonly IContentRepository _contentRepository;
     private ApplicationContent _applicationContent;
-
+    
     public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
     {
         _contentRepository = contentRepository;
@@ -26,7 +25,7 @@ public class ReportService : IReportService
 
     public async Task<byte[]> GeneratePdfReport(string applicationAuthor)
     {
-        _applicationContent = _contentRepository.GetApplicationContent(applicationAuthor).Result;
+        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
         OpenHtmlString();
         PopulateHtmlSections();
@@ -80,7 +79,7 @@ public class ReportService : IReportService
                     <th { questionHeaderStyle }>{ page.Question }</th>
                   </tr>
                   <tr>
-                    <td>{ getAnswerString(page) }</td>
+                    <td>{ GetAnswer(page) }</td>
                   </tr>
                 </table>
                 ";
@@ -88,7 +87,7 @@ public class ReportService : IReportService
         }
     }
 
-    private String getAnswerString(INZFS.MVC.Page page)
+    private string GetAnswer(Page page)
     {
         var answer = _applicationContent?.Fields.Find(question => question.Name == page.Name);
 
