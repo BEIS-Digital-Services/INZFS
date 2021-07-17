@@ -1,104 +1,123 @@
 ﻿@page
+@inject OrchardCore.IOrchardHelper Orchard
 
 @{
-    ViewData["Title"] = "Landing Page";
+	var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+
 }
+
+@Orchard.ConsoleLog(govpage)
+
 <body class="govuk-template__body competition-overview">
-    <div class="govuk-width-container">
+	<div class="govuk-width-container">
 
-        <main class="govuk-main-wrapper">
+		<main class="govuk-main-wrapper " id="main-content" role="main">
 
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h1 class="govuk-heading-xl">Energy Entrepreneurs Fund 8B</h1>
-                </div>
-            </div>
-
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    <h3 class="govuk-heading-m">The Energy Entrepreneurs Fund (EEF) supports innovative carbon-reduction technology through capital grants of up to £1 million.</h3>
-                    <p class="govuk-body wysiwyg-styles">The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: </p>
-
-                    <ul class="govuk-list">
-                        <li>- Energy efficiency</li>
-
-                        <li>
-                            - Power generation
-                        </li>
-                        <li>
-                            - Heat generation
-                        </li>
-                        <li>
-                            - Energy storage
-                        </li>
-                    </ul>
-                    <h1 class="govuk-heading-m">Before you apply</h1>
-                    <ul class="govuk-list">
-                        <li>
-                            <a href="https://www.gov.uk/government/publications/apply-for-the-energy-entrepreneurs-fund-phase-8a" class="govuk-link">Check if EEF is the right fund for you </a>
-                        </li>
-                        <li>
-                            <a href="https://www.gov.uk/government/publications/apply-for-the-energy-entrepreneurs-fund-phase-8a" class="govuk-link">Download and read through the application guide and questions </a>
-                        </li>
-                        <li>
-                            <a href="https://www.gov.uk/government/publications/apply-for-the-energy-entrepreneurs-fund-phase-8a" class="govuk-link">Download the template documents you will need to upload with your application </a>
-                        </li>
-                    </ul>
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					<h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
+				</div>
+			</div>
 
 
-                    <h1 class="govuk-heading-m">Start your application</h1>
-                    <p class="govuk-body wysiwyg-styles">To start your application you must register your details and create an account. </p>
-                    <p class="govuk-body wysiwyg-styles">We recommend reading the guidance and questions before you decide to register. We also advise checking that you have gathered the necessary information and evidence before you begin.</p>
-                    <p class="govuk-body wysiwyg-styles">Registrations to apply for this fund close on 25th June at 11.59pm.</p>
+			<div class="govuk-grid-row">
 
-                    <a class="govuk-button govuk-!-margin-top-6" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="application-overview">Start Now</a>
-                    <p class="govuk-body govuk-!-margin-top-6">
+				<div class="govuk-grid-column-two-thirds">
 
-                        <a href="/Login" class="govuk-link">Sign in to your account </a>
+					<p class="govuk-body-l">@govpage.Content.GovPage.govukheadingm.Text</p>
+
+					<p class="govuk-body">@govpage.Content.GovPage.GovMainInfo.Text</p>
+
+					<p class="govuk-body">Your project’s scope must relate to at least one of the following categories:</p>
+
+					<ul class="govuk-list govuk-list--bullet">
+						<li>@govpage.Content.GovList1.ContentItems[0].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[1].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[2].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[3].DisplayText</li>
+					</ul>
+
+					<h2 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm2.Text</h2>
+
+					<ol class="govuk-list steps-circles">
+						<li><a class="govuk-link govuk-!-font-weight-regular" href="@govpage.Content.GovPage.NavUrl1.Text">@govpage.Content.GovPage.NavHeading1.Text</a></li>
+						<li><a class="govuk-link govuk-!-font-weight-regular" href="@govpage.Content.GovPage.NavUrl2.Text">@govpage.Content.GovPage.NavHeading2.Text</a></li>
+					</ol>
+
+					<h2 class="govuk-heading-m">Start your application</h2>
+
+					<p class="govuk-body">To start your application you must register your details and create an account.</p>
+
+					<p class="govuk-body">We recommend reading the guidance and questions before you decide to register. We also advise checking that you have gathered the necessary information and evidence before you begin.</p>
+
+					<p class="govuk-body">Registrations to apply for this fund close on 25 June at 11.59pm.</p>
+
+					<a href="/FundApplication/section/application-overview" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-button--start" data-module="govuk-button">
+						Start now
+						<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+						</svg>
+					</a>
+
+					<p class="govuk-body-s"><a class="govuk-link" href="/login">Sign into your account</a>.</p>
+
+					<h2 class="govuk-heading-m">What happens after you submit your application</h2>
+
+					<p class="govuk-body">Your application will be assigned to an assessor. It will take around three months to process applications.</p>
+
+					<p class="govuk-body">Factors BEIS will assess include:</p>
+
+					<ul class="govuk-list govuk-list--bullet">
+						<li>Potential impact on 2050 Net Zero carbon targets or security of UK energy supply</li>
+						<li>The proposal's technical and commercial viability</li>
+						<li>Value for money your project offers, including its cost-reduction potential</li>
+						<li>Potential business opportunities</li>
+					</ul>
+
+					<p class="govuk-body">You will be notified if your application has been successful or not after the assessment process is complete.</p>
+				</div>
+				<div class="govuk-grid-column-one-third">
+
+					<aside class="app-related-items" role="complementary">
+						<h3 class="govuk-heading-s" id="subsection-title">Key details</h3>
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
+
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
+
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
 
 
-                    </p>
-                </div>
+						<h3 class="govuk-heading-s" id="subsection-title">Events</h3>
 
-                <div class="govuk-grid-column-one-third">
-                    <div class="gem-c-contextual-sidebar">
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Engagement days</p>
+						<p class="govuk-body-m govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+						<p class="govuk-body-s"><a class="govuk-link" href="/register">Register to attend</a></p>
+
+						<p class="govuk-body-m govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue </p>
+						<p class="govuk-body-s"><a class="govuk-link" href="/register">Register to attend</a></p>
+
+					</aside>
+
+				</div>
+			</div>
 
 
-                        <div class="gem-c-related-navigation">
 
-                            <h2 id="related-nav-related_items-ab2b060d" class="gem-c-related-navigation__main-heading" data-track-count="sidebarRelatedItemSection">
-                                Registration
-                            </h2>
-                        </div>
-                    </div>
-                    <p class="govuk-body">Registration opens</p>
-                    <p class="govuk-body">25 March at 11.59pm</p>
-                    <p class="govuk-body">Applications open</p>
-                    <p class="govuk-body">12 April at 11.59pm</p>
-                    <p class="govuk-body">Registration closes</p>
-                    <p class="govuk-body">25 June at 11.59pm</p>
-                    <p class="govuk-body">Deadline</p>
-                    <p class="govuk-body">25 July at 11.59pm</p>
-                    <div class="gem-c-contextual-sidebar__brexit-cta">
-                        <h2 class="gem-c-contextual-sidebar__brexit-heading govuk-heading-s">Events</h2>
-                        <p class="gem-c-contextual-sidebar__brexit-text govuk-body">
-                        
-                        <p class="govuk-body">Engagement Days</p>
-                        <p class="govuk-body">25 March at 11.59pm</p>
-                        <a href="/Register">Register to attend</a>
-                        <p class="govuk-body">Engagement Days</p>
-                        <p class="govuk-body">25 April at 11.59pm</p>
-                        <a href="/Register">Register to attend</a>
-                        </p>
-                    </div>
-                       
 
-                    </div>
-                </div>
-
-</main>
-    </div>
-    <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
-    <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+		</main>
+	</div>
+	<script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+	<script>
+		window.GOVUKFrontend.initAll()
+	</script>
 
 </body>
+
+@functions
+{
+	public string Slug = "Energy-Entrepreneurs";
+}
+
