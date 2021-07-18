@@ -3,6 +3,104 @@
     "name": "INZFS",
     "sections": [
       {
+        "title": "Proposal Summary",
+        "tag": "proposal-summary",
+        "url": "proposal-summary-overview",
+        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
+        "continueButtonText": "Save and continue to next question",
+        "RazorView": "ProposalSummaryOverview",
+        "pages": [
+          {
+            "name": "project-name",
+            "question": "4.1. Project Name",
+            "titleQuestion": "4.1. What is the name of your project?",
+            "description": "Description",
+            "errorMessage": "Please entre a valid project name",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Project Name",
+            "fieldName": "project-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "estimated-start-date",
+            "question": "4.2. Estimated start date",
+            "titleQuestion": "4.2. When do you estimate the project will start?",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Estimated Start Date",
+            "fieldName": "estimated-start-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "estimated-end-date",
+            "question": "4.3. Estimated end date",
+            "titleQuestion": "4.3. When do you estimate the project will end?",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Estimated End Date",
+            "fieldName": "estimated-end-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "project-location",
+            "question": "4.4. Project Location",
+            "titleQuestion": "4.4. Will your project be mainly carried out at your organisation's registered address?",
+            "description": "Description",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Technology Readiness Level",
+            "fieldName": "business-technology-readiness",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "project-summary",
+            "question": "4.5. Project Summary",
+            "description": "Description",
+            "errorMessage": "Enter project summary details",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "Project Summary",
+            "fieldName": "project-summary",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "This should be a brief description to help introduce your project to assessors",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "grant-justification",
+            "question": "4.6. Grant Justification",
+            "description": "Description",
+            "errorMessage": "Entre Grant Justification",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "Grant Justification",
+            "fieldName": "grant-justification",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Character",
+            "hint": "Explain why public sector funding is required to take this concept forward.",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          }
+        ]
+      },
+      {
         "title": "Business Proposal",
         "tag": "business-proposal",
         "url": "business-proposal-overview",
@@ -162,80 +260,6 @@
             "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
-          }
-        ]
-      },
-      {
-        "name": "Business Proposal1",
-        "tag": "business-proposal1",
-        "url": "business-proposal1",
-        "pages": [
-          {
-            "name": "company-name",
-            "question": "Name of your company details",
-            "errorMessage": "Please enter a valid company details",
-            "fieldType": "gdsTextBox",
-            "fieldName": "company-name",
-            "mandatory": true,
-            "accordianReference": "",
-            "hint": "",
-            "showMarkComplete": true
-          },
-          {
-            "name": "company-number",
-            "question": "What's your company number",
-            "errorMessage": "Please enter a valid company number",
-            "fieldType": "gdsTextBox",
-            "fieldName": "company-number",
-            "mandatory": true,
-            "accordianReference": "",
-            "max-length": 50,
-            "hint": "",
-            "showMarkComplete": true
-          },
-          {
-            "name": "company-summary",
-            "question": "Company Summary",
-            "errorMessage": "Please enter a company summary",
-            "fieldType": "gdsTextArea",
-            "fieldName": "company-summary",
-            "mandatory": true,
-            "accordianReference": "",
-            "max-length": 500,
-            "hint": "Company summary hint",
-            "showMarkComplete": true
-          },
-          {
-            "name": "project-date",
-            "question": "Project Start Date",
-            "errorMessage": "Please enter a project date",
-            "fieldType": "gdsDateBox",
-            "fieldName": "start-date",
-            "mandatory": true,
-            "hint": "",
-            "accordianReference": ""
-          },
-          {
-            "name": "project-delivery",
-            "question": "Project Started",
-            "errorMessage": "Please make a selection",
-            "fieldType": "gdsSingleLineRadio",
-            "fieldName": "start-project",
-            "fieldName2": "start-test",
-            "mandatory": true,
-            "hint": "",
-            "accordianReference": ""
-          },
-          {
-            "name": "project-select",
-            "question": "Project Multi Select",
-            "errorMessage": "Please make a selection",
-            "fieldType": "gdsMultiSelect",
-            "fieldName": "select-test",
-            "fieldName2": "start-test",
-            "mandatory": true,
-            "hint": "",
-            "accordianReference": ""
           }
         ]
       }

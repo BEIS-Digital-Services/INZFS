@@ -27,6 +27,7 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Question { get; set; }
+        public string  TitleQuestion { get; set; }
         public string Description { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]

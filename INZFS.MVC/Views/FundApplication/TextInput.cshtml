@@ -5,13 +5,14 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
         Back
     </a>
 }
 
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
-<form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
@@ -44,27 +45,40 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="event-name">
-                @Model.Question
+                @if (string.IsNullOrEmpty(Model.TitleQuestion))
+                {
+                    @Model.Question
+
+                }
+                else
+                {
+                    @Model.TitleQuestion
+                }
             </label>
         </h1>
         @Html.Partial("_Hint", Model.Hint)
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-10 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+        <input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
                name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
     </div>
 
-    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion", "")
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
 
-    @Html.Partial("_Accordion","")
 
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+            <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish" >@Model.ContinueButtonText</button>
         </div>
     </div>
 
 </form>
 
-<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

@@ -111,7 +111,6 @@ namespace INZFS.MVC.Controllers
                 sectionContentModel.TotalQuestions = section.Pages.Count;
                 sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-
                 foreach (var pageContent in section.Pages)
                 {
                     var sectionModel = new SectionModel();
@@ -150,6 +149,19 @@ namespace INZFS.MVC.Controllers
 
             if (pagename == "application-overview")
             {
+                var sections = _applicationDefinition.Application.Sections;
+                var applicationOverviewContentModel = new ApplicationOverviewContent();
+                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+
+                foreach (var item in sections)
+                {
+                    var applicationOverviewModel = new ApplicationOverviewModel();
+                    applicationOverviewModel.SectionTag = item.Tag;
+                    //applicationOverviewModel.Status = 
+
+                    applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
+                }
+
                 var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
                 //Prevent a null reference expcetion by creating the application if one is not found
                 if (model == null)
@@ -161,7 +173,7 @@ namespace INZFS.MVC.Controllers
                         CreatedUtc = DateTime.UtcNow
                     };
                 }
-                return View("ApplicationOverview", model);
+                return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
 
@@ -329,10 +341,17 @@ namespace INZFS.MVC.Controllers
                 var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
-
-            
         }
 
+        public async Task<IActionResult> Submit()
+        {
+            return View("ApplicationSubmit");
+        }
+
+        public async Task<IActionResult> Complete()
+        {
+            return View("ApplicationComplete");
+        }
 
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
@@ -708,11 +727,14 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, model, field));
                 case FieldType.gdsDateBox:
                     model = PopulateModel(currentPage, new DateModel(), field);
-                    var inputDate = DateTime.Parse(model.DataInput);
-                    var dateModel = (DateModel)model;
-                    dateModel.Day = inputDate.Day;
-                    dateModel.Month = inputDate.Month;
-                    dateModel.Year = inputDate.Year;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var inputDate = DateTime.Parse(model.DataInput);
+                        var dateModel = (DateModel)model;
+                        dateModel.Day = inputDate.Day;
+                        dateModel.Month = inputDate.Month;
+                        dateModel.Year = inputDate.Year;
+                    }
                     
 
                     return View("DateInput", dateModel);
@@ -757,6 +779,7 @@ namespace INZFS.MVC.Controllers
         {
             
             currentModel.Question = currentPage.Question;
+            currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
