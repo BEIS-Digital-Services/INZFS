@@ -93,6 +93,11 @@
         </div>
     *@
 
+    @if (!string.IsNullOrEmpty(Model.DataInput))
+    {
+        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-filepath="@Model.FileLocation">Run Parser</a>
+    }
+
     @Html.Partial("_Accordion", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)

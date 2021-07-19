@@ -36,6 +36,7 @@ using OrchardCore.Flows.Models;
 using Newtonsoft.Json.Linq;
 using INZFS.MVC.Models.DynamicForm;
 using INZFS.MVC.Records;
+using INZFS.MVC.Services;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
 
@@ -205,6 +206,11 @@ namespace INZFS.MVC.Controllers
 
                 return await Create(((ContentPage)page).ContentType);
             }
+        }
+
+        public void ParseExcelFile(string filepath)
+        {
+            var xl = new ExcelParser(filepath);
         }
 
         public async Task<bool> CreateDirectory(string directoryName)
@@ -718,7 +724,7 @@ namespace INZFS.MVC.Controllers
                     }
                     
 
-                    return View("DateInput", dateModel);
+                    return View("DateInput", model);
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
                     return View("SingleRadioInput", PopulateModel(currentPage, model, field));
