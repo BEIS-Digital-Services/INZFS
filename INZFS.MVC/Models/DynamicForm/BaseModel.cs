@@ -33,6 +33,8 @@ namespace INZFS.MVC.Models.DynamicForm
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string SectionUrl { get; set; }
+        public string FileToDownload { get; set; }
+        
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }

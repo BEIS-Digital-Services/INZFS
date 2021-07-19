@@ -60,6 +60,7 @@ namespace INZFS.MVC.Services.FileUpload
                 return string.Empty;
             }
         }
+
         public bool IsValidFileExtension(IFormFile file)
         {
             var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
@@ -95,6 +96,19 @@ namespace INZFS.MVC.Services.FileUpload
             }
             await _mediaFileStore.TryCreateDirectoryAsync(directoryName);
             return true;
+        }
+
+        public async Task<bool> DeleteFile(string fileLocation)
+        {
+            try
+            {
+                return await _mediaFileStore.TryDeleteFileAsync(fileLocation);
+            }
+            catch (Exception ex)
+            {
+
+                return false;
+            }
         }
     }
 }
