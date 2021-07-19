@@ -1,23 +1,50 @@
-﻿@model INZFS.Theme.ViewModels.EnableAuthenticatorViewModel
+﻿@model INZFS.Theme.ViewModels.EnableTwoFactorOptionViewModel
 @{
     Layout = "_Layout";
 }
 
-<h1>Scan this QR code</h1>
 
-<span class="govuk-caption-l">Open the Authenticator app and scan this QR code</span>
-    <div id="qrCode"></div>
-    <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
-<p>Or enter the following code manually:<br/>
-    <kbd>@Model.SharedKey</kbd></p>
 
-    <script src="/INZFS.Theme/lib/qrcode.min.js"></script>
-    <script>
-    new QRCode(document.getElementById("qrCode"),
-        {
-            text: "@Html.Raw(Model.AuthenticatorUri)",
-            width: 150,
-            height: 150
-        });
-    </script>
-<a class="btn btn-success publish govuk-button">Continue </a>
+    <div class="govuk-width-container">
+
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Choose verification method</h1>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+
+                <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
+                    <div class="govuk-radios govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-Authenticator" name="DataInput" type="radio" value="Authenticator">
+                            <label class="govuk-label govuk-radios__label">
+                                Authenticator app (Google or Microsoft)
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0 disabled="disabled">
+                            <label class="govuk-label govuk-radios__label">
+                                SMS
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0 disabled="disabled">
+                            <label class="govuk-label govuk-radios__label">
+                                Email
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <br /><br />
+                <a href="@Url.Action("ScanQr", "TwoFactor", new { Area = "INZFS.Theme" })">
+                    <button class="govuk-button" data-module="govuk-button">Continue</button>
+                </a>
+            </div>
+        </div>
+    </div>
