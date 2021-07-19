@@ -13,7 +13,8 @@ namespace INZFS.MVC
         gdsTextArea,
         gdsDateBox,
         gdsSingleLineRadio,
-        gdsMultiSelect
+        gdsMultiSelect,
+        gdsFileUpload
     }
 
     public enum MaxLengthValidationType
@@ -45,7 +46,8 @@ namespace INZFS.MVC
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
-        
+
+        public string FileToDownload { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
     }
 
@@ -137,7 +139,17 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Data { get; set; }
+        public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
     }
+
+    public class UploadedFile
+    {
+        public string Name { get; set; }
+        public string FileLocation { get; set; }
+        public string Size { get; set; }
+    }
+
+
 
 }
