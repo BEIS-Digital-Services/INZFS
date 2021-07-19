@@ -9,7 +9,7 @@ namespace INZFS.MVC.Models.DynamicForm
 {
     public class FileUploadModel : BaseModel
     {
-        public string FileLocation { get; set; }
+        public UploadedFile UploadedFile { get; set; }
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
             if (Mandatory == true)

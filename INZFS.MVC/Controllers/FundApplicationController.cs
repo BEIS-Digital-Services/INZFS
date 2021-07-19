@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
@@ -14,31 +13,25 @@ using INZFS.MVC.ViewModels;
 using OrchardCore.DisplayManagement;
 using OrchardCore.DisplayManagement.ModelBinding;
 using OrchardCore.DisplayManagement.Notify;
-using OrchardCore.Navigation;
 using OrchardCore.Routing;
-using OrchardCore.Settings;
-using YesSql;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
 using INZFS.MVC.Forms;
 using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.ViewModels.ProposalWritten;
-using System.IO;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
 using Microsoft.Extensions.Logging;
-using System.Globalization;
-using INZFS.MVC.Drivers;
 using System.Linq.Expressions;
 using INZFS.MVC.Models.ProposalFinance;
 using INZFS.MVC.ViewModels.ProposalFinance;
 using OrchardCore.Flows.Models;
-using Newtonsoft.Json.Linq;
 using INZFS.MVC.Models.DynamicForm;
 using INZFS.MVC.Records;
 using INZFS.MVC.Services;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
+using System.Text.Json;
 
 namespace INZFS.MVC.Controllers
 {
@@ -112,7 +105,6 @@ namespace INZFS.MVC.Controllers
                 sectionContentModel.TotalQuestions = section.Pages.Count;
                 sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-
                 foreach (var pageContent in section.Pages)
                 {
                     var sectionModel = new SectionModel();
@@ -120,25 +112,25 @@ namespace INZFS.MVC.Controllers
                     sectionModel.Url = pageContent.Name;
 
                     var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
-                    
+
                     if (string.IsNullOrEmpty(field?.Data))
                     {
                         sectionModel.Status = "Not started";
                     }
                     else
                     {
-                        
+
                         if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
                         {
                             sectionModel.Status = "Completed";
                             sectionContentModel.TotalQuestionsCompleted ++;
                         }
-                        
+
                         else
                         {
                             sectionModel.Status = "In Progress";
                         }
-                        
+
                     }
 
 
@@ -151,6 +143,19 @@ namespace INZFS.MVC.Controllers
 
             if (pagename == "application-overview")
             {
+                var sections = _applicationDefinition.Application.Sections;
+                var applicationOverviewContentModel = new ApplicationOverviewContent();
+                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+
+                foreach (var item in sections)
+                {
+                    var applicationOverviewModel = new ApplicationOverviewModel();
+                    applicationOverviewModel.SectionTag = item.Tag;
+                    //applicationOverviewModel.Status =
+
+                    applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
+                }
+
                 var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
                 //Prevent a null reference expcetion by creating the application if one is not found
                 if (model == null)
@@ -162,7 +167,7 @@ namespace INZFS.MVC.Controllers
                         CreatedUtc = DateTime.UtcNow
                     };
                 }
-                return View("ApplicationOverview", model);
+                return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
 
@@ -254,9 +259,9 @@ namespace INZFS.MVC.Controllers
         [Route("FundApplication/section/{pageName}")]
         [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
-        public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, string pageName, IFormFile? file, BaseModel model)
+        public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitAction, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid || submitAction == "DeleteFile")
             {
                 var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
                 if (contentToSave == null)
@@ -273,51 +278,79 @@ namespace INZFS.MVC.Controllers
 
                 var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 string publicUrl = string.Empty;
+                var additionalInformation = string.Empty;
                 if (currentPage.FieldType == FieldType.gdsFileUpload)
                 {
-                    
+
                     if (file != null)
                     {
                         var errorMessage = await _fileUploadService.Validate(file);
                         if (!string.IsNullOrEmpty(errorMessage))
                         {
                             //TODO - Handle validation Error
+                            ModelState.AddModelError("DataInput", errorMessage);
                         }
 
                         var directoryName = Guid.NewGuid().ToString();
                         publicUrl = await _fileUploadService.SaveFile(file, directoryName);
                         model.DataInput = file.FileName;
+
+                        var uploadedFile = new UploadedFile()
+                        {
+                            FileLocation = publicUrl,
+                            Name = file.FileName,
+                            Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
+                        };
+
+                        additionalInformation = JsonSerializer.Serialize(uploadedFile);
                     }
                     else
                     {
                         //TODO - Handle validation Error
+                        if(submitAction != "DeleteFile")
+                        {
+                            ModelState.AddModelError("DataInput", "No file was uploaded.");
+                        }
                     }
                 }
 
                 var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
                 if(existingFieldData == null)
                 {
-                    if(currentPage.FieldType == FieldType.gdsFileUpload)
-                    {
-                        // TODO Delete  the old file
-                    }
-
-                    contentToSave.Fields.Add(new Field { 
-                        Name = currentPage.FieldName, 
+                    contentToSave.Fields.Add(new Field {
+                        Name = currentPage.FieldName,
                         Data = model.GetData(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
-                        FileLocation = currentPage.FieldType == FieldType.gdsFileUpload ? publicUrl : null
+                        AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
                 }
                 else
                 {
+                    if (currentPage.FieldType == FieldType.gdsFileUpload)
+                    {
+                        // TODO Delete  the old file
+                        if (!string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+                        {
+                            var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
+                            var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
+                        }
+                        if(submitAction == "DeleteFile")
+                        {
+                            additionalInformation = null;
+                        }
+
+                    }
                     existingFieldData.Data = model.GetData();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
-                    existingFieldData.FileLocation = currentPage.FieldType == FieldType.gdsFileUpload ? publicUrl : null;
+                    existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
-                
+
 
                 _session.Save(contentToSave);
+                if(submitAction == "DeleteFile")
+                {
+                    return RedirectToAction("section", new { pagename = pageName });
+                }
 
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
@@ -335,10 +368,17 @@ namespace INZFS.MVC.Controllers
                 var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
-
-            
         }
 
+        public async Task<IActionResult> Submit()
+        {
+            return View("ApplicationSubmit");
+        }
+
+        public async Task<IActionResult> Complete()
+        {
+            return View("ApplicationComplete");
+        }
 
         [HttpPost, ActionName("Create")]
         [FormValueRequired("submit.Publish")]
@@ -452,7 +492,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-           
+
             if(file != null)
             {
                 var errorMessage = await _fileUploadService.Validate(file);
@@ -714,15 +754,15 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, model, field));
                 case FieldType.gdsDateBox:
                     model = PopulateModel(currentPage, new DateModel(), field);
+                    var dateModel = (DateModel)model;
                     if (!string.IsNullOrEmpty(model.DataInput))
                     {
                         var inputDate = DateTime.Parse(model.DataInput);
-                        var dateModel = (DateModel)model;
                         dateModel.Day = inputDate.Day;
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-                    
+
 
                     return View("DateInput", model);
                 case FieldType.gdsSingleLineRadio:
@@ -734,7 +774,10 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
-                    uploadmodel.FileLocation = field?.FileLocation;
+                    if(!string.IsNullOrEmpty(field?.AdditionalInformation))
+                    {
+                        uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
+                    }
                     return View("FileUpload", uploadmodel);
                 default:
                     throw new Exception("Invalid field type");
@@ -756,7 +799,7 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:
-                    return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
+                    return View("FileUpload", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -764,7 +807,7 @@ namespace INZFS.MVC.Controllers
 
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
-            
+
             currentModel.Question = currentPage.Question;
             currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
@@ -777,13 +820,15 @@ namespace INZFS.MVC.Controllers
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
             }
 
+            currentModel.FileToDownload = currentPage.FileToDownload;
+
             if (!string.IsNullOrEmpty(field ?.Data))
             {
                 currentModel.DataInput = field?.Data;
             }
             var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
-            
+
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             currentModel.QuestionNumber = index + 1;
@@ -791,13 +836,13 @@ namespace INZFS.MVC.Controllers
             currentModel.ContinueButtonText = section.ContinueButtonText;
             currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
             currentModel.SectionUrl = section.Url;
-            
+
             var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
             if (previousPage != null)
             {
                 currentModel.PreviousPageName = previousPage.Name;
             }
-           
+
             return currentModel;
         }
     }

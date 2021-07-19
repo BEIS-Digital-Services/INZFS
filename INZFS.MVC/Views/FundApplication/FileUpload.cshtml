@@ -12,84 +12,99 @@
 }
 
 <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+<div class="@(string.IsNullOrEmpty(Model.FileToDownload) == true ? "" : "govuk-grid-column-two-thirds")">
+    <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
-<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+        <input type="hidden" name="PageName" value="@Model.PageName" />
+        <input type="hidden" name="Kind" value="@nameof(FileUploadModel)" />
 
-    <input type="hidden" name="PageName" value="@Model.PageName" />
-    <input type="hidden" name="Kind" value="@nameof(FileUploadModel)" />
-
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-            <h2 class="govuk-error-summary__title" id="error-summary-title">
-                There is a problem
-            </h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                    @foreach (var key in ViewData.ModelState.Keys)
-                    {
-                        var value = ViewData.ModelState[key];
-                        foreach (var error in value.Errors)
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+                <h2 class="govuk-error-summary__title" id="error-summary-title">
+                    There is a problem
+                </h2>
+                <div class="govuk-error-summary__body">
+                    <ul class="govuk-list govuk-error-summary__list">
+                        @foreach (var key in ViewData.ModelState.Keys)
                         {
-                            <li>
-                                <a href="#with-hint">@error.ErrorMessage</a>
-                            </li>
+                            var value = ViewData.ModelState[key];
+                            foreach (var error in value.Errors)
+                            {
+                                <li>
+                                    <a href="#with-hint">@error.ErrorMessage</a>
+                                </li>
+                            }
                         }
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
+        }
+
+        <div class="govuk-form-group">
+            <label class="govuk-label govuk-!-font-weight-bold" for="file">
+                Upload Some file
+            </label>
+            <input class="govuk-file-upload" id="file" name="file" type="file"
+                   accept=".txt,.pdf,.xlsx,.doc,.docx">
         </div>
-    }
 
-    <div class="govuk-form-group">
-        <label class="govuk-label govuk-!-font-weight-bold" for="file">
-            Upload Some file
-        </label>
-        <input class="govuk-file-upload" id="file" name="file" type="file"
-               accept=".txt,.pdf,.xlsx,.doc,.docx">
-    </div>
-
-    <details class="govuk-details" data-module="govuk-details">
-        <summary class="govuk-details__summary">
-            <span class="govuk-details__summary-text">
-                What file can i upload?
-            </span>
-        </summary>
-        <div class="govuk-details__text">
-            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-        </div>
-    </details>
-
-    <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>
-    <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
-
-    <a class="govuk-link" style="color: white;" download href="@Model.FileLocation">Your document has been Uploaded. Please Click here to download</a>
-
-    @if (!string.IsNullOrEmpty(Model.DataInput))
-    {
-        <dl class="govuk-summary-list fileTable">
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-                    @Model.DataInput
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    8mb
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    <a class="govuk-link" href="#">
-                        Remove<span class="govuk-visually-hidden"> file uploaded</span>
-                    </a>
-                </dd>
+        <details class="govuk-details" data-module="govuk-details">
+            <summary class="govuk-details__summary">
+                <span class="govuk-details__summary-text">
+                    What file can i upload?
+                </span>
+            </summary>
+            <div class="govuk-details__text">
+                Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
             </div>
-        </dl>
-    }
+        </details>
 
-    @*
-        <div class="govuk-form-group @errorSet" id="hideForm">
-            <span id="file-upload-1-error" class="govuk-error-message" style="visibility: @visibilitySettingError">
-                <span class="govuk-visually-hidden">Error: </span> @ViewBag.ErrorMessage
-            </span>
-            <input class="govuk-file-upload" type="file" name="file"  />
+        <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>
+        @*
+        <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
+        *@
+
+        @if (!string.IsNullOrEmpty(Model.DataInput))
+        {
+            <dl class="govuk-summary-list fileTable">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
+                        @Model.DataInput
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.UploadedFile.Size MB
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        @*<a class="govuk-link" href="#">
+                            Remove<span class="govuk-visually-hidden"> file uploaded</span>
+                        </a>*@
+                        <button ype="submit" name="submit.Publish" class="govuk-button govuk-button--warning"
+                                value="DeleteFile" data-module="govuk-button">
+                            Remove
+                        </button>
+                    </dd>
+                </div>
+            </dl>
+        }
+        else
+        {
+            <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
+        }
+
+
+        @Html.Partial("_Accordion", Model.PageName)
+
+        @if (Model.ShowMarkAsComplete)
+        {
+            @Html.Partial("_MarkAsComplete", Model)
+        }
+
+
+        <div class="edit-item-secondary group">
+            <div class="edit-item-actions form-group">
+                <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+            </div>
         </div>
     *@
 
@@ -100,17 +115,15 @@
 
     @Html.Partial("_Accordion", Model.PageName)
 
-    @if (Model.ShowMarkAsComplete)
-    {
-        @Html.Partial("_MarkAsComplete", Model)
-    }
+    <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+</div>
 
-
-    <div class="edit-item-secondary group">
-        <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
-        </div>
+@if (!string.IsNullOrEmpty(Model.FileToDownload))
+{
+    <div class="govuk-grid-column-one-third">
+        <aside class="app-related-items" role="complementary">
+            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
+        </aside>
     </div>
-</form>
-
-<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+}

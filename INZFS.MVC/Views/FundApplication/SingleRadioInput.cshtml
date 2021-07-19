@@ -5,7 +5,7 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
         Back to previous question
     </a>
 }
@@ -56,13 +56,13 @@
         <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
             <div class="govuk-radios govuk-radios--inline" asp-validation-error-class-for="@Model.Question">
                 <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@Model.FieldName" name="DataInput" type="radio" value=1>
+                    <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=1>
                     <label class="govuk-label govuk-radios__label">
                         Yes
                     </label>
                 </div>
                 <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="@Model.FieldName" name="DataInput" type="radio" value=0>
+                    <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0>
                     <label class="govuk-label govuk-radios__label">
                         No
                     </label>
@@ -80,9 +80,9 @@
 
     <div class="edit-item-secondary group">
         <div class="edit-item-actions form-group">
-            <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+            <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish" >@Model.ContinueButtonText</button>
         </div>
     </div>
 </form>
 
-<a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

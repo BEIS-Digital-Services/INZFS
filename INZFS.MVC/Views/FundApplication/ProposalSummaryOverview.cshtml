@@ -4,189 +4,110 @@
 @using INZFS.MVC
 
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">4. Proposal summary</h1>
+<div class="govuk-width-container">
+
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
+                        <a class="govuk-breadcrumbs__link" href="application-overview" id="application-overview">Application overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item">
+                        4. Proposal summary
+                    </li>
+                </ol>
+            </div>
+        </div>
     </div>
-</div>
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <main class="govuk-main-wrapper " id="main-content" role="main">
 
-        <div class="govuk-tabs" data-module="govuk-tabs">
-            <h2 class="govuk-tabs__title">
-                4. Proposal summary
-            </h2>
-            <ul class="govuk-tabs__list" role="tablist">
-                <li class="govuk-tabs__list-item govuk-tabs__list-item--selected" role="presentation">
-                    <a class="govuk-tabs__tab" href="#write-application" id="tab_write-application" role="tab" aria-controls="write-application" aria-selected="true" tabindex="0">
-                        Write application
-                    </a>
-                </li>
-                <li class="govuk-tabs__list-item" role="presentation">
-                    <a class="govuk-tabs__tab" href="#supporting-evidence" id="tab_supporting-evidence" role="tab" aria-controls="supporting-evidence" aria-selected="false" tabindex="-1">
-                        Supporting evidence
-                    </a>
-                </li>
-            </ul>
-
-            <div class="govuk-tabs__panel" id="write-application" role="tabpanel" aria-labelledby="tab_write-application">
-
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">5. Business proposal<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                <dl class="govuk-summary-list">
-                    @foreach (var item in Model.Sections)
-                    {
-                        <div class="govuk-body-m govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                    @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                </a>
-                            </dt>
-                            <dd class="govuk-summary-list__actions">
-                                @item.Status
-                            </dd>
-                        </div>
-                    }
-                </dl>
-
-
-
-
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Proposal Summary</h1>
             </div>
-
-
-
-            <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="supporting-evidence" role="tabpanel" aria-labelledby="tab_supporting-evidence">
-
-
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Mandatory documents<span class="summary-list-section summary-list-section--right">3 out of 3 completed</span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                <dl class="govuk-summary-list">
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                5.8. Project gantt chart<span class="govuk-visually-hidden">Project gantt chart</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Uploaded
-                        </dd>
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                5.9. Risks register<span class="govuk-visually-hidden">Risks register</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                6.4. Project costs breakdown<span class="govuk-visually-hidden">Project costs breakdown</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Uploaded
-                        </dd>
-                    </div>
-
-                </dl>
-
-
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Additional documents (optional)<span class="summary-list-section summary-list-section--right">0 out of 5 completed</span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                <dl class="govuk-summary-list">
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Letter of support<span class="govuk-visually-hidden">Letter of support</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional business evidence<span class="govuk-visually-hidden">Additional business evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional financial evidence<span class="govuk-visually-hidden">Additional financial evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                    <div class="govuk-body-m govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            <a class="govuk-link govuk-!-font-weight-regular" href="#">
-                                Additional evidence<span class="govuk-visually-hidden">Additional evidence</span>
-                            </a>
-                        </dt>
-                        <dd class="govuk-summary-list__actions">
-                            Not uploaded
-                        </dd>
-                    </div>
-
-                </dl>
-
-
-
-
-            </div>
-
-
-
         </div>
 
-        <a href="application-overview">
-            <button class="govuk-button" data-module="govuk-button" >
-                Back to application overview
-            </button>
-        </a>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
 
-    </div>
+                <div class="govuk-tabs" data-module="govuk-tabs">
+                    <h2 class="govuk-tabs__title">
+                        4. Proposal Summary
+                    </h2>
 
-    <div class="govuk-grid-column-one-third govuk-!-padding-top-9">
+                    <div class="govuk">
 
-        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">4. Proposal Summary<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                        <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-        <aside class="app-related-items" role="complementary">
+                        @foreach (var item in Model.Sections)
+                        {
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.Status
+                                </dd>
 
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
+                            </div>
+                        }
 
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
+                    </div>
+                </div>
 
-        </aside>
 
-        <aside class="app-related-items" role="complementary">
+                <a href="application-overview">
+                    <button class="govuk-button" data-module="govuk-button">
+                        Back to application overview
+                    </button>
+                </a>
 
-            <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download the guidance</a></p>
-            <p class="govuk-body-m"><a class="govuk-link govuk-!-font-weight-regular" href="#">Download supporting documents</a></p>
+            </div>
 
-        </aside>
+            <div class="govuk-grid-column-one-third govuk-!-padding-top-4">
 
-    </div>
+                <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+                <aside class="app-related-items" role="complementary">
+
+                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
+
+                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
+
+                </aside>
+
+                <aside class="app-related-items" role="complementary">
+
+                    <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="downloadDocs.html">Download the guidance, application questions and templates</a></p>
+
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        Download your application
+                    </button>
+
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                How does this work?
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                        </div>
+                    </details>
+
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
 </div>

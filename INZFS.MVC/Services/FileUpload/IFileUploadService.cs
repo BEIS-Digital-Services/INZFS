@@ -14,5 +14,6 @@ namespace INZFS.MVC.Services.FileUpload
         public bool IsValidFileExtension(IFormFile file);
         public Task<string> Validate(IFormFile file);
         public Task<bool> CreateDirectory(string directoryName);
+        public Task<bool> DeleteFile(string fileLocation);
     }
 }
