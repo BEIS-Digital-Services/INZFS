@@ -106,17 +106,18 @@
                 <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
             </div>
         </div>
-    *@
 
-    @if (!string.IsNullOrEmpty(Model.DataInput))
+        </form>
+
+    @if(!string.IsNullOrEmpty(Model.DataInput))
     {
-        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-filepath="@Model.FileLocation">Run Parser</a>
+        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-filepath="@Model.UploadedFile">Run Parser</a>
     }
 
     @Html.Partial("_Accordion", Model.PageName)
 
     <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
-</div>
+
 
 @if (!string.IsNullOrEmpty(Model.FileToDownload))
 {
