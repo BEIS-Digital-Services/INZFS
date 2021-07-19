@@ -15,8 +15,8 @@ namespace INZFS.Theme
         public override void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddScoped<IResourceManifestProvider, ResourceManifest>();
-            serviceCollection.AddScoped<IDataMigration, UserTwoFactorsSettingsIndexMigration>();
-            serviceCollection.AddSingleton<IIndexProvider, UserTwoFactorsSettingsIndexProvider>();
+            serviceCollection.AddScoped<IDataMigration, UserTwoFactorSettingsIndexMigration>();
+            serviceCollection.AddSingleton<IIndexProvider, UserTwoFactorSettingsIndexProvider>();
 
             serviceCollection.Configure<IdentityOptions>(options =>
             {

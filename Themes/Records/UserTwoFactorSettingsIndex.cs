@@ -7,7 +7,7 @@ using YesSql.Indexes;
 
 namespace INZFS.Theme.Records
 {
-    public class UserTwoFactorsSettingsIndex : MapIndex
+    public class UserTwoFactorSettingsIndex : MapIndex
     {
         public string UserId { get; set; }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.Models
 {
-    public class UserTwoFactorsSettings
+    public class UserTwoFactorSettings
     {
         public string UserId { get; set; }
         public bool IsTwoFactorEnabled { get; set; }

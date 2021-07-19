@@ -3,14 +3,14 @@ using YesSql.Indexes;
 
 namespace INZFS.Theme.Records
 {
-    public class UserTwoFactorsSettingsIndexProvider : IndexProvider<UserTwoFactorsSettings>
+    public class UserTwoFactorSettingsIndexProvider : IndexProvider<UserTwoFactorSettings>
     {
-        public override void Describe(DescribeContext<UserTwoFactorsSettings> context)
+        public override void Describe(DescribeContext<UserTwoFactorSettings> context)
         {
-            context.For<UserTwoFactorsSettingsIndex>()
+            context.For<UserTwoFactorSettingsIndex>()
                 .Map(contentItem =>
                 {
-                    var contentItemIndex = new UserTwoFactorsSettingsIndex
+                    var contentItemIndex = new UserTwoFactorSettingsIndex
                     {
                         UserId = contentItem.UserId
                     };

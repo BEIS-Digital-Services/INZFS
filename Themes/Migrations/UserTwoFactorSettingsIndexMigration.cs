@@ -9,15 +9,15 @@ using YesSql.Sql;
 
 namespace INZFS.Theme.Migrations
 {
-    public class UserTwoFactorsSettingsIndexMigration : DataMigration
+    public class UserTwoFactorSettingsIndexMigration : DataMigration
     {
         public int Create()
         {
-            SchemaBuilder.CreateMapIndexTable<UserTwoFactorsSettingsIndex>(table => table
-                .Column<string>("UserId", c => c.WithLength(26))
+            SchemaBuilder.CreateMapIndexTable<UserTwoFactorSettingsIndex>(table => table
+                .Column<string>("UserId", c => c.WithLength(100))
             );
 
-            SchemaBuilder.AlterIndexTable<UserTwoFactorsSettingsIndex>(table => table
+            SchemaBuilder.AlterIndexTable<UserTwoFactorSettingsIndex>(table => table
                 .CreateIndex("IDX_UserTwoFactorsSettingsIndex_UserId",
                     "UserId")
             );
