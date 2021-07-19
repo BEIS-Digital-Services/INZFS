@@ -265,21 +265,49 @@ namespace INZFS.MVC.Controllers
 
                 contentToSave.ModifiedUtc = DateTime.UtcNow;
 
-                var field = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                string publicUrl = string.Empty;
+                if (currentPage.FieldType == FieldType.gdsFileUpload)
+                {
+                    
+                    if (file != null)
+                    {
+                        var errorMessage = await _fileUploadService.Validate(file);
+                        if (!string.IsNullOrEmpty(errorMessage))
+                        {
+                            //TODO - Handle validation Error
+                        }
 
-                var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(field.FieldName));
+                        var directoryName = Guid.NewGuid().ToString();
+                        publicUrl = await _fileUploadService.SaveFile(file, directoryName);
+                        model.DataInput = file.FileName;
+                    }
+                    else
+                    {
+                        //TODO - Handle validation Error
+                    }
+                }
+
+                var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
                 if(existingFieldData == null)
                 {
+                    if(currentPage.FieldType == FieldType.gdsFileUpload)
+                    {
+                        // TODO Delete  the old file
+                    }
+
                     contentToSave.Fields.Add(new Field { 
-                        Name = field.FieldName, 
+                        Name = currentPage.FieldName, 
                         Data = model.GetData(),
-                        MarkAsComplete =model.ShowMarkAsComplete ? model.MarkAsComplete : null
+                        MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
+                        FileLocation = currentPage.FieldType == FieldType.gdsFileUpload ? publicUrl : null
                     });
                 }
                 else
                 {
                     existingFieldData.Data = model.GetData();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
+                    existingFieldData.FileLocation = currentPage.FieldType == FieldType.gdsFileUpload ? publicUrl : null;
                 }
                 
 
@@ -690,13 +718,18 @@ namespace INZFS.MVC.Controllers
                     }
                     
 
-                    return View("DateInput", model);
+                    return View("DateInput", dateModel);
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
                     return View("SingleRadioInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
                     model = new MultiSelectInputModel();
                     return View("MultiSelectInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsFileUpload:
+                    model = PopulateModel(currentPage, new FileUploadModel(), field);
+                    var uploadmodel = (FileUploadModel)model;
+                    uploadmodel.FileLocation = field?.FileLocation;
+                    return View("FileUpload", uploadmodel);
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -715,6 +748,8 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsSingleLineRadio:
                     return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
+                    return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsFileUpload:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");

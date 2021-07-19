@@ -125,6 +125,19 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "business-proposal-file",
+            "question": "5.1. Proposal",
+            "description": "Description",
+            "errorMessage": "Enter business proposal",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Business proposal",
+            "fieldName": "business-proposal-file",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
             "name": "business-plan",
             "question": "5.2. Business Plan",
             "description": "Description",

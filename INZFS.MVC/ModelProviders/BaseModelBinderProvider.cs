@@ -19,7 +19,9 @@ namespace INZFS.MVC.ModelProviders
                 return null;
             }
 
-            var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), typeof(DateModel), typeof(MultiSelectInputModel), typeof(SingleRadioInputModel)};
+            var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), 
+                typeof(DateModel), typeof(MultiSelectInputModel),
+                typeof(SingleRadioInputModel), typeof(FileUploadModel)};
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
             foreach (var type in subclasses)
@@ -67,6 +69,10 @@ namespace INZFS.MVC.ModelProviders
             else if (modelTypeValue == nameof(MultiSelectInputModel))
             {
                 (modelMetadata, modelBinder) = binders[typeof(MultiSelectInputModel)];
+            }
+            else if (modelTypeValue == nameof(FileUploadModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(FileUploadModel)];
             }
             else
             {
