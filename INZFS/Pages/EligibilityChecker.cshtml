@@ -74,13 +74,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA onclick="checkingYes()">
+                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA onclick="checkingRadio()">
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA onclick="checkingNo()">
+                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA onclick="checkingRadio()">
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -146,14 +146,10 @@
         window.GOVUKFrontend.initAll()
     </script>
     <script type="text/javascript">
-        function checkingYes() {
+        function checkingRadio() {
             button = document.querySelector('#continueBtn');
             button.disabled = false;
-        }
-        function checkingNo() {
-            button = document.querySelector('#continueBtn');
-            button.disabled = false;
-        }    
+        }  
     </script>
 </body>
 
