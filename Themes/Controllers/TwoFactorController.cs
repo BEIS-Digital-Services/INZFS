@@ -31,16 +31,15 @@ namespace INZFS.Theme.Controllers
             _signInManager = signInManager;
             _logger = logger;
         }
-        
+
         public async Task<IActionResult> Select(string returnUrl)
         {
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             var model = new EnableTwoFactorOptionViewModel();
 
-            var userId = await _userManager.GetUserIdAsync(user);
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var isActivated = await IsTwoFactorActivated(user);
 
-            
-            if (await _factorSettingsService.GetTwoFactorEnabledAsync(userId))
+            if (isActivated)
             {
                 model.LoginAction = "AuthenticatorCode";
             }
@@ -48,13 +47,21 @@ namespace INZFS.Theme.Controllers
             {
                 model.LoginAction = "ScanQr";
             }
-            
+
             return View(model);
         }
+
+
 
         public async Task<IActionResult> ScanQr(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            if (await IsTwoFactorActivated(user))
+            {
+                return RedirectToAction("AuthenticatorCode", new { returnUrl });
+            }
+
             var model = await _twoFactorAuthenticationService.GetSharedKeyAndQrCodeUriAsync(user);
 
             return View(model);
@@ -63,7 +70,7 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> AuthenticatorCode(string returnUrl)
         {
-            var model = new EnableAuthenticatorCodeViewModel( );
+            var model = new EnableAuthenticatorCodeViewModel();
             return View(model);
         }
 
@@ -88,13 +95,12 @@ namespace INZFS.Theme.Controllers
                     user, _userManager.Options.Tokens.AuthenticatorTokenProvider, authenticatorCode);
 
                 if (isValidToken)
-                {
-                    var userId = await _userManager.GetUserIdAsync(user);
-                    if (!await _factorSettingsService.GetTwoFactorEnabledAsync(userId))
+                {   
+                    if (!await IsTwoFactorActivated(user))
                     {
                         await _userManager.SetTwoFactorEnabledAsync(user, true);
                     }
-                    
+
                     var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, false, false);
                     if (result.Succeeded)
                     {
@@ -108,6 +114,13 @@ namespace INZFS.Theme.Controllers
 
             return View(model);
         }
-        
+
+        private async Task<bool> IsTwoFactorActivated(IUser user)
+        {
+            var userId = await _userManager.GetUserIdAsync(user);
+            var isActivated = await _factorSettingsService.GetTwoFactorEnabledAsync(userId);
+            return isActivated;
+        }
+
     }
 }
