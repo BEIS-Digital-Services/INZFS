@@ -25,7 +25,7 @@
                 <kbd>@Model.SharedKey</kbd>
             </p>
             <br /><br />
-            <a href="@Url.Action("AuthenticatorCode", "TwoFactor", new { Area = "INZFS.Theme" })">
+            <a href="@Url.Action("AuthenticatorCode", "TwoFactor", new { Area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl")})">
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </a>
         </div>

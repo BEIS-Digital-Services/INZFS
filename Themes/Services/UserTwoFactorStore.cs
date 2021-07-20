@@ -49,7 +49,7 @@ namespace INZFS.Theme.Services
         public async Task<bool> GetTwoFactorEnabledAsync(IUser user, CancellationToken cancellationToken)
         {
             var userId = GetUserId(user);
-            return await _service.GetTwoFactorEnabledAsync(userId);
+            return true; //await _service.GetTwoFactorEnabledAsync(userId);
         }
 
         public async Task SetPhoneNumberAsync(IUser user, string phoneNumber, CancellationToken cancellationToken)

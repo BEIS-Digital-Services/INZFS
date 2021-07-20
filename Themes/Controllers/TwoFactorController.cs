@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -13,48 +9,70 @@ using OrchardCore.Users;
 
 namespace INZFS.Theme.Controllers
 {
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "Identity.TwoFactorUserId")]
     public class TwoFactorController : Controller
     {
         private readonly UserManager<IUser> _userManager;
         private readonly ITwoFactorAuthenticationService _twoFactorAuthenticationService;
+        private readonly IUserTwoFactorSettingsService _factorSettingsService;
+        private readonly SignInManager<IUser> _signInManager;
         private readonly ILogger<TwoFactorController> _logger;
 
         public TwoFactorController(
             UserManager<IUser> userManager,
             ITwoFactorAuthenticationService twoFactorAuthenticationService,
+            IUserTwoFactorSettingsService factorSettingsService,
+            SignInManager<IUser> signInManager,
             ILogger<TwoFactorController> logger)
         {
             _userManager = userManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
+            _factorSettingsService = factorSettingsService;
+            _signInManager = signInManager;
             _logger = logger;
         }
-
-
-        public async Task<IActionResult> Enable()
+        
+        public async Task<IActionResult> Select(string returnUrl)
         {
-            return View(new EnableTwoFactorOptionViewModel());
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            var model = new EnableTwoFactorOptionViewModel();
+
+            var userId = await _userManager.GetUserIdAsync(user);
+
+            
+            if (await _factorSettingsService.GetTwoFactorEnabledAsync(userId))
+            {
+                model.LoginAction = "AuthenticatorCode";
+            }
+            else
+            {
+                model.LoginAction = "ScanQr";
+            }
+            
+            return View(model);
         }
 
-        public async Task<IActionResult> ScanQr()
+        public async Task<IActionResult> ScanQr(string returnUrl)
         {
-            var user = await _userManager.GetUserAsync(User);
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             var model = await _twoFactorAuthenticationService.GetSharedKeyAndQrCodeUriAsync(user);
 
             return View(model);
         }
 
         [HttpGet]
-        public async Task<IActionResult> AuthenticatorCode()
+        public async Task<IActionResult> AuthenticatorCode(string returnUrl)
         {
-            var model = new EnableAuthenticatorCodeViewModel();
+            var model = new EnableAuthenticatorCodeViewModel( );
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AuthenticatorCode(EnableAuthenticatorCodeViewModel model)
+        public async Task<IActionResult> AuthenticatorCode(EnableAuthenticatorCodeViewModel model, string returnUrl)
         {
-            var user = await _userManager.GetUserAsync(User);
+            returnUrl ??= Url.Content("~/");
+
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
@@ -71,12 +89,18 @@ namespace INZFS.Theme.Controllers
 
                 if (isValidToken)
                 {
-                    await _userManager.SetTwoFactorEnabledAsync(user, true);
                     var userId = await _userManager.GetUserIdAsync(user);
-                    _logger.LogInformation("User '{UserId}' has successfully enabled 2FA with an authenticator app.", userId);
-
-                    //TODO: should redirect to redirect url or authentication landing page
-                    return LocalRedirect("/");
+                    if (!await _factorSettingsService.GetTwoFactorEnabledAsync(userId))
+                    {
+                        await _userManager.SetTwoFactorEnabledAsync(user, true);
+                    }
+                    
+                    var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, false, false);
+                    if (result.Succeeded)
+                    {
+                        //_logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
+                        return LocalRedirect(returnUrl);
+                    }
                 }
 
                 ModelState.AddModelError("AuthenticatorCode", "Verification code is not valid, please enter a valid code and try again");
@@ -84,5 +108,6 @@ namespace INZFS.Theme.Controllers
 
             return View(model);
         }
+        
     }
 }

@@ -9,18 +9,21 @@ namespace INZFS.Theme.ViewModels
 {
     public class EnableTwoFactorOptionViewModel
     {
-
+        public string LoginAction { get; set; }
+       
     }
 
     public class EnableAuthenticatorQrCodeViewModel
     {
         public string SharedKey { get; set; }
         public string AuthenticatorUri { get; set; }
+        
     }
 
     public class EnableAuthenticatorCodeViewModel
     {
         [Required(ErrorMessage = "Authenticator Code is required")]
         public string AuthenticatorCode { get; set; }
+        
     }
 }
