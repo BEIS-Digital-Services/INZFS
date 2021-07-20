@@ -10,7 +10,7 @@ namespace INZFS.Theme.ViewModels
     public class EnableTwoFactorOptionViewModel
     {
         public string LoginAction { get; set; }
-       
+        public bool IsActivated { get; set; }
     }
 
     public class EnableAuthenticatorQrCodeViewModel

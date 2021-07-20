@@ -37,9 +37,9 @@ namespace INZFS.Theme.Controllers
             var model = new EnableTwoFactorOptionViewModel();
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            var isActivated = await IsTwoFactorActivated(user);
+            model.IsActivated = await IsTwoFactorActivated(user);
 
-            if (isActivated)
+            if (model.IsActivated)
             {
                 model.LoginAction = "AuthenticatorCode";
             }
