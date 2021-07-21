@@ -32,6 +32,8 @@ using INZFS.MVC.Services;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
 using System.Text.Json;
+using ClosedXML.Excel;
+using OrchardCore.FileStorage;
 
 namespace INZFS.MVC.Controllers
 {
@@ -213,11 +215,6 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        public void ParseExcelFile(string filepath)
-        {
-            var xl = new ExcelParser(filepath);
-        }
-
         public async Task<bool> CreateDirectory(string directoryName)
         {
             if(directoryName == null)
@@ -301,6 +298,19 @@ namespace INZFS.MVC.Controllers
                             Name = file.FileName,
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
+
+                        if (file.FileName.Contains(".xlsx"))
+                        {
+                            string url = "/App_Data/Sites/Default" + publicUrl;
+                            string testFilepath = _mediaFileStore.NormalizePath(url);
+                            var wb = new XLWorkbook(testFilepath);
+                            var ws = wb.Worksheet("summary");
+                            var cells = ws.Range("B20:g39").CellsUsed();
+
+                            uploadedFile.ParsedTotalProjectCost = ws.Cell("E31").Value.ToString();
+                            uploadedFile.ParsedTotalGrantFunding = ws.Cell("E34").Value.ToString();
+                            uploadedFile.ParsedTotalGrantFundingPercentage = ws.Cell("G34").Value.ToString();
+                        }
 
                         additionalInformation = JsonSerializer.Serialize(uploadedFile);
                     }

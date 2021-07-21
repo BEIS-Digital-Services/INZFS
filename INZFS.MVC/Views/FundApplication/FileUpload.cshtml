@@ -92,6 +92,59 @@
             <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
         }
 
+        @if (Model.UploadedFile != null && Model.UploadedFile.ParsedTotalProjectCost != null)
+        {
+            <table class="govuk-table">
+                <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
+                <thead class="govuk-table__head">
+                    <tr class="govuk-table__row govuk-body-s">
+                        <th scope="col" class="govuk-table__header app-custom-class">Project funding source</th>
+                        <th scope="col" class="govuk-table__header app-custom-class">Value</th>
+                        <th scope="col" class="govuk-table__header app-custom-class">Percentage of total value</th>
+                    </tr>
+                </thead>
+                <tbody class="govuk-table__body govuk-body-s">
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Total BEIS grant applied for
+                        </td>
+                        <td class="govuk-table__cell">
+                            @(Model.UploadedFile.ParsedTotalGrantFunding != null ? "£" + @Model.UploadedFile.ParsedTotalGrantFunding : "-")
+                        </td>
+                        <td class="govuk-table__cell">
+                            @(Model.UploadedFile.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedTotalGrantFundingPercentage + "%" : "-")
+
+                        </td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Total match funding contribution
+                        </td>
+                        <td class="govuk-table__cell">
+                            -
+                        </td>
+                        <td class="govuk-table__cell">
+                            -
+                        </td>
+                    </tr>
+
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">
+                            Total project cost
+                        </td>
+                        <td class="govuk-table__cell">
+                            @(Model.UploadedFile.ParsedTotalProjectCost != null ? "£" + @Model.UploadedFile.ParsedTotalProjectCost : "-")
+                        </td>
+                        <td class="govuk-table__cell">
+                            100%
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        }
 
         @Html.Partial("_Accordion", Model.PageName)
 
@@ -107,11 +160,11 @@
             </div>
         </div>
 
-        </form>
+    </form>
 
     @if(!string.IsNullOrEmpty(Model.DataInput))
     {
-        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-filepath="@Model.UploadedFile">Run Parser</a>
+        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-file="@Model">Run Parser</a>
     }
 
     @Html.Partial("_Accordion", Model.PageName)

@@ -148,6 +148,9 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string FileLocation { get; set; }
         public string Size { get; set; }
+        public string? ParsedTotalProjectCost { get; set; }
+        public string? ParsedTotalGrantFunding { get; set; }
+        public string? ParsedTotalGrantFundingPercentage { get; set; }
     }
 
 
