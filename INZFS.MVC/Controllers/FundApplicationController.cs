@@ -340,7 +340,15 @@ namespace INZFS.MVC.Controllers
                 
 
                 _session.Save(contentToSave);
-                if(submitAction == "DeleteFile")
+
+                if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
+                {
+                    var action = currentPage.Actions.FirstOrDefault(a => a.Value.ToLower().Equals(model.GetData()));
+                    // action logic based on value
+                    return RedirectToAction("section", new { pagename = action.PageName });
+                }
+
+                if (submitAction == "DeleteFile")
                 {
                     return RedirectToAction("section", new { pagename = pageName });
                 }
@@ -841,16 +849,35 @@ namespace INZFS.MVC.Controllers
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = section.Pages.Count;
-            currentModel.ContinueButtonText = section.ContinueButtonText;
+            if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
+            {
+                currentModel.ContinueButtonText = section.ContinueButtonText;
+            }else
+            {
+                currentModel.ContinueButtonText = currentPage.ContinueButtonText;
+            }
             currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
             currentModel.SectionUrl = section.Url;
-            
-            var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
-            if (previousPage != null)
+            currentModel.SectionInfo = section;
+
+            var currentPageIndex = section.Pages.FindIndex(p => p.Name == currentPage.Name);// (index - 1);
+            if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = previousPage.Name;
+                currentModel.PreviousPageName = section.Pages[currentPageIndex -1 ].Name;
+            } 
+
+            if (!string.IsNullOrEmpty(currentPage.Description))
+            {
+                currentModel.Description = currentPage.Description;
             }
-           
+
+            if (!string.IsNullOrEmpty(currentPage.UploadText))
+            {
+                currentModel.UploadText = currentPage.UploadText;
+            }
+
+            currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
+
             return currentModel;
         }
     }

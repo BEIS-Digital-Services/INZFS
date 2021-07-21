@@ -263,8 +263,66 @@
             "showSaveProgessButton": true
           }
         ]
+      },
+      {
+        "title": "Consortium Information",
+        "tag": "consortium-information",
+        "url": "consortium-information",
+        "continueButtonText": "Save and continue",
+        "RazorView": "ConsortiumInformation",
+        "pages": [
+          {
+            "name": "consortium-applicant",
+            "question": "Are you a sole applicant?",
+            "titleQuestion": "Are you a sole applicant?",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Consortium Applicant",
+            "fieldName": "consortium-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "application-overview"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "consortium-applicant-details"
+              }
+            ]
+          },
+          {
+            "name": "consortium-applicant-details",
+            "question": "Consortium details",
+            "titleQuestion": "Consortium details",
+            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "errorMessage": "Upload consortium details",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "consortium-applicant-details",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload consortium details"
+          }
+        ]
       }
     ]
-
   }
 }

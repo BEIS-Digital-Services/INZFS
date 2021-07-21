@@ -13,6 +13,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Kind { get; set; }
         public int QuestionNumber { get; set; } = 1;
         public int TotalQuestions { get; set; }
+        public bool DisplayQuestionCounter { get; set; } = false;
         public string PageName { get; set; }
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
@@ -33,8 +34,9 @@ namespace INZFS.MVC.Models.DynamicForm
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string SectionUrl { get; set; }
+        public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
-        
+        public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }

@@ -27,6 +27,7 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Question { get; set; }
+        public bool DisplayQuestionCounter { get; set; } = true;
         public string  TitleQuestion { get; set; }
         public string Description { get; set; }
         public string Hint { get; set; }
@@ -48,7 +49,9 @@ namespace INZFS.MVC
         public string ContinueButtonText { get; set; }
 
         public string FileToDownload { get; set; }
+        public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
+        public List<Action> Actions { get; set; }
     }
 
     public class Section
@@ -150,6 +153,12 @@ namespace INZFS.MVC
         public string Size { get; set; }
     }
 
+    public class Action
+    {
+        public string Name { get; set; }
+        public string Value { get; set; }
+        public string PageName { get; set; }
 
+    }
 
 }
