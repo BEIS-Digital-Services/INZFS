@@ -36,6 +36,7 @@ using ClosedXML.Excel;
 using OrchardCore.FileStorage;
 using System.IO;
 using ClosedXML.Excel.CalcEngine.Exceptions;
+using Microsoft.AspNetCore.Hosting;
 
 namespace INZFS.MVC.Controllers
 {
@@ -303,12 +304,15 @@ namespace INZFS.MVC.Controllers
 
                         if (file.FileName.Contains(".xlsx"))
                         {
-                            string url = "/App_Data/Sites/Default" + publicUrl;
-                            url = _mediaFileStore.NormalizePath(url);
+                            // If env is Development, prepend local filepath to publicUrl to ensure functionality
+                            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                            {
+                                publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
+                            }
 
                             try
                             {
-                                XLWorkbook wb = new(url);
+                                XLWorkbook wb = new(publicUrl);
 
                                 try
                                 {
