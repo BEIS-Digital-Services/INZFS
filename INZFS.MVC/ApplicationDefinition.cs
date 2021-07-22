@@ -151,6 +151,8 @@ namespace INZFS.MVC
         public string? ParsedTotalProjectCost { get; set; }
         public string? ParsedTotalGrantFunding { get; set; }
         public string? ParsedTotalGrantFundingPercentage { get; set; }
+        public string? ParsedTotalMatchFunding { get; set; }
+        public string? ParsedTotalMatchFundingPercentage { get; set; }
     }
 
 

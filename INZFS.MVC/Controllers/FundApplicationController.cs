@@ -35,6 +35,7 @@ using System.Text.Json;
 using ClosedXML.Excel;
 using OrchardCore.FileStorage;
 using System.IO;
+using ClosedXML.Excel.CalcEngine.Exceptions;
 
 namespace INZFS.MVC.Controllers
 {
@@ -307,13 +308,39 @@ namespace INZFS.MVC.Controllers
 
                             try
                             {
-                                var wb = new XLWorkbook(completeFilepath);
-                                var ws = wb.Worksheet("summary");
-                                var cells = ws.Range("B20:g39").CellsUsed();
+                                XLWorkbook wb = new(completeFilepath);
 
-                                uploadedFile.ParsedTotalProjectCost = ws.Cell("E31").Value.ToString();
-                                uploadedFile.ParsedTotalGrantFunding = ws.Cell("E34").Value.ToString();
-                                uploadedFile.ParsedTotalGrantFundingPercentage = ws.Cell("G34").Value.ToString();
+                                try
+                                {
+                                    IXLWorksheet ws = wb.Worksheet("A. Summary");
+                                    IXLCell totalGrantFunding = ws.Cell("A8");
+                                    IXLCell totalMatchFunding = ws.Cell("A9");
+                                    IXLCell totalProjectFunding = ws.Cell("A19");
+
+                                    if (totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null)
+                                    {
+                                        try
+                                        {
+                                            uploadedFile.ParsedTotalProjectCost = totalProjectFunding.CellRight().Value.ToString();
+                                            uploadedFile.ParsedTotalGrantFunding = totalGrantFunding.CellRight().Value.ToString();
+                                            uploadedFile.ParsedTotalGrantFundingPercentage = totalGrantFunding.CellRight().CellRight().Value.ToString();
+                                            uploadedFile.ParsedTotalMatchFunding = totalMatchFunding.CellRight().Value.ToString();
+                                            uploadedFile.ParsedTotalMatchFundingPercentage = totalMatchFunding.CellRight().CellRight().Value.ToString();
+                                        }
+                                        catch (DivisionByZeroException e)
+                                        {
+                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                    }
+                                }
+                                catch (ArgumentException e)
+                                {
+                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                }
                             }
                             catch (InvalidDataException e)
                             {
