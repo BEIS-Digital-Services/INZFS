@@ -110,10 +110,10 @@
                             Total BEIS grant applied for
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedTotalGrantFunding != null ? "£" + @Model.UploadedFile.ParsedTotalGrantFunding : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedTotalGrantFundingPercentage + "%" : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -122,10 +122,10 @@
                             Total match funding contribution
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedTotalMatchFunding != null ? "£" + @Model.UploadedFile.ParsedTotalMatchFunding : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedTotalMatchFundingPercentage + "%" : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -134,7 +134,7 @@
                             Total project cost
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedTotalProjectCost != null ? "£" + @Model.UploadedFile.ParsedTotalProjectCost : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
                         </td>
                         <td class="govuk-table__cell">
                             -
