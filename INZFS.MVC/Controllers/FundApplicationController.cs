@@ -121,7 +121,6 @@ namespace INZFS.MVC.Controllers
                     }
                     else
                     {
-
                         if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
                         {
                             sectionModel.Status = "Completed";
@@ -132,14 +131,9 @@ namespace INZFS.MVC.Controllers
                         {
                             sectionModel.Status = "In Progress";
                         }
-
                     }
-
-
                     sectionContentModel.Sections.Add(sectionModel);
-
                 }
-
                 return View(section.RazorView, sectionContentModel);
             }
 
