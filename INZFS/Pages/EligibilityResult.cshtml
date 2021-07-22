@@ -1,0 +1,111 @@
+﻿@page "/eligibilityResult/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+	var listenabled = @eligibility.Content.EligibilityResult.Bullet1.Text == null;
+	var Secondlistenabled = @eligibility.Content.EligibilityResult.BulletA.Text == null;
+
+}
+@Orchard.ConsoleLog(eligibility)
+
+<body class="govuk-template__body competition-overview">
+	<div class="govuk-width-container">
+		<div class="govuk-grid-row">
+			<div class="govuk-grid-column-three-quarters">
+				<a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+			</div>
+			<div class="govuk-grid-column-one-quarter govuk-signout-right">
+			</div>
+		</div>
+		<main class="govuk-main-wrapper " id="main-content" role="main">
+
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+
+					<h1 class="govuk-heading-l">@eligibility.Content.EligibilityResult.Header1.Text</h1>
+
+				</div>
+			</div>
+
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					@if (@eligibility.Content.EligibilityResult.Header2.Text != null)
+						{
+							<h2 class="govuk-heading-m">@eligibility.Content.EligibilityResult.Header2.Text</h2>
+						}
+					
+
+					<p class="govuk-body">@eligibility.Content.EligibilityResult.Body1.Text</p>
+
+					@if (!listenabled)
+					{
+						<ul class="govuk-list govuk-list--bullet">
+							<li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
+
+							@if (@eligibility.Content.EligibilityResult.Bullet2.Text != null)
+							{
+								<li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
+							}
+							@if (@eligibility.Content.EligibilityResult.Bullet3.Text != null)
+							{
+								<li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
+							}
+							@if (@eligibility.Content.EligibilityResult.Bullet4.Text != null)
+							{
+								<li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
+							}
+						</ul>
+
+					}
+
+					<p class="govuk-body">@eligibility.Content.EligibilityResult.Body2.Text</p>
+
+					@if (@eligibility.Content.EligibilityResult.Body3.Text != null)
+					{
+						<p class="govuk-body">@eligibility.Content.EligibilityResult.Body3.Text <a class="govuk-link" href="#">another source</a>.</p>
+					}
+
+
+					@if (!Secondlistenabled)
+					{
+						<ul class="govuk-list govuk-list--bullet">
+							<li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletA.Text</li>
+							@if (@eligibility.Content.EligibilityResult.BulletB.Text != null)
+							{
+								<li>@eligibility.Content.EligibilityResult.BulletB.Text</li>
+							}
+
+						</ul>
+
+					}
+					<a href="@eligibility.Content.EligibilityResult.Url1.Html">
+						<button class="govuk-button" data-module="govuk-button">
+							@eligibility.Content.EligibilityResult.Button1.Text
+						</button>
+					</a>
+					@if (@eligibility.Content.EligibilityResult.Header1.Text == "You are eligible to apply")
+					{
+						<p class="govuk-body"><a class="govuk-link" href="/govpage/Energy-Entrepreneurs">Return to fund overview</a></p>
+					}
+
+				</div>
+
+			</div>
+		</main>
+
+
+	</div>
+	<script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
+	<script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+
+</body>
+
+@functions
+{
+	[FromRoute]
+	public string Slug { get; set; }
+}
+@{
+	Layout = "_LayoutWithoutBackBtn";
+}

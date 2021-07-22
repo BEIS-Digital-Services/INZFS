@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -226,7 +226,7 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
-        
+
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {

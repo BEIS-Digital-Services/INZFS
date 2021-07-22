@@ -1,0 +1,15 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+<div class="govuk-form-group">
+    <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" asp-for="MarkAsComplete" type="checkbox" value="true">
+            <label class="govuk-label govuk-checkboxes__label" asp-for="MarkAsComplete">
+                Mark this question as complete
+            </label>
+        </div>
+    </div>
+</div>

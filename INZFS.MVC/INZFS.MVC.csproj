@@ -3,32 +3,37 @@
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+	<PreserveCompilationContext>false</PreserveCompilationContext>
   </PropertyGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Remove="Views\FinanceBalanceSheet.cshtml" />
-  </ItemGroup>
-
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
+    <PackageReference Include="itext7.pdfhtml" Version="3.0.4" />
+    <PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
     <PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-15904" />
     <PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-13450" />
     <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-15867" />
-	<PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc2-15905" />
-	<PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-15867" />
+	  <PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc2-15905" />
+	  <PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-15867" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-15867" />
-	<PackageReference Include="OrchardCore.FileStorage.FileSystem" Version="1.0.0-rc2-15867" />
-	<PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-15867" />
+	  <PackageReference Include="OrchardCore.FileStorage.FileSystem" Version="1.0.0-rc2-15867" />
+	  <PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-15867" />
+    <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-15867" />
     <PackageReference Include="nClam" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+	<Content Include="Views\FinanceBalanceSheetPart.Edit.cshtml" />
+	<Content Include="Views\_ViewStart.cshtml">
+	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+	  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+	</Content>
   </ItemGroup>
 </Project>
+

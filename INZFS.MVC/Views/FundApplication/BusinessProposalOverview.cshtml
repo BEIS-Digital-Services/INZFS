@@ -1,0 +1,115 @@
+@model SectionContent
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+
+<div class="govuk-width-container">
+
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
+                        <a class="govuk-breadcrumbs__link" href="application-overview"  id="application-overview">Application overview</a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item">
+                        5. Business proposal
+                    </li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <main class="govuk-main-wrapper " id="main-content" role="main">
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">
+                    Business Proposal
+                </h1>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+
+                <div class="govuk-tabs" data-module="govuk-tabs">
+                    <h2 class="govuk-tabs__title">
+                        5. Business Proposal
+                    </h2>
+
+                    <div class="govuk">
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">5. Business Proposal<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                        <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections)
+                        {
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.Status
+                                </dd>
+
+                            </div>
+                        }
+
+                    </div>
+                </div>
+
+
+                <a href="application-overview">
+                    <button class="govuk-button" data-module="govuk-button">
+                        Back to application overview
+                    </button>
+                </a>
+
+            </div>
+
+            <div class="govuk-grid-column-one-third govuk-!-padding-top-4">
+
+                <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+                <aside class="app-related-items" role="complementary">
+
+                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
+
+                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
+
+                </aside>
+
+                <aside class="app-related-items" role="complementary">
+
+                    <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="downloadDocs.html">Download the guidance, application questions and templates</a></p>
+
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        Download your application
+                    </button>
+
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                How does this work?
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                        </div>
+                    </details>
+
+                </aside>
+
+            </div>
+        </div>
+    </main>
+
+</div>

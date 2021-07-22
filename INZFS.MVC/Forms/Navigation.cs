@@ -21,20 +21,20 @@ namespace INZFS.MVC.Forms
         public Navigation()
         {
             _pages = new List<Page>();
-            _pages.Add(new ContentPage { Name = "company-details", ContentType = "CompanyDetails" });
-            _pages.Add(new ContentPage { Name = "project-summary", ContentType = "ProjectSummaryPart" });
-            _pages.Add(new ContentPage { Name = "project-details", ContentType = "ProjectDetailsPart" });
-            _pages.Add(new ContentPage { Name = "org-funding", ContentType = "OrgFundingPart" });
+            _pages.Add(new ContentPage { Name = "company-details", ContentType = ContentTypes.CompanyDetails });
+            _pages.Add(new ContentPage { Name = "project-summary", ContentType = ContentTypes.ProjectSummary });
+            _pages.Add(new ContentPage { Name = "project-details", ContentType = ContentTypes.ProjectDetails });
+            _pages.Add(new ContentPage { Name = "org-funding", ContentType = ContentTypes.OrgFunding });
             _pages.Add(new Page { Name = "summary" });
-            _pages.Add(new ContentPage { Name = "proposal-written-details", ContentType = "ProjectProposalDetails" });
-            _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan", ContentType = "ApplicationDocument" });
-            _pages.Add(new ContentPage { Name = "project-experience", ContentType = "ProjectExperience" });
-            _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills", ContentType = "ApplicationDocument" });
+            _pages.Add(new ContentPage { Name = "proposal-written-details", ContentType = ContentTypes.ProjectProposalDetails });
+            _pages.Add(new ViewPage { Name = "upload-project-plan", ViewName = "ProjectPlan", ContentType = ContentTypes.ApplicationDocument });
+            _pages.Add(new ContentPage { Name = "project-experience", ContentType = ContentTypes.ProjectExperience });
+            _pages.Add(new ViewPage { Name = "experience-and-skills", ViewName = "ExperienceSkills", ContentType = ContentTypes.ApplicationDocument });
             _pages.Add(new Page { Name = "proposal-written-summary" });
-            _pages.Add(new ContentPage { Name = "finance-turnover", ContentType = "FinanceTurnover" });
-            _pages.Add(new ContentPage { Name = "finance-balance-sheet", ContentType = "FinanceBalanceSheet" });
-            _pages.Add(new ContentPage { Name = "finance-recover-vat", ContentType = "FinanceRecoverVat" });
-            _pages.Add(new ContentPage { Name = "finance-barriers", ContentType = "FinanceBarriers" });
+            _pages.Add(new ContentPage { Name = "finance-turnover", ContentType = ContentTypes.FinanceTurnover });
+            _pages.Add(new ContentPage { Name = "finance-balance-sheet", ContentType = ContentTypes.FinanceBalanceSheet });
+            _pages.Add(new ContentPage { Name = "finance-recover-vat", ContentType = ContentTypes.FinanceRecoverVat });
+            _pages.Add(new ContentPage { Name = "finance-barriers", ContentType = ContentTypes.FinanceBarriers });
             _pages.Add(new Page { Name = "proposal-finance-summary" });
 
         }

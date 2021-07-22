@@ -5,13 +5,13 @@
 
 @{
     ViewBag.Title = "Applications";
-    var list = @Model.CompanyDetails.ToList();
+    //var list = @Model.CompanyDetails.ToList();
 }
 
 
 <form asp-controller="Admin" asp-action="GetApplicationsSearch" method="get">
     <p>
-        Search For Company Name  <input type="text" asp-for="ApplicationSearch" />
+        Search For Company Name  <input type="text" asp-for="CompanyName" />
         <input type="submit" value="Search" />
     </p>
 </form>
@@ -20,26 +20,48 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyName)
+                Company Name 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CompanyDetails[0].CompanyNumber)
+                Application Id
+            </th>
+            <th>
+                View
+            </th>
+            <th>
+                Download
             </th>
 
             <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in list)
+        @foreach (var application in Model.Applications)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CompanyNumber)
-                </td>
-            </tr>
+        <tr>
+            <td>
+                @application.Key
+            </td>
+            <td>
+                <a class="govuk-button govuk-!-margin-top-6" href="Contents/ContentItems/@application.Value.ContentItemId/Edit">@application.Value.ContentItemId</a>
+
+            </td>
+            <td>
+                <a class="govuk-button govuk-!-margin-top-6" href="application?id=@application.Value.ContentItemId">View</a>
+            </td>
+            <td>
+                @Html.ActionLink(
+               linkText: "Download as PDF",
+               actionName: "GeneratePdf",
+               controllerName: "Report",
+               routeValues: new
+                    {
+                   applicationAuthor = application.Value.Author
+               },
+               htmlAttributes: null
+               )
+            </td>
+        </tr>
         }
     </tbody>
 </table>

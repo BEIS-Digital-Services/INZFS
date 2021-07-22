@@ -1,721 +1,123 @@
 ﻿@page
+@inject OrchardCore.IOrchardHelper Orchard
 
 @{
-    ViewData["Title"] = "Landing Page";
+	var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+
 }
+
+@Orchard.ConsoleLog(govpage)
+
 <body class="govuk-template__body competition-overview">
-    <main class="govuk-main-wrapper" id="main-content" role="main">
-
-        <h1 class="govuk-heading-l">
-            <span class="govuk-caption-l">Funding competition</span>
-            INZFS Grants August 2021
-
-        </h1>
-
-
-        <p class="govuk-body wysiwyg-styles">Opportunity for UK registered organisations to apply for a share of up to £25 million from INZFS to deliver game-changing Funds to reduce carbon emissions.</p>
-
-        <ul class="govuk-list">
-            <li><strong>Competition opens:</strong> <span>01 August 2021</span></li>
-
-            <li>
-                <strong>Competition closes:</strong> 01 December 2021 11:00am
-            </li>
-
-
-
-        </ul>
-        <div>
-
-
-
-
-
-            <a class="govuk-button govuk-!-margin-top-6" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="application-summary">Start new application</a>
-            <p class="govuk-body govuk-!-margin-top-6">
-
-                Or <a href="/Login" class="govuk-link">sign in</a> to continue an existing application.
-
-
-            </p>
-
-        </div>
-
-        <div class="govuk-tabs" data-module="govuk-tabs">
-            <h2 class="govuk-tabs__title">
-                Competition sections
-            </h2>
-            <ul class="govuk-tabs__list">
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#summary">Summary</a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#eligibility">Eligibility</a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#scope">Scope</a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#dates">Dates</a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#how-to-apply">How to apply</a>
-                </li>
-                <li class="govuk-tabs__list-item">
-                    <a class="govuk-tabs__tab"
-                       href="#supporting-information">Supporting information</a>
-                </li>
-            </ul>
-
-
-            <section class="govuk-tabs__panel" id="summary">
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Description</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>INZFS is Innovate UK’s ‘Open grant funding’ programme.</p>
-                            <p>INZFS, part of UK Research and Innovation, is investing up to £25 million in the best game-changing and commercially viable innovative or disruptive ideas. All proposals must be business focused.</p>
-                            <p>Applications can come from any area of technology and be applied to any part of the economy, such as, but not exclusively:</p>
-                            <ul>
-                                <li class="MsoNormal">the arts, design and media</li>
-                                <li class="MsoNormal">creative industries</li>
-                                <li class="MsoNormal">science or engineering</li>
-                            </ul>
-                            <p>Whilst we welcome projects that overlap with the <a href="https://www.gov.uk/government/publications/industrial-strategy-the-grand-challenges/industrial-strategy-the-grand-challenges">grand challenge areas</a> this is not a requirement, as we are also keen to support projects in other areas.</p>
-                            <p>To monitor the impact of our work to promote equality, diversity and inclusion (EDI) we need to collect relevant data and evidence. For this competition this means:</p>
-                            <ul>
-                                <li class="MsoNormal">all applicants are required to complete the EDI survey</li>
-                                <li class="MsoNormal">applicants are prompted to consider EDI as part of the application process</li>
-                            </ul>
-                            <p></p>
-                            <p>EDI considerations are highly encouraged where appropriate in the proposal. Applications will continue to be assessed on their innovation merit, where innovation is defined as the potential for commercially successful exploitation of ideas.</p> In applying to this competition, you are entering into a competitive process. This competition closes at 11am UK time on the deadline stated.
-                        </div>
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Funding type</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <p class="govuk-body">Grant</p>
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Project size</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <p class="govuk-body">Projects of 6 - 18 months must have total eligible project costs between £25,000 and £500,000 and can be single or collaborative. Projects of 19 - 36 months must have total eligible project costs between £25,000 and £2 million and must be collaborative. </p>
-                    </div>
-                </div>
-
-
-
-            </section>
-
-
-
-            <section class="govuk-tabs__panel" id="eligibility">
-
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Who can apply</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p><strong>Your project</strong></p>
-                            <p>Your project must:</p>
-                            <p></p>
-                            <ul>
-                                <li>include at least one <a href="http://ec.europa.eu/growth/smes/business-friendly-environment/sme-definition_en">micro, small or medium-sized enterprise</a> (SME) as the lead or a collaborative grant claiming partner</li>
-                                <li>start by 1 November 2021</li>
-                                <li>end by 30 November 2024</li>
-                                <li>follow specific rules dependent on it’s duration</li>
-                            </ul>
-                            <p></p>
-                            <p>If your project’s duration is 6 to 18 months:</p>
-                            <p></p>
-                            <ul>
-                                <li>it must have total eligible project costs between £25,000 and £500,000</li>
-                                <li>it can be single or collaborative</li>
-                            </ul>If your project’s duration is 19 to 36 months, it must:
-                            <div>
-                                <br>
-                                <ul>
-                                    <li>have total eligible project costs between £25,000 and £2 million</li>
-                                    <li>be collaborative</li>
-                                </ul>
-                                <p></p>
-                                <p></p>
-                                <p>If you want to submit a collaborative project from 19 months to 36 months duration with total eligible project costs of up to £3 million as a permitted exception, you must email <a href="mailto:support@innovateuk.ukri.org">support@innovateuk.ukri.org</a>. You must provide full justification at least 10 working days before the competition closes. We will decide whether to approve your request.</p>
-                                <p></p>
-                                <p>Unless you have already received our authorisation, any application submitted that does not meet the criteria will be marked as ineligible and will not be sent for assessment.</p>
-                                <p><strong>Lead organisation</strong></p>
-                                <p>To lead a project you must:</p>
-                                <p></p>
-                                <ul>
-                                    <li>be a UK registered <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#business">business</a> of any size or a research and technology organisation (RTO)</li>
-                                    <li>be an <a href="http://ec.europa.eu/growth/smes/business-friendly-environment/sme-definition_en">SME</a> if you want to work alone</li>
-                                    <li>include at least one SME if you are a large business or RTO and wish to collaborate with other UK registered businesses, <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#research-organisation">research organisations</a>, academic organisations, <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#public-sector-organisation-or-charity">public sector organisations or charities</a></li>
-                                    <li>carry out all your project activity in the UK</li>
-                                    <li>intend to commercially exploit the project results from or in the UK</li>
-                                </ul>
-                                <p><a href="https://www.gov.uk/government/publications/innovate-uk-completing-your-application-project-costs-guidance/guidance-for-academics-applying-via-the-je-s-system#eligible-organisations">Academic institutions</a> cannot lead or work alone.</p>
-                                <p>Find out which <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#funding-rules">definition</a> your organisation falls into.</p>
-                                <p>Single applicants must claim funding. If the project is collaborative, the lead and at least one other UK registered organisation must claim funding and enter costs as part of the application.</p>
-                                <p><strong>Project team</strong></p>
-                                <p>To collaborate with the lead, your organisation must:</p>
-                                <p></p>
-                                <ul>
-                                    <li>be a UK registered business, academic organisation, charity, public sector organisation or a research and technology organisation (RTO)</li>
-                                    <li>carry out its project work in the UK</li>
-                                    <li>intend to commercially exploit the project results from or in the UK</li>
-                                    <li>be invited to take part by the lead applicant</li>
-                                </ul>
-                                <p></p>
-                                <p>Each partner organisation must be invited into the Innovation Funding Service (IFS) by the lead to collaborate on a project. Once accepted, partners must enter their own project costs into IFS.</p>
-                                <p></p>
-                                <p>Your project can include partners that do not receive any of this competition’s funding. Their costs will count towards the total eligible project costs, but they will not count as collaborators.</p>
-                                <p><strong>Subcontractors</strong></p>
-                                <p>Subcontractors are allowed in this competition and must be selected through a participant’s normal procurement process. Subcontractors can be from anywhere in the UK, must be based in the UK for the duration of the project and their portion of the project work must be carried out in the UK.</p>
-                                <p>We expect subcontractor costs to be justified and appropriate to the total eligible project costs.</p>
-                                <p>Without meeting these criteria, subcontractor’s contribution would be deemed ineligible.</p>
-                                <p><strong>Number of applications</strong></p>
-                                <p>Businesses or RTOs can only lead on one application. Any subsequent applications submitted with the same lead will not be forwarded for assessment.</p>
-                                <p>All partners can collaborate on any number of applications.</p>
-                                <p></p>
-                                <p></p>
-                                <p><strong>Research and technology organisations (RTOs)</strong></p>
-                                <p>If you are an RTO then the following rules apply:</p>
-                                <ol>
-                                    <li class="MsoNormal">To lead you must have 2 or more business collaborators (one SME, and one other business of any size).</li>
-                                    <li class="MsoNormal">There must be a credible route to market for the output of the project, and since the purpose of RTOs is to speed up the progress of those using their services, this is expected to be through the partners, rather than through the RTO itself.</li>
-                                    <li class="MsoNormal">If you are a project partner, you can participate as either a research organisation, and receive 100% grant, or as a business entity, and be reimbursed a percentage of your eligible costs, depending upon your size and the nature of the work.</li>
-                                    <li class="MsoNormal">If participating as a business, you must show that the match funding you are providing comes from entirely private sector sources, across all projects you are involved in. You must also be able to show how you will exploit the results of the project to grow the wider sector.</li>
-                                </ol>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Previous applications</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>You can use a previously submitted unsuccessful application to apply for this competition.</p>
-                            <p>You can make a maximum of 2 submissions to Innovate UK with any given proposal. If Innovate UK judges that your proposal is not materially different from your previous proposal, it will be counted towards this maximum.</p>
-                            <p>If your application goes through to assessment and is deemed unsuccessful, you can reapply with the same proposal once more, taking into account the feedback received from the assessors.</p>
-                            <p>We will not award you funding if you have:</p>
-                            <p></p>
-                            <ul>
-                                <li><a href="https://www.gov.uk/guidance/innovation-apply-for-a-funding-award#before-you-start-an-application">failed to exploit</a> a previously funded project</li>
-                                <li>an overdue <a href="https://www.gov.uk/guidance/innovation-apply-for-a-funding-award#before-you-start-an-application">independent accountant’s report</a></li>
-                                <li>failed to comply with grant terms and conditions</li>
-                            </ul>
-                            <p></p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Subsidy control</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>This competition provides funding in line with the UK's obligations and commitments to Subsidy Control.</p>
-                            <p>It is your responsibility to make sure your organisation is eligible to receive this funding.</p>
-                            <p>Innovate UK is unable to award grant funding to organisations that are considered to be in financial difficulty. We will request evidence to confirm this is not the case following the application stage.</p>
-                            <p>Upon confirmation by Innovate UK of your award, any UK registered organisations claiming funding must be eligible to receive the award. Further information about the UK Subsidy Control requirements can be found within the <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/948119/EU-UK_Trade_and_Cooperation_Agreement_24.12.2020.pdf">EU-UK Trade and Cooperation agreement</a> and the subsequent <a href="https://www.gov.uk/government/publications/complying-with-the-uks-international-obligations-on-subsidy-control-guidance-for-public-authorities">BEIS guidance</a>.</p>
-                            <p>If you are unsure about the regulations and your obligations, please take legal advice.</p>
-                            <p>You must ensure at all times that the funding awarded to you is compliant with any legislation applicable in the United Kingdom on or after 1 January 2021. This aims to regulate any advantage granted by a public sector body which threatens to or actually distorts competition in the United Kingdom and/or any other country or countries.</p>
-                            <p>If there are any changes within the above requirements that would necessitate changing the terms of this competition, we will inform you as soon as possible.</p>
-                            <p></p>
-                            <p></p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Eligibility overview</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>Here is a diagram showing a summary of eligibility.</p>
-                            <p>This is a new way of showing you eligibility. Your <a href="mailto:support@innovateuk.ukri.org">feedback</a> will help us to improve it.</p>
-                        </div>
-
-                        <div>
-                            <a href="/competition/810/download/6671"
-                               class="govuk-link"
-                               target="_blank">Eligibility Tree SMART Jan21.pdf (opens in a new window)</a>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Funding</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>We have allocated up to £25 million to fund innovation projects in this competition.</p>
-                            <p>If your organisation’s work on the project is mostly commercial or economic, your funding request must not exceed the limits below. These limits apply even if your organisation normally acts non-economically.</p>
-                            <p>For feasibility studies and industrial research projects, your organisation could get funding for eligible project costs of:</p>
-                            <ul>
-                                <li class="MsoNormal">up to 70% if you are a micro or small organisation</li>
-                                <li class="MsoNormal">up to 60% if you are a medium-sized organisation</li>
-                                <li class="MsoNormal">up to 50% if you are a large organisation</li>
-                            </ul>
-                            <p>For experimental development projects which are nearer to market, you could get funding for your organisations eligible project costs of:</p>
-                            <ul>
-                                <li class="MsoNormal">up to 45% if you are a micro or small organisation</li>
-                                <li class="MsoNormal">up to 35% if you are a medium-sized organisation</li>
-                                <li class="MsoNormal">up to 25% if you are a large organisation</li>
-                            </ul>
-                            <p>The <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#funding-rules">research organisations</a> in your consortium undertaking non-economic activity as part of the project can share up to 30% of the total eligible project costs. If your consortium contains more than one research organisation undertaking non-economic activity, this maximum is shared between them.</p>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-
-
-
-            <section class="govuk-tabs__panel" id="scope">
-
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Your proposal</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>Your proposal must demonstrate:</p>
-                            <p></p>
-                            <ul>
-                                <li>a clear game-changing, innovative, disruptive, and ambitious idea leading to new products, processes or services</li>
-                                <li>an idea that is significantly ahead of others in the field, set for rapid commercialisation</li>
-                                <li>a strong and deliverable business plan that addresses (and documents) market potential and needs</li>
-                                <li>a clear, evidence based plan to deliver significant economic impact, return on investment (ROI) and growth through commercialisation, as soon as possible after project completion</li>
-                                <li>a team, business arrangement or working structure with the necessary skills and experience to run and complete the project successfully and on time</li>
-                                <li>awareness of all the main risks the project will face (including contractor or equipment failure, recruitment delays, etc) with realistic management, mitigation and impact minimisation plans for each risk</li>
-                                <li>clear, considerable potential to significantly impact either or both, the UK economy and productivity in a positive way</li>
-                                <li>sound, practical financial plans and timelines that represent good value for money, which will always be a consideration in Innovate UK funding decisions</li>
-                            </ul>
-                            <p></p>
-                            <br>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Specific themes</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>We strongly encourage applications to demonstrate realistic, significant potential for global markets.</p>
-                            <p></p>
-                            <p>Proposals from innovation-based businesses with significant ambition and potential for growth or scale-up are welcome.</p>
-                            <p></p>
-                            <p>Where possible, projects should take customer and user needs into account to deliver more desirable and useful solutions.</p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Research categories</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>We will fund innovative research and development (R&amp;D) <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#how-your-application-is-assessed">projects</a> across a variety of technologies, markets and research categories, including:</p>
-                            <p></p>
-                            <p></p>
-                            <ul>
-                                <li>feasibility projects,</li>
-                                <li>industrial research projects</li>
-                                <li>experimental development projects</li>
-                            </ul>
-                            <p></p>
-                            <p></p> as defined in the
-                            <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#categories-of-research-and-development">guidance on categories of research</a>.
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Projects we will not fund</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>We will not fund proposals that do not:</p>
-                            <p></p>
-                            <ul>
-                                <li class="MsoNormal">meet the competition eligibility or scope</li>
-                                <li class="MsoNormal">address the size, potential and access to market for the innovation</li>
-                                <li>evidence the potential for their idea or concept to lead to significant return on investment (ROI), positive economic impact, growth and scale-up of the business</li>
-                            </ul>
-                            <p></p> We will not fund commercialisation activities.
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-
-
-
-            <section class="govuk-tabs__panel" id="dates">
-                <dl class="standard-definition-list column-definition-list">
-
-                    <dt class="govuk-!-margin-top-6"><span class="govuk-heading-m">21 January 2021</span></dt>
-
-                    <dd class="govuk-!-margin-top-6"><strong>Competition opens</strong></dd>
-
-
-
-
-
-                    <dt class="govuk-!-margin-top-6"><span class="govuk-heading-m">5 February 2021</span></dt>
-
-
-
-
-                    <dd class="govuk-!-margin-top-6">
-                        Online briefing event:
-                        <a href="https://ukri.zoom.us/rec/share/X21cSFCLVFjJdvPEwfBJGkr9Ov2L_-_XqgMOW9_eS3s9r4wUlYiGTmwShHx_LV_-.FzfKtMNk_nJ9Ljoc">watch the recording</a>
-                    </dd>
-
-
-                    <dt class="govuk-!-margin-top-6"><span class="govuk-heading-m">26 May 2021 11:00am</span></dt>
-
-
-
-
-                    <dd class="govuk-!-margin-top-6">Competition closes</dd>
-
-
-                    <dt class="govuk-!-margin-top-6"><span class="govuk-heading-m">30 July 2021</span></dt>
-
-
-
-
-                    <dd class="govuk-!-margin-top-6">Applicants notified</dd>
-
-
-                </dl>
-            </section>
-
-
-
-            <section class="govuk-tabs__panel" id="how-to-apply">
-
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Before you start</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>You must read the <a href="https://www.gov.uk/guidance/innovate-uk-funding-general-guidance-for-applicants#applying-for-a-competition-on-the-innovation-funding-service">guidance on applying for a competition on the Innovation Funding Service</a> before you start.</p>
-                            <p><strong>What we ask you</strong></p>
-                            <p>The application is split into 3 sections:</p>
-                            <p></p>
-                            <p></p>
-                            <ol>
-                                <li>Project details.</li>
-                                <li>Application questions.</li>
-                                <li>Finances.</li>
-                            </ol>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">1. Project details</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>Decide which organisations will work with you on the project. Invite people from those organisations to help complete the application.</p>
-                            <p><strong>Application details</strong></p>
-                            <p>The lead applicant must complete this section. Give your project’s title, start date and duration. Have you submitted this application before?</p>
-                            <p><strong>Equality, diversity and inclusion</strong></p>
-                            <p>We collect and report on equality, diversity and inclusion (EDI) data to address under-representation in business innovation and ensure equality, diversity and inclusion across all our activities.<br><br> You must complete this <a href="https://www.surveymonkey.co.uk/r/ifsaccount">EDI survey</a> and then select yes in the application question. The survey will ask you questions on your gender, age, ethnicity and disability status. You will always have the option to ‘prefer not to say’ if you do not feel comfortable sharing this information.</p>
-                            <p><strong>Research category</strong></p>
-                            <p>Select the type of research you will undertake.</p>
-                            <p><strong>Project summary</strong></p>
-                            <p>Describe your project briefly and be clear about what makes it innovative. We use this section to assign experts to assess your application.</p>
-                            <p>Your answer can be up to 400 words long.<br><br> <strong>Public description</strong></p>
-                            <p>Describe your project in detail, and in a way that you are happy to see published. Do not include any commercially sensitive information. If we award your project funding, we will publish this description. This could happen before you start your project.</p>
-                            <p>Your answer can be up to 400 words long.</p>
-                            <p><strong>Scope</strong></p>
-                            <p>Describe how your project fits the scope of the competition. If your project is not in scope it will not be eligible for funding. Your answer can be up to 400 words long.</p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">2. Application questions</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>The assessors will score your answers. You will receive feedback from them for each one.</p>
-                            <p>Your answer to each question can be up to 400 words long. Do not include any website addresses (URLs) in your answers.</p>
-                            <p><strong>Question 1. Need or challenge</strong></p>
-                            <p>What is the business need, technological challenge or market opportunity behind your innovation?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the main motivation for the project</li>
-                                <li>the business need, technological challenge or market opportunity</li>
-                                <li>the nearest current state-of-the-art, including those near market or in development, and its limitations</li>
-                                <li>any work you have already done to respond to this need, for example if the project focuses on developing an existing capability or building a new one</li>
-                                <li>the wider economic, social, environmental, cultural or political challenges which are influential in creating the opportunity, such as incoming regulations, using our <a href="https://ktn-uk.co.uk/programmes/horizons">Horizons tool</a> if appropriate</li>
-                                <li>if appropriate, any challenges or opportunities relating to equality, diversity and inclusion arising from this project</li>
-                            </ul>
-                            <p></p>
-                            <p></p>
-                            <p><strong>Question 2. Approach and innovation</strong></p>
-                            <p>What approach will you take and where will the focus of the innovation be?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>how you will respond to the need, challenge or opportunity identified</li>
-                                <li>how you will improve on the nearest current state-of-the-art identified</li>
-                                <li>whether the innovation will focus on the application of existing technologies in new areas, the development of new technologies for existing areas or a totally disruptive approach</li>
-                                <li>the freedom you have to operate</li>
-                                <li>how this project fits with your current product, service lines or offerings</li>
-                                <li>how it will make you more competitive</li>
-                                <li>the nature of the outputs you expect from the project (for example report, demonstrator, know-how, new process, product or service design) and how these will help you to target the need, challenge or opportunity identified</li>
-                                <li>how you will consider equality, diversity and inclusion implications in the development and design of your innovation (for example unintended exclusion of minority groups)</li>
-                            </ul>
-                            <p></p>
-                            <p>You can submit one appendix. It can include diagrams and charts. It must be a PDF and can be up to 2 A4 pages long and no larger than 10MB in size. The font must be legible at 100% zoom.</p>
-                            <p><strong>Question 3. Team and resources</strong></p>
-                            <p>Who is in the project team and what are their roles?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the roles, skills and experience of all members and where appropriate the diversity of the project team as a whole (observing required confidentiality of protected characteristics), that are relevant to the approach you will be taking</li>
-                                <li>any roles you will need to recruit for, and how you will promote equality, diversity and inclusion, as appropriate</li>
-                                <li>the resources, equipment and facilities needed for the project and how you will access them</li>
-                                <li>the details of any vital external parties, including sub-contractors, who you will need to work with to successfully carry out the project</li>
-                                <li>if your project is collaborative the current relationships between project partners and how these will change as a result of the project</li>
-                            </ul>
-                            <p></p>
-                            <p>You can submit one appendix. This can include a short summary of the main people working on the project to support your answer. It must be a PDF and can be up to 4 A4 pages long and no larger than 10MB in size. The font must be legible at 100% zoom.</p>
-                            <p><strong>Question 4. Market awareness</strong></p>
-                            <p>What does the market you are targeting look like?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the size of the target market (domestic, international or both) for the project outcomes and any other potential markets, backed up by references where available and appropriate</li>
-                                <li>the structure and dynamics of the target markets, including customer segmentation, together with predicted growth rates within clear timeframes</li>
-                                <li>the target markets’ main supply or value chains and business models, and any barriers to entry that exist</li>
-                                <li>the current UK position in targeting these markets</li>
-                                <li>the size and main features of any other markets not already listed</li>
-                            </ul>
-                            <p></p>
-                            <p>If your project is highly innovative, where the market may be unexplored, describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>what the market’s size might be</li>
-                                <li>how your project will try to explore the market’s potential</li>
-                            </ul>
-                            <p></p>
-                            <p><strong>Question 5. Outcomes and route to market</strong></p>
-                            <p>How are you going to grow your business and increase your productivity into the long term as a result of the project?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>your current position in the markets and supply or value chains outlined, and whether you will be extending or establishing your market position</li>
-                                <li>your target customers or end users, and the value to them, for example why they would use or buy your product</li>
-                                <li>your route to market, particularly if there have been changes in market dynamics</li>
-                                <li>how you are going to profit from the innovation, including increased revenues or cost reduction</li>
-                                <li>how the innovation will affect your productivity and growth, in both the short and the long term</li>
-                                <li>how you will protect and exploit the outputs of the project, for example through know-how, patenting, designs or changes to your business model</li>
-                                <li>your strategy for targeting the other markets you have identified during or after the project</li>
-                            </ul>
-                            <p></p>
-                            <p>If there is any research organisation activity in the project, describe:</p>
-                            <p></p>
-                            <ul>
-                                <li>your plans to spread the project’s research outputs over a reasonable timescale</li>
-                                <li>how you expect to use the results generated from the project in further research activities</li>
-                            </ul>
-                            <p></p>
-                            <p><strong>Question 6. Wider impacts</strong></p>
-                            <p>What impact might this project have outside the project team?</p>
-                            <p>Describe, and where possible, measure the economic benefits from the project such as productivity increases and import substitution, to:</p>
-                            <p></p>
-                            <ul>
-                                <li>external parties, including customers</li>
-                                <li>others in the supply chain</li>
-                                <li>wider industry</li>
-                                <li>the UK economy</li>
-                            </ul>
-                            <p></p>
-                            <p>Describe, and where possible, measure:</p>
-                            <p></p>
-                            <ul>
-                                <li>any expected impact on government priorities</li>
-                                <li>any expected environmental impacts, either positive or negative</li>
-                                <li>any expected regional impacts of the project</li>
-                            </ul>
-                            <p></p>
-                            <p>Describe any expected social impacts, either positive or negative on, for example:</p>
-                            <p></p>
-                            <ul>
-                                <li>quality of life</li>
-                                <li>social inclusion, exclusion and diversity</li>
-                                <li>jobs, such as safeguarding, creating, changing or displacing them</li>
-                                <li>education</li>
-                                <li>public empowerment</li>
-                                <li>health and safety regulations</li>
-                            </ul>
-                            <p></p>
-                            <p><strong>Question 7. Project management</strong></p>
-                            <p>How will you manage the project effectively?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the main work packages of the project, indicating the lead partner assigned to each and the total cost of each one</li>
-                                <li>your approach to project management, identifying any major tools and mechanisms you will use to get a successful and innovative project outcome</li>
-                                <li>the management reporting lines</li>
-                                <li>your project plan in enough detail to identify any links or dependencies between work packages or milestones</li>
-                            </ul>
-                            <p></p>
-                            <p>You must submit a project plan or Gantt chart as an appendix to support your answer. It must be a PDF, can be up to 2 A4 pages long and no larger than 10MB in size. The font must be legible at 100% zoom.</p>
-                            <p><strong>Question 8. Risks</strong></p>
-                            <p>What are the main risks for this project?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the main risks and uncertainties of the project, including the technical, commercial, managerial, environmental and possible risks associated with COVID-19. You may expand on these in the risk register as appropriate.</li>
-                                <li>how you will mitigate these risks</li>
-                                <li>any project inputs that are critical to completion, such as resources, expertise, data sets</li>
-                                <li>any output likely to be subject to regulatory requirements, certification, ethical issues and so on, and how you will manage this</li>
-                            </ul>
-                            <p></p>
-                            <p>You must submit a risk register as an appendix to support your answer. It must be a PDF and can be up to 2 A4 pages long and no larger than 10MB in size. The font must be legible at 100% zoom.</p>
-                            <p><strong>Question 9. Added value</strong></p>
-                            <p>What impact would an injection of public funding have on the businesses involved?</p>
-                            <p>Describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>whether this project could go ahead in any form without public funding and if so, the difference the public funding would make, such as a faster route to market, more partners or reduced risk.</li>
-                                <li>the likely impact of the project on the business and if collaborative, on the partners involved</li>
-                                <li>why you are not able to wholly fund the project from your own resources or other forms of private-sector funding, and what would happen if the application is unsuccessful</li>
-                                <li>(if collaborative) how this project would change the nature of R&amp;D activity the partners would undertake, and the related spend</li>
-                            </ul>
-                            <p></p>
-                            <p></p>
-                            <p></p>
-                            <p></p>
-                            <p><strong>Question 10. Costs and value for money</strong></p>
-                            <p>How much will the project cost and how does it represent value for money for the team and the taxpayer?</p>
-                            <p>In terms of the project goals, describe or explain:</p>
-                            <p></p>
-                            <ul>
-                                <li>the total eligible project costs for the proposal</li>
-                                <li>the grant you are requesting and how each partner will finance their contributions to the project</li>
-                                <li>how this project represents value for money for you and the taxpayer</li>
-                                <li>how it compares to what you would spend your money on otherwise</li>
-                                <li>the balance of costs and grant across all the project partners</li>
-                                <li>any subcontractor costs and why they are critical to the project</li>
-                            </ul>
-                            <p></p>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">3. Finances</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>Each organisation in your project must complete their own project costs, organisation details and funding details in the application. Academic institutions must complete and upload a <a href="https://www.gov.uk/government/publications/innovate-uk-completing-your-application-project-costs-guidance/guidance-for-academics-applying-via-the-je-s-system">Je-S form</a>.</p>
-                            <p></p> For full details on what costs you can claim see our
-                            <a href="https://www.gov.uk/government/publications/innovate-uk-completing-your-application-project-costs-guidance/partner-finance-form-guidance">project costs guidance</a>.
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-
-
-
-            <section class="govuk-tabs__panel" id="supporting-information">
-
-                <div class="govuk-grid-row govuk-!-margin-bottom-6">
-                    <div class="govuk-grid-column-one-third">
-                        <h2 class="govuk-heading-m govuk-!-margin-0">Background and further information</h2>
-                    </div>
-                    <div class="govuk-grid-column-two-thirds">
-                        <div class="govuk-body wysiwyg-styles">
-                            <p>We may share application details with other public sector co-funders if appropriate.</p>
-                            <p><strong>Successful applicants</strong></p>
-                            <p></p>
-                            <p>If you are successful in this competition, at least one member of your project team must attend a 1 hour briefing webinar within 10 days of receiving your successful notification.</p>
-                            <p></p>
-                            <p>At the webinar we will provide you with detailed information relating to setting up and starting your project. We will tell you about the briefing in your notification letter.</p>
-                            <p></p>
-                            <p>In this competition all projects awarded funding must upload evidence for each expenditure with every claim made. These might include invoices, timesheets, receipts or spreadsheets for capital usage. This is part of Innovate UK’s obligations under the <a href="https://www.gov.uk/government/publications/managing-public-money">Managing Public Money</a> government handbook in relation to assurance, financial management and control.</p>
-                            <p></p>
-                            <p><strong>Finding a project partner</strong><br>If you want help to find a project partner, contact the <a href="https://www.ktn-uk.co.uk/">Knowledge Transfer Network</a>.</p>
-                            <p></p>
-                            <p><br> <strong>Help with equality, diversity and inclusion</strong></p>
-                            <p></p>
-                            <p>Resources you may find helpful:</p>
-                            <ul>
-                                <li class="MsoNormal"><a href="https://ktn-uk.org/news/guidance-on-equality-diversity-and-inclusion-edi-questions-at-innovate-uk/">Guidance on EDI questions</a></li>
-                            </ul>
-                            <p></p>
-                            <p></p>
-                            <p><strong>Help for SMEs from the Enterprise Europe Network</strong></p>
-                            <p></p>
-                            <p>If you are a UK SME and successful in receiving an award, you will be contacted by your local <a href="https://www.enterprise-europe.co.uk/">Enterprise Europe Network (EEN)</a> Innovation Advisor. They act on behalf of Innovate UK to discuss the growth opportunities for your business.</p>
-                            <p></p>
-                            <p>They offer bespoke business support services to help you maximise your project and business potential. This service forms part of your Innovate UK offer under our commitment to help UK SMEs grow and scale.</p>
-                            <p></p>
-                            <p>Please engage positively with your EEN contact so that, working together, you can determine the most appropriate form of growth support for your business.<br><br> <strong>Contact us</strong></p>
-                            <p></p>
-                            <p>If you need more information about how to apply email <a href="mailto:support@innovateuk.ukri.org">support@innovateuk.ukri.org</a> or call 0300 321 4357.</p>
-                            <p></p>
-                            <p>Our phone lines are open from 9am to 11:30am and 2pm to 4:30pm, Monday to Friday (excluding bank holidays).<br><br> Innovate UK is committed to making support for applicants accessible to everyone.<br><br> We can provide help for applicants who face barriers when making an application. This might be as a result of a disability, neurodiversity or anything else that makes it difficult to use our services. We can also give help and make other reasonable adjustments for you if your application is successful.</p> If you think you need more support, it is important that you contact our Customer Support Service as early as possible during your application process. You should aim to contact us no later than 10 working days before the competition closing date.
-                            <br>
-                            <br>
-                        </div>
-
-                    </div>
-                </div>
-
-            </section>
-
-
-        </div>
-
-
-        <p class="govuk-body govuk-!-margin-top-9 user-feedback"><span class="govuk-!-font-weight-bold">Need help with this service?</span> <a class="govuk-link" href="/info/contact">Contact us</a></p>
-
-    </main>
-    <script src="/js/dest/vendor.min-d0f5e0c64f0aabb2175da63ab1834c93.js" type="text/javascript"></script>
-    <script src="/js/dest/ifs.min-7a5559db363c88661796e6255448cc90.js" type="text/javascript"></script>
+	<div class="govuk-width-container">
+
+		<main class="govuk-main-wrapper " id="main-content" role="main">
+
+			<div class="govuk-grid-row">
+				<div class="govuk-grid-column-two-thirds">
+					<h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
+				</div>
+			</div>
+
+
+			<div class="govuk-grid-row">
+
+				<div class="govuk-grid-column-two-thirds">
+
+					<p class="govuk-body-l">@govpage.Content.GovPage.govukheadingm.Text</p>
+
+					<p class="govuk-body">@govpage.Content.GovPage.GovMainInfo.Text</p>
+
+					<p class="govuk-body">Your project’s scope must relate to at least one of the following categories:</p>
+
+					<ul class="govuk-list govuk-list--bullet">
+						<li>@govpage.Content.GovList1.ContentItems[0].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[1].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[2].DisplayText</li>
+						<li>@govpage.Content.GovList1.ContentItems[3].DisplayText</li>
+					</ul>
+
+					<h2 class="govuk-heading-m">@govpage.Content.GovPage.govukheadingm2.Text</h2>
+
+					<ol class="govuk-list steps-circles">
+						<li><a class="govuk-link govuk-!-font-weight-regular" href="@govpage.Content.GovPage.NavUrl1.Text">@govpage.Content.GovPage.NavHeading1.Text</a></li>
+						<li><a class="govuk-link govuk-!-font-weight-regular" href="@govpage.Content.GovPage.NavUrl2.Text">@govpage.Content.GovPage.NavHeading2.Text</a></li>
+					</ol>
+
+					<h2 class="govuk-heading-m">Start your application</h2>
+
+					<p class="govuk-body">To start your application you must register your details and create an account.</p>
+
+					<p class="govuk-body">We recommend reading the guidance and questions before you decide to register. We also advise checking that you have gathered the necessary information and evidence before you begin.</p>
+
+					<p class="govuk-body">Registrations to apply for this fund close on 25 June at 11.59pm.</p>
+
+					<a href="/FundApplication/section/application-overview" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-button--start" data-module="govuk-button">
+						Start now
+						<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
+							<path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
+						</svg>
+					</a>
+
+					<p class="govuk-body-s"><a class="govuk-link" href="/login">Sign into your account</a>.</p>
+
+					<h2 class="govuk-heading-m">What happens after you submit your application</h2>
+
+					<p class="govuk-body">Your application will be assigned to an assessor. It will take around three months to process applications.</p>
+
+					<p class="govuk-body">Factors BEIS will assess include:</p>
+
+					<ul class="govuk-list govuk-list--bullet">
+						<li>Potential impact on 2050 Net Zero carbon targets or security of UK energy supply</li>
+						<li>The proposal's technical and commercial viability</li>
+						<li>Value for money your project offers, including its cost-reduction potential</li>
+						<li>Potential business opportunities</li>
+					</ul>
+
+					<p class="govuk-body">You will be notified if your application has been successful or not after the assessment process is complete.</p>
+				</div>
+				<div class="govuk-grid-column-one-third">
+
+					<aside class="app-related-items" role="complementary">
+						<h3 class="govuk-heading-s" id="subsection-title">Key details</h3>
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
+
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
+
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
+						<p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+
+
+						<h3 class="govuk-heading-s" id="subsection-title">Events</h3>
+
+						<p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Engagement days</p>
+						<p class="govuk-body-m govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+						<p class="govuk-body-s"><a class="govuk-link" href="/register">Register to attend</a></p>
+
+						<p class="govuk-body-m govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue </p>
+						<p class="govuk-body-s"><a class="govuk-link" href="/register">Register to attend</a></p>
+
+					</aside>
+
+				</div>
+			</div>
+
+
+
+
+		</main>
+	</div>
+	<script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+	<script>
+		window.GOVUKFrontend.initAll()
+	</script>
 
 </body>
+
+@functions
+{
+	public string Slug = "Energy-Entrepreneurs";
+}
+

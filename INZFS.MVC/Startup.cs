@@ -27,17 +27,45 @@ using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Handlers;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using INZFS.MVC.ModelProviders;
+using YesSql.Indexes;
+using INZFS.MVC.Records;
+using INZFS.MVC.Migrations.Indexes;
+using INZFS.MVC.Services.FileUpload;
+using INZFS.MVC.Services.VirusScan;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Hosting;
 
 namespace INZFS.MVC
 {
     public class Startup : StartupBase
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostEnvironment _environment;
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
+        public string AccessBlobstorage()
+        {
+            if(_environment.IsDevelopment())
+            {
+                string fileName = "INZFS.json";
+                return System.IO.File.ReadAllText(fileName);
+            }
+            else
+            {
+                string connectionString = Configuration["AzureBlobStorage"];
+                string containerName = "inzfs";
+                string blobName = "INZFS.json";
+                var blobToDownload = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
+                string jsonString = blobToDownload.Content.ToString();
+                return jsonString;
+            }
+        }
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
@@ -59,9 +87,12 @@ namespace INZFS.MVC
 
             ConfigureContent(services);
 
+            services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
-
+            services.AddScoped<IReportService, ReportService>();
+            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
@@ -82,10 +113,29 @@ namespace INZFS.MVC
 
                 return new GovFileStore(customFolderPath);
             });
+
+            services.AddSingleton<ApplicationDefinition>(sp =>
+            {
+                string jsonString = AccessBlobstorage();
+                var options = new JsonSerializerOptions();
+                options.PropertyNameCaseInsensitive = true;
+                options.Converters.Add(new JsonStringEnumConverter());
+                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(jsonString, options);
+                return applicationDefinition;
+            });
+            //services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new BaseModelBinderProvider());
+            });
         }
 
         private void ConfigureContent(IServiceCollection services)
         {
+            
+            services.AddScoped<IDataMigration, ApplicationContentIndexMigration>();
+            services.AddSingleton<IIndexProvider, ApplicationContentIndexProvider>();
+
 
             services.AddContentPart<CompanyDetailsPart>()
             .UseDisplayDriver<CompanyDetailsDriver>();
@@ -134,6 +184,8 @@ namespace INZFS.MVC
                 .UseDisplayDriver<ApplicationDocumentDriver>()
                   .AddHandler<ApplicationDocumentPartHandler>();
             services.AddScoped<IDataMigration, ApplicationDocumentMigration>();
+
+            services.AddScoped<IDataMigration, ApplicationContainerMigration>();
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {

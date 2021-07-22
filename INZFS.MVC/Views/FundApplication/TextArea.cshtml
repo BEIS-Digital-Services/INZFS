@@ -1,0 +1,92 @@
+
+@model TextAreaModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+
+@*To :
+ Working if only textbox id is set to with-hint*@
+
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back to previous question
+    </a>
+}
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(TextAreaModel)" />
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var value = ViewData.ModelState[key];
+                        foreach (var error in value.Errors)
+                        {
+                            <li>
+                                <a href="#with-hint">@error.ErrorMessage</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+    <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
+        <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="@Model.FieldName">
+                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
+                    {
+                        @Model.Question
+
+                    }
+                    else
+                    {
+                        @Model.TitleQuestion
+                    }
+                </label>
+            </h1>
+            @Html.Partial("_QuestionDescription", Model.PageName)
+            @Html.Partial("_Hint", Model.Hint)
+            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
+                      name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
+        </div>
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
+        </div>
+
+    </div>
+
+    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+        </div>
+    </div>
+</form>
+
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

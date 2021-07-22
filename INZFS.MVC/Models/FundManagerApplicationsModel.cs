@@ -1,4 +1,5 @@
-﻿using System;
+﻿using OrchardCore.ContentManagement;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,8 @@ namespace INZFS.MVC.Models
     {
         public IList<CompanyDetailsPart> CompanyDetails { get; set; }
 
-        public string ApplicationSearch { get; set; }
+        public Dictionary<string, ContentItem> Applications { get; set; }
+
+        public string CompanyName { get; set; }
     }
 }

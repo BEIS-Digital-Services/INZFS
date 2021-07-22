@@ -31,6 +31,7 @@
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="GovukNotify" Version="4.0.1" />
 		<PackageReference Include="OrchardCore.Admin.Abstractions" Version="1.0.0-rc2-15867" />
 		<PackageReference Include="OrchardCore.Email.Abstractions" Version="1.0.0-rc2-15867" />
 		<PackageReference Include="OrchardCore.Data.Abstractions" Version="1.0.0-rc2-15867" />
