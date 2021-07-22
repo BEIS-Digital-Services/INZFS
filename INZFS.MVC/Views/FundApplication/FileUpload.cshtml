@@ -162,11 +162,6 @@
 
     </form>
 
-    @if(!string.IsNullOrEmpty(Model.DataInput))
-    {
-        <a asp-controller="FundApplication" asp-action="ParseExcelFile" asp-route-file="@Model">Run Parser</a>
-    }
-
     @Html.Partial("_Accordion", Model.PageName)
 
     <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
