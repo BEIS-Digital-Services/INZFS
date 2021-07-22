@@ -110,7 +110,7 @@
                             Total BEIS grant applied for
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
                             @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
@@ -122,7 +122,7 @@
                             Total match funding contribution
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
                             @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
@@ -134,7 +134,7 @@
                             Total project cost
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost != null ? "£" + @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
+                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
                         </td>
                         <td class="govuk-table__cell">
                             -

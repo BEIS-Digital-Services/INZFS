@@ -304,11 +304,11 @@ namespace INZFS.MVC.Controllers
                         if (file.FileName.Contains(".xlsx"))
                         {
                             string url = "/App_Data/Sites/Default" + publicUrl;
-                            string completeUrl = _mediaFileStore.NormalizePath(url);
+                            url = _mediaFileStore.NormalizePath(url);
 
                             try
                             {
-                                XLWorkbook wb = new(completeUrl);
+                                XLWorkbook wb = new(url);
 
                                 try
                                 {
@@ -322,10 +322,10 @@ namespace INZFS.MVC.Controllers
                                         try
                                         {
                                             ParsedExcelData parsedExcelData = new();
-                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().Value.ToString();
-                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().Value.ToString();
+                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().GetValue<double>().ToString("£0.00");
                                             parsedExcelData.ParsedTotalGrantFundingPercentage = totalGrantFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
-                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().Value.ToString();
+                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().GetValue<double>().ToString("£0.00");
                                             parsedExcelData.ParsedTotalMatchFundingPercentage = totalMatchFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
                                             uploadedFile.ParsedExcelData = parsedExcelData;
                                         }
