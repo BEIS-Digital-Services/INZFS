@@ -92,7 +92,7 @@
             <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
         }
  
-        @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null)
+        @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null && Model.UploadedFile.ParsedExcelData != null)
         {
             <table class="govuk-table">
                 <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
@@ -172,16 +172,6 @@
         <aside class="app-related-items" role="complementary">
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
             <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
-        </aside>
-    </div>
-}
-
-@if (Model.PageName == "project-cost-breakdown")
-{
-    <div class="govuk-grid-column-one-third">
-        <aside class="app-related-items" role="complementary">
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download project cost breakdown spreadsheet</a></p>
         </aside>
     </div>
 }

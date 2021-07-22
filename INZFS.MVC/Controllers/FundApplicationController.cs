@@ -333,6 +333,11 @@ namespace INZFS.MVC.Controllers
                                         {
                                             ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
                                         }
+                                        catch (FormatException e)
+                                        {
+                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+
+                                        }
                                     }
                                     else
                                     {
