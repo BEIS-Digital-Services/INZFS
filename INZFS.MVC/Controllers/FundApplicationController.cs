@@ -313,14 +313,12 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Cell("A8");
-                                    IXLCell totalMatchFunding = ws.Cell("A9");
-                                    IXLCell totalProjectFunding = ws.Cell("A19");
+                                    //IXLCell totalGrantFunding = ws.Cell("A8");
+                                    IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
 
-                                    bool grantFundingValid = totalGrantFunding.Value.ToString() == "Total sum requested from BEIS";
-                                    bool matchFundingValid = totalMatchFunding.Value.ToString() == "Match funding contribution";
-                                    bool projectFundingValid = totalProjectFunding.Value.ToString() == "Total project costs";
-                                    bool spreadsheetValid = grantFundingValid && matchFundingValid && projectFundingValid;
+                                    bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
                                     if (spreadsheetValid)
                                     {
