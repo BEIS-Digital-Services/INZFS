@@ -34,6 +34,7 @@ using INZFS.MVC.Services.VirusScan;
 using System.Text.Json;
 using ClosedXML.Excel;
 using OrchardCore.FileStorage;
+using System.IO;
 
 namespace INZFS.MVC.Controllers
 {
@@ -302,14 +303,23 @@ namespace INZFS.MVC.Controllers
                         if (file.FileName.Contains(".xlsx"))
                         {
                             string url = "/App_Data/Sites/Default" + publicUrl;
-                            string testFilepath = _mediaFileStore.NormalizePath(url);
-                            var wb = new XLWorkbook(testFilepath);
-                            var ws = wb.Worksheet("summary");
-                            var cells = ws.Range("B20:g39").CellsUsed();
+                            string completeFilepath = _mediaFileStore.NormalizePath(url);
 
-                            uploadedFile.ParsedTotalProjectCost = ws.Cell("E31").Value.ToString();
-                            uploadedFile.ParsedTotalGrantFunding = ws.Cell("E34").Value.ToString();
-                            uploadedFile.ParsedTotalGrantFundingPercentage = ws.Cell("G34").Value.ToString();
+                            try
+                            {
+                                var wb = new XLWorkbook(completeFilepath);
+                                var ws = wb.Worksheet("summary");
+                                var cells = ws.Range("B20:g39").CellsUsed();
+
+                                uploadedFile.ParsedTotalProjectCost = ws.Cell("E31").Value.ToString();
+                                uploadedFile.ParsedTotalGrantFunding = ws.Cell("E34").Value.ToString();
+                                uploadedFile.ParsedTotalGrantFundingPercentage = ws.Cell("G34").Value.ToString();
+                            }
+                            catch (InvalidDataException e)
+                            {
+                                ModelState.AddModelError("DataInput", "Invalid file uploaded");
+
+                            }
                         }
 
                         additionalInformation = JsonSerializer.Serialize(uploadedFile);
