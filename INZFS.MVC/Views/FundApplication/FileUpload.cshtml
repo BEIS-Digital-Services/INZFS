@@ -114,7 +114,6 @@
                         </td>
                         <td class="govuk-table__cell">
                             @(Model.UploadedFile.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedTotalGrantFundingPercentage + "%" : "-")
-
                         </td>
                     </tr>
 
@@ -123,10 +122,10 @@
                             Total match funding contribution
                         </td>
                         <td class="govuk-table__cell">
-                            -
+                            @(Model.UploadedFile.ParsedTotalMatchFunding != null ? "£" + @Model.UploadedFile.ParsedTotalMatchFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            -
+                            @(Model.UploadedFile.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedTotalMatchFundingPercentage + "%" : "-")
                         </td>
                     </tr>
 
@@ -173,6 +172,16 @@
         <aside class="app-related-items" role="complementary">
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
             <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
+        </aside>
+    </div>
+}
+
+@if (Model.PageName == "project-cost-breakdown")
+{
+    <div class="govuk-grid-column-one-third">
+        <aside class="app-related-items" role="complementary">
+            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download project cost breakdown spreadsheet</a></p>
         </aside>
     </div>
 }
