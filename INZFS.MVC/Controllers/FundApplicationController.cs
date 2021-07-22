@@ -317,7 +317,12 @@ namespace INZFS.MVC.Controllers
                                     IXLCell totalMatchFunding = ws.Cell("A9");
                                     IXLCell totalProjectFunding = ws.Cell("A19");
 
-                                    if (totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null)
+                                    bool grantFundingValid = totalGrantFunding.Value.ToString() == "Total sum requested from BEIS";
+                                    bool matchFundingValid = totalMatchFunding.Value.ToString() == "Match funding contribution";
+                                    bool projectFundingValid = totalProjectFunding.Value.ToString() == "Total project costs";
+                                    bool spreadsheetValid = grantFundingValid && matchFundingValid && projectFundingValid;
+
+                                    if (spreadsheetValid)
                                     {
                                         try
                                         {
