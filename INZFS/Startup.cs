@@ -44,9 +44,10 @@ namespace INZFS
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseRouting();
+            app.UseSerilogRequestLogging();
+            app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
         }
     }
