@@ -281,7 +281,6 @@ namespace INZFS.MVC.Controllers
                 var additionalInformation = string.Empty;
                 if (currentPage.FieldType == FieldType.gdsFileUpload)
                 {
-
                     if (file != null)
                     {
                         var errorMessage = await _fileUploadService.Validate(file);
@@ -302,7 +301,7 @@ namespace INZFS.MVC.Controllers
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
 
-                        if (file.FileName.Contains(".xlsx"))
+                        if (file.FileName.Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             // If env is Development, prepend local filepath to publicUrl to ensure functionality
                             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
