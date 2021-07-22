@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ClosedXML.Excel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public UploadedFile UploadedFile { get; set; }
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
+            if (Mandatory == false)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
