@@ -9,6 +9,7 @@ using INZFS.Theme.Records;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using OrchardCore.Security.Services;
 using OrchardCore.Users;
 using OrchardCore.Users.Handlers;
@@ -24,7 +25,8 @@ namespace INZFS.Theme.Services
          IUserAuthenticatorKeyStore<IUser>,
          IUserLockoutStore<IUser>
     {
-        private readonly IUserTwoFactorSettingsService _service;
+        private readonly IUserTwoFactorSettingsService _twofactorSettingsService;
+        private readonly TwoFactorOption _options;
 
         public UserTwoFactorStore(
             ISession session,
@@ -34,22 +36,34 @@ namespace INZFS.Theme.Services
             ILogger<UserStore> logger,
             IEnumerable<IUserEventHandler> handlers,
             IDataProtectionProvider dataProtectionProvider,
-            IUserTwoFactorSettingsService service)
+            IUserTwoFactorSettingsService twofactorSettingsService,
+            IOptions<TwoFactorOption> options)
                 : base(session, roleService, keyNormalizer, userIdGenerator, logger, handlers, dataProtectionProvider)
         {
-            _service = service;
+            _twofactorSettingsService = twofactorSettingsService;
+            _options = options?.Value;
         }
 
         public async Task SetTwoFactorEnabledAsync(IUser user, bool enabled, CancellationToken cancellationToken)
         {
             var userId = GetUserId(user);
-            await _service.SetTwoFactorEnabledAsync(userId, enabled);
+            await _twofactorSettingsService.SetTwoFactorEnabledAsync(userId, enabled);
         }
 
         public async Task<bool> GetTwoFactorEnabledAsync(IUser user, CancellationToken cancellationToken)
         {
-            var userId = GetUserId(user);
-            return true; //await _service.GetTwoFactorEnabledAsync(userId);
+            if (_options.Status == TwoFactorStatus.Disabled)
+            {
+                return false;
+            }
+
+            if (_options.Status == TwoFactorStatus.Optional)
+            {
+                var userId = GetUserId(user);
+                return await _twofactorSettingsService.GetTwoFactorEnabledAsync(userId);
+            }
+
+            return true; 
         }
 
         public async Task SetPhoneNumberAsync(IUser user, string phoneNumber, CancellationToken cancellationToken)
@@ -75,13 +89,13 @@ namespace INZFS.Theme.Services
         public async Task SetAuthenticatorKeyAsync(IUser user, string key, CancellationToken cancellationToken)
         {
             var userId = GetUserId(user);
-            await _service.SetAuthenticatorKeyAsync(userId, key);
+            await _twofactorSettingsService.SetAuthenticatorKeyAsync(userId, key);
         }
 
         public async Task<string> GetAuthenticatorKeyAsync(IUser user, CancellationToken cancellationToken)
         {
             var userId = GetUserId(user);
-            return await _service.GetAuthenticatorKeyAsync(userId); ;
+            return await _twofactorSettingsService.GetAuthenticatorKeyAsync(userId); ;
         }
 
        private string GetUserId(IUser user)

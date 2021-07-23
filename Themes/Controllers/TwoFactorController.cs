@@ -51,8 +51,6 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
-
-
         public async Task<IActionResult> ScanQr(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -102,9 +100,9 @@ namespace INZFS.Theme.Controllers
                     }
 
                     var result = await _signInManager.TwoFactorAuthenticatorSignInAsync(authenticatorCode, false, false);
-                    if (result.Succeeded)
+                    if (result?.Succeeded ?? false)
                     {
-                        //_logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
+                        _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
                         return LocalRedirect(returnUrl);
                     }
                 }

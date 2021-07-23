@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using INZFS.Theme.Models;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
 using OrchardCore.Users;
 
 namespace INZFS.Theme.Services
@@ -16,11 +18,16 @@ namespace INZFS.Theme.Services
         
         private readonly UserManager<IUser> _userManager;
         private readonly UrlEncoder _urlEncoder;
+        private readonly TwoFactorOption _options;
 
-        public TwoFactorAuthenticationService(UserManager<IUser> userManager, UrlEncoder urlEncoder)
+        public TwoFactorAuthenticationService(
+            UserManager<IUser> userManager, 
+            UrlEncoder urlEncoder,
+            IOptions<TwoFactorOption> options)
         {
             _userManager = userManager;
             _urlEncoder = urlEncoder;
+            _options = options?.Value;
         }
 
         public async Task<EnableAuthenticatorQrCodeViewModel> GetSharedKeyAndQrCodeUriAsync(IUser user)
@@ -61,10 +68,11 @@ namespace INZFS.Theme.Services
 
         private string GetGeneratedQrCodeUri(string email, string unformattedKey)
         {
-            //TODO: FM AccountName from config
+            var accountName = _options.AccountName ?? "INZFS";
+
             return string.Format(
                 AuthenticatorUriFormat,
-                _urlEncoder.Encode("INZFS"),
+                _urlEncoder.Encode(accountName),
                 _urlEncoder.Encode(email),
                 unformattedKey);
         }
