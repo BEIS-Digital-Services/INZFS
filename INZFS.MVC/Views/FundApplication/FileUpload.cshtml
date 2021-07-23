@@ -11,7 +11,11 @@
     </a>
 }
 
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+@if (Model.DisplayQuestionCounter)
+{
+    <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+}
+
 <div class="@(string.IsNullOrEmpty(Model.FileToDownload) == true ? "" : "govuk-grid-column-two-thirds")">
     <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -41,13 +45,38 @@
             </div>
         }
 
-        <div class="govuk-form-group">
+    <div class="govuk-form-group">
+
+        <label class="govuk-label govuk-label--l">
+            @if (string.IsNullOrEmpty(Model.TitleQuestion))
+            {
+                @Model.Question
+
+            }
+            else
+            {
+                @Model.TitleQuestion
+            }
+        </label>
+        @Html.Partial("_Hint", Model.Hint)
+
+
+        @if (string.IsNullOrEmpty(@Model.UploadText))
+        {
             <label class="govuk-label govuk-!-font-weight-bold" for="file">
                 Upload Some file
             </label>
-            <input class="govuk-file-upload" id="file" name="file" type="file"
-                   accept=".txt,.pdf,.xlsx,.doc,.docx">
-        </div>
+        }
+        else
+        {
+            <label class="govuk-label govuk-!-font-weight-bold" for="file">
+                @Model.UploadText
+            </label>
+        }
+
+        <input class="govuk-file-upload" id="file" name="file" type="file"
+               accept=".txt,.pdf,.xlsx,.doc,.docx">
+    </div>
 
         <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
@@ -62,35 +91,35 @@
 
         <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>
         @*
-        <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
+            <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
         *@
 
         @if (!string.IsNullOrEmpty(Model.DataInput))
         {
             <dl class="govuk-summary-list fileTable">
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-                        @Model.DataInput
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.UploadedFile.Size MB
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        @*<a class="govuk-link" href="#">
+                <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
+                    @Model.DataInput
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.UploadedFile.Size MB
+                </dd>
+                <dd class="govuk-summary-list__actions">
+                    @*<a class="govuk-link" href="#">
                             Remove<span class="govuk-visually-hidden"> file uploaded</span>
                         </a>*@
-                        <button ype="submit" name="submit.Publish" class="govuk-button govuk-button--warning"
-                                value="DeleteFile" data-module="govuk-button">
-                            Remove
-                        </button>
-                    </dd>
-                </div>
-            </dl>
-        }
-        else
-        {
-            <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
-        }
+                    <button ype="submit" name="submit.Publish" class="govuk-button govuk-button--warning"
+                            value="DeleteFile" data-module="govuk-button">
+                        Remove
+                    </button>
+                </dd>
+    </div>
+    </dl>
+}
+else
+{
+    <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
+}
 
 
         @Html.Partial("_Accordion", Model.PageName)
@@ -106,18 +135,18 @@
                 <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
             </div>
         </div>
-    </form>
+        </form>
 
-    <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
-</div>
+        <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+        </div>
 
-@if (!string.IsNullOrEmpty(Model.FileToDownload))
-{
-    <div class="govuk-grid-column-one-third">
-        <aside class="app-related-items" role="complementary">
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
-        </aside>
-    </div>
-}
+        @if (!string.IsNullOrEmpty(Model.FileToDownload))
+        {
+            <div class="govuk-grid-column-one-third">
+                <aside class="app-related-items" role="complementary">
+                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
+                </aside>
+            </div>
+        }
 

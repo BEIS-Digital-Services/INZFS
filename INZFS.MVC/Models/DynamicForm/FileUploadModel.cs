@@ -12,7 +12,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public UploadedFile UploadedFile { get; set; }
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
+            if (Mandatory == false)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
