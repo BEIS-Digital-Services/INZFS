@@ -57,6 +57,7 @@ namespace INZFS.MVC
     public class Section
     {
         public string Title { get; set; }
+        public string OverviewTitle { get; set; }
         public string Tag { get; set; }
         public string Url { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
