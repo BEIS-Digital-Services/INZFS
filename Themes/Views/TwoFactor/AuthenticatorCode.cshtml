@@ -1,0 +1,57 @@
+﻿@model INZFS.Theme.ViewModels.EnableAuthenticatorCodeViewModel
+@{
+    Layout = "_Layout";
+}
+
+@if (!ViewData.ModelState.IsValid)
+{
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                @foreach (var key in ViewData.ModelState.Keys)
+                {
+                    var value = ViewData.ModelState[key];
+                    foreach (var error in value.Errors)
+                    {
+                        <li>
+                            <a href="#@Model.AuthenticatorCode">@error.ErrorMessage</a>
+                        </li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+}
+
+<form method="post">
+    <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Enter your authenticator code</h1>
+            </div>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--s" for="event-name">
+                            Enter the code generated from the Authenticator app
+                        </label>
+                    </h1>
+                    <span asp-validation-for="AuthenticatorCode" class="govuk-error-message"></span>
+                    <input id="AuthenticatorCode" name="AuthenticatorCode" class="govuk-input govuk-input--width-20" type="text" spellcheck="true" autocomplete="off">
+                </div>
+                <br />
+                <div class="edit-item-secondary group">
+                    <div class="edit-item-actions form-group">
+                        <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>

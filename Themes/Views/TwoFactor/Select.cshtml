@@ -1,0 +1,72 @@
+﻿@model INZFS.Theme.ViewModels.EnableTwoFactorOptionViewModel
+@{
+    Layout = "_Layout";
+}
+
+
+
+    <div class="govuk-width-container">
+
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Choose verification method</h1>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+
+                <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
+                    <div class="govuk-radios govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-Authenticator" name="Authenticator" type="radio" value="Authenticator" checked="checked" >
+                            <label class="govuk-label govuk-radios__label">
+                                Authenticator app (Google or Microsoft)
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-no" name="Authenticator" type="radio" value="SMS" disabled="disabled">
+                            <label class="govuk-label govuk-radios__label">
+                                SMS
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-no" name="Authenticator" type="radio" value="Email" disabled="disabled">
+                            <label class="govuk-label govuk-radios__label">
+                                Email
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <br /><br />
+                @if (!Model.IsActivated)
+                {
+
+
+                    <p>
+                        Don't have the app?<br />
+                        Google Authenticator is free 2FA. Download on your mobile device by searching for ....<br />
+                        ++>> However, There are some standard links that we can use, please see below (WORDING IS NEEED! WORDING IS NEEED!)
+                    </p>
+                    <p>
+                        Download Microsoft Authenticator for
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825071">Windows Phone</a>,
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> and
+                        <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a>
+                        <br /> or Google Authenticator for
+                        <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> and
+                        <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>.
+                        <br />
+                        <br />
+                        </p>
+                }
+
+
+                <a href="@Url.Action(Model.LoginAction, "TwoFactor", new { Area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl") })">
+                    <button class="govuk-button" data-module="govuk-button">Continue</button>
+                </a>
+            </div>
+        </div>
+    </div>

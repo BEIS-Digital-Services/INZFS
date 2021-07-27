@@ -1,0 +1,43 @@
+﻿@model INZFS.Theme.ViewModels.EnableAuthenticatorQrCodeViewModel
+@{
+    Layout = "_Layout";
+}
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Scan this QR code</h1>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+
+            <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Open the Authenticator app and scan this QR code</p>
+            <br />
+            <div id="qrCode"></div>
+            <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
+            <br />
+
+            <p>
+                Or enter the following code manually:<br />
+                <kbd>@Model.SharedKey</kbd>
+            </p>
+            <br /><br />
+            <a href="@Url.Action("AuthenticatorCode", "TwoFactor", new { Area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl")})">
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </a>
+        </div>
+    </div>
+</div>
+
+<script src="/INZFS.Theme/lib/qrcode.min.js"></script>
+<script>
+    new QRCode(document.getElementById("qrCode"),
+        {
+            text: "@Html.Raw(Model.AuthenticatorUri)",
+            width: 150,
+            height: 150
+        });
+</script>
