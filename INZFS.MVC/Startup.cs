@@ -58,7 +58,7 @@ namespace INZFS.MVC
             }
             else
             {
-                string connectionString = Configuration["AzureBlobStorage"];
+                string connectionString = _environment.AzureBlobStorage;
                 string containerName = "inzfs";
                 string blobName = "INZFS.json";
                 var blobToDownload = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
@@ -71,7 +71,7 @@ namespace INZFS.MVC
         {
             services.AddTransient<ClamClient>(x =>
             {
-                var host = Configuration["ClamAVServerHost"];
+                var host = _environment.ClamAVServerHost;
                 if (int.TryParse(Configuration["ClamAVServerPort"], out var port))
                 {
                     return new ClamClient(host, port);
