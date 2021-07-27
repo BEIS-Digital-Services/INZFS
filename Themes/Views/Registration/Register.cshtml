@@ -1,0 +1,100 @@
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <div class="govuk-breadcrumbs">
+            <ol class="govuk-breadcrumbs__list">
+                <li class="govuk-breadcrumbs__list-item">
+                    <a class="govuk-breadcrumbs__link" href="../index.html">Energy Entrepeneurs Fund 8B</a>
+                </li>
+                <li class="govuk-breadcrumbs__list-item">
+                    Register an account
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="govuk-grid-column-one-quarter"></div>
+</div>
+
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+
+            <h1 class="govuk-heading-xl">Create an account</h1>
+            <p class="govuk-body-l">You'll need to create an account to start an application.</p>
+
+            <!-- <form action="" method="post" novalidate> -->
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="email">
+                    Email address
+                </label>
+                <div id="email-hint" class="govuk-hint">
+                    We need your email so we can sign you in
+                </div>
+                <input class="govuk-input govuk-input--width-20" id="email" name="email" type="email" spellcheck="false" aria-describedby="email-hint" autocomplete="email">
+            </div>
+
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="emailconfirm">
+                    Email address confirmation
+                </label>
+                <div id="emailconfirm-hint" class="govuk-hint">
+                    Please confirm your email for us
+                </div>
+                <input class="govuk-input govuk-input--width-20" id="emailconfirm" name="emailconfirm" type="email" spellcheck="false" aria-describedby="emailconfirm-hint" autocomplete="email">
+            </div>
+
+            <div class="govuk-form-group govuk-!-margin-bottom-2">
+                <label class="govuk-label" for="password">
+                    Create your password
+                </label>
+                <div id="create-password-hint" class="govuk-hint">
+                    Your password must:
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>be atleast 8 characters</li>
+                        <li>be a mixture of upper and lower case</li>
+                        <li>not include commonly used passwords</li>
+                    </ul>
+                </div>
+
+                <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
+                    <input class="govuk-input govuk-input--width-20" id="password-create" name="password" type="password" aria-describedby="create-password-hint" spellcheck="false">
+                    <button class="show-password__toggle" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText" onclick="createPassword()">Show</button>
+                    <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                </div>
+
+            </div>
+
+
+
+            <div class="govuk-form-group govuk-!-margin-bottom-6">
+
+                <label for="create-password" class="govuk-label"> Confirm your password</label>
+                <div class="show-password__input-wrapper">
+                    <input class="govuk-input govuk-input--width-20" id="password-confirm" name="password-confirm" type="password" spellcheck="false">
+                    <button class="show-password__toggle" aria-controls="password-confirm" type="button" aria-label="Show password" id="buttonText1" onclick="confirmPassword()">Show</button>
+                    <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                </div>
+
+            </div>
+
+            <a href="verifyEmail.html">
+                <button class="govuk-button" data-module="govuk-button">
+                    Register
+                </button>
+            </a>
+
+            <!-- </form> -->
+
+            <p class="govuk-body-s"><a class="govuk-link" href="accountSignIn.html">Already have an account?</a></p>
+            <p class="govuk-body-s"><a class="govuk-link" href="#">Need help signing in or creating an account?</a></p>
+
+        </div>
+
+    </div>
+</main>

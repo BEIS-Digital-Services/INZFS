@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Notify.Client;
+using Notify.Interfaces;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
@@ -35,7 +37,6 @@ namespace INZFS.Theme
 
             serviceCollection.Configure<IdentityOptions>(options =>
             {
-
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
@@ -47,8 +48,11 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<ITwoFactorAuthenticationService, TwoFactorAuthenticationService>();
             serviceCollection.AddScoped<IUserStore<IUser>, UserTwoFactorStore>();
             serviceCollection.AddScoped<IUserTwoFactorSettingsService, UserTwoFactorSettingsService>();
+            serviceCollection.AddScoped<IEmailService, EmailService>();
 
             serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
+            serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("ApiKey")));
+
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
