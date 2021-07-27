@@ -11,7 +11,7 @@ using OrchardCore.Flows.Models;
 
 namespace INZFS.UnitTests
 {
-    public class AdminContollerTests
+    public class AdminControllerTests
     {
         private  AdminController _controller;
         private Mock<IContentRepository> _contentRepository;

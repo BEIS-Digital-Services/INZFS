@@ -3,7 +3,90 @@
     "name": "INZFS",
     "sections": [
       {
+        "title": "Confirm your eligibility",
+        "overviewTitle": "1. Confirm your eligibility",
+        "tag": "confirm-your-eligibility",
+        "url": "confirm-your-eligibility",
+        "continueButtonText": "Save and continue",
+        "RazorView": "ConfirmYourEligibility",
+        "pages": [
+
+        ]
+      },
+      {
+        "title": "Your organisation",
+        "overviewTitle": "2. Your organisation",
+        "tag": "your-organisation",
+        "url": "your-organisation",
+        "continueButtonText": "Save and continue",
+        "RazorView": "YourOrganisation",
+        "pages": [
+
+        ]
+      },
+      {
+        "title": "Consortium applicant details",
+        "overviewTitle": "3. Consortium applicant details",
+        "tag": "Consortium-applicant-details",
+        "url": "Consortium-applicant-details",
+        "continueButtonText": "Save and continue",
+        "RazorView": "ConsortiumInformation",
+        "pages": [
+          {
+            "name": "consortium-applicant",
+            "question": "Are you a sole applicant?",
+            "titleQuestion": "Are you a sole applicant?",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Consortium Applicant",
+            "fieldName": "consortium-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "application-overview"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "consortium-applicant-details"
+              }
+            ]
+          },
+          {
+            "name": "consortium-applicant-details",
+            "question": "Consortium details",
+            "titleQuestion": "Consortium details",
+            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "errorMessage": "Upload consortium details",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "consortium-applicant-details",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload consortium details"
+          }
+        ]
+      },
+      {
         "title": "Proposal Summary",
+        "overviewTitle": "4. Proposal summary",
         "tag": "proposal-summary",
         "url": "proposal-summary-overview",
         "returnToSummaryPageLinkText": "Return to the proposal summary overview",
@@ -15,7 +98,7 @@
             "question": "4.1. Project Name",
             "titleQuestion": "4.1. What is the name of your project?",
             "description": "Description",
-            "errorMessage": "Please entre a valid project name",
+            "errorMessage": "Please enter a valid project name",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Project Name",
             "fieldName": "project-name",
@@ -86,7 +169,7 @@
             "name": "grant-justification",
             "question": "4.6. Grant Justification",
             "description": "Description",
-            "errorMessage": "Entre Grant Justification",
+            "errorMessage": "Enter Grant Justification",
             "fieldType": "gdsTextArea",
             "friendlyFieldName": "Grant Justification",
             "fieldName": "grant-justification",
@@ -102,6 +185,7 @@
       },
       {
         "title": "Business Proposal",
+        "overviewTitle": "5. Business proposal, project plans and risk",
         "tag": "business-proposal",
         "url": "business-proposal-overview",
         "returnToSummaryPageLinkText": "Return to the business proposal overview",
@@ -123,20 +207,6 @@
             "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
-          },
-          {
-            "name": "business-proposal-file",
-            "question": "5.1. Proposal",
-            "description": "Description",
-            "errorMessage": "Enter business proposal",
-            "fieldType": "gdsFileUpload",
-            "friendlyFieldName": "Business proposal",
-            "fieldName": "business-proposal-file",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": true,
-            "showSaveProgessButton": true,
-            "filetoDownload" : ""
           },
           {
             "name": "business-plan",
@@ -367,6 +437,5 @@
         ]
       }
     ]
-
   }
 }

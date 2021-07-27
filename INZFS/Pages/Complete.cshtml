@@ -90,20 +90,24 @@
 
 @functions
 {
-	[FromRoute]
-	public string Slug { get; set; }
+    [FromRoute]
+    public string Slug { get; set; }
 
 
-	public IActionResult OnPostAsync()
-	{
-		var equalityAnswer = Request.Form["equality"].ToString();
-		if (equalityAnswer == "yes-equality")
-		{
-			return Redirect("/");
-		}
-		else
-		{
-			return Redirect("/login");
-		}
-	}
+    public async Task<IActionResult> OnPostAsync()
+    {
+        var completePage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        var equalityAnswer = Request.Form["equality"].ToString();
+		string returnUrl = "/";
+        if (equalityAnswer == "yes-equality")
+        {
+			returnUrl = @completePage.Content.Complete.Url1.Text;
+            return Redirect(returnUrl);
+        }
+        else
+        {
+			returnUrl = @completePage.Content.Complete.Url2.Text;
+            return Redirect(returnUrl);
+        }
+    }
 }

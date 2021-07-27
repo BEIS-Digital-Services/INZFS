@@ -100,69 +100,38 @@ namespace INZFS.MVC.Controllers
             }
 
             // Section
-            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
-            if (section != null)
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
+            if (currentSection != null)
             {
-                var sectionContentModel = new SectionContent();
-                sectionContentModel.TotalQuestions = section.Pages.Count;
-                sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                foreach (var pageContent in section.Pages)
-                {
-                    var sectionModel = new SectionModel();
-                    sectionModel.Title = pageContent.Question;
-                    sectionModel.Url = pageContent.Name;
-
-                    var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
-
-                    if (string.IsNullOrEmpty(field?.Data))
-                    {
-                        sectionModel.Status = "Not started";
-                    }
-                    else
-                    {
-                        if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
-                        {
-                            sectionModel.Status = "Completed";
-                            sectionContentModel.TotalQuestionsCompleted ++;
-                        }
-
-                        else
-                        {
-                            sectionModel.Status = "In Progress";
-                        }
-                    }
-                    sectionContentModel.Sections.Add(sectionModel);
-                }
-                return View(section.RazorView, sectionContentModel);
+                var sectionContentModel = GetSectionContent(content, currentSection);
+                return View(currentSection.RazorView, sectionContentModel);
             }
 
+            //Overview
             if (pagename == "application-overview")
             {
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
+                
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
-                foreach (var item in sections)
+                foreach (var section in sections)
                 {
+                    var sectionContentModel = GetSectionContent(content, section);
                     var applicationOverviewModel = new ApplicationOverviewModel();
-                    applicationOverviewModel.SectionTag = item.Tag;
-                    //applicationOverviewModel.Status =
+                    applicationOverviewModel.SectionTag = section.Tag;
+                    applicationOverviewModel.Title = sectionContentModel.OverviewTitle;
+                    applicationOverviewModel.Url = sectionContentModel.Url;
+                    applicationOverviewModel.SectionStatus = sectionContentModel.OverallStatus;
 
                     applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
                 }
 
-                var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                //Prevent a null reference expcetion by creating the application if one is not found
-                if (model == null)
-                {
-                    model = new ApplicationContent
-                    {
-                        Application = new Application(),
-                        Author = User.Identity.Name,
-                        CreatedUtc = DateTime.UtcNow
-                    };
-                }
+                applicationOverviewContentModel.TotalSections = sections.Count;
+                applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
+                                                    Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+
                 return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
@@ -398,17 +367,40 @@ namespace INZFS.MVC.Controllers
 
 
                 _session.Save(contentToSave);
-                if(submitAction == "DeleteFile")
+
+                if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
+                {
+                    var action = currentPage.Actions.FirstOrDefault(a => a.Value.ToLower().Equals(model.GetData()));
+                    // action logic based on value
+                    return RedirectToAction("section", new { pagename = action.PageName });
+                }
+
+                if (submitAction == "DeleteFile" || submitAction == "SaveProgress")
                 {
                     return RedirectToAction("section", new { pagename = pageName });
                 }
 
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
-                if(nextPage == null)
+
+
+
+                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+
+                var inSection = section.Pages.Contains(nextPage);
+
+                if (nextPage == null)
                 {
                     return NotFound();
                 }
+
+                if (!inSection)
+                {
+                    return RedirectToAction("section", new { pagename = section.Url });
+
+                }
+
+
                 //TODO: Check of non-existing pages
                 // check for the last page
                 return RedirectToAction("section", new { pagename = nextPage.Name });
@@ -428,7 +420,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Complete()
         {
-            return View("ApplicationComplete");
+            return Redirect("/complete/applicationcomplete");
         }
 
         [HttpPost, ActionName("Create")]
@@ -884,17 +876,82 @@ namespace INZFS.MVC.Controllers
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = section.Pages.Count;
-            currentModel.ContinueButtonText = section.ContinueButtonText;
+            if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
+            {
+                currentModel.ContinueButtonText = section.ContinueButtonText;
+            }else
+            {
+                currentModel.ContinueButtonText = currentPage.ContinueButtonText;
+            }
             currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
             currentModel.SectionUrl = section.Url;
+            currentModel.SectionInfo = section;
+
+            var currentPageIndex = section.Pages.FindIndex(p => p.Name == currentPage.Name);// (index - 1);
+            if (currentPageIndex >= 1)
+            {
+                currentModel.PreviousPageName = section.Pages[currentPageIndex -1 ].Name;
+            } 
+
+            if (!string.IsNullOrEmpty(currentPage.Description))
+            {
+                currentModel.Description = currentPage.Description;
+            }
+
+            if (!string.IsNullOrEmpty(currentPage.UploadText))
+            {
+                currentModel.UploadText = currentPage.UploadText;
+            }
+
+            currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
 
             var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
             if (previousPage != null)
             {
                 currentModel.PreviousPageName = previousPage.Name;
             }
-
             return currentModel;
+        }
+
+        private SectionContent GetSectionContent(ApplicationContent content, Section section)
+        {
+            var sectionContentModel = new SectionContent();
+            sectionContentModel.TotalQuestions = section.Pages.Count;
+            sectionContentModel.Sections = new List<SectionModel>();
+            sectionContentModel.Title = section.Title;
+            sectionContentModel.OverviewTitle = section.OverviewTitle;
+            sectionContentModel.Url = section.Url;
+
+            foreach (var pageContent in section.Pages)
+            {
+                var sectionModel = new SectionModel();
+                sectionModel.Title = pageContent.Question;
+                sectionModel.Url = pageContent.Name;
+
+                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+
+                if (string.IsNullOrEmpty(field?.Data))
+                {
+                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                }
+                else
+                {
+
+                    if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
+                    {
+                        sectionModel.SectionStatus = SectionStatus.Completed;
+                        sectionContentModel.TotalQuestionsCompleted++;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = SectionStatus.InProgress;
+                    }
+
+                }
+                sectionContentModel.Sections.Add(sectionModel);
+            }
+
+            return sectionContentModel;
         }
     }
 }

@@ -5,8 +5,19 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Application overview</h1>
-        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Application incomplete</p>
-        <p class="govuk-body govuk-!-font-weight-regular">You have completed 0 of 7 sections.</p>
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">
+            Application
+            @if (@Model.TotalSectionsCompleted == Model.TotalSections)
+            {
+                <text>complete</text>
+            }
+            else
+            {
+                <text>incomplete</text>
+            }
+
+        </p>
+        <p class="govuk-body govuk-!-font-weight-regular">You have completed @Model.TotalSectionsCompleted of @Model.TotalSections sections.</p>
     </div>
 </div>
 
@@ -14,96 +25,77 @@
 
     <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
 
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">0 out of 3 completed</span></p>
+        @{
+            var sections = Model.Sections.Take(3);
+            var completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+        }
+
+        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
         <dl class="govuk-summary-list">
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" id="eligibility-match-overview" href="eligibilityMatchFunding.html">
-                        1. Confirm your eligibility<span class="govuk-visually-hidden">Confirm your eligibility and match funding</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" id="organisation-details-overview" href="yourOrganisation.html">
-                        2. Your organisation<span class="govuk-visually-hidden">Your organisation</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" href="consortiumApplicant.html">
-                        3. Consortium applicant details<span class="govuk-visually-hidden">Consortium applicant details</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
+            @foreach (var item in sections)
+            {
+                <div class="govuk-body-m govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                        </a>
+                    </dt>
+                    <dd class="govuk-summary-list__actions">
+                        @item.GetStatusString()
+                    </dd>
+                </div>
+            }
         </dl>
 
+        @{
+            sections = Model.Sections.Skip(3).Take(3);
+            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+        }
 
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">0 out of 3 completed</span></p>
+        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
 
         <dl class="govuk-summary-list">
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" id="proposal-summary-overview" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="proposal-summary-overview">
-                        4. Proposal summary<span class="govuk-visually-hidden">Proposal summary</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" id="business-proposal-overview" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="business-proposal-overview">
-                        5. Business proposal, project plans and risk<span class="govuk-visually-hidden">Business proposal, project plans and risk</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC", asp-controller="FundApplication" asp-action="section". asp-route-pagename="finance-proposal-overview">
-                        6. Financial proposal and costs<span class="govuk-visually-hidden">Financial proposal and costs</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
+            @foreach (var item in sections)
+            {
+                <div class="govuk-body-m govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                        </a>
+                    </dt>
+                    <dd class="govuk-summary-list__actions">
+                        @item.GetStatusString()
+                    </dd>
+                </div>
+            }
         </dl>
 
-
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">0 out of 1 completed</span></p>
+        @{
+            sections = Model.Sections.Skip(6).Take(1);
+            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+        }
+        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">@completedCount out of 1 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
 
         <dl class="govuk-summary-list">
-            <div class="govuk-body-m govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    <a class="govuk-link govuk-!-font-weight-regular" id="preformance-data-overview" href="proposalSummary.html">
-                        7. Performance data<span class="govuk-visually-hidden">Performance data</span>
-                    </a>
-                </dt>
-                <dd class="govuk-summary-list__actions">
-                    Not started
-                </dd>
-            </div>
+            @foreach (var item in sections)
+            {
+                <div class="govuk-body-m govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                        </a>
+                    </dt>
+                    <dd class="govuk-summary-list__actions">
+                        @item.GetStatusString()
+                    </dd>
+                </div>
+            }
         </dl>
 
         <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="submit">
