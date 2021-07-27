@@ -206,6 +206,11 @@ namespace INZFS.Theme.Controllers
                             if (!await AddConfirmEmailError(user) && !AddUserEnabledError(user))
                             {
                                 result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                                
+                                if (result.RequiresTwoFactor)
+                                {
+                                    return RedirectToAction("Select", "TwoFactor",  new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                                }
 
                                 if (result.Succeeded)
                                 {
