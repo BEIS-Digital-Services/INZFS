@@ -96,75 +96,38 @@ namespace INZFS.MVC.Controllers
             }
 
             // Section
-            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
-            if (section != null)
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
+            if (currentSection != null)
             {
-                var sectionContentModel = new SectionContent();
-                sectionContentModel.TotalQuestions = section.Pages.Count;
-                sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                foreach (var pageContent in section.Pages)
-                {
-                    var sectionModel = new SectionModel();
-                    sectionModel.Title = pageContent.Question;
-                    sectionModel.Url = pageContent.Name;
-
-                    var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
-                    
-                    if (string.IsNullOrEmpty(field?.Data))
-                    {
-                        sectionModel.Status = "Not started";
-                    }
-                    else
-                    {
-                        
-                        if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
-                        {
-                            sectionModel.Status = "Completed";
-                            sectionContentModel.TotalQuestionsCompleted ++;
-                        }
-                        
-                        else
-                        {
-                            sectionModel.Status = "In Progress";
-                        }
-                        
-                    }
-
-
-                    sectionContentModel.Sections.Add(sectionModel);
-
-                }
-
-                return View(section.RazorView, sectionContentModel);
+                var sectionContentModel = GetSectionContent(content, currentSection);
+                return View(currentSection.RazorView, sectionContentModel);
             }
 
+            //Overview
             if (pagename == "application-overview")
             {
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
+                
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
-                foreach (var item in sections)
+                foreach (var section in sections)
                 {
+                    var sectionContentModel = GetSectionContent(content, section);
                     var applicationOverviewModel = new ApplicationOverviewModel();
-                    applicationOverviewModel.SectionTag = item.Tag;
-                    //applicationOverviewModel.Status = 
+                    applicationOverviewModel.SectionTag = section.Tag;
+                    applicationOverviewModel.Title = sectionContentModel.OverviewTitle;
+                    applicationOverviewModel.Url = sectionContentModel.Url;
+                    applicationOverviewModel.SectionStatus = sectionContentModel.OverallStatus;
 
                     applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
                 }
 
-                var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                //Prevent a null reference expcetion by creating the application if one is not found
-                if (model == null)
-                {
-                    model = new ApplicationContent
-                    {
-                        Application = new Application(),
-                        Author = User.Identity.Name,
-                        CreatedUtc = DateTime.UtcNow
-                    };
-                }
+                applicationOverviewContentModel.TotalSections = sections.Count;
+                applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
+                                                    Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+
                 return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
@@ -879,6 +842,47 @@ namespace INZFS.MVC.Controllers
             currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
 
             return currentModel;
+        }
+
+        private SectionContent GetSectionContent(ApplicationContent content, Section section)
+        {
+            var sectionContentModel = new SectionContent();
+            sectionContentModel.TotalQuestions = section.Pages.Count;
+            sectionContentModel.Sections = new List<SectionModel>();
+            sectionContentModel.Title = section.Title;
+            sectionContentModel.OverviewTitle = section.OverviewTitle;
+            sectionContentModel.Url = section.Url;
+
+            foreach (var pageContent in section.Pages)
+            {
+                var sectionModel = new SectionModel();
+                sectionModel.Title = pageContent.Question;
+                sectionModel.Url = pageContent.Name;
+
+                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+
+                if (string.IsNullOrEmpty(field?.Data))
+                {
+                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                }
+                else
+                {
+
+                    if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
+                    {
+                        sectionModel.SectionStatus = SectionStatus.Completed;
+                        sectionContentModel.TotalQuestionsCompleted++;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = SectionStatus.InProgress;
+                    }
+
+                }
+                sectionContentModel.Sections.Add(sectionModel);
+            }
+
+            return sectionContentModel;
         }
     }
 }
