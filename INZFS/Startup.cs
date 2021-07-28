@@ -27,26 +27,25 @@ namespace INZFS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock","OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
-            services.AddSession(options => {
+            services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
-            }); 
-                //options.Cookie.Name = "JSESSIONID";
-                //options.Cookie.IsEssential = true;
             });
-            if (_environment.IsDevelopment())
-            {
-                services.AddDistributedMemoryCache();
-            }
-            else
-            {
-                services.AddStackExchangeRedisCache(options =>
+
+                if (_environment.IsDevelopment())
                 {
-                    options.Configuration = Configuration["MyRedisConStr"];
-                    options.InstanceName = "EEF";
-                });
+                    services.AddDistributedMemoryCache();
+                }
+                else
+                {
+                    services.AddStackExchangeRedisCache(options =>
+                    {
+                        options.Configuration = Configuration["MyRedisConStr"];
+                        options.InstanceName = "EEF";
+                    });
+                }
             }
-        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
