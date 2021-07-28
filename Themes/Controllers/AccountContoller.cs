@@ -206,16 +206,11 @@ namespace INZFS.Theme.Controllers
                             if (!await AddConfirmEmailError(user) && !AddUserEnabledError(user))
                             {
                                 result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
-                                
-                                if (result.RequiresTwoFactor)
-                                {
-                                    return RedirectToAction("Select", "TwoFactor",  new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
-                                }
 
                                 if (result.Succeeded)
                                 {
                                     _logger.LogInformation(1, "User logged in.");
-                                    await _accountEvents.InvokeAsync((e, model) => e.LoggedInAsync(model.UserName), model, _logger);
+                                    await _accountEvents.InvokeAsync((e, model) => e.LoggedInAsync(user), model, _logger);
                                     return await LoggedInActionResult(user, returnUrl);
                                 }
                             }
@@ -358,8 +353,8 @@ namespace INZFS.Theme.Controllers
                         _logger.LogError(ex, "{externalLoginHandler} - IExternalLoginHandler.UpdateRoles threw an exception", item.GetType());
                     }
                 }
-                rolesToAdd = context.RolesToAdd;
-                rolesToRemove = context.RolesToRemove;
+                rolesToAdd = context.RolesToAdd.ToArray();
+                rolesToRemove = context.RolesToRemove.ToArray();
             }
 
             await _userManager.AddToRolesAsync(user, rolesToAdd.Distinct());

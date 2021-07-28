@@ -37,7 +37,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
-    <ProjectReference Include="..\INZFS.Templates\INZFS.Templates.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>
 
