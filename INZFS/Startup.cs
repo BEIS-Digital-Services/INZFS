@@ -27,7 +27,6 @@ namespace INZFS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
@@ -35,11 +34,15 @@ namespace INZFS
 
                 if (_environment.IsDevelopment())
                 {
-                    services.AddDistributedMemoryCache();
+                services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
+
+                services.AddDistributedMemoryCache();
                 }
                 else
                 {
-                    services.AddStackExchangeRedisCache(options =>
+                services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
+
+                services.AddStackExchangeRedisCache(options =>
                     {
                         options.Configuration = Configuration["MyRedisConStr"];
                         options.InstanceName = "EEF";
