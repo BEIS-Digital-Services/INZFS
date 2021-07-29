@@ -37,6 +37,7 @@ using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace INZFS.MVC
 {
@@ -53,8 +54,11 @@ namespace INZFS.MVC
         {
             if(_environment.IsDevelopment())
             {
-                string fileName = "INZFS.json";
-                return System.IO.File.ReadAllText(fileName);
+                string fileName = "INZFS.MVC.INZFS.json";
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                var stream = assembly.GetManifestResourceStream(fileName);
+                StreamReader reader = new StreamReader(stream);
+                return reader.ReadToEnd();
             }
             else
             {
@@ -116,7 +120,15 @@ namespace INZFS.MVC
 
             services.AddSingleton<ApplicationDefinition>(sp =>
             {
-                string jsonString = AccessBlobstorage();
+                string fileName = "INZFS.MVC.INZFS.json";
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                var stream = assembly.GetManifestResourceStream(fileName);
+                StreamReader reader = new StreamReader(stream);
+                string jsonString = reader.ReadToEnd();
+                reader.Close();
+                stream.Close();
+
+
                 var options = new JsonSerializerOptions();
                 options.PropertyNameCaseInsensitive = true;
                 options.Converters.Add(new JsonStringEnumConverter());
