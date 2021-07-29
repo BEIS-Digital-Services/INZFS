@@ -336,6 +336,7 @@
       },
       {
         "title": "Finance Proposal",
+        "overviewTitle": "6. Financial proposal and costs",
         "tag": "finance-proposal",
         "url": "finance-proposal-overview",
         "returnToSummaryPageLinkText": "Return to the finance proposal overview",
@@ -435,6 +436,16 @@
             "showSaveProgessButton": true
           }
         ]
+      },
+      {
+        "title": "Performance data",
+        "overviewTitle": "7. Performance data",
+        "tag": "performance-data",
+        "url": "performance-data",
+        "continueButtonText": "Save and continue",
+        "RazorView": "PerformanceData",
+        "pages": [
+       ]
       }
     ]
   }
