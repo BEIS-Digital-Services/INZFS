@@ -805,11 +805,12 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-            var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            
 
             
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
+            var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = section.Pages.Count;
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
