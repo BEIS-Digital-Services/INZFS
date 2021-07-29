@@ -12,7 +12,7 @@ applications:
     OrchardCore__OrchardCore_AutoSetup__AutoSetupPath: $(AutoPath)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix: ""
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteTimeZone: Europe/London
-    OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: "EEF-9"
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: EEF-9
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider: $(DbProvider)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword: $(DbPassword)
     OrchardCore__OrchardCore_Redis__Configuration: $(RedisConfig)
