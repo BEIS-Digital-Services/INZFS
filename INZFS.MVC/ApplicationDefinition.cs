@@ -152,8 +152,17 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string FileLocation { get; set; }
         public string Size { get; set; }
+        public ParsedExcelData ParsedExcelData { get; set; }
     }
 
+    public class ParsedExcelData
+    {
+        public string? ParsedTotalProjectCost { get; set; }
+        public string? ParsedTotalGrantFunding { get; set; }
+        public string? ParsedTotalGrantFundingPercentage { get; set; }
+        public string? ParsedTotalMatchFunding { get; set; }
+        public string? ParsedTotalMatchFundingPercentage { get; set; }
+    }
     public class Action
     {
         public string Name { get; set; }
