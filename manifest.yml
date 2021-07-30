@@ -7,7 +7,7 @@ applications:
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__RecipeName: $(Recipe)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseConnectionString: $(DbConnection)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__ShellName: $(ShellName)
-    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminEmail: lorenzo.lane@beis.gov.uk
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminEmail: lorenzo.lane2@beis.gov.uk
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminUsername: admin
     OrchardCore__OrchardCore_AutoSetup__AutoSetupPath: $(AutoPath)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix: ""
