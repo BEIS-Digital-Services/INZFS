@@ -14,7 +14,7 @@ applications:
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteTimeZone: Europe/London
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: EEF-9
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider: $(DbProvider)
-    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword: $(DbPassword)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword: TestB!1Pass
     OrchardCore__OrchardCore_Redis__Configuration: $(RedisConfig)
     OrchardCore__OrchardCore_Shells_Database__DatabaseProvider: "SqlConnection"
     OrchardCore__OrchardCore_Shells_Database__ConnectionString: $(DbConnection2)
