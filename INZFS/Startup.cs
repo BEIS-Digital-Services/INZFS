@@ -44,7 +44,7 @@ namespace INZFS
 
                 services.AddStackExchangeRedisCache(options =>
                     {
-                        options.Configuration = Configuration["MyRedisConStr"];
+                        options.Configuration = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Redis__Configuration");
                         options.InstanceName = "EEF";
                     });
                 }
