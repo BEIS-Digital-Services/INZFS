@@ -1325,6 +1325,98 @@
           }
         }
       ]
+    },
+    {
+      "Name": "EEFDocSection",
+      "DisplayName": "EEF Document Section",
+      "Settings": {
+        "ContentTypeSettings": {},
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "EEFDocSection",
+          "Name": "EEFDocSection",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "EEFDocLibPage",
+      "DisplayName": "EEF Document Library Page",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "EEFDocLibPage",
+          "Name": "EEFDocLibPage",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "AutoroutePart",
+          "Name": "AutoroutePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            },
+            "AutoroutePartSettings": {
+              "AllowCustomPath": true
+            },
+            "ContentIndexSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "BagPart",
+          "Name": "DocumentSection",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "DisplayName": "Document Section",
+              "Description": "Document Section",
+              "Position": "3"
+            },
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "EEFDocSection"
+              ]
+            },
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -2834,7 +2926,52 @@
           }
         }
       ]
+    },
+    {
+      "Name": "EEFDocSection",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "TextField",
+          "Name": "Description",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Description",
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "FieldName": "MediaField",
+          "Name": "EEFDocumentLibraryPickerField",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "EEF Document Library Picker Field",
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "EEFDocLibPage",
+      "Settings": {},
+      "ContentPartFieldDefinitionRecords": [
+        {
+          "FieldName": "HtmlField",
+          "Name": "Description",
+          "Settings": {
+            "ContentPartFieldSettings": {
+              "DisplayName": "Description",
+              "Editor": "Wysiwyg",
+              "Position": "0"
+            },
+            "HtmlFieldSettings": {},
+            "ContentIndexSettings": {}
+          }
+        }
+      ]
     }
   ],
-  "Identifier": "40v2n59yegmt0sn4s7cntmwccc"
+  "Identifier": "4h11nghwamk1x10dq2tc7hx5wx"
 }
