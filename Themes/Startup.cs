@@ -37,6 +37,8 @@ namespace INZFS.Theme
 
             serviceCollection.Configure<IdentityOptions>(options =>
             {
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
@@ -52,6 +54,7 @@ namespace INZFS.Theme
 
             serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
             serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("ApiKey")));
+            serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
 
         }
 

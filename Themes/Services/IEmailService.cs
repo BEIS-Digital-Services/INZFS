@@ -9,7 +9,7 @@ namespace INZFS.Theme.Services
 {
     public interface IEmailService
     {
-        Task<bool> SendEmail(string email, string templateId, Dictionary<string, object> personalisation = null);
+        Task<bool> SendEmailAsync(string email, string templateId, Dictionary<string, object> personalisation = null);
     }
 
     public class EmailService : IEmailService
@@ -22,7 +22,7 @@ namespace INZFS.Theme.Services
         }
 
 
-        public async Task<bool> SendEmail(string email, string templateId, Dictionary<string, object> personalisation = null)
+        public async Task<bool> SendEmailAsync(string email, string templateId, Dictionary<string, object> personalisation = null)
         {
             _notificationClient.SendEmail(email, templateId, personalisation);
             return await Task.FromResult(true);

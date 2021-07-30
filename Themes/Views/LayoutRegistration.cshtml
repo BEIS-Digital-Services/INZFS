@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
+    @await RenderSectionAsync("Head", false)
 </head>
 <body class="govuk-template__body ">
     <script>
@@ -96,36 +97,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
 
-    <script type="text/javascript">
-
-
-        function createPassword() {
-            var x = document.getElementById("password-create");
-            if (x.type === "password") {
-                x.type = "text";
-                document.getElementById("buttonText").innerHTML = "Hide"
-            } else {
-                x.type = "password";
-                document.getElementById("buttonText").innerHTML = "Show"
-            }
-        }
-
-        function confirmPassword() {
-            var x = document.getElementById("password-confirm");
-            if (x.type === "password") {
-                x.type = "text";
-                document.getElementById("buttonText1").innerHTML = "Hide"
-            } else {
-                x.type = "password";
-                document.getElementById("buttonText1").innerHTML = "Show"
-            }
-        }
-
-    </script>
-
-
-
-
+    @RenderSection("Scripts", false)    
 
 </body>
 </html>
