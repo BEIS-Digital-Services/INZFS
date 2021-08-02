@@ -1,13 +1,11 @@
-# Apply for the Energy Entrepreneurs Fund
+# BEIS Industrial Net Zero Funding Service (INZFS)
 
-**This service is currently in alpha**
+** This service is currently in alpha **
 
 ## Overview
-This service lets users check their eligibility for, and apply to, the Energy Entrepreneurs Fund (EEF). This is a pilot service to test whether this type of service would be suitable for other funds related to the Net Zero agenda.
+The Industrial Net Zero Funding Service (INZFS) is a public-facing UK government service developed by the Department for Business, Energy and Industrial Energy (BEIS). Once developed, the service will let users find and apply for funding opportunities related to Net Zero.
 
-## Technology
 The service is a ASP.NET Core web application using GovPaaS, MySQL and Orchard Core CMS.
 
 ## Licence
-[MIT Licence](https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE)
-
+[https://github.com/UKGovernmentBEIS/INZFS/blob/develop/LICENSE](MIT Licence)
