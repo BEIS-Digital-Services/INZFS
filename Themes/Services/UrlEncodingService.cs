@@ -18,6 +18,12 @@ namespace INZFS.Theme.Services
     {
         public string GetHexFromString(string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return String.Empty;
+            }
+
+
             var bytes = Encoding.Unicode.GetBytes(value);
 
             var stringBuilder = new StringBuilder();
@@ -30,6 +36,11 @@ namespace INZFS.Theme.Services
 
         public string GetStringFromHex(string value)
         {
+            if (string.IsNullOrEmpty(value))
+            {
+                return String.Empty;
+            }
+
             var bytes = new byte[value.Length / 2];
             for (var index = 0; index < bytes.Length; index++)
             {

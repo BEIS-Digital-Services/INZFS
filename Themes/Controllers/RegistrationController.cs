@@ -8,6 +8,7 @@ using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 using OrchardCore.Users;
 using OrchardCore.Users.Models;
 
@@ -21,7 +22,8 @@ namespace INZFS.Theme.Controllers
         private readonly SignInManager<IUser> _signInManager;
         private readonly IUrlEncodingService _encodingService;
 
-        public RegistrationController(UserManager<IUser> userManager, IEmailService emailService, SignInManager<IUser> signInManager, IUrlEncodingService encodingService)
+        public RegistrationController(UserManager<IUser> userManager, IEmailService emailService,
+            SignInManager<IUser> signInManager, IUrlEncodingService encodingService)
         {
             _userManager = userManager;
             _emailService = emailService;
@@ -35,9 +37,9 @@ namespace INZFS.Theme.Controllers
         {
 
             return View(new RegistrationViewModel());
-        } 
-        
-        
+        }
+
+
         [AllowAnonymous]
         [HttpPost]
         public async Task<IActionResult> Register(RegistrationViewModel model, string returnUrl)
@@ -63,10 +65,9 @@ namespace INZFS.Theme.Controllers
 
                     if (result.Succeeded)
                     {
-                        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                        var tokenLink = Url.Action("Verify", "Account", new { token = token, email = model.Email }, Request.Scheme);
-                        await SendRegistrationEmail(model.Email, tokenLink);
-                        return RedirectToAction("Success", new {token = _encodingService.GetHexFromString(model.Email)});
+                        var idToken = _encodingService.GetHexFromString(model.Email);
+                        await SendEmail(user, model.Email, idToken, returnUrl);
+                        return RedirectToAction("Success", new {token = idToken});
                     }
                     else
                     {
@@ -78,28 +79,71 @@ namespace INZFS.Theme.Controllers
                     }
                 }
             }
+
             return View("Register", model);
         }
 
 
+
+
         [AllowAnonymous]
         [HttpGet]
-        public async Task<IActionResult> Success(string token)
+        public async Task<IActionResult> Success(string token, bool toVerify = false)
         {
             var email = _encodingService.GetStringFromHex(token);
-            return View(new RegistrationSuccessViewModel(){Email = email});
+            return View(new RegistrationSuccessViewModel() {Email = email, VerificationRequired = toVerify});
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> Resend(string token, bool toVerify = false)
+        {
+            var email = _encodingService.GetStringFromHex(token);
+            var user = await FindUserAsync(email);
+            if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
+            {
+                await SendEmail(user, email, token, string.Empty);
+            }
+
+            return RedirectToAction("Success", new {token, toVerify});
         }
 
 
-        [HttpGet("Verify")]
+        [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Verify(string returnUrl = null)
+        public async Task<IActionResult> Verify(string token, string idtoken, string returnUrl = null)
         {
 
-            return View();
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                return RedirectToAction("LogOff", "Account", new {area = "INZFS.Theme"});
+            }
+
+            var email = _encodingService.GetStringFromHex(idtoken);
+            var user = await FindUserAsync(email);
+
+            if (user != null)
+            {
+                var result = await _userManager.ConfirmEmailAsync(user, token);
+
+                if (result.Succeeded)
+                {
+                    return View("Verified");
+                }
+                else
+                {
+                    if (result.Errors?.Any() ?? false)
+                    {
+                        ModelState.AddModelError("", "Invalid Token");
+                    }
+                }
+            }
+
+            return View("Verified");
+
         }
 
-       
+
         private async Task<IUser> FindUserAsync(string userName)
         {
             var user = await _userManager.FindByEmailAsync(userName);
@@ -111,17 +155,17 @@ namespace INZFS.Theme.Controllers
             return user;
         }
 
-        private async Task SendRegistrationEmail(string modelEmail, string tokenLink)
+        private async Task SendEmail(IUser user, string email, string idToken, string returnUrl)
         {
-            await _emailService.SendEmailAsync(modelEmail, "3743ba10-430d-4e53-a620-a017d925dc08", new Dictionary<string, object>(){{"Url", tokenLink } });
+            
+            var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+            var tokenLink = Url.Action("Verify", "Registration",
+                new {area = "INZFS.Theme", token = token, idtoken = idToken, returnUrl = returnUrl}, Request.Scheme);
+
+            //TODO: the template id should be moved to DB or Orchard workflow
+            await _emailService.SendEmailAsync(email, "3743ba10-430d-4e53-a620-a017d925dc08",
+                new Dictionary<string, object>() {{"Url", tokenLink}});
         }
 
     }
-
-
-    public class AccountOptions
-    {
-       public static string RegistrationUserAlreadyExists = "User Name already taken";
-    }
-
 }
