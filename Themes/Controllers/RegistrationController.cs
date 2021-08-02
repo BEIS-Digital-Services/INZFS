@@ -83,7 +83,7 @@ namespace INZFS.Theme.Controllers
 
 
         [AllowAnonymous]
-        [HttpGet("{token}")]
+        [HttpGet]
         public async Task<IActionResult> Success(string token)
         {
             var email = _encodingService.GetStringFromHex(token);
