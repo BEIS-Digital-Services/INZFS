@@ -26,6 +26,7 @@
 	  <PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-16369" />
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-16369" />
     <PackageReference Include="nClam" Version="5.0.1" />
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +35,9 @@
 	  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 	  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 	</Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Remove="ClosedXML" />
   </ItemGroup>
 </Project>
 
