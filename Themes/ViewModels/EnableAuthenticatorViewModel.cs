@@ -24,6 +24,7 @@ namespace INZFS.Theme.ViewModels
     {
         [Required(ErrorMessage = "Authenticator Code is required")]
         public string AuthenticatorCode { get; set; }
-        
+        public bool IsActivated { get; set; }
+
     }
 }

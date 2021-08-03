@@ -1,0 +1,44 @@
+﻿@model INZFS.Theme.ViewModels.EnableTwoFactorOptionViewModel
+@{
+    Layout = "_Layout";
+}
+
+
+
+    <div class="govuk-width-container">
+
+
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Choose verification method</h1>
+            </div>
+        </div>
+
+        <div class="govuk-grid-row">
+
+            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+
+                <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
+                    <div class="govuk-radios govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-Authenticator" name="Authenticator" type="radio" value="Authenticator" checked="checked" >
+                            <label class="govuk-label govuk-radios__label">
+                                Email
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="radio-no" name="Authenticator" type="radio" value="SMS" disabled="disabled">
+                            <label class="govuk-label govuk-radios__label">
+                                SMS
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+                <br /><br />
+               
+                <a href="#">
+                    <button class="govuk-button" data-module="govuk-button">Continue</button>
+                </a>
+            </div>
+        </div>
+    </div>

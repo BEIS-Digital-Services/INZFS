@@ -130,15 +130,10 @@ namespace INZFS.Theme.Controllers
                 {
                     return View("Verified");
                 }
-                else
-                {
-                    if (result.Errors?.Any() ?? false)
-                    {
-                        ModelState.AddModelError("", "Invalid Token");
-                    }
-                }
+               
             }
 
+            ModelState.AddModelError("", "Invalid Token");
             return View("Verified");
 
         }

@@ -34,9 +34,16 @@ namespace INZFS.Theme.Controllers
 
         public async Task<IActionResult> Select(string returnUrl)
         {
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            if (await IsTwoFactorActivated(user))
+            {
+                return RedirectToAction("AuthenticatorCode", new { returnUrl });
+            }
+
             var model = new EnableTwoFactorOptionViewModel();
 
-            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            
             model.IsActivated = await IsTwoFactorActivated(user);
 
             if (model.IsActivated)
@@ -49,7 +56,9 @@ namespace INZFS.Theme.Controllers
             }
 
             return View(model);
-        }
+        } 
+        
+        
 
         public async Task<IActionResult> ScanQr(string returnUrl)
         {
@@ -69,6 +78,8 @@ namespace INZFS.Theme.Controllers
         public async Task<IActionResult> AuthenticatorCode(string returnUrl)
         {
             var model = new EnableAuthenticatorCodeViewModel();
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+            model.IsActivated = await IsTwoFactorActivated(user);
             return View(model);
         }
 
@@ -112,6 +123,28 @@ namespace INZFS.Theme.Controllers
 
             return View(model);
         }
+
+
+        public async Task<IActionResult> Alternative(string returnUrl)
+        {
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            var model = new EnableTwoFactorOptionViewModel();
+            
+            model.IsActivated = await IsTwoFactorActivated(user);
+
+            if (model.IsActivated)
+            {
+                model.LoginAction = "AuthenticatorCode";
+            }
+            else
+            {
+                model.LoginAction = "ScanQr";
+            }
+
+            return View(model);
+        }
+
 
         private async Task<bool> IsTwoFactorActivated(IUser user)
         {
