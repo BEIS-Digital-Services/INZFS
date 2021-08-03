@@ -30,6 +30,8 @@ namespace INZFS
             services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
+                options.Cookie.Name = "JSESSIONID";
+                options.Cookie.IsEssential = true;
             });
 
                 if (_environment.IsDevelopment())
