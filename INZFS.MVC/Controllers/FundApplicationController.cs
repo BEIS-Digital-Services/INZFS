@@ -870,12 +870,18 @@ namespace INZFS.MVC.Controllers
                 currentModel.DataInput = field?.Data;
             }
             var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
-
-
+            //var sectionQuestions = _applicationDefinition.Application.Sections.ToQuestion 
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
-            currentModel.QuestionNumber = index + 1;
+
+            var SectionPage = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            currentModel.QuestionNumber = SectionPage + 1;
             currentModel.TotalQuestions = section.Pages.Count;
+
+            for (int i = 0; i < currentModel.TotalQuestions; i++)
+            {
+
+            }
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
                 currentModel.ContinueButtonText = section.ContinueButtonText;
