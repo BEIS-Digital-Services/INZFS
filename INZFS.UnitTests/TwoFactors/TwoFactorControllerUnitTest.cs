@@ -36,14 +36,14 @@ namespace INZFS.UnitTests.TwoFactors
         public async Task Select_Should_Populate_Scan_Qr_Code_If_2Fa_Not_Activated()
         {
             var result = await _builder.Build().Select(returnUrl);
-            result.As<ViewResult>().Model.As<EnableTwoFactorOptionViewModel>().LoginAction.Should().Be("ScanQr");
+            result.As<ViewResult>().Model.As<ChooseVerificationMethodViewModel>().AuthenticationMethod.Should().Be("");
         }
 
         [TestMethod]
         public async Task Select_Should_Populate_Authenticator_Code_If_2Fa_Is_Activated()
         {
             var result = await _builder.With2FactorEnabled().Build().Select(returnUrl);
-            result.As<ViewResult>().Model.As<EnableTwoFactorOptionViewModel>().LoginAction.Should().Be("AuthenticatorCode");
+            result.As<ViewResult>().Model.As<ChooseVerificationMethodViewModel>().AuthenticationMethod.Should().Be("");
         }
 
         [TestMethod]

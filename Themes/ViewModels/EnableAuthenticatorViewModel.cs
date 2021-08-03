@@ -7,10 +7,16 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.ViewModels
 {
-    public class EnableTwoFactorOptionViewModel
+    public class ChooseVerificationMethodViewModel
     {
-        public string LoginAction { get; set; }
-        public bool IsActivated { get; set; }
+        [Required(ErrorMessage = "The choose verification method field is required.")]
+        public AuthenticationMethod? AuthenticationMethod { get; set; }
+    }
+
+    public class AddPhoneNumberViewModel
+    {
+        [Required(ErrorMessage = "The phone number field is required.")]
+        public string PhoneNumber { get; set; }
     }
 
     public class EnableAuthenticatorQrCodeViewModel
@@ -22,9 +28,17 @@ namespace INZFS.Theme.ViewModels
 
     public class EnableAuthenticatorCodeViewModel
     {
-        [Required(ErrorMessage = "Authenticator Code is required")]
+        [Required(ErrorMessage = "The authenticator code field is required")]
         public string AuthenticatorCode { get; set; }
         public bool IsActivated { get; set; }
 
+    }
+
+    public enum AuthenticationMethod
+    {
+        None,
+        Authenticator,
+        SMS,
+        Email
     }
 }

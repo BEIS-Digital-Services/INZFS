@@ -50,7 +50,7 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<ITwoFactorAuthenticationService, TwoFactorAuthenticationService>();
             serviceCollection.AddScoped<IUserStore<IUser>, UserTwoFactorStore>();
             serviceCollection.AddScoped<IUserTwoFactorSettingsService, UserTwoFactorSettingsService>();
-            serviceCollection.AddScoped<IEmailService, EmailService>();
+            serviceCollection.AddScoped<INotificationService, NotificationService>();
 
             serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
             serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("ApiKey")));

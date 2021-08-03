@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -32,6 +33,7 @@ namespace INZFS.Theme.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Select(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -41,25 +43,32 @@ namespace INZFS.Theme.Controllers
                 return RedirectToAction("AuthenticatorCode", new { returnUrl });
             }
 
-            var model = new EnableTwoFactorOptionViewModel();
-
-            
-            model.IsActivated = await IsTwoFactorActivated(user);
-
-            if (model.IsActivated)
+            var model = new ChooseVerificationMethodViewModel();
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Select(ChooseVerificationMethodViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
             {
-                model.LoginAction = "AuthenticatorCode";
-            }
-            else
-            {
-                model.LoginAction = "ScanQr";
+                if (model.AuthenticationMethod == AuthenticationMethod.Authenticator)
+                {
+                    return RedirectToAction("ScanQr", new {returnUrl});
+                }
+                
+                if (model.AuthenticationMethod == AuthenticationMethod.SMS)
+                {
+                    return RedirectToAction("AddPhoneNumber", new { returnUrl });
+                }
+
+                ModelState.AddModelError(nameof(model.AuthenticationMethod), "Invalid selection");
             }
 
             return View(model);
-        } 
-        
-        
+        }
 
+        
         public async Task<IActionResult> ScanQr(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -72,7 +81,34 @@ namespace INZFS.Theme.Controllers
             var model = await _twoFactorAuthenticationService.GetSharedKeyAndQrCodeUriAsync(user);
 
             return View(model);
+        }  
+        
+        [HttpGet]
+        public async Task<IActionResult> AddPhoneNumber(string returnUrl)
+        {
+            var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+
+            if (await IsTwoFactorActivated(user))
+            {
+                return RedirectToAction("AuthenticatorCode", new { returnUrl });
+            }
+
+            var model = new AddPhoneNumberViewModel();
+
+            return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+
+            }
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> AuthenticatorCode(string returnUrl)
@@ -128,21 +164,8 @@ namespace INZFS.Theme.Controllers
         public async Task<IActionResult> Alternative(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-
-            var model = new EnableTwoFactorOptionViewModel();
-            
-            model.IsActivated = await IsTwoFactorActivated(user);
-
-            if (model.IsActivated)
-            {
-                model.LoginAction = "AuthenticatorCode";
-            }
-            else
-            {
-                model.LoginAction = "ScanQr";
-            }
-
-            return View(model);
+            var model = new ChooseVerificationMethodViewModel();
+           return View(model);
         }
 
 

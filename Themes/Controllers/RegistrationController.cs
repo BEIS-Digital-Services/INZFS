@@ -18,15 +18,15 @@ namespace INZFS.Theme.Controllers
     public class RegistrationController : Controller
     {
         private readonly UserManager<IUser> _userManager;
-        private readonly IEmailService _emailService;
+        private readonly INotificationService _notificationService;
         private readonly SignInManager<IUser> _signInManager;
         private readonly IUrlEncodingService _encodingService;
 
-        public RegistrationController(UserManager<IUser> userManager, IEmailService emailService,
+        public RegistrationController(UserManager<IUser> userManager, INotificationService notificationService,
             SignInManager<IUser> signInManager, IUrlEncodingService encodingService)
         {
             _userManager = userManager;
-            _emailService = emailService;
+            _notificationService = notificationService;
             _signInManager = signInManager;
             _encodingService = encodingService;
         }
@@ -35,7 +35,6 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Register(string returnUrl)
         {
-
             return View(new RegistrationViewModel());
         }
 
@@ -158,7 +157,7 @@ namespace INZFS.Theme.Controllers
                 new {area = "INZFS.Theme", token = token, idtoken = idToken, returnUrl = returnUrl}, Request.Scheme);
 
             //TODO: the template id should be moved to DB or Orchard workflow
-            await _emailService.SendEmailAsync(email, "3743ba10-430d-4e53-a620-a017d925dc08",
+            await _notificationService.SendEmailAsync(email, "3743ba10-430d-4e53-a620-a017d925dc08",
                 new Dictionary<string, object>() {{"Url", tokenLink}});
         }
 
