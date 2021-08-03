@@ -122,7 +122,7 @@ namespace INZFS.Theme.Controllers
             var email = _encodingService.GetStringFromHex(idtoken);
             var user = await FindUserAsync(email);
 
-            if (user != null)
+            if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
             {
                 var result = await _userManager.ConfirmEmailAsync(user, token);
 
