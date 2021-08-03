@@ -229,9 +229,9 @@
       "DisplayName": "Form",
       "Settings": {
         "ContentTypeSettings": {
-          "Stereotype": "Widget",
           "Creatable": true,
-          "Listable": true
+          "Listable": true,
+          "Stereotype": "Widget"
         },
         "FullTextAspectSettings": {}
       },
@@ -2942,5 +2942,5 @@
       ]
     }
   ],
-  "Identifier": "43ck4n6v0zqvnx21gwyqbq7snm"
+  "Identifier": "402v4n93vmhwd3g25e959f1mwf"
 }
