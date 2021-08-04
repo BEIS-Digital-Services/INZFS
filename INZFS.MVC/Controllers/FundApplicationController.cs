@@ -333,6 +333,11 @@ namespace INZFS.MVC.Controllers
                         {
                             ModelState.AddModelError("DataInput", "No file was uploaded.");
                         }
+                        else
+                        {
+                            additionalInformation = existingData.AdditionalInformation;
+                        }
+
                     }
                 }
 
@@ -351,13 +356,12 @@ namespace INZFS.MVC.Controllers
                     if (currentPage.FieldType == FieldType.gdsFileUpload)
                     {
                         // TODO Delete  the old file
-                        if (!string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+
+                        bool fileHasChanged = additionalInformation != existingFieldData?.AdditionalInformation;
+                        if (fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
-                        }
-                        if(submitAction == "DeleteFile")
-                        {
                             additionalInformation = null;
                         }
 
