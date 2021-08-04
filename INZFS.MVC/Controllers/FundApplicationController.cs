@@ -221,6 +221,27 @@ namespace INZFS.MVC.Controllers
         [FormValueRequired("submit.Publish")]
         public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitAction, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
+            var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+            if (currentPage.FieldType == FieldType.gdsFileUpload)
+            {
+                if (file != null)
+                {
+                    var errorMessage = await _fileUploadService.Validate(file);
+                    if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        //TODO - Handle validation Error
+                        ModelState.AddModelError("DataInput", errorMessage);
+                    }
+                }
+                else
+                {
+                    //TODO - Handle validation Error
+                    if (submitAction != "DeleteFile")
+                    {
+                        ModelState.AddModelError("DataInput", "No file was uploaded.");
+                    }
+                }
+            }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
                 var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
@@ -230,25 +251,23 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Application = new Application();
                     contentToSave.Author = User.Identity.Name;
                     contentToSave.CreatedUtc = DateTime.UtcNow;
-                    //newContent.Application.Sections = new Sections();
-                    //newContent.Application.Sections.Pages = new List<Page>();
                 }
 
                 contentToSave.ModifiedUtc = DateTime.UtcNow;
 
-                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                
                 string publicUrl = string.Empty;
                 var additionalInformation = string.Empty;
                 if (currentPage.FieldType == FieldType.gdsFileUpload)
                 {
                     if (file != null)
                     {
-                        var errorMessage = await _fileUploadService.Validate(file);
-                        if (!string.IsNullOrEmpty(errorMessage))
-                        {
-                            //TODO - Handle validation Error
-                            ModelState.AddModelError("DataInput", errorMessage);
-                        }
+                        //var errorMessage = await _fileUploadService.Validate(file);
+                        //if (!string.IsNullOrEmpty(errorMessage))
+                        //{
+                        //    //TODO - Handle validation Error
+                        //    ModelState.AddModelError("DataInput", errorMessage);
+                        //}
 
                         var directoryName = Guid.NewGuid().ToString();
                         publicUrl = await _fileUploadService.SaveFile(file, directoryName);
@@ -261,7 +280,7 @@ namespace INZFS.MVC.Controllers
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
 
-                        if (file.FileName.Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
+                        if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             // If env is Development, prepend local filepath to publicUrl to ensure functionality
                             if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
@@ -318,7 +337,7 @@ namespace INZFS.MVC.Controllers
                             catch (InvalidDataException e)
                             {
                                 ModelState.AddModelError("DataInput", "Invalid file uploaded");
-
+                                return PopulateViewModel(currentPage, model);
                             }
                         }
 
@@ -327,7 +346,7 @@ namespace INZFS.MVC.Controllers
                     else
                     {
                         //TODO - Handle validation Error
-                        if(submitAction != "DeleteFile")
+                        if (submitAction != "DeleteFile")
                         {
                             ModelState.AddModelError("DataInput", "No file was uploaded.");
                         }
@@ -383,16 +402,14 @@ namespace INZFS.MVC.Controllers
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
 
-
-
-                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
-
-                var inSection = section.Pages.Contains(nextPage);
-
                 if (nextPage == null)
                 {
                     return NotFound();
                 }
+
+                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+
+                var inSection = section.Pages.Contains(nextPage);
 
                 if (!inSection)
                 {
@@ -408,7 +425,6 @@ namespace INZFS.MVC.Controllers
             else
             {
                 _session.Cancel();
-                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
         }
@@ -869,11 +885,11 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-            var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
-
-
+            
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
+            var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = section.Pages.Count;
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
@@ -905,11 +921,6 @@ namespace INZFS.MVC.Controllers
 
             currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
 
-            var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
-            if (previousPage != null)
-            {
-                currentModel.PreviousPageName = previousPage.Name;
-            }
             return currentModel;
         }
 
