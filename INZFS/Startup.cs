@@ -21,19 +21,11 @@ namespace INZFS
             Configuration = configuration;
             _environment = environment;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
-                options.Cookie.Name = "JSESSIONID";
-                options.Cookie.IsEssential = true;
-            });
-
                 if (_environment.IsDevelopment())
                 {
                 services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
@@ -50,6 +42,10 @@ namespace INZFS
                         options.InstanceName = "EEF";
                     });
                 }
+                services.AddSession(options =>
+                    {
+                        options.IdleTimeout = TimeSpan.FromMinutes(20);
+                    });
             }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
