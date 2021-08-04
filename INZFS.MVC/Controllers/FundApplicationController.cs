@@ -326,8 +326,10 @@ namespace INZFS.MVC.Controllers
                     }
                     else
                     {
+                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+
                         //TODO - Handle validation Error
-                        if(submitAction != "DeleteFile")
+                        if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                         {
                             ModelState.AddModelError("DataInput", "No file was uploaded.");
                         }
