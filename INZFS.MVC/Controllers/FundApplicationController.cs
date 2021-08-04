@@ -358,7 +358,7 @@ namespace INZFS.MVC.Controllers
                         // TODO Delete  the old file
 
                         bool fileHasChanged = additionalInformation != existingFieldData?.AdditionalInformation;
-                        if (fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+                        if ((fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation)) || submitAction == "DeleteFile")
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
