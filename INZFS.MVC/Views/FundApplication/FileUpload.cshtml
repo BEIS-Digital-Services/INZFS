@@ -94,12 +94,12 @@
             <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
         *@
 
-        @if (!string.IsNullOrEmpty(Model.DataInput))
+        @if (Model.UploadedFile != null)
         {
             <dl class="govuk-summary-list fileTable">
                 <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-                    @Model.DataInput
+                    @Model.UploadedFile.Name
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.UploadedFile.Size MB
