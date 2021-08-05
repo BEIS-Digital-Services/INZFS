@@ -3,9 +3,6 @@ applications:
 - instances: $(instanceNumber)
   memory: 2G
   route-path: london.cloudapps.digital
-  properties:
-    router:
-      sticky_session_cookie_names: ["AspNetStickySessionID"]
   env:
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__RecipeName: $(Recipe)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseConnectionString: $(DbConnection)
