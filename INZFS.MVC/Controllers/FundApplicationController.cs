@@ -424,7 +424,8 @@ namespace INZFS.MVC.Controllers
             }
             else
             {
-                _session.Cancel();
+                await _session.CancelAsync();
+                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
         }
@@ -511,7 +512,7 @@ namespace INZFS.MVC.Controllers
 
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+               await _session.CancelAsync();
                 return View("Create", model);
             }
 
@@ -602,7 +603,7 @@ namespace INZFS.MVC.Controllers
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItemToUpdate, _updateModelAccessor.ModelUpdater, false);
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+                await _session.CancelAsync();
                 return View("Edit", model);
             }
 

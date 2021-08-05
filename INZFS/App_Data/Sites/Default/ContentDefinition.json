@@ -1,105 +1,224 @@
 {
   "ContentTypeDefinitionRecords": [
     {
-      "Name": "LinkMenuItem",
-      "DisplayName": "Link Menu Item",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Stereotype": "MenuItem"
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "LinkMenuItemPart",
-          "Name": "LinkMenuItemPart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
-            }
-          }
-        },
-        {
-          "PartName": "LinkMenuItem",
-          "Name": "LinkMenuItem",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "1"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "Name": "ContentMenuItem",
-      "DisplayName": "Content Menu Item",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Stereotype": "MenuItem"
-        },
-        "FullTextAspectSettings": {}
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ContentMenuItemPart",
-          "Name": "ContentMenuItemPart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
-            }
-          }
-        },
-        {
-          "PartName": "ContentMenuItem",
-          "Name": "ContentMenuItem",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "1"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "Name": "BlogPost",
-      "DisplayName": "Blog Post",
+      "Name": "CompanyDetails",
+      "DisplayName": "Company Details",
       "Settings": {
         "ContentTypeSettings": {
           "Creatable": true,
-          "Listable": true,
-          "Draftable": true,
-          "Versionable": true,
-          "Securable": true
-        },
-        "FullTextAspectSettings": {}
+          "Listable": true
+        }
       },
       "ContentTypePartDefinitionRecords": [
         {
-          "PartName": "BlogPost",
-          "Name": "BlogPost",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "2"
-            }
-          }
-        },
+          "PartName": "CompanyDetailsPart",
+          "Name": "CompanyDetailsPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectSummaryPart",
+      "DisplayName": "Project Summary Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
         {
-          "PartName": "MarkdownBodyPart",
-          "Name": "MarkdownBodyPart",
+          "PartName": "ProjectSummaryPart",
+          "Name": "ProjectSummaryPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectDetailsPart",
+      "DisplayName": "Project Details Part",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProjectDetailsPart",
+          "Name": "ProjectDetailsPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "Funding",
+      "DisplayName": "Funding",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "OrgFundingPart",
+          "Name": "OrgFundingPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectProposalDetails",
+      "DisplayName": "Project Proposal Details",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProjectProposalDetailsPart",
+          "Name": "ProjectProposalDetailsPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ProjectExperience",
+      "DisplayName": "Project Experience",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ProjectExperiencePart",
+          "Name": "ProjectExperiencePart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "FinanceTurnover",
+      "DisplayName": "Finance Turnover",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FinanceTurnoverPart",
+          "Name": "FinanceTurnoverPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "FinanceBalanceSheet",
+      "DisplayName": "Finance Balance Sheet",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FinanceBalanceSheetPart",
+          "Name": "FinanceBalanceSheetPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "FinanceRecoverVat",
+      "DisplayName": "Finance Recover Vat",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FinanceRecoverVatPart",
+          "Name": "FinanceRecoverVatPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "FinanceBarriers",
+      "DisplayName": "Finance Barriers",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "FinanceBarriersPart",
+          "Name": "FinanceBarriersPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "ApplicationDocument",
+      "DisplayName": "Application Document",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ApplicationDocumentPart",
+          "Name": "ApplicationDocumentPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "INZFSApplicationContainer",
+      "DisplayName": "I N Z F S Application Container",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BagPart",
+          "Name": "BagPart",
           "Settings": {
             "ContentTypePartSettings": {
-              "Position": "1",
-              "Editor": "Wysiwyg"
+              "DisplayName": "INZFS Application",
+              "Description": "INZFSApplication description"
             },
-            "ContentIndexSettings": {},
-            "MarkdownBodyPartSettings": {}
-          }
-        },
-        {
-          "PartName": "TitlePart",
-          "Name": "TitlePart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
+            "BagPartSettings": {
+              "ContainedContentTypes": [
+                "CompanyDetails",
+                "ProjectSummaryPart",
+                "ProjectDetailsPart",
+                "OrgFundingPart",
+                "ProjectProposalDetails",
+                "ApplicationDocument",
+                "ProjectExperience",
+                "FinanceTurnover",
+                "FinanceBalanceSheet",
+                "FinanceRecoverVat",
+                "FinanceBarriers"
+              ]
             }
           }
         }
@@ -325,6 +444,189 @@
       ]
     },
     {
+      "Name": "Menu",
+      "DisplayName": "Menu",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "AliasPart",
+          "Name": "AliasPart",
+          "Settings": {
+            "AliasPartSettings": {
+              "Pattern": "{{ ContentItem | display_text | slugify }}"
+            },
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        },
+        {
+          "PartName": "MenuPart",
+          "Name": "MenuPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "MenuItemsListPart",
+          "Name": "MenuItemsListPart",
+          "Settings": {}
+        }
+      ]
+    },
+    {
+      "Name": "LinkMenuItem",
+      "DisplayName": "Link Menu Item",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "MenuItem"
+        }
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "LinkMenuItemPart",
+          "Name": "LinkMenuItemPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "LinkMenuItem",
+          "Name": "LinkMenuItem",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "ContentMenuItem",
+      "DisplayName": "Content Menu Item",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "MenuItem"
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "ContentMenuItemPart",
+          "Name": "ContentMenuItemPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "ContentMenuItem",
+          "Name": "ContentMenuItem",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "HtmlMenuItem",
+      "DisplayName": "Html Menu Item",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Stereotype": "MenuItem"
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "HtmlMenuItemPart",
+          "Name": "HtmlMenuItemPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        },
+        {
+          "PartName": "HtmlMenuItem",
+          "Name": "HtmlMenuItem",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "Name": "BlogPost",
+      "DisplayName": "Blog Post",
+      "Settings": {
+        "ContentTypeSettings": {
+          "Creatable": true,
+          "Listable": true,
+          "Draftable": true,
+          "Versionable": true,
+          "Securable": true
+        },
+        "FullTextAspectSettings": {}
+      },
+      "ContentTypePartDefinitionRecords": [
+        {
+          "PartName": "BlogPost",
+          "Name": "BlogPost",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "2"
+            }
+          }
+        },
+        {
+          "PartName": "MarkdownBodyPart",
+          "Name": "MarkdownBodyPart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "1",
+              "Editor": "Wysiwyg"
+            },
+            "ContentIndexSettings": {},
+            "MarkdownBodyPartSettings": {}
+          }
+        },
+        {
+          "PartName": "TitlePart",
+          "Name": "TitlePart",
+          "Settings": {
+            "ContentTypePartSettings": {
+              "Position": "0"
+            }
+          }
+        }
+      ]
+    },
+    {
       "Name": "FundApplication",
       "DisplayName": "Fund Application",
       "Settings": {
@@ -496,40 +798,6 @@
       ]
     },
     {
-      "Name": "ProjectSummaryPart",
-      "DisplayName": "Project Summary Part",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ProjectSummaryPart",
-          "Name": "ProjectSummaryPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "ProjectDetailsPart",
-      "DisplayName": "Project Details Part",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ProjectDetailsPart",
-          "Name": "ProjectDetailsPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
       "Name": "OrgFundingPart",
       "DisplayName": "Org Funding Part",
       "Settings": {
@@ -543,179 +811,6 @@
           "PartName": "OrgFundingPart",
           "Name": "OrgFundingPart",
           "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "CompanyDetails",
-      "DisplayName": "Company Details",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "CompanyDetailsPart",
-          "Name": "CompanyDetailsPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "ProjectProposalDetails",
-      "DisplayName": "Project Proposal Details",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ProjectProposalDetailsPart",
-          "Name": "ProjectProposalDetailsPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "ProjectExperience",
-      "DisplayName": "Project Experience",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ProjectExperiencePart",
-          "Name": "ProjectExperiencePart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "FinanceTurnover",
-      "DisplayName": "Finance Turnover",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "FinanceTurnoverPart",
-          "Name": "FinanceTurnoverPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "FinanceBalanceSheet",
-      "DisplayName": "Finance Balance Sheet",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "FinanceBalanceSheetPart",
-          "Name": "FinanceBalanceSheetPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "FinanceRecoverVat",
-      "DisplayName": "Finance Recover Vat",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "FinanceRecoverVatPart",
-          "Name": "FinanceRecoverVatPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "FinanceBarriers",
-      "DisplayName": "Finance Barriers",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "FinanceBarriersPart",
-          "Name": "FinanceBarriersPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "ApplicationDocument",
-      "DisplayName": "Application Document",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "ApplicationDocumentPart",
-          "Name": "ApplicationDocumentPart",
-          "Settings": {}
-        }
-      ]
-    },
-    {
-      "Name": "INZFSApplicationContainer",
-      "DisplayName": "I N Z F S Application Container",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true
-        }
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "BagPart",
-          "Name": "BagPart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "DisplayName": "INZFS Application",
-              "Description": "INZFSApplication description"
-            },
-            "BagPartSettings": {
-              "ContainedContentTypes": [
-                "CompanyDetails",
-                "ProjectSummaryPart",
-                "ProjectDetailsPart",
-                "OrgFundingPart",
-                "ProjectProposalDetails",
-                "ApplicationDocument",
-                "ProjectExperience",
-                "FinanceTurnover",
-                "FinanceBalanceSheet",
-                "FinanceRecoverVat",
-                "FinanceBarriers"
-              ]
-            }
-          }
         }
       ]
     },
@@ -1325,98 +1420,6 @@
           }
         }
       ]
-    },
-    {
-      "Name": "EEFDocSection",
-      "DisplayName": "EEF Document Section",
-      "Settings": {
-        "ContentTypeSettings": {},
-        "FullTextAspectSettings": {}
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "EEFDocSection",
-          "Name": "EEFDocSection",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "1"
-            }
-          }
-        },
-        {
-          "PartName": "TitlePart",
-          "Name": "TitlePart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "Name": "EEFDocLibPage",
-      "DisplayName": "EEF Document Library Page",
-      "Settings": {
-        "ContentTypeSettings": {
-          "Creatable": true,
-          "Listable": true,
-          "Draftable": true,
-          "Versionable": true,
-          "Securable": true
-        },
-        "FullTextAspectSettings": {}
-      },
-      "ContentTypePartDefinitionRecords": [
-        {
-          "PartName": "EEFDocLibPage",
-          "Name": "EEFDocLibPage",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "2"
-            }
-          }
-        },
-        {
-          "PartName": "AutoroutePart",
-          "Name": "AutoroutePart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "0"
-            },
-            "AutoroutePartSettings": {
-              "AllowCustomPath": true
-            },
-            "ContentIndexSettings": {}
-          }
-        },
-        {
-          "PartName": "TitlePart",
-          "Name": "TitlePart",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "Position": "1"
-            }
-          }
-        },
-        {
-          "PartName": "BagPart",
-          "Name": "DocumentSection",
-          "Settings": {
-            "ContentTypePartSettings": {
-              "DisplayName": "Document Section",
-              "Description": "Document Section",
-              "Position": "3"
-            },
-            "BagPartSettings": {
-              "ContainedContentTypes": [
-                "EEFDocSection"
-              ]
-            },
-            "ContentIndexSettings": {}
-          }
-        }
-      ]
     }
   ],
   "ContentPartDefinitionRecords": [
@@ -1497,6 +1500,97 @@
           "Attachable": true,
           "Reusable": true,
           "Description": "Provides a collection behavior for your content item where you can place other content items."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FormPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Attachable": true,
+          "Description": "Turns your content item into a form."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FormElementPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides attributes common to all form elements."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "FormInputElementPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides attributes common to all input form elements."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "LabelPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides label properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "InputPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides input field properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "TextAreaPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides text area properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "SelectPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides select field properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ButtonPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Provides button properties."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ValidationSummaryPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Displays a validation summary."
+        }
+      },
+      "ContentPartFieldDefinitionRecords": []
+    },
+    {
+      "Name": "ValidationPart",
+      "Settings": {
+        "ContentPartSettings": {
+          "Description": "Displays a field validation error."
         }
       },
       "ContentPartFieldDefinitionRecords": []
@@ -1591,92 +1685,12 @@
       ]
     },
     {
-      "Name": "FormPart",
+      "Name": "HtmlMenuItemPart",
       "Settings": {
         "ContentPartSettings": {
           "Attachable": true,
-          "Description": "Turns your content item into a form."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "FormElementPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides attributes common to all form elements."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "FormInputElementPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides attributes common to all input form elements."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "LabelPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides label properties."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "InputPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides input field properties."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "TextAreaPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides text area properties."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "SelectPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides select field properties."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "ButtonPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Provides button properties."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "ValidationSummaryPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Displays a validation summary."
-        }
-      },
-      "ContentPartFieldDefinitionRecords": []
-    },
-    {
-      "Name": "ValidationPart",
-      "Settings": {
-        "ContentPartSettings": {
-          "Description": "Displays a field validation error."
+          "DisplayName": "Html Menu Item",
+          "Description": "Provides a menu link behavior with a field to display html for the link text."
         }
       },
       "ContentPartFieldDefinitionRecords": []
@@ -2926,52 +2940,7 @@
           }
         }
       ]
-    },
-    {
-      "Name": "EEFDocSection",
-      "Settings": {},
-      "ContentPartFieldDefinitionRecords": [
-        {
-          "FieldName": "TextField",
-          "Name": "Description",
-          "Settings": {
-            "ContentPartFieldSettings": {
-              "DisplayName": "Description",
-              "Position": "0"
-            }
-          }
-        },
-        {
-          "FieldName": "MediaField",
-          "Name": "EEFDocumentLibraryPickerField",
-          "Settings": {
-            "ContentPartFieldSettings": {
-              "DisplayName": "EEF Document Library Picker Field",
-              "Position": "1"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "Name": "EEFDocLibPage",
-      "Settings": {},
-      "ContentPartFieldDefinitionRecords": [
-        {
-          "FieldName": "HtmlField",
-          "Name": "Description",
-          "Settings": {
-            "ContentPartFieldSettings": {
-              "DisplayName": "Description",
-              "Editor": "Wysiwyg",
-              "Position": "0"
-            },
-            "HtmlFieldSettings": {},
-            "ContentIndexSettings": {}
-          }
-        }
-      ]
     }
   ],
-  "Identifier": "4h11nghwamk1x10dq2tc7hx5wx"
+  "Identifier": "402v4n93vmhwd3g25e959f1mwf"
 }
