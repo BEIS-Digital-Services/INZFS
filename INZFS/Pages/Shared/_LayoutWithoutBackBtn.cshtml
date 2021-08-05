@@ -1,9 +1,4 @@
-﻿@using Microsoft.AspNetCore.Http
-@{
-	var sessionId = Context.Session.Id;
-	Context.Response.Cookies.Append("JSESSIONID", sessionId);
-}
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">

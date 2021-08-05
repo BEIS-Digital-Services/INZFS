@@ -1,3 +1,4 @@
+using INZFS.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -42,7 +43,7 @@ namespace INZFS
                         options.InstanceName = "EEF";
                     });
                 }
-                services.AddSession(options =>
+            services.AddSession(options =>
                     {
                         options.IdleTimeout = TimeSpan.FromMinutes(20);
                     });
@@ -63,7 +64,7 @@ namespace INZFS
             }
 
             app.UseSession();
-
+            app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSerilogRequestLogging();
