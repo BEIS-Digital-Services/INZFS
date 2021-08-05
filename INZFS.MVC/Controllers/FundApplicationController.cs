@@ -233,14 +233,14 @@ namespace INZFS.MVC.Controllers
                         ModelState.AddModelError("DataInput", errorMessage);
                     }
                 }
-                else
-                {
-                    //TODO - Handle validation Error
-                    if (submitAction != "DeleteFile")
-                    {
-                        ModelState.AddModelError("DataInput", "No file was uploaded.");
-                    }
-                }
+                //else
+                //{
+                //    //TODO - Handle validation Error
+                //    if (submitAction != "DeleteFile")
+                //    {
+                //        ModelState.AddModelError("DataInput", "No file was uploaded.");
+                //    }
+                //}
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
@@ -345,11 +345,18 @@ namespace INZFS.MVC.Controllers
                     }
                     else
                     {
+                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+
                         //TODO - Handle validation Error
-                        if (submitAction != "DeleteFile")
+                        if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                         {
                             ModelState.AddModelError("DataInput", "No file was uploaded.");
                         }
+                        else
+                        {
+                            additionalInformation = existingData.AdditionalInformation;
+                        }
+
                     }
                 }
 
@@ -368,13 +375,12 @@ namespace INZFS.MVC.Controllers
                     if (currentPage.FieldType == FieldType.gdsFileUpload)
                     {
                         // TODO Delete  the old file
-                        if (!string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+
+                        bool fileHasChanged = additionalInformation != existingFieldData?.AdditionalInformation;
+                        if ((fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation)) || submitAction == "DeleteFile")
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
-                        }
-                        if(submitAction == "DeleteFile")
-                        {
                             additionalInformation = null;
                         }
 
@@ -425,7 +431,7 @@ namespace INZFS.MVC.Controllers
             else
             {
                 await _session.CancelAsync();
-                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
         }
