@@ -21,9 +21,41 @@
         "continueButtonText": "Save and continue",
         "RazorView": "YourOrganisation",
         "pages": [
+          {
+            "name": "full-name",
+            "question": "2.1. Full Name",
+            "titleQuestion": "2.1. What is your full name?",
+            "description": "Description",
+            "errorMessage": "Please enter full name ",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Full Name",
+            "fieldName": "full-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "job-title",
+            "question": "2.2. Job Title",
+            "titleQuestion": "2.2. What is your job title?",
+            "description": "Description",
+            "errorMessage": "Please enter your job title ",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Job Title",
+            "fieldName": "job-title",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          }
 
         ]
-      },
+      }
       {
         "title": "Consortium applicant details",
         "overviewTitle": "3. Consortium applicant details",
@@ -445,7 +477,7 @@
         "continueButtonText": "Save and continue",
         "RazorView": "PerformanceData",
         "pages": [
-       ]
+        ]
       }
     ]
   }
