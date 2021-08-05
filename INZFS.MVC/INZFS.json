@@ -27,8 +27,8 @@
       {
         "title": "Consortium applicant details",
         "overviewTitle": "3. Consortium applicant details",
-        "tag": "Consortium-applicant-details",
-        "url": "Consortium-applicant-details",
+        "tag": "consortium-applicant",
+        "url": "consortium-applicant",
         "continueButtonText": "Save and continue",
         "RazorView": "ConsortiumInformation",
         "pages": [

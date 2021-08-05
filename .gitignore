@@ -343,3 +343,4 @@ healthchecksdb
 
 *.ncrunchproject
 *.ncrunchsolution
+/INZFS/App_Data/Sites/Default
