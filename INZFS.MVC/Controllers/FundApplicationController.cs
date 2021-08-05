@@ -899,6 +899,11 @@ namespace INZFS.MVC.Controllers
 
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = section.Pages.Count;
+
+            for (int i = 0; i < currentModel.TotalQuestions; i++)
+            {
+
+            }
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
                 currentModel.ContinueButtonText = section.ContinueButtonText;
