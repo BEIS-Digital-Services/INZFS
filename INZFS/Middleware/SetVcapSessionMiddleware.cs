@@ -18,7 +18,7 @@ namespace INZFS.Web.Middleware
         }
         public async Task InvokeAsync(HttpContext Context)
         {
-            Context.Response.Cookies.Append("AspNetStickySessionID", Context.Session.Id);
+            Context.Response.Cookies.Append("JSESSIONID", Context.Session.Id);
             await _next(Context);
         }
     }
