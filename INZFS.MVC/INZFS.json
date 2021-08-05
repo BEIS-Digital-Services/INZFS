@@ -52,10 +52,45 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
+          },
+          {
+            "name": "organisation-running",
+            "question": "2.3 Organisation Running",
+            "titleQuestion": "Is your organisation more than 1 year old?",
+            "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Organisation Running",
+            "fieldName": "organisation-running",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            }
+          },
+          {
+            "name": "recent-turnover",
+            "question": "2.4. Recent Turnover",
+            "titleQuestion": "2.4. Most recent annual turnover",
+            "hint": "The amount of money your business has taken over a period of 12 months.",
+            "description": "Description",
+            "errorMessage": "Please 12 month turnover value ",
+            "fieldType": "gdsCurrencyBox",
+            "friendlyFieldName": "Recent Turnover",
+            "fieldName": "recent-turnover",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
           }
-
         ]
-      }
+      },
       {
         "title": "Consortium applicant details",
         "overviewTitle": "3. Consortium applicant details",

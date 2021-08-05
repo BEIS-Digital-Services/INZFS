@@ -425,8 +425,8 @@ namespace INZFS.MVC.Controllers
             else
             {
                 await _session.CancelAsync();
-                var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
-                return PopulateViewModel(currentPage, model);
+                var _currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                return PopulateViewModel(_currentPage, model);
             }
         }
 
@@ -809,6 +809,9 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsCurrencyBox:
+                    model = new CurrencyInputModel();
+                    return View("CurrencyInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, field));
@@ -822,8 +825,6 @@ namespace INZFS.MVC.Controllers
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-
-
                     return View("DateInput", model);
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
@@ -841,6 +842,7 @@ namespace INZFS.MVC.Controllers
                     return View("FileUpload", uploadmodel);
                 default:
                     throw new Exception("Invalid field type");
+                
             }
         }
 
@@ -860,6 +862,8 @@ namespace INZFS.MVC.Controllers
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:
                     return View("FileUpload", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsCurrencyBox:
+                    return View("CurrencyInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }

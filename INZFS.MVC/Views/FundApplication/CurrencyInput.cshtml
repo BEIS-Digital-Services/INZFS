@@ -1,0 +1,85 @@
+
+@model CurrencyInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back
+    </a>
+}
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(CurrencyInputModel)" />
+
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var value = ViewData.ModelState[key];
+                        foreach (var error in value.Errors)
+                        {
+                            <li>
+                                <a href="#@Model.FieldName">@error.ErrorMessage</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
+
+    <div class="govuk-form-group">
+        <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+                @if (string.IsNullOrEmpty(Model.TitleQuestion))
+                {
+                @Model.Question
+
+                }
+                else
+                {
+                @Model.TitleQuestion
+                }
+            </label>
+        </h2>
+        @Html.Partial("_Hint", Model.Hint)
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+        <div class="govuk-input__wrapper">
+            <div class="govuk-input__prefix" aria-hidden="true">£</div>
+            <input class="govuk-input govuk-input--width-5 @(ViewData.ModelState.IsValid ? " " : " govuk-input--error")" id="currencyInput"
+                   name="DataInput" type="number" spellcheck="true" value="@Model.DataInput">
+        </div>
+    </div>
+
+    @Html.Partial("_Accordion", "")
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+
+
+
+    <div class="edit-item-secondary group">
+        <div class="edit-item-actions form-group">
+            <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+        </div>
+    </div>
+
+</form>
+
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
