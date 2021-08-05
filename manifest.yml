@@ -24,3 +24,4 @@ applications:
     OrchardCore__OrchardCore_Shells_Azure__ContainerName: $(BlobDir)
     OrchardCore__OrchardCore_Shells_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
+    GovNotifyApiKey: $(GovNotifyApiKey)
