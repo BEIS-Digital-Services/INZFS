@@ -27,16 +27,17 @@ namespace INZFS.MVC.Models.DynamicForm
                 var clock = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(DateUtc))
                 {
-                    yield return new ValidationResult("Date is not valid.", new[] { nameof(DateUtc) });
+                    yield return new ValidationResult("Please Entre In Date", new[] { nameof(DateUtc) });
+                    
                 }
                 DateTime startDate;
                 string dateToValidate = $"{Day}/{Month}/{Year}";
-                if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate)  && !string.IsNullOrEmpty(DataInput))
+                if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate)  && !string.IsNullOrEmpty(DateUtc))
                 {
                     yield return new ValidationResult("Date is not valid.", new[] { nameof(DateUtc) });
                 }
 
-                if (clock > startDate && !string.IsNullOrEmpty(DataInput))
+                if (DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate) && clock > startDate && !string.IsNullOrEmpty(DateUtc))
                 {
                     yield return new ValidationResult("Date cannot be in the past.", new[] { nameof(DateUtc) });
                 }
