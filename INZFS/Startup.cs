@@ -40,7 +40,7 @@ namespace INZFS
                 }
                 else
                 {
-                services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
+                services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Cache", "OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddAzureShellsConfiguration();
 
                 services.AddStackExchangeRedisCache(options =>
                     {
