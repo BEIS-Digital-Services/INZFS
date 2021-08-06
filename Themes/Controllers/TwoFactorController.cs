@@ -21,6 +21,7 @@ namespace INZFS.Theme.Controllers
         private readonly SignInManager<IUser> _signInManager;
         private readonly ILogger<TwoFactorController> _logger;
         private readonly INotificationService _notificationService;
+        private readonly IUrlEncodingService _encodingService;
 
         public TwoFactorController(
             UserManager<IUser> userManager,
@@ -28,7 +29,8 @@ namespace INZFS.Theme.Controllers
             IUserTwoFactorSettingsService factorSettingsService,
             SignInManager<IUser> signInManager,
             ILogger<TwoFactorController> logger, 
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IUrlEncodingService encodingService)
         {
             _userManager = userManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
@@ -36,6 +38,7 @@ namespace INZFS.Theme.Controllers
             _signInManager = signInManager;
             _logger = logger;
             _notificationService = notificationService;
+            _encodingService = encodingService;
         }
 
         [HttpGet]
@@ -45,7 +48,14 @@ namespace INZFS.Theme.Controllers
 
             if (await IsTwoFactorActivated(user))
             {
-                return RedirectToAction("EnterCode",  new { method = AuthenticationMethod.None,  returnUrl });
+                var userId = await _userManager.GetUserIdAsync(user);
+                var method = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+                if (method == AuthenticationMethod.Phone)
+                {
+                    await SendSms(user);
+                }
+                
+                return RedirectToAction("EnterCode",  new { method,  returnUrl });
             }
 
             var model = new ChooseVerificationMethodViewModel();
@@ -110,24 +120,40 @@ namespace INZFS.Theme.Controllers
             {
                 var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
                 await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
-
-                var parameters = new Dictionary<string, dynamic>();
-                parameters.Add("code", code);
-                await _notificationService.SendSmsAsync(model.PhoneNumber, "3cc08e38-bd06-494d-ac8f-fa71d40c7477", parameters);
+                await SendSms(user);
                 return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Phone, returnUrl });
             }
 
             return View(model);
         }
 
+        private async Task SendSms(IUser user)
+        {
+            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("code", code);
+            await _notificationService.SendSmsAsync(phoneNumber, "3cc08e38-bd06-494d-ac8f-fa71d40c7477", parameters);
+        }
+
         [HttpGet]
-        public async Task<IActionResult> EnterCode(AuthenticationMethod method, string returnUrl)
+        public async Task<IActionResult> EnterCode(AuthenticationMethod method, string returnUrl, string token)
         {
             var model = new EnterCodeViewModel();
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             model.IsActivated = await IsTwoFactorActivated(user);
             model.Method = AuthenticationMethod.Phone;
+
+            if (method == AuthenticationMethod.Phone)
+            {
+                var userId = await _userManager.GetUserIdAsync(user);
+                var phone = await _factorSettingsService.GetPhoneNumberAsync(userId);
+                if (model.IsActivated)
+                {
+                    phone = "*******" + phone.Substring(phone.Length - 3);
+                }
+                model.Message = phone;
+            }
 
             return View($"{method.ToString()}Code", model);
         }
@@ -152,7 +178,7 @@ namespace INZFS.Theme.Controllers
                     .Replace("-", string.Empty);
 
                 var isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user, model.Method.ToString(), code);
-
+                
                 if (isValidToken)
                 {   
                     var result = await _signInManager.TwoFactorSignInAsync(model.Method.ToString(), code, false, false);
@@ -160,8 +186,9 @@ namespace INZFS.Theme.Controllers
                     {
                         if (!await IsTwoFactorActivated(user))
                         {
-                            await _userManager.SetTwoFactorEnabledAsync(user, true);
+                            await SetTwoFactorEnabledAsync(user, true, model.Method);
                         }
+
                         _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
                         return LocalRedirect(returnUrl);
                     }
@@ -173,8 +200,7 @@ namespace INZFS.Theme.Controllers
             return View($"{model.Method.ToString()}Code", model);
         }
 
-       
-
+        
         public async Task<IActionResult> Alternative(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
@@ -190,5 +216,18 @@ namespace INZFS.Theme.Controllers
             return isActivated;
         }
 
+        private async Task SetTwoFactorEnabledAsync(IUser user, bool enabled, AuthenticationMethod method)
+        {
+            await _userManager.SetTwoFactorEnabledAsync(user, enabled);
+            var userId = await _userManager.GetUserIdAsync(user);
+            if (method == AuthenticationMethod.Phone)
+            {
+                await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled, method);
+            }
+            else
+            {
+                await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+            }
+        }
     }
 }

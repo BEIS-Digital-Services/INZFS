@@ -130,6 +130,7 @@ namespace INZFS.UnitTests.TwoFactors
         public Mock<SignInManager<IUser>> signInManagerMock;
         public Mock<ILogger<TwoFactorController>> loggerMock;
         public Mock<INotificationService> notificationService;
+        public Mock<IUrlEncodingService> urlEncodingService;
 
         public TwoFactorControllerBuilder()
         {
@@ -142,6 +143,7 @@ namespace INZFS.UnitTests.TwoFactors
             signInManagerMock = new Mock<SignInManager<IUser>>(userManagerMock.Object, httpContextAccessorMock.Object, userClaimsPrincipalFactoryMock.Object, null, null, null, null); ;
             loggerMock = new Mock<ILogger<TwoFactorController>>();
             notificationService = new Mock<INotificationService>();
+            urlEncodingService = new Mock<IUrlEncodingService>();
         }
 
         public TwoFactorController Build()
@@ -154,7 +156,8 @@ namespace INZFS.UnitTests.TwoFactors
                 factorSettingsServiceMock.Object,
                 signInManagerMock.Object,
                 loggerMock.Object,
-                notificationService.Object);
+                notificationService.Object,
+                urlEncodingService.Object);
 
 
             return sut;

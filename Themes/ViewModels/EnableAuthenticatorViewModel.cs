@@ -33,6 +33,7 @@ namespace INZFS.Theme.ViewModels
         public string Code { get; set; }
         public bool IsActivated { get; set; }
         public AuthenticationMethod Method { get; set; }
+        public string Message { get; set; }
     }
    
    
