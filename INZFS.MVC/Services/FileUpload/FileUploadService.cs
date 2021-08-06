@@ -70,15 +70,22 @@ namespace INZFS.MVC.Services.FileUpload
 
         public async Task<string> Validate(IFormFile file)
         {
-            if (IsValidFileExtension(file))
-            {
-                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
-            }
             if (file == null || file.Length == 0)
             {
                 return "Empty file";
             }
 
+            if (IsValidFileExtension(file))
+            {
+                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
+            }
+            
+            var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
+            if ((double)file.Length > maxSize)
+            {
+                return "File size cannot be more than 10MB";
+            }
+            
             //TODO : Switch to virus scanning service
             var containsVirus = false; // await _virusScanService.ScanFile(file);
             if (containsVirus)
