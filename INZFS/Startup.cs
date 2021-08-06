@@ -1,3 +1,4 @@
+using INZFS.Web.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,17 +22,11 @@ namespace INZFS
             Configuration = configuration;
             _environment = environment;
         }
-
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSession(options =>
-            {
-                options.IdleTimeout = TimeSpan.FromMinutes(20);
-            });
-
                 if (_environment.IsDevelopment())
                 {
                 services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
@@ -48,6 +43,10 @@ namespace INZFS
                         options.InstanceName = "EEF";
                     });
                 }
+            services.AddSession(options =>
+                    {
+                        options.IdleTimeout = TimeSpan.FromMinutes(20);
+                    });
             }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -65,7 +64,7 @@ namespace INZFS
             }
 
             app.UseSession();
-
+            app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseSerilogRequestLogging();

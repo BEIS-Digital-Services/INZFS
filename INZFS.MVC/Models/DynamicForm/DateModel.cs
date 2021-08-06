@@ -27,7 +27,7 @@ namespace INZFS.MVC.Models.DynamicForm
                 var clock = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(DateUtc))
                 {
-                    yield return new ValidationResult("Please enter in date", new[] { nameof(DateUtc) });
+                    yield return new ValidationResult("Please enter in a date", new[] { nameof(DateUtc) });
                     
                 }
                 DateTime startDate;
