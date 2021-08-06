@@ -29,6 +29,7 @@
         "overviewTitle": "3. Consortium applicant details",
         "tag": "consortium-applicant",
         "url": "consortium-applicant",
+        "ReturnUrl": "application-overview",
         "continueButtonText": "Save and continue",
         "RazorView": "ConsortiumInformation",
         "pages": [
