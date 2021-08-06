@@ -12,5 +12,7 @@ namespace INZFS.Theme.Services
         Task<bool> SetAuthenticatorKeyAsync(string userId, string key);
         Task<bool> SetTwoFactorEnabledAsync(string userId, bool enabled);
         Task<bool> GetTwoFactorEnabledAsync(string userId);
+        Task<bool> SetPhoneNumberAsync(string userId, string phoneNumber);
+        Task<string> GetPhoneNumberAsync(string userId);
     }
 }

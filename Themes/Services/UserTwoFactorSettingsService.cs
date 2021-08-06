@@ -23,24 +23,11 @@ namespace INZFS.Theme.Services
         public async Task<bool> SetAuthenticatorKeyAsync(string userId, string key)
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
-            if (userTwoFactorSettings == null)
-            {
-                _session.Save(new UserTwoFactorSettings
-                {
-                    UserId = userId, 
-                    IsTwoFactorEnabled = false, 
-                    AuthenticatorKey = key
-                });
-            }
-            else
-            {
-                userTwoFactorSettings.AuthenticatorKey = key;
-                _session.Save(userTwoFactorSettings);
-            }
-
+            userTwoFactorSettings.AuthenticatorKey = key;
+            _session.Save(userTwoFactorSettings);
+       
             //TODO: FM need to check how save works for YesSql with multi-threaded env
             //await _session.CommitAsync();
-
             return true;
         }
 
@@ -63,11 +50,43 @@ namespace INZFS.Theme.Services
             return userTwoFactorSettings?.IsTwoFactorEnabled ?? false;
         }
 
+        public async Task<bool> SetPhoneNumberAsync(string userId, string phoneNumber)
+        {
+            var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
+
+            userTwoFactorSettings.PhoneNumber = phoneNumber;
+            _session.Save(userTwoFactorSettings);
+
+            //TODO: FM need to check how save works for YesSql with multi-threaded env
+            //await _session.CommitAsync();
+
+            return true;
+        }
+
+        public async Task<string> GetPhoneNumberAsync(string userId)
+        {
+            var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
+            return userTwoFactorSettings?.PhoneNumber;
+        }
+
         private async Task<UserTwoFactorSettings> GetUserTwoFactorSettings(string userId)
         {
             var query = _session.Query<UserTwoFactorSettings, UserTwoFactorSettingsIndex>();
             query = query.With<UserTwoFactorSettingsIndex>(index => index.UserId == userId);
             var userTwoFactorSettings = await query.FirstOrDefaultAsync();
+
+            if (userTwoFactorSettings == null)
+            {
+                var twoFactorSettings = new UserTwoFactorSettings
+                {
+                    UserId = userId,
+                    IsTwoFactorEnabled = false,
+                };
+
+                _session.Save(twoFactorSettings);
+                userTwoFactorSettings = await query.FirstOrDefaultAsync();
+            }
+
             return userTwoFactorSettings;
         }
     }

@@ -16,6 +16,7 @@ namespace INZFS.Theme.ViewModels
     public class AddPhoneNumberViewModel
     {
         [Required(ErrorMessage = "The phone number field is required.")]
+        [Phone]
         public string PhoneNumber { get; set; }
     }
 
@@ -26,19 +27,21 @@ namespace INZFS.Theme.ViewModels
         
     }
 
-    public class EnableAuthenticatorCodeViewModel
+    public class EnterCodeViewModel
     {
-        [Required(ErrorMessage = "The authenticator code field is required")]
-        public string AuthenticatorCode { get; set; }
+        [Required(ErrorMessage = "The code field is required")]
+        public string Code { get; set; }
         public bool IsActivated { get; set; }
-
+        public AuthenticationMethod Method { get; set; }
     }
+   
+   
 
     public enum AuthenticationMethod
     {
         None,
         Authenticator,
-        SMS,
+        Phone,
         Email
     }
 }

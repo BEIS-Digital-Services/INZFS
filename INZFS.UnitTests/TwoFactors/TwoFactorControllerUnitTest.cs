@@ -63,14 +63,14 @@ namespace INZFS.UnitTests.TwoFactors
         [TestMethod]
         public async Task AuthenticatorCode_Should_Return_ViewResult()
         {
-            var result = await _builder.Build().AuthenticatorCode(returnUrl);
+            var result = await _builder.Build().EnterCode(new EnterCodeViewModel(), returnUrl);
             result.Should().BeViewResult();
         }
 
         [TestMethod]
         public async Task AuthenticatorCode_Post_Should_Throw_NotFound_if_User_Does_Not_Exist()
         {
-            var result = await _builder.Build().AuthenticatorCode(new EnableAuthenticatorCodeViewModel(), returnUrl);
+            var result = await _builder.Build().EnterCode(new EnterCodeViewModel(), returnUrl);
             result.Should().BeNotFoundObjectResult();
         }
 
@@ -79,7 +79,7 @@ namespace INZFS.UnitTests.TwoFactors
         public async Task AuthenticatorCode_Post_Should_AddModelError_If_Token_Is_Not_Valid()
         {
             var sut = _builder.WithUser().Build();
-            var result = await sut.AuthenticatorCode(new EnableAuthenticatorCodeViewModel(){ AuthenticatorCode = "384988"}, returnUrl);
+            var result = await sut.EnterCode(new EnterCodeViewModel() { Code = "384988"}, returnUrl);
             var errorMessage = sut.ModelState.Values.FirstOrDefault()?.Errors.FirstOrDefault()?.ErrorMessage;
             errorMessage.Should().Be("Verification code is not valid, please enter a valid code and try again");
         } 
@@ -93,7 +93,7 @@ namespace INZFS.UnitTests.TwoFactors
                     //.With2FactorEnabled()
                     .Build();
 
-            var result = await sut.AuthenticatorCode(new EnableAuthenticatorCodeViewModel(){ AuthenticatorCode = "384988"}, returnUrl);
+            var result = await sut.EnterCode(new EnterCodeViewModel() { Code = "384988"}, returnUrl);
             _builder.userManagerMock.Verify(m=>m.SetTwoFactorEnabledAsync(It.IsAny<IUser>(), It.IsAny<bool>()), Times.Once);
         }
 
@@ -106,7 +106,7 @@ namespace INZFS.UnitTests.TwoFactors
                 .WithSuccessfulLogin()
                 .Build();
 
-            var result = await sut.AuthenticatorCode(new EnableAuthenticatorCodeViewModel() { AuthenticatorCode = "384988" }, returnUrl);
+            var result = await sut.EnterCode(new EnterCodeViewModel() { Code = "384988" }, returnUrl);
 
             result.Should().BeLocalRedirectResult();
 
@@ -129,6 +129,7 @@ namespace INZFS.UnitTests.TwoFactors
         public Mock<IUserTwoFactorSettingsService> factorSettingsServiceMock;
         public Mock<SignInManager<IUser>> signInManagerMock;
         public Mock<ILogger<TwoFactorController>> loggerMock;
+        public Mock<INotificationService> notificationService;
 
         public TwoFactorControllerBuilder()
         {
@@ -140,6 +141,7 @@ namespace INZFS.UnitTests.TwoFactors
             factorSettingsServiceMock = new Mock<IUserTwoFactorSettingsService>();
             signInManagerMock = new Mock<SignInManager<IUser>>(userManagerMock.Object, httpContextAccessorMock.Object, userClaimsPrincipalFactoryMock.Object, null, null, null, null); ;
             loggerMock = new Mock<ILogger<TwoFactorController>>();
+            notificationService = new Mock<INotificationService>();
         }
 
         public TwoFactorController Build()
@@ -151,7 +153,8 @@ namespace INZFS.UnitTests.TwoFactors
                 twoFactorAuthenticationServiceMock.Object,
                 factorSettingsServiceMock.Object,
                 signInManagerMock.Object,
-                loggerMock.Object);
+                loggerMock.Object,
+                notificationService.Object);
 
 
             return sut;
