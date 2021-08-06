@@ -426,7 +426,7 @@
             "name": "overhead-calculations",
             "question": "6.6. Overhead calculations",
             "description": "Description",
-            "errorMessage": "Entre your overhead calculations",
+            "errorMessage": "Enter your overhead calculations",
             "fieldType": "gdsTextArea",
             "friendlyFieldName": "Overhead calculations",
             "fieldName": "overhead-calculations",
