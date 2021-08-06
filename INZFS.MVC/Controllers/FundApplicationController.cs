@@ -420,7 +420,7 @@ namespace INZFS.MVC.Controllers
                 if (!inSection)
                 {
                     return RedirectToAction("section", new { pagename = section.Url });
-
+                     
                 }
 
 
@@ -431,7 +431,7 @@ namespace INZFS.MVC.Controllers
             else
             {
                 await _session.CancelAsync();
-                currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                var _currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(_currentPage, model);
             }
         }
@@ -832,9 +832,9 @@ namespace INZFS.MVC.Controllers
                         dateModel.Year = inputDate.Year;
                     }
                     return View("DateInput", model);
-                case FieldType.gdsSingleLineRadio:
-                    model = new SingleRadioInputModel();
-                    return View("SingleRadioInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsYesorNoRadio:
+                    model = new YesornoInputModel();
+                    return View("YesornoInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
                     model = new MultiSelectInputModel();
                     return View("MultiSelectInput", PopulateModel(currentPage, model, field));
@@ -862,8 +862,8 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
-                case FieldType.gdsSingleLineRadio:
-                    return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsYesorNoRadio:
+                    return View("YesornoInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:

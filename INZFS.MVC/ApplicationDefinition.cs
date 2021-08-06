@@ -12,7 +12,7 @@ namespace INZFS.MVC
         gdsTextBox,
         gdsTextArea,
         gdsDateBox,
-        gdsSingleLineRadio,
+        gdsYesorNoRadio,
         gdsMultiSelect,
         gdsFileUpload,
         gdsCurrencyBox
@@ -53,6 +53,7 @@ namespace INZFS.MVC
         public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
+
     }
 
     public class Section
@@ -169,7 +170,6 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Value { get; set; }
         public string PageName { get; set; }
-
     }
 
 }
