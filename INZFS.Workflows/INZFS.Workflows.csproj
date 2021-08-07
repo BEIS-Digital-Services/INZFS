@@ -20,14 +20,14 @@
 
   <ItemGroup>
     <PackageReference Include="GovukNotify" Version="4.0.1" />
-    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-15885" />
-    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-15885" />
-    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-15885" />
-    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-15885" />
-	  <PackageReference Include="OrchardCore.Email" Version="1.0.0-rc2-15885" />
-    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0-rc2-15885" />
-	<PackageReference Include="OrchardCore.Templates" Version="1.0.0-rc2-15885" />
-    <PackageReference Include="OrchardCore.Workflows.Abstractions" Version="1.0.0-rc2-15885" />
+    <PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0" />
+	  <PackageReference Include="OrchardCore.Email" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Workflows" Version="1.0.0" />
+	<PackageReference Include="OrchardCore.Templates" Version="1.0.0" />
+    <PackageReference Include="OrchardCore.Workflows.Abstractions" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
