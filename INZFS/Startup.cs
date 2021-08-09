@@ -15,24 +15,40 @@ namespace INZFS
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostEnvironment _environment;
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
-            
             Configuration = configuration;
+            _environment = environment;
         }
- 
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            Log.Information("Configuring service pipeline");
-            services.AddOrchardCms();
-            services.AddSession(options => {
+            services.AddSession(options =>
+            {
                 options.IdleTimeout = TimeSpan.FromMinutes(20);
-            }); 
-            services.AddDistributedMemoryCache();
-        }
+            });
+
+                if (_environment.IsDevelopment())
+                {
+                services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
+
+                services.AddDistributedMemoryCache();
+                }
+                else
+                {
+                services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddDatabaseShellsConfiguration();
+
+                services.AddStackExchangeRedisCache(options =>
+                    {
+                        options.Configuration = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Redis__Configuration");
+                        options.InstanceName = "EEF";
+                    });
+                }
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

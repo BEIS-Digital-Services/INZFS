@@ -30,6 +30,10 @@ using INZFS.MVC.Models.DynamicForm;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
 using System.Text.Json;
+using ClosedXML.Excel;
+using OrchardCore.FileStorage;
+using System.IO;
+using ClosedXML.Excel.CalcEngine.Exceptions;
 
 namespace INZFS.MVC.Controllers
 {
@@ -96,75 +100,38 @@ namespace INZFS.MVC.Controllers
             }
 
             // Section
-            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
-            if (section != null)
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
+            if (currentSection != null)
             {
-                var sectionContentModel = new SectionContent();
-                sectionContentModel.TotalQuestions = section.Pages.Count;
-                sectionContentModel.Sections = new List<SectionModel>();
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                foreach (var pageContent in section.Pages)
-                {
-                    var sectionModel = new SectionModel();
-                    sectionModel.Title = pageContent.Question;
-                    sectionModel.Url = pageContent.Name;
-
-                    var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
-                    
-                    if (string.IsNullOrEmpty(field?.Data))
-                    {
-                        sectionModel.Status = "Not started";
-                    }
-                    else
-                    {
-                        
-                        if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
-                        {
-                            sectionModel.Status = "Completed";
-                            sectionContentModel.TotalQuestionsCompleted ++;
-                        }
-                        
-                        else
-                        {
-                            sectionModel.Status = "In Progress";
-                        }
-                        
-                    }
-
-
-                    sectionContentModel.Sections.Add(sectionModel);
-
-                }
-
-                return View(section.RazorView, sectionContentModel);
+                var sectionContentModel = GetSectionContent(content, currentSection);
+                return View(currentSection.RazorView, sectionContentModel);
             }
 
+            //Overview
             if (pagename == "application-overview")
             {
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
+                
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
-                foreach (var item in sections)
+                foreach (var section in sections)
                 {
+                    var sectionContentModel = GetSectionContent(content, section);
                     var applicationOverviewModel = new ApplicationOverviewModel();
-                    applicationOverviewModel.SectionTag = item.Tag;
-                    //applicationOverviewModel.Status = 
+                    applicationOverviewModel.SectionTag = section.Tag;
+                    applicationOverviewModel.Title = sectionContentModel.OverviewTitle;
+                    applicationOverviewModel.Url = sectionContentModel.Url;
+                    applicationOverviewModel.SectionStatus = sectionContentModel.OverallStatus;
 
                     applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
                 }
 
-                var model = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                //Prevent a null reference expcetion by creating the application if one is not found
-                if (model == null)
-                {
-                    model = new ApplicationContent
-                    {
-                        Application = new Application(),
-                        Author = User.Identity.Name,
-                        CreatedUtc = DateTime.UtcNow
-                    };
-                }
+                applicationOverviewContentModel.TotalSections = sections.Count;
+                applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
+                                                    Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+
                 return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
@@ -274,7 +241,6 @@ namespace INZFS.MVC.Controllers
                 var additionalInformation = string.Empty;
                 if (currentPage.FieldType == FieldType.gdsFileUpload)
                 {
-                    
                     if (file != null)
                     {
                         var errorMessage = await _fileUploadService.Validate(file);
@@ -295,6 +261,67 @@ namespace INZFS.MVC.Controllers
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
 
+                        if (file.FileName.Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
+                        {
+                            // If env is Development, prepend local filepath to publicUrl to ensure functionality
+                            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                            {
+                                publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
+                            }
+
+                            try
+                            {
+                                XLWorkbook wb = new(publicUrl);
+
+                                try
+                                {
+                                    IXLWorksheet ws = wb.Worksheet("A. Summary");
+                                    //IXLCell totalGrantFunding = ws.Cell("A8");
+                                    IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
+
+                                    bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
+
+                                    if (spreadsheetValid)
+                                    {
+                                        try
+                                        {
+                                            ParsedExcelData parsedExcelData = new();
+                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalGrantFundingPercentage = totalGrantFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
+                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalMatchFundingPercentage = totalMatchFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
+                                            uploadedFile.ParsedExcelData = parsedExcelData;
+                                        }
+                                        catch (DivisionByZeroException e)
+                                        {
+                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+                                        }
+                                        catch (FormatException e)
+                                        {
+                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+
+                                        }
+                                    }
+                                    else
+                                    {
+                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                    }
+                                }
+                                catch (ArgumentException e)
+                                {
+                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                }
+                            }
+                            catch (InvalidDataException e)
+                            {
+                                ModelState.AddModelError("DataInput", "Invalid file uploaded");
+
+                            }
+                        }
+
                         additionalInformation = JsonSerializer.Serialize(uploadedFile);
                     }
                     else
@@ -310,8 +337,8 @@ namespace INZFS.MVC.Controllers
                 var existingFieldData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
                 if(existingFieldData == null)
                 {
-                    contentToSave.Fields.Add(new Field { 
-                        Name = currentPage.FieldName, 
+                    contentToSave.Fields.Add(new Field {
+                        Name = currentPage.FieldName,
                         Data = model.GetData(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
@@ -331,13 +358,13 @@ namespace INZFS.MVC.Controllers
                         {
                             additionalInformation = null;
                         }
-                        
+
                     }
                     existingFieldData.Data = model.GetData();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
-                
+
 
                 _session.Save(contentToSave);
 
@@ -380,7 +407,7 @@ namespace INZFS.MVC.Controllers
             }
             else
             {
-                _session.Cancel();
+                await _session.CancelAsync();
                 var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
@@ -468,7 +495,7 @@ namespace INZFS.MVC.Controllers
 
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+               await _session.CancelAsync();
                 return View("Create", model);
             }
 
@@ -508,7 +535,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> EditAndPublishPOST(string contentItemId, [Bind(Prefix = "submit.Publish")] string submitPublish, string returnUrl, IFormFile? file)
         {
             var stayOnSamePage = submitPublish == "submit.PublishAndContinue";
-           
+
             if(file != null)
             {
                 var errorMessage = await _fileUploadService.Validate(file);
@@ -559,7 +586,7 @@ namespace INZFS.MVC.Controllers
             var model = await _contentItemDisplayManager.UpdateEditorAsync(contentItemToUpdate, _updateModelAccessor.ModelUpdater, false);
             if (!ModelState.IsValid)
             {
-                _session.Cancel();
+                await _session.CancelAsync();
                 return View("Edit", model);
             }
 
@@ -778,9 +805,9 @@ namespace INZFS.MVC.Controllers
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-                    
 
-                    return View("DateInput", dateModel);
+
+                    return View("DateInput", model);
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
                     return View("SingleRadioInput", PopulateModel(currentPage, model, field));
@@ -823,7 +850,7 @@ namespace INZFS.MVC.Controllers
 
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
-            
+
             currentModel.Question = currentPage.Question;
             currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
@@ -844,7 +871,7 @@ namespace INZFS.MVC.Controllers
             }
             var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
-            
+
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             currentModel.QuestionNumber = index + 1;
@@ -878,7 +905,53 @@ namespace INZFS.MVC.Controllers
 
             currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
 
+            var previousPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index - 1);
+            if (previousPage != null)
+            {
+                currentModel.PreviousPageName = previousPage.Name;
+            }
             return currentModel;
+        }
+
+        private SectionContent GetSectionContent(ApplicationContent content, Section section)
+        {
+            var sectionContentModel = new SectionContent();
+            sectionContentModel.TotalQuestions = section.Pages.Count;
+            sectionContentModel.Sections = new List<SectionModel>();
+            sectionContentModel.Title = section.Title;
+            sectionContentModel.OverviewTitle = section.OverviewTitle;
+            sectionContentModel.Url = section.Url;
+
+            foreach (var pageContent in section.Pages)
+            {
+                var sectionModel = new SectionModel();
+                sectionModel.Title = pageContent.Question;
+                sectionModel.Url = pageContent.Name;
+
+                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+
+                if (string.IsNullOrEmpty(field?.Data))
+                {
+                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                }
+                else
+                {
+
+                    if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
+                    {
+                        sectionModel.SectionStatus = SectionStatus.Completed;
+                        sectionContentModel.TotalQuestionsCompleted++;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = SectionStatus.InProgress;
+                    }
+
+                }
+                sectionContentModel.Sections.Add(sectionModel);
+            }
+
+            return sectionContentModel;
         }
     }
 }
