@@ -14,3 +14,4 @@ scrape_configs:
           - 'prometheus:9090'
           - 'idonotexists:564'
           - 'prometheus-exporter-beis-netzero.london.cloudapps.digital'
+          - 'inzfs-lab.london.cloudapps.digital:443'
