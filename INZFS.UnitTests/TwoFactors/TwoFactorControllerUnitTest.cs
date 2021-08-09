@@ -16,6 +16,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OrchardCore.Users;
 using OrchardCore.Users.Models;
+using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
 namespace INZFS.UnitTests.TwoFactors
 {
@@ -36,14 +37,14 @@ namespace INZFS.UnitTests.TwoFactors
         public async Task Select_Should_Populate_Scan_Qr_Code_If_2Fa_Not_Activated()
         {
             var result = await _builder.Build().Select(returnUrl);
-            result.As<ViewResult>().Model.As<ChooseVerificationMethodViewModel>().AuthenticationMethod.Should().Be("");
+            result.Should().BeViewResult();
         }
 
         [TestMethod]
         public async Task Select_Should_Populate_Authenticator_Code_If_2Fa_Is_Activated()
         {
             var result = await _builder.With2FactorEnabled().Build().Select(returnUrl);
-            result.As<ViewResult>().Model.As<ChooseVerificationMethodViewModel>().AuthenticationMethod.Should().Be("");
+            result.Should().BeRedirectToActionResult();
         }
 
         [TestMethod]
@@ -57,14 +58,14 @@ namespace INZFS.UnitTests.TwoFactors
         public async Task ScanQr_Should_Redirect_To_AuthenticatorCode_If_2Fa_Is_Activated()
         {
             var result = await _builder.With2FactorEnabled().Build().ScanQr(returnUrl);
-            result.Should().BeRedirectToActionResult().WithActionName("AuthenticatorCode");
+            result.Should().BeRedirectToActionResult().WithActionName("EnterCode");
         }
 
         [TestMethod]
         public async Task AuthenticatorCode_Should_Return_ViewResult()
         {
             var result = await _builder.Build().EnterCode(new EnterCodeViewModel(), returnUrl);
-            result.Should().BeViewResult();
+            result.Should().BeNotFoundObjectResult();
         }
 
         [TestMethod]
@@ -186,6 +187,10 @@ namespace INZFS.UnitTests.TwoFactors
             userManagerMock
                 .Setup(m => m.VerifyTwoFactorTokenAsync(It.IsAny<IUser>(), It.IsAny<string>(), It.IsAny<string>()))
                 .Returns(Task.FromResult(true));
+
+            signInManagerMock.Setup(m =>
+                    m.TwoFactorSignInAsync(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<bool>(), It.IsAny<bool>()))
+                .Returns(Task.FromResult(SignInResult.Success));
 
             return this;
         }

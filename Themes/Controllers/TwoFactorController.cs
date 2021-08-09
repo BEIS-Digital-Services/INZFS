@@ -155,7 +155,7 @@ namespace INZFS.Theme.Controllers
                 model.Message = phone;
             }
 
-            return View($"{method.ToString()}Code", model);
+            return View($"{method}Code", model);
         }
         
        
@@ -197,7 +197,7 @@ namespace INZFS.Theme.Controllers
                 ModelState.AddModelError("Code", "Verification code is not valid, please enter a valid code and try again");
             }
 
-            return View($"{model.Method.ToString()}Code", model);
+            return View($"{model.Method}Code", model);
         }
 
         
