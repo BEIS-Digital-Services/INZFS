@@ -13,4 +13,4 @@ scrape_configs:
       - targets:
           - 'prometheus:9090'
           - 'idonotexists:564'
-          - 'prometheus-exporter-beis-netzero.london.cloudapps.digital:443'
+          - 'prometheus-exporter-beis-netzero.london.cloudapps.digital'
