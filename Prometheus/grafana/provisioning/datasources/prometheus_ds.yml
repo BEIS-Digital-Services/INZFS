@@ -1,0 +1,7 @@
+  
+datasources:
+- name: Prometheus
+  access: proxy
+  type: prometheus
+  url: https://inzfs-prom.london.cloudapps.digital
+  isDefault: true
