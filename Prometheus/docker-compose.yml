@@ -7,7 +7,7 @@ services:
       dockerfile: ./prometheus/Dockerfile
     container_name: prometheus
     ports:
-    - 9000:9090
+    - 9090:9090
     command:
     - --web.enable-lifecycle
     - --config.file=/etc/prometheus/prometheus.yml
@@ -16,6 +16,11 @@ services:
 
   grafana:
     image: ${DOCKER_REGISTRY-}prom
+    build:
+      context: ./
+      dockerfile: ./prometheus/Dockerfile
+    container_name: grafana
+    target: grafana
     ports:
       - 3000:3000
     restart: unless-stopped
