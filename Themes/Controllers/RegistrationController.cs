@@ -137,6 +137,12 @@ namespace INZFS.Theme.Controllers
 
         }
 
+        [AllowAnonymous]
+        [HttpGet("Register")]
+        public async Task<IActionResult> RegisterNotInUse(string returnUrl)
+        {
+            return NotFound();
+        }
 
         private async Task<IUser> FindUserAsync(string userName)
         {
