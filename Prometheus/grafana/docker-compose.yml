@@ -1,11 +1,11 @@
 version: '3.4'
 services:
   grafana:
-    image: ${DOCKER_REGISTRY-}prom
+    image: ${DOCKER_REGISTRY-}prom-grafana
     build:
       context: ./
-      dockerfile: ./prometheus/Dockerfile
-    container_name: grafana
+      dockerfile: ./Dockerfile
+    container_name: prom-grafana
     ports:
       - 3000:3000
     restart: unless-stopped
