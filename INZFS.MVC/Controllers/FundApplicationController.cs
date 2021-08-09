@@ -407,7 +407,7 @@ namespace INZFS.MVC.Controllers
                     return RedirectToAction("section", new { pagename = action.PageName });
                 }
 
-                if (submitAction == "DeleteFile" || submitAction == "SaveProgress")
+                if (submitAction == "DeleteFile" || submitAction == "SaveProgress" || submitAction == "UploadFile")
                 {
                     return RedirectToAction("section", new { pagename = pageName });
                 }
