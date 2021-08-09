@@ -1,0 +1,16 @@
+global:
+  scrape_interval: 30s
+  scrape_timeout: 10s
+
+rule_files:
+  - 'alert.yml'
+  - 'prometheus.rules.yml'
+
+scrape_configs:
+  - job_name: services
+    metrics_path: /metrics
+    static_configs:
+      - targets:
+          - 'prometheus:9090'
+          - 'idonotexists:564'
+          - 'prometheus-exporter-beis-netzero.london.cloudapps.digital:443'
