@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Notify.Client;
+using Notify.Interfaces;
 using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
@@ -35,7 +37,8 @@ namespace INZFS.Theme
 
             serviceCollection.Configure<IdentityOptions>(options =>
             {
-
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = true;
                 options.Password.RequireDigit = true;
                 options.Password.RequireLowercase = true;
                 options.Password.RequireUppercase = true;
@@ -47,8 +50,12 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<ITwoFactorAuthenticationService, TwoFactorAuthenticationService>();
             serviceCollection.AddScoped<IUserStore<IUser>, UserTwoFactorStore>();
             serviceCollection.AddScoped<IUserTwoFactorSettingsService, UserTwoFactorSettingsService>();
+            serviceCollection.AddScoped<INotificationService, NotificationService>();
 
             serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
+            serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("ApiKey")));
+            serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
+
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
