@@ -4,7 +4,7 @@ services:
     image: ${DOCKER_REGISTRY-}prom
     build:
       context: ./
-      dockerfile: ./promtheus/Dockerfile
+      dockerfile: ./prometheus/Dockerfile
     container_name: prometheus
     ports:
     - 9090:9090
