@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  grafana:
+    image: ${DOCKER_REGISTRY-}prom
+    build:
+      context: ./
+      dockerfile: ./prometheus/Dockerfile
+    container_name: grafana
+    ports:
+      - 3000:3000
+    restart: unless-stopped
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana-data:/var/lib/grafana
