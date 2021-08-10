@@ -13,5 +13,10 @@ scrape_configs:
       - targets:
           - 'prometheus:9090'
           - 'idonotexists:564'
-          - 'prometheus-exporter-beis-netzero.london.cloudapps.digital:443'
-          - 'inzfs-lab.london.cloudapps.digital:443'
+
+  - job_name: prometheus_exporter
+    scrape_interval: 1s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
