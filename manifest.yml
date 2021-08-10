@@ -4,7 +4,6 @@ applications:
   memory: 2G
   route-path: london.cloudapps.digital
   env:
-    ASPNETCORE_ENVIRONMENT: Development
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__RecipeName: $(Recipe)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseConnectionString: $(DbConnection)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__ShellName: $(ShellName)
