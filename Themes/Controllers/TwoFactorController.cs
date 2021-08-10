@@ -135,6 +135,15 @@ namespace INZFS.Theme.Controllers
             parameters.Add("code", code);
             await _notificationService.SendSmsAsync(phoneNumber, "3cc08e38-bd06-494d-ac8f-fa71d40c7477", parameters);
         }
+        
+        private async Task SendEmail(IUser user)
+        {
+            var email = await _userManager.GetEmailAsync(user);
+            var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Email.ToString());
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("code", code);
+            await _notificationService.SendEmailAsync(email, "e78d54d3-04b9-4ec7-965d-c78e3284e7ad", parameters);
+        }
 
         [HttpGet]
         public async Task<IActionResult> EnterCode(AuthenticationMethod method, string returnUrl, string token)
@@ -153,6 +162,16 @@ namespace INZFS.Theme.Controllers
                     phone = "*******" + phone.Substring(phone.Length - 3);
                 }
                 model.Message = phone;
+            } 
+            
+            if (method == AuthenticationMethod.Email)
+            {
+                var email = await _userManager.GetEmailAsync(user);
+                if (model.IsActivated)
+                {
+                    email = _encodingService.MaskEmail(email);
+                }
+                model.Message = email;
             }
 
             return View($"{method}Code", model);
@@ -188,6 +207,10 @@ namespace INZFS.Theme.Controllers
                         {
                             await SetTwoFactorEnabledAsync(user, true, model.Method);
                         }
+                        else
+                        {
+                            await SetTwoFactorDefaultIfChangedAsync(user, model.Method);
+                        }
 
                         _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
                         return LocalRedirect(returnUrl);
@@ -200,12 +223,25 @@ namespace INZFS.Theme.Controllers
             return View($"{model.Method}Code", model);
         }
 
-        
+        [HttpGet]
         public async Task<IActionResult> Alternative(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             var model = new ChooseVerificationMethodViewModel();
            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Alternative(ChooseVerificationMethodViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                await SendEmail(user);
+                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Email, returnUrl });
+            }
+
+            return View(model);
         }
 
 
@@ -222,9 +258,23 @@ namespace INZFS.Theme.Controllers
             var userId = await _userManager.GetUserIdAsync(user);
             if (method == AuthenticationMethod.Phone)
             {
-                await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled, method);
+                await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled);
+            }
+            else if (method == AuthenticationMethod.Authenticator)
+            {
+                await _factorSettingsService.SetAuthenticatorConfirmedAsync(userId, enabled);
             }
             else
+            {
+                await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+            }
+        } 
+        
+        private async Task SetTwoFactorDefaultIfChangedAsync(IUser user, AuthenticationMethod method)
+        {
+            var userId = await _userManager.GetUserIdAsync(user);
+            var currentMethod = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+            if (method != currentMethod)
             {
                 await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
             }
