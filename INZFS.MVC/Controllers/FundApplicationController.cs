@@ -366,6 +366,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
+                        OtherOption = model.GetOtherSelected(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
@@ -386,6 +387,7 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
+                    existingFieldData.OtherOption = model.GetOtherSelected();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
@@ -889,6 +891,7 @@ namespace INZFS.MVC.Controllers
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
+            currentModel.HasOtherOption = currentPage.HasOtherOption;
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.SelectedOptions = currentPage.SelectOptions;
             if (currentPage.ShowMarkComplete)
@@ -902,7 +905,12 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-            
+
+            if (!string.IsNullOrEmpty(field?.OtherOption))
+            {
+                currentModel.OtherOption = field?.OtherOption;
+            }
+
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));

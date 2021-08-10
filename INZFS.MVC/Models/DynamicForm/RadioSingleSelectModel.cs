@@ -27,5 +27,9 @@ namespace INZFS.MVC.Models.DynamicForm
             return DataInput;
         }
 
+        public override string GetOtherSelected()
+        {
+            return OtherOption;
+        }
     }
 }

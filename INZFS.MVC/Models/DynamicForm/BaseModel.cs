@@ -25,8 +25,9 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Section { get; set; }
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
+        public string OtherOption { get; set; }
         public List<string> SelectedOptions { get; set; }
-
+        public bool HasOtherOption { get; set; }
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }
         public string Hint { get; set; }
@@ -47,6 +48,10 @@ namespace INZFS.MVC.Models.DynamicForm
             return DataInput;
         }
 
+        public virtual string GetOtherSelected()
+        {
+            return OtherOption;
+        }
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             ApplicationDefinition = (ApplicationDefinition)validationContext.GetService(typeof(ApplicationDefinition));

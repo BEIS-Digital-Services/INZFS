@@ -207,7 +207,8 @@
             "fieldName": "type-of-organisation",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
+            "hasOtherOption": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
@@ -219,7 +220,90 @@
               "Research organisation",
               "University"
             ]
-            
+          },
+          {
+            "name": "organisation-size",
+            "question": "2.14. Organisation size",
+            "titleQuestion": "What is your organisation's size?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": "Organisation size",
+            "fieldName": "organisation-size",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "Pre-startup",
+              "Startup (less than 1 year)",
+              "1 to 5 years",
+              "6 to 10 years",
+              "11 years or over"
+            ]
+          },
+          {
+            "name": "organisation-maturity",
+            "question": "2.15. Organisation maturity",
+            "titleQuestion": "How old is your organisation?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": " Organisation maturity",
+            "fieldName": "organisation-maturity",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "10 or less employees (micro enterprise)",
+              "11 to 50 employees (small enterprise)",
+              "51 to 250 employees (medium enterprise)",
+              "251 or more employees (large enterprise)"
+            ]
+          },
+          {
+            "name": "organisation-funding",
+            "question": "2.16. Organisation funding",
+            "titleQuestion": "How is your organisation currently funded?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsMultiSelect",
+            "friendlyFieldName": "Organisation funding",
+            "fieldName": "organisation-funding",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "No funding",
+              "Founders (including bank loans)",
+              "Friends and family",
+              "Public sector grants",
+              "Angel investment",
+              "Venture capital",
+              "Private equity",
+              "Stock market flotation"
+            ]
+          },
+          {
+            "name": "parent-organisation",
+            "question": "2.17. Parent Organisation",
+            "titleQuestion": "2.17. Do you have a parent organisation?",
+            "description": "Description",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Parent Organisation",
+            "fieldName": "parent-organisation",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true,
+            "displayQuestionCounter": true
+
           }
         ]
       },

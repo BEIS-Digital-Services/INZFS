@@ -17,6 +17,7 @@ else
 
 <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
+
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
@@ -45,54 +46,7 @@ else
         </div>
     }
 
-    @*<div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
-            <fieldset class="govuk-fieldset">
-                <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
-                    <h1 class="govuk-fieldset__heading">
-                        @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                        {
-                            @Model.Question
 
-                        }
-                        else
-                        {
-                            @Model.TitleQuestion
-                        }
-                    </h1>
-                </legend>
-
-                <div class="govuk-radios govuk-radios--inline" asp-validation-error-class-for="@Model.Question">
-
-                    @foreach (var item in Model.SelectedOptions)
-                    {
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=@item.ToString()>
-                            <label class="govuk-label govuk-radios__label" for="organisation">
-                                @item
-                            </label>
-                        </div>
-                    }
-
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="organisation-6" name="org-type" type="radio" value="other" data-aria-controls="other-org">
-                        <label class="govuk-label govuk-radios__label" for="organisation-6">
-                            Other
-                        </label>
-                    </div>
-                    <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="other-org">
-                        <div class="govuk-form-group">
-                            <label class="govuk-label" for="organisation-7">
-                                Organisation type
-                            </label>
-                            <input class="govuk-input govuk-!-width-one-third" id="organisation-7" name="org-type" type="other" spellcheck="false" autocomplete="other">
-                        </div>
-                    </div>
-
-
-                </div>
-
-            </fieldset>
-        </div>*@
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
@@ -106,66 +60,35 @@ else
                     {
                         @Model.TitleQuestion
                     }
-                </h1>                
+                </h1>
             </legend>
             <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation" name="org-type" type="radio" value="organisation">
-                    <label class="govuk-label govuk-radios__label" for="organisation">
-                        Not for profit
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-1" name="org-type" type="radio" value="organisation-1">
-                    <label class="govuk-label govuk-radios__label" for="organisation-1">
-                        Private company
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-2" name="org-type" type="radio" value="organisation-2">
-                    <label class="govuk-label govuk-radios__label" for="organisation-2">
-                        Public limited company
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-3" name="org-type" type="radio" value="organisation-3">
-                    <label class="govuk-label govuk-radios__label" for="organisation-3">
-                        Public sector organisation
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-4" name="org-type" type="radio" value="organisation-4">
-                    <label class="govuk-label govuk-radios__label" for="organisation-4">
-                        Research organisation
-                    </label>
-                </div>
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-5" name="org-type" type="radio" value="organisation-5">
-                    <label class="govuk-label govuk-radios__label" for="organisation-5">
-                        University
-                    </label>
-                </div>
+                <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
 
-                <div class="govuk-radios__item">
-                    <input class="govuk-radios__input" id="organisation-6" name="org-type" type="radio" value="other" data-aria-controls="other-org">
-                    <label class="govuk-label govuk-radios__label" for="organisation-6">
-                        Other
-                    </label>
-                </div>
-                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="other-org">
-                    <div class="govuk-form-group">
-                        <label class="govuk-label" for="organisation-7">
-                            Organisation type
+                @foreach (var item in Model.SelectedOptions)
+                {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value="@item.ToString()"
+                               @if (Model.DataInput == @item) { <text> checked="checked" </text> }>
+                        <label class="govuk-label govuk-radios__label" for="organisation">
+                            @item
                         </label>
-                        <input class="govuk-input govuk-!-width-one-third" id="organisation-7" name="org-type" type="other" spellcheck="false" autocomplete="other">
                     </div>
-                </div>
+                }
+
+                @if (Model.HasOtherOption)
+                {
+                    @Html.Partial("_Otheroption", Model)
+                }
+
 
 
             </div>
 
         </fieldset>
     </div>
+
+
 
     @Html.Partial("_Accordion", "")
     @if (Model.ShowMarkAsComplete)
@@ -179,3 +102,5 @@ else
         </div>
     </div>
 </form>
+
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

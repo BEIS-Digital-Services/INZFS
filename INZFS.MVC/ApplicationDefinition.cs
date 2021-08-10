@@ -45,6 +45,7 @@ namespace INZFS.MVC
 
         //[JsonProperty("max-length")]
         public int? MaxLength { get; set; }
+        public bool HasOtherOption { get; set; }
         public bool ShowMarkComplete { get; set; }
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
@@ -148,6 +149,7 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Data { get; set; }
+        public string OtherOption { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
     }
