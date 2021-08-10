@@ -363,7 +363,7 @@
             "showSaveProgessButton": true
           },
           {
-            "name": "financial-backround",
+            "name": "financial-background",
             "question": "6.3. Financial background",
             "titleQuestion": "6.3. Financial background",
             "description": "You can give extra details about the information you enter on the Finance Spreadsheet here.",
