@@ -7,12 +7,11 @@ rule_files:
   - 'prometheus.rules.yml'
 
 scrape_configs:
-  - job_name: services
+  - job_name: prometheus
     metrics_path: /metrics
+    scheme: https
     static_configs:
-      - targets:
-          - 'prometheus:9090'
-          - 'idonotexists:564'
+      - targets: ['inzfs-prom.london.cloudapps.digital']
 
   - job_name: prometheus_exporter
     scrape_interval: 1s
