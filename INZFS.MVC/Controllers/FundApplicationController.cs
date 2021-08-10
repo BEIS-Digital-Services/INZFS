@@ -422,9 +422,12 @@ namespace INZFS.MVC.Controllers
 
                 var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
-                if(section != null)
+                var inSection = section.Pages.Contains(nextPage);
+
+                if (!inSection)
                 {
                     return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url });
+
                 }
                 
                 //TODO: Check of non-existing pages
