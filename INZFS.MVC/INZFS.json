@@ -242,6 +242,24 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "business-technology-readiness-document",
+            "question": "5.3.1 Upload Technology Readiness Level (TRL)",
+            "titleQuestion": "Upload Technology Readiness Level (TRL)",
+            "hint": "",
+            "errorMessage": "Upload technology readiness level",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "business-technology-readiness-document",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload Technology Readiness Level"
+          },
+          {
             "name": "business-infrastructure",
             "question": "5.4. Infrastructure",
             "description": "Description",
@@ -320,6 +338,24 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "business-project-plan-document",
+            "question": "5.8.1 Upload project plan",
+            "titleQuestion": "Upload project plan",
+            "hint": "",
+            "errorMessage": "Upload project plan",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Project Plan File Upload",
+            "fieldName": "business-project-plan-document",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload project plan"
+          },
+          {
             "name": "business-project-evaluation",
             "question": "5.9. Project evaluation",
             "description": "Description",
@@ -334,6 +370,24 @@
             "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
+          },
+          {
+            "name": "business-project-evaluation-document",
+            "question": "5.9.1 Upload project evaluation",
+            "titleQuestion": "Upload project evaluation",
+            "hint": "",
+            "errorMessage": "Upload project evaluation",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Project Evaluation File Upload",
+            "fieldName": "business-project-plan-document",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload project evaluation"
           }
         ]
       },
