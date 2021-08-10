@@ -14,5 +14,4 @@ services:
       - grafana-data:/var/lib/grafana
 
 volumes:
-  prometheus-data:
   grafana-data:
