@@ -25,6 +25,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Section { get; set; }
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
+        public List<string> SelectedOptions { get; set; }
 
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }

@@ -196,6 +196,30 @@
             "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
+          },
+          {
+            "name": "type-of-organisation",
+            "question": "2.13 Type of organisation",
+            "titleQuestion": "Which type best describes your organisation?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": "Type of organisation",
+            "fieldName": "type-of-organisation",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "Not for profit",
+              "Private company",
+              "Public limited company",
+              "Public sector organisation",
+              "Research organisation",
+              "University"
+            ]
+            
           }
         ]
       },

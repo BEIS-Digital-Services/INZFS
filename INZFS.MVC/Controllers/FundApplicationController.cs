@@ -812,6 +812,9 @@ namespace INZFS.MVC.Controllers
             BaseModel model;
             switch (currentPage.FieldType)
             {
+                case FieldType.gdsSingleRadioSelectOption:
+                    model = new RadioSingleSelectModel();
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
@@ -870,6 +873,8 @@ namespace INZFS.MVC.Controllers
                     return View("FileUpload", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsCurrencyBox:
                     return View("CurrencyInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsSingleRadioSelectOption:
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -885,6 +890,7 @@ namespace INZFS.MVC.Controllers
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.MaxLength = currentPage.MaxLength;
+            currentModel.SelectedOptions = currentPage.SelectOptions;
             if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;

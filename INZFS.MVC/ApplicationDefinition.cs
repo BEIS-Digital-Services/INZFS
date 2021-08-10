@@ -15,7 +15,8 @@ namespace INZFS.MVC
         gdsYesorNoRadio,
         gdsMultiSelect,
         gdsFileUpload,
-        gdsCurrencyBox
+        gdsCurrencyBox,
+        gdsSingleRadioSelectOption
     }
 
     public enum MaxLengthValidationType
@@ -53,7 +54,7 @@ namespace INZFS.MVC
         public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
-        public List<SelectOptions> SelectOptions { get; set; }
+        public List<string> SelectOptions { get; set; }
 
 
     }
@@ -172,11 +173,6 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Value { get; set; }
         public string PageName { get; set; }
-    }
-
-    public class SelectOptions
-    {
-        public string Name { get; set; }
     }
 
 }
