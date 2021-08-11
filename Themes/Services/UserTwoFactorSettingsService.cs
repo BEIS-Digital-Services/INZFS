@@ -63,14 +63,22 @@ namespace INZFS.Theme.Services
             return userTwoFactorSettings?.IsPhoneNumberConfirmed ?? false;
         }
 
-        public async Task<bool> SetPhoneNumberConfirmedAsync(string userId, bool confirmed, AuthenticationMethod method = AuthenticationMethod.None)
+        public async Task<bool> SetPhoneNumberConfirmedAsync(string userId, bool confirmed)
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
             userTwoFactorSettings.IsPhoneNumberConfirmed = confirmed;
-            if (method == AuthenticationMethod.Phone)
-            {
-                userTwoFactorSettings.TwoFactorActiveMethod = method;
-            }
+            userTwoFactorSettings.TwoFactorActiveMethod = AuthenticationMethod.Phone;
+
+            SaveSettings(userTwoFactorSettings);
+            return true;
+        }
+
+        public async Task<bool> SetAuthenticatorConfirmedAsync(string userId, bool confirmed)
+        {
+            var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
+            userTwoFactorSettings.IsAuthenticatorConfirmed = confirmed;
+            userTwoFactorSettings.TwoFactorActiveMethod = AuthenticationMethod.Authenticator;
+
             SaveSettings(userTwoFactorSettings);
             return true;
         }

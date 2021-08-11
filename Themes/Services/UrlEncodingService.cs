@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace INZFS.Theme.Services
@@ -11,6 +12,7 @@ namespace INZFS.Theme.Services
     {
         string GetHexFromString(string value);
         string GetStringFromHex(string value);
+        string MaskEmail(string email);
     }
 
 
@@ -47,6 +49,12 @@ namespace INZFS.Theme.Services
                 bytes[index] = Convert.ToByte(value.Substring(index * 2, 2), 16);
             }
             return Encoding.Unicode.GetString(bytes); 
+        }
+
+        public string MaskEmail(string email)
+        {   string pattern = @"(?<=[\w]{1})[\w-\._\+%]*(?=[\w]{1}@)";
+            string result = Regex.Replace(email, pattern, m => new string('*', m.Length));
+            return result;
         }
     }
 }
