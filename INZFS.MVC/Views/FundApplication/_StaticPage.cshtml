@@ -1,0 +1,11 @@
+@model string
+
+@if (Model == "subsidy-aid-info")
+{
+    @Html.Partial("../Static/SubsidyAidInfo.cshtml")
+}
+
+@if (Model == "subsidy-category-info")
+{
+    @Html.Partial("../Static/SubsidyCategoryInfo.cshtml")
+}

@@ -401,6 +401,60 @@
         "RazorView": "FinanceProposalOverview",
         "pages": [
           {
+            "name": "subsidy-sole-applicant",
+            "question": "Are you a sole applicant?",
+            "titleQuestion": "Are you a sole applicant?",
+            "hint": "Answer no if you are applying as part of a consortium of companies",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsSingleLineRadio",
+            "friendlyFieldName": "Subsidy Sole Applicant",
+            "fieldName": "subsidy-sole-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to Finance Proposal Overview",
+              "text": "finance-proposal-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "subsidy-aid-info"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "subsidy-consortium-category"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-aid-info",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true
+          },
+          {
+            "name": "subsidy-consortium-category",
+            "question": "Which of the following are you applying under?",
+            "titleQuestion": "",
+            "description": "",
+            "errorMessage": "Please provide something",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "",
+            "fieldName": "project-cost-breakdown",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true,
+            "continueButtonText": "Continue"
+          },
+          {
             "name": "project-cost-breakdown",
             "question": "6.2. Project cost breakdown",
             "titleQuestion": "6.2 Project cost breakdown",

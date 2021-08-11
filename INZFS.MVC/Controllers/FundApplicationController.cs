@@ -835,8 +835,6 @@ namespace INZFS.MVC.Controllers
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-
-
                     return View("DateInput", model);
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
@@ -852,6 +850,8 @@ namespace INZFS.MVC.Controllers
                         uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     }
                     return View("FileUpload", uploadmodel);
+                case FieldType.gdsStaticPage:
+                    return View("_StaticPage", currentPage.Name);
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -958,6 +958,7 @@ namespace INZFS.MVC.Controllers
                 var sectionModel = new SectionModel();
                 sectionModel.Title = pageContent.Question;
                 sectionModel.Url = pageContent.Name;
+                sectionModel.HideFromSummary = pageContent.HideFromSummary;
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 

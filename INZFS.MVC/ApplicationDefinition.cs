@@ -14,7 +14,8 @@ namespace INZFS.MVC
         gdsDateBox,
         gdsSingleLineRadio,
         gdsMultiSelect,
-        gdsFileUpload
+        gdsFileUpload,
+        gdsStaticPage
     }
 
     public enum MaxLengthValidationType
@@ -52,6 +53,7 @@ namespace INZFS.MVC
         public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
+        public bool HideFromSummary { get; set; }
     }
 
     public class Section
