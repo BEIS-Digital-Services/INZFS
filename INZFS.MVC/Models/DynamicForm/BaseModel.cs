@@ -27,6 +27,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string DataInput { get; set; }
         public string OtherOption { get; set; }
         public List<string> SelectedOptions { get; set; }
+        public List<string> UserOptionsSelected { get; set; }
         public bool HasOtherOption { get; set; }
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }
@@ -51,6 +52,11 @@ namespace INZFS.MVC.Models.DynamicForm
         public virtual string GetOtherSelected()
         {
             return OtherOption;
+        }
+
+        public virtual List<string> GetSelectedByUser()
+        {
+            return UserOptionsSelected;
         }
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {

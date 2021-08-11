@@ -48,13 +48,12 @@
                 </h1>
             </legend>
             @Html.Partial("_Hint", Model.Hint)
-            <span asp-validation-for="@Model.MultipleSelect" class="govuk-error-message"></span>
+            <span asp-validation-for="@Model.UserOptionsSelected" class="govuk-error-message"></span>
             <div class="govuk-checkboxes">
                 @foreach (var item in Model.SelectedOptions)
                 {
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="checkboxSelect" name="DataInput" type="checkbox" value="@item.ToString()"
-                               @if (Model.DataInput == @item) { <text> checked="checked" </text> }>
+                        <input class="govuk-checkboxes__input" id="checkboxSelect" name="UserOptionsSelected" type="checkbox" value="@item.ToString()" @if (Model.UserOptionsSelected.Contains(@item)) { <text> checked="checked" </text>  }> >
                         <label class="govuk-label govuk-checkboxes__label">
                             @item
                         </label>

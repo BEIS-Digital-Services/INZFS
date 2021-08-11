@@ -367,6 +367,7 @@ namespace INZFS.MVC.Controllers
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
                         OtherOption = model.GetOtherSelected(),
+                        UserOptionSelected = model.UserOptionsSelected,
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
@@ -388,6 +389,7 @@ namespace INZFS.MVC.Controllers
                     }
                     existingFieldData.Data = model.GetData();
                     existingFieldData.OtherOption = model.GetOtherSelected();
+                    existingFieldData.UserOptionSelected = model.GetSelectedByUser();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
@@ -909,6 +911,11 @@ namespace INZFS.MVC.Controllers
             if (!string.IsNullOrEmpty(field?.OtherOption))
             {
                 currentModel.OtherOption = field?.OtherOption;
+            }
+
+            if (field?.UserOptionSelected != null )
+            {
+                currentModel.UserOptionsSelected = field?.UserOptionSelected;
             }
 
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
