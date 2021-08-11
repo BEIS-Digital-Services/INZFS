@@ -978,7 +978,7 @@ namespace INZFS.MVC.Controllers
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 
-                if (string.IsNullOrEmpty(field?.Data))
+                if (string.IsNullOrEmpty(field?.Data) && field?.UserOptionSelected == null)
                 {
                     sectionModel.SectionStatus = SectionStatus.NotStarted;
                 }
