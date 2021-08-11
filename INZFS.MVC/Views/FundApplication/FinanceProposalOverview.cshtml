@@ -36,24 +36,20 @@
                 <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                 <dl class="govuk-summary-list">
-                    @foreach (var item in Model.Sections)
+                    @foreach (var item in Model.Sections) if (!item.HideFromSummary)
                     {
-                        if (!item.HideFromSummary)
-                        {
-                            <div class="govuk-body-m govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">
-                                    <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                    </a>
-                                </dt>
-                                <dd class="govuk-summary-list__actions">
-                                    @item.GetStatusString()
-                                </dd>
-                            </div>
-                        }
-
+                        <div class="govuk-body-m govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                <a class="govuk-link govuk-!-font-weight-regular" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                    @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                </a>
+                            </dt>
+                            <dd class="govuk-summary-list__actions">
+                                @item.GetStatusString()
+                            </dd>
+                        </div>
                     }
-                </dl>
+                    </dl>
 
 
 

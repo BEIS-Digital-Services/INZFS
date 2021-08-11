@@ -401,6 +401,11 @@
         "RazorView": "FinanceProposalOverview",
         "pages": [
           {
+            "name": "subsidy-requirements",
+            "fieldType": "gdsStaticPage",
+            "question":  "6.1 Funding levels and subsidy requirements"
+          },
+          {
             "name": "subsidy-sole-applicant",
             "question": "Are you a sole applicant?",
             "titleQuestion": "Are you a sole applicant?",
@@ -414,7 +419,7 @@
             "showMarkComplete": false,
             "showSaveProgessButton": false,
             "displayQuestionCounter": false,
-            "continueButtonText": "Save and continue",
+            "hideFromSummary": true,
             "previousPage": {
               "link": "Back to Finance Proposal Overview",
               "text": "finance-proposal-overview"
@@ -452,7 +457,8 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true,
-            "continueButtonText": "Continue"
+            "continueButtonText": "Continue",
+            "hideFromSummary": true
           },
           {
             "name": "project-cost-breakdown",

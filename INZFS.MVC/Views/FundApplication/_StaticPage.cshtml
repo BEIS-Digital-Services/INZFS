@@ -1,5 +1,9 @@
 @model string
 
+@if (Model == "subsidy-requirements")
+{
+    @Html.Partial("../Static/SubsidyRequirements.cshtml")
+}
 @if (Model == "subsidy-aid-info")
 {
     @Html.Partial("../Static/SubsidyAidInfo.cshtml")
