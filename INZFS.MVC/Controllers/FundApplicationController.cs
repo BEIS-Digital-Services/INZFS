@@ -395,7 +395,14 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
-                    existingFieldData.OtherOption = model.GetOtherSelected();
+                    if(existingFieldData.Data == "Other")
+                    {
+                        existingFieldData.OtherOption = model.GetOtherSelected();
+                    }
+                    else
+                    {
+                        existingFieldData.OtherOption = null;
+                    }
                     existingFieldData.UserOptionSelected = model.GetSelectedByUser();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
@@ -914,7 +921,6 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-
             if (!string.IsNullOrEmpty(field?.OtherOption))
             {
                 currentModel.OtherOption = field?.OtherOption;

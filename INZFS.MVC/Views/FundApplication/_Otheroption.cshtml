@@ -12,10 +12,10 @@
 </div>
 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="other-org">
     <div class="govuk-form-group">
-        <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
         <label class="govuk-label" for="organisation-7">
             Organisation type
         </label>
-        <input class="govuk-input govuk-!-width-one-third" id="textInput" name="OtherOption" type="text" spellcheck="true" autocomplete="other">
+        <input class="govuk-input govuk-!-width-one-third" id="textInput" name="OtherOption" type="text" spellcheck="true" autocomplete="other" value="@Model.OtherOption">
     </div>
 </div>
