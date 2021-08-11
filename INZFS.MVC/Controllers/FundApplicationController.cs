@@ -413,14 +413,15 @@ namespace INZFS.MVC.Controllers
                 }
 
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
+                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
 
                 if (nextPage == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url }); ;
                 }
 
-                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
                 var inSection = section.Pages.Contains(nextPage);
 

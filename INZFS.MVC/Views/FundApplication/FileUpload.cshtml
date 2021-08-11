@@ -59,7 +59,7 @@
             }
         </label>
         @Html.Partial("_Hint", Model.Hint)
-
+        @Html.Partial("_QuestionDescription", Model.PageName)
 
         @if (string.IsNullOrEmpty(@Model.UploadText))
         {
@@ -95,21 +95,21 @@
 
         <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>
         @*
-            <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
+        <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
         *@
 
         @if (Model.UploadedFile != null)
         {
             <dl class="govuk-summary-list fileTable">
                 <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-                    @Model.UploadedFile.Name
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.UploadedFile.Size MB
-                </dd>
-                <dd class="govuk-summary-list__actions">
-                    @*<a class="govuk-link" href="#">
+                    <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
+                        @Model.UploadedFile.Name
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.UploadedFile.Size MB
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        @*<a class="govuk-link" href="#">
                             Remove<span class="govuk-visually-hidden"> file uploaded</span>
                         </a>*@
                         <button type="submit" name="submit.Publish" class="govuk-button govuk-button--warning"
@@ -124,7 +124,7 @@
         {
             <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
         }
- 
+
         @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null && Model.UploadedFile.ParsedExcelData != null)
         {
             <table class="govuk-table">
@@ -193,8 +193,6 @@
         </div>
 
     </form>
-
-    @Html.Partial("_Accordion", Model.PageName)
 
     <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
 

@@ -12,10 +12,11 @@ namespace INZFS.Theme.Models
         public string UserId { get; set; }
         public bool IsTwoFactorEnabled { get; set; }
         public string AuthenticatorKey { get; set; }
+        public bool IsAuthenticatorConfirmed { get; set; }
         public string PhoneNumber { get; set; }
         public bool IsPhoneNumberConfirmed { get; set; }
+        public AuthenticationMethod TwoFactorActiveMethod { get; set; }
         public DateTime CreatedDate { get; set; }
         public DateTime ModifiedDate { get; set; }
-        public AuthenticationMethod TwoFactorActiveMethod { get; set; }
     }
 }

@@ -1,44 +1,33 @@
-﻿@model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
 @{
     Layout = "_Layout";
 }
 
-
-
-    <div class="govuk-width-container">
-
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-l">Choose verification method</h1>
-            </div>
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-l">Choose verification method</h1>
         </div>
-
-        <div class="govuk-grid-row">
-
+    </div>
+    <form method="post">
+        <div class="govuk-grid-row" asp-validation-error-class-for="AuthenticationMethod">
             <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
-
+                <span asp-validation-for="AuthenticationMethod" class="govuk-error-message"></span>
                 <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
                     <div class="govuk-radios govuk-radios">
                         <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="radio-Authenticator" name="Authenticator" type="radio" value="Authenticator" checked="checked" >
+                            <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Email)" class="govuk-radios__input" />
                             <label class="govuk-label govuk-radios__label">
                                 Email
-                            </label>
-                        </div>
-                        <div class="govuk-radios__item">
-                            <input class="govuk-radios__input" id="radio-no" name="Authenticator" type="radio" value="SMS" disabled="disabled">
-                            <label class="govuk-label govuk-radios__label">
-                                SMS
                             </label>
                         </div>
                     </div>
                 </fieldset>
                 <br /><br />
-               
-                <a href="#">
-                    <button class="govuk-button" data-module="govuk-button">Continue</button>
-                </a>
             </div>
+
         </div>
-    </div>
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</div>
