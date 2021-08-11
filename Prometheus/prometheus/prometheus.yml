@@ -18,4 +18,5 @@ scrape_configs:
     metrics_path: /metrics
     scheme: https
     static_configs:
-      - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
+      - targets: 
+          - 'prometheus-exporter-beis-netzero.london.cloudapps.digital'
