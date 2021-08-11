@@ -24,6 +24,7 @@ using OrchardCore.Users.Handlers;
 using OrchardCore.Users.Models;
 using OrchardCore.Users.Services;
 using INZFS.Theme.ViewModels;
+using INZFS.Theme.Services;
 using IWorkflowManager = OrchardCore.Workflows.Services.IWorkflowManager;
 using SignInResult = Microsoft.AspNetCore.Identity.SignInResult;
 
@@ -43,6 +44,7 @@ namespace INZFS.Theme.Controllers
         private readonly IClock _clock;
         private readonly IDistributedCache _distributedCache;
         private readonly IEnumerable<IExternalLoginEventHandler> _externalLoginHandlers;
+        private readonly IUrlEncodingService _encodingService;
         private readonly IStringLocalizer S;
 
         public AccountController(
@@ -57,7 +59,8 @@ namespace INZFS.Theme.Controllers
             IClock clock,
             IDistributedCache distributedCache,
             IDataProtectionProvider dataProtectionProvider,
-            IEnumerable<IExternalLoginEventHandler> externalLoginHandlers)
+            IEnumerable<IExternalLoginEventHandler> externalLoginHandlers, 
+            IUrlEncodingService encodingService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -70,6 +73,7 @@ namespace INZFS.Theme.Controllers
             _distributedCache = distributedCache;
             _dataProtectionProvider = dataProtectionProvider;
             _externalLoginHandlers = externalLoginHandlers;
+            _encodingService = encodingService;
             S = stringLocalizer;
         }
 
@@ -203,9 +207,20 @@ namespace INZFS.Theme.Controllers
                         var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
                         if (result.Succeeded)
                         {
+                            if (!await _userManager.IsEmailConfirmedAsync(user))
+                            {
+                                var idToken = _encodingService.GetHexFromString(GetUser(user)?.Email);
+                                return RedirectToAction("Success", "Registration", new {area = "INZFS.Theme", token = idToken, toverify = true });
+                            }
+
                             if (!await AddConfirmEmailError(user) && !AddUserEnabledError(user))
                             {
                                 result = await _signInManager.PasswordSignInAsync(user, model.Password, model.RememberMe, lockoutOnFailure: false);
+                                
+                                if (result.RequiresTwoFactor)
+                                {
+                                    return RedirectToAction("Select", "TwoFactor", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                                }
 
                                 if (result.Succeeded)
                                 {
@@ -224,6 +239,11 @@ namespace INZFS.Theme.Controllers
             }
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        private User GetUser(IUser user)
+        {
+            return user as User;
         }
 
 

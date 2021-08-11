@@ -1,5 +1,5 @@
 @model string
-
+@*SECTION 5 BUSINESS PROPOSAL*@
 @if (Model == "business-proposal")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposal.cshtml")
@@ -37,6 +37,18 @@
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
 
-
+@*SECTION 6 FINANCE PROPOSAL*@
+@if (Model == "project-cost-breakdown")
+{
+    @Html.Partial("../QuestionDescription/FinanceProposal/_ProjectCostBreakdown.cshtml")
+}
+@if (Model == "financial-background")
+{
+    @Html.Partial("../QuestionDescription/FinanceProposal/_FinancialBackground.cshtml")
+}
+@if (Model == "in-kind-contributions")
+{
+    @Html.Partial("../QuestionDescription/FinanceProposal/_InKindContributions.cshtml")
+}
 
 

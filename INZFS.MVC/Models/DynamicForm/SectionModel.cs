@@ -63,17 +63,18 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Title { get; set; }
         public string OverviewTitle { get; set; }
         public string Url { get; set; }
+        public string ReturnUrl { get; set; }
         public List<SectionModel> Sections { get; set; }
         public SectionStatus OverallStatus
         {
             get {
-                if (Sections.Any(section => section.SectionStatus == SectionStatus.InProgress))
-                {
-                    return SectionStatus.InProgress;
-                }
                 if (Sections.All(section => section.SectionStatus == SectionStatus.Completed))
                 {
                     return SectionStatus.Completed;
+                }
+                if (Sections.Any(section => section.SectionStatus == SectionStatus.InProgress || section.SectionStatus == SectionStatus.Completed))
+                {
+                    return SectionStatus.InProgress;
                 }
                 if (Sections.All(section => section.SectionStatus == SectionStatus.NotStarted))
                 {

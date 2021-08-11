@@ -68,22 +68,26 @@ namespace INZFS.Theme.Services
 
         public async Task SetPhoneNumberAsync(IUser user, string phoneNumber, CancellationToken cancellationToken)
         {
-            return;
+            var userId = GetUserId(user);
+            await _twofactorSettingsService.SetPhoneNumberAsync(userId, phoneNumber);
         }
 
         public async Task<string> GetPhoneNumberAsync(IUser user, CancellationToken cancellationToken)
         {
-            return await Task.FromResult("");
+            var userId = GetUserId(user);
+            return await _twofactorSettingsService.GetPhoneNumberAsync(userId);
         }
 
         public async Task<bool> GetPhoneNumberConfirmedAsync(IUser user, CancellationToken cancellationToken)
         {
-            return await Task.FromResult(false);
+            var userId = GetUserId(user);
+            return await _twofactorSettingsService.GetPhoneNumberConfirmedAsync(userId);
         }
 
         public async Task SetPhoneNumberConfirmedAsync(IUser user, bool confirmed, CancellationToken cancellationToken)
         {
-            return;
+            var userId = GetUserId(user);
+            await _twofactorSettingsService.SetPhoneNumberConfirmedAsync(userId, confirmed);
         }
 
         public async Task SetAuthenticatorKeyAsync(IUser user, string key, CancellationToken cancellationToken)

@@ -1,4 +1,5 @@
-﻿@model INZFS.Theme.ViewModels.EnableAuthenticatorQrCodeViewModel
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.EnableAuthenticatorQrCodeViewModel
 @{
     Layout = "_Layout";
 }
@@ -25,7 +26,7 @@
                 <kbd>@Model.SharedKey</kbd>
             </p>
             <br /><br />
-            <a href="@Url.Action("AuthenticatorCode", "TwoFactor", new { Area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl")})">
+            <a href="@Url.Action("EnterCode", "TwoFactor", new { Area = "INZFS.Theme", method = AuthenticationMethod.Authenticator, returnUrl = Url.GetQuery("returnUrl")})">
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </a>
         </div>

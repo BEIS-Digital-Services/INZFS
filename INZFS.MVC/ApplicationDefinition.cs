@@ -66,6 +66,7 @@ namespace INZFS.MVC
         public string OverviewTitle { get; set; }
         public string Tag { get; set; }
         public string Url { get; set; }
+        public string ReturnUrl { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string RazorView { get; set; }

@@ -99,21 +99,12 @@ namespace INZFS.MVC.Controllers
                 return GetViewModel(currentPage, field);
             }
 
-            // Section
-            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
-            if (currentSection != null)
-            {
-                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                var sectionContentModel = GetSectionContent(content, currentSection);
-                return View(currentSection.RazorView, sectionContentModel);
-            }
-
             //Overview
-            if (pagename == "application-overview")
+            if (pagename.ToLower() == "application-overview")
             {
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
-                
+
                 var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
 
                 foreach (var section in sections)
@@ -134,6 +125,17 @@ namespace INZFS.MVC.Controllers
 
                 return View("ApplicationOverview", applicationOverviewContentModel);
             }
+
+            // Section
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
+            if (currentSection != null)
+            {
+                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                var sectionContentModel = GetSectionContent(content, currentSection);
+                return View(currentSection.RazorView, sectionContentModel);
+            }
+
+            
 
 
             if (pagename == "application-summary")
@@ -224,7 +226,7 @@ namespace INZFS.MVC.Controllers
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
             if (currentPage.FieldType == FieldType.gdsFileUpload)
             {
-                if (file != null)
+                if (file != null || submitAction == "UploadFile")
                 {
                     var errorMessage = await _fileUploadService.Validate(file);
                     if (!string.IsNullOrEmpty(errorMessage))
@@ -233,6 +235,7 @@ namespace INZFS.MVC.Controllers
                         ModelState.AddModelError("DataInput", errorMessage);
                     }
                 }
+                //UploadFile
                 //else
                 //{
                 //    //TODO - Handle validation Error
@@ -260,7 +263,7 @@ namespace INZFS.MVC.Controllers
                 var additionalInformation = string.Empty;
                 if (currentPage.FieldType == FieldType.gdsFileUpload)
                 {
-                    if (file != null)
+                    if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
                         //var errorMessage = await _fileUploadService.Validate(file);
                         //if (!string.IsNullOrEmpty(errorMessage))
@@ -383,7 +386,11 @@ namespace INZFS.MVC.Controllers
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
-                            additionalInformation = null;
+                            if(submitAction == "DeleteFile")
+                            {
+                                additionalInformation = null;
+                            }
+
                         }
 
                     }
@@ -404,30 +411,30 @@ namespace INZFS.MVC.Controllers
                     return RedirectToAction("section", new { pagename = action.PageName });
                 }
 
-                if (submitAction == "DeleteFile" || submitAction == "SaveProgress")
+                if (submitAction == "DeleteFile" || submitAction == "SaveProgress" || submitAction == "UploadFile")
                 {
                     return RedirectToAction("section", new { pagename = pageName });
                 }
 
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
+                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+
                 var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
 
                 if (nextPage == null)
                 {
-                    return NotFound();
+                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url }); ;
                 }
 
-                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
                 var inSection = section.Pages.Contains(nextPage);
 
                 if (!inSection)
                 {
-                    return RedirectToAction("section", new { pagename = section.Url });
+                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url });
                      
                 }
-
-
+                
                 //TODO: Check of non-existing pages
                 // check for the last page
                 return RedirectToAction("section", new { pagename = nextPage.Name });
@@ -969,6 +976,7 @@ namespace INZFS.MVC.Controllers
             sectionContentModel.Title = section.Title;
             sectionContentModel.OverviewTitle = section.OverviewTitle;
             sectionContentModel.Url = section.Url;
+            sectionContentModel.ReturnUrl = section.ReturnUrl;
 
             foreach (var pageContent in section.Pages)
             {
@@ -984,8 +992,13 @@ namespace INZFS.MVC.Controllers
                 }
                 else
                 {
-
-                    if (field.MarkAsComplete.HasValue && field.MarkAsComplete.Value == true)
+                    bool markAsComplete = true;
+                    if (pageContent.ShowMarkComplete)
+                    {
+                        markAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
+                    }
+                    
+                    if (markAsComplete)
                     {
                         sectionModel.SectionStatus = SectionStatus.Completed;
                         sectionContentModel.TotalQuestionsCompleted++;
