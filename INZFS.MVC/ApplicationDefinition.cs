@@ -13,6 +13,7 @@ namespace INZFS.MVC
         gdsTextArea,
         gdsDateBox,
         gdsSingleLineRadio,
+        gdsMultiLineRadio,
         gdsMultiSelect,
         gdsFileUpload,
         gdsStaticPage

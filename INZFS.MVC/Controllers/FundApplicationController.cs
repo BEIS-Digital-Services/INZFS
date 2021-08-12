@@ -839,6 +839,9 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsSingleLineRadio:
                     model = new SingleRadioInputModel();
                     return View("SingleRadioInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsMultiLineRadio:
+                    model = new MultiRadioInputModel();
+                    return View("MultiRadioInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
                     model = new MultiSelectInputModel();
                     return View("MultiSelectInput", PopulateModel(currentPage, model, field));
@@ -869,6 +872,8 @@ namespace INZFS.MVC.Controllers
                     return View("DateInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsSingleLineRadio:
                     return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsMultiLineRadio:
+                    return View("MultiRadioInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:

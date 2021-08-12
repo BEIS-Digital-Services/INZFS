@@ -443,6 +443,31 @@
             "hideFromSummary": true
           },
           {
+            "name": "subsidy-sole-applicant-aid-category",
+            "question": "Which category are you applying under?",
+            "titleQuestion": "",
+            "description": "",
+            "errorMessage": "Please provide something",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Subsidy sole applicant aid category",
+            "fieldName": "subsidy-sole-applicant-aid-category",
+            "mandatory": false,
+            "accordianReference": "",
+            "continueButtonText": "Continue",
+            "hideFromSummary": true,
+            "actions": [
+              {
+                "name": "aid for start-ups",
+                "value": "0",
+                "pageName": "TO DO"
+              },              {
+                "name": "aid for research and development",
+                "value": "1",
+                "pageName": "TO DO"
+              }
+            ]
+          },
+          {
             "name": "subsidy-consortium-category",
             "question": "Which of the following are you applying under?",
             "titleQuestion": "",
