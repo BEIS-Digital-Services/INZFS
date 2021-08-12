@@ -16,7 +16,7 @@ namespace INZFS.MVC.Services.FileUpload
     public class FileUploadService : IFileUploadService
     {
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private string[] permittedExtensions = { ".txt", ".pdf", ".xls", ".xlsx", ".doc", ".docx" };
+        private string[] permittedExtensions = { ".ppt", ".pptx", ".pdf", ".xls", ".xlsx", ".doc", ".docx", "gif", "jpeg", "png" };
         private readonly ClamClient _clam;
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IVirusScanService _virusScanService;
@@ -77,13 +77,13 @@ namespace INZFS.MVC.Services.FileUpload
 
             if (IsValidFileExtension(file))
             {
-                return "Cannot accept files other than .doc, .docx, .xlx, .xlsx, .pdf";
+                return "Cannot accept files other than  .ppt, .pptx, .pdf, .xls, .xlsx, .doc, .docx, gif, jpeg, png";
             }
             
             var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
             if ((double)file.Length > maxSize)
             {
-                return "File size cannot be more than 10MB";
+                return "File size cannot be more than 10 MB";
             }
             
             //TODO : Switch to virus scanning service

@@ -888,6 +888,8 @@ namespace INZFS.MVC.Controllers
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.MaxLength = currentPage.MaxLength;
+            currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
+            
             if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
