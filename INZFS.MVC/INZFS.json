@@ -24,8 +24,8 @@
         "pages": [
           {
             "name": "full-name",
-            "question": "2.1. Full Name",
-            "titleQuestion": "2.1. What is your full name?",
+            "question": "Full Name",
+            "titleQuestion": "What is your full name?",
             "description": "Description",
             "errorMessage": "Please enter full name ",
             "fieldType": "gdsTextBox",
@@ -40,8 +40,8 @@
           },
           {
             "name": "job-title",
-            "question": "2.2. Job Title",
-            "titleQuestion": "2.2. What is your job title?",
+            "question": "Job Title",
+            "titleQuestion": "What is your job title?",
             "description": "Description",
             "errorMessage": "Please enter your job title ",
             "fieldType": "gdsTextBox",
@@ -56,7 +56,7 @@
           },
           {
             "name": "organisation-running",
-            "question": "2.3 Organisation Running",
+            "question": "Organisation Running",
             "titleQuestion": "Is your organisation more than 1 year old?",
             "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
@@ -75,8 +75,7 @@
           },
           {
             "name": "recent-turnover",
-            "question": "2.4. Recent Turnover",
-            "titleQuestion": "2.4. Most recent annual turnover",
+            "question": "Most recent annual turnover",
             "hint": "The amount of money your business has taken over a period of 12 months.",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
@@ -91,8 +90,20 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "recent-turnover-date",
+            "question": "Most recent annual turnover",
+            "description": "Description",
+            "errorMessage": "Select a valid date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Balance sheet date",
+            "fieldName": "balance-sheet-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
             "name": "balance-sheet-total",
-            "question": "2.5. Balance sheet total",
+            "question": "Balance sheet total",
             "hint": "Amount, in pounds",
             "description": "Description",
             "errorMessage": "Please enter balance sheet total",
@@ -108,7 +119,7 @@
           },
           {
             "name": "balance-sheet-date",
-            "question": "2.6. Balance sheet date",
+            "question": "Balance sheet date",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -120,7 +131,7 @@
           },
           {
             "name": "vat-recovery",
-            "question": "2.7 Vat Recovery",
+            "question": "Vat Recovery",
             "titleQuestion": "Is your organisation VAT registered?",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -130,15 +141,11 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            }
+            "displayQuestionCounter": true
           },
           {
             "name": "organisation-name",
-            "question": "2.8. Organisation Name",
+            "question": "Organisation Name",
             "description": "Description",
             "errorMessage": "Please enter organisation name",
             "fieldType": "gdsTextBox",
@@ -153,7 +160,7 @@
           },
           {
             "name": "organisation-website",
-            "question": "2.9. Organisation Website",
+            "question": "Organisation Website",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
@@ -168,7 +175,7 @@
           },
           {
             "name": "company-registered-number",
-            "question": "2.11. Company Registered Number",
+            "question": "Company Registered Number",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
@@ -183,7 +190,7 @@
           },
           {
             "name": "organisation-introduction",
-            "question": "2.12. Organisation introduction",
+            "question": "Organisation introduction",
             "description": "Description",
             "errorMessage": "Enter organisation proposal",
             "fieldType": "gdsTextArea",
@@ -199,7 +206,7 @@
           },
           {
             "name": "type-of-organisation",
-            "question": "2.13 Type of organisation",
+            "question": "Type of organisation",
             "titleQuestion": "Which type best describes your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -223,7 +230,7 @@
           },
           {
             "name": "organisation-size",
-            "question": "2.14. Organisation size",
+            "question": "Organisation size",
             "titleQuestion": "What is your organisation's size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -245,7 +252,7 @@
           },
           {
             "name": "organisation-maturity",
-            "question": "2.15. Organisation maturity",
+            "question": "Organisation maturity",
             "titleQuestion": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -266,7 +273,7 @@
           },
           {
             "name": "organisation-funding",
-            "question": "2.16. Organisation funding",
+            "question": "Organisation funding",
             "titleQuestion": "How is your organisation currently funded?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
@@ -291,8 +298,8 @@
           },
           {
             "name": "parent-organisation",
-            "question": "2.17. Parent Organisation",
-            "titleQuestion": "2.17. Do you have a parent organisation?",
+            "question": "Parent Organisation",
+            "titleQuestion": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
