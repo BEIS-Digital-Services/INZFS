@@ -449,8 +449,8 @@ namespace INZFS.MVC.Controllers
             else
             {
                 await _session.CancelAsync();
-                var _currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
-                return PopulateViewModel(_currentPage, model);
+                currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+                return PopulateViewModel(currentPage, model);
             }
         }
 
@@ -994,7 +994,11 @@ namespace INZFS.MVC.Controllers
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 
-                if (string.IsNullOrEmpty(field?.Data) && field?.UserOptionSelected == null)
+                if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
+                {
+                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                }
+                else if (string.IsNullOrEmpty(field?.Data) && field?.UserOptionSelected == null)
                 {
                     sectionModel.SectionStatus = SectionStatus.NotStarted;
                 }
