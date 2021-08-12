@@ -467,8 +467,8 @@
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Balance sheet date",
-            "fieldName": "balance-sheet-date",
+            "friendlyFieldName": "Parent Balance sheet date",
+            "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
             "showSaveProgessButton": true
