@@ -37,6 +37,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
         public string UploadText { get; set; }
+        public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }
