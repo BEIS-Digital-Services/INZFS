@@ -464,7 +464,7 @@
               {
                 "name": "aid for research and development",
                 "value": "1",
-                "pageName": "results2"
+                "pageName": "subsidy-sole-applicant-result-research-development"
               }
             ]
           },
@@ -501,6 +501,11 @@
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true
+          },          
+          {
+            "name": "subsidy-sole-applicant-result-research-development",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true
           },

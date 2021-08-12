@@ -4,9 +4,25 @@
 {
     @Html.Partial("../Static/SubsidyRequirements.cshtml")
 }
+
 @if (Model == "subsidy-aid-info")
 {
     @Html.Partial("../Static/SubsidyAidInfo.cshtml")
+}
+
+@if (Model == "subsidy-sole-applicant-result-applying-less")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultApplyingLess.cshtml")
+}
+
+@if (Model == "subsidy-sole-applicant-result-applying-more")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultApplyingMore.cshtml")
+}
+
+@if (Model == "subsidy-sole-applicant-result-research-development")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultResearchDevelopment.cshtml")
 }
 
 @if (Model == "subsidy-category-info")
