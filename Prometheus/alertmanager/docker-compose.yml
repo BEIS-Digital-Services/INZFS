@@ -5,7 +5,7 @@ services:
     build:
       context: ./
       dockerfile: ./Dockerfile
-    container_name: alertmanager
+    container_name: prom-alertmanager
     ports:
     - 9093:9093
     restart: unless-stopped
@@ -13,7 +13,7 @@ services:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.path=/alertmanager'
     volumes:
-      - ./alertmanager:/etc/alertmanager
+      - alertmanager:/etc/alertmanager
       - ./config.yml:/etc/prometheus/config.yml
 
 volumes:
