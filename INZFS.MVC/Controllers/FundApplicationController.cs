@@ -892,6 +892,7 @@ namespace INZFS.MVC.Controllers
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
+            currentModel.NextPageName = currentPage.NextPageName;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;

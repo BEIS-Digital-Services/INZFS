@@ -450,7 +450,8 @@
           {
             "name": "subsidy-requirements",
             "fieldType": "gdsStaticPage",
-            "question": "6.1 Funding levels and subsidy requirements"
+            "question": "6.1 Funding levels and subsidy requirements",
+            "nextPageName": "subsidy-sole-applicant"
           },
           {
             "name": "subsidy-sole-applicant",
@@ -487,7 +488,8 @@
           {
             "name": "subsidy-aid-info",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "subsidy-sole-applicant-aid-category"
           },
           {
             "name": "subsidy-sole-applicant-aid-category",
@@ -544,17 +546,21 @@
           {
             "name": "subsidy-sole-applicant-result-applying-less",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
+
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
           },
           {
             "name": "subsidy-sole-applicant-result-research-development",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
           },
           {
             "name": "subsidy-consortium-category",
@@ -590,17 +596,20 @@
           {
             "name": "subsidy-consortium-result-feasibility",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
           },
           {
             "name": "subsidy-consortium-result-industrial",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
           },
           {
             "name": "subsidy-consortium-result-experimental",
             "fieldType": "gdsStaticPage",
-            "hideFromSummary": true
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown"
           },
           {
             "name": "project-cost-breakdown",
