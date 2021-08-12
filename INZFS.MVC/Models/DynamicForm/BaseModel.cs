@@ -30,7 +30,8 @@ namespace INZFS.MVC.Models.DynamicForm
         public bool MarkAsComplete { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
-        public string? NextPageName { get; set; }
+        public string NextPageName { get; set; }
+        public string ReturnPageName { get; set; }
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }

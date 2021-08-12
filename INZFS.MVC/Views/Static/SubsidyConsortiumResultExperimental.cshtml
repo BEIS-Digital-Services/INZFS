@@ -96,19 +96,6 @@
             </strong>
         </div>
 
-        <div class="govuk-form-group">
-            <div class="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="complete" name="complete" type="checkbox" value="complete">
-                    <label class="govuk-label govuk-checkboxes__label govuk-!-font-size-16" for="complete">
-                        Mark this question as complete
-                    </label>
-                </div>
-            </div>
-        </div>
-
-
-
         <div class="govuk-button-group">
 
             <a href="@Model.NextPageName">
@@ -117,13 +104,13 @@
                 </button>
             </a>
 
-            <a href="financialProposal-1.html">
+            <a href="subsidy-requirements">
                 <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
                     Start again
                 </button>
             </a>
 
-            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="financialProposal.html">Return to the financial proposal overview</a></p>
+            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
 
 
         </div>
