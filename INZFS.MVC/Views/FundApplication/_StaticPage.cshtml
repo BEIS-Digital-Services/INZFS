@@ -1,46 +1,48 @@
-@model string
+@model StaticPageModel
+@using INZFS.MVC.Models.DynamicForm
 
-@if (Model == "subsidy-requirements")
+
+@if (Model.PageName == "subsidy-requirements")
 {
     @Html.Partial("../Static/SubsidyRequirements.cshtml")
 }
 
-@if (Model == "subsidy-aid-info")
+@if (Model.PageName == "subsidy-aid-info")
 {
     @Html.Partial("../Static/SubsidyAidInfo.cshtml")
 }
 
-@if (Model == "subsidy-sole-applicant-result-applying-less")
+@if (Model.PageName == "subsidy-sole-applicant-result-applying-less")
 {
     @Html.Partial("../Static/SubsidySoleApplicantResultApplyingLess.cshtml")
 }
 
-@if (Model == "subsidy-sole-applicant-result-applying-more")
+@if (Model.PageName == "subsidy-sole-applicant-result-applying-more")
 {
     @Html.Partial("../Static/SubsidySoleApplicantResultApplyingMore.cshtml")
 }
 
-@if (Model == "subsidy-sole-applicant-result-research-development")
+@if (Model.PageName == "subsidy-sole-applicant-result-research-development")
 {
     @Html.Partial("../Static/SubsidySoleApplicantResultResearchDevelopment.cshtml")
 }
 
-@if (Model == "subsidy-category-info")
+@if (Model.PageName == "subsidy-category-info")
 {
     @Html.Partial("../Static/SubsidyCategoryInfo.cshtml")
 }
 
-@if (Model == "subsidy-consortium-result-feasibility")
+@if (Model.PageName == "subsidy-consortium-result-feasibility")
 {
     @Html.Partial("../Static/SubsidyConsortiumResultFeasibility.cshtml")
 }
 
-@if (Model == "subsidy-consortium-result-industrial")
+@if (Model.PageName == "subsidy-consortium-result-industrial")
 {
     @Html.Partial("../Static/SubsidyConsortiumResultIndustrial.cshtml")
 }
 
-@if (Model == "subsidy-consortium-result-experimental")
+@if (Model.PageName == "subsidy-consortium-result-experimental")
 {
     @Html.Partial("../Static/SubsidyConsortiumResultExperimental.cshtml")
 }

@@ -854,7 +854,8 @@ namespace INZFS.MVC.Controllers
                     }
                     return View("FileUpload", uploadmodel);
                 case FieldType.gdsStaticPage:
-                    return View("_StaticPage", currentPage.Name);
+                    model = new StaticPageModel();
+                    return View("_StaticPage", PopulateModel(currentPage, model, field));
                 default:
                     throw new Exception("Invalid field type");
             }
