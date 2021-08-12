@@ -503,7 +503,7 @@
             "name": "subsidy-sole-applicant-result-applying-more",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true
-          },          
+          },
           {
             "name": "subsidy-sole-applicant-result-research-development",
             "fieldType": "gdsStaticPage",
@@ -514,17 +514,45 @@
             "question": "Which of the following are you applying under?",
             "titleQuestion": "",
             "description": "",
-            "errorMessage": "Please provide something",
-            "fieldType": "gdsTextArea",
-            "friendlyFieldName": "",
-            "fieldName": "project-cost-breakdown",
-            "mandatory": true,
+            "errorMessage": "Please select an option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Subsidy consortium category",
+            "fieldName": "subsidy-consortium-category",
+            "mandatory": false,
             "accordianReference": "",
-            "maxLength": 50,
-            "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "showSaveProgessButton": true,
             "continueButtonText": "Continue",
+            "hideFromSummary": true,
+            "actions": [
+              {
+                "name": "Feasibility study",
+                "value": "0",
+                "pageName": "subsidy-consortium-result-feasibility"
+              },
+              {
+                "name": "Industrial research",
+                "value": "1",
+                "pageName": "subsidy-consortium-result-industrial"
+              },
+              {
+                "name": "Experimental development",
+                "value": "2",
+                "pageName": "subsidy-consortium-result-experimental"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-consortium-result-feasibility",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true
+          },
+          {
+            "name": "subsidy-consortium-result-industrial",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true
+          },
+          {
+            "name": "subsidy-consortium-result-experimental",
+            "fieldType": "gdsStaticPage",
             "hideFromSummary": true
           },
           {
