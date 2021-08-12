@@ -151,7 +151,6 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Data { get; set; }
         public string OtherOption { get; set; }
-        public List<string> UserOptionSelected { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
     }

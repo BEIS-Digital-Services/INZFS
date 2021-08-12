@@ -12,13 +12,14 @@ namespace INZFS.MVC.Models.DynamicForm
 
     public class MultiSelectInputModel : BaseModel, IValidatableObject
     {
-        
+
+        public List<string> UserInput { get; set; }
 
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
             if (Mandatory == true )
             {
-                if (UserOptionsSelected == null )
+                if (UserInput == null )
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
@@ -26,10 +27,10 @@ namespace INZFS.MVC.Models.DynamicForm
         }
 
 
-        public override List<String> GetSelectedByUser()
+        public override string GetData()
         {
-            return UserOptionsSelected;
+            string UsersChoices = string.Join(",", UserInput);
+            return UsersChoices;
         }
-
     }
 }

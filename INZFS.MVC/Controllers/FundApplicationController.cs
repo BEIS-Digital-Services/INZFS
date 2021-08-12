@@ -370,7 +370,6 @@ namespace INZFS.MVC.Controllers
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
                         OtherOption = model.GetOtherSelected(),
-                        UserOptionSelected = model.UserOptionsSelected,
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
@@ -403,7 +402,6 @@ namespace INZFS.MVC.Controllers
                     {
                         existingFieldData.OtherOption = null;
                     }
-                    existingFieldData.UserOptionSelected = model.GetSelectedByUser();
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
@@ -857,8 +855,14 @@ namespace INZFS.MVC.Controllers
                     model = new YesornoInputModel();
                     return View("YesornoInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
-                    model = new MultiSelectInputModel();
-                    return View("MultiSelectInput", PopulateModel(currentPage, model, field));
+                    model = PopulateModel(currentPage, new MultiSelectInputModel(), field);
+                    var multiSelect = (MultiSelectInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var UserInputList = model.DataInput.Split(',').ToList();
+                        multiSelect.UserInput = UserInputList;
+                    }
+                    return View("MultiSelectInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
@@ -928,10 +932,6 @@ namespace INZFS.MVC.Controllers
                 currentModel.OtherOption = field?.OtherOption;
             }
 
-            if (field?.UserOptionSelected != null )
-            {
-                currentModel.UserOptionsSelected = field?.UserOptionSelected;
-            }
 
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
@@ -995,10 +995,6 @@ namespace INZFS.MVC.Controllers
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 
                 if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
-                {
-                    sectionModel.SectionStatus = SectionStatus.NotStarted;
-                }
-                else if (string.IsNullOrEmpty(field?.Data) && field?.UserOptionSelected == null)
                 {
                     sectionModel.SectionStatus = SectionStatus.NotStarted;
                 }
