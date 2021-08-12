@@ -25,3 +25,5 @@ applications:
     OrchardCore__OrchardCore_Shells_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
     GovNotifyApiKey: $(GovNotifyApiKey)
+    TwoFactor__Status: $(2FA-Status)
+    TwoFactor__AccountName: "INZFS-Dev"
