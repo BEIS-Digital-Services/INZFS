@@ -1,0 +1,19 @@
+version: '3.4'
+services:
+  alertmanager:
+    image: ${DOCKER_REGISTRY-}prom-alertmanager
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: alertmanager
+    ports:
+    - 9093:9093
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/alertmanager/config.yml'
+      - '--storage.path=/alertmanager'
+    volumes:
+      - ./alertmanager:/etc/alertmanager
+
+volumes:
+  alertmanager:
