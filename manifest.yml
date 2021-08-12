@@ -25,3 +25,7 @@ applications:
     OrchardCore__OrchardCore_Shells_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
     GovNotifyApiKey: $(GovNotifyApiKey)
+    OrchardCore__OrchardCore_Media_Azure__ConnectionString: $(AzureBlob)
+    OrchardCore__OrchardCore_Media_Azure__ContainerName: $(BlobDir)
+    OrchardCore__OrchardCore_Media_Azure__BasePath: $(BlobBasePath)
+    OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
