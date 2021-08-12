@@ -36,6 +36,10 @@
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
+@if (Model == "business-skills-and-experience")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessSkillsAndExperience.cshtml")
+}
 
 @*SECTION 6 FINANCE PROPOSAL*@
 @if (Model == "project-cost-breakdown")

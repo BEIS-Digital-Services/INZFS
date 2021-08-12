@@ -24,7 +24,16 @@
 
     @Html.Partial("_ErrorMessage")
 
-    <div class="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-@(Model.MaxLengthValidationType.ToString().ToLower())-count" data-maxlength="@Model.MaxLength">
+    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count" 
+         @if(Model.MaxLengthValidationType == MaxLengthValidationType.Character)
+         {
+             <text>data-maxlength="@Model.MaxLength"</text>
+         }
+         else
+         {
+             <text>data-maxwords="@Model.MaxLength"</text>
+         }
+         >
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="@Model.FieldName">
