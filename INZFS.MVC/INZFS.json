@@ -91,7 +91,7 @@
           },
           {
             "name": "recent-turnover-date",
-            "question": "Most recent annual turnover",
+            "question": "Most recent turnover date",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
@@ -174,8 +174,25 @@
             "showSaveProgessButton": true
           },
           {
+            "name": "organisation-address",
+            "question": "Organisation Address",
+            "titleQuestion": "What is your organisation's registered address?",
+            "description": "Description",
+            "errorMessage": "Please enter organisation name website",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Organisation Address",
+            "fieldName": "organisation-address",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
             "name": "company-registered-number",
             "question": "Company Registered Number",
+            "titleQuestion": "What is your organisation’s company number?",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
@@ -243,11 +260,10 @@
             "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
-              "Pre-startup",
-              "Startup (less than 1 year)",
-              "1 to 5 years",
-              "6 to 10 years",
-              "11 years or over"
+              "10 or less employees (micro enterprise)",
+              "11 to 50 employees (small enterprise)",
+              "51 to 250 employees (medium enterprise)",
+              "251 or more employees (large enterprise)"
             ]
           },
           {
@@ -256,7 +272,7 @@
             "titleQuestion": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
-            "friendlyFieldName": " Organisation maturity",
+            "friendlyFieldName": "Organisation maturity",
             "fieldName": "organisation-maturity",
             "mandatory": true,
             "accordianReference": "",
@@ -265,10 +281,11 @@
             "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
-              "10 or less employees (micro enterprise)",
-              "11 to 50 employees (small enterprise)",
-              "51 to 250 employees (medium enterprise)",
-              "251 or more employees (large enterprise)"
+              "Pre-startup",
+              "Startup (less than 1 year)",
+              "1 to 5 years",
+              "6 to 10 years",
+              "11 years or over"
             ]
           },
           {
@@ -310,8 +327,153 @@
             "showMarkComplete": true,
             "showSaveProgessButton": true,
             "displayQuestionCounter": true
-
+          },
+          {
+            "name": "parent-organisation-name",
+            "question": "Parent organisation Name",
+            "description": "Description",
+            "errorMessage": "Please enter parent organisation name",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Parent organisation Name",
+            "fieldName": "parent-organisation-name",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-organisation-website",
+            "question": "Parent organisation Website",
+            "description": "Description",
+            "errorMessage": "Please enter parent organisation website",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Parent organisation Website",
+            "fieldName": "parent-organisation-website",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-organisation-address",
+            "question": "Parent organisation Address",
+            "titleQuestion": "What is your parent organisation's registered address?",
+            "description": "Description",
+            "errorMessage": "Please enter parent organisation name website",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Parent organisation Address",
+            "fieldName": "parent-organisation-address",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-organisation-size",
+            "question": "Parent organisation size",
+            "titleQuestion": "What is your parent organisation’s size?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": "Parent organisation size",
+            "fieldName": "parent-organisation-size",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "10 or less employees (micro enterprise)",
+              "11 to 50 employees (small enterprise)",
+              "51 to 250 employees (medium enterprise)",
+              "251 or more employees (large enterprise)"
+            ]
+          },
+          {
+            "name": "parent-organisation-maturity",
+            "question": "Parent organisation maturity",
+            "titleQuestion": "How old is your parent organisation?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": "Parent organisation maturity",
+            "fieldName": "parent-organisation-maturity",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "Pre-startup",
+              "Startup (less than 1 year)",
+              "1 to 5 years",
+              "6 to 10 years",
+              "11 years or over"
+            ]
+          },
+          {
+            "name": "parent-recent-turnover",
+            "question": "Most recent annual turnover",
+            "hint": "The amount of money your business has taken over a period of 12 months.",
+            "description": "Description",
+            "errorMessage": "Please enter 12 month turnover value",
+            "fieldType": "gdsCurrencyBox",
+            "friendlyFieldName": "Recent Turnover",
+            "fieldName": "parent-recent-turnover",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-recent-turnover-date",
+            "question": "Most recent turnover date",
+            "description": "Description",
+            "errorMessage": "Select a valid date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Balance sheet date",
+            "fieldName": "parent-balance-sheet-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-balance-sheet-total",
+            "question": "Parent balance sheet total",
+            "hint": "Amount, in pounds",
+            "description": "Description",
+            "errorMessage": "Please enter balance sheet total",
+            "fieldType": "gdsCurrencyBox",
+            "friendlyFieldName": "Parent balance sheet total",
+            "fieldName": "parent-balance-sheet-total",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-balance-sheet-date",
+            "question": "Parent Balance sheet date",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Balance sheet date",
+            "fieldName": "balance-sheet-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
           }
+
         ]
       },
       {

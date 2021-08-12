@@ -92,7 +92,7 @@
                           </dl>
 
                          @{
-                            pages = Model.Sections.Skip(8).Take(9);
+                            pages = Model.Sections.Skip(8).Take(10);
                             completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
                          }
 
@@ -114,6 +114,33 @@
                                     </div>
                                 }
                           </dl>
+
+                        @{
+                            pages = Model.Sections.Skip(18).Take(10);
+                            completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
+                        }
+
+                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">2.3. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
+                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
+
+                               <dl class="govuk-summary-list">
+                                @foreach (var item in pages)
+                                {
+                                    <div class="govuk-body-m govuk-summary-list__row">
+                                        <dt class="govuk-summary-list__key">
+                                            <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                                @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                            </a>
+                                        </dt>
+                                        <dd class="govuk-summary-list__actions">
+                                            @item.GetStatusString()
+                                        </dd>
+                                    </div>
+                                }
+                          </dl>
+
+
+                        
 
                  </div>
                 </div>
