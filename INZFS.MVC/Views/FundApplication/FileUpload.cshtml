@@ -22,74 +22,56 @@
         <input type="hidden" name="PageName" value="@Model.PageName" />
         <input type="hidden" name="Kind" value="@nameof(FileUploadModel)" />
 
-        @if (!ViewData.ModelState.IsValid)
-        {
-            <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-                <h2 class="govuk-error-summary__title" id="error-summary-title">
-                    There is a problem
-                </h2>
-                <div class="govuk-error-summary__body">
-                    <ul class="govuk-list govuk-error-summary__list">
-                        @foreach (var key in ViewData.ModelState.Keys)
-                        {
-                            var value = ViewData.ModelState[key];
-                            foreach (var error in value.Errors)
-                            {
-                                <li>
-                                    <a href="#with-hint">@error.ErrorMessage</a>
-                                </li>
-                            }
-                        }
-                    </ul>
-                </div>
-            </div>
-        }
+        @Html.Partial("_ErrorMessage")
 
-    <div class="govuk-form-group">
+        <div class="govuk-form-group">
 
-        <label class="govuk-label govuk-label--l">
-            @if (string.IsNullOrEmpty(Model.TitleQuestion))
+            <label class="govuk-label govuk-label--l">
+                @if (string.IsNullOrEmpty(Model.TitleQuestion))
+                {
+                    @Model.Question
+
+                }
+                else
+                {
+                    @Model.TitleQuestion
+                }
+            </label>
+            @Html.Partial("_Hint", Model.Hint)
+            @Html.Partial("_QuestionDescription", Model.PageName)
+
+            @if (string.IsNullOrEmpty(@Model.UploadText))
             {
-                @Model.Question
-
+                <label class="govuk-label govuk-!-font-weight-bold" for="file">
+                    Upload Some file
+                </label>
             }
             else
             {
-                @Model.TitleQuestion
+                <label class="govuk-label govuk-!-font-weight-bold" for="file">
+                    @Model.UploadText
+                </label>
             }
-        </label>
-        @Html.Partial("_Hint", Model.Hint)
-        @Html.Partial("_QuestionDescription", Model.PageName)
 
-        @if (string.IsNullOrEmpty(@Model.UploadText))
-        {
-            <label class="govuk-label govuk-!-font-weight-bold" for="file">
-                Upload Some file
-            </label>
-        }
-        else
-        {
-            <label class="govuk-label govuk-!-font-weight-bold" for="file">
-                @Model.UploadText
-            </label>
-        }
-
-        <input class="govuk-file-upload" id="file" name="file" type="file"
-               accept=".txt,.pdf,.xlsx,.doc,.docx">
-        <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="submit" name="submit.Publish"
-                value="UploadFile">
-            Upload file
-        </button>
-    </div>
+            <input class="govuk-file-upload" id="file" name="file" type="file"
+                   accept=".txt,.pdf,.xlsx,.doc,.docx">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="submit" name="submit.Publish"
+                    value="UploadFile">
+                Upload file
+            </button>
+        </div>
 
         <details class="govuk-details" data-module="govuk-details">
             <summary class="govuk-details__summary">
                 <span class="govuk-details__summary-text">
-                    What file can i upload?
+                    What file can I upload?
                 </span>
             </summary>
             <div class="govuk-details__text">
-                Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
+                <p class="govuk-body">You can only upload the following file types:</p>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>PDF, XLS, XLSX, PPT, PPTX, DOC, DOCX, GIF, JPEG, PNG</li>
+                </ul>
             </div>
         </details>
 

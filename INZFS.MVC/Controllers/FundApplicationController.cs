@@ -909,7 +909,9 @@ namespace INZFS.MVC.Controllers
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.HasOtherOption = currentPage.HasOtherOption;
             currentModel.MaxLength = currentPage.MaxLength;
+            currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
             currentModel.SelectedOptions = currentPage.SelectOptions;
+            
             if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
