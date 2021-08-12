@@ -14,6 +14,7 @@ services:
       - '--storage.path=/alertmanager'
     volumes:
       - ./alertmanager:/etc/alertmanager
+      - ./config.yml:/etc/prometheus/config.yml
 
 volumes:
   alertmanager:
