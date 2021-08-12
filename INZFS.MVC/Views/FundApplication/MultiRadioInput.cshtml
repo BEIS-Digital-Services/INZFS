@@ -63,8 +63,8 @@ else
                 @foreach (var Action in Model.Actions)
                 {
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=@Action.Value
-                           @if (Model.DataInput == "1")
+                        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value="@Action.Value"
+                           @if (Model.DataInput == Action.Value)
                            {
                                <text>checked="checked"</text>
                            }
