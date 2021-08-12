@@ -206,7 +206,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -222,7 +222,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -237,7 +237,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -256,7 +256,6 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
             "uploadText": "Upload Technology Readiness Level"
           },
           {
@@ -270,7 +269,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "hint": "You should include evidence where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -286,7 +285,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -301,7 +300,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -316,7 +315,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -332,7 +331,7 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "hint": "Use scientific studies and research to prove your claims where you can.",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -352,7 +351,6 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
             "uploadText": "Upload project plan"
           },
           {
@@ -366,8 +364,8 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
-            "hint": "Use scientific studies and research to prove your claims where you can.",
+            "maxLengthValidationType": "Word",
+            "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
@@ -386,8 +384,57 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
             "uploadText": "Upload project evaluation"
+          },
+          {
+            "name": "business-skills-and-experience",
+            "question": "5.10. Skills and experience",
+            "description": "Description",
+            "errorMessage": "Enter skills and experience",
+            "fieldType": "gdsTextArea",
+            "friendlyFieldName": "Skills and experience",
+            "fieldName": "business-skills-and-experience",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 1000,
+            "maxLengthValidationType": "Word",
+            "hint": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "business-skills-and-experience-document",
+            "question": "5.10.1 Upload skills and experience",
+            "titleQuestion": "5.10.1 Upload skills and experience",
+            "errorMessage": "Upload skills and experience",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Skills and experience File Upload",
+            "fieldName": "business-skills-and-experience-document",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "hint": "You can upload a document which highlights your team's experience and skills in greater detail:",
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "uploadText": "Upload project evaluation"
+          },
+          {
+            "name": "business-letter-of-support-document",
+            "question": "5.11. Letter of support (optional)",
+            "titleQuestion": "5.11. Letter of support (optional)",
+            "hint": "",
+            "errorMessage": "Upload a Letter of support",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Letter of support File Upload",
+            "fieldName": "business-letter-of-support-document",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "uploadText": "Upload a Letter of support"
           }
         ]
       },

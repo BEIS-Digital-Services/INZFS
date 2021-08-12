@@ -893,6 +893,8 @@ namespace INZFS.MVC.Controllers
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.MaxLength = currentPage.MaxLength;
+            currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
+            
             if(currentPage.Actions?.Count > 0)
             {
                 currentModel.Actions = currentPage.Actions;
