@@ -28,4 +28,4 @@ scrape_configs:
     static_configs:
       - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
         labels:
-          - env: develop
+          env: develop
