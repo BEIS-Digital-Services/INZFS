@@ -1,7 +1,15 @@
 global:
   scrape_interval: 30s
-  scrape_timeout: 10s
+  scrape_timeout: 15s
 
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+  - static_configs:
+    - targets:
+        - inzfs-prom-alertmanager.london.cloudapps.digita:443
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
   - 'alert.yml'
   - 'prometheus.rules.yml'
