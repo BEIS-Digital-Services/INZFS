@@ -22,7 +22,7 @@ namespace INZFS.MVC.ModelProviders
             var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), 
                 typeof(DateModel), typeof(MultiSelectInputModel),
                 typeof(YesornoInputModel), typeof(FileUploadModel), typeof(CurrencyInputModel), 
-                typeof(Ra,ioSingleSelectModel), typeof(MultiRadioInputModel), typeof(StaticPageModel) typeof(AddressInputModel)
+                typeof(RadioSingleSelectModel), typeof(MultiRadioInputModel), typeof(StaticPageModel), typeof(AddressInputModel)
                 };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
