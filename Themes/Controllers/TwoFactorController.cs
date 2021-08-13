@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -22,6 +23,7 @@ namespace INZFS.Theme.Controllers
         private readonly ILogger<TwoFactorController> _logger;
         private readonly INotificationService _notificationService;
         private readonly IUrlEncodingService _encodingService;
+        private readonly NotificationOption _notificationOption;
 
         public TwoFactorController(
             UserManager<IUser> userManager,
@@ -30,7 +32,8 @@ namespace INZFS.Theme.Controllers
             SignInManager<IUser> signInManager,
             ILogger<TwoFactorController> logger, 
             INotificationService notificationService,
-            IUrlEncodingService encodingService)
+            IUrlEncodingService encodingService, 
+            IOptions<NotificationOption> notificationOption)
         {
             _userManager = userManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
@@ -39,6 +42,7 @@ namespace INZFS.Theme.Controllers
             _logger = logger;
             _notificationService = notificationService;
             _encodingService = encodingService;
+            _notificationOption = notificationOption.Value;
         }
 
         [HttpGet]
@@ -133,7 +137,7 @@ namespace INZFS.Theme.Controllers
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("code", code);
-            await _notificationService.SendSmsAsync(phoneNumber, "3cc08e38-bd06-494d-ac8f-fa71d40c7477", parameters);
+            await _notificationService.SendSmsAsync(phoneNumber, _notificationOption.SmsCodeTemplate, parameters);
         }
         
         private async Task SendEmail(IUser user)
@@ -142,7 +146,7 @@ namespace INZFS.Theme.Controllers
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Email.ToString());
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("code", code);
-            await _notificationService.SendEmailAsync(email, "e78d54d3-04b9-4ec7-965d-c78e3284e7ad", parameters);
+            await _notificationService.SendEmailAsync(email, _notificationOption.EmailCodeTemplate, parameters);
         }
 
         [HttpGet]

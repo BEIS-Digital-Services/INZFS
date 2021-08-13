@@ -53,6 +53,8 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<INotificationService, NotificationService>();
 
             serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
+            serviceCollection.Configure<NotificationOption>(Configuration.GetSection("Notification"));
+
             serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
 
