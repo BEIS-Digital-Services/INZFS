@@ -46,6 +46,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }
+        public PreviousPage PreviousPage { get; set; }
 
         public virtual string GetData()
         {

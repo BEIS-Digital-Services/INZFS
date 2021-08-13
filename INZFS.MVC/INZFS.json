@@ -1125,6 +1125,454 @@
         "RazorView": "PerformanceData",
         "pages": [
         ]
+      },
+      {
+        "title": "Equality Survey",
+        "overviewTitle": "application-overview",
+        "tag": "equality-survey",
+        "url": "application-overview",
+        "ReturnUrl": "application-overview",
+        "continueButtonText": "Save and continue",
+        "RazorView": "EqualitySurvey",
+        "pages": [
+          {
+            "name": "eq-survey-question-one",
+            "question": "What is your sex?",
+            "titleQuestion": "What is your sex?",
+            "hint": "Please choose your biological sex",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Sex",
+            "fieldName": "eq-survey-question1",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            },
+            "actions": [
+              {
+                "name": "Male",
+                "value": "1",
+                "pageName": "eq-survey-question-two"
+              },
+              {
+                "name": "Female",
+                "value": "0",
+                "pageName": "eq-survey-question-two"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "2",
+                "pageName": "eq-survey-question-two"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-two",
+            "question": "Is the gender you identify with the same as your sex registered at birth?",
+            "titleQuestion": "Is the gender you identify with the same as your sex registered at birth?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "sex-at-birth",
+            "fieldName": "eq-survey-question2",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 1",
+              "text": "eq-survey-question-one"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eq-survey-question-three"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eq-survey-question-three"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "2",
+                "pageName": "eq-survey-question-three"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-three",
+            "question": "What is your ethnic group?",
+            "titleQuestion": "What is your ethnic group?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Sex",
+            "fieldName": "EQ-Survey-Question3",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 1",
+              "text": "eq-survey-question-two"
+            },
+            "actions": [
+              {
+                "name": "White",
+                "value": "1",
+                "pageName": "eq-survey-question-four-a"
+              },
+              {
+                "name": "Mixed or multiple ethnic groups",
+                "value": "0",
+                "pageName": "eq-survey-question-four-b"
+              },
+              {
+                "name": "Asian or Asian British",
+                "value": "2",
+                "pageName": "eq-survey-question-four-c"
+              },
+              {
+                "name": "Black, African, Caribbean or Black British",
+                "value": "3",
+                "pageName": "eq-survey-question-four-d"
+              },
+              {
+                "name": "Other ethnic group",
+                "value": "4",
+                "pageName": "eq-survey-question-four-e"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "5",
+                "pageName": "eq-survey-question-five"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-four-a",
+            "question": "Which of the following best describes your White background?",
+            "titleQuestion": "Which of the following best describes your White background?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "white-background",
+            "fieldName": "eq-survey-question-4a",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 4",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "English, Welsh, Scottish, Northern Irish or British",
+                "value": "1",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Irish",
+                "value": "0",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Gypsy or Irish Traveller",
+                "value": "2",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Any other White background",
+                "value": "3",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "4",
+                "pageName": "eq-survey-question-five"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-four-b",
+            "question": "Which of the following best describes your Mixed or Multiple ethnic groups background?",
+            "titleQuestion": "Which of the following best describes your Mixed or Multiple ethnic groups background?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "mixed-or-multiple-ethnic-groups",
+            "fieldName": "EQ-Survey-Question4a",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 4",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "Black Caribbean or White",
+                "value": "1",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Black African or White",
+                "value": "0",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Asian and White",
+                "value": "2",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Any other Mixed or Multiple ethnic background",
+                "value": "3",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "4",
+                "pageName": "eq-survey-question-five"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-four-c",
+            "question": "Which of the following best describes your Asian or Asian British background?",
+            "titleQuestion": "Which of the following best describes your Asian or Asian British background?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "asian-or-asian-british",
+            "fieldName": "eq-survey-question4c",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 4",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "Indian",
+                "value": "1",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Pakistani",
+                "value": "0",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Bangladeshi",
+                "value": "2",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Chinese",
+                "value": "3",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Any other Asian background",
+                "value": "4",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "5",
+                "pageName": "eq-survey-question-five"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-four-d",
+            "question": "Which of the following best describes your Black, African, Caribbean or Black British background?",
+            "titleQuestion": "Which of the following best describes your Black, African, Caribbean or Black British background?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "black-african-carribbean-or-black-british",
+            "fieldName": "eq-survey-question-4d",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 4",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "African",
+                "value": "1",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Caribbean",
+                "value": "0",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Any other Black, African or Caribbean background",
+                "value": "2",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "3",
+                "pageName": "eq-survey-question-five"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-four-e",
+            "question": "Which of the following best describes your background?",
+            "titleQuestion": "Which of the following best describes your background?",
+            "hint": "",
+            "errorMessage": "Select an ethnic group or other option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "other-ethnic-background",
+            "fieldName": "eq-survey-question-4e",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 1",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "Arab",
+                "value": "1",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Any other ethic group",
+                "value": "0",
+                "pageName": "eq-survey-question-five"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "2",
+                "pageName": "eq-survey-question-five"
+              }
+
+            ]
+          },
+          {
+            "name": "eq-survey-question-five",
+            "question": "Do you have any physical or mental health conditions or illnesses lasting or expected to last 12 months or more?",
+            "titleQuestion": "Do you have any physical or mental health conditions or illnesses lasting or expected to last 12 months or more?",
+            "hint": "",
+            "errorMessage": "Please select an option which best describes your physical or mental condition",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "physical-or-mental-conditions",
+            "fieldName": "eq-survey-question5",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 4",
+              "text": "eq-survey-question-three"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eq-survey-question-six"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eq-survey-complete"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "2",
+                "pageName": "eq-survey-complete"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-question-six",
+            "question": "Do any of your conditions or illnesses reduce your ability to carry out day to day activities?",
+            "titleQuestion": "Do any of your conditions or illnesses reduce your ability to carry out day to day activities?",
+            "hint": "",
+            "errorMessage": "Please select an option which best describes how your physical or mental condition affects you",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "affects-of-physical-or-mental-conditions",
+            "fieldName": "eq-survey-question6",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to question 5",
+              "text": "eq-survey-question-five"
+            },
+            "actions": [
+              {
+                "name": "Yes, a lot",
+                "value": "1",
+                "pageName": "eq-survey-complete"
+              },
+              {
+                "name": "Yes, a little",
+                "value": "0",
+                "pageName": "eq-survey-question-complete"
+              },
+              {
+                "name": "Not at all",
+                "value": "2",
+                "pageName": "eq-survey-complete"
+              },
+              {
+                "name": "Prefer not to say",
+                "value": "3",
+                "pageName": "eq-survey-complete"
+              }
+            ]
+          },
+          {
+            "name": "eq-survey-complete",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          }
+        ]
       }
     ]
   }
