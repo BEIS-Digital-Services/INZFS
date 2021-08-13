@@ -11,10 +11,9 @@ services:
     restart: unless-stopped
     command:
       - '--config.file=/etc/alertmanager/config.yml'
-      - '--storage.path=/alertmanager'
+      - '--storage.tsdb.pathh=/alertmanager'
     volumes:
-      - alertmanager:/etc/alertmanager
-      - ./config/config.yml:/etc/alertmanager/config.yml
-
+    - ./config.yml:/etc/alertmanager/config.yml:ro
+    - alertmanager_data:/alertmanager
 volumes:
-  alertmanager:
+  alertmanager_data:
