@@ -83,6 +83,12 @@ namespace INZFS.Theme.Services
             return true;
         }
 
+        public async Task<bool> GetAuthenticatorConfirmedAsync(string userId)
+        {
+            var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
+            return userTwoFactorSettings?.IsAuthenticatorConfirmed ?? false;
+        }
+
         public async Task<AuthenticationMethod> GetTwoFactorDefaultAsync(string userId)
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);

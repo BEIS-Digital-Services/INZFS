@@ -231,18 +231,50 @@ namespace INZFS.Theme.Controllers
         public async Task<IActionResult> Alternative(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            var model = new ChooseVerificationMethodViewModel();
-           return View(model);
+            var userId = await _userManager.GetUserIdAsync(user);
+            var model = new ChooseAlternativeMethodViewModel();
+            var defaultMethod = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+            if (defaultMethod != AuthenticationMethod.Email)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    {Method = AuthenticationMethod.Email, Title = "Email"});
+            }
+
+            var isAuthenticatorConfirmed = await _factorSettingsService.GetAuthenticatorConfirmedAsync(userId);
+            if (isAuthenticatorConfirmed && defaultMethod != AuthenticationMethod.Authenticator)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    { Method = AuthenticationMethod.Authenticator, Title = "Authenticator app (Google or Microsoft)" });
+            }
+            
+            var isPhoneNumberConfirmed = await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId);
+            if (isPhoneNumberConfirmed && defaultMethod != AuthenticationMethod.Phone)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    { Method = AuthenticationMethod.Phone, Title = "SMS" });
+            }
+
+
+            return View(model);
         }
-        
+
         [HttpPost]
-        public async Task<IActionResult> Alternative(ChooseVerificationMethodViewModel model, string returnUrl)
+        public async Task<IActionResult> Alternative(ChooseAlternativeMethodViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-                await SendEmail(user);
-                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Email, returnUrl });
+                if (model.AuthenticationMethod == AuthenticationMethod.Email)
+                {
+                    await SendEmail(user);
+                }
+                
+                if (model.AuthenticationMethod == AuthenticationMethod.Phone)
+                {
+                    await SendSms(user);
+                }
+
+                return RedirectToAction("EnterCode", new { method = model.AuthenticationMethod, returnUrl });
             }
 
             return View(model);

@@ -18,6 +18,7 @@ namespace INZFS.Theme.Services
         Task<bool> GetPhoneNumberConfirmedAsync(string userId);
         Task<bool> SetPhoneNumberConfirmedAsync(string userId, bool confirmed);
         Task<bool> SetAuthenticatorConfirmedAsync(string userId, bool confirmed);
+        Task<bool> GetAuthenticatorConfirmedAsync(string userId);
         Task<AuthenticationMethod> GetTwoFactorDefaultAsync(string userId);
         Task<bool> SetTwoFactorDefaultAsync(string userId, AuthenticationMethod method);
     }
