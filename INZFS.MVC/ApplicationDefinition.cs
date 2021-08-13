@@ -16,7 +16,8 @@ namespace INZFS.MVC
         gdsMultiSelect,
         gdsFileUpload,
         gdsCurrencyBox,
-        gdsSingleRadioSelectOption
+        gdsSingleRadioSelectOption,
+        gdsAddressTextBox
     }
 
     public enum MaxLengthValidationType

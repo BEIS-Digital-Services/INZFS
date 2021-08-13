@@ -863,6 +863,21 @@ namespace INZFS.MVC.Controllers
                         multiSelect.UserInput = UserInputList;
                     }
                     return View("MultiSelectInput", PopulateModel(currentPage, model));
+                case FieldType.gdsAddressTextBox:
+                    model = PopulateModel(currentPage, new AddressInputModel(), field);
+                    var addressInputModel = (AddressInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var userAddress = model.DataInput.Split(',').ToList();
+                        addressInputModel.addresslist = userAddress;
+                        addressInputModel.addresslist[0] = addressInputModel.AddressLine1;
+                        addressInputModel.addresslist[1] = addressInputModel.AddressLine2;
+                        addressInputModel.addresslist[2] = addressInputModel.City;
+                        addressInputModel.addresslist[3] = addressInputModel.County;
+                        addressInputModel.addresslist[4] = addressInputModel.City;
+                        addressInputModel.addresslist[5] = addressInputModel.PostCode;
+                    }
+                    return View("AddressInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
@@ -897,6 +912,8 @@ namespace INZFS.MVC.Controllers
                     return View("CurrencyInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsSingleRadioSelectOption:
                     return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsAddressTextBox:
+                    return View("AddressInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
