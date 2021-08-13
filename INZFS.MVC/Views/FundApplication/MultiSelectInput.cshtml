@@ -12,7 +12,7 @@
 
 <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
-<form asp-action="save" asp-route-returnUrl="@Context.Request.Query["ReturnUrl"]" method="post" enctype="multipart/form-data">
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(MultiSelectInputModel)" />
@@ -27,39 +27,25 @@
                 </h1>
             </legend>
             @Html.Partial("_Hint", Model.Hint)
-            <span asp-validation-for="@Model.MultipleSelect" class="govuk-error-message"></span>
+            <span asp-validation-for="@Model.UserOptionsSelected" class="govuk-error-message"></span>
             <div class="govuk-checkboxes">
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@Model.FieldName" name="MultipleSelect" type="checkbox" value="true">
-                    <label class="govuk-label govuk-checkboxes__label">
-                        Option 1
-                    </label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@Model.FieldName" name="MultipleSelect" type="checkbox" value="true">
-                    <label class="govuk-label govuk-checkboxes__label">
-                        Option 2
-                    </label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@Model.FieldName" name="MultipleSelect" type="checkbox" value="true">
-                    <label class="govuk-label govuk-checkboxes__label">
-                        Option 3
-                    </label>
-                </div>
-                <div class="govuk-checkboxes__item">
-                    <input class="govuk-checkboxes__input" id="@Model.FieldName" name="MultipleSelect" type="checkbox" value="true">
-                    <label class="govuk-label govuk-checkboxes__label">
-                        Option 4
-                    </label>
-                </div>
-
+                @foreach (var item in Model.SelectedOptions)
+                {
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="checkboxSelect" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) {@if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text>  } }>
+                        <label class="govuk-label govuk-checkboxes__label">
+                            @item
+                        </label>
+                    </div>
+                }
         </fieldset>
     </div>
 
-    @Html.Partial("_SaveProgress")
-
     @Html.Partial("_Accordion", "")
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
 
     @Html.Partial("_SaveContinue", Model.ContinueButtonText)
 </form>

@@ -369,6 +369,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
+                        OtherOption = model.GetOtherSelected(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
@@ -393,6 +394,14 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
+                    if(existingFieldData.Data == "Other")
+                    {
+                        existingFieldData.OtherOption = model.GetOtherSelected();
+                    }
+                    else
+                    {
+                        existingFieldData.OtherOption = null;
+                    }
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
@@ -428,7 +437,7 @@ namespace INZFS.MVC.Controllers
                 if (!inSection)
                 {
                     return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url });
-
+                     
                 }
                 
                 //TODO: Check of non-existing pages
@@ -819,9 +828,15 @@ namespace INZFS.MVC.Controllers
             BaseModel model;
             switch (currentPage.FieldType)
             {
+                case FieldType.gdsSingleRadioSelectOption:
+                    model = new RadioSingleSelectModel();
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsCurrencyBox:
+                    model = new CurrencyInputModel();
+                    return View("CurrencyInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, field));
@@ -835,15 +850,19 @@ namespace INZFS.MVC.Controllers
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-
-
                     return View("DateInput", model);
-                case FieldType.gdsSingleLineRadio:
-                    model = new SingleRadioInputModel();
-                    return View("SingleRadioInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsYesorNoRadio:
+                    model = new YesornoInputModel();
+                    return View("YesornoInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
-                    model = new MultiSelectInputModel();
-                    return View("MultiSelectInput", PopulateModel(currentPage, model, field));
+                    model = PopulateModel(currentPage, new MultiSelectInputModel(), field);
+                    var multiSelect = (MultiSelectInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var UserInputList = model.DataInput.Split(',').ToList();
+                        multiSelect.UserInput = UserInputList;
+                    }
+                    return View("MultiSelectInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
@@ -854,6 +873,7 @@ namespace INZFS.MVC.Controllers
                     return View("FileUpload", uploadmodel);
                 default:
                     throw new Exception("Invalid field type");
+                
             }
         }
 
@@ -867,12 +887,16 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
-                case FieldType.gdsSingleLineRadio:
-                    return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsYesorNoRadio:
+                    return View("YesornoInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:
                     return View("FileUpload", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsCurrencyBox:
+                    return View("CurrencyInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsSingleRadioSelectOption:
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -887,8 +911,10 @@ namespace INZFS.MVC.Controllers
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
+            currentModel.HasOtherOption = currentPage.HasOtherOption;
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
+            currentModel.SelectedOptions = currentPage.SelectOptions;
             
             if (currentPage.ShowMarkComplete)
             {
@@ -901,7 +927,12 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-            
+            if (!string.IsNullOrEmpty(field?.OtherOption))
+            {
+                currentModel.OtherOption = field?.OtherOption;
+            }
+
+
             var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
             var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));

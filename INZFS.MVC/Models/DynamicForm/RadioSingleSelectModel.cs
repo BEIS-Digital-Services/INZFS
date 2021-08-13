@@ -9,28 +9,27 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
 {
-
-    public class MultiSelectInputModel : BaseModel, IValidatableObject
+    public class RadioSingleSelectModel : BaseModel, IValidatableObject
     {
-
-        public List<string> UserInput { get; set; }
-
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true )
+            if (Mandatory == true)
             {
-                if (UserInput == null )
+                if (string.IsNullOrEmpty(DataInput))
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
             }
         }
 
-
         public override string GetData()
         {
-            string UsersChoices = string.Join(",", UserInput);
-            return UsersChoices;
+            return DataInput;
+        }
+
+        public override string GetOtherSelected()
+        {
+            return OtherOption;
         }
     }
 }
