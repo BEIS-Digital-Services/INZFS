@@ -1,3 +1,3 @@
 FROM prom/alertmanager
 WORKDIR /src
-ADD ./config.yml /etc/alertmanager/config.yml
+ADD config.yml /etc/alertmanager/config.yml
