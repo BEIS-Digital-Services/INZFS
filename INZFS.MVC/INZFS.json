@@ -903,6 +903,7 @@
             "name": "subsidy-requirements",
             "fieldType": "gdsStaticPage",
             "question": "6.1 Funding levels and subsidy requirements",
+            "nextPageName": "subsidy-sole-applicant"
           },
           {
             "name": "subsidy-sole-applicant",
@@ -940,6 +941,7 @@
             "name": "subsidy-aid-info",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
+            "nextPageName": "subsidy-sole-applicant-aid-category"
           },
           {
             "name": "subsidy-sole-applicant-aid-category",
