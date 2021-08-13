@@ -934,6 +934,10 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
             }
+            if (currentPage.PreviousPage != null)
+            {
+                currentModel.PreviousPage = currentPage.PreviousPage;
+            }
 
             currentModel.FileToDownload = currentPage.FileToDownload;
 

@@ -5,17 +5,29 @@
 
 @if (!string.IsNullOrEmpty(Model.PreviousPageName))
 {
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
+    @if (Model.PageName.StartsWith("eq"))
+    {
+        <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPage.text">
+            Back to previous question
+        </a>
+    }
+    else
+    {
+        <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+            Back to previous question
+        </a>
+    }
 }
 else
 {
-<a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.SectionInfo.Url">
-    @Model.SectionInfo.Title
-</a>
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.SectionInfo.Url">
+        @Model.SectionInfo.Title
+    </a>
 }
+@if (Model.DisplayQuestionCounter == true)
+{
     <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+}
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -43,11 +55,7 @@ else
                 {
                     <div class="govuk-radios__item">
                         <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value="@Action.Value"
-                           @if (Model.DataInput == Action.Value)
-                           {
-                               <text>checked="checked"</text>
-                           }
-                           >
+                               @if (Model.DataInput == Action.Value) { <text> checked="checked" </text> }>
                         <label class="govuk-label govuk-radios__label">
                             @Action.Name
                         </label>

@@ -61,6 +61,7 @@ namespace INZFS.MVC
         public List<Action> Actions { get; set; }
         public List<string> SelectOptions { get; set; }
         public bool HideFromSummary { get; set; }
+        public PreviousPage PreviousPage { get; set; }
     }
 
     public class Section
@@ -179,6 +180,11 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Value { get; set; }
         public string PageName { get; set; }
+    }
+    public class PreviousPage
+    {
+        public string link { get; set; }
+        public string text { get; set; }
     }
 
 }
