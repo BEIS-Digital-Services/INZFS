@@ -13,7 +13,7 @@ services:
       - '--config.file=/etc/alertmanager/config.yml'
       - '--storage.tsdb.pathh=/alertmanager'
     volumes:
-    - ./config.yml:/etc/alertmanager/config.yml:ro
+    - ./alertmanager/config/config.yml:/etc/alertmanager/config.yml
     - alertmanager_data:/alertmanager
 volumes:
   alertmanager_data:
