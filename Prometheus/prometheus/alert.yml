@@ -12,7 +12,7 @@ groups:
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
       - alert: InstanceCrashed
-        expr: crash<1
+        expr: crash>1
         for: 1m
         labels:
           severity: critical
