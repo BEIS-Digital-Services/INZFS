@@ -869,13 +869,11 @@ namespace INZFS.MVC.Controllers
                     if (!string.IsNullOrEmpty(model.DataInput))
                     {
                         var userAddress = model.DataInput.Split(',').ToList();
-                        addressInputModel.addresslist = userAddress;
-                        addressInputModel.addresslist[0] = addressInputModel.AddressLine1;
-                        addressInputModel.addresslist[1] = addressInputModel.AddressLine2;
-                        addressInputModel.addresslist[2] = addressInputModel.City;
-                        addressInputModel.addresslist[3] = addressInputModel.County;
-                        addressInputModel.addresslist[4] = addressInputModel.City;
-                        addressInputModel.addresslist[5] = addressInputModel.PostCode;
+                        addressInputModel.AddressLine1 = userAddress[0];
+                        addressInputModel.AddressLine2 = userAddress[1];
+                        addressInputModel.City = userAddress[2];
+                        addressInputModel.County = userAddress[3];
+                        addressInputModel.PostCode = userAddress[4];
                     }
                     return View("AddressInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:

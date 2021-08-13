@@ -65,13 +65,9 @@
             "fieldName": "organisation-running",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            }
+            "displayQuestionCounter": true
           },
           {
             "name": "recent-turnover",
@@ -139,7 +135,7 @@
             "fieldName": "vat-recovery",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true
           },
@@ -193,6 +189,7 @@
             "name": "company-registered-number",
             "question": "Company Registered Number",
             "titleQuestion": "What is your organisation’s company number?",
+            "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
