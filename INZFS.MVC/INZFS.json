@@ -900,6 +900,175 @@
         "RazorView": "FinanceProposalOverview",
         "pages": [
           {
+            "name": "subsidy-requirements",
+            "fieldType": "gdsStaticPage",
+            "question": "6.1 Funding levels and subsidy requirements",
+            "nextPageName": "subsidy-sole-applicant"
+          },
+          {
+            "name": "subsidy-sole-applicant",
+            "question": "Are you a sole applicant?",
+            "titleQuestion": "Are you a sole applicant?",
+            "hint": "Answer no if you are applying as part of a consortium of companies",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Subsidy Sole Applicant",
+            "fieldName": "subsidy-sole-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": false,
+            "hideFromSummary": true,
+            "previousPage": {
+              "link": "Back to Finance Proposal Overview",
+              "text": "finance-proposal-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "subsidy-aid-info"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "subsidy-consortium-category"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-aid-info",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "subsidy-sole-applicant-aid-category"
+          },
+          {
+            "name": "subsidy-sole-applicant-aid-category",
+            "question": "Which category are you applying under?",
+            "titleQuestion": "",
+            "description": "",
+            "errorMessage": "Please provide something",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Subsidy sole applicant aid category",
+            "fieldName": "subsidy-sole-applicant-aid-category",
+            "mandatory": false,
+            "accordianReference": "",
+            "continueButtonText": "Continue",
+            "hideFromSummary": true,
+            "actions": [
+              {
+                "name": "aid for start-ups",
+                "value": "0",
+                "pageName": "subsidy-sole-applicant-value"
+              },
+              {
+                "name": "aid for research and development",
+                "value": "1",
+                "pageName": "subsidy-sole-applicant-result-research-development"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-sole-applicant-value",
+            "question": "How much money are you applying for?",
+            "titleQuestion": "",
+            "description": "",
+            "errorMessage": "Please select an option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Subsidy sole applicant value",
+            "fieldName": "subsidy-sole-applicant-value",
+            "mandatory": false,
+            "accordianReference": "",
+            "continueButtonText": "Continue",
+            "hideFromSummary": true,
+            "actions": [
+              {
+                "name": "Up to and including £500,000",
+                "value": "0",
+                "pageName": "subsidy-sole-applicant-result-applying-less"
+              },
+              {
+                "name": "over £500,000",
+                "value": "1",
+                "pageName": "subsidy-sole-applicant-result-applying-more"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-sole-applicant-result-applying-less",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
+            "name": "subsidy-sole-applicant-result-applying-more",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
+            "name": "subsidy-sole-applicant-result-research-development",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
+            "name": "subsidy-consortium-category",
+            "question": "Which of the following are you applying under?",
+            "titleQuestion": "",
+            "description": "",
+            "errorMessage": "Please select an option",
+            "fieldType": "gdsMultiLineRadio",
+            "friendlyFieldName": "Subsidy consortium category",
+            "fieldName": "subsidy-consortium-category",
+            "mandatory": false,
+            "accordianReference": "",
+            "continueButtonText": "Continue",
+            "hideFromSummary": true,
+            "actions": [
+              {
+                "name": "Feasibility study",
+                "value": "0",
+                "pageName": "subsidy-consortium-result-feasibility"
+              },
+              {
+                "name": "Industrial research",
+                "value": "1",
+                "pageName": "subsidy-consortium-result-industrial"
+              },
+              {
+                "name": "Experimental development",
+                "value": "2",
+                "pageName": "subsidy-consortium-result-experimental"
+              }
+            ]
+          },
+          {
+            "name": "subsidy-consortium-result-feasibility",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
+            "name": "subsidy-consortium-result-industrial",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
+            "name": "subsidy-consortium-result-experimental",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "project-cost-breakdown",
+            "returnPageName": "finance-proposal-overview"
+          },
+          {
             "name": "project-cost-breakdown",
             "question": "6.2. Project cost breakdown",
             "titleQuestion": "6.2 Project cost breakdown",

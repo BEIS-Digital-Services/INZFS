@@ -851,6 +851,9 @@ namespace INZFS.MVC.Controllers
                         dateModel.Year = inputDate.Year;
                     }
                     return View("DateInput", model);
+                case FieldType.gdsMultiLineRadio:
+                    model = new MultiRadioInputModel();
+                    return View("MultiRadioInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsYesorNoRadio:
                     model = new YesornoInputModel();
                     return View("YesornoInput", PopulateModel(currentPage, model, field));
@@ -871,6 +874,9 @@ namespace INZFS.MVC.Controllers
                         uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     }
                     return View("FileUpload", uploadmodel);
+                case FieldType.gdsStaticPage:
+                    model = new StaticPageModel();
+                    return View("_StaticPage", PopulateModel(currentPage, model, field));
                 default:
                     throw new Exception("Invalid field type");
                 
@@ -887,6 +893,8 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsMultiLineRadio:
+                    return View("MultiRadioInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsYesorNoRadio:
                     return View("YesornoInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
@@ -910,12 +918,18 @@ namespace INZFS.MVC.Controllers
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
+            currentModel.NextPageName = currentPage.NextPageName;
+            currentModel.ReturnPageName = currentPage.ReturnPageName;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
             currentModel.HasOtherOption = currentPage.HasOtherOption;
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
             currentModel.SelectedOptions = currentPage.SelectOptions;
             
+            if(currentPage.Actions?.Count > 0)
+            {
+                currentModel.Actions = currentPage.Actions;
+            }
             if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
@@ -991,6 +1005,7 @@ namespace INZFS.MVC.Controllers
                 var sectionModel = new SectionModel();
                 sectionModel.Title = pageContent.Question;
                 sectionModel.Url = pageContent.Name;
+                sectionModel.HideFromSummary = pageContent.HideFromSummary;
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 

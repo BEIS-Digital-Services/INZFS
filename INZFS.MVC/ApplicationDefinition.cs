@@ -13,10 +13,12 @@ namespace INZFS.MVC
         gdsTextArea,
         gdsDateBox,
         gdsYesorNoRadio,
+        gdsMultiLineRadio,
         gdsMultiSelect,
         gdsFileUpload,
         gdsCurrencyBox,
-        gdsSingleRadioSelectOption
+        gdsSingleRadioSelectOption,
+        gdsStaticPage
     }
 
     public enum MaxLengthValidationType
@@ -32,6 +34,8 @@ namespace INZFS.MVC
         public bool DisplayQuestionCounter { get; set; } = true;
         public string  TitleQuestion { get; set; }
         public string Description { get; set; }
+        public string NextPageName { get; set; }
+        public string ReturnPageName { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
@@ -56,8 +60,7 @@ namespace INZFS.MVC
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
         public List<string> SelectOptions { get; set; }
-
-
+        public bool HideFromSummary { get; set; }
     }
 
     public class Section
