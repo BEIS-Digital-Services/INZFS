@@ -12,6 +12,25 @@ namespace INZFS.Theme.ViewModels
         [Required(ErrorMessage = "The choose verification method field is required.")]
         public AuthenticationMethod? AuthenticationMethod { get; set; }
     }
+    
+    public class ChooseAlternativeMethodViewModel
+    {
+        public ChooseAlternativeMethodViewModel()
+        {
+            Methods = new List<ChooseAlternativeMethodItem>();
+        }
+
+        [Required(ErrorMessage = "The choose verification method field is required.")]
+        public AuthenticationMethod? AuthenticationMethod { get; set; }
+
+        public List<ChooseAlternativeMethodItem> Methods { get; set; }
+    }
+
+    public class ChooseAlternativeMethodItem
+    {
+        public AuthenticationMethod Method { get; set; }
+        public string Title { get; set; }
+    }
 
     public class AddPhoneNumberViewModel
     {

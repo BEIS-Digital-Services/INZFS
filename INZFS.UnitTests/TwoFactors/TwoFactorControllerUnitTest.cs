@@ -6,12 +6,14 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using FluentAssertions.AspNetCore.Mvc;
 using INZFS.Theme.Controllers;
+using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using OrchardCore.Users;
@@ -132,6 +134,7 @@ namespace INZFS.UnitTests.TwoFactors
         public Mock<ILogger<TwoFactorController>> loggerMock;
         public Mock<INotificationService> notificationService;
         public Mock<IUrlEncodingService> urlEncodingService;
+        public Mock<IOptions<NotificationOption>> notificationOptionMock;
 
         public TwoFactorControllerBuilder()
         {
@@ -145,6 +148,7 @@ namespace INZFS.UnitTests.TwoFactors
             loggerMock = new Mock<ILogger<TwoFactorController>>();
             notificationService = new Mock<INotificationService>();
             urlEncodingService = new Mock<IUrlEncodingService>();
+            notificationOptionMock = new Mock<IOptions<NotificationOption>>();
         }
 
         public TwoFactorController Build()
@@ -158,7 +162,8 @@ namespace INZFS.UnitTests.TwoFactors
                 signInManagerMock.Object,
                 loggerMock.Object,
                 notificationService.Object,
-                urlEncodingService.Object);
+                urlEncodingService.Object,
+                notificationOptionMock.Object);
 
 
             return sut;
