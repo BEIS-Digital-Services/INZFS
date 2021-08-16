@@ -24,11 +24,6 @@
                 </div>
                 <input asp-for="Method" type="hidden"/>
                 <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
-                @if (Model.IsActivated)
-                {
-                    <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Alternative", "TwoFactor", new {area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl")})">Choose alternative verification method</a></p>
-                }
-                <p class="govuk-body-s"><a class="govuk-link" href="#">Problems receiving your code?</a></p>
             </div>
         </div>
     </form>
