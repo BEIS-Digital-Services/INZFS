@@ -49,7 +49,7 @@
             "fieldName": "job-title",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
