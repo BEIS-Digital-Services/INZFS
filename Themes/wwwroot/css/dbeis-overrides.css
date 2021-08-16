@@ -14,6 +14,12 @@
     font-display:fallback
 }
 
+/*Header*/
+@media (min-width: 48.0625em) {
+    .govuk-header__logo { width: 25%; }
+    .govuk-header__content { width: 75%; }
+}
+
 /*Tags*/
 .govuk-tag { text-transform: initial; }
 
@@ -35,7 +41,8 @@
 }
 
 /*Sign out link*/
-.govuk-signout-right { text-align:right }
+.govuk-youraccount-right { text-align:right }
+.govuk-header__link--signout { float:right; color:#fff; text-align:right }
 
 /*Overview completed text*/
 .summary-list-section--right { text-align:right; float:right; color:#003078 }
@@ -119,6 +126,9 @@
 }
 @media print {
     .show-password__toggle { font-size: 14pt; line-height: 1.15;}
+}
+@media (max-width: 40em) {
+    .govuk-youraccount-right { text-align:left }
 }
 @media (max-width: 19.99em) {
     .show-password__toggle { padding: 5px; width: 100%; margin-top: -2px; white-space: normal;}
