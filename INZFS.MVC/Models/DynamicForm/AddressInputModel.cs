@@ -16,6 +16,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string City { get; set; }
         public string County { get; set; }
         public string PostCode { get; set; }
+
         public List<string> addresslist = new List<string>();
 
 
@@ -25,17 +26,27 @@ namespace INZFS.MVC.Models.DynamicForm
 
             if (Mandatory == true)
             {
-                addresslist.Add(AddressLine1);
-                addresslist.Add(AddressLine2);
-                addresslist.Add(City);
-                addresslist.Add(County);
-                addresslist.Add(PostCode);
-
-                if (addresslist == null)
+                if ((AddressLine1 == null && AddressLine2 == null))
                 {
-                    yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Please add your Address to the Address field", new[] { nameof(DataInput) });
                 }
-
+                if (City == null)
+                {
+                    yield return new ValidationResult($"Please add the current city or town your business is based in into the Town or City field", new[] { nameof(DataInput) });
+                }
+                if (PostCode == null)
+                {
+                    yield return new ValidationResult($"Please add your postcode into the Postcode field", new[] { nameof(DataInput) });
+                }
+                else
+                {
+                    addresslist.Add(AddressLine1);
+                    addresslist.Add(AddressLine2);
+                    addresslist.Add(City);
+                    addresslist.Add(County);
+                    addresslist.Add(PostCode);
+                }
+               
             }
         }
         public override string GetData()
