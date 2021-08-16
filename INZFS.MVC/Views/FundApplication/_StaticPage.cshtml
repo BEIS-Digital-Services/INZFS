@@ -3,6 +3,14 @@
 
 @{string pageName = Model.PageName.ToLower();}
 
+
+
+@if (pageName == "not-eligible-for-funding")
+{
+    @Html.Partial("../Static/Eligibility/NotEligibleForFunding.cshtml")
+}
+
+@* Subsidy **@
 @if (pageName == "subsidy-requirements")
 {
     @Html.Partial("../Static/SubsidyRequirements.cshtml")

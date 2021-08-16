@@ -3,29 +3,51 @@
     "name": "INZFS",
     "sections": [
       {
-        "title": "Confirm your eligibility",
-        "overviewTitle": "1. Confirm your eligibility",
-        "tag": "confirm-your-eligibility",
-        "url": "confirm-your-eligibility",
+        "title": "Your details and eligibility",
+        "overviewTitle": "1. Your details and eligibility",
+        "tag": "your-details-and-eligibility",
+        "url": "your-details-and-eligibility",
         "continueButtonText": "Save and continue",
-        "RazorView": "ConfirmYourEligibility",
-        "pages": [
-
-        ]
-      },
-      {
-        "title": "Your organisation",
-        "overviewTitle": "2. Your organisation",
-        "tag": "your-organisation",
-        "url": "your-organisation",
-        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
-        "continueButtonText": "Save and continue",
-        "RazorView": "YourOrganisation",
+        "RazorView": "YourDetailsAndEligibility",
         "pages": [
           {
+            "name": "eligibility-to-apply-for-fund",
+            "question": "1.1 Confirm your eligibility",
+            "titleQuestion": "Are you eligible to apply for this fund?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Eligibility to apply for fund",
+            "fieldName": "eligibility-to-apply-for-fund",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "full-name"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "not-eligible-for-funding"
+              }
+            ]
+          },
+          {
+            "name": "not-eligible-for-funding",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "application-overview",
+            "returnPageName": "application-overview"
+          },
+          {
             "name": "full-name",
-            "question": "Full Name",
-            "titleQuestion": "What is your full name?",
+            "question": "1.2 Your name",
+            "titleQuestion": "Full Name",
             "description": "Description",
             "errorMessage": "Please enter full name ",
             "fieldType": "gdsTextBox",
@@ -40,8 +62,8 @@
           },
           {
             "name": "job-title",
-            "question": "Job Title",
-            "titleQuestion": "What is your job title?",
+            "question": "1.3 Your job title",
+            "titleQuestion": "Job Title",
             "description": "Description",
             "errorMessage": "Please enter your job title ",
             "fieldType": "gdsTextBox",
@@ -53,26 +75,17 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
-          },
-          {
-            "name": "organisation-running",
-            "question": "Organisation Running",
-            "titleQuestion": "Is your organisation more than 1 year old?",
-            "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
-            "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Organisation Running",
-            "fieldName": "organisation-running",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": false,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            }
-          },
+          }
+        ]
+      },
+      {
+        "title": "Summary of finances",
+        "overviewTitle": "2. Summary of finances",
+        "tag": "summary-of-finances",
+        "url": "summary-of-finances",
+        "continueButtonText": "Save and continue",
+        "RazorView": "SummaryOfFinances",
+        "pages": [
           {
             "name": "recent-turnover",
             "question": "Most recent annual turnover",
@@ -142,6 +155,86 @@
             "showMarkComplete": false,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true
+          },
+          {
+            "name": "organisation-running",
+            "question": "Organisation Running",
+            "titleQuestion": "Is your organisation more than 1 year old?",
+            "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Organisation Running",
+            "fieldName": "organisation-running",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            }
+          }
+        ]
+      },
+      {
+        "title": "About your organisation (and partners)",
+        "overviewTitle": "3. About your organisation (and partners)",
+        "tag": "your-organisation",
+        "url": "your-organisation",
+        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
+        "continueButtonText": "Save and continue",
+        "RazorView": "YourOrganisation",
+        "pages": [
+          {
+            "name": "consortium-applicant",
+            "question": "Are you a sole applicant?",
+            "titleQuestion": "Are you a sole applicant?",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Consortium Applicant",
+            "fieldName": "consortium-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "application-overview"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "consortium-applicant-details"
+              }
+            ]
+          },
+          {
+            "name": "consortium-applicant-details",
+            "question": "Consortium details",
+            "titleQuestion": "Consortium details",
+            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "errorMessage": "Upload consortium details",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "consortium-applicant-details",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload consortium details"
           },
           {
             "name": "organisation-name",
@@ -474,67 +567,6 @@
             "showSaveProgessButton": true
           }
 
-        ]
-      },
-      {
-        "title": "Consortium applicant details",
-        "overviewTitle": "3. Consortium applicant details",
-        "tag": "consortium-applicant",
-        "url": "consortium-applicant",
-        "ReturnUrl": "application-overview",
-        "continueButtonText": "Save and continue",
-        "RazorView": "ConsortiumInformation",
-        "pages": [
-          {
-            "name": "consortium-applicant",
-            "question": "Are you a sole applicant?",
-            "titleQuestion": "Are you a sole applicant?",
-            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
-            "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Consortium Applicant",
-            "fieldName": "consortium-applicant",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": false,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue",
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            },
-            "actions": [
-              {
-                "name": "Yes",
-                "value": "1",
-                "pageName": "application-overview"
-              },
-              {
-                "name": "No",
-                "value": "0",
-                "pageName": "consortium-applicant-details"
-              }
-            ]
-          },
-          {
-            "name": "consortium-applicant-details",
-            "question": "Consortium details",
-            "titleQuestion": "Consortium details",
-            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
-            "errorMessage": "Upload consortium details",
-            "fieldType": "gdsFileUpload",
-            "friendlyFieldName": "Consortium File Upload",
-            "fieldName": "consortium-applicant-details",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": true,
-            "showSaveProgessButton": false,
-            "filetoDownload": "",
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
-            "uploadText": "Upload consortium details"
-          }
         ]
       },
       {
