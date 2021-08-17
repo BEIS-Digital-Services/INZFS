@@ -33,7 +33,7 @@
             "fieldName": "full-name",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -49,7 +49,7 @@
             "fieldName": "job-title",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -65,13 +65,9 @@
             "fieldName": "organisation-running",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            }
+            "displayQuestionCounter": true
           },
           {
             "name": "recent-turnover",
@@ -139,7 +135,7 @@
             "fieldName": "vat-recovery",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true
           },
@@ -179,7 +175,7 @@
             "titleQuestion": "What is your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
-            "fieldType": "gdsTextBox",
+            "fieldType": "gdsAddressTextBox",
             "friendlyFieldName": "Organisation Address",
             "fieldName": "organisation-address",
             "mandatory": true,
@@ -193,6 +189,7 @@
             "name": "company-registered-number",
             "question": "Company Registered Number",
             "titleQuestion": "What is your organisation’s company number?",
+            "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
@@ -364,7 +361,7 @@
             "titleQuestion": "What is your parent organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name website",
-            "fieldType": "gdsTextBox",
+            "fieldType": "gdsAddressTextBox",
             "friendlyFieldName": "Parent organisation Address",
             "fieldName": "parent-organisation-address",
             "mandatory": true,

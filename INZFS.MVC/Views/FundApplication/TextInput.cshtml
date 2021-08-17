@@ -24,12 +24,12 @@
             <label class="govuk-label govuk-label--l" for="event-name">
                 @if (string.IsNullOrEmpty(Model.TitleQuestion))
                 {
-                    @Model.Question
+                    @Model.Question.ToString()
 
                 }
                 else
                 {
-                    @Model.TitleQuestion
+                    @Model.TitleQuestion.ToString()
                 }
             </label>
         </h1>
