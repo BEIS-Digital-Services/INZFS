@@ -18,7 +18,6 @@ namespace INZFS.MVC.Models.DynamicForm
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
         public string Question { get; set; }
-        public string TitleQuestion { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;

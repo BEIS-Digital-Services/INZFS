@@ -27,15 +27,7 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-project-end-date">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question
-
-                }
-                else
-                {
-                    @Model.TitleQuestion
-                }
+                @Model.Question
             </legend>
             <div id="estimated-project-end-date-hint" class="govuk-hint">
                 For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year

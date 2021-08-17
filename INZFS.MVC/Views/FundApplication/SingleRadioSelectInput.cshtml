@@ -31,15 +31,7 @@ else
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
                 <h1 class="govuk-fieldset__heading">
-                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                    {
-                        @Model.Question
-
-                    }
-                    else
-                    {
-                        @Model.TitleQuestion
-                    }
+                    @Model.Question
                 </h1>
             </legend>
             <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
