@@ -57,6 +57,45 @@ namespace INZFS.Theme.Controllers
             return View("ScanQr", model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> ChangeScanQr()
+        {
+            return View(new ChangeScanQrForAuthenticatorViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeScanQr(ChangeScanQrForAuthenticatorViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var userId = await _userManager.GetUserIdAsync(user);
+                var result = await _twoFactorAuthenticationService.ResetAuthenticatorKeyAsync(user);
+                if (result.Succeeded)
+                {
+                    var defaultMethod = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+                    if (defaultMethod == AuthenticationMethod.Authenticator)
+                    {
+                        await _factorSettingsService.SetTwoFactorDefaultAsync(userId, AuthenticationMethod.Email);
+                        await _factorSettingsService.SetAuthenticatorConfirmedAsync(userId, false);
+                    }
+
+                    if (model.ChosenAction == ChangeAction.Change)
+                    {
+                        return RedirectToAction("AddScanQr");
+                    }
+
+                    if (model.ChosenAction == ChangeAction.Remove)
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+            }
+
+            return View(model);
+        }
+
 
         [HttpGet]
         public async Task<IActionResult> EnterCode(AuthenticationMethod method)
@@ -74,29 +113,7 @@ namespace INZFS.Theme.Controllers
             return View($"{method}Code", model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> AddPhoneNumber()
-        {
-            var model = new AddPhoneNumberViewModel();
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model, string returnUrl)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.GetUserAsync(User);
-
-                await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                await SendSms(user);
-                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Phone});
-            }
-
-            return View(model);
-        }
-
-
+       
         [HttpPost]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model)
         {

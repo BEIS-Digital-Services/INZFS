@@ -46,18 +46,9 @@
                         @Model.PhoneNumber
                     </dd>
                     <dd class="govuk-summary-list__actions">
-                        @if (Model.IsSmsEnabled)
-                        {
-                            <a class="govuk-link" href="@Url.Action("ChangePhone", "MyAccount", new {area = "INZFS.Theme"})">
-                                Change<span class="govuk-visually-hidden">Phone Number</span>
-                            </a>
-                        }
-                        else
-                        {
-                            <a class="govuk-link" href="@Url.Action("AddPhoneNumber", "MyAccount", new {area = "INZFS.Theme"})">
-                                Add<span class="govuk-visually-hidden">Phone Number</span>
-                            </a>
-                        }
+                        <a class="govuk-link" href="#">
+                            Add<span class="govuk-visually-hidden">Phone Number</span>
+                        </a>
                         
                     </dd>
                 </div>
