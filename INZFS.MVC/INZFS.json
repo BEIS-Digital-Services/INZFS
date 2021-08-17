@@ -1,4 +1,4 @@
-{
+ï»¿{
   "application": {
     "name": "INZFS",
     "sections": [
@@ -55,7 +55,7 @@
             "fieldName": "full-name",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -71,7 +71,7 @@
             "fieldName": "job-title",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -139,13 +139,9 @@
             "fieldName": "organisation-running",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            }
+            "displayQuestionCounter": true
           },
           {
             "name": "recent-turnover",
@@ -272,7 +268,7 @@
             "question": "What is your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
-            "fieldType": "gdsTextBox",
+            "fieldType": "gdsAddressTextBox",
             "friendlyFieldName": "Organisation Address",
             "fieldName": "organisation-address",
             "mandatory": true,
@@ -285,7 +281,8 @@
           {
             "name": "company-registered-number",
             "sectionTitle": "Company Registered Number",
-            "question": "What is your organisation’s company number?",
+            "question": "What is your organisationâ€™s company number?",
+            "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
@@ -457,7 +454,7 @@
             "question": "What is your parent organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name website",
-            "fieldType": "gdsTextBox",
+            "fieldType": "gdsAddressTextBox",
             "friendlyFieldName": "Parent organisation Address",
             "fieldName": "parent-organisation-address",
             "mandatory": true,
@@ -470,7 +467,7 @@
           {
             "name": "parent-organisation-size",
             "sectionTitle": "Parent organisation size",
-            "question": "What is your parent organisation’s size?",
+            "question": "What is your parent organisationï¿½s size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
@@ -1014,12 +1011,12 @@
             "hideFromSummary": true,
             "actions": [
               {
-                "name": "Up to and including £500,000",
+                "name": "Up to and including ï¿½500,000",
                 "value": "0",
                 "pageName": "subsidy-sole-applicant-result-applying-less"
               },
               {
-                "name": "over £500,000",
+                "name": "over ï¿½500,000",
                 "value": "1",
                 "pageName": "subsidy-sole-applicant-result-applying-more"
               }

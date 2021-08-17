@@ -18,6 +18,7 @@ namespace INZFS.MVC
         gdsFileUpload,
         gdsCurrencyBox,
         gdsSingleRadioSelectOption,
+        gdsAddressTextBox,
         gdsStaticPage
     }
 

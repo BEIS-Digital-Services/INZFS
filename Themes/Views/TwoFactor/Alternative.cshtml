@@ -1,5 +1,5 @@
 ﻿@using INZFS.Theme.ViewModels
-@model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
+@model INZFS.Theme.ViewModels.ChooseAlternativeMethodViewModel
 @{
     Layout = "_Layout";
 }
@@ -16,12 +16,14 @@
                 <span asp-validation-for="AuthenticationMethod" class="govuk-error-message"></span>
                 <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
                     <div class="govuk-radios govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Email)" class="govuk-radios__input" />
-                            <label class="govuk-label govuk-radios__label">
-                                Email
-                            </label>
-                        </div>
+                        @foreach (var item in Model.Methods)
+                        {<div class="govuk-radios__item">
+                             <input asp-for="AuthenticationMethod" type="radio" value="@(item.Method)" class="govuk-radios__input" />
+                             <label class="govuk-label govuk-radios__label">
+                                 @item.Title
+                             </label>
+                         </div>
+                        }
                     </div>
                 </fieldset>
                 <br /><br />

@@ -866,6 +866,19 @@ namespace INZFS.MVC.Controllers
                         multiSelect.UserInput = UserInputList;
                     }
                     return View("MultiSelectInput", PopulateModel(currentPage, model));
+                case FieldType.gdsAddressTextBox:
+                    model = PopulateModel(currentPage, new AddressInputModel(), field);
+                    var addressInputModel = (AddressInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var userAddress = model.DataInput.Split(',').ToList();
+                        addressInputModel.AddressLine1 = userAddress[0];
+                        addressInputModel.AddressLine2 = userAddress[1];
+                        addressInputModel.City = userAddress[2];
+                        addressInputModel.County = userAddress[3];
+                        addressInputModel.PostCode = userAddress[4];
+                    }
+                    return View("AddressInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
@@ -905,6 +918,8 @@ namespace INZFS.MVC.Controllers
                     return View("CurrencyInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsSingleRadioSelectOption:
                     return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsAddressTextBox:
+                    return View("AddressInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
