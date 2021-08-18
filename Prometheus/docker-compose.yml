@@ -10,6 +10,9 @@ networks:
 services:
   prometheus:
     image: ${DOCKER_REGISTRY-}prom
+    build:
+      context: ./
+      dockerfile: ./prometheus/Dockerfile
     ports:
       - 9090:9090
     networks:
@@ -27,6 +30,9 @@ services:
 
   alertmanager:
     image: ${DOCKER_REGISTRY-}prom-alertmanager
+    build:
+      context: ./
+      dockerfile: ./prometheus/alertmanager/Dockerfile
     ports:
       - 9093:9093
     networks:
