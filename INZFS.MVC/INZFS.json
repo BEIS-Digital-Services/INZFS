@@ -80,7 +80,7 @@
             "fieldName": "recent-turnover",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 10,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
@@ -442,7 +442,7 @@
             "fieldName": "parent-recent-turnover",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 50,
+            "maxLength": 10,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
