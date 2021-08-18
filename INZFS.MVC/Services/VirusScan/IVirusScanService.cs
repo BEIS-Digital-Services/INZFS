@@ -9,6 +9,6 @@ namespace INZFS.MVC.Services.VirusScan
 {
     public interface IVirusScanService
     {
-        public Task<bool> ScanFile(IFormFile file);
+        public string ScanFile(IFormFile file);
     }
 }

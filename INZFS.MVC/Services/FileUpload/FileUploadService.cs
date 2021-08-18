@@ -5,7 +5,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using nClam;
 using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using System.IO;
@@ -17,13 +16,11 @@ namespace INZFS.MVC.Services.FileUpload
     {
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
         private string[] permittedExtensions = { ".ppt", ".pptx", ".pdf", ".xls", ".xlsx", ".doc", ".docx", "gif", "jpeg", "png" };
-        private readonly ClamClient _clam;
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IVirusScanService _virusScanService;
         
-        public FileUploadService(ClamClient clam, IMediaFileStore mediaFileStore, IVirusScanService virusScanService)
+        public FileUploadService(IMediaFileStore mediaFileStore, IVirusScanService virusScanService)
         {
-            _clam = clam;
             _mediaFileStore = mediaFileStore;
             _virusScanService = virusScanService;
           
@@ -87,13 +84,20 @@ namespace INZFS.MVC.Services.FileUpload
             }
             
             //TODO : Switch to virus scanning service
-            var containsVirus = false; // await _virusScanService.ScanFile(file);
-            if (containsVirus)
+            var containsVirus = _virusScanService.ScanFile(file);
+            if (containsVirus == "Virus detected")
             {
                 return "File contains virus";
             }
-
+            if (containsVirus == "Unable to scan file")
+            {
+                return "Unable to scan file";
+            }
+          
             return string.Empty;
+            
+
+            
         }
         public async Task<bool> CreateDirectory(string directoryName)
         {
