@@ -11,7 +11,7 @@ services:
     restart: always
     privileged: true
     volumes:
-    - ./alertmanager/:/etc/alertmanager/
+    - ./config.yml:/etc/alertmanager/config.yml:ro
     command:
     - '--config.file=/etc/alertmanager/config.yml'
-    - '--storage.path=/alertmanager'
+    - '--storage.tsdb.path=/alertmanager'
