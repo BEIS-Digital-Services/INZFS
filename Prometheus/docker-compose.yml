@@ -40,4 +40,4 @@ services:
     command:
       - '--config.file=/etc/alertmanager/alertmanager.yml'
       - '--storage.tsdb.path=/alertmanager'
-#      - '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital:443'
+      - '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital:443'
