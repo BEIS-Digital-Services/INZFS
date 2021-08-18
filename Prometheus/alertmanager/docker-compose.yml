@@ -13,11 +13,8 @@ services:
     volumes:
     - ./alertmanager/:/etc/alertmanager/
     - alertmanager_data:/alertmanager
-    - ./config.yml:/etc/alertmanager/config.yml:ro
-    - ./alertmanager/config.yml:/config.yml
-    - ./alertmanager/config.yml:/etc/config.yml
     command:
-    - '--config.file=/etc/config.yml'
+    - '--config.file=/etc/alertmanager/config.yml'
     - '--storage.path=/alertmanager'
 volumes:
   alertmanager_data:
