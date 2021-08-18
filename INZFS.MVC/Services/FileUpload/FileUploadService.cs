@@ -87,7 +87,7 @@ namespace INZFS.MVC.Services.FileUpload
             var containsVirus = _virusScanService.ScanFile(file);
             if (containsVirus == "Virus detected")
             {
-                return "File contains virus";
+                return "This file contains a virus";
             }
             if (containsVirus == "Unable to scan file")
             {
