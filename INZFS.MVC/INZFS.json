@@ -391,7 +391,7 @@
           {
             "name": "parent-organisation-size",
             "question": "Parent organisation size",
-            "titleQuestion": "What is your parent organisation’s size?",
+            "titleQuestion": "What is your parent organisation\u2019s size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
