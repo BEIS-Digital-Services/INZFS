@@ -12,9 +12,6 @@ services:
     privileged: true
     volumes:
     - ./alertmanager/:/etc/alertmanager/
-    - alertmanager_data:/alertmanager
     command:
     - '--config.file=/etc/alertmanager/config.yml'
     - '--storage.path=/alertmanager'
-volumes:
-  alertmanager_data:
