@@ -16,5 +16,25 @@ services:
     - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
     - prometheus_data:/prometheus
 
+  alertmanager:
+    image: ${DOCKER_REGISTRY-}prom-alertmanager
+    build:
+      context: ./
+      dockerfile: ./alertmanager/Dockerfile
+    container_name: prom-alertmanager
+    ports:
+      - 9093:9093
+    restart: always
+    privileged: true
+    volumes:
+    - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
+    - ./alertmanager:/alertmanager
+    - ./templates:/etc/alertmanager/templates
+    command:
+    - '--config.file=/etc/alertmanager/alertmanager.yml'
+    - '--storage.tsdb.path=/alertmanager'
+#    - '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital:443'
+
 volumes:
   prometheus_data:
+  alertmanager:
