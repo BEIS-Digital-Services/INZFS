@@ -186,9 +186,9 @@
             "showSaveProgessButton": true
           },
           {
-            "name": "company-registered-number",
-            "question": "Company Registered Number",
-            "titleQuestion": "What is your organisation’s company number?",
+            "name": "company-registration-number",
+            "question": "Company Registration Number",
+            "titleQuestion": "What is your organisation\u2019s company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
@@ -367,6 +367,23 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "parent-company-registration-number",
+            "question": "Parent Company Registration Number",
+            "titleQuestion": "What is your parent organisation\u2019s company number?",
+            "hint": "Your parent company registration number should be 8 characters long",
+            "description": "Description",
+            "errorMessage": "Please enter company registered number",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Company Registered Number",
+            "fieldName": "company-registered-number",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 8,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true

@@ -38,6 +38,11 @@ namespace INZFS.MVC.Models.DynamicForm
                 {
                     yield return new ValidationResult($"Please add your postcode into the Postcode field", new[] { nameof(DataInput) });
                 }
+                if (PostCode.Length > 10)
+                {
+                    yield return new ValidationResult($"You have entered a postcode which is {PostCode.Length} characters in length. Please enter a postcode which is below 10 characters in length", new[] { nameof(DataInput) });
+
+                }
                 else
                 {
                     addresslist.Add(AddressLine1);
