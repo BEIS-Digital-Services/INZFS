@@ -963,32 +963,28 @@ namespace INZFS.MVC.Controllers
             }
 
 
-            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
-            var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
-            currentModel.TotalQuestions = section.Pages.Count;
+            currentModel.TotalQuestions = currentSection.Pages.Count;
 
-            for (int i = 0; i < currentModel.TotalQuestions; i++)
-            {
-
-            }
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
-                currentModel.ContinueButtonText = section.ContinueButtonText;
+                currentModel.ContinueButtonText = currentSection.ContinueButtonText;
             }else
             {
                 currentModel.ContinueButtonText = currentPage.ContinueButtonText;
             }
-            currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
-            currentModel.SectionUrl = section.Url;
-            currentModel.SectionInfo = section;
+            currentModel.ReturnToSummaryPageLinkText = currentSection.ReturnToSummaryPageLinkText;
+            currentModel.SectionUrl = currentSection.Url;
+            currentModel.SectionInfo = currentSection;
 
-            var currentPageIndex = section.Pages.FindIndex(p => p.Name == currentPage.Name);// (index - 1);
+            var currentPageIndex = currentSection.Pages.FindIndex(p => p.Name == currentPage.Name);
             if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = section.Pages[currentPageIndex -1 ].Name;
+                currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
             } 
 
             if (!string.IsNullOrEmpty(currentPage.Description))
@@ -1009,7 +1005,7 @@ namespace INZFS.MVC.Controllers
         private SectionContent GetSectionContent(ApplicationContent content, Section section)
         {
             var sectionContentModel = new SectionContent();
-            sectionContentModel.TotalQuestions = section.Pages.Count;
+            
             sectionContentModel.Sections = new List<SectionModel>();
             sectionContentModel.Title = section.Title;
             sectionContentModel.OverviewTitle = section.OverviewTitle;
@@ -1060,6 +1056,8 @@ namespace INZFS.MVC.Controllers
                 }
                 sectionContentModel.Sections.Add(sectionModel);
             }
+
+            sectionContentModel.TotalQuestions = sectionContentModel.Sections.Count;
 
             return sectionContentModel;
         }
