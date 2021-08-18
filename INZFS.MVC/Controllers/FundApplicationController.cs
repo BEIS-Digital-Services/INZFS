@@ -135,49 +135,9 @@ namespace INZFS.MVC.Controllers
                 return View(currentSection.RazorView, sectionContentModel);
             }
 
-            
 
+            return NotFound();
 
-            if (pagename == "application-summary")
-            {
-                var model = await GetApplicationSummaryModel();
-                return View("ApplicationSummary", model);
-            }
-
-            if (pagename == "summary")
-            {
-                var model = await GetSummaryModel();
-                return View("Summary", model);
-            }
-            if (pagename == "proposal-written-summary")
-            {
-                var model = await GetApplicationWrittenSummaryModel();
-                return View("ProposalWrittenSummary", model);
-            }
-            if (pagename == "proposal-finance-summary")
-            {
-                var model = await GeProposalFinanceModel();
-                return View("ProposalFinanceSummary", model);
-            }
-
-            var page = _navigation.GetPage(pagename);
-            if (page == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                if(page is ViewPage)
-                {
-                    var viewPage = (ViewPage)page;
-                    var applicationDocumentPart = await _contentRepository.GetContentItemFromBagPart<ApplicationDocumentPart>(viewPage.ContentType, User.Identity.Name);
-                    var model = applicationDocumentPart ?? new ApplicationDocumentPart();
-                    ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
-                    return View(viewPage.ViewName, model);
-                }
-
-                return await Create(((ContentPage)page).ContentType);
-            }
         }
 
         public async Task<bool> CreateDirectory(string directoryName)
@@ -406,6 +366,20 @@ namespace INZFS.MVC.Controllers
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
                 }
 
+                //Delete the data from dependants
+                var datafieldForCurrentPage = contentToSave.Fields.FirstOrDefault(f => f.Name == currentPage.FieldName);
+                //Get all pages that depends on the current field and its value
+                var dependantPages = _applicationDefinition.Application.AllPages.Where(page => page.DependsOn?.FieldName == currentPage.FieldName);
+
+
+                foreach (var dependantPage in dependantPages)
+                {
+                    if(dependantPage.DependsOn.Value != datafieldForCurrentPage.Data)
+                    {
+                        contentToSave.Fields.RemoveAll(field => field.Name == dependantPage.FieldName);
+                    }
+                }
+
 
                 _session.Save(contentToSave);
 
@@ -421,22 +395,46 @@ namespace INZFS.MVC.Controllers
                     return RedirectToAction("section", new { pagename = pageName });
                 }
 
+                //TODO - replace all the references to AllPages with section.Pages
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
-                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
+                var currentSection = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
-                var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
-
-                if (nextPage == null)
+                //Dependant pages
+                Page nextPage = null;
+                while(true)
                 {
-                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url }); ;
+                    nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
+                    var dependsOn = nextPage?.DependsOn;
+                    if (dependsOn == null)
+                    {
+                        break;
+                    }
+
+                    var dependantPageField = contentToSave.Fields.FirstOrDefault(field => field.Name.ToLower().Equals(dependsOn.FieldName));
+                    
+                    //TODO This will NOT work for all page types for now
+                    if(dependantPageField.Data == dependsOn.Value)
+                    {
+                        break;
+                    }
+
+                    index++;
                 }
 
+                
+                if (nextPage == null)
+                {
+                    //If there is no other page, then redirect back to the section page
+                    return RedirectToAction("section", new { pagename = currentSection.ReturnUrl ?? currentSection.Url }); ;
+                }
 
-                var inSection = section.Pages.Contains(nextPage);
-
+                
+                var inSection = currentSection.Pages.Contains(nextPage);
                 if (!inSection)
                 {
-                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url });
+                    // If next page exists, but it is optional or not applicable ( depending on the answer to the previous question),
+                    // the also redirect back to section
+                    return RedirectToAction("section", new { pagename = currentSection.ReturnUrl ?? currentSection.Url });
                      
                 }
                 
@@ -1020,12 +1018,22 @@ namespace INZFS.MVC.Controllers
 
             foreach (var pageContent in section.Pages)
             {
+                var dependsOn = pageContent.DependsOn;
+                if (dependsOn != null)
+                {
+                    var datafieldForCurrentPage = content?.Fields?.FirstOrDefault(f => f.Name.Equals(dependsOn.FieldName));
+                    if (datafieldForCurrentPage?.Data != dependsOn.Value)
+                    {
+                        continue;
+                    }
+                }
+
+                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+                
                 var sectionModel = new SectionModel();
                 sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
                 sectionModel.Url = pageContent.Name;
                 sectionModel.HideFromSummary = pageContent.HideFromSummary;
-
-                var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
 
                 if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
                 {

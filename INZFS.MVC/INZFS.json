@@ -157,7 +157,11 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "organisation-running",
+              "value": "1"
+            }
           },
           {
             "name": "recent-turnover-date",
@@ -169,7 +173,11 @@
             "fieldName": "recent-turnover-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "organisation-running",
+              "value": "1"
+            }
           }
         ]
       },
