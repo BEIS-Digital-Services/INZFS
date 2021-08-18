@@ -2,10 +2,6 @@ version: '3.4'
 services:
   prometheus:
     image: ${DOCKER_REGISTRY-}prom
-    build:
-      context: ./
-      dockerfile: ./prometheus/Dockerfile
-    container_name: prometheus
     ports:
     - 9090:9090
     command:
@@ -18,10 +14,6 @@ services:
 
   alertmanager:
     image: ${DOCKER_REGISTRY-}prom-alertmanager
-    build:
-      context: ./
-      dockerfile: ./alertmanager/Dockerfile
-    container_name: prom-alertmanager
     ports:
       - 9093:9093
     restart: always
