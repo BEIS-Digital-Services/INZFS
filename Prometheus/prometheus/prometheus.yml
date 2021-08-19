@@ -5,9 +5,10 @@ global:
 # Alertmanager configuration
 alerting:
   alertmanagers:
-  - static_configs:
-    - targets:
-      - inzfs-prom-alertmanager.london.cloudapps.digital
+    - scheme: https
+      static_configs:
+      - targets:
+        - inzfs-prom-alertmanager.london.cloudapps.digital
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
