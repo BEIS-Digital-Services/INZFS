@@ -15,7 +15,7 @@
                         <a class="govuk-breadcrumbs__link" href="application-overview" id="application-overview">Application overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item">
-                        3. Your organisation
+                        3. Your Organisation (and partners)
                     </li>
                 </ol>
             </div>
@@ -27,7 +27,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <h1 class="govuk-heading-l">
-                    Your organisation
+                    3. Your Organisation (and partners)
                 </h1>
             </div>
         </div>
@@ -37,25 +37,22 @@
 
                 <div class="govuk-tabs" data-module="govuk-tabs">
                     <h2 class="govuk-tabs__title">
-                        3. Your Organisation
+                        3. Your Organisation (and partners)
                     </h2>
 
                     <div class="govuk">
 
-                        @{
-                            var pages = Model.Sections.Take(2);
-                            var completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
-                        }
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.1. Consortium applicants<span class="summary-list-section summary-list-section--right">@completedCount out of 2 completed</span></p>
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">About your organisation
+                            <span class="summary-list-section summary-list-section--right">@Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span>
+                        </p>
                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                         <dl class="govuk-summary-list">
-
-                            @foreach (var item in pages)
+                            @foreach (var item in Model.Sections) if (!item.HideFromSummary)
                             {
                                 <div class="govuk-body-m govuk-summary-list__row">
                                     <dt class="govuk-summary-list__key">
-                                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
                                             @item.Title <span class="govuk-visually-hidden">@item.Title</span>
                                         </a>
                                     </dt>
@@ -63,85 +60,8 @@
                                         @item.GetStatusString()
                                     </dd>
                                 </div>
-
-                             }
+                            }
                         </dl>
-
-                        @{
-                            pages = Model.Sections.Skip(2).Take(6);
-                            completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
-                         }
-
-                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.2. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
-                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                          <dl class="govuk-summary-list">
-                                @foreach (var item in pages)
-                                {
-                                    <div class="govuk-body-m govuk-summary-list__row">
-                                        <dt class="govuk-summary-list__key">
-                                            <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                                @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                            </a>
-                                        </dt>
-                                        <dd class="govuk-summary-list__actions">
-                                            @item.GetStatusString()
-                                        </dd>
-                                    </div>
-                                }
-                          </dl>
-
-                         @{
-                            pages = Model.Sections.Skip(8).Take(10);
-                            completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
-                         }
-
-                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.3. About your parent organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
-                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                          <dl class="govuk-summary-list">
-                                @foreach (var item in pages)
-                                {
-                                    <div class="govuk-body-m govuk-summary-list__row">
-                                        <dt class="govuk-summary-list__key">
-                                            <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                                @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                            </a>
-                                        </dt>
-                                        <dd class="govuk-summary-list__actions">
-                                            @item.GetStatusString()
-                                        </dd>
-                                    </div>
-                                }
-                          </dl>
-
-                        @{
-                            pages = Model.Sections.Skip(18).Take(10);
-                            completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
-                        }
-
-                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.3. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
-                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-                               <dl class="govuk-summary-list">
-                                @foreach (var item in pages)
-                                {
-                                    <div class="govuk-body-m govuk-summary-list__row">
-                                        <dt class="govuk-summary-list__key">
-                                            <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                                @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                            </a>
-                                        </dt>
-                                        <dd class="govuk-summary-list__actions">
-                                            @item.GetStatusString()
-                                        </dd>
-                                    </div>
-                                }
-                          </dl>
-
-
-                        
-
                  </div>
                 </div>
                 <a href="application-overview">

@@ -88,6 +88,7 @@
         "pages": [
           {
             "name": "balance-sheet-total",
+            "sectionTitle": "2.1 Balance sheet total",
             "question": "Balance sheet total",
             "hint": "Amount, in pounds",
             "description": "Description",
@@ -104,6 +105,7 @@
           },
           {
             "name": "balance-sheet-date",
+            "sectionTitle": "2.2 Balance sheet date",
             "question": "Balance sheet date",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
@@ -116,7 +118,7 @@
           },
           {
             "name": "vat-recovery",
-            "sectionTitle": "Vat registration",
+            "sectionTitle": "2.3 Vat registration",
             "question": "Is your organisation VAT registered?",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -130,7 +132,7 @@
           },
           {
             "name": "organisation-running",
-            "sectionTitle": "Organisation Running",
+            "sectionTitle": "2.4 Organisation age",
             "question": "Is your organisation more than 1 year old?",
             "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
@@ -145,6 +147,7 @@
           },
           {
             "name": "recent-turnover",
+            "sectionTitle": "2.5 Most recent annual turnover",
             "question": "Most recent annual turnover",
             "hint": "The amount of money your business has taken over a period of 12 months.",
             "description": "Description",
@@ -157,10 +160,15 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "organisation-running",
+              "value": "1"
+            }
           },
           {
             "name": "recent-turnover-date",
+            "sectionTitle": "2.6 Most recent turnover date",
             "question": "Most recent turnover date",
             "description": "Description",
             "errorMessage": "Select a valid date",
@@ -169,7 +177,11 @@
             "fieldName": "recent-turnover-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "organisation-running",
+              "value": "1"
+            }
           }
         ]
       },
@@ -178,62 +190,13 @@
         "overviewTitle": "3. About your organisation (and partners)",
         "tag": "your-organisation",
         "url": "your-organisation",
-        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
+        "returnToSummaryPageLinkText": "Return to the your organisation overview",
         "continueButtonText": "Save and continue",
         "RazorView": "YourOrganisation",
         "pages": [
           {
-            "name": "consortium-applicant",
-            "sectionTitle": "Are you a sole applicant?",
-            "question": "Are you a sole applicant?",
-            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
-            "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Consortium Applicant",
-            "fieldName": "consortium-applicant",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": false,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue",
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            },
-            "actions": [
-              {
-                "name": "Yes",
-                "value": "1",
-                "pageName": "application-overview"
-              },
-              {
-                "name": "No",
-                "value": "0",
-                "pageName": "consortium-applicant-details"
-              }
-            ]
-          },
-          {
-            "name": "consortium-applicant-details",
-            "sectionTitle": "Consortium details",
-            "question": "Consortium details",
-            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
-            "errorMessage": "Upload consortium details",
-            "fieldType": "gdsFileUpload",
-            "friendlyFieldName": "Consortium File Upload",
-            "fieldName": "consortium-applicant-details",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": true,
-            "showSaveProgessButton": false,
-            "filetoDownload": "",
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
-            "uploadText": "Upload consortium details"
-          },
-          {
             "name": "organisation-name",
+            "sectionTitle": "3.1 Organisation name",
             "question": "Organisation Name",
             "description": "Description",
             "errorMessage": "Please enter organisation name",
@@ -249,13 +212,14 @@
           },
           {
             "name": "organisation-website",
+            "sectionTitle": "3.2 Organisation website",
             "question": "Organisation Website",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Organisation Website",
             "fieldName": "organisation-website",
-            "mandatory": true,
+            "mandatory": false,
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
@@ -264,7 +228,7 @@
           },
           {
             "name": "organisation-address",
-            "sectionTitle": "Organisation Address",
+            "sectionTitle": "3.3 Registered organisation address",
             "question": "What is your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
@@ -280,14 +244,14 @@
           },
           {
             "name": "company-registered-number",
-            "sectionTitle": "Company Registered Number",
+            "sectionTitle": "3.4 Company registration number",
             "question": "What is your organisation’s company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
             "fieldType": "gdsTextBox",
-            "friendlyFieldName": "Company Registered Number",
-            "fieldName": "company-registered-number",
+            "friendlyFieldName": "Company Registration Number",
+            "fieldName": "company-registration-number",
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 8,
@@ -297,6 +261,7 @@
           },
           {
             "name": "organisation-introduction",
+            "sectionTitle": "3.5 Organisation introduction",
             "question": "Organisation introduction",
             "description": "Description",
             "errorMessage": "Enter organisation proposal",
@@ -306,14 +271,14 @@
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 1000,
-            "maxLengthValidationType": "Character",
+            "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
             "showSaveProgessButton": true
           },
           {
             "name": "type-of-organisation",
-            "sectionTitle": "Type of organisation",
+            "sectionTitle": "3.6 Type of organisation",
             "question": "Which type best describes your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -337,7 +302,7 @@
           },
           {
             "name": "organisation-size",
-            "sectionTitle": "Organisation size",
+            "sectionTitle": "3.7 Organisation size",
             "question": "What is your organisation's size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -358,7 +323,7 @@
           },
           {
             "name": "organisation-maturity",
-            "sectionTitle": "Organisation maturity",
+            "sectionTitle": "3.8 Organisation maturity",
             "question": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
@@ -380,7 +345,7 @@
           },
           {
             "name": "organisation-funding",
-            "sectionTitle": "Organisation funding",
+            "sectionTitle": "3.9 Organisation funding",
             "question": "How is your organisation currently funded?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
@@ -404,8 +369,46 @@
             ]
           },
           {
+            "name": "consortium-applicant",
+            "sectionTitle": "3.10 Consortium applicants",
+            "question": "Are you a sole applicant?",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Consortium Applicant",
+            "fieldName": "consortium-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue"
+          },
+          {
+            "name": "consortium-applicant-details",
+            "sectionTitle": "Consortium details",
+            "question": "Consortium details",
+            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "errorMessage": "Upload consortium details",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "consortium-applicant-details",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload consortium details",
+            "dependsOn": {
+              "fieldName": "consortium-applicant",
+              "value": "1"
+            }
+          },
+          {
             "name": "parent-organisation",
-            "sectionTitle": "Parent Organisation",
+            "sectionTitle": "3.11 Parent Organisation",
             "question": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
@@ -420,7 +423,8 @@
           },
           {
             "name": "parent-organisation-name",
-            "question": "Parent organisation Name",
+            "sectionTitle": "3.12 Parent organisation name",
+            "question": "Parent organisation name",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name",
             "fieldType": "gdsTextBox",
@@ -431,10 +435,15 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-organisation-website",
+            "sectionTitle": "3.13 Parent organisation website",
             "question": "Parent organisation Website",
             "description": "Description",
             "errorMessage": "Please enter parent organisation website",
@@ -446,11 +455,15 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-organisation-address",
-            "sectionTitle": "Parent organisation Address",
+            "sectionTitle": "3.14 Registered address of parent organisation",
             "question": "What is your parent organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name website",
@@ -462,12 +475,37 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
+          },
+          {
+            "name": "parentcompany-registration-number",
+            "sectionTitle": "3.15 Parent company registration number",
+            "question": "What is your parent organisation’s company number?",
+            "hint": "Your parent company registration number should be 8 characters long",
+            "description": "Description",
+            "errorMessage": "Please enter parent company registration number",
+            "fieldType": "gdsTextBox",
+            "friendlyFieldName": "Company Registration Number",
+            "fieldName": "company-registration-number",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 8,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-organisation-size",
-            "sectionTitle": "Parent organisation size",
-            "question": "What is your parent organisation�s size?",
+            "sectionTitle": "3.16 Parent organisation size",
+            "question": "What is your parent organisation's size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
@@ -483,16 +521,20 @@
               "11 to 50 employees (small enterprise)",
               "51 to 250 employees (medium enterprise)",
               "251 or more employees (large enterprise)"
-            ]
+            ],
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
-            "name": "parent-organisation-maturity",
-            "sectionTitle": "Parent organisation maturity",
+            "name": "parent-organisation-age",
+            "sectionTitle": "3.17 Parent organisation age",
             "question": "How old is your parent organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
-            "friendlyFieldName": "Parent organisation maturity",
-            "fieldName": "parent-organisation-maturity",
+            "friendlyFieldName": "Parent organisation age",
+            "fieldName": "parent-organisation-age",
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
@@ -505,10 +547,15 @@
               "1 to 5 years",
               "6 to 10 years",
               "11 years or over"
-            ]
+            ],
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-recent-turnover",
+            "sectionTitle": "3.18 Parent organisation's most recent annual turnover",
             "question": "Most recent annual turnover",
             "hint": "The amount of money your business has taken over a period of 12 months.",
             "description": "Description",
@@ -521,10 +568,15 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-recent-turnover-date",
+            "sectionTitle": "3.18 Parent organisation's most recent turnover date",
             "question": "Most recent turnover date",
             "description": "Description",
             "errorMessage": "Select a valid date",
@@ -533,10 +585,15 @@
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-balance-sheet-total",
+            "sectionTitle": "3.18 Parent organisation's balance sheet total",
             "question": "Parent balance sheet total",
             "hint": "Amount, in pounds",
             "description": "Description",
@@ -549,11 +606,16 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           },
           {
             "name": "parent-balance-sheet-date",
-            "question": "Parent Balance sheet date",
+            "sectionTitle": "3.18 Parent organisation's balance sheet date",
+            "question": "Parent balance sheet date",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -561,7 +623,11 @@
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "dependsOn": {
+              "fieldName": "parent-organisation",
+              "value": "1"
+            }
           }
 
         ]
@@ -729,7 +795,7 @@
             "hint": "",
             "errorMessage": "Upload technology readiness level",
             "fieldType": "gdsFileUpload",
-            "friendlyFieldName": "Consortium File Upload",
+            "friendlyFieldName": "Technology Readiness Level File Upload",
             "fieldName": "business-technology-readiness-document",
             "mandatory": true,
             "accordianReference": "",

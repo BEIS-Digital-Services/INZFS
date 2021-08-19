@@ -63,6 +63,13 @@ namespace INZFS.MVC
         public List<string> SelectOptions { get; set; }
         public bool HideFromSummary { get; set; }
         public PreviousPage PreviousPage { get; set; }
+        public DependsOn DependsOn { get; set; }
+    }
+
+    public class DependsOn
+    {
+        public string FieldName { get; set; }
+        public string Value { get; set; }
     }
 
     public class Section
