@@ -1,4 +1,8 @@
 version: '3.4'
+
+volumes:
+  alertmanager_data: {}
+
 services:
   alertmanager:
     image: ${DOCKER_REGISTRY-}prom-alertmanager
@@ -9,10 +13,9 @@ services:
     ports:
       - 9093:443
     restart: always
-    privileged: true
     volumes:
     - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
-    - ./alertmanager:/alertmanager
+    - ./alertmanager_data:/alertmanager
     - ./templates:/etc/alertmanager/templates
     command:
     - '--config.file=/etc/alertmanager/alertmanager.yml'
