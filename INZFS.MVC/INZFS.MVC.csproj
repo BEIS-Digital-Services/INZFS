@@ -27,6 +27,8 @@
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-16369" />
     <PackageReference Include="nClam" Version="5.0.1" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="prometheus-net" Version="5.0.1" />
+    <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.1" />
   </ItemGroup>
 
   <ItemGroup>
