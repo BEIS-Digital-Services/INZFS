@@ -917,6 +917,7 @@
             "showSaveProgessButton": false,
             "displayQuestionCounter": false,
             "hideFromSummary": true,
+            "continueButtonText": "Continue",
             "previousPage": {
               "link": "Back to Finance Proposal Overview",
               "text": "finance-proposal-overview"
