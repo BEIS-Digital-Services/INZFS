@@ -971,7 +971,7 @@ namespace INZFS.MVC.Controllers
             var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
-            currentModel.TotalQuestions = section.Pages.Count;
+            currentModel.TotalQuestions = section.Pages.Count(p => !p.HideFromSummary);
 
             for (int i = 0; i < currentModel.TotalQuestions; i++)
             {
@@ -1012,7 +1012,7 @@ namespace INZFS.MVC.Controllers
         private SectionContent GetSectionContent(ApplicationContent content, Section section)
         {
             var sectionContentModel = new SectionContent();
-            sectionContentModel.TotalQuestions = section.Pages.Count;
+            sectionContentModel.TotalQuestions = section.Pages.Count(p => !p.HideFromSummary);
             sectionContentModel.Sections = new List<SectionModel>();
             sectionContentModel.Title = section.Title;
             sectionContentModel.OverviewTitle = section.OverviewTitle;
