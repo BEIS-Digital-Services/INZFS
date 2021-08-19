@@ -29,6 +29,15 @@ groups:
         annotations:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has crashed."
+        
+      - alert: InstanceCrashed
+        expr: requests{app="inzfs-lab",status_range!="2xx"} != 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has crashed."
           
       # Alert for any instance that has a median request latency >1s.
       - alert: APIHighRequestLatency
