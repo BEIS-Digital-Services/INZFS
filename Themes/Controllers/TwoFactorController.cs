@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using INZFS.Theme.Attributes;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
@@ -13,7 +14,7 @@ using OrchardCore.Users;
 
 namespace INZFS.Theme.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Identity.TwoFactorUserId")]
+    [TwoFactorAuthorize]
     public class TwoFactorController : Controller
     {
         private readonly UserManager<IUser> _userManager;

@@ -7,12 +7,18 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.ViewModels
 {
+    public class ChangeScanQrForAuthenticatorViewModel
+    {
+        [Required(ErrorMessage = "The Change your authenticator preference field is required.")]
+        public ChangeAction? ChosenAction { get; set; }
+    }
+
     public class ChooseVerificationMethodViewModel
     {
         [Required(ErrorMessage = "The choose verification method field is required.")]
         public AuthenticationMethod? AuthenticationMethod { get; set; }
     }
-    
+
     public class ChooseAlternativeMethodViewModel
     {
         public ChooseAlternativeMethodViewModel()
@@ -63,5 +69,12 @@ namespace INZFS.Theme.ViewModels
         Authenticator,
         Phone,
         Email
+    }
+    
+    public enum ChangeAction
+    {
+        None,
+        Remove,
+        Change
     }
 }
