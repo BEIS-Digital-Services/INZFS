@@ -22,5 +22,6 @@ services:
     - '--storage.tsdb.path=/alertmanager'
     - '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital'
     - '--web.listen-address=0.0.0.0:9093'
-    - '--cluster.listen-address: 0.0.0.0:9094'
-    - '--cluster.advertise-address: 0.0.0.0:9094'
+    - '--cluster.listen-address=0.0.0.0:9094'
+    - '--cluster.advertise-address=0.0.0.0:9094'
+    - '--cluster.settle-timeout=60s'
