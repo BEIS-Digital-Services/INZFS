@@ -950,7 +950,7 @@
             "fieldType": "gdsMultiLineRadio",
             "friendlyFieldName": "Subsidy sole applicant aid category",
             "fieldName": "subsidy-sole-applicant-aid-category",
-            "mandatory": false,
+            "mandatory": true,
             "accordianReference": "",
             "continueButtonText": "Continue",
             "hideFromSummary": true,
@@ -976,7 +976,7 @@
             "fieldType": "gdsMultiLineRadio",
             "friendlyFieldName": "Subsidy sole applicant value",
             "fieldName": "subsidy-sole-applicant-value",
-            "mandatory": false,
+            "mandatory": true,
             "accordianReference": "",
             "continueButtonText": "Continue",
             "hideFromSummary": true,
@@ -1023,7 +1023,7 @@
             "fieldType": "gdsMultiLineRadio",
             "friendlyFieldName": "Subsidy consortium category",
             "fieldName": "subsidy-consortium-category",
-            "mandatory": false,
+            "mandatory": true,
             "accordianReference": "",
             "continueButtonText": "Continue",
             "hideFromSummary": true,
@@ -1031,17 +1031,20 @@
               {
                 "name": "Feasibility study",
                 "value": "0",
-                "pageName": "subsidy-consortium-result-feasibility"
+                "pageName": "subsidy-consortium-result-feasibility",
+                "errorMessage": "Select an option"
               },
               {
                 "name": "Industrial research",
                 "value": "1",
-                "pageName": "subsidy-consortium-result-industrial"
+                "pageName": "subsidy-consortium-result-industrial",
+                "errorMessage": "Select an option"
               },
               {
                 "name": "Experimental development",
                 "value": "2",
-                "pageName": "subsidy-consortium-result-experimental"
+                "pageName": "subsidy-consortium-result-experimental",
+                "errorMessage": "Select an option"
               }
             ]
           },
