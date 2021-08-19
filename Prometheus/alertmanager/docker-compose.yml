@@ -11,7 +11,7 @@ services:
       dockerfile: ./Dockerfile
     container_name: prom-alertmanager
     ports:
-      - 9093:443
+      - 9093:9093
     restart: always
     volumes:
     - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
@@ -20,8 +20,8 @@ services:
     command:
     - '--config.file=/etc/alertmanager/alertmanager.yml'
     - '--storage.tsdb.path=/alertmanager'
-    #- '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital'
-    #- '--web.listen-address=0.0.0.0:9093'
+    - '--web.external-url=http://inzfs-prom-alertmanager.london.cloudapps.digital:443/api/v2/alerts'
+    - '--web.listen-address=0.0.0.0:9093'
     #- '--cluster.listen-address=0.0.0.0:9094'
     #- '--cluster.advertise-address=0.0.0.0:9094'
-    - '--cluster.settle-timeout=60s'
+    - '--cluster.settle-timeout=2m'
