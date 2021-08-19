@@ -401,9 +401,10 @@
             "displayQuestionCounter": true,
             "continueButtonText": "Save and return to application overview",
             "uploadText": "Upload consortium details",
+            "hideFromSummary": true,
             "dependsOn": {
               "fieldName": "consortium-applicant",
-              "value": "1"
+              "value": "0"
             }
           },
           {
@@ -576,7 +577,7 @@
           },
           {
             "name": "parent-recent-turnover-date",
-            "sectionTitle": "3.18 Parent organisation's most recent turnover date",
+            "sectionTitle": "3.19 Parent organisation's most recent turnover date",
             "question": "Most recent turnover date",
             "description": "Description",
             "errorMessage": "Select a valid date",
@@ -593,7 +594,7 @@
           },
           {
             "name": "parent-balance-sheet-total",
-            "sectionTitle": "3.18 Parent organisation's balance sheet total",
+            "sectionTitle": "3.20 Parent organisation's balance sheet total",
             "question": "Parent balance sheet total",
             "hint": "Amount, in pounds",
             "description": "Description",
@@ -614,7 +615,7 @@
           },
           {
             "name": "parent-balance-sheet-date",
-            "sectionTitle": "3.18 Parent organisation's balance sheet date",
+            "sectionTitle": "3.21 Parent organisation's balance sheet date",
             "question": "Parent balance sheet date",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
