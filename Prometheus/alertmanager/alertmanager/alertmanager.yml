@@ -3,10 +3,15 @@ global:
 
 route:
   # group_by: ['app']
-  receiver: 'zulip-notifications'
+  receiver: 'my-gmail'
 
 receivers:
-- name: 'zulip-notifications'
-  webhook_configs:
-  - url: 'https://eef.zulipchat.com/api/v1/external/alertmanager?api_key=jrE5IrlmicCWIsV8cmY7kXjsmGqAyVoq=stream%20name&name=host&desc=alertmanager'
+- name: my-gmail
+  email_configs:
+  - to: davidmarkgardiner@gmail.com
     send_resolved: true
+    from: davidmarkgardiner@gmail.com+alertmanager@gmail.com
+    smarthost: smtp.gmail.com:587
+    auth_username: davidmarkgardiner@gmail.com@gmail.com
+    auth_identity: davidmarkgardiner@gmail.com@gmail.com
+    auth_password: uxhmngyjolnlxqtv
