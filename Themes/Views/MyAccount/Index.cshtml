@@ -1,0 +1,92 @@
+@model INZFS.Theme.ViewModels.MyAccountViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h2 class="govuk-heading-l">Your account details</h2>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Email address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.EmailAddress
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="changeEmail.html">
+                            Change<span class="govuk-visually-hidden">Email address</span>
+                        </a>
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Password
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        ******************
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="changePassword.html">
+                            Change<span class="govuk-visually-hidden">Password</span>
+                        </a>
+                    </dd>
+                </div>
+            </dl>
+            <h2 class="govuk-heading-l">Your security preferences</h2>
+            <p class="govuk-body govuk-!-margin-bottom-3">This is how you get access codes</p>
+            <dl class="govuk-summary-list">
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Text message
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.PhoneNumber
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        <a class="govuk-link" href="#">
+                            Add<span class="govuk-visually-hidden">Phone Number</span>
+                        </a>
+                        
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Email address
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Model.EmailAddress
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                    </dd>
+                </div>
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        Authenticator App
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        *****************
+                    </dd>
+                    <dd class="govuk-summary-list__actions">
+                        @if (Model.IsAuthenticatorEnabled)
+                        {
+                            <a class="govuk-link" href="@Url.Action("ChangeScanQr", "MyAccount", new {area = "INZFS.Theme"})">
+                                Change<span class="govuk-visually-hidden">Authenticator App</span>
+                            </a>
+                        }
+                        else
+                        {
+                            <a class="govuk-link" href="@Url.Action("AddScanQr", "MyAccount", new {area = "INZFS.Theme"})">
+                                Add<span class="govuk-visually-hidden">Authenticator App</span>
+                            </a>
+                        }
+                    </dd>
+                </div>
+            </dl>
+        </div>
+        <div class="govuk-grid-column-one-third">
+        </div>
+    </div>
+</main>
