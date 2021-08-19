@@ -982,12 +982,12 @@
             "hideFromSummary": true,
             "actions": [
               {
-                "name": "Up to and including £500,000",
+                "name": "Up to and including \u00a3500,000",
                 "value": "0",
                 "pageName": "subsidy-sole-applicant-result-applying-less"
               },
               {
-                "name": "over £500,000",
+                "name": "over \u00a3500,000",
                 "value": "1",
                 "pageName": "subsidy-sole-applicant-result-applying-more"
               }
