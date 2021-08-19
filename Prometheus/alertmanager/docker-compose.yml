@@ -20,7 +20,7 @@ services:
     command:
     - '--config.file=/etc/alertmanager/alertmanager.yml'
     - '--storage.tsdb.path=/alertmanager'
-    - '--web.external-url=http://inzfs-prom-alertmanager.london.cloudapps.digital:443/api/v2/alerts'
+    - '--web.external-url=http://inzfs-prom-alertmanager.london.cloudapps.digital/api/v2/alerts'
     - '--web.listen-address=0.0.0.0:9093'
     #- '--cluster.listen-address=0.0.0.0:9094'
     #- '--cluster.advertise-address=0.0.0.0:9094'
