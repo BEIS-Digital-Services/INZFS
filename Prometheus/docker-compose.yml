@@ -2,10 +2,6 @@ version: '3.7'
 
 volumes:
     prometheus_data: {}
-    alertmanager: {}
-
-networks:
-  back-tier:
 
 services:
   prometheus:
@@ -13,10 +9,10 @@ services:
     build:
       context: ./
       dockerfile: ./prometheus/Dockerfile
+    container_name: prom
     ports:
       - 9090:9090
-    networks:
-      - back-tier
+    restart: always
     command:
       - '--web.enable-lifecycle'
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -24,26 +20,4 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
-    links:
-      - alertmanager:alertmanager
 
-
-  alertmanager:
-    image: ${DOCKER_REGISTRY-}prom
-    build:
-      context: ./
-      dockerfile: ./prometheus/Dockerfile
-    ports:
-      - 9093:9093
-    networks:
-      - back-tier
-    restart: always
-#    privileged: true
-    volumes:
-      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml:ro
-      - ./alertmanager:/alertmanager
-      - ./templates:/etc/alertmanager/templates
-    command:
-      - '--config.file=/etc/alertmanager/alertmanager.yml'
-      - '--storage.tsdb.path=/alertmanager'
-      - '--web.external-url=https://inzfs-prom-alertmanager.london.cloudapps.digital:443'
