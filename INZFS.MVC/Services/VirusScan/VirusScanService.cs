@@ -28,7 +28,7 @@ namespace INZFS.MVC.Services.VirusScan
             var allowPasswordProtectedFiles = false;  
             var allowMacros = true;  
             var allowXmlExternalEntities = true;  
-            var restrictFileTypes = ".xlsx,.xlx,.pdf,.doc,.docx";  
+            var restrictFileTypes = ".xlsx,.xlx,.pdf,.doc,.docx,.ppt,.pptx, .gif, .jpeg, .png";  
 
             try
             {
@@ -44,7 +44,7 @@ namespace INZFS.MVC.Services.VirusScan
                 else
                 {
                     Debug.WriteLine("Virus scanning complete. Your upload is virus-free!");
-                    return "No viruses detected";
+                    return string.Empty;
                 }
             }
             catch (Exception e)

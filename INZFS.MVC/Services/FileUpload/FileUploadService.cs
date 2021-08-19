@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -82,22 +83,9 @@ namespace INZFS.MVC.Services.FileUpload
             {
                 return "File size cannot be more than 10 MB";
             }
-            
-            //TODO : Switch to virus scanning service
             var containsVirus = _virusScanService.ScanFile(file);
-            if (containsVirus == "Virus detected")
-            {
-                return "This file contains a virus";
-            }
-            if (containsVirus == "Unable to scan file")
-            {
-                return "Unable to scan file";
-            }
+            return containsVirus;
           
-            return string.Empty;
-            
-
-            
         }
         public async Task<bool> CreateDirectory(string directoryName)
         {
@@ -117,7 +105,7 @@ namespace INZFS.MVC.Services.FileUpload
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine("The following exception was encountered: " + ex);
                 return false;
             }
         }
