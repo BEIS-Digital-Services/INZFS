@@ -8,5 +8,5 @@ route:
 receivers:
 - name: 'zulip-notifications'
   webhook_configs:
-  - url: 'https://eef.zulipchat.com/api/v1/external/alertmanager?api_key=jrE5IrlmicCWIsV8cmY7kXjsmGqAyVoq=stream%20name&name=host&desc=alertmanager'
+  - url: 'https://eef.zulipchat.com/api/v1/external/alertmanager?api_key=yrHqcJEK0Pabi2zWPvf2uCzjSVx8RBOm&stream=Prometheus'
     send_resolved: true
