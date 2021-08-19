@@ -15,7 +15,7 @@
                         <a class="govuk-breadcrumbs__link" href="application-overview" id="application-overview">Application overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item">
-                        2. Your organisation
+                        3. Your organisation
                     </li>
                 </ol>
             </div>
@@ -37,7 +37,7 @@
 
                 <div class="govuk-tabs" data-module="govuk-tabs">
                     <h2 class="govuk-tabs__title">
-                        2. Your Organisation
+                        3. Your Organisation
                     </h2>
 
                     <div class="govuk">
@@ -46,7 +46,7 @@
                             var pages = Model.Sections.Take(2);
                             var completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
                         }
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">2.1. Your details<span class="summary-list-section summary-list-section--right">@completedCount out of 2 completed</span></p>
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.1. Consortium applicants<span class="summary-list-section summary-list-section--right">@completedCount out of 2 completed</span></p>
                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                         <dl class="govuk-summary-list">
@@ -72,7 +72,7 @@
                             completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
                          }
 
-                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">2.2. Summary of finances<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.2. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
                          <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                           <dl class="govuk-summary-list">
@@ -96,7 +96,7 @@
                             completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
                          }
 
-                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">2.3. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.3. About your parent organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
                          <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                           <dl class="govuk-summary-list">
@@ -120,7 +120,7 @@
                             completedCount = pages.Count(section => section.SectionStatus == SectionStatus.Completed);
                         }
 
-                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">2.3. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
+                         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">3.3. About your organisation<span class="summary-list-section summary-list-section--right">@completedCount out of 6 completed</span></p>
                          <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
                                <dl class="govuk-summary-list">

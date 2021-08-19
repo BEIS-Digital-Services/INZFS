@@ -929,7 +929,6 @@ namespace INZFS.MVC.Controllers
         {
 
             currentModel.Question = currentPage.Question;
-            currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
@@ -1022,7 +1021,7 @@ namespace INZFS.MVC.Controllers
             foreach (var pageContent in section.Pages)
             {
                 var sectionModel = new SectionModel();
-                sectionModel.Title = pageContent.Question;
+                sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
                 sectionModel.Url = pageContent.Name;
                 sectionModel.HideFromSummary = pageContent.HideFromSummary;
 

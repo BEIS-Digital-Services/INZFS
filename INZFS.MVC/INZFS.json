@@ -1,31 +1,53 @@
-{
+ï»¿{
   "application": {
     "name": "INZFS",
     "sections": [
       {
-        "title": "Confirm your eligibility",
-        "overviewTitle": "1. Confirm your eligibility",
-        "tag": "confirm-your-eligibility",
-        "url": "confirm-your-eligibility",
+        "title": "Your details and eligibility",
+        "overviewTitle": "1. Your details and eligibility",
+        "tag": "your-details-and-eligibility",
+        "url": "your-details-and-eligibility",
         "continueButtonText": "Save and continue",
-        "RazorView": "ConfirmYourEligibility",
-        "pages": [
-
-        ]
-      },
-      {
-        "title": "Your organisation",
-        "overviewTitle": "2. Your organisation",
-        "tag": "your-organisation",
-        "url": "your-organisation",
-        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
-        "continueButtonText": "Save and continue",
-        "RazorView": "YourOrganisation",
+        "RazorView": "YourDetailsAndEligibility",
         "pages": [
           {
+            "name": "eligibility-to-apply-for-fund",
+            "sectionTitle": "1.1 Confirm your eligibility",
+            "question": "Are you eligible to apply for this fund?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Eligibility to apply for fund",
+            "fieldName": "eligibility-to-apply-for-fund",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "full-name"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "not-eligible-for-funding"
+              }
+            ]
+          },
+          {
+            "name": "not-eligible-for-funding",
+            "fieldType": "gdsStaticPage",
+            "nextPageName": "application-overview",
+            "returnPageName": "application-overview",
+            "hideFromSummary": true
+          },
+          {
             "name": "full-name",
+            "sectionTitle": "1.2 Your name",
             "question": "Full Name",
-            "titleQuestion": "What is your full name?",
             "description": "Description",
             "errorMessage": "Please enter full name ",
             "fieldType": "gdsTextBox",
@@ -40,8 +62,8 @@
           },
           {
             "name": "job-title",
+            "sectionTitle": "1.3 Your job title",
             "question": "Job Title",
-            "titleQuestion": "What is your job title?",
             "description": "Description",
             "errorMessage": "Please enter your job title ",
             "fieldType": "gdsTextBox",
@@ -53,11 +75,63 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "showSaveProgessButton": true
+          }
+        ]
+      },
+      {
+        "title": "Summary of finances",
+        "overviewTitle": "2. Summary of finances",
+        "tag": "summary-of-finances",
+        "url": "summary-of-finances",
+        "continueButtonText": "Save and continue",
+        "RazorView": "SummaryOfFinances",
+        "pages": [
+          {
+            "name": "balance-sheet-total",
+            "question": "Balance sheet total",
+            "hint": "Amount, in pounds",
+            "description": "Description",
+            "errorMessage": "Please enter balance sheet total",
+            "fieldType": "gdsCurrencyBox",
+            "friendlyFieldName": "Balance sheet total",
+            "fieldName": "balance-sheet-total",
+            "mandatory": true,
+            "accordianReference": "",
+            "maxLength": 50,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "balance-sheet-date",
+            "question": "Balance sheet date",
+            "description": "Description",
+            "errorMessage": "Select a Valid Date",
+            "fieldType": "gdsDateBox",
+            "friendlyFieldName": "Balance sheet date",
+            "fieldName": "balance-sheet-date",
+            "mandatory": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": true
+          },
+          {
+            "name": "vat-recovery",
+            "sectionTitle": "Vat registration",
+            "question": "Is your organisation VAT registered?",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Vat Recovery",
+            "fieldName": "vat-recovery",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true
           },
           {
             "name": "organisation-running",
-            "question": "Organisation Running",
-            "titleQuestion": "Is your organisation more than 1 year old?",
+            "sectionTitle": "Organisation Running",
+            "question": "Is your organisation more than 1 year old?",
             "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -96,48 +170,67 @@
             "mandatory": true,
             "showMarkComplete": true,
             "showSaveProgessButton": true
-          },
+          }
+        ]
+      },
+      {
+        "title": "About your organisation (and partners)",
+        "overviewTitle": "3. About your organisation (and partners)",
+        "tag": "your-organisation",
+        "url": "your-organisation",
+        "returnToSummaryPageLinkText": "Return to the proposal summary overview",
+        "continueButtonText": "Save and continue",
+        "RazorView": "YourOrganisation",
+        "pages": [
           {
-            "name": "balance-sheet-total",
-            "question": "Balance sheet total",
-            "hint": "Amount, in pounds",
-            "description": "Description",
-            "errorMessage": "Please enter balance sheet total",
-            "fieldType": "gdsCurrencyBox",
-            "friendlyFieldName": "Balance sheet total",
-            "fieldName": "balance-sheet-total",
-            "mandatory": true,
-            "accordianReference": "",
-            "maxLength": 50,
-            "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "showSaveProgessButton": true
-          },
-          {
-            "name": "balance-sheet-date",
-            "question": "Balance sheet date",
-            "description": "Description",
-            "errorMessage": "Select a Valid Date",
-            "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Balance sheet date",
-            "fieldName": "balance-sheet-date",
-            "mandatory": true,
-            "showMarkComplete": true,
-            "showSaveProgessButton": true
-          },
-          {
-            "name": "vat-recovery",
-            "question": "Vat Recovery",
-            "titleQuestion": "Is your organisation VAT registered?",
+            "name": "consortium-applicant",
+            "sectionTitle": "Are you a sole applicant?",
+            "question": "Are you a sole applicant?",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Vat Recovery",
-            "fieldName": "vat-recovery",
+            "friendlyFieldName": "Consortium Applicant",
+            "fieldName": "consortium-applicant",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "previousPage": {
+              "link": "Back to consortium applicants",
+              "text": "application-overview"
+            },
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "application-overview"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "consortium-applicant-details"
+              }
+            ]
+          },
+          {
+            "name": "consortium-applicant-details",
+            "sectionTitle": "Consortium details",
+            "question": "Consortium details",
+            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "errorMessage": "Upload consortium details",
+            "fieldType": "gdsFileUpload",
+            "friendlyFieldName": "Consortium File Upload",
+            "fieldName": "consortium-applicant-details",
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true
+            "filetoDownload": "",
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and return to application overview",
+            "uploadText": "Upload consortium details"
           },
           {
             "name": "organisation-name",
@@ -171,8 +264,8 @@
           },
           {
             "name": "organisation-address",
-            "question": "Organisation Address",
-            "titleQuestion": "What is your organisation's registered address?",
+            "sectionTitle": "Organisation Address",
+            "question": "What is your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsAddressTextBox",
@@ -187,8 +280,8 @@
           },
           {
             "name": "company-registered-number",
-            "question": "Company Registered Number",
-            "titleQuestion": "What is your organisation’s company number?",
+            "sectionTitle": "Company Registered Number",
+            "question": "What is your organisationâ€™s company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registered number",
@@ -220,8 +313,8 @@
           },
           {
             "name": "type-of-organisation",
-            "question": "Type of organisation",
-            "titleQuestion": "Which type best describes your organisation?",
+            "sectionTitle": "Type of organisation",
+            "question": "Which type best describes your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Type of organisation",
@@ -244,8 +337,8 @@
           },
           {
             "name": "organisation-size",
-            "question": "Organisation size",
-            "titleQuestion": "What is your organisation's size?",
+            "sectionTitle": "Organisation size",
+            "question": "What is your organisation's size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Organisation size",
@@ -265,8 +358,8 @@
           },
           {
             "name": "organisation-maturity",
-            "question": "Organisation maturity",
-            "titleQuestion": "How old is your organisation?",
+            "sectionTitle": "Organisation maturity",
+            "question": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Organisation maturity",
@@ -287,8 +380,8 @@
           },
           {
             "name": "organisation-funding",
-            "question": "Organisation funding",
-            "titleQuestion": "How is your organisation currently funded?",
+            "sectionTitle": "Organisation funding",
+            "question": "How is your organisation currently funded?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
             "friendlyFieldName": "Organisation funding",
@@ -312,8 +405,8 @@
           },
           {
             "name": "parent-organisation",
-            "question": "Parent Organisation",
-            "titleQuestion": "Do you have a parent organisation?",
+            "sectionTitle": "Parent Organisation",
+            "question": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -357,8 +450,8 @@
           },
           {
             "name": "parent-organisation-address",
-            "question": "Parent organisation Address",
-            "titleQuestion": "What is your parent organisation's registered address?",
+            "sectionTitle": "Parent organisation Address",
+            "question": "What is your parent organisation's registered address?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name website",
             "fieldType": "gdsAddressTextBox",
@@ -373,8 +466,8 @@
           },
           {
             "name": "parent-organisation-size",
-            "question": "Parent organisation size",
-            "titleQuestion": "What is your parent organisation’s size?",
+            "sectionTitle": "Parent organisation size",
+            "question": "What is your parent organisationï¿½s size?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
@@ -394,8 +487,8 @@
           },
           {
             "name": "parent-organisation-maturity",
-            "question": "Parent organisation maturity",
-            "titleQuestion": "How old is your parent organisation?",
+            "sectionTitle": "Parent organisation maturity",
+            "question": "How old is your parent organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation maturity",
@@ -474,67 +567,6 @@
         ]
       },
       {
-        "title": "Consortium applicant details",
-        "overviewTitle": "3. Consortium applicant details",
-        "tag": "consortium-applicant",
-        "url": "consortium-applicant",
-        "ReturnUrl": "application-overview",
-        "continueButtonText": "Save and continue",
-        "RazorView": "ConsortiumInformation",
-        "pages": [
-          {
-            "name": "consortium-applicant",
-            "question": "Are you a sole applicant?",
-            "titleQuestion": "Are you a sole applicant?",
-            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
-            "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Consortium Applicant",
-            "fieldName": "consortium-applicant",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": false,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue",
-            "previousPage": {
-              "link": "Back to consortium applicants",
-              "text": "application-overview"
-            },
-            "actions": [
-              {
-                "name": "Yes",
-                "value": "1",
-                "pageName": "application-overview"
-              },
-              {
-                "name": "No",
-                "value": "0",
-                "pageName": "consortium-applicant-details"
-              }
-            ]
-          },
-          {
-            "name": "consortium-applicant-details",
-            "question": "Consortium details",
-            "titleQuestion": "Consortium details",
-            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
-            "errorMessage": "Upload consortium details",
-            "fieldType": "gdsFileUpload",
-            "friendlyFieldName": "Consortium File Upload",
-            "fieldName": "consortium-applicant-details",
-            "mandatory": true,
-            "accordianReference": "",
-            "showMarkComplete": true,
-            "showSaveProgessButton": false,
-            "filetoDownload": "",
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
-            "uploadText": "Upload consortium details"
-          }
-        ]
-      },
-      {
         "title": "Proposal Summary",
         "overviewTitle": "4. Proposal summary",
         "tag": "proposal-summary",
@@ -545,8 +577,8 @@
         "pages": [
           {
             "name": "project-name",
-            "question": "4.1. Project Name",
-            "titleQuestion": "4.1. What is the name of your project?",
+            "sectionTitle": "4.1. Project Name",
+            "question": "4.1. What is the name of your project?",
             "description": "Description",
             "errorMessage": "Please enter a valid project name",
             "fieldType": "gdsTextBox",
@@ -561,8 +593,8 @@
           },
           {
             "name": "estimated-start-date",
-            "question": "4.2. Estimated start date",
-            "titleQuestion": "4.2. When do you estimate the project will start?",
+            "sectionTitle": "4.2. Estimated start date",
+            "question": "4.2. When do you estimate the project will start?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -574,8 +606,8 @@
           },
           {
             "name": "estimated-end-date",
-            "question": "4.3. Estimated end date",
-            "titleQuestion": "4.3. When do you estimate the project will end?",
+            "sectionTitle": "4.3. Estimated end date",
+            "question": "4.3. When do you estimate the project will end?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -587,8 +619,8 @@
           },
           {
             "name": "project-location",
-            "question": "4.4. Project Location",
-            "titleQuestion": "4.4. Will your project be mainly carried out at your organisation's registered address?",
+            "sectionTitle": "4.4. Project Location",
+            "question": "4.4. Will your project be mainly carried out at your organisation's registered address?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -692,8 +724,8 @@
           },
           {
             "name": "business-technology-readiness-document",
-            "question": "5.3.1 Upload Technology Readiness Level (TRL)",
-            "titleQuestion": "Upload Technology Readiness Level (TRL)",
+            "sectionTitle": "5.3.1 Upload Technology Readiness Level (TRL)",
+            "question": "Upload Technology Readiness Level (TRL)",
             "hint": "",
             "errorMessage": "Upload technology readiness level",
             "fieldType": "gdsFileUpload",
@@ -787,8 +819,8 @@
           },
           {
             "name": "business-project-plan-document",
-            "question": "5.8.1 Upload project plan",
-            "titleQuestion": "Upload project plan",
+            "sectionTitle": "5.8.1 Upload project plan",
+            "question": "Upload project plan",
             "hint": "",
             "errorMessage": "Upload project plan",
             "fieldType": "gdsFileUpload",
@@ -820,8 +852,8 @@
           },
           {
             "name": "business-project-evaluation-document",
-            "question": "5.9.1 Upload project evaluation",
-            "titleQuestion": "Upload project evaluation",
+            "sectionTitle": "5.9.1 Upload project evaluation",
+            "question": "Upload project evaluation",
             "hint": "",
             "errorMessage": "Upload project evaluation",
             "fieldType": "gdsFileUpload",
@@ -853,8 +885,8 @@
           },
           {
             "name": "business-skills-and-experience-document",
+            "sectionTitle": "5.10.1 Upload skills and experience",
             "question": "5.10.1 Upload skills and experience",
-            "titleQuestion": "5.10.1 Upload skills and experience",
             "errorMessage": "Upload skills and experience",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Skills and experience File Upload",
@@ -870,8 +902,8 @@
           },
           {
             "name": "business-letter-of-support-document",
+            "sectionTitle": "5.11. Letter of support (optional)",
             "question": "5.11. Letter of support (optional)",
-            "titleQuestion": "5.11. Letter of support (optional)",
             "hint": "",
             "errorMessage": "Upload a Letter of support",
             "fieldType": "gdsFileUpload",
@@ -904,8 +936,8 @@
           },
           {
             "name": "subsidy-sole-applicant",
+            "sectionTitle": "Are you a sole applicant?",
             "question": "Are you a sole applicant?",
-            "titleQuestion": "Are you a sole applicant?",
             "hint": "Answer no if you are applying as part of a consortium of companies",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -943,7 +975,6 @@
           {
             "name": "subsidy-sole-applicant-aid-category",
             "question": "Which category are you applying under?",
-            "titleQuestion": "",
             "description": "",
             "errorMessage": "Please provide something",
             "fieldType": "gdsMultiLineRadio",
@@ -969,7 +1000,6 @@
           {
             "name": "subsidy-sole-applicant-value",
             "question": "How much money are you applying for?",
-            "titleQuestion": "",
             "description": "",
             "errorMessage": "Please select an option",
             "fieldType": "gdsMultiLineRadio",
@@ -981,12 +1011,12 @@
             "hideFromSummary": true,
             "actions": [
               {
-                "name": "Up to and including £500,000",
+                "name": "Up to and including ï¿½500,000",
                 "value": "0",
                 "pageName": "subsidy-sole-applicant-result-applying-less"
               },
               {
-                "name": "over £500,000",
+                "name": "over ï¿½500,000",
                 "value": "1",
                 "pageName": "subsidy-sole-applicant-result-applying-more"
               }
@@ -1016,7 +1046,6 @@
           {
             "name": "subsidy-consortium-category",
             "question": "Which of the following are you applying under?",
-            "titleQuestion": "",
             "description": "",
             "errorMessage": "Please select an option",
             "fieldType": "gdsMultiLineRadio",
@@ -1067,8 +1096,8 @@
           },
           {
             "name": "project-cost-breakdown",
-            "question": "6.2. Project cost breakdown",
-            "titleQuestion": "6.2 Project cost breakdown",
+            "sectionTitle": "6.2. Project cost breakdown",
+            "question": "6.2 Project cost breakdown",
             "description": "Provide a breakdown of your costs using the template provided in the download section of this page.",
             "errorMessage": "Please provide a breakdown of your costs",
             "fieldType": "gdsFileUpload",
@@ -1083,8 +1112,8 @@
           },
           {
             "name": "financial-background",
+            "sectionTitle": "6.3. Financial background",
             "question": "6.3. Financial background",
-            "titleQuestion": "6.3. Financial background",
             "description": "You can give extra details about the information you enter on the Finance Spreadsheet here.",
             "errorMessage": "Please provide a summary of your financial background",
             "fieldType": "gdsTextArea",
@@ -1098,8 +1127,8 @@
           },
           {
             "name": "in-kind-contributions",
+            "sectionTitle": "6.4. In-kind contributions",
             "question": "6.4. In-kind contributions",
-            "titleQuestion": "6.4. In-kind contributions",
             "description": "In-kind contributions are valuable items or services which you don't need to pay for during your project.",
             "errorMessage": "Please provide a summary of your in-kind contributions",
             "fieldType": "gdsTextArea",
@@ -1134,8 +1163,8 @@
         "pages": [
           {
             "name": "eq-survey-question-one",
+            "sectionTitle": "What is your sex?",
             "question": "What is your sex?",
-            "titleQuestion": "What is your sex?",
             "hint": "Please choose your biological sex",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsMultiLineRadio",
@@ -1171,8 +1200,8 @@
           },
           {
             "name": "eq-survey-question-two",
+            "sectionTitle": "Is the gender you identify with the same as your sex registered at birth?",
             "question": "Is the gender you identify with the same as your sex registered at birth?",
-            "titleQuestion": "Is the gender you identify with the same as your sex registered at birth?",
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsMultiLineRadio",
@@ -1208,8 +1237,8 @@
           },
           {
             "name": "eq-survey-question-three",
+            "sectionTitle": "What is your ethnic group?",
             "question": "What is your ethnic group?",
-            "titleQuestion": "What is your ethnic group?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1260,8 +1289,8 @@
           },
           {
             "name": "eq-survey-question-four-a",
+            "sectionTitle": "Which of the following best describes your White background?",
             "question": "Which of the following best describes your White background?",
-            "titleQuestion": "Which of the following best describes your White background?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1307,8 +1336,8 @@
           },
           {
             "name": "eq-survey-question-four-b",
+            "sectionTitle": "Which of the following best describes your Mixed or Multiple ethnic groups background?",
             "question": "Which of the following best describes your Mixed or Multiple ethnic groups background?",
-            "titleQuestion": "Which of the following best describes your Mixed or Multiple ethnic groups background?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1354,8 +1383,8 @@
           },
           {
             "name": "eq-survey-question-four-c",
+            "sectionTitle": "Which of the following best describes your Asian or Asian British background?",
             "question": "Which of the following best describes your Asian or Asian British background?",
-            "titleQuestion": "Which of the following best describes your Asian or Asian British background?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1406,8 +1435,8 @@
           },
           {
             "name": "eq-survey-question-four-d",
+            "sectionTitle": "Which of the following best describes your Black, African, Caribbean or Black British background?",
             "question": "Which of the following best describes your Black, African, Caribbean or Black British background?",
-            "titleQuestion": "Which of the following best describes your Black, African, Caribbean or Black British background?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1448,8 +1477,8 @@
           },
           {
             "name": "eq-survey-question-four-e",
+            "sectionTitle": "Which of the following best describes your background?",
             "question": "Which of the following best describes your background?",
-            "titleQuestion": "Which of the following best describes your background?",
             "hint": "",
             "errorMessage": "Select an ethnic group or other option",
             "fieldType": "gdsMultiLineRadio",
@@ -1486,8 +1515,8 @@
           },
           {
             "name": "eq-survey-question-five",
+            "sectionTitle": "Do you have any physical or mental health conditions or illnesses lasting or expected to last 12 months or more?",
             "question": "Do you have any physical or mental health conditions or illnesses lasting or expected to last 12 months or more?",
-            "titleQuestion": "Do you have any physical or mental health conditions or illnesses lasting or expected to last 12 months or more?",
             "hint": "",
             "errorMessage": "Please select an option which best describes your physical or mental condition",
             "fieldType": "gdsMultiLineRadio",
@@ -1523,8 +1552,8 @@
           },
           {
             "name": "eq-survey-question-six",
+            "sectionTitle": "Do any of your conditions or illnesses reduce your ability to carry out day to day activities?",
             "question": "Do any of your conditions or illnesses reduce your ability to carry out day to day activities?",
-            "titleQuestion": "Do any of your conditions or illnesses reduce your ability to carry out day to day activities?",
             "hint": "",
             "errorMessage": "Please select an option which best describes how your physical or mental condition affects you",
             "fieldType": "gdsMultiLineRadio",
