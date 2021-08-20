@@ -21,7 +21,9 @@ namespace INZFS.MVC.ModelProviders
 
             var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), 
                 typeof(DateModel), typeof(MultiSelectInputModel),
-                typeof(SingleRadioInputModel), typeof(FileUploadModel)};
+                typeof(YesornoInputModel), typeof(FileUploadModel), typeof(CurrencyInputModel), 
+                typeof(RadioSingleSelectModel), typeof(MultiRadioInputModel), typeof(StaticPageModel), typeof(AddressInputModel)
+                };
 
             var binders = new Dictionary<Type, (ModelMetadata, IModelBinder)>();
             foreach (var type in subclasses)
@@ -61,10 +63,18 @@ namespace INZFS.MVC.ModelProviders
             else if (modelTypeValue == nameof(DateModel))
             {
                 (modelMetadata, modelBinder) = binders[typeof(DateModel)];
-            }
-            else if (modelTypeValue == nameof(SingleRadioInputModel))
+            }            
+            else if (modelTypeValue == nameof(StaticPageModel))
             {
-                (modelMetadata, modelBinder) = binders[typeof(SingleRadioInputModel)];
+                (modelMetadata, modelBinder) = binders[typeof(StaticPageModel)];
+            }
+            else if (modelTypeValue == nameof(YesornoInputModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(YesornoInputModel)];
+            }
+            else if (modelTypeValue == nameof(MultiRadioInputModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(MultiRadioInputModel)];
             }
             else if (modelTypeValue == nameof(MultiSelectInputModel))
             {
@@ -73,6 +83,18 @@ namespace INZFS.MVC.ModelProviders
             else if (modelTypeValue == nameof(FileUploadModel))
             {
                 (modelMetadata, modelBinder) = binders[typeof(FileUploadModel)];
+            }
+            else if (modelTypeValue == nameof(CurrencyInputModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(CurrencyInputModel)];
+            }
+            else if (modelTypeValue == nameof(RadioSingleSelectModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(RadioSingleSelectModel)];
+            }
+            else if (modelTypeValue == nameof(AddressInputModel))
+            {
+                (modelMetadata, modelBinder) = binders[typeof(AddressInputModel)];
             }
             else
             {

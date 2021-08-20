@@ -101,7 +101,7 @@
 		string returnUrl = "/";
         if (equalityAnswer == "yes-equality")
         {
-			returnUrl = @completePage.Content.Complete.Url1.Text;
+			returnUrl = @"/FundApplication/section/eq-survey-question-one";
             return Redirect(returnUrl);
         }
         else

@@ -1,0 +1,39 @@
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.ChangeScanQrForAuthenticatorViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row" asp-validation-error-class-for="ChosenAction">
+            <div class="govuk-grid-column-two-thirds">
+                <span asp-validation-for="ChosenAction" class="govuk-error-message"></span>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
+                            <h1 class="govuk-heading-l">Choose primary verification method</h1>
+                        </legend>
+                        <div class="govuk-radios govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input asp-for="ChosenAction" type="radio" value="@(ChangeAction.Change)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    Change your authenticator app
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input asp-for="ChosenAction" type="radio" value="@(ChangeAction.Remove)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    Remove this authenticator
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>

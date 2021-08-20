@@ -1,0 +1,48 @@
+﻿
+@model CurrencyInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
+        Back
+    </a>
+}
+
+<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(CurrencyInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-form-group">
+        <h2 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="event-name">
+                @Model.Question
+            </label>
+        </h2>
+        @Html.Partial("_Hint", Model.Hint)
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+        <div class="govuk-input__wrapper">
+            <div class="govuk-input__prefix" aria-hidden="true">£</div>
+            <input class="govuk-input govuk-input--width-5 @(ViewData.ModelState.IsValid ? " " : " govuk-input--error")" id="currencyInput"
+                   name="DataInput" type="number" spellcheck="true" value="@Model.DataInput">
+        </div>
+    </div>
+
+    @Html.Partial("_Accordion", "")
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

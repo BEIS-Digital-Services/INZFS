@@ -18,18 +18,22 @@ namespace INZFS.MVC.Models.DynamicForm
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
         public string Question { get; set; }
-        public string TitleQuestion { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
-
+        public string OtherOption { get; set; }
+        public List<string> SelectedOptions { get; set; }
+        public List<string> UserOptionsSelected { get; set; }
+        public bool HasOtherOption { get; set; }
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
+        public string NextPageName { get; set; }
+        public string ReturnPageName { get; set; }
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
@@ -37,15 +41,26 @@ namespace INZFS.MVC.Models.DynamicForm
         public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
         public string UploadText { get; set; }
+        public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }
+        public PreviousPage PreviousPage { get; set; }
 
         public virtual string GetData()
         {
             return DataInput;
         }
 
+        public virtual string GetOtherSelected()
+        {
+            return OtherOption;
+        }
+
+        public virtual List<string> GetSelectedByUser()
+        {
+            return UserOptionsSelected;
+        }
         public virtual IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             ApplicationDefinition = (ApplicationDefinition)validationContext.GetService(typeof(ApplicationDefinition));

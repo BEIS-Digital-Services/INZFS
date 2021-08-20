@@ -21,42 +21,13 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(DateModel)" />
 
-    @if (!ViewData.ModelState.IsValid)
-    {
-        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
-            <h2 class="govuk-error-summary__title" id="error-summary-title">
-                There is a problem
-            </h2>
-            <div class="govuk-error-summary__body">
-                <ul class="govuk-list govuk-error-summary__list">
-                    @foreach (var key in ViewData.ModelState.Keys)
-                    {
-                        var value = ViewData.ModelState[key];
-                        foreach (var error in value.Errors)
-                        {
-                            <li>
-                                <a href="#Day">@error.ErrorMessage</a>
-                            </li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div>
-    }
+    @Html.Partial("_ErrorMessage")
 
 
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
         <fieldset class="govuk-fieldset" role="group" aria-describedby="estimated-project-end-date">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question
-
-                }
-                else
-                {
-                    @Model.TitleQuestion
-                }
+                @Model.Question
             </legend>
             <div id="estimated-project-end-date-hint" class="govuk-hint">
                 For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
@@ -102,11 +73,7 @@
         @Html.Partial("_MarkAsComplete", Model)
     }
 
-    <div class="edit-item-secondary group">
-        <div class="edit-item-actions form-group">
-            <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
-        </div>
-    </div>
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
 </form>
 
 <a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>

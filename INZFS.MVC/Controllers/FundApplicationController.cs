@@ -135,49 +135,9 @@ namespace INZFS.MVC.Controllers
                 return View(currentSection.RazorView, sectionContentModel);
             }
 
-            
 
+            return NotFound();
 
-            if (pagename == "application-summary")
-            {
-                var model = await GetApplicationSummaryModel();
-                return View("ApplicationSummary", model);
-            }
-
-            if (pagename == "summary")
-            {
-                var model = await GetSummaryModel();
-                return View("Summary", model);
-            }
-            if (pagename == "proposal-written-summary")
-            {
-                var model = await GetApplicationWrittenSummaryModel();
-                return View("ProposalWrittenSummary", model);
-            }
-            if (pagename == "proposal-finance-summary")
-            {
-                var model = await GeProposalFinanceModel();
-                return View("ProposalFinanceSummary", model);
-            }
-
-            var page = _navigation.GetPage(pagename);
-            if (page == null)
-            {
-                return NotFound();
-            }
-            else
-            {
-                if(page is ViewPage)
-                {
-                    var viewPage = (ViewPage)page;
-                    var applicationDocumentPart = await _contentRepository.GetContentItemFromBagPart<ApplicationDocumentPart>(viewPage.ContentType, User.Identity.Name);
-                    var model = applicationDocumentPart ?? new ApplicationDocumentPart();
-                    ViewBag.ContentItemId = model.ContentItem?.ContentItemId;
-                    return View(viewPage.ViewName, model);
-                }
-
-                return await Create(((ContentPage)page).ContentType);
-            }
         }
 
         public async Task<bool> CreateDirectory(string directoryName)
@@ -369,6 +329,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
+                        OtherOption = model.GetOtherSelected(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
                     });
@@ -393,8 +354,30 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
+                    if(existingFieldData.Data == "Other")
+                    {
+                        existingFieldData.OtherOption = model.GetOtherSelected();
+                    }
+                    else
+                    {
+                        existingFieldData.OtherOption = null;
+                    }
                     existingFieldData.MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null;
                     existingFieldData.AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null;
+                }
+
+                //Delete the data from dependants
+                var datafieldForCurrentPage = contentToSave.Fields.FirstOrDefault(f => f.Name == currentPage.FieldName);
+                //Get all pages that depends on the current field and its value
+                var dependantPages = _applicationDefinition.Application.AllPages.Where(page => page.DependsOn?.FieldName == currentPage.FieldName);
+
+
+                foreach (var dependantPage in dependantPages)
+                {
+                    if(dependantPage.DependsOn.Value != datafieldForCurrentPage.Data)
+                    {
+                        contentToSave.Fields.RemoveAll(field => field.Name == dependantPage.FieldName);
+                    }
                 }
 
 
@@ -412,19 +395,47 @@ namespace INZFS.MVC.Controllers
                     return RedirectToAction("section", new { pagename = pageName });
                 }
 
+                //TODO - replace all the references to AllPages with section.Pages
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
-                var nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
+                var currentSection = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
 
-                if (nextPage == null)
+                //Dependant pages
+                Page nextPage = null;
+                while(true)
                 {
-                    return NotFound();
+                    nextPage = _applicationDefinition.Application.AllPages.ElementAtOrDefault(index + 1);
+                    var dependsOn = nextPage?.DependsOn;
+                    if (dependsOn == null)
+                    {
+                        break;
+                    }
+
+                    var dependantPageField = contentToSave.Fields.FirstOrDefault(field => field.Name.ToLower().Equals(dependsOn.FieldName));
+                    
+                    //TODO This will NOT work for all page types for now
+                    if(dependantPageField.Data == dependsOn.Value)
+                    {
+                        break;
+                    }
+
+                    index++;
                 }
 
-                var section = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
-
-                if(section != null)
+                
+                if (nextPage == null)
                 {
-                    return RedirectToAction("section", new { pagename = section.ReturnUrl ?? section.Url });
+                    //If there is no other page, then redirect back to the section page
+                    return RedirectToAction("section", new { pagename = currentSection.ReturnUrl ?? currentSection.Url }); ;
+                }
+
+                
+                var inSection = currentSection.Pages.Contains(nextPage);
+                if (!inSection)
+                {
+                    // If next page exists, but it is optional or not applicable ( depending on the answer to the previous question),
+                    // the also redirect back to section
+                    return RedirectToAction("section", new { pagename = currentSection.ReturnUrl ?? currentSection.Url });
+                     
                 }
                 
                 //TODO: Check of non-existing pages
@@ -815,9 +826,15 @@ namespace INZFS.MVC.Controllers
             BaseModel model;
             switch (currentPage.FieldType)
             {
+                case FieldType.gdsSingleRadioSelectOption:
+                    model = new RadioSingleSelectModel();
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsCurrencyBox:
+                    model = new CurrencyInputModel();
+                    return View("CurrencyInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, field));
@@ -831,15 +848,35 @@ namespace INZFS.MVC.Controllers
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
                     }
-
-
                     return View("DateInput", model);
-                case FieldType.gdsSingleLineRadio:
-                    model = new SingleRadioInputModel();
-                    return View("SingleRadioInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsMultiLineRadio:
+                    model = new MultiRadioInputModel();
+                    return View("MultiRadioInput", PopulateModel(currentPage, model, field));
+                case FieldType.gdsYesorNoRadio:
+                    model = new YesornoInputModel();
+                    return View("YesornoInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsMultiSelect:
-                    model = new MultiSelectInputModel();
-                    return View("MultiSelectInput", PopulateModel(currentPage, model, field));
+                    model = PopulateModel(currentPage, new MultiSelectInputModel(), field);
+                    var multiSelect = (MultiSelectInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var UserInputList = model.DataInput.Split(',').ToList();
+                        multiSelect.UserInput = UserInputList;
+                    }
+                    return View("MultiSelectInput", PopulateModel(currentPage, model));
+                case FieldType.gdsAddressTextBox:
+                    model = PopulateModel(currentPage, new AddressInputModel(), field);
+                    var addressInputModel = (AddressInputModel)model;
+                    if (!string.IsNullOrEmpty(model.DataInput))
+                    {
+                        var userAddress = model.DataInput.Split(',').ToList();
+                        addressInputModel.AddressLine1 = userAddress[0];
+                        addressInputModel.AddressLine2 = userAddress[1];
+                        addressInputModel.City = userAddress[2];
+                        addressInputModel.County = userAddress[3];
+                        addressInputModel.PostCode = userAddress[4];
+                    }
+                    return View("AddressInput", PopulateModel(currentPage, model));
                 case FieldType.gdsFileUpload:
                     model = PopulateModel(currentPage, new FileUploadModel(), field);
                     var uploadmodel = (FileUploadModel)model;
@@ -848,8 +885,12 @@ namespace INZFS.MVC.Controllers
                         uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     }
                     return View("FileUpload", uploadmodel);
+                case FieldType.gdsStaticPage:
+                    model = new StaticPageModel();
+                    return View("_StaticPage", PopulateModel(currentPage, model, field));
                 default:
                     throw new Exception("Invalid field type");
+                
             }
         }
 
@@ -863,12 +904,20 @@ namespace INZFS.MVC.Controllers
                     return View("TextArea", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsDateBox:
                     return View("DateInput", PopulateModel(currentPage, currentModel));
-                case FieldType.gdsSingleLineRadio:
-                    return View("SingleRadioInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsMultiLineRadio:
+                    return View("MultiRadioInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsYesorNoRadio:
+                    return View("YesornoInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:
                     return View("FileUpload", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsCurrencyBox:
+                    return View("CurrencyInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsSingleRadioSelectOption:
+                    return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsAddressTextBox:
+                    return View("AddressInput", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -878,15 +927,28 @@ namespace INZFS.MVC.Controllers
         {
 
             currentModel.Question = currentPage.Question;
-            currentModel.TitleQuestion = currentPage.TitleQuestion;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.Hint = currentPage.Hint;
+            currentModel.NextPageName = currentPage.NextPageName;
+            currentModel.ReturnPageName = currentPage.ReturnPageName;
             currentModel.ShowMarkAsComplete = currentPage.ShowMarkComplete;
+            currentModel.HasOtherOption = currentPage.HasOtherOption;
             currentModel.MaxLength = currentPage.MaxLength;
+            currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
+            currentModel.SelectedOptions = currentPage.SelectOptions;
+            
+            if(currentPage.Actions?.Count > 0)
+            {
+                currentModel.Actions = currentPage.Actions;
+            }
             if (currentPage.ShowMarkComplete)
             {
                 currentModel.MarkAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
+            }
+            if (currentPage.PreviousPage != null)
+            {
+                currentModel.PreviousPage = currentPage.PreviousPage;
             }
 
             currentModel.FileToDownload = currentPage.FileToDownload;
@@ -895,33 +957,34 @@ namespace INZFS.MVC.Controllers
             {
                 currentModel.DataInput = field?.Data;
             }
-            
-            var section = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
+            if (!string.IsNullOrEmpty(field?.OtherOption))
+            {
+                currentModel.OtherOption = field?.OtherOption;
+            }
+
+
+            var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
-            var index = section.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
-            currentModel.TotalQuestions = section.Pages.Count;
+            currentModel.TotalQuestions = currentSection.Pages.Count;
 
-            for (int i = 0; i < currentModel.TotalQuestions; i++)
-            {
-
-            }
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
-                currentModel.ContinueButtonText = section.ContinueButtonText;
+                currentModel.ContinueButtonText = currentSection.ContinueButtonText;
             }else
             {
                 currentModel.ContinueButtonText = currentPage.ContinueButtonText;
             }
-            currentModel.ReturnToSummaryPageLinkText = section.ReturnToSummaryPageLinkText;
-            currentModel.SectionUrl = section.Url;
-            currentModel.SectionInfo = section;
+            currentModel.ReturnToSummaryPageLinkText = currentSection.ReturnToSummaryPageLinkText;
+            currentModel.SectionUrl = currentSection.Url;
+            currentModel.SectionInfo = currentSection;
 
-            var currentPageIndex = section.Pages.FindIndex(p => p.Name == currentPage.Name);// (index - 1);
+            var currentPageIndex = currentSection.Pages.FindIndex(p => p.Name == currentPage.Name);
             if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = section.Pages[currentPageIndex -1 ].Name;
+                currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
             } 
 
             if (!string.IsNullOrEmpty(currentPage.Description))
@@ -942,7 +1005,7 @@ namespace INZFS.MVC.Controllers
         private SectionContent GetSectionContent(ApplicationContent content, Section section)
         {
             var sectionContentModel = new SectionContent();
-            sectionContentModel.TotalQuestions = section.Pages.Count;
+            
             sectionContentModel.Sections = new List<SectionModel>();
             sectionContentModel.Title = section.Title;
             sectionContentModel.OverviewTitle = section.OverviewTitle;
@@ -951,11 +1014,22 @@ namespace INZFS.MVC.Controllers
 
             foreach (var pageContent in section.Pages)
             {
-                var sectionModel = new SectionModel();
-                sectionModel.Title = pageContent.Question;
-                sectionModel.Url = pageContent.Name;
+                var dependsOn = pageContent.DependsOn;
+                if (dependsOn != null)
+                {
+                    var datafieldForCurrentPage = content?.Fields?.FirstOrDefault(f => f.Name.Equals(dependsOn.FieldName));
+                    if (datafieldForCurrentPage?.Data != dependsOn.Value)
+                    {
+                        continue;
+                    }
+                }
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
+                
+                var sectionModel = new SectionModel();
+                sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
+                sectionModel.Url = pageContent.Name;
+                sectionModel.HideFromSummary = pageContent.HideFromSummary;
 
                 if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
                 {
@@ -982,6 +1056,8 @@ namespace INZFS.MVC.Controllers
                 }
                 sectionContentModel.Sections.Add(sectionModel);
             }
+
+            sectionContentModel.TotalQuestions = sectionContentModel.Sections.Count;
 
             return sectionContentModel;
         }

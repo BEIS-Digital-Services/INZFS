@@ -7,6 +7,15 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.ViewModels
 {
+    public class MyAccountViewModel
+    {
+        public string EmailAddress { get; set; }
+        public string PhoneNumber { get; set; }
+        public string ReturnUrl { get; set; }
+        public bool IsAuthenticatorEnabled { get; set; }
+        public bool IsSmsEnabled { get; set; }
+    }
+
     public class RegistrationViewModel
     {
         [Required]
