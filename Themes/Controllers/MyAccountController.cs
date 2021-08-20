@@ -63,6 +63,7 @@ namespace INZFS.Theme.Controllers
             return View(new ChangeScanQrForAuthenticatorViewModel());
         }
 
+        
         [HttpPost]
         public async Task<IActionResult> ChangeScanQr(ChangeScanQrForAuthenticatorViewModel model)
         {
@@ -91,6 +92,28 @@ namespace INZFS.Theme.Controllers
                     }
 
                 }
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AddPhoneNumber()
+        {
+            var model = new AddPhoneNumberViewModel();
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+
+                await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+                await SendSms(user);
+                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Phone });
             }
 
             return View(model);
