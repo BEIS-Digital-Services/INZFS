@@ -1,0 +1,19 @@
+version: '3.4'
+
+volumes:
+  grafana_data: {}
+
+services:
+  grafana:
+    image: ${DOCKER_REGISTRY-}prom-grafana
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: prom-grafana
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - grafana_data:/var/lib/grafana
+
