@@ -112,10 +112,62 @@ namespace INZFS.Theme.Controllers
                 var user = await _userManager.GetUserAsync(User);
 
                 await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-                await SendSms(user);
+                var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+                var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
+                await SendSms(phoneNumber, code);
                 return RedirectToAction("EnterCode", new { method = AuthenticationMethod.Phone });
             }
 
+            return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePhone()
+        {
+            return View(new ChangePhoneViewModel());
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePhone(ChangePhoneViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (model.ChosenAction == ChangeAction.Change)
+                {
+                    return RedirectToAction("ChangePhoneNumber");
+                }
+
+                if (model.ChosenAction == ChangeAction.Remove)
+                {
+                    var userId = await GetUserId();
+                    await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, false);
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(model);
+        }
+
+        
+
+        [HttpGet]
+        public async Task<IActionResult> ChangePhoneNumber()
+        {
+            var model = new ChangePhoneNumberViewModel();
+            model.CurrentPhoneNumber = await _factorSettingsService.GetPhoneNumberAsync(await GetUserId());
+            return View(model);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
+                await SendSms(model.PhoneNumber, code);
+                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.ChangePhone , });
+            }
             return View(model);
         }
 
@@ -124,6 +176,7 @@ namespace INZFS.Theme.Controllers
         public async Task<IActionResult> EnterCode(AuthenticationMethod method)
         {
             var model = new EnterCodeViewModel();
+            
             var user =  await _userManager.GetUserAsync(User);
             
             if (method == AuthenticationMethod.Phone)
@@ -147,7 +200,17 @@ namespace INZFS.Theme.Controllers
                     .Replace(" ", string.Empty)
                     .Replace("-", string.Empty);
 
-                var isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user, model.Method.ToString(), code);
+                var isValidToken = false;
+                if (model.Method == AuthenticationMethod.ChangePhone)
+                {
+                    var result = await _userManager.ChangePhoneNumberAsync(user, "07654434322", code);
+                    isValidToken = result.Succeeded;
+                }
+                else
+                {
+                    isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user, model.Method.ToString(), code);
+                }
+                
                 if (isValidToken)
                 {
                     await SetTwoFactorEnabledAsync(user, true, model.Method);
@@ -174,10 +237,8 @@ namespace INZFS.Theme.Controllers
             }
         }
 
-        private async Task SendSms(IUser user)
+        private async Task SendSms(string phoneNumber, string code)
         {
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("code", code);
             await _notificationService.SendSmsAsync(phoneNumber, _notificationOption.SmsCodeTemplate, parameters);
@@ -192,5 +253,11 @@ namespace INZFS.Theme.Controllers
             await _notificationService.SendEmailAsync(email, _notificationOption.EmailCodeTemplate, parameters);
         }
 
+        private async Task<string> GetUserId()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var userId = await _userManager.GetUserIdAsync(user);
+            return userId;
+        }
     }
 }
