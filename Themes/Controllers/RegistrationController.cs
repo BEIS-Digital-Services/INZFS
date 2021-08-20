@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using Microsoft.Extensions.Options;
 using OrchardCore.Users;
 using OrchardCore.Users.Models;
 
@@ -21,14 +23,16 @@ namespace INZFS.Theme.Controllers
         private readonly INotificationService _notificationService;
         private readonly SignInManager<IUser> _signInManager;
         private readonly IUrlEncodingService _encodingService;
+        private readonly NotificationOption _notificationOption;
 
         public RegistrationController(UserManager<IUser> userManager, INotificationService notificationService,
-            SignInManager<IUser> signInManager, IUrlEncodingService encodingService)
+            SignInManager<IUser> signInManager, IUrlEncodingService encodingService, IOptions<NotificationOption> notificationOption) 
         {
             _userManager = userManager;
             _notificationService = notificationService;
             _signInManager = signInManager;
             _encodingService = encodingService;
+            _notificationOption = notificationOption.Value;
         }
 
         [AllowAnonymous]
@@ -163,7 +167,7 @@ namespace INZFS.Theme.Controllers
                 new {area = "INZFS.Theme", token = token, idtoken = idToken, returnUrl = returnUrl}, Request.Scheme);
 
             //TODO: the template id should be moved to DB or Orchard workflow
-            await _notificationService.SendEmailAsync(email, "3743ba10-430d-4e53-a620-a017d925dc08",
+            await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationTemplate,
                 new Dictionary<string, object>() {{"Url", tokenLink}});
         }
 

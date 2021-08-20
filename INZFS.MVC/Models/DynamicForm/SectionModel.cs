@@ -35,6 +35,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Title { get; set; }
         public string Url { get; set; }
         public string SectionTag { get; set; }
+        public bool HideFromSummary { get; set; }
         public SectionStatus SectionStatus { get; set; }
         public string GetStatusString()
         {

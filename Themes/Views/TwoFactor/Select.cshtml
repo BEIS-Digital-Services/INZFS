@@ -1,39 +1,39 @@
 ﻿@using INZFS.Theme.ViewModels
 @model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
 @{
-    Layout = "_Layout";
+    ViewLayout = "LayoutRegistration";
 }
 
-<div class="govuk-width-container">
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">Choose verification method</h1>
-        </div>
-    </div>
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
     <form method="post">
         <div class="govuk-grid-row" asp-validation-error-class-for="AuthenticationMethod">
-            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
+            <div class="govuk-grid-column-two-thirds">
                 <span asp-validation-for="AuthenticationMethod" class="govuk-error-message"></span>
-                <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
-                    <div class="govuk-radios govuk-radios">
-                        <div class="govuk-radios__item">
-                            <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Authenticator)" class="govuk-radios__input" />
-                            <label class="govuk-label govuk-radios__label">
-                                Authenticator app (Google or Microsoft)
-                            </label>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
+                            <h1 class="govuk-heading-l">Choose primary verification method</h1>
+                        </legend>
+                        <div class="govuk-radios govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Authenticator)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    Authenticator app (Google or Microsoft)
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Phone)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    SMS
+                                </label>
+                            </div>
                         </div>
-                        <div class="govuk-radios__item">
-                            <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Phone)" class="govuk-radios__input" />
-                            <label class="govuk-label govuk-radios__label">
-                                SMS
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-                <br /><br />
+                    </fieldset>
+                </div>
             </div>
 
         </div>
         <button class="govuk-button" data-module="govuk-button">Continue</button>
     </form>
-</div>
+</main>

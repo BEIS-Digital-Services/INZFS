@@ -12,9 +12,14 @@ namespace INZFS.MVC
         gdsTextBox,
         gdsTextArea,
         gdsDateBox,
-        gdsSingleLineRadio,
+        gdsYesorNoRadio,
+        gdsMultiLineRadio,
         gdsMultiSelect,
-        gdsFileUpload
+        gdsFileUpload,
+        gdsCurrencyBox,
+        gdsSingleRadioSelectOption,
+        gdsAddressTextBox,
+        gdsStaticPage
     }
 
     public enum MaxLengthValidationType
@@ -28,8 +33,10 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public string  TitleQuestion { get; set; }
+        public string  SectionTitle { get; set; }
         public string Description { get; set; }
+        public string NextPageName { get; set; }
+        public string ReturnPageName { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
@@ -43,6 +50,7 @@ namespace INZFS.MVC
 
         //[JsonProperty("max-length")]
         public int? MaxLength { get; set; }
+        public bool HasOtherOption { get; set; }
         public bool ShowMarkComplete { get; set; }
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
@@ -52,6 +60,16 @@ namespace INZFS.MVC
         public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
+        public List<string> SelectOptions { get; set; }
+        public bool HideFromSummary { get; set; }
+        public PreviousPage PreviousPage { get; set; }
+        public DependsOn DependsOn { get; set; }
+    }
+
+    public class DependsOn
+    {
+        public string FieldName { get; set; }
+        public string Value { get; set; }
     }
 
     public class Section
@@ -144,6 +162,7 @@ namespace INZFS.MVC
     {
         public string Name { get; set; }
         public string Data { get; set; }
+        public string OtherOption { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
     }
@@ -169,7 +188,11 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Value { get; set; }
         public string PageName { get; set; }
-
+    }
+    public class PreviousPage
+    {
+        public string link { get; set; }
+        public string text { get; set; }
     }
 
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using INZFS.Theme.Attributes;
+using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
@@ -12,7 +14,7 @@ using OrchardCore.Users;
 
 namespace INZFS.Theme.Controllers
 {
-    [Authorize(AuthenticationSchemes = "Identity.TwoFactorUserId")]
+    [TwoFactorAuthorize]
     public class TwoFactorController : Controller
     {
         private readonly UserManager<IUser> _userManager;
@@ -22,6 +24,7 @@ namespace INZFS.Theme.Controllers
         private readonly ILogger<TwoFactorController> _logger;
         private readonly INotificationService _notificationService;
         private readonly IUrlEncodingService _encodingService;
+        private readonly NotificationOption _notificationOption;
 
         public TwoFactorController(
             UserManager<IUser> userManager,
@@ -30,7 +33,8 @@ namespace INZFS.Theme.Controllers
             SignInManager<IUser> signInManager,
             ILogger<TwoFactorController> logger, 
             INotificationService notificationService,
-            IUrlEncodingService encodingService)
+            IUrlEncodingService encodingService, 
+            IOptions<NotificationOption> notificationOption)
         {
             _userManager = userManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
@@ -39,6 +43,7 @@ namespace INZFS.Theme.Controllers
             _logger = logger;
             _notificationService = notificationService;
             _encodingService = encodingService;
+            _notificationOption = notificationOption.Value;
         }
 
         [HttpGet]
@@ -133,7 +138,16 @@ namespace INZFS.Theme.Controllers
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
             var parameters = new Dictionary<string, dynamic>();
             parameters.Add("code", code);
-            await _notificationService.SendSmsAsync(phoneNumber, "3cc08e38-bd06-494d-ac8f-fa71d40c7477", parameters);
+            await _notificationService.SendSmsAsync(phoneNumber, _notificationOption.SmsCodeTemplate, parameters);
+        }
+        
+        private async Task SendEmail(IUser user)
+        {
+            var email = await _userManager.GetEmailAsync(user);
+            var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Email.ToString());
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("code", code);
+            await _notificationService.SendEmailAsync(email, _notificationOption.EmailCodeTemplate, parameters);
         }
 
         [HttpGet]
@@ -153,6 +167,16 @@ namespace INZFS.Theme.Controllers
                     phone = "*******" + phone.Substring(phone.Length - 3);
                 }
                 model.Message = phone;
+            } 
+            
+            if (method == AuthenticationMethod.Email)
+            {
+                var email = await _userManager.GetEmailAsync(user);
+                if (model.IsActivated)
+                {
+                    email = _encodingService.MaskEmail(email);
+                }
+                model.Message = email;
             }
 
             return View($"{method}Code", model);
@@ -188,6 +212,10 @@ namespace INZFS.Theme.Controllers
                         {
                             await SetTwoFactorEnabledAsync(user, true, model.Method);
                         }
+                        else
+                        {
+                            await SetTwoFactorDefaultIfChangedAsync(user, model.Method);
+                        }
 
                         _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
                         return LocalRedirect(returnUrl);
@@ -200,12 +228,57 @@ namespace INZFS.Theme.Controllers
             return View($"{model.Method}Code", model);
         }
 
-        
+        [HttpGet]
         public async Task<IActionResult> Alternative(string returnUrl)
         {
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            var model = new ChooseVerificationMethodViewModel();
-           return View(model);
+            var userId = await _userManager.GetUserIdAsync(user);
+            var model = new ChooseAlternativeMethodViewModel();
+            var defaultMethod = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+            if (defaultMethod != AuthenticationMethod.Email)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    {Method = AuthenticationMethod.Email, Title = "Email"});
+            }
+
+            var isAuthenticatorConfirmed = await _factorSettingsService.GetAuthenticatorConfirmedAsync(userId);
+            if (isAuthenticatorConfirmed && defaultMethod != AuthenticationMethod.Authenticator)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    { Method = AuthenticationMethod.Authenticator, Title = "Authenticator app (Google or Microsoft)" });
+            }
+            
+            var isPhoneNumberConfirmed = await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId);
+            if (isPhoneNumberConfirmed && defaultMethod != AuthenticationMethod.Phone)
+            {
+                model.Methods.Add(new ChooseAlternativeMethodItem()
+                    { Method = AuthenticationMethod.Phone, Title = "SMS" });
+            }
+
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Alternative(ChooseAlternativeMethodViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
+                if (model.AuthenticationMethod == AuthenticationMethod.Email)
+                {
+                    await SendEmail(user);
+                }
+                
+                if (model.AuthenticationMethod == AuthenticationMethod.Phone)
+                {
+                    await SendSms(user);
+                }
+
+                return RedirectToAction("EnterCode", new { method = model.AuthenticationMethod, returnUrl });
+            }
+
+            return View(model);
         }
 
 
@@ -222,9 +295,23 @@ namespace INZFS.Theme.Controllers
             var userId = await _userManager.GetUserIdAsync(user);
             if (method == AuthenticationMethod.Phone)
             {
-                await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled, method);
+                await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled);
+            }
+            else if (method == AuthenticationMethod.Authenticator)
+            {
+                await _factorSettingsService.SetAuthenticatorConfirmedAsync(userId, enabled);
             }
             else
+            {
+                await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+            }
+        } 
+        
+        private async Task SetTwoFactorDefaultIfChangedAsync(IUser user, AuthenticationMethod method)
+        {
+            var userId = await _userManager.GetUserIdAsync(user);
+            var currentMethod = await _factorSettingsService.GetTwoFactorDefaultAsync(userId);
+            if (method != currentMethod)
             {
                 await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
             }

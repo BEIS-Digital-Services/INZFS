@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
 {
-    public class SingleRadioInputModel : BaseModel, IValidatableObject
+    public class MultiRadioInputModel : BaseModel, IValidatableObject
     {
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
