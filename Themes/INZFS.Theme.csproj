@@ -55,8 +55,6 @@
     <PackageReference Include="OrchardCore.Contents.Core" Version="1.0.0-rc2-16368" />
     <PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-16368" />
     <PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-16368" />
-    <PackageReference Include="prometheus-net" Version="5.0.1" />
-    <PackageReference Include="prometheus-net.AspNetCore" Version="5.0.1" />
   </ItemGroup>
 	<ItemGroup>
 	  <EmbeddedResource Update="wwwroot\css\main.css">
