@@ -26,12 +26,24 @@ namespace INZFS.MVC.Models.DynamicForm
                     }
                     else
                     {
-                        var currencyValue = System.Convert.ToInt64(DataInput);
-
-                        if (CurrentPage.FieldName.Equals("parent-recent-turnover") && currencyValue > 1500000)
+                        var numberOnly = DataInput.Replace(",", "");
+                        double currencyValue = 0.0;
+                        if(double.TryParse(numberOnly, out currencyValue))
                         {
-                            yield return new ValidationResult($"Your parent company's {CurrentPage.FriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(DataInput) });
+                            if (CurrentPage.FieldName.Equals("parent-recent-turnover") && currencyValue > 1500000)
+                            {
+                                yield return new ValidationResult($"Your parent company's {CurrentPage.FriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(DataInput) });
+                            }
                         }
+                        else
+                        {
+                            yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(DataInput) });
+                        }
+
+
+                        //var currencyValue = System.Convert.ToInt64(DataInput);
+
+                        
                     }
                 }
             }
