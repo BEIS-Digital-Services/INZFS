@@ -250,14 +250,15 @@
             "description": "Description",
             "errorMessage": "Please enter company registration number",
             "fieldType": "gdsTextBox",
-            "friendlyFieldName": "Company Registration Number",
+            "friendlyFieldName": "Company registration number",
             "fieldName": "company-registration-number",
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 8,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "customValidator" :  "CompanyRegistrationNumberValidator"
           },
           {
             "name": "organisation-introduction",
@@ -490,7 +491,7 @@
             "description": "Description",
             "errorMessage": "Please enter your parent company registration number",
             "fieldType": "gdsTextBox",
-            "friendlyFieldName": "Parent Company Registration Number",
+            "friendlyFieldName": "Company registration number",
             "fieldName": "parent-company-registration-number",
             "mandatory": true,
             "accordianReference": "",
@@ -501,7 +502,8 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "CompanyRegistrationNumberValidator"
           },
           {
             "name": "parent-organisation-size",

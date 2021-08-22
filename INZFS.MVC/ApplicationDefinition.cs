@@ -64,6 +64,7 @@ namespace INZFS.MVC
         public bool HideFromSummary { get; set; }
         public PreviousPage PreviousPage { get; set; }
         public DependsOn DependsOn { get; set; }
+        public string CustomValidator { get; set; }
     }
 
     public class DependsOn
