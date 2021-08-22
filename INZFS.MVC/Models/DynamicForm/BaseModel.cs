@@ -72,14 +72,17 @@ namespace INZFS.MVC.Models.DynamicForm
             Hint = page.Hint;
             ShowMarkAsComplete = page.ShowMarkComplete;
 
-            if(!string.IsNullOrEmpty(page.CustomValidator))
+            var errors = ExtendedValidation(validationContext);
+            if(!errors.Any())
             {
-                Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
-                var customValidator = (ICustomValidator)Activator.CreateInstance(type);
-                return customValidator.Validate(DataInput, page.FriendlyFieldName);
+                if (!string.IsNullOrEmpty(page.CustomValidator))
+                {
+                    Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
+                    var customValidator = (ICustomValidator)Activator.CreateInstance(type);
+                    return customValidator.Validate(GetData(), page.FriendlyFieldName);
+                }
             }
-
-            return ExtendedValidation(validationContext);
+            return errors;
         }
 
         protected abstract IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext);

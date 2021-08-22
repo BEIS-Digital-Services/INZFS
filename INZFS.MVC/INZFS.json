@@ -667,11 +667,12 @@
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Estimated Start Date",
+            "friendlyFieldName": "Project start date",
             "fieldName": "estimated-start-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "customValidator": "ProposalSummaryStartDateValidator"
           },
           {
             "name": "estimated-end-date",
@@ -680,11 +681,12 @@
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Estimated End Date",
+            "friendlyFieldName": "Project end date",
             "fieldName": "estimated-end-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "customValidator": "ProposalSummaryEndDateValidator"
           },
           {
             "name": "project-location",

@@ -36,11 +36,6 @@ namespace INZFS.MVC.Models.DynamicForm
                 {
                     yield return new ValidationResult("Date is not valid.", new[] { nameof(DateUtc) });
                 }
-
-                if (DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate) && clock > startDate && !string.IsNullOrEmpty(DateUtc))
-                {
-                    yield return new ValidationResult("Date cannot be in the past.", new[] { nameof(DateUtc) });
-                }
             }
         }
         public override string GetData()
