@@ -173,7 +173,7 @@
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
-            "friendlyFieldName": "Most recent turnover date",
+            "friendlyFieldName": "Turnover date",
             "fieldName": "recent-turnover-date",
             "mandatory": true,
             "showMarkComplete": true,

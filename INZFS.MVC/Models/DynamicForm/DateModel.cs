@@ -27,14 +27,13 @@ namespace INZFS.MVC.Models.DynamicForm
                 var clock = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(DateUtc))
                 {
-                    yield return new ValidationResult("Please enter in a date", new[] { nameof(DateUtc) });
-                    
+                    yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()}", new[] { nameof(DateUtc) });
                 }
                 DateTime startDate;
                 string dateToValidate = $"{Day}/{Month}/{Year}";
                 if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate)  && !string.IsNullOrEmpty(DateUtc))
                 {
-                    yield return new ValidationResult("Date is not valid.", new[] { nameof(DateUtc) });
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be a real date", new[] { nameof(DateUtc) });
                 }
             }
         }
