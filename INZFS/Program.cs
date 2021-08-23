@@ -24,10 +24,10 @@ namespace INZFS
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
             .ConfigureLogging(logging => logging.ClearProviders())
-                .UseSerilog((hostingContext, configBuilder) =>
-                {
-                    configBuilder.ReadFrom.Configuration(hostingContext.Configuration).Enrich.FromLogContext();
-                })
+            .UseSerilog((context, services, configuration) => configuration
+                    .ReadFrom.Configuration(context.Configuration)
+                    .ReadFrom.Services(services)
+                    .Enrich.FromLogContext())
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
