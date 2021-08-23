@@ -63,14 +63,13 @@ namespace INZFS
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseSerilogRequestLogging();
             app.UseSession();
             app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseMetricServer();
             app.UseHttpMetrics();
-            app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
         }
