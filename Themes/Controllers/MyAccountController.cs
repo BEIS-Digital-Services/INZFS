@@ -18,18 +18,21 @@ namespace INZFS.Theme.Controllers
         private readonly ITwoFactorAuthenticationService _twoFactorAuthenticationService;
         private readonly IUserTwoFactorSettingsService _factorSettingsService;
         private readonly INotificationService _notificationService;
+        private readonly IUrlEncodingService _encodingService;
         private readonly NotificationOption _notificationOption;
 
         public MyAccountController(UserManager<IUser> userManager,
             ITwoFactorAuthenticationService twoFactorAuthenticationService,
             IUserTwoFactorSettingsService factorSettingsService, 
             INotificationService notificationService,
+            IUrlEncodingService encodingService,
             IOptions<NotificationOption> notificationOption)
         {
             _userManager = userManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
             _factorSettingsService = factorSettingsService;
             _notificationService = notificationService;
+            _encodingService = encodingService;
             _notificationOption = notificationOption.Value;
         }
 
@@ -166,14 +169,14 @@ namespace INZFS.Theme.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
                 await SendSms(model.PhoneNumber, code);
-                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.ChangePhone , });
+                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.ChangePhone, token = _encodingService.GetHexFromString(model.PhoneNumber)});
             }
             return View(model);
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> EnterCode(AuthenticationMethod method)
+        public async Task<IActionResult> EnterCode(AuthenticationMethod method, string token)
         {
             var model = new EnterCodeViewModel();
             
@@ -184,6 +187,12 @@ namespace INZFS.Theme.Controllers
                 var userId = await _userManager.GetUserIdAsync(user);
                 var phone = await _factorSettingsService.GetPhoneNumberAsync(userId);
                 model.Message = phone;
+            } 
+            
+            if (method == AuthenticationMethod.ChangePhone && !string.IsNullOrEmpty(token))
+            {
+                var phone = _encodingService.GetStringFromHex(token);
+                model.Message = phone;
             }
             
             return View($"{method}Code", model);
@@ -191,7 +200,7 @@ namespace INZFS.Theme.Controllers
 
        
         [HttpPost]
-        public async Task<IActionResult> EnterCode(EnterCodeViewModel model)
+        public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string token)
         {
             if (ModelState.IsValid)
             {
@@ -203,7 +212,8 @@ namespace INZFS.Theme.Controllers
                 var isValidToken = false;
                 if (model.Method == AuthenticationMethod.ChangePhone)
                 {
-                    var result = await _userManager.ChangePhoneNumberAsync(user, "07654434322", code);
+                    var phoneNumber = _encodingService.GetStringFromHex(token); 
+                    var result = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
                     isValidToken = result.Succeeded;
                 }
                 else
