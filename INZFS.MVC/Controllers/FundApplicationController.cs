@@ -844,7 +844,7 @@ namespace INZFS.MVC.Controllers
                     var dateModel = (DateModel)model;
                     if (!string.IsNullOrEmpty(model.DataInput))
                     {
-                        var inputDate = DateTime.Parse(model.DataInput, CultureInfo.CurrentCulture);
+                        var inputDate = DateTime.Parse(model.DataInput, CultureInfo.GetCultureInfoByIetfLanguageTag("en-GB"));
                         dateModel.Day = inputDate.Day;
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
