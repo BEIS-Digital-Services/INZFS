@@ -409,6 +409,11 @@ namespace INZFS.MVC.Controllers
 
                 _session.Save(contentToSave);
 
+                if (currentPage.NextPageName != null)
+                {
+                    return RedirectToAction("section", new { pagename = currentPage.NextPageName });
+                }
+
                 if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
                 {
                     var action = currentPage.Actions.FirstOrDefault(a => a.Value.ToLower().Equals(model.GetData()));
@@ -920,6 +925,8 @@ namespace INZFS.MVC.Controllers
                     return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsAddressTextBox:
                     return View("AddressInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsStaticPage:
+                    return View("_StaticPage", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }

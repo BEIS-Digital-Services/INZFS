@@ -98,32 +98,27 @@
             </strong>
         </div>
 
+
         <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
-            @Html.Partial("_MarkAsComplete", Model)
+
+            @Html.Partial("_ResultAcknowledged", Model)
+
+            <div class="govuk-button-group">
+
+                <a href="@Model.NextPageName">
+                    <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">
+                        Save and continue to next question
+                    </button>
+                </a>
+
+                <a href="subsidy-requirements">
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        Start again
+                    </button>
+                </a>
+
+                <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
         </form>
-
-        <div class="govuk-button-group">
-
-            <a href="@Model.NextPageName">
-                <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">
-                    Save and continue to next question
-                </button>
-            </a>
-
-            <a href="subsidy-requirements">
-                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                    Start again
-                </button>
-            </a>
-
-            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
-
-
-        </div>
-
-
-
-
 
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
 

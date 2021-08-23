@@ -998,21 +998,30 @@
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy sole applicant result applying less",
+            "fieldName": "subsidy-sole-applicant-result-applying-less",
+            "mandatory": true
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy sole applicant result applying more",
+            "fieldName": "subsidy-sole-applicant-result-applying-more",
+            "mandatory": true
           },
           {
             "name": "subsidy-sole-applicant-result-research-development",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy sole applicant result research development",
+            "fieldName": "subsidy-sole-applicant-result-research-development",
+            "mandatory": true
           },
           {
             "name": "subsidy-consortium-category",
@@ -1053,21 +1062,30 @@
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy consortium result feasibility",
+            "fieldName": "subsidy-consortium-result-feasibility",
+            "mandatory": true
           },
           {
             "name": "subsidy-consortium-result-industrial",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy consortium result industrial",
+            "fieldName": "subsidy-consortium-result-industrial",
+            "mandatory": true
           },
           {
             "name": "subsidy-consortium-result-experimental",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
-            "returnPageName": "finance-proposal-overview"
+            "returnPageName": "finance-proposal-overview",
+            "friendlyFieldName": "Subsidy consortium result experimental",
+            "fieldName": "subsidy-consortium-result-experimental",
+            "mandatory": true
           },
           {
             "name": "project-cost-breakdown",
