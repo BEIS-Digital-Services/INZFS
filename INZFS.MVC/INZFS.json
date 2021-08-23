@@ -1001,7 +1001,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result applying less",
             "fieldName": "subsidy-sole-applicant-result-applying-less",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
@@ -1011,7 +1012,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result applying more",
             "fieldName": "subsidy-sole-applicant-result-applying-more",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "subsidy-sole-applicant-result-research-development",
@@ -1021,7 +1023,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result research development",
             "fieldName": "subsidy-sole-applicant-result-research-development",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "subsidy-consortium-category",
@@ -1065,7 +1068,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy consortium result feasibility",
             "fieldName": "subsidy-consortium-result-feasibility",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "subsidy-consortium-result-industrial",
@@ -1075,7 +1079,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy consortium result industrial",
             "fieldName": "subsidy-consortium-result-industrial",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "subsidy-consortium-result-experimental",
@@ -1085,7 +1090,8 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy consortium result experimental",
             "fieldName": "subsidy-consortium-result-experimental",
-            "mandatory": true
+            "mandatory": true,
+            "continueButtonText": "Save and Continue"
           },
           {
             "name": "project-cost-breakdown",
