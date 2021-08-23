@@ -34,6 +34,7 @@ using ClosedXML.Excel;
 using OrchardCore.FileStorage;
 using System.IO;
 using ClosedXML.Excel.CalcEngine.Exceptions;
+using System.Globalization;
 
 namespace INZFS.MVC.Controllers
 {
@@ -843,7 +844,7 @@ namespace INZFS.MVC.Controllers
                     var dateModel = (DateModel)model;
                     if (!string.IsNullOrEmpty(model.DataInput))
                     {
-                        var inputDate = DateTime.Parse(model.DataInput);
+                        var inputDate = DateTime.Parse(model.DataInput, CultureInfo.GetCultureInfoByIetfLanguageTag("en-GB"));
                         dateModel.Day = inputDate.Day;
                         dateModel.Month = inputDate.Month;
                         dateModel.Year = inputDate.Year;
