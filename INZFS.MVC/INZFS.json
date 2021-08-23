@@ -726,7 +726,7 @@
             "description": "Description",
             "errorMessage": "Enter Grant Justification",
             "fieldType": "gdsTextArea",
-            "friendlyFieldName": "Grant ustification",
+            "friendlyFieldName": "Grant justification",
             "fieldName": "grant-justification",
             "mandatory": true,
             "accordianReference": "",
