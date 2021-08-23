@@ -10,3 +10,7 @@ services:
   fortio2:
     image: fortio/fortio:1.17.0
     command: load -c 32 -qps 25 -t 30s https://inzfs-lab3.london.cloudapps.digital/
+
+  fortio3:
+    image: fortio/fortio:1.17.0
+    command: load -c 32 -qps 25 -t 30s https://inzfs-staging.london.cloudapps.digital/
