@@ -66,10 +66,14 @@
             </strong>
         </div>
 
+        <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+            @Html.Partial("_MarkAsComplete", Model)
+        </form>
+
         <div class="govuk-button-group">
 
             <a href="@Model.NextPageName">
-                <button class="govuk-button" data-module="govuk-button">
+                <button type="submit" id="SaveAndContinue" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">
                     Save and continue to next question
                 </button>
             </a>
