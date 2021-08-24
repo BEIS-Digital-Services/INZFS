@@ -45,6 +45,7 @@ namespace INZFS.Theme.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegistrationViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
