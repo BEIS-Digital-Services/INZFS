@@ -7,6 +7,46 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.ViewModels
 {
+    public class ChangeEmailViewModel
+    {
+        public string CurrentEmail { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Compare("Email")]
+        public string ConfirmEmail { get; set; }
+
+
+        
+
+        
+    }
+
+    public class ChangePasswordViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string OldPassword { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+    }
+
     public class ChangePhoneViewModel
     {
         [Required(ErrorMessage = "The Change your security preference field is required.")]
