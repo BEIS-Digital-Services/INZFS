@@ -5,7 +5,7 @@ using Microsoft.Extensions.Localization;
 
 namespace INZFS.Theme.ViewModels
 {
-    public class ChangePasswordViewModel : IValidatableObject
+    public class ChangePasswordOldViewModel : IValidatableObject
     {
         [DataType(DataType.Password)]
         public string CurrentPassword { get; set; }
@@ -18,7 +18,7 @@ namespace INZFS.Theme.ViewModels
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            var S = validationContext.GetService<IStringLocalizer<ChangePasswordViewModel>>();
+            var S = validationContext.GetService<IStringLocalizer<ChangePasswordOldViewModel>>();
             if (string.IsNullOrWhiteSpace(CurrentPassword))
             {
                 yield return new ValidationResult(S["Current password is required."], new[] { nameof(CurrentPassword) });
