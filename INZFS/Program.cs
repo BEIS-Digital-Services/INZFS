@@ -18,6 +18,9 @@ namespace INZFS
         public static void Main(string[] args)
         {
             _InfoGauge.Labels("5.0", "INZFS.Web", "1.1.0").Set(1);
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.AppSettings()
+                .CreateLogger();
             CreateHostBuilder(args).Build().Run();      
         }
 
