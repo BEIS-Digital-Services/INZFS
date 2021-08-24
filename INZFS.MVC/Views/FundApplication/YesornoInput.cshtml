@@ -29,15 +29,7 @@ else
 
         <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
             <label class="govuk-label govuk-label--l">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question
-
-                }
-                else
-                {
-                    @Model.TitleQuestion
-                }
+                @Model.Question
             </label>
             @Html.Partial("_Hint", Model.Hint)
             <fieldset class="govuk-fieldset" aria-describedby="timing-hint">

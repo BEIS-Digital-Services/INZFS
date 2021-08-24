@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
     <meta property="og:image" content="/assets/images/govuk-opengraph-image.png">
-    @await RenderSectionAsync("Head", false)
+    
 </head>
 <body class="govuk-template__body ">
     <script>
@@ -55,8 +55,16 @@
 
             <div class="govuk-header__content">
                 <span class="govuk-header__link--service-name">
-                    Energy Entrepeneurs Fund (EEF)
-                    </span>
+                    Energy Entrepreneurs Fund (EEF)
+                </span>
+                <span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
+                    @if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" href="@Url.Action("LogOff", "Account", new {area = "INZFS.Theme"})">
+                            SignOut
+                        </a>
+                    }
+                </span>
             </div>
 
         </div>
@@ -64,6 +72,20 @@
     <!-- end header component -->
     <!-- main content component -->
     <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                <a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+            </div>
+            <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <p>
+                        <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})">Your account</a>
+                    </p>
+                }
+            </div>
+        </div>
+
         @await RenderBodyAsync()
     </div>
     <!-- end main content component -->
@@ -96,8 +118,6 @@
     </script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-
-    @RenderSection("Scripts", false)    
 
 </body>
 </html>

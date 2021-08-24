@@ -25,15 +25,7 @@
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <h1 class="govuk-fieldset__heading">
-                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                    {
-                        @Model.Question
-
-                    }
-                    else
-                    {
-                        @Model.TitleQuestion
-                    }
+                    @Model.Question
                 </h1>
             </legend>
             <div class="govuk-form-group">
@@ -51,20 +43,23 @@
             <div class="govuk-form-group">
                 <label class="govuk-label" for="address-town">
                     Town or city
-                </label>
-                <input class="govuk-input" id="address-town" name="City" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.City">
+                </label> 
+                <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="City" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.City">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label" for="address-county">
                     County
                 </label>
-                <input class="govuk-input" id="address-county" name="County" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.County">
+                <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="County" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.County">
             </div>
             <div class="govuk-form-group">
                 <label class="govuk-label" for="address-postcode">
                     Postcode
                 </label>
-                <input class="govuk-input" id="address-postcode" name="PostCode" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.PostCode">
+                <div id="changed-name-hint" class="govuk-hint">
+                    Please use the following format: SW1H 0ET
+                </div>
+                <input class="govuk-input govuk-input--width-10" id="address-postcode" name="PostCode" type="text" spellcheck="true" autocomplete="address-line1" pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}" value="@Model.PostCode">
             </div>
         </fieldset>
     </div>

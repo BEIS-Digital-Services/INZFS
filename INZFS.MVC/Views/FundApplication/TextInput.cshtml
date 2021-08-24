@@ -22,15 +22,7 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="event-name">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question.ToString()
-
-                }
-                else
-                {
-                    @Model.TitleQuestion.ToString()
-                }
+                @Model.Question
             </label>
         </h1>
         @Html.Partial("_Hint", Model.Hint)

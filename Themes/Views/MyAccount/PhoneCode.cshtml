@@ -1,0 +1,39 @@
+﻿@model INZFS.Theme.ViewModels.EnterCodeViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+<partial name="_ErrorModelSummary" />
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <form method="post">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper govuk-!-margin-bottom-6 ">
+                        <label class="govuk-label govuk-label--l" for="code">
+                            Enter your verification code
+                        </label>
+                    </h1>
+                    @if (!string.IsNullOrEmpty(Model.Message))
+                    {
+                        <p class="govuk-body">We have sent a 6 digit access code to <strong>@Model.Message</strong></p>
+                    }
+                    <div id="code-generated-hint" class="govuk-hint">
+                        Enter the code generated from your chosen authentication method
+                    </div>
+                    <span asp-validation-for="Code" class="govuk-error-message"></span>
+                    <div class="govuk-form-group govuk-!-margin-bottom-9">
+                        <input asp-for="Code" class="govuk-input govuk-input--width-20" type="text" spellcheck="true" autocomplete="off">
+                    </div>
+                </div>
+                <div class="edit-item-secondary group">
+                    <div class="edit-item-actions form-group">
+                        <input asp-for="Method" type="hidden" />
+                        <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>

@@ -37,15 +37,7 @@
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="@Model.FieldName">
-                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                    {
-                        @Model.Question
-
-                    }
-                    else
-                    {
-                        @Model.TitleQuestion
-                    }
+                    @Model.Question
                 </label>
             </h1>
             @Html.Partial("_QuestionDescription", Model.PageName)

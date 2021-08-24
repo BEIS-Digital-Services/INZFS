@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement;
+﻿using INZFS.MVC.Validators;
+using OrchardCore.ContentManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -18,7 +19,6 @@ namespace INZFS.MVC.Models.DynamicForm
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
         public string Question { get; set; }
-        public string TitleQuestion { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
@@ -72,7 +72,18 @@ namespace INZFS.MVC.Models.DynamicForm
             Mandatory = page.Mandatory;
             Hint = page.Hint;
             ShowMarkAsComplete = page.ShowMarkComplete;
-            return ExtendedValidation(validationContext);
+
+            var errors = ExtendedValidation(validationContext);
+            if(!errors.Any())
+            {
+                if (!string.IsNullOrEmpty(page.CustomValidator))
+                {
+                    Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
+                    var customValidator = (ICustomValidator)Activator.CreateInstance(type);
+                    return customValidator.Validate(GetData(), page.FriendlyFieldName);
+                }
+            }
+            return errors;
         }
 
         protected abstract IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext);
