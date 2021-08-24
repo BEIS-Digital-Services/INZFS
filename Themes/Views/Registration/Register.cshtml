@@ -23,7 +23,7 @@
                         We need your email so we can sign you in
                     </div>
                     <span asp-validation-for="Email" class="govuk-error-message"></span>
-                    <input type="email" asp-for="Email" class="govuk-input govuk-input--width-20" asp-validation-govuk-for="Email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" />
+                    <input type="email" asp-for="Email" pattern="^[a-zA-Z0-9._+-]+&#64;[a-zA-Z0-9.-]+\.[a-zA-Z]{2,9}$" class="govuk-input govuk-input--width-20" asp-validation-govuk-for="Email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" />
                 </div>
 
                 <div class="govuk-form-group" asp-validation-error-class-for="ConfirmEmail">
