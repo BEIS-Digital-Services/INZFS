@@ -572,7 +572,7 @@ namespace INZFS.MVC.Controllers
             var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
-            currentModel.TotalQuestions = section.Pages.Count(p => !p.HideFromSummary);
+            currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
 
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
