@@ -49,6 +49,11 @@ namespace INZFS.Theme.Services
             return model;
         }
 
+        public async Task<IdentityResult> ResetAuthenticatorKeyAsync(IUser user)
+        {
+           return await _userManager.ResetAuthenticatorKeyAsync(user);
+        }
+
         private string GetFormattedKey(string unformattedKey)
         {
             var result = new StringBuilder();

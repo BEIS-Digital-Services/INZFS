@@ -33,7 +33,7 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public string  TitleQuestion { get; set; }
+        public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
@@ -63,6 +63,14 @@ namespace INZFS.MVC
         public List<string> SelectOptions { get; set; }
         public bool HideFromSummary { get; set; }
         public PreviousPage PreviousPage { get; set; }
+        public DependsOn DependsOn { get; set; }
+        public string CustomValidator { get; set; }
+    }
+
+    public class DependsOn
+    {
+        public string FieldName { get; set; }
+        public string Value { get; set; }
     }
 
     public class Section

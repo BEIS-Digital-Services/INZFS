@@ -11,6 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Prometheus;
 
 namespace INZFS
 {
@@ -67,6 +68,8 @@ namespace INZFS
             app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseMetricServer();
+            app.UseHttpMetrics();
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());

@@ -18,6 +18,34 @@ namespace INZFS.MVC.Models.DynamicForm
                 {
                     yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
                 }
+                else
+                {
+                    if (DataInput.Length > CurrentPage.MaxLength)
+                    {
+                        yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be {CurrentPage.MaxLength} characters or fewer", new[] { nameof(DataInput) });
+                    }
+                    else
+                    {
+                        var numberOnly = DataInput.Replace(",", "");
+                        double currencyValue = 0.0;
+                        if(double.TryParse(numberOnly, out currencyValue))
+                        {
+                            if (CurrentPage.FieldName.Equals("parent-recent-turnover") && currencyValue > 1500000)
+                            {
+                                yield return new ValidationResult($"Your parent company's {CurrentPage.FriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(DataInput) });
+                            }
+                        }
+                        else
+                        {
+                            yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(DataInput) });
+                        }
+
+
+                        //var currencyValue = System.Convert.ToInt64(DataInput);
+
+                        
+                    }
+                }
             }
         }
     }
