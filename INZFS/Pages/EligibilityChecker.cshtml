@@ -38,7 +38,6 @@
 
 
 }
-@Orchard.ConsoleLog(eligibility)
 
 <body class="govuk-template__body competition-overview">
     <div class="govuk-width-container">
@@ -74,13 +73,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -142,14 +141,18 @@
     </div>
     <style src="/css/application.css"></style>
     <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
-    <script>
+    <script nonce="9757935522BC0D39CAF3ECA5A2E77BC1952A16B2346AD568E95942E8F26F61A4">
         window.GOVUKFrontend.initAll()
     </script>
-    <script type="text/javascript">
+    <script nonce="0B6FABAB74DE9BB3B17B0D486AC4AD88A996899D7A00796AB8F48536AAA43BD3" type="text/javascript">
         function checkingRadio() {
             button = document.querySelector('#continueBtn');
             button.disabled = false;
         }  
+    </script>
+    <script nonce="80533B4A58B140379589BFA7AE139F03E495A1315E6CF4E578B89485CEB98616">
+        document.getElementById("checkNo").addEventListener('click', checkingRadio());
+        document.getElementById("checkYes").addEventListener('click', checkingRadio());
     </script>
 </body>
 
