@@ -30,6 +30,21 @@ namespace INZFS.Web.Middleware
 
             context.Response.Headers.Add("frame-ancestors", new StringValues("none"));
 
+            context.Response.Headers.Add("Content-Security-Policy", new StringValues(
+            "base-uri 'self';" +
+            "font-src 'self' https://www.gov.uk/assets/static/fonts/;" +
+       
+            "form-action 'self'" +
+            "frame-ancestors 'none';" +
+            "frame-src 'none';" +
+            "img-src 'self' http://www.w3.org/2000/svg;" +
+           
+            "media-src 'self';" +
+            "object-src 'self';" +
+            "script-src 'self' https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js https://code.jquery.com/jquery-3.6.0.js https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js ;" 
+            
+            ));;
+
             return _next(context);
         }
     }
