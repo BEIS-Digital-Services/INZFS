@@ -31,6 +31,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public bool HasOtherOption { get; set; }
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }
+        public bool ResultAcknowledged { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
         public string NextPageName { get; set; }
