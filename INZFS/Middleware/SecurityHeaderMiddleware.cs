@@ -33,16 +33,15 @@ namespace INZFS.Web.Middleware
             context.Response.Headers.Add("Content-Security-Policy", new StringValues(
             "base-uri 'self';" +
             "font-src 'self' https://www.gov.uk/assets/static/fonts/;" +
-       
-            "form-action 'self'" +
+    
             "frame-ancestors 'none';" +
             "frame-src 'none';" +
             "img-src 'self' http://www.w3.org/2000/svg;" +
            
             "media-src 'self';" +
             "object-src 'self';" +
-            "script-src 'self' https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js https://code.jquery.com/jquery-3.6.0.js https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js ;" 
-            
+            "script-src 'self' 'nonce-ED857842D3D567D34928901E49E8807F486D441E1183AAB3AAE86A039C5E7977' 'nonce-FBA5A75C897899B15308045DF0DDC2390993DDB2499A8DF637CABC65240021C5' 'nonce-9757935522BC0D39CAF3ECA5A2E77BC1952A16B2346AD568E95942E8F26F61A4' https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js https://code.jquery.com/jquery-3.6.0.js https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js ;"
+
             ));;
 
             return _next(context);
