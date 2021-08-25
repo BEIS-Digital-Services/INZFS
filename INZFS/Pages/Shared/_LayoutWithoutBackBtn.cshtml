@@ -43,9 +43,6 @@
     <meta name="govuk:rendering-application" content="frontend">
 </head>
 <body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
-    <script>
-        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-    </script>
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
@@ -100,7 +97,7 @@
     </footer>
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
 
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <script nonce="FBA5A75C897899B15308045DF0DDC2390993DDB2499A8DF637CABC65240021C5">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
 
     @await RenderSectionAsync("Scripts", required: false)

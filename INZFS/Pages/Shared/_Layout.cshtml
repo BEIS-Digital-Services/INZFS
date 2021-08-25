@@ -45,9 +45,7 @@
     <meta name="govuk:rendering-application" content="frontend">
 </head>
 <body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
-    <script>
-        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-    </script>
+    <script nonce="FBA5A75C897899B15308045DF0DDC2390993DDB2499A8DF637CABC65240021C5">document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
@@ -127,14 +125,10 @@
     </footer>
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
 
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-
 
     @await RenderSectionAsync("Scripts", required: false)
 
     <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-
 </body>
 
 </html>
