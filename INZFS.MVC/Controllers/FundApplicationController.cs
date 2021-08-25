@@ -353,6 +353,11 @@ namespace INZFS.MVC.Controllers
                     return RedirectToAction("section", new { pagename = pageName });
                 }
 
+                if (currentPage.NextPageName != null)
+                {
+                    return RedirectToAction("section", new { pagename = currentPage.NextPageName });
+                }
+
                 //TODO - replace all the references to AllPages with section.Pages
                 var index = _applicationDefinition.Application.AllPages.FindIndex(p => p.Name.ToLower().Equals(pageName));
                 var currentSection = _applicationDefinition.Application.Sections.Where(s => s.Pages.Any(c => c.Name == pageName.ToLower())).FirstOrDefault();
@@ -515,6 +520,8 @@ namespace INZFS.MVC.Controllers
                     return View("SingleRadioSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsAddressTextBox:
                     return View("AddressInput", PopulateModel(currentPage, currentModel));
+                case FieldType.gdsStaticPage:
+                    return View("_StaticPage", PopulateModel(currentPage, currentModel));
                 default:
                     throw new Exception("Invalid field type");
             }
@@ -565,7 +572,7 @@ namespace INZFS.MVC.Controllers
             var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
-            currentModel.TotalQuestions = currentSection.Pages.Count;
+            currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
 
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
@@ -602,7 +609,7 @@ namespace INZFS.MVC.Controllers
         private SectionContent GetSectionContent(ApplicationContent content, Section section)
         {
             var sectionContentModel = new SectionContent();
-            
+            sectionContentModel.TotalQuestions = section.Pages.Count(p => !p.HideFromSummary);
             sectionContentModel.Sections = new List<SectionModel>();
             sectionContentModel.Title = section.Title;
             sectionContentModel.OverviewTitle = section.OverviewTitle;
