@@ -661,7 +661,6 @@ namespace INZFS.MVC.Controllers
                 sectionContentModel.Sections.Add(sectionModel);
             }
 
-            sectionContentModel.TotalQuestions = sectionContentModel.Sections.Count;
 
             return sectionContentModel;
         }
