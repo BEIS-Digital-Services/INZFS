@@ -24,5 +24,13 @@ namespace INZFS.MVC.Controllers
 
             return File(bytes, type, name);
         }
+        public async Task<FileContentResult> GenerateOdt()
+        {
+            byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
+            string type = "application/docx";
+            string name = "EEF_accessible_summary.docx";
+
+            return File(bytes, type, name);
+        }
     }
 }

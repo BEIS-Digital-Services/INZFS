@@ -1,5 +1,8 @@
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using HtmlToOpenXml;
 using INZFS.MVC;
-using INZFS.MVC.Models;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
 using System;
@@ -27,16 +30,46 @@ public class ReportService : IReportService
     {
         _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
-        OpenHtmlString();
-        PopulateHtmlSections();
-        CloseHtmlString();
+        BuildHtmlString();
 
         using (MemoryStream stream = new())
         using (PdfWriter writer = new(stream))
         {
-            HtmlConverter.ConvertToPdf(html, writer);
+            iText.Html2pdf.HtmlConverter.ConvertToPdf(html, writer);
             return stream.ToArray();
         }
+    }
+
+    public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
+    {
+        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+
+        BuildHtmlString();
+
+        using (MemoryStream stream = new())
+        {
+            using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = package.MainDocumentPart;
+                if (mainPart == null)
+                {
+                    mainPart = package.AddMainDocumentPart();
+                    new Document(new Body()).Save(mainPart);
+                }
+
+                HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
+                converter.ParseHtml(html);
+                mainPart.Document.Save();
+            }
+            return stream.ToArray();
+        }
+    }
+
+    private void BuildHtmlString()
+    {
+        OpenHtmlString();
+        PopulateHtmlSections();
+        CloseHtmlString();
     }
 
     private void OpenHtmlString()
