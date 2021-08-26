@@ -5,6 +5,8 @@ using HtmlToOpenXml;
 using INZFS.MVC;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
+using NetOdt;
+using NetOdt.Enumerations;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -42,25 +44,38 @@ public class ReportService : IReportService
 
     public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
     {
-        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+        //_applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
-        BuildHtmlString();
+        //BuildHtmlString();
+
+        //using (MemoryStream stream = new())
+        //{
+        //    using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+        //    {
+        //        MainDocumentPart mainPart = package.MainDocumentPart;
+        //        if (mainPart == null)
+        //        {
+        //            mainPart = package.AddMainDocumentPart();
+        //            new Document(new Body()).Save(mainPart);
+        //        }
+
+        //        HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
+        //        converter.ParseHtml(html);
+        //        mainPart.Document.Save();
+        //    }
+        //    return stream.ToArray();
+        //}
 
         using (MemoryStream stream = new())
         {
-            using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
-            {
-                MainDocumentPart mainPart = package.MainDocumentPart;
-                if (mainPart == null)
+                var odt = new OdtDocument();
+
+                foreach (var section in _applicationDefinition.Application.Sections)
                 {
-                    mainPart = package.AddMainDocumentPart();
-                    new Document(new Body()).Save(mainPart);
+                    odt.AppendLine(section.Title, TextStyle.Subtitle);
                 }
 
-                HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
-                converter.ParseHtml(html);
-                mainPart.Document.Save();
-            }
+                odt.Save();
             return stream.ToArray();
         }
     }
