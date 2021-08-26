@@ -1698,6 +1698,227 @@
             "nextPageName": ""
           }
         ]
+      },
+      {
+        "title": "Eligibility Checker",
+        "overviewTitle": "application-overview",
+        "tag": "eligibility-checker",
+        "url": "application-overview",
+        "ReturnUrl": "application-overview",
+        "continueButtonText": "Save and continue",
+        "RazorView": "EligibilityChecker",
+        "pages": [
+          {
+            "name": "eligibility-checker-info",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "eligibility-checker-question-1"
+          },
+          {
+            "name": "eligibility-checker-question-1",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-question-2"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-a"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-question-2",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-question-3"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-a"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-question-3",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-question-4"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-d"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-question-4",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-question-5"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-e"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-question-5",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-question-6"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-e"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-question-6",
+            "sectionTitle": "",
+            "question": "Will at least 50% of this project's activities take place in the UK?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Amount of Activity in the UK",
+            "fieldName": "activity-in-uk",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": false,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "actions": [
+              {
+                "name": "Yes",
+                "value": "1",
+                "pageName": "eligibility-checker-complete-success"
+              },
+              {
+                "name": "No",
+                "value": "0",
+                "pageName": "eligibility-checker-complete-notsuccess-f"
+              }
+            ]
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-a",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-b",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-c",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-d",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-e",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-notsuccess-f",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": ""
+          },
+          {
+            "name": "eligibility-checker-complete-success",
+            "fieldType": "gdsStaticPage",
+            "hideFromSummary": true,
+            "nextPageName": "/"
+          }
+        ]
       }
     ]
   }
