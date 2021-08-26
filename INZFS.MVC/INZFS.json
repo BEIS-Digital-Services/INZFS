@@ -575,7 +575,9 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "ParentTurnOverValidator"
+
           },
           {
             "name": "parent-recent-turnover-date",
