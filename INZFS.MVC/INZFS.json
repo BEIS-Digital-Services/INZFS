@@ -164,7 +164,8 @@
             "dependsOn": {
               "fieldName": "organisation-running",
               "value": "1"
-            }
+            },
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "recent-turnover-date",
@@ -576,8 +577,7 @@
               "fieldName": "parent-organisation",
               "value": "1"
             },
-            "customValidator": "ParentTurnOverValidator"
-
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "parent-recent-turnover-date",

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Validators
 {
-    public class ParentTurnOverValidator : ICustomValidator
+    public class TurnOverValidator : ICustomValidator
     {
         public IEnumerable<ValidationResult> Validate(string dataInput, string friendlyFriendlyFieldName)
         {
@@ -18,7 +18,7 @@ namespace INZFS.MVC.Validators
             {
                 if (currencyValue > 1500000)
                 {
-                    yield return new ValidationResult($"Your parent company's {friendlyFriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(dataInput) });
+                    yield return new ValidationResult($"Company's {friendlyFriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(dataInput) });
                 }
             }
         }
