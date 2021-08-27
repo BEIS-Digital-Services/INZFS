@@ -25,13 +25,5 @@
     </div>
 </main>
 
-
 <script src="/INZFS.Theme/lib/qrcode.min.js"></script>
-<script nonce="F8A3E340D872201E4399E7E99E90D9E2435C02A45B3DE4F71438DFA85D4FCB01">
-    new QRCode(document.getElementById("qrCode"),
-        {
-            text: "@Html.Raw(Model.AuthenticatorUri)",
-            width: 150,
-            height: 150
-        });
-</script>
+<script src="../../wwwroot/js/QRCodeGenerator.js"></script>

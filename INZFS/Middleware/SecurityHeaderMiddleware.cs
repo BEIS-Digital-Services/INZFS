@@ -40,7 +40,7 @@ namespace INZFS.Web.Middleware
            
             "media-src 'self';" +
             "object-src 'self';" +
-            "script-src 'self' 'nonce-80533B4A58B140379589BFA7AE139F03E495A1315E6CF4E578B89485CEB98616' 'nonce-0B6FABAB74DE9BB3B17B0D486AC4AD88A996899D7A00796AB8F48536AAA43BD3' 'nonce-F8A3E340D872201E4399E7E99E90D9E2435C02A45B3DE4F71438DFA85D4FCB01' 'nonce-ED857842D3D567D34928901E49E8807F486D441E1183AAB3AAE86A039C5E7977' 'nonce-FBA5A75C897899B15308045DF0DDC2390993DDB2499A8DF637CABC65240021C5' 'nonce-9757935522BC0D39CAF3ECA5A2E77BC1952A16B2346AD568E95942E8F26F61A4' https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js https://code.jquery.com/jquery-3.6.0.js https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js ;"
+            "script-src 'self' https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js https://code.jquery.com/jquery-3.6.0.js https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js ;"
 
             ));;
 
