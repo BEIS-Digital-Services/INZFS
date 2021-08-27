@@ -15,7 +15,8 @@
                     <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
                 </div>
             </div>
-            <p class="govuk-body">Or enter the following code manually @Model.SharedKey</p>
+            <p class="govuk-body">Or enter the following code manually:</p>
+            <p class="govuk-body govuk-!-font-weight-bold">@Model.SharedKey</p>
             <a href="@Url.Action("EnterCode", "MyAccount", new { Area = "INZFS.Theme", method = AuthenticationMethod.Authenticator})">
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </a>

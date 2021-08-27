@@ -106,7 +106,7 @@ namespace INZFS.Theme.Controllers
             var model = new AddPhoneNumberViewModel();
             return View(model);
         }
-
+        
         [HttpPost]
         public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model, string returnUrl)
         {
@@ -123,6 +123,8 @@ namespace INZFS.Theme.Controllers
 
             return View(model);
         }
+
+        
 
         [HttpGet]
         public async Task<IActionResult> ChangePhone()
@@ -198,7 +200,34 @@ namespace INZFS.Theme.Controllers
             return View($"{method}Code", model);
         }
 
-       
+
+        [HttpGet]
+        public async Task<IActionResult> ResendCode(AuthenticationMethod method, string token)
+        {
+            var user = await _userManager.GetUserAsync(User);
+            var phoneNumber = _encodingService.GetStringFromHex(token);
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                phoneNumber = await _userManager.GetPhoneNumberAsync(user);
+            }
+
+            if (method == AuthenticationMethod.Phone)
+            {
+                var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
+                await SendSms(phoneNumber, code);
+            }
+
+            if (method == AuthenticationMethod.ChangePhone)
+            {
+                var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, phoneNumber);
+                await SendSms(phoneNumber, code);
+            }
+
+
+            return RedirectToAction("EnterCode", new { method, token});
+        }
+
+
         [HttpPost]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string token)
         {
