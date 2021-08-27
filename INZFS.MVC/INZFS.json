@@ -21,7 +21,7 @@
             "fieldName": "eligibility-to-apply-for-fund",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
             "actions": [
@@ -49,7 +49,7 @@
             "sectionTitle": "1.2 Your name",
             "question": "Full Name",
             "description": "Description",
-            "errorMessage": "Please enter full name ",
+            "errorMessage": "Enter Full Name before marking as complete",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Full Name",
             "fieldName": "full-name",
@@ -65,7 +65,7 @@
             "sectionTitle": "1.3 Your job title",
             "question": "Job Title",
             "description": "Description",
-            "errorMessage": "Please enter your job title ",
+            "errorMessage": "Enter Job Title before marking as complete",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Job Title",
             "fieldName": "job-title",
@@ -164,7 +164,8 @@
             "dependsOn": {
               "fieldName": "organisation-running",
               "value": "1"
-            }
+            },
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "recent-turnover-date",
@@ -575,7 +576,8 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "parent-recent-turnover-date",

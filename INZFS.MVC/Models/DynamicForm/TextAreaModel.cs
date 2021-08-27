@@ -12,7 +12,7 @@ namespace INZFS.MVC.Models.DynamicForm
     {
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
+            if (Mandatory == true && MarkAsComplete)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
