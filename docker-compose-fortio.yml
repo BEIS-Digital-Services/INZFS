@@ -12,4 +12,4 @@ services:
 
   fortio3:
     image: fortio/fortio:1.17.0
-    command: load -c 32 -qps 25 -t 60s https://inzfs-prod.london.cloudapps.digital/
+    command: load -c 32 -qps 25 -t 60s https://inzfs-sandbox.london.cloudapps.digital/
