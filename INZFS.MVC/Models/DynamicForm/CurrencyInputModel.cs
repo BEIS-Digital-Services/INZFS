@@ -26,6 +26,13 @@ namespace INZFS.MVC.Models.DynamicForm
                 {
                     yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be {CurrentPage.MaxLength} characters or fewer", new[] { nameof(DataInput) });
                 }
+                var numberOnly = DataInput.Replace(",", "");
+
+                double currencyValue = 0.0;
+                if (!double.TryParse(numberOnly, out currencyValue))
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(DataInput) });
+                }
             }
         }
     }
