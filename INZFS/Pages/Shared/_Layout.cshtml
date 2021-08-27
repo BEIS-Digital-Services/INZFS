@@ -86,15 +86,17 @@
                 </span>
             </p>
         </div>
-
-        <a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
-            Your account
-        </a>
-       
-        <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
-            SignOut
-        </a>
-
+        
+        
+        @if(User.Identity?.IsAuthenticated??false){
+            <a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
+                Your account
+            </a>
+           
+            <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
+                SignOut
+            </a>
+        }
 
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
             <div class="govuk-width-container">
