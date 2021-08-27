@@ -21,11 +21,6 @@ namespace INZFS.MVC.Validators
                     yield return new ValidationResult($"Your parent company's {friendlyFriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(dataInput) });
                 }
             }
-            else
-            {
-                yield return new ValidationResult($"{friendlyFriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(dataInput) });
-            }
-
         }
     }
 }
