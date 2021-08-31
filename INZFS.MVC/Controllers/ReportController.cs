@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Aspose.Words;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -31,6 +32,7 @@ namespace INZFS.MVC.Controllers
             string name = "EEF_accessible_summary.odt";
 
             return File(bytes, type, name);
+
         }
     }
 }
