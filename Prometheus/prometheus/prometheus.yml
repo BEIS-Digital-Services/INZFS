@@ -31,7 +31,7 @@ scrape_configs:
         labels:
           env: develop
 
-  - job_name: 'exporter'
+  - job_name: 'lab-exporter'
     scrape_interval: 60s
     metrics_path: /metrics
     scheme: https
