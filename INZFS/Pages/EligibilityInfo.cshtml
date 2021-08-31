@@ -5,7 +5,6 @@
 @{
 	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
 }
-@Orchard.ConsoleLog(eligibility)
 
 <div class="govuk-width-container">
 
@@ -55,9 +54,6 @@
 		</div>
 	</main>
 </div>
-
-
-
 
 @functions
 {
