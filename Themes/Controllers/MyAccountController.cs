@@ -1,11 +1,13 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Castle.Core.Logging;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.Users;
 
@@ -15,24 +17,30 @@ namespace INZFS.Theme.Controllers
     public class MyAccountController : Controller
     {
         private readonly UserManager<IUser> _userManager;
+        private readonly SignInManager<IUser> _signInManager;
         private readonly ITwoFactorAuthenticationService _twoFactorAuthenticationService;
         private readonly IUserTwoFactorSettingsService _factorSettingsService;
         private readonly INotificationService _notificationService;
         private readonly IUrlEncodingService _encodingService;
+        private readonly ILogger<MyAccountController> _logger;
         private readonly NotificationOption _notificationOption;
 
         public MyAccountController(UserManager<IUser> userManager,
+            SignInManager<IUser> signInManager,
             ITwoFactorAuthenticationService twoFactorAuthenticationService,
             IUserTwoFactorSettingsService factorSettingsService, 
             INotificationService notificationService,
             IUrlEncodingService encodingService,
-            IOptions<NotificationOption> notificationOption)
+            IOptions<NotificationOption> notificationOption,
+            ILogger<MyAccountController> logger)
         {
             _userManager = userManager;
+            _signInManager = signInManager;
             _twoFactorAuthenticationService = twoFactorAuthenticationService;
             _factorSettingsService = factorSettingsService;
             _notificationService = notificationService;
             _encodingService = encodingService;
+            _logger = logger;
             _notificationOption = notificationOption.Value;
         }
 
@@ -51,6 +59,49 @@ namespace INZFS.Theme.Controllers
             model.IsSmsEnabled = await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId);
 
             return View(model);
+        }
+
+
+
+        [HttpGet]
+        public IActionResult ChangePassword()
+        {
+            return View(new ChangePasswordViewModel());
+        } 
+        
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                if (user == null)
+                {
+                    return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+                }
+
+                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                if (changePasswordResult.Succeeded)
+                {
+                    await _signInManager.RefreshSignInAsync(user);
+                    _logger.LogInformation("User changed their password successfully.");
+                    var email = await _userManager.GetEmailAsync(user);
+                    await _notificationService.SendEmailAsync(email, _notificationOption.EmailChangePasswordTemplate);
+                    return RedirectToAction("SuccessPasswordChange");
+                }
+
+                foreach (var error in changePasswordResult.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+
+            return View(model);
+        } 
+        
+        public IActionResult SuccessPasswordChange()
+        {
+          return View();
         }
 
         public async Task<IActionResult> AddScanQr()
@@ -258,6 +309,13 @@ namespace INZFS.Theme.Controllers
                 ModelState.AddModelError("Code", "Verification code is not valid, please enter a valid code and try again");
             }
             return View($"{model.Method}Code", model);
+        }
+
+
+        [HttpGet("ChangePassword")]
+        public async Task<IActionResult> ChangePasswordOld()
+        {
+            return NotFound();
         }
 
         private async Task SetTwoFactorEnabledAsync(IUser user, bool enabled, AuthenticationMethod method)
