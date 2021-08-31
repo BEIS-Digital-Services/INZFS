@@ -74,11 +74,6 @@ namespace INZFS
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
             app.UseEndpoints(endpoints =>
-            {
-                // ...
-
-                endpoints.MapMetrics();
-            });
         }
     }
 }
