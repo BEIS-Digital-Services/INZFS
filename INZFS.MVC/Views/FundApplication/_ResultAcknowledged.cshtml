@@ -1,0 +1,18 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+<input type="hidden" name="PageName" value="@Model.PageName" />
+<input type="hidden" name="Kind" value="@nameof(StaticPageModel)" />
+
+<div class="govuk-form-group">
+    <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+            <input class="govuk-checkboxes__input" asp-for="@Model.DataInput" type="checkbox" value="true" , name="DataInput">
+            <label class="govuk-label govuk-checkboxes__label" asp-for="@Model.DataInput">
+                Mark this question as complete
+            </label>
+        </div>
+    </div>
+</div>
