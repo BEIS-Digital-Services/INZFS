@@ -569,7 +569,8 @@ namespace INZFS.MVC.Controllers
 
             var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
-            var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var DynamicPagesInSection = currentSection.Pages.Where(p => p.HideFromSummary == false).ToList();
+            var index = DynamicPagesInSection.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
@@ -660,8 +661,6 @@ namespace INZFS.MVC.Controllers
                 }
                 sectionContentModel.Sections.Add(sectionModel);
             }
-
-            sectionContentModel.TotalQuestions = sectionContentModel.Sections.Count;
 
             return sectionContentModel;
         }

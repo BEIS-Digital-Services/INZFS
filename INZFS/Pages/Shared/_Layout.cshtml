@@ -72,26 +72,28 @@
 		</div>
 	</header>
 
-	<div class="govuk-width-container app-width-container">
-		<div class="govuk-phase-banner">
-			<p class="govuk-phase-banner__content">
-				<strong class="govuk-tag govuk-phase-banner__content__tag">
-					alpha
-				</strong>
-				<span class="govuk-phase-banner__text">
-					This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
-				</span>
-			</p>
-		</div>
-
-		<a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
-			Your account
-		</a>
-
-		<a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
-			SignOut
-		</a>
-
+    <div class="govuk-width-container app-width-container">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    alpha
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+                </span>
+            </p>
+        </div>
+        
+        
+        @if(User.Identity?.IsAuthenticated??false){
+            <a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
+                Your account
+            </a>
+           
+            <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
+                SignOut
+            </a>
+        }
 
 		<main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
 			<div class="govuk-width-container">
