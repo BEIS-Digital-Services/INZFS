@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -89,14 +90,14 @@ namespace INZFS.Theme.ViewModels
     public class AddPhoneNumberViewModel
     {
         [Required(ErrorMessage = "The phone number field is required.")]
-        [Phone]
+        [RegularExpression(ValidationConstant.PhoneRegex, ErrorMessage = ValidationConstant.PhoneMessage)]
         public string PhoneNumber { get; set; }
     }
     
     public class ChangePhoneNumberViewModel
     {
         [Required(ErrorMessage = "The phone number field is required.")]
-        [Phone]
+        [RegularExpression(ValidationConstant.PhoneRegex, ErrorMessage = ValidationConstant.PhoneMessage)]
         public string PhoneNumber { get; set; }
 
         public string CurrentPhoneNumber { get; set; }
@@ -117,8 +118,16 @@ namespace INZFS.Theme.ViewModels
         public AuthenticationMethod Method { get; set; }
         public string Message { get; set; }
     }
-   
-   
+
+    public class ValidationConstant
+    {
+        public const string PhoneRegex =
+            @"^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$";
+
+        public const string PhoneMessage =
+            "Enter a telephone number, like 07700900982, 07700 900 982 or +44 7700 900 982";
+
+    }
 
     public enum AuthenticationMethod
     {

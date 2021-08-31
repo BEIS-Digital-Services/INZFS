@@ -1,3 +1,6 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
 
@@ -95,28 +98,23 @@
             </strong>
         </div>
 
-        <div class="govuk-button-group">
 
-            <a href="@Model.NextPageName">
-                <button class="govuk-button" data-module="govuk-button">
-                    Save and continue to next question
-                </button>
-            </a>
+        <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
-            <a href="subsidy-requirements">
-                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                    Start again
-                </button>
-            </a>
+            @Html.Partial("_ResultAcknowledged", Model)
 
-            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
+            <div class="govuk-button-group">
 
+                @Html.Partial("_SaveContinue", Model.ContinueButtonText)
 
-        </div>
+                <a href="subsidy-requirements">
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        Start again
+                    </button>
+                </a>
 
-
-
-
+                <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
+</form>
 
         <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
 

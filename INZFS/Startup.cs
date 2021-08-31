@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Prometheus;
+using Microsoft.AspNetCore.Http;
 
 namespace INZFS
 {
@@ -46,7 +47,9 @@ namespace INZFS
                 }
             services.AddSession(options =>
                     {
-                        options.IdleTimeout = TimeSpan.FromMinutes(20);
+                        options.Cookie.HttpOnly = true;
+                        options.Cookie.SecurePolicy = 0;
+                        options.IdleTimeout = TimeSpan.FromMinutes(30);
                     });
             }
 
@@ -63,8 +66,14 @@ namespace INZFS
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            app.UseMiddleware<SecurityHeaderMiddleware>();
             app.UseSession();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                Secure = CookieSecurePolicy.SameAsRequest,
+            });
             app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();

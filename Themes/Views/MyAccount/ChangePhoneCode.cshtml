@@ -1,4 +1,5 @@
-﻿@model INZFS.Theme.ViewModels.EnterCodeViewModel
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.EnterCodeViewModel
 @{
     ViewLayout = "LayoutRegistration";
 }
@@ -33,6 +34,7 @@
                         <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
                     </div>
                 </div>
+                <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("ResendCode", new {method = AuthenticationMethod.ChangePhone, token = Url.GetQuery("token")})">Resend code</a></p>
             </form>
         </div>
     </div>
