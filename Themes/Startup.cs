@@ -57,7 +57,6 @@ namespace INZFS.Theme
 
             serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
-
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
