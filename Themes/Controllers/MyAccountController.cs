@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Castle.Core.Logging;
 using INZFS.Theme.Models;
@@ -86,13 +87,14 @@ namespace INZFS.Theme.Controllers
                     {
                         var id = await _userManager.GetUserIdAsync(user);
                         var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
-                        var confirmationLink = Url?.Action("ConfirmEmail", "MyAccount", new { token = token, Identifier = _encodingService.GetHexFromString($"{id}#{model.Email}")}, Request.Scheme);
+                        var identifier = _encodingService.Encrypt($"{id}#{model.Email}");
+                        var confirmationLink = Url?.Action("Verify", "MyAccount", new { token = token, Identifier = identifier}, Request.Scheme);
                         await SendChangeEmailLink(model.Email, confirmationLink);
                         return RedirectToAction("SuccessChangeEmail");
                     }
                 }
 
-                ModelState.AddModelError("", "Either an account already exists for the new email address or your password has been entered incorrectly");
+                ModelState.AddModelError("", "Either an account already exists for the new email address or the password has been entered incorrectly");
                 model.CurrentEmail = await _userManager.GetEmailAsync(user);
             }
             return View("ChangeEmail", model);
@@ -106,15 +108,64 @@ namespace INZFS.Theme.Controllers
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> ConfirmEmail()
+        public async Task<IActionResult> Verify(string token, string identifier)
         {
-           
-            return View();
-        } 
-        
-       
 
-       
+            var pairs = _encodingService.Decrypt(identifier)
+                .Split('#');
+            if (pairs.Length != 2)
+            {
+                ModelState.AddModelError("", "Invalid token");
+                return View();
+            }
+
+            var userId = pairs[0];
+            var email = pairs[1];
+
+            var user = await _userManager.FindByIdAsync(userId);
+
+            if (user == null)
+            {
+                ModelState.AddModelError("", "Invalid token");
+                return View();
+            }
+
+            var userByEmail = await _userManager.FindByEmailAsync(email);
+            if (userByEmail != null)
+            {
+                ModelState.AddModelError("", "An account already exists for the new email address.");
+                return View();
+            }
+
+            var result = await _userManager.ChangeEmailAsync(user, email, token);
+            if (result.Succeeded)
+            {
+                var nameResult = await _userManager.SetUserNameAsync(user, email);
+                if (nameResult.Succeeded)
+                {
+                    await _signInManager.RefreshSignInAsync(user);
+
+                    if (User.Identity?.IsAuthenticated ?? false)
+                    {
+                        await _signInManager.SignOutAsync();
+                    }
+
+                    return RedirectToAction("Success");
+                }
+            }
+            
+            ModelState.AddModelError(string.Empty, "Invalid token");
+            return View();
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Success()
+        {
+            return View("Verify");
+        }
+
+
         [HttpGet]
         public IActionResult ChangePassword()
         {
