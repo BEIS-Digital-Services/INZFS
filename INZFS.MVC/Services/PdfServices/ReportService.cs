@@ -44,40 +44,43 @@ public class ReportService : IReportService
 
     public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
     {
-        //_applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
-        //BuildHtmlString();
-
-        //using (MemoryStream stream = new())
-        //{
-        //    using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
-        //    {
-        //        MainDocumentPart mainPart = package.MainDocumentPart;
-        //        if (mainPart == null)
-        //        {
-        //            mainPart = package.AddMainDocumentPart();
-        //            new Document(new Body()).Save(mainPart);
-        //        }
-
-        //        HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
-        //        converter.ParseHtml(html);
-        //        mainPart.Document.Save();
-        //    }
-        //    return stream.ToArray();
-        //}
+        BuildHtmlString();
 
         using (MemoryStream stream = new())
         {
-                var odt = new OdtDocument();
-
-                foreach (var section in _applicationDefinition.Application.Sections)
+            using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+            {
+                MainDocumentPart mainPart = package.MainDocumentPart;
+                if (mainPart == null)
                 {
-                    odt.AppendLine(section.Title, TextStyle.Subtitle);
+                    mainPart = package.AddMainDocumentPart();
+                    new Document(new Body()).Save(mainPart);
                 }
 
-                odt.Save();
+                HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
+                converter.ParseHtml(html);
+                mainPart.Document.Save();
+
+                var aspose = new Aspose.Words.Document(stream);
+                aspose.Save("tempFile.odt", Aspose.Words.SaveFormat.Odt);
+            }
             return stream.ToArray();
         }
+
+        //using (MemoryStream stream = new())
+        //{
+        //        var odt = new OdtDocument();
+
+        //        foreach (var section in _applicationDefinition.Application.Sections)
+        //        {
+        //            odt.AppendLine(section.Title, TextStyle.Subtitle);
+        //        }
+
+        //        odt.Save();
+        //    return stream.ToArray();
+        //}
     }
 
     private void BuildHtmlString()
