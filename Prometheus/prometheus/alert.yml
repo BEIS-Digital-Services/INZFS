@@ -1,20 +1,20 @@
 groups:
   - name: DemoAlerts
     rules:
-  # Alert for any instance that is unreachable for >5 minutes.
+  # Alert for any instance that is unreachable for >2 minutes.
       - alert: InstanceDown
         expr: up == 0
-        for: 5m
+        for: 2m
         labels:
           severity: critical
         annotations:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
-  # Alert for any instance that is sttus crashed for >3 minutes.
+  # Alert for any instance that is sttus crashed for >2 minutes.
       - alert: InstanceCrashed
         expr: crash>0
-        for: 3m
+        for: 2m
         labels:
           severity: critical
         annotations:
