@@ -49,7 +49,7 @@ namespace INZFS
                     {
                         options.Cookie.HttpOnly = true;
                         options.Cookie.SecurePolicy = 0;
-                        options.IdleTimeout = TimeSpan.FromMinutes(20);
+                        options.IdleTimeout = TimeSpan.FromMinutes(30);
                     });
             }
 
