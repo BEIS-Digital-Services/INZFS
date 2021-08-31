@@ -49,15 +49,6 @@ scrape_configs:
         labels:
           env: sandbox
 
-  - job_name: 'dev-exporter'
-    scrape_interval: 60s
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-dev.london.cloudapps.digital']
-        labels:
-          env: dev
-
   - job_name: 'uat-exporter'
     scrape_interval: 60s
     metrics_path: /metrics
