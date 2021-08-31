@@ -30,3 +30,12 @@ scrape_configs:
       - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
         labels:
           env: develop
+
+  - job_name: 'exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab.london.cloudapps.digital']
+        labels:
+          env: lab
