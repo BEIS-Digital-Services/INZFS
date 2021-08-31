@@ -39,3 +39,48 @@ scrape_configs:
       - targets: ['inzfs-lab.london.cloudapps.digital']
         labels:
           env: lab
+
+  - job_name: 'sandbox-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-sandbox.london.cloudapps.digital']
+        labels:
+          env: sandbox
+
+  - job_name: 'dev-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-dev.london.cloudapps.digital']
+        labels:
+          env: dev
+
+  - job_name: 'uat-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-uat.london.cloudapps.digital']
+        labels:
+          env: uat
+
+  - job_name: 'staging-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-staging.london.cloudapps.digital']
+        labels:
+          env: staging
+
+  - job_name: 'prod-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-prod.london.cloudapps.digital']
+        labels:
+          env: prod
