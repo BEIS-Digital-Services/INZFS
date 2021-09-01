@@ -65,6 +65,8 @@ namespace INZFS.MVC
         public PreviousPage PreviousPage { get; set; }
         public DependsOn DependsOn { get; set; }
         public string CustomValidator { get; set; }
+        public string AcceptableFileExtensions { get; set; }
+        
     }
 
     public class DependsOn

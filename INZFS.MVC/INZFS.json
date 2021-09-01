@@ -391,7 +391,7 @@
             "sectionTitle": "Consortium details",
             "question": "Consortium details",
             "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
-            "errorMessage": "Upload consortium details",
+            "errorMessage": "Select the Consortium details Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Consortium File Upload",
             "fieldName": "consortium-applicant-details",
@@ -404,6 +404,7 @@
             "continueButtonText": "Save and return to application overview",
             "uploadText": "Upload consortium details",
             "hideFromSummary": true,
+            "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
               "fieldName": "consortium-applicant",
               "value": "0"
@@ -810,7 +811,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload Technology Readiness Level"
+            "uploadText": "Upload Technology Readiness Level",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-infrastructure",
@@ -895,7 +897,7 @@
             "sectionTitle": "5.8.1 Upload project plan",
             "question": "Upload project plan",
             "hint": "",
-            "errorMessage": "Upload project plan",
+            "errorMessage": "Select a gantt chart",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Plan File Upload",
             "fieldName": "business-project-plan-document",
@@ -905,13 +907,14 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project plan"
+            "uploadText": "Upload project plan",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-project-evaluation",
             "question": "5.9. Project evaluation",
             "description": "Description",
-            "errorMessage": "Enter project evaluation",
+            "errorMessage": "Select a risk register",
             "fieldType": "gdsTextArea",
             "friendlyFieldName": "Project evaluation",
             "fieldName": "business-project-evaluation",
@@ -928,7 +931,7 @@
             "sectionTitle": "5.9.1 Upload project evaluation",
             "question": "Upload project evaluation",
             "hint": "",
-            "errorMessage": "Upload project evaluation",
+            "errorMessage": "Select a risk register",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Evaluation File Upload",
             "fieldName": "business-project-plan-document",
@@ -938,7 +941,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project evaluation"
+            "uploadText": "Upload project evaluation",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-skills-and-experience",
@@ -971,7 +975,8 @@
             "hint": "You can upload a document which highlights your team's experience and skills in greater detail:",
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project evaluation"
+            "uploadText": "Upload skills and experience",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-letter-of-support-document",
@@ -988,7 +993,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload a Letter of support"
+            "uploadText": "Upload a Letter of support",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           }
         ]
       },
@@ -1200,7 +1206,7 @@
             "sectionTitle": "6.2. Project cost breakdown",
             "question": "6.2 Project cost breakdown",
             "description": "Provide a breakdown of your costs using the template provided in the download section of this page.",
-            "errorMessage": "Please provide a breakdown of your costs",
+            "errorMessage": "Select the Project cost breakdown Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Cost Breakdown",
             "fieldName": "project-cost-breakdown",
@@ -1209,7 +1215,8 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "AcceptableFileExtensions": "xls, xlsx"
           },
           {
             "name": "financial-background",
