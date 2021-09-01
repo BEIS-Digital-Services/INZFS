@@ -594,13 +594,12 @@
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
+            "customValidator": "PastOrPresentDateValidator",
             "showSaveProgessButton": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            },
-            "customValidator": "PastOrPresentDateValidator"
-
+            }
           },
           {
             "name": "parent-balance-sheet-total",
@@ -630,6 +629,7 @@
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
+            "customValidator": "PastOrPresentDateValidator",
             "friendlyFieldName": "Parent Balance sheet date",
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
@@ -638,8 +638,7 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            },
-            "customValidator": "PastOrPresentDateValidator"
+            }
           }
 
 
