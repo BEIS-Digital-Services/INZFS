@@ -21,7 +21,7 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 if (UserInput == null )
                 {
-                    yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Select {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
                 }
             }
         }

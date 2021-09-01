@@ -17,21 +17,29 @@ namespace INZFS.MVC.Models.DynamicForm
         public int? Year { get; set; }
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
-            {
 
-                if (Day.HasValue && Month.HasValue && Year.HasValue)
-                {
-                     DateUtc = $"{Day}/{Month}/{Year}";
-                }
+            DateUtc = $"{Day}/{Month}/{Year}";
+
+
+            if (Mandatory == true && MarkAsComplete)
+            {
                 var clock = DateTime.UtcNow;
                 if (string.IsNullOrEmpty(DateUtc))
                 {
                     yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()}", new[] { nameof(DateUtc) });
                 }
-                DateTime startDate;
+
+            }
+
+            if (!string.IsNullOrEmpty(DateUtc) && Mandatory == true)
+            {
+                DateTime userInputDate;
                 string dateToValidate = $"{Day}/{Month}/{Year}";
-                if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate)  && !string.IsNullOrEmpty(DateUtc))
+                if (!Day.HasValue || !Month.HasValue || !Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a [day] and [month] and [year]", new[] { nameof(DateUtc) });
+                }
+                if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out userInputDate)  && Day.HasValue && Month.HasValue && Year.HasValue )
                 {
                     yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be a real date", new[] { nameof(DateUtc) });
                 }

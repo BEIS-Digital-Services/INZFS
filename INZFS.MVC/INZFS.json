@@ -114,7 +114,9 @@
             "fieldName": "balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "customValidator": "PastOrPresentDateValidator"
+
           },
           {
             "name": "vat-recovery",
@@ -182,7 +184,9 @@
             "dependsOn": {
               "fieldName": "organisation-running",
               "value": "1"
-            }
+            },
+            "customValidator": "PastOrPresentDateValidator"
+
           }
         ]
       },
@@ -272,7 +276,7 @@
             "fieldName": "organisation-introduction",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 1000,
+            "maxLength": 400,
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
@@ -401,7 +405,7 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
+            "continueButtonText": "Save and continue",
             "uploadText": "Upload consortium details",
             "hideFromSummary": true,
             "dependsOn": {
@@ -594,7 +598,9 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "PastOrPresentDateValidator"
+
           },
           {
             "name": "parent-balance-sheet-total",
@@ -632,8 +638,10 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "PastOrPresentDateValidator"
           }
+
 
         ]
       },
