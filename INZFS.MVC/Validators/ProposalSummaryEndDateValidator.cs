@@ -19,6 +19,10 @@ namespace INZFS.MVC.Validators
                 {
                     yield return new ValidationResult($"{friendlyFriendlyFieldName} must be the same as or before 31st March 2025", new[] { "DateUtc" });
                 }
+                if (endDate < new DateTime(2022, 3, 31))
+                {
+                    yield return new ValidationResult($"{friendlyFriendlyFieldName} must be after the 31st March 2022", new[] { "DateUtc" });
+                }
             }
         }
     }
