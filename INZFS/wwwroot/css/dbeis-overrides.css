@@ -63,21 +63,21 @@
 }
 
 .steps-circles>li:nth-child(1) {
-    background-image: url(../assets/images/index_1_asset.png);
+    background-image: url(../assets/images/Index_1_asset.png);
     background-repeat: no-repeat;
     background-position: .2em .7em;
     background-size: 1.4em 1.4em;
 }
 
 .steps-circles>li:nth-child(2) {
-    background-image: url(../assets/images/index_2_asset.png);
+    background-image: url(../assets/images/Index_2_asset.png);
     background-repeat: no-repeat;
     background-position: .2em .7em;
     background-size: 1.4em 1.4em;
 }
 
     .steps-circles > li:nth-child(3) {
-        background-image: url(../assets/images/index_3_asset.png);
+        background-image: url(../assets/images/Index_3_asset.png);
         background-repeat: no-repeat;
         background-position: .2em .7em;
         background-size: 1.4em 1.4em;
