@@ -1,12 +1,12 @@
-﻿var passwordBtn1 = document.getElementById("password-current");
+﻿var passwordBtn1 = document.getElementById("buttonText");
 passwordBtn1.onclick = function () {
     currentPassword()
 }
-var passwordBtn2 = document.getElementById("password-create");
+var passwordBtn2 = document.getElementById("buttonText1");
 passwordBtn2.onclick = function () {
     createPassword()
 }
-var passwordBtn3 = document.getElementById("password-confirm");
+var passwordBtn3 = document.getElementById("buttonText2");
 passwordBtn3.onclick = function () {
     confirmPassword() 
 }
