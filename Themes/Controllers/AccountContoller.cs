@@ -267,7 +267,7 @@ namespace INZFS.Theme.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(ChangePasswordOldViewModel model)
         {
             if (TryValidateModel(model) && ModelState.IsValid)
             {
