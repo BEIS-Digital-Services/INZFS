@@ -35,9 +35,29 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 DateTime userInputDate;
                 string dateToValidate = $"{Day}/{Month}/{Year}";
-                if (!Day.HasValue || !Month.HasValue || !Year.HasValue)
+                if (!Day.HasValue && Month.HasValue && Year.HasValue)
                 {
-                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a [day] and [month] and [year]", new[] { nameof(DateUtc) });
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a day", new[] { nameof(DateUtc) });
+                }
+                if (Day.HasValue && !Month.HasValue && Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a month", new[] { nameof(DateUtc) });
+                }
+                if (Day.HasValue && Month.HasValue && !Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a year", new[] { nameof(DateUtc) });
+                }
+                if (!Day.HasValue && !Month.HasValue && Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a day and month", new[] { nameof(DateUtc) });
+                }
+                if (!Day.HasValue && Month.HasValue && !Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a day and year", new[] { nameof(DateUtc) });
+                }
+                if (Day.HasValue && !Month.HasValue && !Year.HasValue)
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must include a month and year", new[] { nameof(DateUtc) });
                 }
                 if (!DateTime.TryParseExact(dateToValidate, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out userInputDate)  && Day.HasValue && Month.HasValue && Year.HasValue )
                 {
