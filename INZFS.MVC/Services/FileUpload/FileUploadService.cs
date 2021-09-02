@@ -16,7 +16,6 @@ namespace INZFS.MVC.Services.FileUpload
     public class FileUploadService : IFileUploadService
     {
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private string[] permittedExtensions = { ".ppt", ".pptx", ".pdf", ".xls", ".xlsx", ".doc", ".docx", "gif", "jpeg", "png" };
         private readonly ClamClient _clam;
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IVirusScanService _virusScanService;
@@ -61,36 +60,42 @@ namespace INZFS.MVC.Services.FileUpload
             }
         }
 
-        public bool IsValidFileExtension(IFormFile file)
+        public bool IsValidFileExtension(IFormFile file, string permittedExtensions)
         {
             var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
 
-            return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
+            return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file)
+        public async Task<string> Validate(IFormFile file, Page currentPage)
         {
-            if (file == null || file.Length == 0)
+            
+            if (file == null)
             {
-                return "Empty file";
+                return currentPage.ErrorMessage;
             }
 
-            if (IsValidFileExtension(file))
+            if (file.Length == 0)
             {
-                return "Cannot accept files other than  .ppt, .pptx, .pdf, .xls, .xlsx, .doc, .docx, gif, jpeg, png";
+                return "The selected file is empty";
             }
-            
+
+            if (IsValidFileExtension(file, currentPage.AcceptableFileExtensions))
+            {
+                return $"The selected file must be {currentPage.AcceptableFileExtensions}";
+            }
+
             var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
             if ((double)file.Length > maxSize)
             {
-                return "File size cannot be more than 10 MB";
+                return "The selected file must be smaller than 10MB";
             }
-            
+
             //TODO : Switch to virus scanning service
             var containsVirus = false; // await _virusScanService.ScanFile(file);
             if (containsVirus)
             {
-                return "File contains virus";
+                return "The selected file contains a virus";
             }
 
             return string.Empty;
