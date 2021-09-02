@@ -246,12 +246,15 @@ namespace INZFS.Theme.Controllers
             return user as User;
         }
 
-
+        [AllowAnonymous]
         //[ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                await _signInManager.SignOutAsync();
+                _logger.LogInformation(4, "User logged out.");
+            }
 
             return Redirect("~/");
         }
@@ -264,7 +267,7 @@ namespace INZFS.Theme.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(ChangePasswordOldViewModel model)
         {
             if (TryValidateModel(model) && ModelState.IsValid)
             {

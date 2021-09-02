@@ -12,39 +12,26 @@ namespace INZFS.MVC.Models.DynamicForm
     {
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true)
+            if (Mandatory == true  && MarkAsComplete)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
                 }
-                else
+
+            }
+            if (!string.IsNullOrEmpty(DataInput))
+            {
+                if (DataInput.Length > CurrentPage.MaxLength)
                 {
-                    if (DataInput.Length > CurrentPage.MaxLength)
-                    {
-                        yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be {CurrentPage.MaxLength} characters or fewer", new[] { nameof(DataInput) });
-                    }
-                    else
-                    {
-                        var numberOnly = DataInput.Replace(",", "");
-                        double currencyValue = 0.0;
-                        if(double.TryParse(numberOnly, out currencyValue))
-                        {
-                            if (CurrentPage.FieldName.Equals("parent-recent-turnover") && currencyValue > 1500000)
-                            {
-                                yield return new ValidationResult($"Your parent company's {CurrentPage.FriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(DataInput) });
-                            }
-                        }
-                        else
-                        {
-                            yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(DataInput) });
-                        }
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be {CurrentPage.MaxLength} characters or fewer", new[] { nameof(DataInput) });
+                }
+                var numberOnly = DataInput.Replace(",", "");
 
-
-                        //var currencyValue = System.Convert.ToInt64(DataInput);
-
-                        
-                    }
+                double currencyValue = 0.0;
+                if (!double.TryParse(numberOnly, out currencyValue))
+                {
+                    yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must only include numbers, commas and full-stops", new[] { nameof(DataInput) });
                 }
             }
         }

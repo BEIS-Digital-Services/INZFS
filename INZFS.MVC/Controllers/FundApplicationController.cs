@@ -146,7 +146,7 @@ namespace INZFS.MVC.Controllers
             {
                 if (file != null || submitAction == "UploadFile")
                 {
-                    var errorMessage = await _fileUploadService.Validate(file);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         //TODO - Handle validation Error
@@ -191,7 +191,16 @@ namespace INZFS.MVC.Controllers
                         //}
 
                         var directoryName = Guid.NewGuid().ToString();
-                        publicUrl = await _fileUploadService.SaveFile(file, directoryName);
+                        try
+                        {
+                            publicUrl = await _fileUploadService.SaveFile(file, directoryName);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
+                        }
+                        
                         model.DataInput = file.FileName;
 
                         var uploadedFile = new UploadedFile()
@@ -569,7 +578,8 @@ namespace INZFS.MVC.Controllers
 
             var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
                                          section.Pages.Any(page => page.Name == currentPage.Name));
-            var index = currentSection.Pages.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
+            var DynamicPagesInSection = currentSection.Pages.Where(p => p.HideFromSummary == false).ToList();
+            var index = DynamicPagesInSection.FindIndex(p => p.Name.ToLower().Equals(currentPage.Name));
 
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
