@@ -1,12 +1,5 @@
-using DocumentFormat.OpenXml;
-using DocumentFormat.OpenXml.Packaging;
-using DocumentFormat.OpenXml.Wordprocessing;
-using HtmlToOpenXml;
+using Aspose.Words;
 using INZFS.MVC;
-using iText.Html2pdf;
-using iText.Kernel.Pdf;
-using NetOdt;
-using NetOdt.Enumerations;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -35,9 +28,13 @@ public class ReportService : IReportService
         BuildHtmlString();
 
         using (MemoryStream stream = new())
-        using (PdfWriter writer = new(stream))
         {
-            iText.Html2pdf.HtmlConverter.ConvertToPdf(html, writer);
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertHtml(html);
+
+            doc.Save(stream, SaveFormat.Pdf);
             return stream.ToArray();
         }
     }
@@ -50,37 +47,14 @@ public class ReportService : IReportService
 
         using (MemoryStream stream = new())
         {
-            using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
-            {
-                MainDocumentPart mainPart = package.MainDocumentPart;
-                if (mainPart == null)
-                {
-                    mainPart = package.AddMainDocumentPart();
-                    new Document(new Body()).Save(mainPart);
-                }
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
 
-                HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
-                converter.ParseHtml(html);
-                mainPart.Document.Save();
+            builder.InsertHtml(html);
 
-                var aspose = new Aspose.Words.Document(stream);
-                aspose.Save("tempFile.odt", Aspose.Words.SaveFormat.Odt);
-            }
+            doc.Save(stream, SaveFormat.Odt);
             return stream.ToArray();
         }
-
-        //using (MemoryStream stream = new())
-        //{
-        //        var odt = new OdtDocument();
-
-        //        foreach (var section in _applicationDefinition.Application.Sections)
-        //        {
-        //            odt.AppendLine(section.Title, TextStyle.Subtitle);
-        //        }
-
-        //        odt.Save();
-        //    return stream.ToArray();
-        //}
     }
 
     private void BuildHtmlString()
@@ -120,7 +94,7 @@ public class ReportService : IReportService
         }
     }
 
-    private void PopulateHtmlQuestions(Section section)
+    private void PopulateHtmlQuestions(INZFS.MVC.Section section)
     {
         foreach (var page in section.Pages)
         {
