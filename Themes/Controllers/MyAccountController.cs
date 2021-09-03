@@ -245,6 +245,8 @@ namespace INZFS.Theme.Controllers
 
                     if (model.ChosenAction == ChangeAction.Remove)
                     {
+                        var method =  await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId) ? AuthenticationMethod.Phone : AuthenticationMethod.Email;
+                        await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
                         return RedirectToAction("Index");
                     }
 
@@ -301,6 +303,8 @@ namespace INZFS.Theme.Controllers
                 {
                     var userId = await GetUserId();
                     await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, false);
+                    var method = await _factorSettingsService.GetAuthenticatorConfirmedAsync(userId) ? AuthenticationMethod.Authenticator : AuthenticationMethod.Email;
+                    await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
                     return RedirectToAction("Index");
                 }
             }
