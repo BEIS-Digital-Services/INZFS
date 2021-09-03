@@ -18,7 +18,7 @@
                     </label>
                     <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
                         <input class="govuk-input govuk-input--width-20" id="password-current" asp-for="Password" type="password" spellcheck="false">
-                        <button class="show-password__toggle" aria-controls="password-current" type="button" aria-label="Show password" id="buttonText" onclick="currentPassword()">Show</button>
+                        <button class="show-password__toggle password-changer" data-control="password-current" aria-controls="password-current" type="button" aria-label="Show password" id="buttonText" onclick="currentPassword()">Show</button>
                         <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
                     </div>
                 </div>
@@ -44,18 +44,4 @@
         </div>
     </form>
 </main>
-
-<script type="text/javascript">
-
-    function currentPassword() {
-        var x = document.getElementById("password-current");
-        if (x.type === "password") {
-            x.type = "text";
-            document.getElementById("buttonText").innerHTML = "Hide";
-        } else {
-            x.type = "password";
-            document.getElementById("buttonText").innerHTML = "Show";
-        }
-    }
-
-</script>
+<script src="/INZFS.Theme/lib/password-changer.js"></script>
