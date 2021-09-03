@@ -4,4 +4,4 @@ services:
 
   fortio:
     image: fortio/fortio:1.17.0
-    command: load -c 32 -qps 25 -t 30s https://inzfs-$(env).london.cloudapps.digital/
+    command: load -c 32 -qps 25 -t 60s https://inzfs-$(env).london.cloudapps.digital/
