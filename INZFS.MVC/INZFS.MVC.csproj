@@ -27,6 +27,9 @@
     <PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-16369" />
     <PackageReference Include="nClam" Version="5.0.1" />
     <PackageReference Include="ClosedXML" Version="0.95.4" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.2.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.2.1" />
   </ItemGroup>
 
   <ItemGroup>

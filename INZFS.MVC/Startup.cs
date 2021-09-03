@@ -25,9 +25,14 @@ using INZFS.MVC.Records;
 using INZFS.MVC.Migrations.Indexes;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
+using INZFS.MVC.Services.UserService;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Microsoft.OpenApi.Models;
+using OrchardCore.Users;
+using Microsoft.AspNetCore.Identity;
+
 
 namespace INZFS.MVC
 {
@@ -43,6 +48,10 @@ namespace INZFS.MVC
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ListApplications", Version = "v1" });
+            });
             services.AddTransient<ClamClient>(x =>
             {
                 var host = Configuration["ClamAVServerHost"];
@@ -63,10 +72,11 @@ namespace INZFS.MVC
 
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<INavigation, Navigation>();
-            services.AddScoped<INavigationProvider, AdminMenu>();
+            services.AddScoped<INavigationProvider, Navigations.AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<IVirusScanService, VirusScanService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
@@ -120,6 +130,8 @@ namespace INZFS.MVC
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            builder.UseSwagger();
+            builder.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ListApplications v1"));
             routes.MapAreaControllerRoute(
                name: "FundApplication",
                areaName: "INZFS.MVC",
