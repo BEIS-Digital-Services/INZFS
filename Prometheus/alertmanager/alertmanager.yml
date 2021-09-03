@@ -1,12 +1,12 @@
 global:
   resolve_timeout: 1m
+  pagerduty_url: 'https://events.pagerduty.com/v2/enqueue'
 
 route:
-  # group_by: ['app']
-  receiver: 'zulip-notifications'
+  receiver: 'pagerduty-notifications'
 
 receivers:
-- name: 'zulip-notifications'
-  webhook_configs:
-  - url: 'https://eef.zulipchat.com/api/v1/external/alertmanager?api_key=$(zulip_api_key)&stream=Prometheus'
+- name: 'pagerduty-notifications'
+  pagerduty_configs:
+  - service_key: c31779f37c934802d024812f4829e5d9
     send_resolved: true
