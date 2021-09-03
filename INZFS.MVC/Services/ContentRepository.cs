@@ -22,6 +22,7 @@ namespace INZFS.MVC
         public Task<ContentItem> GetContentItemById(string contentId);
 
         public Task<ApplicationContent> GetApplicationContent(string userName);
+        public Task<ApplicationContent> GetApplicationContentById(int id);
     }
     public class ContentRepository : IContentRepository
     {
@@ -77,6 +78,12 @@ namespace INZFS.MVC
         {
             var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
             query = query.With<ApplicationContentIndex>(x => x.Author == userName);
+            return await query.FirstOrDefaultAsync();
+        }
+        public async Task<ApplicationContent> GetApplicationContentById(int id)
+        {
+            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
+            query = query.With<ApplicationContentIndex>(x => x.DocumentId == id);
             return await query.FirstOrDefaultAsync();
         }
     }

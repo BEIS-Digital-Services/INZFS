@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace INZFS.MVC.Controllers
 {
-    [Authorize(Roles="Admin")]
+    //[Authorize(Roles="Admin")]
     [Route("api/listapplications")]
     [ApiController]
     public class ListApplicationsController : Controller
@@ -31,31 +31,26 @@ namespace INZFS.MVC.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        public async Task<ActionResult<List<ApplicationContent>>> GetListOfApplications()
+        public async Task<ActionResult<List<int>>> GetListOfApplications()
         {
-            List<ApplicationContent> allresults = new List<ApplicationContent>();
+            List<int> allresults = new List<int>();
 
             var users = _getUserList.GetAllUsers();
             foreach (string user in users)
             {
                 _applicationContent = await _contentRepository.GetApplicationContent(user);
-                allresults.Add(_applicationContent);
+                int applicationID = _applicationContent.Id;
+                allresults.Add(applicationID);
             }
             return allresults;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<ApplicationContent>>> GetApplicationByApplicationId(int ApplicationId)
+        public ActionResult<ApplicationContent> GetApplicationByApplicationId(int id)
         {
-            List<ApplicationContent> allresults = new List<ApplicationContent>();
-
-            var users = _getUserList.GetAllUsers();
-            foreach (string user in users)
-            {
-                _applicationContent = await _contentRepository.GetApplicationContent(user);
-                allresults.Add(_applicationContent);
-            }
-            return allresults;
+            var _applicationContent = _contentRepository.GetApplicationContentById(id).Result;
+            
+            return _applicationContent;
         }
     }
 }
