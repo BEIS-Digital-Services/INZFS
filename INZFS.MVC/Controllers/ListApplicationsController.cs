@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 using OrchardCore.Users;
 using OrchardCore.Users.Models;
 using INZFS.MVC.Services.UserService;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INZFS.MVC.Controllers
 {
+    [Authorize(Roles="Admin")]
     [Route("api/listapplications")]
     [ApiController]
     public class ListApplicationsController : Controller
@@ -29,54 +31,31 @@ namespace INZFS.MVC.Controllers
             _userManager = userManager;
         }
         [HttpGet]
-        public async Task<ActionResult<List<string>>> GetAllApplicationContent()
+        public async Task<ActionResult<List<ApplicationContent>>> GetListOfApplications()
         {
-            List<string> allresults = new List<string>();
+            List<ApplicationContent> allresults = new List<ApplicationContent>();
 
             var users = _getUserList.GetAllUsers();
             foreach (string user in users)
             {
-
                 _applicationContent = await _contentRepository.GetApplicationContent(user);
-                var applicationContentList = _applicationContent.Fields;
-                foreach (Field field in applicationContentList)
-                {
-                    var fielddata = field.Data;
-                    var fieldName = field.Name;
-                    allresults.Add(fieldName);
-                    allresults.Add(fielddata);
-                }
-                
+                allresults.Add(_applicationContent);
             }
-
-
-            //List<string> resultsList = new List<string>();
-            //foreach (var section in _applicationDefinition.Application.Sections)
-            //{
-            //    foreach (var page in section.Pages)
-            //    {
-            //        var question = page.Question;
-            //        var answer = _applicationContent?.Fields.Find(question => question.Name == page.Name);
-            //        if (answer == null)
-            //        {
-            //            var questionPair = question + ": " + "";
-            //            resultsList.Add(questionPair);
-
-            //        }
-            //        else
-            //        {
-            //            var response = answer.Data;
-            //            var questionPair = question + ": " + response;
-            //            resultsList.Add(questionPair);
-            //        }
-
-            //    }
-            //}
-
-
-            //return resultsList;
             return allresults;
+        }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<List<ApplicationContent>>> GetApplicationByApplicationId(int ApplicationId)
+        {
+            List<ApplicationContent> allresults = new List<ApplicationContent>();
+
+            var users = _getUserList.GetAllUsers();
+            foreach (string user in users)
+            {
+                _applicationContent = await _contentRepository.GetApplicationContent(user);
+                allresults.Add(_applicationContent);
+            }
+            return allresults;
         }
     }
 }
