@@ -10,6 +10,8 @@
 		<EmbeddedResource Remove="Views\Shared\ChangePasswordConfirmation.cshtml" />
 		<EmbeddedResource Remove="Views\Shared\LinkExternalLogin.cshtml" />
 		<EmbeddedResource Remove="Views\Shared\RegisterExternalLogin.cshtml" />
+		<EmbeddedResource Remove="wwwroot\lib\password-changer.js" />
+		<EmbeddedResource Remove="wwwroot\lib\qrcode-activate.js" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -28,6 +30,14 @@
 		<Content Include="Views\Shared\RegisterExternalLogin.cshtml">
 			<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
 			<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="wwwroot\lib\password-changer.js">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+		</Content>
+		<Content Include="wwwroot\lib\qrcode-activate.js">
+		  <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+		  <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
