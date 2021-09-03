@@ -11,7 +11,7 @@
             <p class="govuk-body-l">Open the Authenticator app and scan this QR code.</p>
             <div class="govuk-grid-row govuk-!-margin-bottom-3">
                 <div class="govuk-grid-column-full">
-                    <div id="qrCode"></div>
+                    <div id="qrCode" code="@Html.Raw(Model.AuthenticatorUri)"></div>
                     <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
                 </div>
             </div>
@@ -26,11 +26,4 @@
 
 
 <script src="/INZFS.Theme/lib/qrcode.min.js"></script>
-<script nonce="BB60C4898C5AC94547F875BA438739DC6B2299EC3152ADAE0E0C3370F31BC35A">
-new QRCode(document.getElementById("qrCode"),
-    {
-        text: "@Html.Raw(Model.AuthenticatorUri)",
-        width: 150,
-        height: 150
-    });
-</script>
+<script src="/INZFS.Theme/lib/qrcode-activate.js"></script>
