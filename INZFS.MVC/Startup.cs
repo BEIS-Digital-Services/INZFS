@@ -32,7 +32,11 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using OrchardCore.Users;
 using Microsoft.AspNetCore.Identity;
-
+using Swashbuckle.AspNetCore.SwaggerUI;
+using NetEscapades.AspNetCore.SecurityHeaders;
+using NetEscapades.AspNetCore.SecurityHeaders.TagHelpers;
+using System.Text;
+using Microsoft.AspNetCore.Http;
 
 namespace INZFS.MVC
 {
@@ -48,9 +52,44 @@ namespace INZFS.MVC
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
+            services.AddHttpContextAccessor();
+            services.AddOptions<SwaggerUIOptions>()
+                .Configure<IHttpContextAccessor>((swaggerUiOptions, httpContextAccessor) =>
+                {
+            var originalIndexStreamFactory = swaggerUiOptions.IndexStream;
+
+                    
+                    swaggerUiOptions.IndexStream = () =>
+                    {
+                using var originalStream = originalIndexStreamFactory();
+                        using var originalStreamReader = new StreamReader(originalStream);
+                        var originalIndexHtmlContents = originalStreamReader.ReadToEnd();
+
+                var requestSpecificNonce = httpContextAccessor.HttpContext.GetNonce();
+
+                var nonceEnabledIndexHtmlContents = originalIndexHtmlContents
+                            .Replace("<script>", $"<script nonce=\"{requestSpecificNonce}\">", StringComparison.OrdinalIgnoreCase)
+                            .Replace("<style>", $"<style nonce=\"{requestSpecificNonce}\">", StringComparison.OrdinalIgnoreCase);
+
+                return new MemoryStream(Encoding.UTF8.GetBytes(nonceEnabledIndexHtmlContents));
+                    };
+                });
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ListApplications", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "List Applications",
+                    Description = "A simple example ASP.NET Core Web API",
+                    TermsOfService = new Uri("https://inzfs-sandbox.london.cloudapps.digital/"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Lorenzo Lane",
+                        Email = "lorenzo.lane@beis.gov.uk",
+                        Url = new Uri("https://inzfs-sandbox.london.cloudapps.digital/"),
+                    }
+                    
+                });
             });
             services.AddTransient<ClamClient>(x =>
             {
@@ -130,6 +169,25 @@ namespace INZFS.MVC
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
+            builder.UseSecurityHeaders(policyCollection =>
+            {
+                policyCollection.AddContentSecurityPolicy(csp =>
+                {
+                    // Only allow loading resources from this app by default
+                    csp.AddDefaultSrc().Self();
+
+                    csp.AddStyleSrc()
+                       .Self()
+                       // Allow nonce-enabled <style> tags
+                       .WithNonce();
+
+                    csp.AddScriptSrc()
+                       .Self()
+                       // Allow nonce-enabled <script> tags
+                       .WithNonce();
+
+        });
+            });
             builder.UseSwagger();
             builder.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ListApplications v1"));
             routes.MapAreaControllerRoute(
