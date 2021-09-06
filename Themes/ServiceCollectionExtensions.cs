@@ -21,9 +21,11 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddData(
             this IServiceCollection services)
         {
-            services.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
             services.AddScoped<IDataMigration, UserTwoFactorSettingsIndexMigration>();
-            services.AddSingleton<IIndexProvider, UserTwoFactorSettingsIndexProvider>();
+            services.AddSingleton<IIndexProvider, UserTwoFactorSettingsIndexProvider>(); 
+            
+            services.AddScoped<IDataMigration, RegistrationQuestionnaireIndexMigration>();
+            services.AddSingleton<IIndexProvider, RegistrationQuestionnaireIndexProvider>();
 
             return services;
         }

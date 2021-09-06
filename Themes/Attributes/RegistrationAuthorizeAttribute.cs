@@ -1,7 +1,6 @@
 ﻿using System;
 using INZFS.Theme.Services;
 using Microsoft.AspNetCore.Authorization;
-using System.ComponentModel.DataAnnotations;
 
 namespace INZFS.Theme.Attributes
 {
@@ -15,14 +14,6 @@ namespace INZFS.Theme.Attributes
         public RegistrationAuthorizeAttribute()
         {
             AuthenticationSchemes = RegistrationConstants.RegistrationScheme;
-        }
-    }
-
-    public class MustBeTrueAttribute : ValidationAttribute
-    {
-        public override bool IsValid(object value)
-        {
-            return value is bool && (bool)value;
         }
     }
 }

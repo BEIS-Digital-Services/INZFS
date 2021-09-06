@@ -24,18 +24,21 @@ namespace INZFS.Theme.Controllers
         private readonly INotificationService _notificationService;
         private readonly IUrlEncodingService _encodingService;
         private readonly IRegistrationManager _registrationManager;
+        private readonly IRegistrationQuestionnaireService _questionnaireService;
         private readonly NotificationOption _notificationOption;
 
         public RegistrationController(UserManager<IUser> userManager, 
             INotificationService notificationService,
             IUrlEncodingService encodingService, 
             IOptions<NotificationOption> notificationOption, 
-            IRegistrationManager registrationManager) 
+            IRegistrationManager registrationManager,
+            IRegistrationQuestionnaireService questionnaireService) 
         {
             _userManager = userManager;
             _notificationService = notificationService;
             _encodingService = encodingService;
             _registrationManager = registrationManager;
+            _questionnaireService = questionnaireService;
             _notificationOption = notificationOption.Value;
         }
 
@@ -120,9 +123,25 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Organisation()
         {
-            var user = await _registrationManager.GetRegistrationAuthenticationUserAsync();
-            var userId = await _userManager.GetUserIdAsync(user);
-            return View("Success", new RegistrationSuccessViewModel());
+            
+            return View(new RegistrationOrganisationViewModel());
+        }
+        
+        [RegistrationAuthorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Organisation(RegistrationOrganisationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _registrationManager.GetRegistrationAuthenticationUserAsync();
+                var email = await _userManager.GetEmailAsync(user);
+                var userId = await _userManager.GetUserIdAsync(user);
+                await _questionnaireService.SaveOrganisationAsync(userId, model.OrganisationName);
+                var idToken = _encodingService.GetHexFromString(email);
+                return RedirectToAction("Success", new { token = idToken });
+            }
+            return View(model);
         }
 
 

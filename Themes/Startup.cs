@@ -31,6 +31,7 @@ namespace INZFS.Theme
 
         public override void ConfigureServices(IServiceCollection serviceCollection)
         {
+            serviceCollection.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
 
             serviceCollection.AddData();
             serviceCollection.AddAuthentications();
@@ -40,6 +41,7 @@ namespace INZFS.Theme
                 new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
          
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
+            serviceCollection.AddScoped<IRegistrationQuestionnaireService, RegistrationQuestionnaireService>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

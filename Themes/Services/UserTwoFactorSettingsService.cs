@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using INZFS.Theme.Models;
 using INZFS.Theme.Records;
 using INZFS.Theme.ViewModels;
@@ -123,6 +124,7 @@ namespace INZFS.Theme.Services
                 {
                     UserId = userId,
                     IsTwoFactorEnabled = false,
+                    CreatedDate = DateTime.Now
                 };
 
                 _session.Save(twoFactorSettings);

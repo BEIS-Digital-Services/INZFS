@@ -48,6 +48,8 @@ namespace INZFS.Theme.ViewModels
         public string Email { get; set; }
         public bool VerificationRequired { get; set; }
     }
+    
+    
 
     public class EmailValidationConstants
     {
