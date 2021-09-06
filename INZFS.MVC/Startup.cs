@@ -34,9 +34,9 @@ using OrchardCore.Users;
 using Microsoft.AspNetCore.Identity;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using NetEscapades.AspNetCore.SecurityHeaders;
-using NetEscapades.AspNetCore.SecurityHeaders.TagHelpers;
 using System.Text;
 using Microsoft.AspNetCore.Http;
+using INZFS.MVC.Services.Swagger;
 
 namespace INZFS.MVC
 {
@@ -76,6 +76,7 @@ namespace INZFS.MVC
                 });
             services.AddSwaggerGen(c =>
             {
+                c.DocumentFilter<SwaggerFilter>();
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
@@ -173,17 +174,12 @@ namespace INZFS.MVC
             {
                 policyCollection.AddContentSecurityPolicy(csp =>
                 {
-                    // Only allow loading resources from this app by default
-                    csp.AddDefaultSrc().Self();
-
-                    csp.AddStyleSrc()
-                       .Self()
-                       // Allow nonce-enabled <style> tags
-                       .WithNonce();
 
                     csp.AddScriptSrc()
                        .Self()
-                       // Allow nonce-enabled <script> tags
+                       .From("https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js")
+                       .From("https://code.jquery.com/jquery-3.6.0.js")
+                       .From("https://design-system.service.gov.uk/javascripts/")
                        .WithNonce();
 
         });
