@@ -24,6 +24,7 @@ namespace INZFS.MVC.Models.DynamicForm
         //public List<SectionContent> Sections { get; set; }
         public int TotalSections { get; set; }
         public int TotalSectionsCompleted { get; set; }
+        public string ApplicationNumber { get; set; }
     }
 
     public class ApplicationOverviewModel : SectionModel
@@ -87,6 +88,7 @@ namespace INZFS.MVC.Models.DynamicForm
         }
         public int TotalQuestions { get; set; }
         public int TotalQuestionsCompleted { get; set; }
+        public string ApplicationNumber { get; set; }
     }
 }
 
