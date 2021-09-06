@@ -13,6 +13,8 @@ namespace INZFS.MVC.Records
         public const int MaxDisplayTextSize = 255;
 
         public int DocumentId { get; set; }
+        //public ApplicationStatus ApplicationStatus { get; set; }
+        //public string ApplicationNumber { get; set; }
         public bool Published { get; set; }
         public bool Latest { get; set; }
         public string ContentItemId { get; set; }
@@ -25,6 +27,7 @@ namespace INZFS.MVC.Records
         public string Author { get; set; }
         public string DisplayText { get; set; }
     }
+
 
     public class ApplicationContentIndexProvider : IndexProvider<ApplicationContent>
     {
@@ -46,6 +49,8 @@ namespace INZFS.MVC.Records
                         Owner = contentItem.Owner,
                         Author = contentItem.Author,
                         DisplayText = contentItem.DisplayText
+                        //ApplicationNumber = contentItem.ApplicationNumber,
+                        //ApplicationStatus = contentItem.ApplicationStatus
                     };
 
                     if (contentItemIndex.ContentType?.Length > ApplicationContentIndex.MaxContentTypeSize)
