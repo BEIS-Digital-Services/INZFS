@@ -82,6 +82,6 @@ namespace INZFS
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
+            }
         }
-    }
 }

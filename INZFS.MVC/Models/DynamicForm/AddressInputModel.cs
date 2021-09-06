@@ -24,7 +24,7 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             
 
-            if (Mandatory == true)
+            if (Mandatory == true && MarkAsComplete)
             {
                 if ((AddressLine1 == null && AddressLine2 == null))
                 {

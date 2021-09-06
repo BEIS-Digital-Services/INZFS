@@ -28,6 +28,8 @@ using OrchardCore.FileStorage;
 using System.IO;
 using ClosedXML.Excel.CalcEngine.Exceptions;
 using System.Globalization;
+using INZFS.MVC.Services;
+using INZFS.MVC.Records;
 
 namespace INZFS.MVC.Controllers
 {
@@ -46,11 +48,14 @@ namespace INZFS.MVC.Controllers
         private readonly ILogger _logger;
         private readonly IContentRepository _contentRepository;
         private readonly ApplicationDefinition _applicationDefinition;
-
-        public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager, IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
+        
+        public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager,
+            IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation, IContentRepository contentRepository, IFileUploadService fileUploadService, IVirusScanService virusScanService, ApplicationDefinition applicationDefinition)
+            IUpdateModelAccessor updateModelAccessor, INavigation navigation,
+            IContentRepository contentRepository, IFileUploadService fileUploadService, 
+            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -76,11 +81,11 @@ namespace INZFS.MVC.Controllers
             pagename = pagename.ToLower().Trim();
 
 
+            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
             // Page
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
             if(currentPage != null)
             {
-                var content= await _contentRepository.GetApplicationContent(User.Identity.Name);
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
                 return GetViewModel(currentPage, field);
             }
@@ -91,8 +96,12 @@ namespace INZFS.MVC.Controllers
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
 
-                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                if(string.IsNullOrEmpty(content.ApplicationNumber))
+                {
+                    await _contentRepository.AttachApplicationNumber(User.Identity.Name);
+                }
 
+                applicationOverviewContentModel.ApplicationNumber = content.ApplicationNumber;
                 foreach (var section in sections)
                 {
                     var sectionContentModel = GetSectionContent(content, section);
@@ -116,7 +125,6 @@ namespace INZFS.MVC.Controllers
             var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.Equals(pagename));
             if (currentSection != null)
             {
-                var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
                 var sectionContentModel = GetSectionContent(content, currentSection);
                 return View(currentSection.RazorView, sectionContentModel);
             }
@@ -146,7 +154,7 @@ namespace INZFS.MVC.Controllers
             {
                 if (file != null || submitAction == "UploadFile")
                 {
-                    var errorMessage = await _fileUploadService.Validate(file);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         //TODO - Handle validation Error
@@ -191,7 +199,16 @@ namespace INZFS.MVC.Controllers
                         //}
 
                         var directoryName = Guid.NewGuid().ToString();
-                        publicUrl = await _fileUploadService.SaveFile(file, directoryName);
+                        try
+                        {
+                            publicUrl = await _fileUploadService.SaveFile(file, directoryName);
+                        }
+                        catch (Exception ex)
+                        {
+
+                            ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
+                        }
+                        
                         model.DataInput = file.FileName;
 
                         var uploadedFile = new UploadedFile()
@@ -420,7 +437,22 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Complete()
         {
-            return Redirect("/complete/applicationcomplete");
+            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+
+            return View("ApplicationComplete", content.ApplicationNumber);
+        }
+
+        [HttpPost, ActionName("ApplicationComplete")]
+        public async Task<IActionResult> ApplicationComplete(string equality)
+        {
+            if (equality == "1")
+            {
+                return RedirectToAction("section", new { pagename = "eq-survey-question-one" });
+            }
+            else 
+            {
+                return RedirectToAction("section", new { pagename = "application-overview" });
+            }
         }
 
         private ViewResult GetViewModel(Page currentPage, Field field)
@@ -610,6 +642,7 @@ namespace INZFS.MVC.Controllers
         private SectionContent GetSectionContent(ApplicationContent content, Section section)
         {
             var sectionContentModel = new SectionContent();
+            sectionContentModel.ApplicationNumber = content.ApplicationNumber;
             sectionContentModel.TotalQuestions = section.Pages.Count(p => !p.HideFromSummary);
             sectionContentModel.Sections = new List<SectionModel>();
             sectionContentModel.Title = section.Title;
@@ -661,6 +694,7 @@ namespace INZFS.MVC.Controllers
                 }
                 sectionContentModel.Sections.Add(sectionModel);
             }
+
 
             return sectionContentModel;
         }

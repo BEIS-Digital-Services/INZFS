@@ -1,4 +1,12 @@
-﻿function createPassword() {
+﻿var passwordBtn1 = document.getElementById("buttonText");
+passwordBtn1.onclick = function () {
+    createPassword();
+}
+var passwordBtn2 = document.getElementById("buttonText1");
+passwordBtn2.onclick = function () {
+    confirmPassword() 
+}
+function createPassword() {
     var x = document.getElementById("Password");
     if (x.type === "password") {
         x.type = "text";

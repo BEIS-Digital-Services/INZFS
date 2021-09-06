@@ -8,6 +8,26 @@ using System.Threading.Tasks;
 
 namespace INZFS.Theme.ViewModels
 {
+    public class ChangeEmailViewModel
+    {
+        public string CurrentEmail { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        public string Password { get; set; }
+
+        [Required]
+        [EmailAddress]
+        public string Email { get; set; }
+
+        [Compare("Email")]
+        public string ConfirmEmail { get; set; }
+
+
+        
+
+        
+    }
 
     public class ChangePasswordViewModel
     {

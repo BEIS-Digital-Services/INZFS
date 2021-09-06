@@ -116,6 +116,7 @@ namespace INZFS.MVC
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IFileUploadService, FileUploadService>();
             services.AddScoped<IVirusScanService, VirusScanService>();
+            services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
             services.AddScoped<IUserService, UserService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {

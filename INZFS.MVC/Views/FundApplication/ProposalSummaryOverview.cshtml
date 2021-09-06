@@ -1,4 +1,4 @@
-﻿@model SectionContent
+@model SectionContent
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
@@ -12,10 +12,10 @@
             <div class="govuk-breadcrumbs">
                 <ol class="govuk-breadcrumbs__list">
                     <li class="govuk-breadcrumbs__list-item">
-                        <a class="govuk-breadcrumbs__link" href="application-overview" id="application-overview">Application overview</a>
+                        <a class="govuk-breadcrumbs__link" href="application-overview"  id="application-overview">Application overview</a>
                     </li>
                     <li class="govuk-breadcrumbs__list-item">
-                        1. Your details and eligibility
+                        4. Proposal summary
                     </li>
                 </ol>
             </div>
@@ -26,7 +26,9 @@
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-l">Your details and eligibility</h1>
+                <h1 class="govuk-heading-l">
+                    Proposal summary
+                </h1>
             </div>
         </div>
 
@@ -35,16 +37,16 @@
 
                 <div class="govuk-tabs" data-module="govuk-tabs">
                     <h2 class="govuk-tabs__title">
-                        1. Your details and eligibility
+                        4. Proposal summary
                     </h2>
 
                     <div class="govuk">
 
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">1. Your details and eligibility<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">4. Proposal summary<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-                        @foreach (var item in Model.Sections) if (!item.HideFromSummary)
-                            {
+                        @foreach (var item in Model.Sections)
+                        {
                             <div class="govuk-body-m govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">
                                     <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
@@ -80,7 +82,7 @@
                     <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
 
                     <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
+                    <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
 
                 </aside>
 
