@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using INZFS.MVC.Records;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -101,6 +102,15 @@ namespace INZFS.MVC
         public Application Application { get; set; }
     }
 
+    public enum ApplicationStatus
+    {
+        InProgress,
+        Submitted,
+        Reviewed,
+        Approved,
+        Rejected
+    }
+
     public class ApplicationContent
     {
         public ApplicationContent()
@@ -159,6 +169,10 @@ namespace INZFS.MVC
         public string DisplayText { get; set; }
 
         public List<Field> Fields { get; set; }
+
+        public ApplicationStatus ApplicationStatus { get; set; }
+        public string ApplicationNumber { get; set; }
+
     }
 
     public class Field
