@@ -8,9 +8,11 @@ using OrchardCore.Users;
 using OrchardCore.Users.Models;
 using INZFS.MVC.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
+using INZFS.MVC.Attributes;
 
 namespace INZFS.MVC.Controllers
 {
+    [ApiKey]
     //[Authorize(Roles="Admin")]
     [Route("api/listapplications")]
     [ApiController]
