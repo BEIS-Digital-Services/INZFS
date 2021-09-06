@@ -21,6 +21,8 @@ namespace INZFS.MVC.Migrations.Indexes
                .Column<DateTime>("ModifiedUtc", column => column.Nullable())
                .Column<DateTime>("PublishedUtc", column => column.Nullable())
                .Column<DateTime>("CreatedUtc", column => column.Nullable())
+               //.Column<int>("ApplicationStatus", column => column.WithDefault(ApplicationStatus.InProgress))
+               //.Column<DateTime>("ApplicationNumber", column => column.Nullable())
                .Column<string>("Owner", column => column.Nullable().WithLength(ApplicationContentIndex.MaxOwnerSize))
                .Column<string>("Author", column => column.Nullable().WithLength(ApplicationContentIndex.MaxAuthorSize))
                .Column<string>("DisplayText", column => column.Nullable().WithLength(ApplicationContentIndex.MaxDisplayTextSize))
@@ -73,6 +75,22 @@ namespace INZFS.MVC.Migrations.Indexes
                     "Published",
                     "Latest")
             );
+
+           // SchemaBuilder.AlterIndexTable<ApplicationContentIndex>(table => table
+           //    .CreateIndex("IDX_ApplicationContentIndex_DocumentId_ApplicationStatus",
+           //        "DocumentId",
+           //        "ApplicationStatus",
+           //        "Published",
+           //        "Latest")
+           //);
+
+           // SchemaBuilder.AlterIndexTable<ApplicationContentIndex>(table => table
+           //    .CreateIndex("IDX_ApplicationContentIndex_DocumentId_ApplicationNumber",
+           //        "DocumentId",
+           //        "ApplicationNumber",
+           //        "Published",
+           //        "Latest")
+           //);
 
             return 1;
         }

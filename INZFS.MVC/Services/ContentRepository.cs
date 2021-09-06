@@ -1,5 +1,6 @@
 ﻿using INZFS.MVC.Forms;
 using INZFS.MVC.Records;
+using INZFS.MVC.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.Flows.Models;
@@ -22,13 +23,17 @@ namespace INZFS.MVC
         public Task<ContentItem> GetContentItemById(string contentId);
 
         public Task<ApplicationContent> GetApplicationContent(string userName);
+
+        public Task AttachApplicationNumber(string userName);
     }
     public class ContentRepository : IContentRepository
     {
         private readonly ISession _session;
-        public ContentRepository(ISession session)
+        private readonly IApplicationNumberGenerator _applicationNumberGenerator;
+        public ContentRepository(ISession session, IApplicationNumberGenerator applicationNumberGenerator)
         {
             _session = session;
+            _applicationNumberGenerator = applicationNumberGenerator;
         }
         public async Task<T> GetContentItemFromBagPart<T>(string contentToFilter, string userName) where T : ContentPart
         {
@@ -79,5 +84,38 @@ namespace INZFS.MVC
             query = query.With<ApplicationContentIndex>(x => x.Author == userName);
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task AttachApplicationNumber(string userName)
+        {
+            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
+            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
+            var contentToSave = await query.FirstOrDefaultAsync();
+
+            string applicationNumber;
+            bool duplicateFound;
+            IEnumerable<ApplicationContent> cachedRecords = null;
+            do
+            {
+                applicationNumber = _applicationNumberGenerator.Generate(4);
+
+                if(cachedRecords == null)
+                {
+                    var applicationNumberQuery = _session.Query<ApplicationContent, ApplicationContentIndex>();
+                    query = applicationNumberQuery.With<ApplicationContentIndex>(x => x.Author == userName);
+                    cachedRecords = await applicationNumberQuery.ListAsync();
+
+                }
+
+                duplicateFound = cachedRecords.Any(record => record.ApplicationNumber == applicationNumber);
+
+            } while (duplicateFound);
+
+
+
+            contentToSave.ApplicationNumber = applicationNumber;
+            contentToSave.ApplicationStatus = ApplicationStatus.InProgress;
+            _session.Save(contentToSave);
+        }
+
     }
 }
