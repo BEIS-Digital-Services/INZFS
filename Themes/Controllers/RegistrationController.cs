@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using INZFS.Theme.Attributes;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
@@ -21,17 +22,20 @@ namespace INZFS.Theme.Controllers
     {
         private readonly UserManager<IUser> _userManager;
         private readonly INotificationService _notificationService;
-        private readonly SignInManager<IUser> _signInManager;
         private readonly IUrlEncodingService _encodingService;
+        private readonly IRegistrationManager _registrationManager;
         private readonly NotificationOption _notificationOption;
 
-        public RegistrationController(UserManager<IUser> userManager, INotificationService notificationService,
-            SignInManager<IUser> signInManager, IUrlEncodingService encodingService, IOptions<NotificationOption> notificationOption) 
+        public RegistrationController(UserManager<IUser> userManager, 
+            INotificationService notificationService,
+            IUrlEncodingService encodingService, 
+            IOptions<NotificationOption> notificationOption, 
+            IRegistrationManager registrationManager) 
         {
             _userManager = userManager;
             _notificationService = notificationService;
-            _signInManager = signInManager;
             _encodingService = encodingService;
+            _registrationManager = registrationManager;
             _notificationOption = notificationOption.Value;
         }
 
@@ -58,12 +62,7 @@ namespace INZFS.Theme.Controllers
                 }
                 else
                 {
-                    user = new User()
-                    {
-                        UserId = Guid.NewGuid().ToString(),
-                        UserName = model.Email,
-                        Email = model.Email
-                    };
+                    user = BuildUser(model);
 
                     var result = await _userManager.CreateAsync(user, model.Password);
 
@@ -71,11 +70,12 @@ namespace INZFS.Theme.Controllers
                     {
                         var idToken = _encodingService.GetHexFromString(model.Email);
                         await SendEmail(user, model.Email, idToken, returnUrl);
-                        return RedirectToAction("Success", new {token = idToken});
+                        await _registrationManager.RegisterSignInAsync(user);
+                        return RedirectToAction("Organisation");
                     }
                     else
                     {
-                        foreach (IdentityError error in result.Errors)
+                        foreach (IdentityError error in result.Errors) 
                         {
                             var safeErrorCode = error.Code ?? "";
                             ModelState.AddModelError(safeErrorCode, error.Description);
@@ -83,11 +83,47 @@ namespace INZFS.Theme.Controllers
                     }
                 }
             }
-
             return View("Register", model);
         }
 
+        private static IUser BuildUser(RegistrationViewModel model)
+        {
+            var claims = new List<UserClaim>
+            {
+                new UserClaim()
+                {
+                    ClaimType = nameof(model.IsConsentedToUsePersonalInformation),
+                    ClaimValue = model.IsConsentedToUsePersonalInformation.ToString()
+                },
+                new UserClaim()
+                {
+                    ClaimType = nameof(model.IsConsentedUseEmailAndSms),
+                    ClaimValue = model.IsConsentedUseEmailAndSms.ToString()
+                }
+            };
 
+
+            IUser user = new User()
+            {
+                UserId = Guid.NewGuid().ToString(),
+                UserName = model.Email,
+                Email = model.Email,
+                UserClaims = claims
+            };
+
+
+            return user;
+        }
+
+
+        [RegistrationAuthorize]
+        [HttpGet]
+        public async Task<IActionResult> Organisation()
+        {
+            var user = await _registrationManager.GetRegistrationAuthenticationUserAsync();
+            var userId = await _userManager.GetUserIdAsync(user);
+            return View("Success", new RegistrationSuccessViewModel());
+        }
 
 
         [AllowAnonymous]
