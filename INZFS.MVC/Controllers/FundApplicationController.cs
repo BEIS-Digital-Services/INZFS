@@ -221,10 +221,10 @@ namespace INZFS.MVC.Controllers
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             // If env is Development, prepend local filepath to publicUrl to ensure functionality
-                            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                            {
-                                publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
-                            }
+                            //if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                            //{
+                            //    publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
+                            //}
 
                             try
                             {
