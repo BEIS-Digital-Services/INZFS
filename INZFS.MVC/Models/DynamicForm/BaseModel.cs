@@ -49,6 +49,7 @@ namespace INZFS.MVC.Models.DynamicForm
         protected Page CurrentPage { get; set; }
         public PreviousPage PreviousPage { get; set; }
 
+        public GridDisplayType GridDisplayType { get; set; }
         public virtual string GetData()
         {
             return DataInput;

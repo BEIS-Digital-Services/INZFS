@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -87,23 +90,98 @@
             </p>
         </div>
 
-        <a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
+        @*<a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
             Your account
         </a>
-       
+
         <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
             SignOut
-        </a>
+        </a>*@
+
+        @if (Model is BaseModel)
+        {
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-three-quarters">
+                    <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                        <ol class="govuk-breadcrumbs__list">
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                   asp-controller="FundApplication" asp-action="section"
+                                   asp-route-pagename="application-overview">Application overview</a>
+                            </li>
+
+                            @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                            {
+                                @if (!string.IsNullOrEmpty(Model.SectionInfo.Title))
+                                {
+                                    <li class="govuk-breadcrumbs__list-item">
+                                        <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                           asp-controller="FundApplication" asp-action="section"
+                                           asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
+                                    </li>
+
+                                    <li class="govuk-breadcrumbs__list-item" >
+                                        @Model.SectionInfo.Title
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="govuk-breadcrumbs__list-item" >
+                                        @Model.SectionInfo.OverviewTitle
+                                    </li>
+                                }
+
+                            }
+
+
+
+                        </ol>
+        
+                            </nav>
+        
+                        </div>
+        
+                <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
+                    <p style="margin-top:10px;">
+                        @*<a class="govuk-body-m govuk-link" href="preferences/youraccount.html">Your account</a>*@
+
+
+
+                        <a class="govuk-body-m govuk-link" href="/INZFS.Theme/Account/LogOff" style="float:right;margin-left:10px;">
+                            SignOut
+                        </a>
+
+                        <a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right" >
+                            Your account
+                        </a>
+
+                    </p>
+                </div>
+            </div>
+        }
 
 
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-            <div class="govuk-width-container">
+            <div class="govuk-grid-row">
 
-                @RenderBody()
+                @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
+                {
+                    <div class="govuk-grid-column-two-thirds">
+                        @RenderBody()
+                    </div>
+
+                    <div class="govuk-grid-column-one-third">
+                    </div>
+                }
+                else
+                {
+                    @RenderBody()
+                }
+
+
             </div>
-
-
         </main>
+
     </div>
 
     <footer class="govuk-footer " role="contentinfo">

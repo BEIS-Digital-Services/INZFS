@@ -28,11 +28,18 @@ namespace INZFS.MVC
         Word
     }
 
+    public enum GridDisplayType
+    {
+        TwoThird,
+        FullPage
+    }
+
     public class Page
     {
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
+        public GridDisplayType GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
