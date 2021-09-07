@@ -25,15 +25,24 @@ namespace INZFS.MVC.Controllers
         private ApplicationContent _applicationContent;
         private readonly UserManager<IUser> _userManager;
         private readonly IUserService _getUserList;
-        public ListApplicationsController(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, UserManager<IUser> userManager, IUserService getUserList)
+        private readonly YesSql.ISession _session;
+        public ListApplicationsController(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, UserManager<IUser> userManager, IUserService getUserList, YesSql.ISession session)
         {
 
             _contentRepository = contentRepository;
             _applicationDefinition = applicationDefinition;
             _getUserList = getUserList;
-
+            _session = session;
             _userManager = userManager;
         }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("RetrieveAntiforgeryToken")]
+        public IActionResult RetrieveAntiforgeryToken()
+        {
+            return View();
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<ApplicationStatusModel>>> GetListOfApplications()
         {
@@ -65,10 +74,10 @@ namespace INZFS.MVC.Controllers
         public ActionResult<string> ChangeApplicationStatus(int id, [FromBody] ApplicationStatusModel applicationStatus)
         {
             var _applicationContent = _contentRepository.GetApplicationContentById(id).Result;
-            var applicationStatusField = _applicationContent.ApplicationStatus;
-            applicationStatusField = applicationStatus.ApplicationStatus;
+            _applicationContent.ApplicationStatus = applicationStatus.ApplicationStatus;
+            _session.Save(_applicationContent);
 
-            return "The status for Document ID "+ id +" has been changed to "+ applicationStatus + "."+ " The current status is "+ applicationStatus;
+            return "The status for Document ID "+ id +" has been changed to "+ applicationStatus.ApplicationStatus + "."+ " The current status is "+ applicationStatus.ApplicationStatus;
         }
     }
 }
