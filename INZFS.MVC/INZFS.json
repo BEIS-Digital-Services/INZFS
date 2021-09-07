@@ -16,6 +16,7 @@
             "question": "Are you eligible to apply for this fund?",
             "hint": "",
             "errorMessage": "Select Yes or No",
+            "gridDisplayType": "FullPage",
             "fieldType": "gdsYesorNoRadio",
             "friendlyFieldName": "Eligibility to apply for fund",
             "fieldName": "eligibility-to-apply-for-fund",

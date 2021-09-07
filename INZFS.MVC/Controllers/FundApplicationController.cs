@@ -591,6 +591,7 @@ namespace INZFS.MVC.Controllers
                 currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
             } 
 
+
             if (!string.IsNullOrEmpty(currentPage.Description))
             {
                 currentModel.Description = currentPage.Description;
@@ -601,7 +602,8 @@ namespace INZFS.MVC.Controllers
                 currentModel.UploadText = currentPage.UploadText;
             }
 
-            currentPage.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
+            currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
+            currentModel.GridDisplayType = currentPage.GridDisplayType;
 
             return currentModel;
         }
