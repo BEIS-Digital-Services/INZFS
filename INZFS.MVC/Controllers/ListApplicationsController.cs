@@ -10,7 +10,7 @@ using INZFS.MVC.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Attributes;
 using INZFS.MVC.Models.ListApplicationsApiModels;
-using Microsoft.AspNetCore.Antiforgery;
+using INZFS.MVC.Services.AntiForgery;
 
 namespace INZFS.MVC.Controllers
 {
@@ -26,7 +26,8 @@ namespace INZFS.MVC.Controllers
         private readonly UserManager<IUser> _userManager;
         private readonly IUserService _getUserList;
         private readonly YesSql.ISession _session;
-        public ListApplicationsController(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, UserManager<IUser> userManager, IUserService getUserList, YesSql.ISession session)
+        private readonly IAntiforgeryTokenGenerator _antiforgery;
+        public ListApplicationsController(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, UserManager<IUser> userManager, IUserService getUserList, YesSql.ISession session, IAntiforgeryTokenGenerator antiforgery)
         {
 
             _contentRepository = contentRepository;
@@ -34,15 +35,9 @@ namespace INZFS.MVC.Controllers
             _getUserList = getUserList;
             _session = session;
             _userManager = userManager;
+            _antiforgery = antiforgery;
         }
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("RetrieveAntiforgeryToken")]
-        public IActionResult RetrieveAntiforgeryToken()
-        {
-            return View();
-        }
-
+  
         [HttpGet]
         public async Task<ActionResult<List<ApplicationStatusModel>>> GetListOfApplications()
         {
@@ -63,7 +58,9 @@ namespace INZFS.MVC.Controllers
                 statusModel.ApplicantName = applicationFullNameField.Data == null ? "" : applicationFullNameField.Data;
                 statusModel.ApplicationStatus = _applicationContent.ApplicationStatus;
                 statusModel.CompanyName = applicationCompanyName == null ? "" : applicationCompanyName.Data;
-                
+
+                _antiforgery.SetAntiforgeryResponseHeader();
+
                 allresults.Add(statusModel);
             }
             return allresults;

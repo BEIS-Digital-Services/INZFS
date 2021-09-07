@@ -37,6 +37,7 @@ using NetEscapades.AspNetCore.SecurityHeaders;
 using System.Text;
 using Microsoft.AspNetCore.Http;
 using INZFS.MVC.Services.Swagger;
+using INZFS.MVC.Services.AntiForgery;
 
 namespace INZFS.MVC
 {
@@ -109,7 +110,7 @@ namespace INZFS.MVC
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
 
             ConfigureContent(services);
-
+            services.AddHttpContextAccessor();
             services.AddScoped<IContentRepository, ContentRepository>();
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, Navigations.AdminMenu>();
@@ -118,6 +119,7 @@ namespace INZFS.MVC
             services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IAntiforgeryTokenGenerator, AntiforgeryTokenGenerator>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 

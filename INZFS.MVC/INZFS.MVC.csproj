@@ -45,5 +45,8 @@
   <ItemGroup>
     <Folder Include="Views\Admin\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+  </ItemGroup>
 </Project>
 
