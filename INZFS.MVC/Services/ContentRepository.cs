@@ -24,8 +24,6 @@ namespace INZFS.MVC
 
         public Task<ApplicationContent> GetApplicationContent(string userName);
         public Task<ApplicationContent> CreateApplicationContent(string userName);
-
-        public Task AttachApplicationNumber(string userName);
         public Task<ApplicationContent> GetApplicationContentById(int id);
     }
     public class ContentRepository : IContentRepository
