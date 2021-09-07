@@ -32,31 +32,16 @@ namespace INZFS.Theme
         public override void ConfigureServices(IServiceCollection serviceCollection)
         {
             serviceCollection.AddTransient<IConfigureOptions<ResourceManagementOptions>, ResourceManagementOptionsConfiguration>();
-            serviceCollection.AddScoped<IDataMigration, UserTwoFactorSettingsIndexMigration>();
-            serviceCollection.AddSingleton<IIndexProvider, UserTwoFactorSettingsIndexProvider>();
 
-            serviceCollection.Configure<IdentityOptions>(options =>
-            {
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
-                options.User.RequireUniqueEmail = true;
-                options.Password.RequireDigit = true;
-                options.Password.RequireLowercase = true;
-                options.Password.RequireUppercase = true;
-                options.Password.RequireNonAlphanumeric = true;
-                options.Password.RequiredUniqueChars = 3;
-                options.Password.RequiredLength = 8;
-            });
+            serviceCollection.AddData();
+            serviceCollection.AddAuthentications();
+            serviceCollection.AddTwoFactorAuthentication(Configuration);
 
-            serviceCollection.AddScoped<ITwoFactorAuthenticationService, TwoFactorAuthenticationService>();
-            serviceCollection.AddScoped<IUserStore<IUser>, UserTwoFactorStore>();
-            serviceCollection.AddScoped<IUserTwoFactorSettingsService, UserTwoFactorSettingsService>();
-            serviceCollection.AddScoped<INotificationService, NotificationService>();
-
-            serviceCollection.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
-            serviceCollection.Configure<NotificationOption>(Configuration.GetSection("Notification"));
-
-            serviceCollection.AddScoped<INotificationClient>(services => new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
+            serviceCollection.AddScoped<INotificationClient>(services =>
+                new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
+         
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
+            serviceCollection.AddScoped<IRegistrationQuestionnaireService, RegistrationQuestionnaireService>();
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
