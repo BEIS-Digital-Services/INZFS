@@ -81,7 +81,7 @@ namespace INZFS.MVC
                 {
                     Version = "v1",
                     Title = "List Applications",
-                    Description = "A simple example ASP.NET Core Web API",
+                    Description = "Web API for updating application Status",
                     TermsOfService = new Uri("https://inzfs-sandbox.london.cloudapps.digital/"),
                     Contact = new OpenApiContact
                     {

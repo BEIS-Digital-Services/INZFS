@@ -8,8 +8,10 @@ namespace INZFS.MVC.Models.ListApplicationsApiModels
 {
     public class ApplicationStatusModel
     {
-        public int ID { get; set; }
-        public string ApplicationName { get; set; }
+        public int DocumentId { get; set; }
+        public string ApplicationId { get; set; }
+        public string ApplicantName { get; set; }
         public string CompanyName { get; set; }
+        public ApplicationStatus ApplicationStatus { get; set; }
     }
 }
