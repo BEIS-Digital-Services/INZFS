@@ -118,6 +118,7 @@ namespace INZFS.MVC.Controllers
                 applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
                                                     Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
 
+                SetPageTitle("Application Overview");
                 return View("ApplicationOverview", applicationOverviewContentModel);
             }
 
@@ -126,6 +127,7 @@ namespace INZFS.MVC.Controllers
             if (currentSection != null)
             {
                 var sectionContentModel = GetSectionContent(content, currentSection);
+                SetPageTitle(currentSection.Title);
                 return View(currentSection.RazorView, sectionContentModel);
             }
 
@@ -461,6 +463,7 @@ namespace INZFS.MVC.Controllers
 
         private ViewResult GetViewModel(Page currentPage, Field field)
         {
+            SetPageTitle(currentPage.SectionTitle);
             BaseModel model;
             switch (currentPage.FieldType)
             {
@@ -534,6 +537,7 @@ namespace INZFS.MVC.Controllers
 
         protected ViewResult PopulateViewModel(Page currentPage, BaseModel currentModel)
         {
+            SetPageTitle(currentPage.SectionTitle);
             switch (currentPage.FieldType)
             {
                 case FieldType.gdsTextBox:
@@ -701,6 +705,11 @@ namespace INZFS.MVC.Controllers
 
 
             return sectionContentModel;
+        }
+
+        private void SetPageTitle(string title)
+        {
+            ViewData["Title"] = $"{title} - Energy Entrepreneur Fund";
         }
     }
 }
