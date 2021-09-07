@@ -23,6 +23,7 @@ namespace INZFS.MVC
         public Task<ContentItem> GetContentItemById(string contentId);
 
         public Task<ApplicationContent> GetApplicationContent(string userName);
+        public Task<ApplicationContent> CreateApplicationContent(string userName);
 
         public Task AttachApplicationNumber(string userName);
         public Task<ApplicationContent> GetApplicationContentById(int id);
@@ -86,12 +87,22 @@ namespace INZFS.MVC
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task AttachApplicationNumber(string userName)
+        public async Task<ApplicationContent> CreateApplicationContent(string userName)
         {
-            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
-            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
-            var contentToSave = await query.FirstOrDefaultAsync();
+            var contentToSave = new ApplicationContent();
+            contentToSave.Application = new Application();
+            contentToSave.Author = userName;
+            contentToSave.CreatedUtc = DateTime.UtcNow;
+            contentToSave.ModifiedUtc = DateTime.UtcNow;
+            contentToSave.ApplicationNumber = await GetNewApplicationNumber();
+            contentToSave.ApplicationStatus = ApplicationStatus.InProgress;
+            _session.Save(contentToSave);
 
+            return contentToSave;
+
+        }
+        private async Task<string> GetNewApplicationNumber()
+        {
             string applicationNumber;
             bool duplicateFound;
             IEnumerable<ApplicationContent> cachedRecords = null;
@@ -102,7 +113,6 @@ namespace INZFS.MVC
                 if(cachedRecords == null)
                 {
                     var applicationNumberQuery = _session.Query<ApplicationContent, ApplicationContentIndex>();
-                    query = applicationNumberQuery.With<ApplicationContentIndex>(x => x.Author == userName);
                     cachedRecords = await applicationNumberQuery.ListAsync();
 
                 }
@@ -111,11 +121,7 @@ namespace INZFS.MVC
 
             } while (duplicateFound);
 
-
-
-            contentToSave.ApplicationNumber = applicationNumber;
-            contentToSave.ApplicationStatus = ApplicationStatus.InProgress;
-            _session.Save(contentToSave);
+            return applicationNumber;
         }
 
         public async Task<ApplicationContent> GetApplicationContentById(int id)

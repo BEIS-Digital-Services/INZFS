@@ -82,6 +82,11 @@ namespace INZFS.MVC.Controllers
 
 
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            if(content == null)
+            {
+                content = await _contentRepository.CreateApplicationContent(User.Identity.Name);
+            }
+
             // Page
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
             if(currentPage != null)
@@ -95,11 +100,6 @@ namespace INZFS.MVC.Controllers
             {
                 var sections = _applicationDefinition.Application.Sections;
                 var applicationOverviewContentModel = new ApplicationOverviewContent();
-
-                if(string.IsNullOrEmpty(content.ApplicationNumber))
-                {
-                    await _contentRepository.AttachApplicationNumber(User.Identity.Name);
-                }
 
                 applicationOverviewContentModel.ApplicationNumber = content.ApplicationNumber;
                 foreach (var section in sections)
@@ -221,9 +221,13 @@ namespace INZFS.MVC.Controllers
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             // If env is Development, prepend local filepath to publicUrl to ensure functionality
-                            if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
                             {
                                 publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
+                            }
+                            else
+                            {
+                                publicUrl = _mediaFileStore.NormalizePath(publicUrl);
                             }
 
                             try
