@@ -10,8 +10,11 @@ public class ReportService : IReportService
 {
     private string html;
     private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
-    private string questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
+    private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%; border:1px solid grey;""";
     private string questionHeaderStyle = @"style=""text-align:left;""";
+
+    private string coverPageTextColour = "rgb(28,28,28)";
+    private string sectionTitleTextColour = "rgb(20,40,99)";
 
     private readonly ApplicationDefinition _applicationDefinition;
     private readonly IContentRepository _contentRepository;
