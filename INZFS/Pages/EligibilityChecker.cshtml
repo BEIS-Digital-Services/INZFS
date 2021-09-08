@@ -38,13 +38,12 @@
 
 
 }
-@Orchard.ConsoleLog(eligibility)
 
 <body class="govuk-template__body competition-overview">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                <a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+                <a href="#" class="govuk-back-link" id="govuk-back-link">Back</a>
             </div>
             <div class="govuk-grid-column-one-quarter govuk-signout-right">
             </div>
@@ -74,13 +73,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -142,15 +141,10 @@
     </div>
     <style src="/css/application.css"></style>
     <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
-    <script>
-        window.GOVUKFrontend.initAll()
-    </script>
-    <script type="text/javascript">
-        function checkingRadio() {
-            button = document.querySelector('#continueBtn');
-            button.disabled = false;
-        }  
-    </script>
+    <script src="~/js/GovFrontendInit.js"></script>
+    <script src="/js/ToggleCheckBox.js"></script>
+    <script src="~/js/BackLink.js"></script>
+  
 </body>
 
 @functions
