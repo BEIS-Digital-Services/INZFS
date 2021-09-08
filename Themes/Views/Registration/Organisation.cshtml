@@ -1,0 +1,27 @@
+@model INZFS.Theme.ViewModels.RegistrationOrganisationViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+<partial name="_ErrorModelSummary" />
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-form-group">
+                    <h1 class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--l" for="name">
+                            What is your organisation's name?
+                        </label>
+                    </h1>
+                    <div id="org-name-hint" class="govuk-hint">
+                        You can change this later
+                    </div>
+                    <input class="govuk-input govuk-input--width-20" asp-for="OrganisationName" type="text" aria-describedby="org-name-hint">
+                </div>
+                <button class="govuk-button" data-module="govuk-button">Continue</button>
+            </div>
+        </div>
+    </form>
+</main>

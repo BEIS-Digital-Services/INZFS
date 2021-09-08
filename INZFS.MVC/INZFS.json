@@ -22,7 +22,7 @@
             "fieldName": "eligibility-to-apply-for-fund",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
             "actions": [
@@ -50,7 +50,7 @@
             "sectionTitle": "1.2 Your name",
             "question": "Full Name",
             "description": "Description",
-            "errorMessage": "Please enter full name ",
+            "errorMessage": "Enter Full Name before marking as complete",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Full Name",
             "fieldName": "full-name",
@@ -66,7 +66,7 @@
             "sectionTitle": "1.3 Your job title",
             "question": "Job Title",
             "description": "Description",
-            "errorMessage": "Please enter your job title ",
+            "errorMessage": "Enter Job Title before marking as complete",
             "fieldType": "gdsTextBox",
             "friendlyFieldName": "Job Title",
             "fieldName": "job-title",
@@ -115,7 +115,9 @@
             "fieldName": "balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "customValidator": "PastOrPresentDateValidator"
+
           },
           {
             "name": "vat-recovery",
@@ -165,7 +167,8 @@
             "dependsOn": {
               "fieldName": "organisation-running",
               "value": "1"
-            }
+            },
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "recent-turnover-date",
@@ -182,7 +185,9 @@
             "dependsOn": {
               "fieldName": "organisation-running",
               "value": "1"
-            }
+            },
+            "customValidator": "PastOrPresentDateValidator"
+
           }
         ]
       },
@@ -272,7 +277,7 @@
             "fieldName": "organisation-introduction",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 1000,
+            "maxLength": 400,
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
@@ -391,7 +396,7 @@
             "sectionTitle": "Consortium details",
             "question": "Consortium details",
             "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
-            "errorMessage": "Upload consortium details",
+            "errorMessage": "Select the Consortium details Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Consortium File Upload",
             "fieldName": "consortium-applicant-details",
@@ -401,9 +406,10 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and return to application overview",
+            "continueButtonText": "Save and continue",
             "uploadText": "Upload consortium details",
             "hideFromSummary": true,
+            "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
               "fieldName": "consortium-applicant",
               "value": "0"
@@ -576,7 +582,8 @@
             "dependsOn": {
               "fieldName": "parent-organisation",
               "value": "1"
-            }
+            },
+            "customValidator": "TurnOverValidator"
           },
           {
             "name": "parent-recent-turnover-date",
@@ -589,6 +596,7 @@
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
             "showMarkComplete": true,
+            "customValidator": "PastOrPresentDateValidator",
             "showSaveProgessButton": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
@@ -623,6 +631,7 @@
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
+            "customValidator": "PastOrPresentDateValidator",
             "friendlyFieldName": "Parent Balance sheet date",
             "fieldName": "parent-balance-sheet-date",
             "mandatory": true,
@@ -633,6 +642,7 @@
               "value": "1"
             }
           }
+
 
         ]
       },
@@ -696,8 +706,8 @@
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
-            "friendlyFieldName": "Technology Readiness Level",
-            "fieldName": "business-technology-readiness",
+            "friendlyFieldName": "Project Location",
+            "fieldName": "project-location",
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
@@ -809,7 +819,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload Technology Readiness Level"
+            "uploadText": "Upload Technology Readiness Level",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-infrastructure",
@@ -894,7 +905,7 @@
             "sectionTitle": "5.8.1 Upload project plan",
             "question": "Upload project plan",
             "hint": "",
-            "errorMessage": "Upload project plan",
+            "errorMessage": "Select a gantt chart",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Plan File Upload",
             "fieldName": "business-project-plan-document",
@@ -904,13 +915,14 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project plan"
+            "uploadText": "Upload project plan",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-project-evaluation",
             "question": "5.9. Project evaluation",
             "description": "Description",
-            "errorMessage": "Enter project evaluation",
+            "errorMessage": "Select a risk register",
             "fieldType": "gdsTextArea",
             "friendlyFieldName": "Project evaluation",
             "fieldName": "business-project-evaluation",
@@ -927,7 +939,7 @@
             "sectionTitle": "5.9.1 Upload project evaluation",
             "question": "Upload project evaluation",
             "hint": "",
-            "errorMessage": "Upload project evaluation",
+            "errorMessage": "Select a risk register",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Evaluation File Upload",
             "fieldName": "business-project-plan-document",
@@ -937,7 +949,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project evaluation"
+            "uploadText": "Upload project evaluation",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-skills-and-experience",
@@ -970,7 +983,8 @@
             "hint": "You can upload a document which highlights your team's experience and skills in greater detail:",
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload project evaluation"
+            "uploadText": "Upload skills and experience",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
             "name": "business-letter-of-support-document",
@@ -987,7 +1001,8 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "displayQuestionCounter": true,
-            "uploadText": "Upload a Letter of support"
+            "uploadText": "Upload a Letter of support",
+            "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           }
         ]
       },
@@ -1199,7 +1214,7 @@
             "sectionTitle": "6.2. Project cost breakdown",
             "question": "6.2 Project cost breakdown",
             "description": "Provide a breakdown of your costs using the template provided in the download section of this page.",
-            "errorMessage": "Please provide a breakdown of your costs",
+            "errorMessage": "Select the Project cost breakdown Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Cost Breakdown",
             "fieldName": "project-cost-breakdown",
@@ -1208,7 +1223,8 @@
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "showSaveProgessButton": true
+            "showSaveProgessButton": true,
+            "AcceptableFileExtensions": "xls, xlsx"
           },
           {
             "name": "financial-background",

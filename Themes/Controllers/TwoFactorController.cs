@@ -59,6 +59,11 @@ namespace INZFS.Theme.Controllers
                 {
                     await SendSms(user);
                 }
+
+                if (method == AuthenticationMethod.Email)
+                {
+                    await SendEmail(user);
+                }
                 
                 return RedirectToAction("EnterCode",  new { method,  returnUrl });
             }

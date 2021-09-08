@@ -12,12 +12,13 @@
             <div class="govuk-grid-row govuk-!-margin-bottom-3">
                 <div class="govuk-grid-column-full">
               
-                    <div id="qrCode"></div>
+                    <div id="qrCode" code="@Html.Raw(Model.AuthenticatorUri)"></div>
                     <div id="qrCodeData" data-url="@Html.Raw(@Model.AuthenticatorUri)"></div>
             
                 </div>
             </div>
-            <p class="govuk-body">Or enter the following code manually @Model.SharedKey</p>
+            <p class="govuk-body">Or enter the following code manually:</p>
+            <p class="govuk-body govuk-!-font-weight-bold">@Model.SharedKey</p>
             <a href="@Url.Action("EnterCode", "TwoFactor", new { Area = "INZFS.Theme", method = AuthenticationMethod.Authenticator, returnUrl = Url.GetQuery("returnUrl")})">
                 <button class="govuk-button" data-module="govuk-button">Continue</button>
             </a>
@@ -25,13 +26,5 @@
     </div>
 </main>
 
-
 <script src="/INZFS.Theme/lib/qrcode.min.js"></script>
-<script>
-    new QRCode(document.getElementById("qrCode"),
-        {
-            text: "@Html.Raw(Model.AuthenticatorUri)",
-            width: 150,
-            height: 150
-        });
-</script>
+<script src="/INZFS.Theme/lib/qrcode-activate.js"></script>

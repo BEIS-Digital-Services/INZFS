@@ -6,8 +6,6 @@
 
 }
 
-@Orchard.ConsoleLog(govpage)
-
 <body class="govuk-template__body competition-overview">
 	<div class="govuk-width-container">
 
@@ -52,14 +50,14 @@
 
 					<p class="govuk-body">Registrations to apply for this fund close on 25 June at 11.59pm.</p>
 
-					<a href="/FundApplication/section/application-overview" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-button--start" data-module="govuk-button">
+					<a href="/Account/Registration/Register" role="button" draggable="false" class="govuk-button govuk-!-margin-top-2 govuk-!-margin-bottom-4 govuk-button--start" data-module="govuk-button">
 						Start now
 						<svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" aria-hidden="true" focusable="false">
 							<path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"></path>
 						</svg>
 					</a>
 
-					<p class="govuk-body-s"><a class="govuk-link" href="/login">Sign into your account</a>.</p>
+					<p class="govuk-body-s"><a class="govuk-link" href="/FundApplication/section/application-overview">Sign into your account</a>.</p>
 
 					<h2 class="govuk-heading-m">What happens after you submit your application</h2>
 
@@ -110,9 +108,7 @@
 		</main>
 	</div>
 	<script src="~/js/govuk-frontend-3.12.0.min.js"></script>
-	<script>
-		window.GOVUKFrontend.initAll()
-	</script>
+	<script src="~/js/GovFrontendInit.js"></script>
 
 </body>
 
