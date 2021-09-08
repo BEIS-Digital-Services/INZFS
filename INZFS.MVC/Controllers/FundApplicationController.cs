@@ -159,19 +159,19 @@ namespace INZFS.MVC.Controllers
                     var errorMessage = await _fileUploadService.Validate(file, currentPage);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
-                        //TODO - Handle validation Error
                         ModelState.AddModelError("DataInput", errorMessage);
                     }
                 }
-                //UploadFile
-                //else
-                //{
-                //    //TODO - Handle validation Error
-                //    if (submitAction != "DeleteFile")
-                //    {
-                //        ModelState.AddModelError("DataInput", "No file was uploaded.");
-                //    }
-                //}
+
+                // **** Need to remove the validation below and re-factor ******
+                var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+
+                if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
+                {
+                    ModelState.AddModelError("DataInput", "No file was uploaded.");
+                }
+
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
