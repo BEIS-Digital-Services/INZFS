@@ -72,7 +72,7 @@ namespace INZFS
             {
                 HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
                 MinimumSameSitePolicy = SameSiteMode.Strict,
-                Secure = CookieSecurePolicy.SameAsRequest,
+                Secure = CookieSecurePolicy.Always
             });
             app.UseVcapSession();
             app.UseStaticFiles();
