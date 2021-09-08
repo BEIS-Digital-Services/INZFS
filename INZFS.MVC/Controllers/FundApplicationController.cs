@@ -222,24 +222,13 @@ namespace INZFS.MVC.Controllers
 
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
-                            // If env is Development, prepend local filepath to publicUrl to ensure functionality
-                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                            {
-                                publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
-                            }
-                            else
-                            {
-                                publicUrl = _mediaFileStore.NormalizePath(publicUrl);
-                            }
-
                             try
                             {
-                                XLWorkbook wb = new(publicUrl);
+                                XLWorkbook wb = new(file.OpenReadStream());
 
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    //IXLCell totalGrantFunding = ws.Cell("A8");
                                     IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
                                     IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
                                     IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
