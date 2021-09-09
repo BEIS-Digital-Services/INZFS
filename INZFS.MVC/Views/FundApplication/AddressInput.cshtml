@@ -43,7 +43,7 @@
             <div class="govuk-form-group">
                 <label class="govuk-label" for="address-town">
                     Town or city
-                </label> 
+                </label>
                 <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="City" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.City">
             </div>
             <div class="govuk-form-group">
@@ -64,8 +64,11 @@
         </fieldset>
     </div>
 
+    @if (Model.AccordianReference == "OrganisationAddress")
+    {
+        @Html.Partial("_Accordion", "AddressInputModel")
+    }
 
-    @Html.Partial("_Accordion", "")
 
     @if (Model.ShowMarkAsComplete)
     {
