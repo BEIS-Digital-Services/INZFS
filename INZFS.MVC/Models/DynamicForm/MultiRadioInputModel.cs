@@ -13,11 +13,11 @@ namespace INZFS.MVC.Models.DynamicForm
     {
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true && MarkAsComplete)
+            if (Mandatory == true)
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
                 }
             }
         }
