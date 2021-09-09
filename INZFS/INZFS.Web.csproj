@@ -17,6 +17,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders" Version="0.16.0" />
+    <PackageReference Include="NetEscapades.AspNetCore.SecurityHeaders.TagHelpers" Version="0.16.0" />
       	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-16368" />
         <PackageReference Include="OrchardCore.AutoSetup" Version="1.0.0-rc2-16368" />
       	<PackageReference Include="OrchardCore.Redis" Version="1.0.0-rc2-16369" />
