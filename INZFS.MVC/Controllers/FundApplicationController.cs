@@ -163,6 +163,21 @@ namespace INZFS.MVC.Controllers
                         ModelState.AddModelError("DataInput", errorMessage);
                     }
                 }
+
+                if (currentPage.Mandatory)
+                {
+                    var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                    if (contentToSave != null)
+                    {
+                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+
+                        //TODO - Handle validation Error
+                        if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
+                        {
+                            ModelState.AddModelError("DataInput", "No file was uploaded.");
+                        }
+                    }
+                }
                 //UploadFile
                 //else
                 //{
@@ -294,7 +309,7 @@ namespace INZFS.MVC.Controllers
                         //TODO - Handle validation Error
                         if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                         {
-                            ModelState.AddModelError("DataInput", "No file was uploaded.");
+                           // ModelState.AddModelError("DataInput", "No file was uploaded.");
                         }
                         else
                         {
@@ -312,7 +327,8 @@ namespace INZFS.MVC.Controllers
                         Data = model.GetData(),
                         OtherOption = model.GetOtherSelected(),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
-                        AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null
+                        AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null,
+                        FieldStatus = GetFieldStatus(currentPage, model)
                     });
                 }
                 else
@@ -335,7 +351,8 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
-                    if(existingFieldData.Data == "Other")
+                    existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
+                    if (existingFieldData.Data == "Other")
                     {
                         existingFieldData.OtherOption = model.GetOtherSelected();
                     }
@@ -525,6 +542,7 @@ namespace INZFS.MVC.Controllers
                     {
                         uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     }
+                    uploadmodel.FieldStatus = field?.FieldStatus;
                     return View("FileUpload", uploadmodel);
                 case FieldType.gdsStaticPage:
                     model = new StaticPageModel();
@@ -581,8 +599,10 @@ namespace INZFS.MVC.Controllers
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
             currentModel.SelectedOptions = currentPage.SelectOptions;
-            
-            if(currentPage.Actions?.Count > 0)
+            currentModel.FieldType = currentPage.FieldType;
+            currentModel.Mandatory = currentPage.Mandatory;
+            currentModel.AcceptableFileExtensions = currentPage.AcceptableFileExtensions;
+            if (currentPage.Actions?.Count > 0)
             {
                 currentModel.Actions = currentPage.Actions;
             }
@@ -712,6 +732,29 @@ namespace INZFS.MVC.Controllers
         private void SetPageTitle(string title)
         {
             ViewData["Title"] = $"{title} - Energy Entrepreneur Fund";
+        }
+
+        private FieldStatus GetFieldStatus(Page currentPage, BaseModel model)
+        {
+            if(currentPage.FieldType == FieldType.gdsFileUpload && model.Mandatory.HasValue && model.Mandatory.Value == false)
+            {
+                // Use the values from the radio buttons
+               return (FieldStatus)model.FieldStatus;
+            }
+
+            if (model.ShowMarkAsComplete)
+            {
+                if (model.MarkAsComplete)
+                {
+                    return FieldStatus.Completed;
+                }
+                else
+                {
+                    return FieldStatus.InProgress;
+                }
+            }
+
+            return FieldStatus.NotStarted;
         }
     }
 }

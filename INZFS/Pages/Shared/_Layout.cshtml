@@ -16,6 +16,7 @@
     <!--<![endif]-->
     <!--[if IE 8]><link rel="stylesheet" media="screen" href="/assets/static/govuk-template-ie8.css" /><![endif]-->
     <link rel="stylesheet" media="print" href="/assets/static/govuk-template-print.css">
+    @*<link rel="stylesheet" media="print" href="/assets/static/govuk-frontend-3.12.0.min.css">*@
 
     <link rel="stylesheet" media="all" href="/assets/static/fonts.css">
     <link rel="stylesheet" media="all" href="/css/application.css">
@@ -39,12 +40,12 @@
     <!-- <link rel="canonical" href="https://www.gov.uk/"> -->
     <meta name="govuk:rendering-application" content="frontend">
 </head>
-<body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
+<body class="govuk-template__body app-body-class js-enabled" data-test="My value" data-other="report:details">
 
 	<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
 	<header class="govuk-header " role="banner" data-module="govuk-header">
-		<div class="govuk-header__container app-width-container">
+		<div class="govuk-header__container govuk-width-container">
 			<div class="govuk-header__logo">
 				<a href="#" class="govuk-header__link govuk-header__link--homepage">
 					<span class="govuk-header__logotype">
@@ -58,12 +59,19 @@
 					</span>
 				</a>
 			</div>
-			<div class="govuk-header__content">
-				<a href="#" class="govuk-header__link govuk-header__link--service-name">
-					Energy Entrepreneurs Fund (EEF)
-				</a>
-				<button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
-			</div>
+            <div class="govuk-header__content">
+                <a href="#" class="govuk-header__link govuk-header__link--service-name">
+                    Energy Entrepreneurs Fund (EEF)
+                </a>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
+                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" style="color:white;" href="/INZFS.Theme/Account/LogOff">
+                            Sign out
+                        </a>
+                    </span>
+                }               
+                </div>
 		</div>
 	</header>
 
@@ -79,15 +87,6 @@
             </p>
         </div>
 
-         @if(User.Identity?.IsAuthenticated??false){
-            <a class="govuk-back-link" href="/Account/MyAccount" style="float:right">
-                Your account
-            </a>
-           
-            <a class="govuk-back-link" href="/INZFS.Theme/Account/LogOff" style="float:right">
-                SignOut
-            </a>
-        }
 
         @if (Model is BaseModel)
         {
@@ -134,14 +133,6 @@
         
                 <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
                     <p style="margin-top:10px;">
-                        @*<a class="govuk-body-m govuk-link" href="preferences/youraccount.html">Your account</a>*@
-
-
-
-                        <a class="govuk-body-m govuk-link" href="/INZFS.Theme/Account/LogOff" style="float:right;margin-left:10px;">
-                            SignOut
-                        </a>
-
                         <a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right" >
                             Your account
                         </a>
