@@ -4,16 +4,10 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
 
 @if (Model.DisplayQuestionCounter)
 {
-    <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+    <span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
 }
 
 <div class="@(string.IsNullOrEmpty(Model.FileToDownload) == true ? "" : "govuk-grid-column-two-thirds")">
@@ -51,7 +45,6 @@
         <div class="govuk-grid-row govuk-!-margin-bottom-3">
 
 
-
             <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-3">
                 <div class="file-upload--border">
                     <input class="govuk-file-upload govuk-!-font-size-16" id="file" name="file" type="file"
@@ -70,7 +63,6 @@
                 <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
                     <div class="file-upload--border">
                         <dl class="govuk-summary-list">
-
                             <div class="govuk-summary-list__row govuk-!-font-size-16">
                             <dd class="govuk-summary-list__value">
                                 @Model.UploadedFile.Name <span class="govuk-!-margin-left-6">@Model.UploadedFile.Size MB</span>
@@ -82,7 +74,6 @@
                                 </button>
                             </dd>
                     </div>
-
                     </dl>
                 </div>
             </div>
@@ -95,15 +86,14 @@
                     <dl class="govuk-summary-list">
 
                         <div class="govuk-summary-list__row govuk-!-font-size-16">
-                            <dd class="govuk-summary-list__value">
-                                No file uploaded 
-                            </dd>
-                        </div>
-                    </dl>
+                        <dd class="govuk-summary-list__value">
+                            No file uploaded
+                        </dd>
                 </div>
+                </dl>
             </div>
-        }
-
+    </div>
+}
 
 
             </div>
@@ -121,13 +111,6 @@
                     </ul>
                 </div>
             </details>
-
-            @*<h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>*@
-            @*
-                <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
-            *@
-
-
 
             @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null && Model.UploadedFile.ParsedExcelData != null)
             {
@@ -196,19 +179,8 @@
                 </div>
             </div>
 
-            </form>
+    </form>
 
-            <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+</div>
 
-
-            @if (!string.IsNullOrEmpty(Model.FileToDownload))
-            {
-                <div class="govuk-grid-column-one-third">
-                    <aside class="app-related-items" role="complementary">
-                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
-                        <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
-                    </aside>
-                </div>
-            }
-
-            </div>
+@Html.Partial("_BackButton", Model)
