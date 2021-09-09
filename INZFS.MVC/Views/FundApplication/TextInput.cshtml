@@ -26,9 +26,11 @@
             </label>
         </h1>
         @Html.Partial("_Hint", Model.Hint)
+
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
-               name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
+
+        @Html.Partial($"../TextBoxTypes/_{Model.TextType}.cshtml", Model)
+
     </div>
 
 

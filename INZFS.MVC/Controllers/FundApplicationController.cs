@@ -159,7 +159,6 @@ namespace INZFS.MVC.Controllers
                     var errorMessage = await _fileUploadService.Validate(file, currentPage);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
-                        //TODO - Handle validation Error
                         ModelState.AddModelError("DataInput", errorMessage);
                     }
                 }
@@ -237,24 +236,13 @@ namespace INZFS.MVC.Controllers
 
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
-                            // If env is Development, prepend local filepath to publicUrl to ensure functionality
-                            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-                            {
-                                publicUrl = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + publicUrl);
-                            }
-                            else
-                            {
-                                publicUrl = _mediaFileStore.NormalizePath(publicUrl);
-                            }
-
                             try
                             {
-                                XLWorkbook wb = new(publicUrl);
+                                XLWorkbook wb = new(file.OpenReadStream());
 
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    //IXLCell totalGrantFunding = ws.Cell("A8");
                                     IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
                                     IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
                                     IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
@@ -464,6 +452,10 @@ namespace INZFS.MVC.Controllers
 
             return View("ApplicationComplete", content.ApplicationNumber);
         }
+        public IActionResult PrivacyNotice()
+        {
+            return View();
+        }
 
         [HttpPost, ActionName("ApplicationComplete")]
         public async Task<IActionResult> ApplicationComplete(string equality)
@@ -490,9 +482,6 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
-                case FieldType.gdsCurrencyBox:
-                    model = new CurrencyInputModel();
-                    return View("CurrencyInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, field));
@@ -587,7 +576,7 @@ namespace INZFS.MVC.Controllers
 
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
-
+            currentModel.TextType = currentPage.TextType;
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
