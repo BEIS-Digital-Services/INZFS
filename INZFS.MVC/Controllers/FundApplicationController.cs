@@ -570,6 +570,7 @@ namespace INZFS.MVC.Controllers
             currentModel.MaxLength = currentPage.MaxLength;
             currentModel.MaxLengthValidationType = currentPage.MaxLengthValidationType;
             currentModel.SelectedOptions = currentPage.SelectOptions;
+            currentModel.AccordianReference = currentPage.AccordianReference;
             
             if(currentPage.Actions?.Count > 0)
             {
