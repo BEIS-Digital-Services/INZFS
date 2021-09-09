@@ -23,7 +23,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
-        public string TextType { get; set; }
+        public TextType TextType { get; set; }
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
         public string OtherOption { get; set; }
