@@ -436,6 +436,10 @@ namespace INZFS.MVC.Controllers
 
             return View("ApplicationComplete", content.ApplicationNumber);
         }
+        public IActionResult PrivacyNotice()
+        {
+            return View();
+        }
 
         [HttpPost, ActionName("ApplicationComplete")]
         public async Task<IActionResult> ApplicationComplete(string equality)
