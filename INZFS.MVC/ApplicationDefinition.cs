@@ -22,7 +22,12 @@ namespace INZFS.MVC
         gdsAddressTextBox,
         gdsStaticPage
     }
-
+    public enum TextType
+    {
+        Standard,
+        CurrencyBox,
+        NumberBox
+    }
     public enum MaxLengthValidationType
     {
         Character,
@@ -42,7 +47,7 @@ namespace INZFS.MVC
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
-        public string TextType { get; set; }
+        public TextType TextType { get; set; }
         public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }

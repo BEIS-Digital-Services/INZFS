@@ -29,19 +29,7 @@
 
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
 
-        @if (Model.TextType == "TextBox")
-        {
-            @Html.Partial("../TextBoxTypes/_TextBox.cshtml", Model)
-        }
-        @if (Model.TextType == "CurrencyBox")
-        {
-            @Html.Partial("../TextBoxTypes/_CurrencyBox.cshtml", Model)
-        }
-        @if (Model.TextType == "NumberBox")
-        {
-            @Html.Partial("../TextBoxTypes/_NumberBox.cshtml", Model)
-        }
-
+        @Html.Partial($"../TextBoxTypes/_{Model.TextType}.cshtml", Model)
 
     </div>
 
