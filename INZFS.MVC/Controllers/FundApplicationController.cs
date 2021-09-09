@@ -466,9 +466,6 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsTextBox:
                     model = new TextInputModel();
                     return View("TextInput", PopulateModel(currentPage, model, field));
-                case FieldType.gdsCurrencyBox:
-                    model = new CurrencyInputModel();
-                    return View("CurrencyInput", PopulateModel(currentPage, model, field));
                 case FieldType.gdsTextArea:
                     model = new TextAreaModel();
                     return View("TextArea", PopulateModel(currentPage, model, field));
@@ -562,7 +559,7 @@ namespace INZFS.MVC.Controllers
 
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
-
+            currentModel.TextType = currentPage.TextType;
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;

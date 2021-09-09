@@ -21,7 +21,7 @@ namespace INZFS.MVC.ModelProviders
 
             var subclasses = new[] { typeof(TextInputModel), typeof(TextAreaModel), 
                 typeof(DateModel), typeof(MultiSelectInputModel),
-                typeof(YesornoInputModel), typeof(FileUploadModel), typeof(CurrencyInputModel), 
+                typeof(YesornoInputModel), typeof(FileUploadModel),
                 typeof(RadioSingleSelectModel), typeof(MultiRadioInputModel), typeof(StaticPageModel), typeof(AddressInputModel)
                 };
 
@@ -83,10 +83,6 @@ namespace INZFS.MVC.ModelProviders
             else if (modelTypeValue == nameof(FileUploadModel))
             {
                 (modelMetadata, modelBinder) = binders[typeof(FileUploadModel)];
-            }
-            else if (modelTypeValue == nameof(CurrencyInputModel))
-            {
-                (modelMetadata, modelBinder) = binders[typeof(CurrencyInputModel)];
             }
             else if (modelTypeValue == nameof(RadioSingleSelectModel))
             {
