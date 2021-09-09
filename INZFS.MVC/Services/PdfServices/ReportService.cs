@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 public class ReportService : IReportService
 {
     private string html;
-    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
-    private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%; border:1px solid grey;""";
-    private string questionHeaderStyle = @"style=""text-align:left;""";
+    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
+    private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
+    private string questionHeaderStyle = @"style=""color:white; text-align:left;""";
+    private string answerCellStyle = @"style=""border:1px solid grey""";
 
     private string coverPageTextColour = "rgb(28,28,28)";
     private string sectionTitleTextColour = "rgb(20,40,99)";
@@ -64,7 +65,7 @@ public class ReportService : IReportService
         foreach (var section in _applicationDefinition.Application.Sections)
         {
             string sectionHtml = $@"
-                <h2>{ section.Title }</h2>
+                <h2 style=""color:rgb(28, 28, 28)"" >{ section.Title }</h2>
             ";
             html = html + sectionHtml;
 
@@ -74,7 +75,7 @@ public class ReportService : IReportService
 
     private void PopulateHtmlQuestions(Section section)
     {
-        foreach (var page in section.Pages)
+        foreach (var page in section.Pages) if (!page.HideFromSummary)
         {
             String questionHtml = $@"
                 <table { tableStyle }>
@@ -82,7 +83,7 @@ public class ReportService : IReportService
                     <th { questionHeaderStyle }>{ page.Question }</th>
                   </tr>
                   <tr>
-                    <td>{ GetAnswer(page) }</td>
+                    <td { answerCellStyle }>{ GetAnswer(page) }</td>
                   </tr>
                 </table>
                 ";
