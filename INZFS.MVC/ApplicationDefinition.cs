@@ -182,6 +182,14 @@ namespace INZFS.MVC
 
     }
 
+    public enum FieldStatus
+    {
+        NotStarted,
+        InProgress,
+        Completed,
+        NotApplicable
+    }
+
     public class Field
     {
         public string Name { get; set; }
@@ -189,6 +197,7 @@ namespace INZFS.MVC
         public string OtherOption { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
+        public FieldStatus? FieldStatus { get; set; }
     }
 
     public class UploadedFile
