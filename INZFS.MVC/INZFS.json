@@ -1392,7 +1392,8 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue to next step"
           },
           {
             "name": "consumer-trials-participants",
@@ -1412,6 +1413,33 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "continueButtonText": "Save and continue to next step"
+          },
+          {
+            "name": "trl-at-project-start",
+            "sectionTitle": "7.8. Technology Readiness Level (TRL) at project start",
+            "question": "What is your expected technology readiness level (TRL) at the project's start?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsMultiSelect",
+            "friendlyFieldName": "trl-at-project-start",
+            "fieldName": "trl-at-project-start",
+            "mandatory": true,
+            "insetText": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue to next step",
+            "selectOptions": [
+              "TRL1",
+              "TRL2",
+              "TRL3",
+              "TRL4",
+              "TRL5",
+              "TRL6",
+              "TRL7",
+              "TRL8",
+              "TRL9"
+            ]
           }
         ]
       },
