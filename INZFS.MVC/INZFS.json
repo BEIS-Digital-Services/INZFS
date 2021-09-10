@@ -1278,6 +1278,30 @@
         "continueButtonText": "Save and continue",
         "RazorView": "PerformanceData",
         "pages": [
+          {
+            "name": "type-of-development",
+            "sectionTitle": "7.1. Type of development",
+            "question": "Which of the following descriptions fits your project best?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsSingleRadioSelectOption",
+            "friendlyFieldName": "Type of development",
+            "fieldName": "type-of-development",
+            "mandatory": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "insetText": true,
+            "hasOtherOption": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue",
+            "selectOptions": [
+              "Product development",
+              "Hardware development",
+              "Service development",
+              "Software development",
+              "Process development"
+            ]
+          }
         ]
       },
       {
