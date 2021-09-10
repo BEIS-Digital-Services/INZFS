@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using INZFS.Theme;
 using INZFS.Theme.Migrations;
 using INZFS.Theme.Models;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using OrchardCore.Data.Migration;
+using OrchardCore.Environment.Shell.Scope;
 using OrchardCore.ResourceManagement;
 using OrchardCore.Users;
 using YesSql.Indexes;
@@ -33,6 +35,13 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddAuthentications(
             this IServiceCollection services)
         {
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/LogOff";
+                options.AccessDeniedPath = "/Error/403";
+            });
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
