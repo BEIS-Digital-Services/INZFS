@@ -3,7 +3,7 @@
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
-            <a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+            <a href="#" id="govuk-back-link" class="govuk-back-link">Back</a>
         </div>
         <div class="govuk-grid-column-one-quarter"></div>
     </div>
@@ -70,7 +70,7 @@
                 </details>
 
                 <button type="submit" id="SaveAndContinue" name="applicationComplete" 
-                        class="btn btn-success publish govuk-button" value="applicationComplete">Continue</button>
+                        class="btn btn-success publish govuk-button" value="applicationComplete" disabled="disabled">Continue</button>
 
                 </form>
 
@@ -80,3 +80,5 @@
 
     </main>
 </div>
+<script src="/js/ApplicationCompleteToggleBtn.js"></script>
+<script src="~/js/BackLink.js"></script>

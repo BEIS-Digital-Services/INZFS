@@ -4,6 +4,9 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
+@{ 
+    string extensions = string.Join(",", Model.AcceptableFileExtensions.Split(',').Select(x => "." + x.Trim()));
+}
 
 @if (Model.DisplayQuestionCounter)
 {
@@ -48,7 +51,7 @@
             <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-3">
                 <div class="file-upload--border">
                     <input class="govuk-file-upload govuk-!-font-size-16" id="file" name="file" type="file"
-                           accept=".txt,.pdf,.xlsx,.doc,.docx">
+                           accept="@extensions">
                 </div>
             </div>
 
@@ -107,7 +110,7 @@
                 <div class="govuk-details__text">
                     <p class="govuk-body">You can only upload the following file types:</p>
                     <ul class="govuk-list govuk-list--bullet">
-                        <li>@Model.AcceptableFileExtensions</li>
+                        <li>@Model.AcceptableFileExtensions.ToUpper()</li>
                     </ul>
                 </div>
             </details>
