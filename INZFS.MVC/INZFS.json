@@ -1440,6 +1440,33 @@
               "TRL8",
               "TRL9"
             ]
+          },
+          {
+            "name": "trl-at-project-close",
+            "sectionTitle": "7.9. Technology Readiness Level (TRL) at project close",
+            "question": "What is your expected technology readiness level (TRL) at the project's end?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsMultiSelect",
+            "friendlyFieldName": "trl-at-project-close",
+            "fieldName": "trl-at-project-close",
+            "mandatory": true,
+            "insetText": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue to next step",
+            "selectOptions": [
+              "TRL1",
+              "TRL2",
+              "TRL3",
+              "TRL4",
+              "TRL5",
+              "TRL6",
+              "TRL7",
+              "TRL8",
+              "TRL9"
+            ]
           }
         ]
       },
