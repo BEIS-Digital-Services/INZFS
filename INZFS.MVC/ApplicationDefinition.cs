@@ -22,11 +22,22 @@ namespace INZFS.MVC
         gdsAddressTextBox,
         gdsStaticPage
     }
-
+    public enum TextType
+    {
+        Standard,
+        CurrencyBox,
+        NumberBox
+    }
     public enum MaxLengthValidationType
     {
         Character,
         Word
+    }
+
+    public enum GridDisplayType
+    {
+        TwoThird,
+        FullPage
     }
 
     public class Page
@@ -34,6 +45,7 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
+        public GridDisplayType GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
@@ -42,6 +54,7 @@ namespace INZFS.MVC
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
+        public TextType TextType { get; set; }
         public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
@@ -56,7 +69,6 @@ namespace INZFS.MVC
         public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
-
         public string FileToDownload { get; set; }
         public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
@@ -175,6 +187,14 @@ namespace INZFS.MVC
 
     }
 
+    public enum FieldStatus
+    {
+        NotStarted,
+        InProgress,
+        Completed,
+        NotApplicable
+    }
+
     public class Field
     {
         public string Name { get; set; }
@@ -182,6 +202,7 @@ namespace INZFS.MVC
         public string OtherOption { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
+        public FieldStatus? FieldStatus { get; set; }
     }
 
     public class UploadedFile
