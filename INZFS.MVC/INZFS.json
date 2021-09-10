@@ -1393,6 +1393,25 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true
+          },
+          {
+            "name": "consumer-trials-participants",
+            "sectionTitle": "7.7. Consumer trials participants",
+            "question": "How many people will take part in your consumer trials?",
+            "description": "Description",
+            "errorMessage": "Enter Consumer trials participants before marking as complete",
+            "fieldType": "gdsTextBox",
+            "textType": "NumberBox",
+            "friendlyFieldName": "Consumer trials participants",
+            "fieldName": "consumer-trials-participant",
+            "labelTitle": "Enter 0 if you are not planning consumer trials",
+            "mandatory": true,
+            "insetText": true,
+            "accordianReference": "",
+            "maxLength": 100,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "continueButtonText": "Save and continue to next step"
           }
         ]
       },
