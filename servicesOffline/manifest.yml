@@ -1,0 +1,6 @@
+---
+applications:
+- name: inzfs-prod-redirect
+  memory: 64M
+  buildpacks:
+  - staticfile_buildpack
