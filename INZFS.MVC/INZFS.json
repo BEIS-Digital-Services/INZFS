@@ -247,7 +247,7 @@
             "friendlyFieldName": "Organisation Address",
             "fieldName": "organisation-address",
             "mandatory": true,
-            "accordianReference": "",
+            "accordianReference": "OrganisationAddress",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
