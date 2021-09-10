@@ -25,6 +25,7 @@ namespace INZFS.Theme.Controllers
         private readonly IUrlEncodingService _encodingService;
         private readonly IRegistrationManager _registrationManager;
         private readonly IRegistrationQuestionnaireService _questionnaireService;
+        private readonly SignInManager<IUser> _signInManager;
         private readonly NotificationOption _notificationOption;
 
         public RegistrationController(UserManager<IUser> userManager, 
@@ -32,13 +33,15 @@ namespace INZFS.Theme.Controllers
             IUrlEncodingService encodingService, 
             IOptions<NotificationOption> notificationOption, 
             IRegistrationManager registrationManager,
-            IRegistrationQuestionnaireService questionnaireService) 
+            IRegistrationQuestionnaireService questionnaireService,
+            SignInManager<IUser> signInManager) 
         {
             _userManager = userManager;
             _notificationService = notificationService;
             _encodingService = encodingService;
             _registrationManager = registrationManager;
             _questionnaireService = questionnaireService;
+            _signInManager = signInManager;
             _notificationOption = notificationOption.Value;
         }
 
@@ -46,6 +49,11 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Register(string returnUrl)
         {
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                await _signInManager.SignOutAsync();
+            }
+
             return View(new RegistrationViewModel());
         }
 
