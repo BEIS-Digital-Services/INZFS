@@ -183,16 +183,6 @@ namespace INZFS.MVC.Controllers
                     }
                    
                 }
-                
-                //UploadFile
-                //else
-                //{
-                //    //TODO - Handle validation Error
-                //    if (submitAction != "DeleteFile")
-                //    {
-                //        ModelState.AddModelError("DataInput", "No file was uploaded.");
-                //    }
-                //}
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
@@ -214,13 +204,6 @@ namespace INZFS.MVC.Controllers
                 {
                     if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
-                        //var errorMessage = await _fileUploadService.Validate(file);
-                        //if (!string.IsNullOrEmpty(errorMessage))
-                        //{
-                        //    //TODO - Handle validation Error
-                        //    ModelState.AddModelError("DataInput", errorMessage);
-                        //}
-
                         var directoryName = Guid.NewGuid().ToString();
                         try
                         {
@@ -725,7 +708,7 @@ namespace INZFS.MVC.Controllers
 
         private void SetPageTitle(string title)
         {
-            ViewData["Title"] = $"{title} - Energy Entrepreneur Fund";
+            ViewData["Title"] = $"{title}";
         }
 
         private FieldStatus GetFieldStatus(Page currentPage, BaseModel model)
