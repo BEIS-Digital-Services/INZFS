@@ -28,8 +28,12 @@
 
     </div>
 
-
     @Html.Partial("_Accordion", "")
+
+    @if (Model.InsetText)
+    {
+        @Html.Partial("_InsetText")
+    }
 
     @if (Model.ShowMarkAsComplete)
     {
