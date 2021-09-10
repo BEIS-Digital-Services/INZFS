@@ -1,0 +1,35 @@
+@model INZFS.Theme.ViewModels.LoginViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+}
+
+<partial name="_ErrorModelSummary" />
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-xl">Your application</h1>
+                <p class="govuk-body govuk-!-font-weight-bold">Sign in to an existing account</p>
+                <div class="govuk-form-group" asp-validation-error-class-for="EmailAddress">
+                    <label class="govuk-label" asp-for="EmailAddress">
+                        Your email address
+                    </label>
+                    <span asp-validation-for="EmailAddress" class="govuk-error-message"></span>
+                    <input class="govuk-input govuk-input--width-20" asp-for="EmailAddress" spellcheck="false" autocomplete="email">
+                </div>
+                <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
+                    <label class="govuk-label" asp-for="Password">
+                        Password
+                    </label>
+                    <span asp-validation-for="Password" class="govuk-error-message"></span>
+                    <input class="govuk-input govuk-input--width-20" asp-for="Password"  type="password" spellcheck="false" autocomplete="password">
+                </div>
+                <p class="govuk-body-s"><a class="govuk-link" asp-area="INZFS.Theme" asp-controller="Account" asp-action="ForgottenPassword" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Forgotten your password?</a></p>
+                <button class="govuk-button" data-module="govuk-button">Sign in</button>
+                <p class="govuk-body-s"><a asp-area="INZFS.Theme" asp-controller="Registration" asp-action="Register" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Register as a new user</a></p>
+                <p class="govuk-body-s"><a class="govuk-link" href="#">Need help signing in or creating an account?</a></p>
+            </div>
+        </div>
+    </form>
+</main>

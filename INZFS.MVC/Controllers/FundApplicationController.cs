@@ -156,6 +156,7 @@ namespace INZFS.MVC.Controllers
             {
                 if (file != null || submitAction == "UploadFile")
                 {
+                    ModelState.Clear();
                     var errorMessage = await _fileUploadService.Validate(file, currentPage);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
@@ -163,20 +164,26 @@ namespace INZFS.MVC.Controllers
                     }
                 }
 
-                if (currentPage.Mandatory)
+                if(ModelState.IsValid)
                 {
-                    var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                    if (contentToSave != null)
+                    var markedAsComplete = GetFieldStatus(currentPage, model) == FieldStatus.Completed;
+                    //if (currentPage.Mandatory)
+                    if (markedAsComplete)
                     {
-                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
-
-                        //TODO - Handle validation Error
-                        if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
+                        var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                        if (contentToSave != null)
                         {
-                            ModelState.AddModelError("DataInput", "No file was uploaded.");
+                            var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+
+                            if ((submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation) && file != null) || file == null)
+                            {
+                                ModelState.AddModelError("DataInput", "No file was uploaded.");
+                            }
                         }
                     }
+                   
                 }
+                
                 //UploadFile
                 //else
                 //{
@@ -452,10 +459,6 @@ namespace INZFS.MVC.Controllers
 
             return View("ApplicationComplete", content.ApplicationNumber);
         }
-        public IActionResult PrivacyNotice()
-        {
-            return View();
-        }
 
         [HttpPost, ActionName("ApplicationComplete")]
         public async Task<IActionResult> ApplicationComplete(string equality)
@@ -580,6 +583,7 @@ namespace INZFS.MVC.Controllers
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
+            currentModel.SectionTitle = currentPage.SectionTitle ?? currentPage.Question;
             currentModel.Hint = currentPage.Hint;
             currentModel.NextPageName = currentPage.NextPageName;
             currentModel.ReturnPageName = currentPage.ReturnPageName;
@@ -590,6 +594,7 @@ namespace INZFS.MVC.Controllers
             currentModel.SelectedOptions = currentPage.SelectOptions;
             currentModel.FieldType = currentPage.FieldType;
             currentModel.Mandatory = currentPage.Mandatory;
+            currentModel.AccordianReference = currentPage.AccordianReference;
             currentModel.AcceptableFileExtensions = currentPage.AcceptableFileExtensions;
             if (currentPage.Actions?.Count > 0)
             {
@@ -728,7 +733,7 @@ namespace INZFS.MVC.Controllers
             if(currentPage.FieldType == FieldType.gdsFileUpload && model.Mandatory.HasValue && model.Mandatory.Value == false)
             {
                 // Use the values from the radio buttons
-               return (FieldStatus)model.FieldStatus;
+               return model.FieldStatus == null ? FieldStatus.InProgress : (FieldStatus)model.FieldStatus;
             }
 
             if (model.ShowMarkAsComplete)
