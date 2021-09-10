@@ -47,9 +47,9 @@ namespace INZFS.Theme
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {
             routes.MapAreaControllerRoute(
-                name: "TwoFactor",
+                name: "INZFSThemeDefault",
                 areaName: "INZFS.Theme",
-                pattern: "Account/{controller=TwoFactorController}/{action=index}"
+                pattern: "{controller=TwoFactorController}/{action=index}"
             );
         }
     }
