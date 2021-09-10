@@ -590,6 +590,7 @@ namespace INZFS.MVC.Controllers
             currentModel.SelectedOptions = currentPage.SelectOptions;
             currentModel.FieldType = currentPage.FieldType;
             currentModel.Mandatory = currentPage.Mandatory;
+            currentModel.AccordianReference = currentPage.AccordianReference;
             currentModel.AcceptableFileExtensions = currentPage.AcceptableFileExtensions;
             if (currentPage.Actions?.Count > 0)
             {

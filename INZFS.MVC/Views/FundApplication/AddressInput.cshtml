@@ -58,8 +58,11 @@
         </fieldset>
     </div>
 
+    @if (Model.AccordianReference == "OrganisationAddress")
+    {
+        @Html.Partial("_Accordion", "AddressInputModel")
+    }
 
-    @Html.Partial("_Accordion", "")
 
     @if (Model.ShowMarkAsComplete)
     {
