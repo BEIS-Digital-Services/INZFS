@@ -2,20 +2,7 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
-else
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.SectionInfo.Url">
-        @Model.SectionInfo.Title
-    </a>
-}
-
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
 
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
@@ -71,4 +58,4 @@ else
 
 </form>
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+@Html.Partial("_BackButton", Model)

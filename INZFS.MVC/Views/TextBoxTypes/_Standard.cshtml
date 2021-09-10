@@ -1,0 +1,5 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+
+<input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
+       name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
