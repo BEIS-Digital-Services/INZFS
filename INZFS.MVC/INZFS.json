@@ -1007,7 +1007,7 @@
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Letter of support File Upload",
             "fieldName": "business-letter-of-support-document",
-            "mandatory": true,
+            "mandatory": false,
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
