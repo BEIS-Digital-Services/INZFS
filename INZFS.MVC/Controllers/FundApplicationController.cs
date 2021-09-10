@@ -591,6 +591,7 @@ namespace INZFS.MVC.Controllers
             currentModel.FieldType = currentPage.FieldType;
             currentModel.Mandatory = currentPage.Mandatory;
             currentModel.InsetText = currentPage.InsetText;
+            currentModel.LabelTitle = currentPage.LabelTitle;
             currentModel.AcceptableFileExtensions = currentPage.AcceptableFileExtensions;
             if (currentPage.Actions?.Count > 0)
             {

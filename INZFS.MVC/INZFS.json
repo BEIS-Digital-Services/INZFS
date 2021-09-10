@@ -1293,7 +1293,7 @@
             "hasOtherOption": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue",
+            "continueButtonText": "Save and continue to next step",
             "selectOptions": [
               "Product development",
               "Hardware development",
@@ -1301,6 +1301,25 @@
               "Software development",
               "Process development"
             ]
+          },
+          {
+            "name": "number-of-employees",
+            "sectionTitle": "7.2. Number of employees",
+            "question": "How many full-time employees do you have?",
+            "description": "Description",
+            "errorMessage": "Enter Full Name before marking as complete",
+            "fieldType": "gdsTextBox",
+            "textType": "NumberBox",
+            "friendlyFieldName": "Number of employees",
+            "fieldName": "number-of-employees",
+            "labelTitle": "This number includes directors",
+            "mandatory": true,
+            "insetText": true,
+            "accordianReference": "",
+            "maxLength": 100,
+            "maxLengthValidationType": "Character",
+            "showMarkComplete": true,
+            "continueButtonText": "Save and continue to next step"
           }
         ]
       },
