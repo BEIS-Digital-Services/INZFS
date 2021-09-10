@@ -95,7 +95,7 @@
 
                             @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
                             {
-                                @if (!string.IsNullOrEmpty(Model.SectionInfo.Title))
+                                @if (!string.IsNullOrEmpty(Model.SectionTitle))
                                 {
                                     <li class="govuk-breadcrumbs__list-item">
                                         <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
@@ -104,7 +104,7 @@
                                     </li>
 
                                     <li class="govuk-breadcrumbs__list-item">
-                                        @Model.SectionInfo.Title
+                                        @Model.SectionTitle
                                     </li>
                                 }
                                 else
