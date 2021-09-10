@@ -79,8 +79,15 @@ namespace INZFS
                   builder.AddFormAction().Self();
                   builder.AddFrameAncestors().Self();
                   builder.AddDefaultSrc().Self();
-                  builder.AddFontSrc().Self().From("cdn.jsdelivr.net").From("fonts.googleapis.com").From("fonts.gstatic.com");
-
+                  builder.AddImgSrc().Self()
+                    .From("https://www.zcloud.net")
+                    .From("http://www.w3.org/2000/svg");
+                  builder.AddFontSrc().Self()
+                    .From("cdn.jsdelivr.net")
+                    .From("fonts.googleapis.com")
+                    .From("fonts.gstatic.com")
+                    .From("https://www.gov.uk/assets/static/fonts/")
+                    ;
                   builder.AddStyleSrc().UnsafeInline().Self().From("cdn.jsdelivr.net").From("fonts.googleapis.com").From("cdn.datatables.net")
                   .From("unpkg.com")
                   .From("cdnjs.cloudflare.com")
