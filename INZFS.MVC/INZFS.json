@@ -1377,6 +1377,22 @@
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
             "continueButtonText": "Save and continue to next step"
+          },
+          {
+            "name": "consumer-trials",
+            "sectionTitle": "7.6. Consumer trials",
+            "question": "Will your project include consumer trials?",
+            "hint": "",
+            "errorMessage": "Select Yes or No",
+            "fieldType": "gdsYesorNoRadio",
+            "friendlyFieldName": "Consumer trials",
+            "fieldName": "consumer-trials",
+            "mandatory": true,
+            "insetText": true,
+            "accordianReference": "",
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true
           }
         ]
       },
