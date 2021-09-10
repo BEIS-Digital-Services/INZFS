@@ -148,6 +148,12 @@
                     <div class="govuk-grid-column-one-third">
                     </div>
                 }
+                else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
+                {
+                    <div class="govuk-grid-column-full">
+                        @RenderBody()
+                    </div>
+                }
                 else
                 {
                     @RenderBody()
