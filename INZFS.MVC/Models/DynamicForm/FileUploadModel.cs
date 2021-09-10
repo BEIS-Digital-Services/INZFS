@@ -23,7 +23,7 @@ namespace INZFS.MVC.Models.DynamicForm
 
             if (Mandatory == false && !FieldStatus.HasValue)
             {
-                yield return new ValidationResult($"{CurrentPage.FriendlyFieldName} must be complete or not applicable", new[] { nameof(DataInput) });
+                yield return new ValidationResult($"Please select Mark as complete or Not applicable option", new[] { nameof(DataInput) });
             }
         }
     }
