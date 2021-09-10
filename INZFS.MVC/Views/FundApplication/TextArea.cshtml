@@ -6,16 +6,9 @@
 
 
 @*To :
- Working if only textbox id is set to with-hint*@
+    Working if only textbox id is set to with-hint*@
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
-
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -24,16 +17,8 @@
 
     @Html.Partial("_ErrorMessage")
 
-    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count" 
-         @if(Model.MaxLengthValidationType == MaxLengthValidationType.Character)
-         {
-             <text>data-maxlength="@Model.MaxLength"</text>
-         }
-         else
-         {
-             <text>data-maxwords="@Model.MaxLength"</text>
-         }
-         >
+    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count"
+         @if (Model.MaxLengthValidationType == MaxLengthValidationType.Character) { <text> data-maxlength="@Model.MaxLength" </text>  } else { <text> data-maxwords="@Model.MaxLength" </text>  }>
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="@Model.FieldName">
@@ -65,4 +50,4 @@
 
 </form>
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+@Html.Partial("_BackButton", Model)

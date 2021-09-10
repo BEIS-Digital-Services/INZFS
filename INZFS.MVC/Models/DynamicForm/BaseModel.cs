@@ -49,7 +49,11 @@ namespace INZFS.MVC.Models.DynamicForm
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }
         public PreviousPage PreviousPage { get; set; }
+        public FieldStatus? FieldStatus { get; set; }
+        public FieldType FieldType { get; set; }
+        public string AcceptableFileExtensions { get; set; }
 
+        public GridDisplayType GridDisplayType { get; set; }
         public virtual string GetData()
         {
             return DataInput;
