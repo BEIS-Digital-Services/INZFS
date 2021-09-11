@@ -27,7 +27,7 @@
                 @foreach (var item in Model.SelectedOptions)
                 {
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="checkboxSelect" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) { @if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text> } }>
+                        <input class="govuk-checkboxes__input" id="checkboxSelect-@item.Replace(" ","-").ToLower()" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) { @if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text> } }>
                         <label class="govuk-label govuk-checkboxes__label">
                             @item
                         </label>
@@ -58,3 +58,5 @@
 </form>
 
 @Html.Partial("_BackButton", Model)
+
+<script></script>
