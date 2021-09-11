@@ -42,6 +42,10 @@
 {
     @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
 }
+@if (Model == "AddressInputModel")
+{
+    @Html.Partial("../Accordion/AddressAccordion/_OrganisationAddressAccordion.cshtml")
+}
 
 @*SECTION 7 PREFORMANCE DATA*@
 @if (Model == "trl-at-project-start")
@@ -53,3 +57,4 @@
 {
     @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtClose.cshtml")
 }
+

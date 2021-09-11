@@ -20,6 +20,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string LabelTitle { get; set; }
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
+        public string SectionTitle { get; set; }
         public string Question { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
