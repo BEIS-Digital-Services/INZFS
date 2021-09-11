@@ -55,6 +55,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string AcceptableFileExtensions { get; set; }
 
         public GridDisplayType GridDisplayType { get; set; }
+        public bool HideQuestionCounter { get; set; }
         public virtual string GetData()
         {
             return DataInput;

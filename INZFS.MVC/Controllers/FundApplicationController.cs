@@ -611,6 +611,7 @@ namespace INZFS.MVC.Controllers
 
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
+            currentModel.HideQuestionCounter = currentSection.HideQuestionCounter;
 
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
@@ -642,7 +643,6 @@ namespace INZFS.MVC.Controllers
 
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
             currentModel.GridDisplayType = currentPage.GridDisplayType;
-
             return currentModel;
         }
 

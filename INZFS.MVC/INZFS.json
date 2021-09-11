@@ -23,7 +23,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "actions": [
               {
                 "name": "Yes",
@@ -87,6 +86,7 @@
         "url": "summary-of-finances",
         "continueButtonText": "Save and continue",
         "RazorView": "SummaryOfFinances",
+        "hideQuestionCounter": true,
         "pages": [
           {
             "name": "balance-sheet-total",
@@ -132,8 +132,7 @@
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": false,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true
+            "showSaveProgessButton": false
           },
           {
             "name": "organisation-running",
@@ -147,8 +146,7 @@
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
-            "showSaveProgessButton": false,
-            "displayQuestionCounter": true
+            "showSaveProgessButton": false
           },
           {
             "name": "recent-turnover",
@@ -202,6 +200,7 @@
         "returnToSummaryPageLinkText": "Return to the your organisation overview",
         "continueButtonText": "Save and continue",
         "RazorView": "YourOrganisation",
+        "hideQuestionCounter": true,
         "pages": [
           {
             "name": "organisation-name",
@@ -302,7 +301,6 @@
             "showMarkComplete": true,
             "hasOtherOption": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "Not for profit",
@@ -325,7 +323,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "10 or less employees (micro enterprise)",
@@ -346,7 +343,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "Pre-startup",
@@ -368,7 +364,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "No funding",
@@ -394,7 +389,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue"
           },
           {
@@ -411,7 +405,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "uploadText": "Upload consortium details",
             "hideFromSummary": true,
@@ -433,8 +426,7 @@
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
-            "showSaveProgessButton": true,
-            "displayQuestionCounter": true
+            "showSaveProgessButton": true
           },
           {
             "name": "parent-organisation-name",
@@ -533,7 +525,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "10 or less employees (micro enterprise)",
@@ -558,7 +549,6 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "Pre-startup",
@@ -723,9 +713,7 @@
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
-            "showSaveProgessButton": true,
-            "displayQuestionCounter": true
-
+            "showSaveProgessButton": true
           },
           {
             "name": "project-summary",
@@ -802,7 +790,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -854,7 +841,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -870,7 +856,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
             "continueButtonText": "Save and continue",
             "selectOptions": [
               "Cost of energy reduction",
@@ -912,7 +897,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -1000,7 +984,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -1036,7 +1019,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -1072,7 +1054,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -1108,7 +1089,6 @@
             "showSaveProgessButton": false,
             "hint": "",
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
@@ -1126,7 +1106,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "displayQuestionCounter": true,
             "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           }         
@@ -1140,6 +1119,7 @@
         "returnToSummaryPageLinkText": "Return to the finance proposal overview",
         "continueButtonText": "Save and continue to next question",
         "RazorView": "FinanceProposalOverview",
+        "hideQuestionCounter": true,
         "pages": [
           {
             "name": "subsidy-requirements",
@@ -1160,7 +1140,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "hideFromSummary": true,
             "continueButtonText": "Continue",
             "previousPage": {
@@ -1402,6 +1381,7 @@
         "ReturnUrl": "application-overview",
         "continueButtonText": "Save and continue",
         "RazorView": "EqualitySurvey",
+        "hideQuestionCounter": true,
         "pages": [
           {
             "name": "eq-survey-question-one",
@@ -1416,7 +1396,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to consortium applicants",
@@ -1453,7 +1432,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 1",
@@ -1490,7 +1468,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 1",
@@ -1542,7 +1519,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 4",
@@ -1589,7 +1565,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 4",
@@ -1636,7 +1611,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 4",
@@ -1688,7 +1662,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 4",
@@ -1730,7 +1703,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 1",
@@ -1768,7 +1740,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 4",
@@ -1805,7 +1776,6 @@
             "accordianReference": "",
             "showMarkComplete": false,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": false,
             "continueButtonText": "Save and continue",
             "previousPage": {
               "link": "Back to question 5",
