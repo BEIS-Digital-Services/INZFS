@@ -4,14 +4,11 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
-@{ 
+@{
     string extensions = string.Join(",", Model.AcceptableFileExtensions.Split(',').Select(x => "." + x.Trim()));
 }
 
-@if (Model.DisplayQuestionCounter)
-{
-    <span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
-}
+@Html.Partial("_Steps")
 
 <div class="@(string.IsNullOrEmpty(Model.FileToDownload) == true ? "" : "govuk-grid-column-two-thirds")">
     <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">

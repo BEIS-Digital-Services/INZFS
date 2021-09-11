@@ -98,6 +98,7 @@ namespace INZFS.MVC
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string RazorView { get; set; }
+        public bool HideQuestionCounter { get; set; }
         public List<Page> Pages { get; set; }
     }
 
