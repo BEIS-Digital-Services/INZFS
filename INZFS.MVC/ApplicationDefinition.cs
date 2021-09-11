@@ -70,7 +70,6 @@ namespace INZFS.MVC
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
         public List<string> SelectOptions { get; set; }
