@@ -406,7 +406,6 @@
             "showSaveProgessButton": false,
             "filetoDownload": "",
             "continueButtonText": "Save and continue",
-            "uploadText": "Upload consortium details",
             "hideFromSummary": true,
             "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
@@ -790,7 +789,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -841,7 +839,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -897,7 +894,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -984,7 +980,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -1019,7 +1014,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -1054,7 +1048,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -1089,7 +1082,6 @@
             "showSaveProgessButton": false,
             "hint": "",
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           },
           {
@@ -1106,7 +1098,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "filetoDownload": "",
-            "uploadText": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
           }         
         ]

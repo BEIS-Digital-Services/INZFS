@@ -636,11 +636,6 @@ namespace INZFS.MVC.Controllers
                 currentModel.Description = currentPage.Description;
             }
 
-            if (!string.IsNullOrEmpty(currentPage.UploadText))
-            {
-                currentModel.UploadText = currentPage.UploadText;
-            }
-
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
             currentModel.GridDisplayType = currentPage.GridDisplayType;
             return currentModel;
