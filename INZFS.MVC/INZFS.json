@@ -1500,6 +1500,31 @@
               "Does not apply",
               "Other"
             ]
+          },
+          {
+            "name": "innovation-benefits",
+            "sectionTitle": "7.11. Innovation benefits",
+            "question": "Which benefits could your innovation contribute to?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsMultiSelect",
+            "friendlyFieldName": "Innovation benefits",
+            "hint": "Select all that apply.",
+            "fieldName": "innovation-benefits",
+            "mandatory": true,
+            "insetText": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue to performance data",
+            "selectOptions": [
+              "Increasing investment in the UK",
+              "Reducing the cost of a technology",
+              "Lowering UK carbon emissions",
+              "Route to commercialisation is established",
+              "UK supply chain built",
+              "Creating high-value science and engineering jobs",
+              "None of the above"
+            ]
           }
         ]
       },
