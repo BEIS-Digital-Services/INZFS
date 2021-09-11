@@ -4,7 +4,7 @@
 @using INZFS.MVC
 
 
-@if (Model.Mandatory.HasValue && Model.Mandatory.Value == true)
+@if ((Model.Mandatory.HasValue && Model.Mandatory.Value == true) || Model.FieldType != FieldType.gdsFileUpload)
 {
     <div class="govuk-form-group">
         <div class="govuk-checkboxes">

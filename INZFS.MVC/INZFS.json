@@ -125,7 +125,7 @@
             "fieldName": "vat-recovery",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false
+            "showMarkComplete": true
           },
           {
             "name": "organisation-running",
@@ -800,7 +800,7 @@
             "fieldName": "business-technology-benefit",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "selectOptions": [
               "Cost of energy reduction",
               "Cost of process reduction",
@@ -1062,7 +1062,7 @@
             "fieldName": "subsidy-sole-applicant",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false,
+            "showMarkComplete": true,
             "hideFromSummary": true,
             "continueButtonText": "Continue",
             "previousPage": {
