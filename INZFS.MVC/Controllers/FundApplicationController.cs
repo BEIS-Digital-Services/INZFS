@@ -340,7 +340,7 @@ namespace INZFS.MVC.Controllers
                     }
                     existingFieldData.Data = model.GetData();
                     existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
-                    if (existingFieldData.Data == "Other")
+                    if (existingFieldData.Data == "Other" || existingFieldData.Data.Contains("Other"))
                     {
                         existingFieldData.OtherOption = model.GetOtherSelected();
                     }
@@ -508,7 +508,9 @@ namespace INZFS.MVC.Controllers
                     if (!string.IsNullOrEmpty(model.DataInput))
                     {
                         var UserInputList = model.DataInput.Split(',').ToList();
+                        var OtherOptionData = model.OtherOption;
                         multiSelect.UserInput = UserInputList;
+                        multiSelect.OtherOption = OtherOptionData;
                     }
                     return View("MultiSelectInput", PopulateModel(currentPage, model));
                 case FieldType.gdsAddressTextBox:

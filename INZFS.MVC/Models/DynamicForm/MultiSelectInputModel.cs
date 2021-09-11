@@ -36,13 +36,9 @@ namespace INZFS.MVC.Models.DynamicForm
             }
             catch (Exception)
             {
-
                 return string.Empty;
             }
-               
-            
-                 
-
+          
         }
 
         public override string GetOtherSelected()
