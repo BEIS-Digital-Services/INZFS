@@ -66,7 +66,6 @@ namespace INZFS.MVC
         public int? MaxLength { get; set; }
         public bool HasOtherOption { get; set; }
         public bool ShowMarkComplete { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string FileToDownload { get; set; }
