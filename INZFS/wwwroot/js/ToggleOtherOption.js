@@ -1,4 +1,6 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
+    $(".hide-input").hide();
 
     $("#checkboxSelect-other").click(function () {
         if ($(this).is(":checked")) {

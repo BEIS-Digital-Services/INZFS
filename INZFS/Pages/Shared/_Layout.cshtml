@@ -19,11 +19,13 @@
     <link rel="stylesheet" media="all" href="/assets/static/fonts.css">
     <link rel="stylesheet" media="all" href="/css/application.css">
     <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+
 
     <!--[if lt IE 9]><script src="/assets/static/ie.js"></script><![endif]-->
 
     <link rel="stylesheet" media="screen" href="/assets/static/core-layout.css">
- 
+
     <!--[if lte IE 8]><link rel="stylesheet" media="screen" href="/assets/static/core-layout-ie8.css" /><script>var ieVersion = 8;</script><![endif]-->
 
     <link rel="stylesheet" media="print" href="/assets/static/core-layout-print.css">
@@ -179,12 +181,9 @@
         </div>
     </footer>
 
-
-    @await RenderSectionAsync("Scripts", required: false)
-
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
     <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
 
 </body>
 
