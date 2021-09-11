@@ -1420,7 +1420,7 @@
             "question": "What is your expected technology readiness level (TRL) at the project's start?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
-            "friendlyFieldName": "trl-at-project-start",
+            "friendlyFieldName": "Technology Readiness Level (TRL) at project start",
             "fieldName": "trl-at-project-start",
             "mandatory": true,
             "insetText": true,
@@ -1447,7 +1447,7 @@
             "question": "What is your expected technology readiness level (TRL) at the project's end?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
-            "friendlyFieldName": "trl-at-project-close",
+            "friendlyFieldName": "Technology Readiness Level (TRL) at project close",
             "fieldName": "trl-at-project-close",
             "mandatory": true,
             "insetText": true,
@@ -1466,6 +1466,39 @@
               "TRL7",
               "TRL8",
               "TRL9"
+            ]
+          },
+          {
+            "name": "current-market-barriers",
+            "sectionTitle": "7.10. Current market barriers",
+            "question": "What are the commercial obstacles to your innovation?",
+            "errorMessage": "Select option",
+            "fieldType": "gdsMultiSelect",
+            "friendlyFieldName": "Current market barriers",
+            "hint": "Select all that apply.",
+            "fieldName": "current-market-barriers",
+            "mandatory": true,
+            "insetText": true,
+            "hasOtherOption": true,
+            "showMarkComplete": true,
+            "showSaveProgessButton": false,
+            "displayQuestionCounter": true,
+            "continueButtonText": "Save and continue to next step",
+            "selectOptions": [
+              "Accessing export markets",
+              "Accessing UK markets/customers",
+              "Availability of finance",
+              "Expensive demonstration phases",
+              "High levels of competition",
+              "Lack of clarity on government policy",
+              "Lack of industry standards",
+              "Large established firms using proven technology",
+              "Target sector prefers proven technologies",
+              "Unable to fulfil an increase in orders",
+              "UK government regulations",
+              "None of the above",
+              "Does not apply",
+              "Other"
             ]
           }
         ]
