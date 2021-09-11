@@ -36,6 +36,12 @@
         </fieldset>
     </div>
 
+    @if (Model.HasOtherOption)
+    {
+        @Html.Partial("_OtheroptionMultiSelect", Model)
+    }
+
+
     @Html.Partial("_Accordion", Model.PageName)
 
     @if (Model.InsetText)
