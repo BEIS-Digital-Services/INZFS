@@ -1,47 +1,48 @@
-@model string
+@model CommonModel
+@using INZFS.MVC.Models.DynamicForm
 
-    <div class="govuk-grid-row">
+<div class="govuk-grid-row">
 
-        <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds">
 
-            <!-- <form action="" method="post" novalidate> -->
+        <!-- <form action="" method="post" novalidate> -->
 
-            <div class="govuk-panel govuk-panel--confirmation">
-                <h1 class="govuk-panel__title">
-                    Application complete
-                </h1>
-                <div class="govuk-panel__body">
-                    Your reference number<br><strong>@Model</strong>
-                </div>
+        <div class="govuk-panel govuk-panel--confirmation">
+            <h1 class="govuk-panel__title">
+                Application complete
+            </h1>
+            <div class="govuk-panel__body">
+                Your reference number<br><strong>@Model.ApplicationNumber</strong>
             </div>
-
-            <h1 class="govuk-heading-xl">We have received your application</h1>
-
-            <p class="govuk-body">You can download a copy of your application for your records.</p>
-            <p class="govuk-body">This will download as a zip file. It will contain:</p>
-            <ul class="govuk-list govuk-list--bullet">
-                <li>a copy of your answers</li>
-                <li>any additional documents you've uploaded</li>
-            </ul>
-            <p class="govuk-body">We will send you an email confirmation, including your reference number and the date of your application.</p>
-            <p class="govuk-body govuk-!-margin-bottom-9">Make a note of your reference number - you'll need to quote it in any future correspondence.</p>
-
-            <a asp-controller="Report" asp-action="Download">
-                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                    Download your application
-                </button>
-            </a>
-
-            <br>
-
-            <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="ApplicationEquality">
-                <button class="govuk-button" data-module="govuk-button">
-                    Continue
-                </button>
-            </a>
-
-            <!-- </form>  -->
-
         </div>
 
+        <h1 class="govuk-heading-xl">We have received your application</h1>
+
+        <p class="govuk-body">You can download a copy of your application for your records.</p>
+        <p class="govuk-body">This will download as a zip file. It will contain:</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>a copy of your answers</li>
+            <li>any additional documents you've uploaded</li>
+        </ul>
+        <p class="govuk-body">We will send you an email confirmation, including your reference number and the date of your application.</p>
+        <p class="govuk-body govuk-!-margin-bottom-9">Make a note of your reference number - you'll need to quote it in any future correspondence.</p>
+
+        <a asp-controller="Report" asp-action="Download">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                Download your application
+            </button>
+        </a>
+
+        <br>
+
+        <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="ApplicationEquality">
+            <button class="govuk-button" data-module="govuk-button">
+                Continue
+            </button>
+        </a>
+
+        <!-- </form>  -->
+
     </div>
+
+</div>

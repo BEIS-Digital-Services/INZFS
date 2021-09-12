@@ -206,11 +206,7 @@ namespace INZFS.MVC.Controllers
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
                 var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                if (contentToSave.ApplicationStatus == ApplicationStatus.Submitted)
-                {
-                    return RedirectToAction("ApplicationSent");
-                }
-
+                
                 if (contentToSave == null)
                 {
                     contentToSave = new ApplicationContent();
@@ -465,7 +461,13 @@ namespace INZFS.MVC.Controllers
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
             {
-                return View("ApplicationSubmit");
+                var model = new CommonModel
+                {
+                    ShowBackLink = true,
+                    BackLinkText = "Back",
+                    BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
+                };
+                return View("ApplicationSubmit", model);
             }
             else
             {
@@ -483,7 +485,14 @@ namespace INZFS.MVC.Controllers
             if (applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
             {
                 await _contentRepository.UpdateStatus(User.Identity.Name, ApplicationStatus.Submitted);
-                return View("ApplicationComplete", content.ApplicationNumber);
+                var model = new CommonModel { 
+                    ApplicationNumber = content.ApplicationNumber,
+                    ShowBackLink = true,
+                    BackLinkText = "Back",
+                    BackLinkUrl = Url.ActionLink("Submit", "FundController")
+                };
+
+                return View("ApplicationComplete", model);
             }
             else
             {
@@ -493,7 +502,13 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> ApplicationEquality()
         {
-            return View("ApplicationEquality");
+            var model = new CommonModel
+            {
+                ShowBackLink = true,
+                BackLinkText = "Back to application overview",
+                BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
+            };
+            return View("ApplicationEquality", model);
         }
 
         public async Task<IActionResult> ApplicationSent()
@@ -672,6 +687,7 @@ namespace INZFS.MVC.Controllers
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
             currentModel.HideQuestionCounter = currentSection.HideQuestionCounter;
+            currentModel.HideBreadCrumbs = currentSection.HideBreadCrumbs;
 
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {

@@ -82,48 +82,55 @@
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                @if (Model is BaseModel)
+                @if (Model is BaseModel && !Model.HideBreadCrumbs)
                 {
                     <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
-                        <ol class="govuk-breadcrumbs__list">
-                            <li class="govuk-breadcrumbs__list-item">
-                                <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
-                                    asp-controller="FundApplication" asp-action="section"
-                                    asp-route-pagename="application-overview">Application overview</a>
-                            </li>
+                    <ol class="govuk-breadcrumbs__list">
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                asp-controller="FundApplication" asp-action="section"
+                                asp-route-pagename="application-overview">Application overview</a>
+                        </li>
 
-                            @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                        @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                        {
+                            @if (!string.IsNullOrEmpty(Model.SectionTitle))
                             {
-                                @if (!string.IsNullOrEmpty(Model.SectionTitle))
-                                {
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
-                                            asp-controller="FundApplication" asp-action="section"
-                                            asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
-                                    </li>
+                                <li class="govuk-breadcrumbs__list-item">
+                                    <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                        asp-controller="FundApplication" asp-action="section"
+                                        asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
+                                </li>
 
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        @Model.SectionTitle
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        @Model.SectionInfo.OverviewTitle
-                                    </li>
-                                }
-
+                                <li class="govuk-breadcrumbs__list-item">
+                                    @Model.SectionTitle
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="govuk-breadcrumbs__list-item">
+                                    @Model.SectionInfo.OverviewTitle
+                                </li>
                             }
 
+                        }
 
+                    </ol>
 
-                        </ol>
+                </nav>
+                }
+                else if (Model is CommonModel)
+                {
+                    var backModel = (CommonModel)Model;
 
-                    </nav>
+                    if (backModel.ShowBackLink)
+                    {
+                        <a href="@backModel.BackLinkUrl" class="govuk-back-link">@backModel.BackLinkText</a>
+                    }
                 }
                 else
                 {
-                   <text>&nbsp;</text>
+                    <text>&nbsp;</text>
                 }
             </div>
 

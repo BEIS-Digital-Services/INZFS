@@ -9,8 +9,8 @@ namespace INZFS.MVC.Models.DynamicForm
     public class CommonModel
     {
         public bool ShowBackLink { get; set; }
-        public bool BackLinkUrl { get; set; }
-        public bool BackLinkText { get; set; }
-        public bool ApplicationNumber { get; set; }
+        public string BackLinkUrl { get; set; }
+        public string BackLinkText { get; set; }
+        public string ApplicationNumber { get; set; }
     }
 }

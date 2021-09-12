@@ -1,3 +1,5 @@
+@model CommonModel
+@using INZFS.MVC.Models.DynamicForm
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -37,9 +39,11 @@
         </a>
 
 
-        <p class="govuk-body-s"><a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section"
-                                   asp-route-pagename="application-overview" 
-                                   class="govuk-link govuk-!-font-weight-regular">Go back to your application</a></p>
+        <p class="govuk-body-s">
+            <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section"
+               asp-route-pagename="application-overview"
+               class="govuk-link govuk-!-font-weight-regular">Go back to your application</a>
+        </p>
 
     </div>
 

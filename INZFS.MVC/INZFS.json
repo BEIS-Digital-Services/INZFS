@@ -1302,6 +1302,7 @@
         "RazorView": "EqualitySurvey",
         "hideQuestionCounter": true,
         "belongsToApplication": false,
+        "hideBreadCrumbs": true,
         "pages": [
           {
             "name": "eq-survey-question-one",
