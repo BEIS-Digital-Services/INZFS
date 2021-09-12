@@ -16,7 +16,7 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public async Task<FileContentResult> GeneratePdf()
+        public async Task<FileContentResult> Download()
         {
             byte[] bytes = await _reportService.GeneratePdfReport(User.Identity.Name);
             string type = "application/pdf";

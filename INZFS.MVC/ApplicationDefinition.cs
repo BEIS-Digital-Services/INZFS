@@ -88,6 +88,10 @@ namespace INZFS.MVC
 
     public class Section
     {
+        public Section()
+        {
+            BelongsToApplication = true;
+        }
         public string Title { get; set; }
         public string OverviewTitle { get; set; }
         public string Tag { get; set; }
@@ -97,6 +101,7 @@ namespace INZFS.MVC
         public string ContinueButtonText { get; set; }
         public string RazorView { get; set; }
         public bool HideQuestionCounter { get; set; }
+        public bool BelongsToApplication { get; set; }
         public List<Page> Pages { get; set; }
     }
 
