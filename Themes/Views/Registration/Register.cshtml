@@ -1,6 +1,7 @@
 @model INZFS.Theme.ViewModels.RegistrationViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Create an account";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -9,7 +10,7 @@
     <form method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">Create an account</h1>
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body-l">You'll need to create an account to start an application.</p>
                 <div class="govuk-form-group" asp-validation-error-class-for="Email">
                     <label class="govuk-label">
