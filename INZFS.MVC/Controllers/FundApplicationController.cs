@@ -116,7 +116,7 @@ namespace INZFS.MVC.Controllers
 
                 applicationOverviewContentModel.TotalSections = sections.Count;
                 applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
-                                                    Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+                                                    Sections.Count(section => section.SectionStatus == FieldStatus.Completed);
 
                 SetPageTitle("Application Overview");
                 return View("ApplicationOverview", applicationOverviewContentModel);
@@ -433,6 +433,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Submit()
         {
+            await _contentRepository.UpdateStatus(User.Identity.Name, ApplicationStatus.Submitted);
             return View("ApplicationSubmit");
         }
 
@@ -663,20 +664,24 @@ namespace INZFS.MVC.Controllers
                         continue;
                     }
                 }
+                if(pageContent.HideFromSummary)
+                {
+                    continue;
+                }
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
                 
                 var sectionModel = new SectionModel();
                 sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
                 sectionModel.Url = pageContent.Name;
-                sectionModel.HideFromSummary = pageContent.HideFromSummary;
-
+                
                 if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
                 {
-                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                    sectionModel.SectionStatus = FieldStatus.NotStarted;
                 }
                 else
                 {
+                    /*
                     bool markAsComplete = true;
                     if (pageContent.ShowMarkComplete)
                     {
@@ -691,6 +696,12 @@ namespace INZFS.MVC.Controllers
                     else
                     {
                         sectionModel.SectionStatus = SectionStatus.InProgress;
+                    }
+                    */
+                    sectionModel.SectionStatus = field.FieldStatus.Value;
+                    if(sectionModel.SectionStatus == FieldStatus.Completed)
+                    {
+                        sectionContentModel.TotalQuestionsCompleted++;
                     }
 
                 }
