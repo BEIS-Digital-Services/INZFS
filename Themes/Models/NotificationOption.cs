@@ -7,5 +7,6 @@
         public string EmailCodeTemplate { get; set; }
         public string EmailChangePasswordTemplate { get; set; }
         public string ChangeEmailTemplate { get; set; }
+        public string ForgotPasswordEmailTemplate { get; set; }
     }
 }

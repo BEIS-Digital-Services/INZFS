@@ -1,6 +1,7 @@
 @model INZFS.Theme.ViewModels.LoginViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Your application";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -9,7 +10,7 @@
     <form method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">Your application</h1>
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body govuk-!-font-weight-bold">Sign in to an existing account</p>
                 <div class="govuk-form-group" asp-validation-error-class-for="EmailAddress">
                     <label class="govuk-label" asp-for="EmailAddress">
@@ -25,7 +26,7 @@
                     <span asp-validation-for="Password" class="govuk-error-message"></span>
                     <input class="govuk-input govuk-input--width-20" asp-for="Password"  type="password" spellcheck="false" autocomplete="password">
                 </div>
-                <p class="govuk-body-s"><a class="govuk-link" asp-area="INZFS.Theme" asp-controller="Account" asp-action="ForgottenPassword" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Forgotten your password?</a></p>
+                <p class="govuk-body-s"><a class="govuk-link" asp-area="INZFS.Theme" asp-controller="Account" asp-action="ForgotPassword" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Forgotten your password?</a></p>
                 <button class="govuk-button" data-module="govuk-button">Sign in</button>
                 <p class="govuk-body-s"><a asp-area="INZFS.Theme" asp-controller="Registration" asp-action="Register" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Register as a new user</a></p>
                 <p class="govuk-body-s"><a class="govuk-link" href="#">Need help signing in or creating an account?</a></p>
