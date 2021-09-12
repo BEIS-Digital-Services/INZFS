@@ -9,6 +9,7 @@
         "url": "your-details-and-eligibility",
         "continueButtonText": "Save and continue to next step",
         "RazorView": "YourDetailsAndEligibility",
+        "hideQuestionCounter": false,
         "pages": [
           {
             "name": "eligibility-to-apply-for-fund",
@@ -616,6 +617,7 @@
         "returnToSummaryPageLinkText": "Return to the proposal summary overview",
         "continueButtonText": "Save and continue to next step",
         "RazorView": "ProposalSummaryOverview",
+        "hideQuestionCounter": false,
         "pages": [
           {
             "name": "project-name",
@@ -712,6 +714,7 @@
         "returnToSummaryPageLinkText": "Return to the business proposal overview",
         "continueButtonText": "Save and continue to next step",
         "RazorView": "BusinessProposalOverview",
+        "hideQuestionCounter": false,
         "pages": [
           {
             "name": "business-proposal",
@@ -1298,6 +1301,7 @@
         "continueButtonText": "Save and continue to next step",
         "RazorView": "EqualitySurvey",
         "hideQuestionCounter": true,
+        "belongsToApplication": false,
         "pages": [
           {
             "name": "eq-survey-question-one",

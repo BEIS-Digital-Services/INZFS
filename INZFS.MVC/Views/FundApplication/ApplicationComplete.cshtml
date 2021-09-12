@@ -1,84 +1,47 @@
 @model string
-<div class="govuk-width-container">
 
     <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
-            <a href="#" id="govuk-back-link" class="govuk-back-link">Back</a>
-        </div>
-        <div class="govuk-grid-column-one-quarter"></div>
-    </div>
 
-    <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-column-two-thirds">
 
-        <div class="govuk-grid-row">
+            <!-- <form action="" method="post" novalidate> -->
 
-            <div class="govuk-grid-column-two-thirds">
-
-                <!-- <form action="" method="post" novalidate> -->
-                <form asp-action="ApplicationComplete" method="post" enctype="multipart/form-data">
-
-                <div class="govuk-panel govuk-panel--confirmation">
-                    <h1 class="govuk-panel__title">
-                        Application complete
-                    </h1>
-                    <div class="govuk-panel__body">
-                        Your reference number<br><strong>@Model</strong>
-                    </div>
+            <div class="govuk-panel govuk-panel--confirmation">
+                <h1 class="govuk-panel__title">
+                    Application complete
+                </h1>
+                <div class="govuk-panel__body">
+                    Your reference number<br><strong>@Model</strong>
                 </div>
-
-                <h1 class="govuk-heading-xl">We have received your application</h1>
-
-                <p class="govuk-body">Before you finish using the service, we'd like to ask you some equality questions. For more information on how we use your data, read our <a class="govuk-link" href="page-161.html">privacy notice</a>.</p>
-
-                <h2 class="govuk-heading-l">Do you want to answer the equality questions?</h2>
-
-                <p class="govuk-body">These questions are optional. Public sector organisations have a duty to consider the need to avoid discrimination and advance equality of opportunity as part of what they do.  This is part of what's called the public sector equlaity duty.</p>
-
-                <p class="govuk-body">Public sector bodies often collect equality information about service users to help meet this duty.</p>
-
-                <div class="govuk-form-group">
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l"></legend>
-                        <div class="govuk-radios">
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="yes-equality" name="equality" type="radio" value="1">
-                                <label class="govuk-label govuk-radios__label" for="yes-equality">
-                                    Yes, answer the equality questions
-                                </label>
-                            </div>
-                            <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" id="no-equality" name="equality" type="radio" value="0">
-                                <label class="govuk-label govuk-radios__label" for="no-equality">
-                                    No, skip the equality questions
-                                </label>
-                            </div>
-
-                        </div>
-
-                    </fieldset>
-                </div>
-
-                <details class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            Why we ask equality questions
-                        </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        Lorem ispum Lorem ispum Lorem ispumLorem ispum Lorem ispum Lorem ispum Lorem ispum Lorem ispumLorem ispum
-                    </div>
-                </details>
-
-                <button type="submit" id="SaveAndContinue" name="applicationComplete" 
-                        class="btn btn-success publish govuk-button" value="applicationComplete" disabled="disabled">Continue</button>
-
-                </form>
-
             </div>
 
+            <h1 class="govuk-heading-xl">We have received your application</h1>
+
+            <p class="govuk-body">You can download a copy of your application for your records.</p>
+            <p class="govuk-body">This will download as a zip file. It will contain:</p>
+            <ul class="govuk-list govuk-list--bullet">
+                <li>a copy of your answers</li>
+                <li>any additional documents you've uploaded</li>
+            </ul>
+            <p class="govuk-body">We will send you an email confirmation, including your reference number and the date of your application.</p>
+            <p class="govuk-body govuk-!-margin-bottom-9">Make a note of your reference number - you'll need to quote it in any future correspondence.</p>
+
+            <a asp-controller="Report" asp-action="Download">
+                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    Download your application
+                </button>
+            </a>
+
+            <br>
+
+            <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="ApplicationEquality">
+                <button class="govuk-button" data-module="govuk-button">
+                    Continue
+                </button>
+            </a>
+
+            <!-- </form>  -->
+
         </div>
 
-    </main>
-</div>
-<script src="/js/ApplicationCompleteToggleBtn.js"></script>
-<script src="~/js/BackLink.js"></script>
+    </div>
