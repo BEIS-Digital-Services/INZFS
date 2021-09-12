@@ -102,6 +102,7 @@ namespace INZFS.MVC
         public string RazorView { get; set; }
         public bool HideQuestionCounter { get; set; }
         public bool BelongsToApplication { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
     }
 

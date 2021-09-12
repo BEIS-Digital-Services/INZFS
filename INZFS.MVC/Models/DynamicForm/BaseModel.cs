@@ -54,6 +54,7 @@ namespace INZFS.MVC.Models.DynamicForm
 
         public GridDisplayType GridDisplayType { get; set; }
         public bool HideQuestionCounter { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public virtual string GetData()
         {
             return DataInput;
