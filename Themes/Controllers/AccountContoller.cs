@@ -175,6 +175,7 @@ namespace INZFS.Theme.Controllers
 
                     if (result.Succeeded)
                     {
+                        await SendForgotPasswordConfirmationEmailAsync(email);
                         return RedirectToAction("ResetPasswordSuccess");
                     }
 
@@ -216,6 +217,11 @@ namespace INZFS.Theme.Controllers
         {
             await _notificationService.SendEmailAsync(email, _notificationOption.ForgotPasswordEmailTemplate,
                 new Dictionary<string, object>() { { "Url", tokenLink } });
+        }
+        
+        private async Task SendForgotPasswordConfirmationEmailAsync(string email)
+        {
+            await _notificationService.SendEmailAsync(email, _notificationOption.ForgotPasswordConfirmEmailTemplate);
         }
 
 
