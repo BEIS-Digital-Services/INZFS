@@ -155,6 +155,24 @@ namespace INZFS.Theme.Controllers
             await _notificationService.SendEmailAsync(email, _notificationOption.EmailCodeTemplate, parameters);
         }
 
+        private async Task SendAuthenticationChangeEmail(IUser user, AuthenticationMethod method)
+        {
+            var verificationMethod = method.ToString();
+            if (method == AuthenticationMethod.Authenticator)
+            {
+                verificationMethod = "Authenticator app";
+            }
+
+            var link = $"{Request.Scheme}://{Request.Host}/";
+
+            var email = await _userManager.GetEmailAsync(user);
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("VerificationMethod", verificationMethod);
+            parameters.Add("Link", link);
+
+            await _notificationService.SendEmailAsync(email, _notificationOption.AuthenticationChangeTemplate, parameters);
+        }
+
         [HttpGet]
         public async Task<IActionResult> EnterCode(AuthenticationMethod method, string returnUrl, string token)
         {
@@ -223,6 +241,7 @@ namespace INZFS.Theme.Controllers
                         }
 
                         _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
+                        
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -232,7 +251,7 @@ namespace INZFS.Theme.Controllers
 
             return View($"{model.Method}Code", model);
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> Alternative(string returnUrl)
         {
@@ -310,6 +329,7 @@ namespace INZFS.Theme.Controllers
             {
                 await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
             }
+            await SendAuthenticationChangeEmail(user, method);
         } 
         
         private async Task SetTwoFactorDefaultIfChangedAsync(IUser user, AuthenticationMethod method)
@@ -319,6 +339,7 @@ namespace INZFS.Theme.Controllers
             if (method != currentMethod)
             {
                 await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+                await SendAuthenticationChangeEmail(user, method);
             }
         }
     }
