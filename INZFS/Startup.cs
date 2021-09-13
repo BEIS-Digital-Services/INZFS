@@ -66,7 +66,6 @@ namespace INZFS
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            //app.UseMiddleware<SecurityHeaderMiddleware>();
             var policyCollection = new HeaderPolicyCollection()
               .AddFrameOptionsSameOrigin()
               .AddXssProtectionBlock()
@@ -88,20 +87,24 @@ namespace INZFS
                     .From("fonts.gstatic.com")
                     .From("https://www.gov.uk/assets/static/fonts/")
                     ;
-                  builder.AddStyleSrc().UnsafeInline().Self().From("cdn.jsdelivr.net").From("fonts.googleapis.com").From("cdn.datatables.net")
+                  builder.AddStyleSrc().UnsafeInline().Self()
+                  .From("cdn.jsdelivr.net")
+                  .From("fonts.googleapis.com")
+                  .From("cdn.datatables.net")
                   .From("unpkg.com")
                   .From("cdnjs.cloudflare.com")
                   ;
-                  // unsafe-evail needed for vue.js runtime templates
                   builder.AddScriptSrc().UnsafeEval().UnsafeInline().Self()
-                   .From("cdn.jsdelivr.net").From("cdn.datatables.net").From("cdnjs.cloudflare.com").From("vuejs.org")
+                   .From("cdn.jsdelivr.net")
+                   .From("cdn.datatables.net")
+                   .From("cdnjs.cloudflare.com")
+                   .From("vuejs.org")
                    .From("unpkg.com")
                    .From("cdnjs.cloudflare.com")
                    .From("https://www.googletagmanager.com/gtag/")
                    .From("https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js")
                    .From("https://code.jquery.com/jquery-3.6.0.js")
                    .From("https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js")
-
                    ;
               });
             app.UseSecurityHeaders(policyCollection)
