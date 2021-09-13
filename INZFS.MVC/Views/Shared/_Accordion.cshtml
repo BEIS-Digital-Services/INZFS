@@ -75,3 +75,15 @@
 {
     @Html.Partial("../Accordion/AddressAccordion/_OrganisationAddressAccordion.cshtml")
 }
+
+@*SECTION 7 PREFORMANCE DATA*@
+@if (Model == "trl-at-project-start")
+{
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtStart.cshtml")
+}
+
+@if (Model == "trl-at-project-close")
+{
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtClose.cshtml")
+}
+

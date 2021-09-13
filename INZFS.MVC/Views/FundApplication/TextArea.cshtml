@@ -41,6 +41,8 @@
 
     @Html.Partial("_Accordion", Model.PageName)
 
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)
