@@ -66,11 +66,9 @@ namespace INZFS.MVC
         public int? MaxLength { get; set; }
         public bool HasOtherOption { get; set; }
         public bool ShowMarkComplete { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
         public List<string> SelectOptions { get; set; }
@@ -90,6 +88,10 @@ namespace INZFS.MVC
 
     public class Section
     {
+        public Section()
+        {
+            BelongsToApplication = true;
+        }
         public string Title { get; set; }
         public string OverviewTitle { get; set; }
         public string Tag { get; set; }
@@ -98,6 +100,9 @@ namespace INZFS.MVC
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string RazorView { get; set; }
+        public bool HideQuestionCounter { get; set; }
+        public bool BelongsToApplication { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
     }
 

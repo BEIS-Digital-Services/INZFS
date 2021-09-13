@@ -38,13 +38,11 @@ namespace INZFS.MVC.Models.DynamicForm
         public int? MaxLength { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string SectionUrl { get; set; }
         public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
@@ -55,6 +53,8 @@ namespace INZFS.MVC.Models.DynamicForm
         public string AcceptableFileExtensions { get; set; }
 
         public GridDisplayType GridDisplayType { get; set; }
+        public bool HideQuestionCounter { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public virtual string GetData()
         {
             return DataInput;

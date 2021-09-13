@@ -17,10 +17,11 @@ namespace INZFS.MVC.Models.DynamicForm
         public int? Year { get; set; }
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-
-            DateUtc = $"{Day}/{Month}/{Year}";
-
-
+            if(Day.HasValue || Month.HasValue || Year.HasValue)
+            {
+                DateUtc = $"{Day}/{Month}/{Year}";
+            }
+            
             if (Mandatory == true && MarkAsComplete)
             {
                 var clock = DateTime.UtcNow;
@@ -28,7 +29,6 @@ namespace INZFS.MVC.Models.DynamicForm
                 {
                     yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()}", new[] { nameof(DateUtc) });
                 }
-
             }
 
             if (!string.IsNullOrEmpty(DateUtc) && Mandatory == true)
