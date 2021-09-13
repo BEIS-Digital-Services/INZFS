@@ -40,12 +40,10 @@
     </div>
 
     @Html.Partial("_QuestionDescriptionBottom", Model.PageName)
-    @Html.Partial("_Accordion", "")
 
-    @if (Model.InsetText)
-    {
-        @Html.Partial("_InsetText")
-    }
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)
     {

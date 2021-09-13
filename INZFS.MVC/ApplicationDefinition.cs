@@ -50,7 +50,6 @@ namespace INZFS.MVC
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string LabelTitle { get; set; }
-        public bool InsetText { get; set; }
         public string ReturnPageName { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]
