@@ -105,39 +105,12 @@
         </a>
 
     </div>
-    <div class="govuk-grid-column-one-third">
 
-        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+    @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
+                                {
+                                    { "ApplicationNumber", Model.ApplicationNumber },
+                                    { "ShowDownload", "true" }
+                                })
 
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
-
-        </aside>
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey">Useful documents</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="/all-eef-documents">Application guidance, questions and templates</a></p>
-
-        </aside>
-        <aside class="app-related-items" role="complementary">
-            <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
-            <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
-            <a asp-controller="Report" asp-action="Download">
-                <button class="govuk-button govuk-button--secondary" type="button">
-                    Download your application
-                </button>
-            </a>
-            <a asp-controller="Report" asp-action="GenerateOdt">
-                Download an accessible text version
-            </a>
-
-        </aside>
-
-    </div>
 
 </div>
