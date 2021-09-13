@@ -1,6 +1,7 @@
 @model INZFS.Theme.ViewModels.RegistrationViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Create an account";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -9,7 +10,7 @@
     <form method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">Create an account</h1>
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body-l">You'll need to create an account to start an application.</p>
                 <div class="govuk-form-group" asp-validation-error-class-for="Email">
                     <label class="govuk-label">
@@ -57,7 +58,7 @@
                     </div>
 
                 </div>
-                <p class="govuk-body-s">Review our <a class="govuk-link" href="#">privacy notice</a></p>
+                <p class="govuk-body-s">Review our <a class="govuk-link" href="/page/privacynotice">privacy notice</a></p>
                 <div class="govuk-form-group" >
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
@@ -104,7 +105,7 @@
                 </details>
                 <button class="govuk-button" data-module="govuk-button">Create and continue</button>
                 <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">Already have an account?</a></p>
-                <p class="govuk-body-s"><a class="govuk-link" href="#">Need help signing in or creating an account?</a></p>
+                <p class="govuk-body-s"><a class="govuk-link" href="../page/help">Need help signing in or creating an account?</a></p>
             </div>
         </div>
     </form>
