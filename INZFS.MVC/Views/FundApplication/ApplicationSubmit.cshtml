@@ -1,54 +1,50 @@
-<div class="govuk-width-container">
+@model CommonModel
+@using INZFS.MVC.Models.DynamicForm
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">Submit application</h1>
+
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <p class="govuk-body">By submitting, you are confirming that the information you've given is correct, to the best of your knowledge.</p>
+        <p class="govuk-body">You can download a copy of your application before you submit.</p>
+        <p class="govuk-body">This will be packaged as a zip file including:</p>
+
+        <p class="govuk-body">This will be a zip file containing:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-9">
+            <li>a copy of your answers</li>
+            <li>any additional documents you've uploaded</li>
+        </ul>
 
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
-            <a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
-        </div>
-        <div class="govuk-grid-column-one-quarter govuk-signout-right">
-            <p><a class="govuk-body-m govuk-link" href="landing.html">Sign out</a></p>
-        </div>
+
+        <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="complete">
+            <button class="govuk-button" data-module="govuk-button">
+                Accept and send application
+            </button>
+        </a>
+
+        <br>
+
+        <a asp-controller="Report" asp-action="Download">
+            <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                Download your application
+            </button>
+        </a>
+
+
+        <p class="govuk-body-s">
+            <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section"
+               asp-route-pagename="application-overview"
+               class="govuk-link govuk-!-font-weight-regular">Go back to your application</a>
+        </p>
+
     </div>
 
-
-    <main class="govuk-main-wrapper " id="main-content" role="main">
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-
-                <h1 class="govuk-heading-l">Submit application</h1>
-
-            </div>
-        </div>
-
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-
-                <h2 class="govuk-heading-m">Now send your application</h2>
-
-                <p class="govuk-body">By submitting this notification you are confirming that, to the best of your knowledge, the details you are providing are correct.</p>
-
-                <p class="govuk-body">Before you submit your application you may wish to <a class="govuk-link" href="#">download a PDF copy of your answers.</a></p>
-
-                <div class="govuk-button-group">
-
-                    <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="complete">
-                        <button class="govuk-button" data-module="govuk-button">
-                            Accept and send application
-                        </button>
-                    </a>
-
-                    <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="application-overview">
-                        <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                            Go back to application
-                        </button>
-                    </a>
-
-                </div>
-
-            </div>
-
-        </div>
-    </main>
 </div>
