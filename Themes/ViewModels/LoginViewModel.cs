@@ -5,27 +5,42 @@ using Microsoft.Extensions.Localization;
 
 namespace INZFS.Theme.ViewModels
 {
-    public class LoginViewModel : IValidatableObject
+    public class LoginViewModel
     {
-        public string UserName { get; set; }
+        [Required]
+        [Display(Name = "Email address")]
+        [RegularExpression(EmailValidationConstants.EmailValidationExpression, ErrorMessage = EmailValidationConstants.EmailValidationMessage)]
+        public string EmailAddress { get; set; }
 
+        [Required]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
         public bool RememberMe { get; set; }
+        
+    }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            var S = validationContext.GetService<IStringLocalizer<LoginViewModel>>();
-            if (string.IsNullOrWhiteSpace(UserName))
-            {
-                yield return new ValidationResult(S["A Username is required."], new[] { "UserName" });
-            }
+    public class ForgotPasswordViewModel
+    {
+        [Required]
+        [Display(Name = "Email address")]
+        [RegularExpression(EmailValidationConstants.EmailValidationExpression, ErrorMessage = EmailValidationConstants.EmailValidationMessage)]
+        public string EmailAddress { get; set; }
+        
+    }
+    
+    public class ResetPasswordViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
 
-            if (string.IsNullOrWhiteSpace(Password))
-            {
-                yield return new ValidationResult(S["A Password is required."], new[] { "Password" });
-            }
-        }
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
     }
 }
