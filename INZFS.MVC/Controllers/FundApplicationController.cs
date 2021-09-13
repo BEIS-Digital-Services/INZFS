@@ -655,6 +655,7 @@ namespace INZFS.MVC.Controllers
             currentModel.FieldType = currentPage.FieldType;
             currentModel.Mandatory = currentPage.Mandatory;
             currentModel.AccordianReference = currentPage.AccordianReference;
+            currentModel.LabelTitle = currentPage.LabelTitle;
             currentModel.AcceptableFileExtensions = currentPage.AcceptableFileExtensions;
             if (currentPage.Actions?.Count > 0)
             {
