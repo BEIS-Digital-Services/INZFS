@@ -1,5 +1,4 @@
-﻿using Aspose.Words;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,14 +24,14 @@ namespace INZFS.MVC.Controllers
 
             return File(bytes, type, name);
         }
-        public async Task<FileContentResult> GenerateOdt()
-        {
-            byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
-            string type = "application/vnd.oasis.opendocument.text";
-            string name = "EEF_accessible_summary.odt";
+        //public async Task<FileContentResult> GenerateOdt()
+        //{
+        //    byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
+        //    string type = "application/vnd.oasis.opendocument.text";
+        //    string name = "EEF_accessible_summary.odt";
 
-            return File(bytes, type, name);
+        //    return File(bytes, type, name);
 
-        }
+        //}
     }
 }
