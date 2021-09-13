@@ -93,7 +93,7 @@
 
                 @Html.Partial("_SectionList", Model.Sections.Skip(17).Take(3).ToList())
 
-                
+
             </div>
         </div>
 
@@ -106,41 +106,9 @@
 
     </div>
 
-    <div class="govuk-grid-column-one-third govuk-!-padding-top-4">
-
-        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
-
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
-
-        </aside>
-
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey">Downloads</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="downloadDocs.html">Download the guidance, application questions and templates</a></p>
-
-            <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                Download your application
-            </button>
-
-            <details class="govuk-details" data-module="govuk-details">
-                <summary class="govuk-details__summary">
-                    <span class="govuk-details__summary-text">
-                        How does this work?
-                    </span>
-                </summary>
-                <div class="govuk-details__text">
-                    Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum
-                </div>
-            </details>
-
-        </aside>
-
-    </div>
+    @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
+                    {
+                        { "ApplicationNumber", Model.ApplicationNumber },
+                        { "ShowDownload", "false" }
+                    })
 </div>
