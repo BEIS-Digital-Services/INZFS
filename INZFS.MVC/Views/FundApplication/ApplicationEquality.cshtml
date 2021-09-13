@@ -1,0 +1,61 @@
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+        <form asp-action="ApplicationComplete" method="post" enctype="multipart/form-data">
+
+
+            <h1 class="govuk-heading-xl">Optional equality questions</h1>
+
+            <p class="govuk-body">Before you finish using the service, we'd like to ask you some equality questions. For more information on how we use your data, read our <a class="govuk-link" href="page-161.html">privacy notice</a>.</p>
+
+            <h2 class="govuk-heading-l">Do you want to answer the equality questions?</h2>
+
+            <p class="govuk-body">These questions are optional. Public sector organisations have a duty to consider the need to avoid discrimination and advance equality of opportunity as part of what they do.  This is part of what's called the public sector equlaity duty.</p>
+
+            <p class="govuk-body">Public sector bodies often collect equality information about service users to help meet this duty.</p>
+
+            <p class="govuk-body">Your answers will not affect your application.</p>
+
+            <div class="govuk-form-group">
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l"></legend>
+                    <div class="govuk-radios">
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="yes-equality" name="equality" type="radio" value="1">
+                            <label class="govuk-label govuk-radios__label" for="yes-equality">
+                                Yes, answer the equality questions
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="no-equality" name="equality" type="radio" value="0">
+                            <label class="govuk-label govuk-radios__label" for="no-equality">
+                                No, skip the equality questions
+                            </label>
+                        </div>
+
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                        Why we ask equality questions
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    The Department of Business, Energy, Industrial Strategy needs to ensure compliance of funding with the Equality Act. Collection of sensitive personal data will help ensure there is no unlawful discrimination, harassment and victimisation and other conduct prohibited by the Act.
+                </div>
+            </details>
+
+            <button type="submit" class="govuk-button" data-module="govuk-button" id="continue" name="applicationComplete"  value="applicationComplete">
+                Continue
+            </button>
+
+        </form>
+
+</div>
+
+</div>

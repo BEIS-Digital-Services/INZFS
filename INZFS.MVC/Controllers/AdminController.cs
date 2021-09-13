@@ -36,18 +36,6 @@ namespace INZFS.MVC.Controllers
         {
             return View(null);
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Application(string id)
-        {
-            var application = await _contentRepository.GetContentItemById(id);
-            var bagPart = application?.ContentItem?.As<BagPart>();
-            var contents = bagPart?.ContentItems;
-
-            return View(contents);
-        }
-
-
     }
 
 }

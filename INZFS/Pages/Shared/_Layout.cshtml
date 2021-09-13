@@ -5,7 +5,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>@ViewData["Title"] - Energy Entrepreneur's Fund</title>
+    <title>@ViewData["Title"] - Energy Entrepreneur Fund</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
 
@@ -80,60 +80,70 @@
             </p>
         </div>
 
-
-        @if (Model is BaseModel)
-        {
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-three-quarters">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                @if (Model is BaseModel && !Model.HideBreadCrumbs)
+                {
                     <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
-                        <ol class="govuk-breadcrumbs__list">
-                            <li class="govuk-breadcrumbs__list-item">
-                                <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
-                                   asp-controller="FundApplication" asp-action="section"
-                                   asp-route-pagename="application-overview">Application overview</a>
-                            </li>
+                    <ol class="govuk-breadcrumbs__list">
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                asp-controller="FundApplication" asp-action="section"
+                                asp-route-pagename="application-overview">Application overview</a>
+                        </li>
 
-                            @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                        @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                        {
+                            @if (!string.IsNullOrEmpty(Model.SectionTitle))
                             {
-                                @if (!string.IsNullOrEmpty(Model.SectionTitle))
-                                {
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
-                                           asp-controller="FundApplication" asp-action="section"
-                                           asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
-                                    </li>
+                                <li class="govuk-breadcrumbs__list-item">
+                                    <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                        asp-controller="FundApplication" asp-action="section"
+                                        asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
+                                </li>
 
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        @Model.SectionTitle
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="govuk-breadcrumbs__list-item">
-                                        @Model.SectionInfo.OverviewTitle
-                                    </li>
-                                }
-
+                                <li class="govuk-breadcrumbs__list-item">
+                                    @Model.SectionTitle
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="govuk-breadcrumbs__list-item">
+                                    @Model.SectionInfo.OverviewTitle
+                                </li>
                             }
 
+                        }
 
+                    </ol>
 
-                        </ol>
+                </nav>
+                }
+                else if (Model is CommonModel)
+                {
+                    var backModel = (CommonModel)Model;
 
-                    </nav>
-
-                </div>
-
-                <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
-                    <p style="margin-top:10px;">
-                        <a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right">
-                            Your account
-                        </a>
-
-                    </p>
-                </div>
+                    if (backModel.ShowBackLink)
+                    {
+                        <a href="@backModel.BackLinkUrl" class="govuk-back-link">@backModel.BackLinkText</a>
+                    }
+                }
+                else
+                {
+                    <text>&nbsp;</text>
+                }
             </div>
-        }
+
+            <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
+                <p style="margin-top:10px;">
+                    <a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right">
+                        Your account
+                    </a>
+
+                </p>
+            </div>
+        </div>
+        
 
 
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
@@ -146,6 +156,12 @@
                     </div>
 
                     <div class="govuk-grid-column-one-third">
+                    </div>
+                }
+                else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
+                {
+                    <div class="govuk-grid-column-full">
+                        @RenderBody()
                     </div>
                 }
                 else

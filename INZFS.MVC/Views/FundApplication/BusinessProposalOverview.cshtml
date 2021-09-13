@@ -27,7 +27,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <h1 class="govuk-heading-l">
-                    Business Proposal
+                    5. Business proposal, project plans and risk
                 </h1>
             </div>
         </div>
@@ -42,11 +42,179 @@
 
                     <div class="govuk">
 
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">5. Business Proposal<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">&nbsp;<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
                         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-                        @foreach (var item in Model.Sections)
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Business proposal (10% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Take(2))
                         {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Business plan (10% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(2).Take(1))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Technology readiness level (7.5% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(3).Take(2))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Cost and performance (7.5% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(5).Take(6))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Impact on climate change (20% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(11).Take(2))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                            Project plan (7.5% of score)
+                        </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(13).Take(2))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                        Evaluation (7.5% of score)
+                    </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(15).Take(2))
+                        {
+
+                            <div class="govuk-body-m govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                                        @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                                    </a>
+                                </dt>
+                                <dd class="govuk-summary-list__actions">
+                                    @item.GetStatusString()
+                                </dd>
+
+                            </div>
+                        }
+
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
+                        Experience (10% of score)
+                    </p>
+
+                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                        @foreach (var item in Model.Sections.Skip(17).Take(3))
+                        {
+
                             <div class="govuk-body-m govuk-summary-list__row">
                                 <dt class="govuk-summary-list__key">
                                     <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
