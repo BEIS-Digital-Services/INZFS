@@ -28,6 +28,8 @@ using INZFS.MVC.Services.VirusScan;
 using Azure.Storage.Blobs;
 using Microsoft.Extensions.Hosting;
 using System.Reflection;
+using Notify.Interfaces;
+using Notify.Client;
 
 namespace INZFS.MVC
 {
@@ -110,6 +112,9 @@ namespace INZFS.MVC
             {
                 options.ModelBinderProviders.Insert(0, new BaseModelBinderProvider());
             });
+            services.AddScoped<INotificationClient>(services =>
+                new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
+            services.AddScoped<IApplicationEmailService, ApplicationEmailService>();
         }
 
         private void ConfigureContent(IServiceCollection services)
