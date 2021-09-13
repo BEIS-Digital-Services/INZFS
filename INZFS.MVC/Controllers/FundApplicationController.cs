@@ -773,7 +773,7 @@ namespace INZFS.MVC.Controllers
                         sectionModel.SectionStatus = SectionStatus.InProgress;
                     }
                     */
-                    sectionModel.SectionStatus = field.FieldStatus.Value;
+                    sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
                     if(sectionModel.SectionStatus == FieldStatus.Completed)
                     {
                         sectionContentModel.TotalQuestionsCompleted++;
