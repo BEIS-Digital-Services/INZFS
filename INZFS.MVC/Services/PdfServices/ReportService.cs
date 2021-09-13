@@ -1,7 +1,5 @@
+using Aspose.Words;
 using INZFS.MVC;
-using INZFS.MVC.Models;
-using iText.Html2pdf;
-using iText.Kernel.Pdf;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -27,16 +25,69 @@ public class ReportService : IReportService
     {
         _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
+        BuildHtmlString();
+
+        using (MemoryStream stream = new())
+        {
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertHtml(html);
+
+            doc.Save(stream, SaveFormat.Pdf);
+            return stream.ToArray();
+        }
+    }
+
+    public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
+    {
+        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+
+        BuildHtmlString();
+
+        using (MemoryStream stream = new())
+        {
+            Aspose.Words.Document doc = new Aspose.Words.Document();
+            DocumentBuilder builder = new DocumentBuilder(doc);
+
+            builder.InsertHtml(html);
+
+            doc.Save(stream, SaveFormat.Odt);
+            return stream.ToArray();
+        }
+    }
+
+    //To reimplement, this method requires nuget packages DocumentFormat.OpenXml and NS.HtmlToOpenXml
+    //public async Task<byte[]> GenerateDocXReport(string applicationAuthor)
+    //{
+    //    _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+
+    //    BuildHtmlString();
+
+    //    using (MemoryStream stream = new())
+    //    {
+    //        using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
+    //        {
+    //            MainDocumentPart mainPart = package.MainDocumentPart;
+    //            if (mainPart == null)
+    //            {
+    //                mainPart = package.AddMainDocumentPart();
+    //                new Document(new Body()).Save(mainPart);
+    //            }
+
+    //            HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
+    //            converter.ParseHtml(html);
+    //            mainPart.Document.Save();
+    //        }
+    //        return stream.ToArray();
+    //    }
+    //}
+
+    private void BuildHtmlString()
+    {
         OpenHtmlString();
         PopulateHtmlSections();
         CloseHtmlString();
-
-        using (MemoryStream stream = new())
-        using (PdfWriter writer = new(stream))
-        {
-            HtmlConverter.ConvertToPdf(html, writer);
-            return stream.ToArray();
-        }
     }
 
     private void OpenHtmlString()
@@ -69,7 +120,7 @@ public class ReportService : IReportService
         }
     }
 
-    private void PopulateHtmlQuestions(Section section)
+    private void PopulateHtmlQuestions(INZFS.MVC.Section section)
     {
         foreach (var page in section.Pages)
         {
