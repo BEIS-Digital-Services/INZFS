@@ -1,4 +1,5 @@
-using Aspose.Words;
+using iText.Html2pdf;
+using iText.Kernel.Pdf;
 using INZFS.MVC;
 using System;
 using System.IO;
@@ -28,60 +29,12 @@ public class ReportService : IReportService
         BuildHtmlString();
 
         using (MemoryStream stream = new())
+        using (PdfWriter writer = new(stream))
         {
-            Aspose.Words.Document doc = new Aspose.Words.Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
-
-            builder.InsertHtml(html);
-
-            doc.Save(stream, SaveFormat.Pdf);
+            HtmlConverter.ConvertToPdf(html, writer);
             return stream.ToArray();
         }
     }
-
-    public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
-    {
-        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
-
-        BuildHtmlString();
-
-        using (MemoryStream stream = new())
-        {
-            Aspose.Words.Document doc = new Aspose.Words.Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
-
-            builder.InsertHtml(html);
-
-            doc.Save(stream, SaveFormat.Odt);
-            return stream.ToArray();
-        }
-    }
-
-    //To reimplement, this method requires nuget packages DocumentFormat.OpenXml and NS.HtmlToOpenXml
-    //public async Task<byte[]> GenerateDocXReport(string applicationAuthor)
-    //{
-    //    _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
-
-    //    BuildHtmlString();
-
-    //    using (MemoryStream stream = new())
-    //    {
-    //        using (WordprocessingDocument package = WordprocessingDocument.Create(stream, WordprocessingDocumentType.Document))
-    //        {
-    //            MainDocumentPart mainPart = package.MainDocumentPart;
-    //            if (mainPart == null)
-    //            {
-    //                mainPart = package.AddMainDocumentPart();
-    //                new Document(new Body()).Save(mainPart);
-    //            }
-
-    //            HtmlToOpenXml.HtmlConverter converter = new HtmlToOpenXml.HtmlConverter(mainPart);
-    //            converter.ParseHtml(html);
-    //            mainPart.Document.Save();
-    //        }
-    //        return stream.ToArray();
-    //    }
-    //}
 
     private void BuildHtmlString()
     {
