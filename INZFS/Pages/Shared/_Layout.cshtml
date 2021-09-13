@@ -84,7 +84,7 @@
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                @if (Model is BaseModel && !Model.HideBreadCrumbs)
+                @if ((Model is BaseModel && !Model.HideBreadCrumbs) || Model is SectionContent)
                 {
                     <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
                     <ol class="govuk-breadcrumbs__list">
@@ -93,25 +93,31 @@
                                 asp-controller="FundApplication" asp-action="section"
                                 asp-route-pagename="application-overview">Application overview</a>
                         </li>
+                        @{ 
+                            var pageTitle = Model is BaseModel ? Model.SectionTitle : null;
 
-                        @if (!string.IsNullOrEmpty(Model.SectionInfo.OverviewTitle))
+                            var sectionTitle = Model is BaseModel ? Model.SectionInfo.OverviewTitle : Model.OverviewTitle;
+                            var sectionUrl = Model is BaseModel ? Model.SectionUrl : null;
+                        }
+
+                        @if (!string.IsNullOrEmpty(sectionTitle))
                         {
-                            @if (!string.IsNullOrEmpty(Model.SectionTitle))
+                            @if (!string.IsNullOrEmpty(pageTitle))
                             {
                                 <li class="govuk-breadcrumbs__list-item">
                                     <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
                                         asp-controller="FundApplication" asp-action="section"
-                                        asp-route-pagename="@Model.SectionUrl">@Model.SectionInfo.OverviewTitle</a>
+                                        asp-route-pagename="@sectionUrl">@sectionTitle</a>
                                 </li>
 
                                 <li class="govuk-breadcrumbs__list-item">
-                                    @Model.SectionTitle
+                                    @pageTitle
                                 </li>
                             }
                             else
                             {
                                 <li class="govuk-breadcrumbs__list-item">
-                                    @Model.SectionInfo.OverviewTitle
+                                    @sectionTitle
                                 </li>
                             }
 
@@ -138,7 +144,7 @@
 
             <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
                 <p style="margin-top:10px;">
-                    <a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right">
+                    <a class="govuk-body-m govuk-link" href="/MyAccount" style="float:right">
                         Your account
                     </a>
 
