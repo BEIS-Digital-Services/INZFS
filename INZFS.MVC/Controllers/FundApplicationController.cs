@@ -350,7 +350,7 @@ namespace INZFS.MVC.Controllers
                     }
                     existingFieldData.Data = model.GetData();
                     existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
-                    if (existingFieldData.Data == "Other" || existingFieldData.Data.Contains("Other"))
+                    if (!string.IsNullOrEmpty(existingFieldData.Data) && existingFieldData.Data.Contains("Other"))
                     {
                         existingFieldData.OtherOption = model.GetOtherSelected();
                     }
