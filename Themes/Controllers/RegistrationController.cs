@@ -195,6 +195,7 @@ namespace INZFS.Theme.Controllers
 
                 if (result.Succeeded)
                 {
+                    await SendRegistrationSuccessEmail(user);
                     return View("Verified");
                 }
                
@@ -233,6 +234,16 @@ namespace INZFS.Theme.Controllers
             //TODO: the template id should be moved to DB or Orchard workflow
             await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationTemplate,
                 new Dictionary<string, object>() {{"Url", tokenLink}});
+        }
+
+        private async Task SendRegistrationSuccessEmail(IUser user)
+        {
+            var link = Url.Action("Login", "Account", new {area = "INZFS.Theme"}, Request.Scheme);
+
+            var email = await _userManager.GetEmailAsync(user);
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("Link", link);
+            await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationConfirmTemplate, parameters);
         }
 
     }
