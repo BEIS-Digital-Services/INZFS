@@ -1304,7 +1304,6 @@
             "hasOtherOption": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue to next step",
             "selectOptions": [
               "Product development",
               "Hardware development",
@@ -1327,8 +1326,7 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "continueButtonText": "Save and continue to next step"
+            "showMarkComplete": true
           },
           {
             "name": "fte-jobs-retained",
@@ -1344,8 +1342,7 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "continueButtonText": "Save and continue to next step"
+            "showMarkComplete": true
           },
           {
             "name": "fte-jobs-created",
@@ -1361,8 +1358,7 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "continueButtonText": "Save and continue to next step"
+            "showMarkComplete": true
           },
           {
             "name": "number-of-partner-organisations",
@@ -1379,8 +1375,7 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "continueButtonText": "Save and continue to next step"
+            "showMarkComplete": true
           },
           {
             "name": "consumer-trials",
@@ -1395,8 +1390,7 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "showSaveProgessButton": false,
-            "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue to next step"
+            "displayQuestionCounter": true
           },
           {
             "name": "consumer-trials-participants",
@@ -1412,8 +1406,7 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "continueButtonText": "Save and continue to next step"
+            "showMarkComplete": true
           },
           {
             "name": "trl-at-project-start",
@@ -1428,7 +1421,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue to next step",
             "selectOptions": [
               "TRL1",
               "TRL2",
@@ -1454,7 +1446,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue to next step",
             "selectOptions": [
               "TRL1",
               "TRL2",
@@ -1481,7 +1472,6 @@
             "showMarkComplete": true,
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
-            "continueButtonText": "Save and continue to next step",
             "selectOptions": [
               "Accessing export markets",
               "Accessing UK markets/customers",
