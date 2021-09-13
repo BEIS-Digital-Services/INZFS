@@ -4,146 +4,55 @@
 @using INZFS.MVC
 
 
-<div class="govuk-width-container">
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">6. Finance Proposal</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-tabs" data-module="govuk-tabs">
+            <h2 class="govuk-tabs__title">
+                6. Finance Proposal
+            </h2>
+
+            <div class="govuk">
+
+                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">&nbsp;<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
+                <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
+
+                @Html.Partial("_SectionList", Model.Sections.Take(1).ToList())
 
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-three-quarters">
-            <div class="govuk-breadcrumbs">
-                <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item">
-                        <a class="govuk-breadcrumbs__link" href="application-overview" id="application-overview">Application overview</a>
-                    </li>
-                    <li class="govuk-breadcrumbs__list-item">
-                        6. Finance Proposal
-                    </li>
-                </ol>
+                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">Project costs (7.5% of score)</p>
+                <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                @Html.Partial("_SectionList", Model.Sections.Skip(1).Take(2).ToList())
+
+                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">Additional contributions (7.5% of score)</p>
+                <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                @Html.Partial("_SectionList", Model.Sections.Skip(3).Take(1).ToList())
+
             </div>
         </div>
+
+
+        <a href="application-overview">
+            <button class="govuk-button" data-module="govuk-button">
+                Back to application overview
+            </button>
+        </a>
+
     </div>
 
-    <main class="govuk-main-wrapper " id="main-content" role="main">
 
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-l">6. Finance Proposal</h1>
-            </div>
-        </div>
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-
-                <div class="govuk-tabs" data-module="govuk-tabs">
-                    <h2 class="govuk-tabs__title">
-                        6. Finance Proposal
-                    </h2>
-
-                    <div class="govuk">
-
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">&nbsp;<span class="summary-list-section summary-list-section--right"> @Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span></p>
-                        <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
-
-
-                        @{
-                            var sections1 = Model.Sections.Take(1);
-                        }
-                        @foreach (var item in sections1) 
-                            {
-                                <div class="govuk-body-m govuk-summary-list__row">
-                                    <dt class="govuk-summary-list__key">
-                                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                        </a>
-                                    </dt>
-                                    <dd class="govuk-summary-list__actions">
-                                        @item.GetStatusString()
-                                    </dd>
-
-                                </div>
-                            }
-
-
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">Project costs (7.5% of score)</p>
-                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
-
-                        @{
-                            var sections2 = Model.Sections.Skip(1).Take(2);
-                        }
-
-                        @foreach (var item in sections2) 
-                            {
-                                <div class="govuk-body-m govuk-summary-list__row">
-                                    <dt class="govuk-summary-list__key">
-                                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                        </a>
-                                    </dt>
-                                    <dd class="govuk-summary-list__actions">
-                                        @item.GetStatusString()
-                                    </dd>
-
-                                </div>
-                            }
-
-                        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">Additional contributions (7.5% of score)</p>
-                        <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
-
-                        @{
-                            var sections3 = Model.Sections.Skip(3).Take(1);
-                        }
-
-                        @foreach (var item in sections3) 
-                            {
-                                <div class="govuk-body-m govuk-summary-list__row">
-                                    <dt class="govuk-summary-list__key">
-                                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.Url" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                                        </a>
-                                    </dt>
-                                    <dd class="govuk-summary-list__actions">
-                                        @item.GetStatusString()
-                                    </dd>
-
-                                </div>
-                            }
-
-
-                    </div>
-                </div>
-
-
-                <a href="application-overview">
-                    <button class="govuk-button" data-module="govuk-button">
-                        Back to application overview
-                    </button>
-                </a>
-
-            </div>
-
-            <div class="govuk-grid-column-one-third govuk-!-padding-top-4">
-
-                <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
-
-                <aside class="app-related-items" role="complementary">
-
-                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
-
-                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
-
-                </aside>
-
-                <aside class="app-related-items" role="complementary">
-
-                    <p class="govuk-body-m govuk-colour--mid-grey">Useful documents</p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="downloadDocs.html">Application guidance, questions and templates</a></p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="downloadDocs.html">Download project cost breakdown form</a></p>
-
-                </aside>
-
-            </div>
-        </div>
-    </main>
-
+    @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
+                        {
+                            { "ApplicationNumber", Model.ApplicationNumber },
+                            { "ShowDownload", "false" }
+                        })
 </div>
