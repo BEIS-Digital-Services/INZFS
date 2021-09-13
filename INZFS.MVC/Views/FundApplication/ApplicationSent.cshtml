@@ -1,0 +1,68 @@
+@model string
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l">Your application</h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+
+    <div class="govuk-grid-column-two-thirds">
+
+
+        <h2 class="govuk-heading-m">What happens after you submit your application</h2>
+
+        <p class="govuk-body">Your application will be assigned to an assessor.</p>
+        <p class="govuk-body">The current timelines are as follows: </p>
+        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Eligibility checks </p>
+        <p class="govuk-body">1 April - 9 April 2021</p>
+        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Independent assessments </p>
+        <p class="govuk-body">14 April - 28 May 2021</p>
+        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Moderation </p>
+        <p class="govuk-body">Early June 2021</p>
+        <p class="govuk-body">Eligibility checks </p>
+        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Final results</p>
+        <p class="govuk-body">Mid/late June 2021</p>
+        <p class="govuk-body">We'll update you if these timelines change. </p>
+        <p class="govuk-body">We'll email you to let you know if your application has been successful after the assessment is complete. </p>
+        <p class="govuk-body">If you have any questions you can contact the fund team at <a href="#">contact.EEF@BEIS.gov.uk</a> </p>
+
+
+
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+
+        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+        <aside class="app-related-items" role="complementary">
+
+            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model</p>
+
+            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Status</p>
+            <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10">Independent assessment</p>
+
+            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Date submitted</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">27 June 2021</p>
+
+        </aside>
+
+        <aside class="app-related-items" role="complementary">
+
+            <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
+            <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
+            <a asp-controller="Report" asp-action="Download">
+                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" data-module="govuk-button">
+                    Download your application
+                </button>
+            </a>
+            
+            <p class="govuk-body-m"><a class="govuk-link" href="#">Download an accessible text version</a></p>
+
+        </aside>
+
+    </div>
+
+</div>

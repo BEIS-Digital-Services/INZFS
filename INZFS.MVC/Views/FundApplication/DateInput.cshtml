@@ -5,7 +5,7 @@
 
 
 
-<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+@Html.Partial("_Steps")
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
     @{

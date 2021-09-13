@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Aspose.Words;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,13 +17,22 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public async Task<FileContentResult> GeneratePdf()
+        public async Task<FileContentResult> Download()
         {
             byte[] bytes = await _reportService.GeneratePdfReport(User.Identity.Name);
             string type = "application/pdf";
             string name = $"EEF_application_summary.pdf";
 
             return File(bytes, type, name);
+        }
+        public async Task<FileContentResult> GenerateOdt()
+        {
+            byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
+            string type = "application/vnd.oasis.opendocument.text";
+            string name = "EEF_accessible_summary.odt";
+
+            return File(bytes, type, name);
+
         }
     }
 }

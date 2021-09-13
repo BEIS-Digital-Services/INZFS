@@ -27,7 +27,7 @@
 
         @{
             var sections = Model.Sections.Take(3);
-            var completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            var completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
@@ -51,7 +51,7 @@
 
         @{
             sections = Model.Sections.Skip(3).Take(3);
-            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
@@ -76,7 +76,7 @@
 
         @{
             sections = Model.Sections.Skip(6).Take(1);
-            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">@completedCount out of 1 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
@@ -127,11 +127,15 @@
         <aside class="app-related-items" role="complementary">
             <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
             <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
-            <a asp-controller="Report" asp-action="GeneratePdf">
+            <a asp-controller="Report" asp-action="Download">
                 <button class="govuk-button govuk-button--secondary" type="button">
                     Download your application
                 </button>
             </a>
+            <a asp-controller="Report" asp-action="GenerateOdt">
+                Download an accessible text version
+            </a>
+
         </aside>
 
     </div>

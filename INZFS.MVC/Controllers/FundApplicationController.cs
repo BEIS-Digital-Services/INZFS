@@ -30,6 +30,8 @@ using ClosedXML.Excel.CalcEngine.Exceptions;
 using System.Globalization;
 using INZFS.MVC.Services;
 using INZFS.MVC.Records;
+using System.Security.Claims;
+using INZFS.MVC.Extensions;
 
 namespace INZFS.MVC.Controllers
 {
@@ -86,6 +88,17 @@ namespace INZFS.MVC.Controllers
             {
                 content = await _contentRepository.CreateApplicationContent(User.Identity.Name);
             }
+            
+            if (string.IsNullOrEmpty(User.Identity.ApplicationNumber()))
+            {
+                var claimIdentity = (ClaimsIdentity)User.Identity;
+                claimIdentity.AddClaim(new System.Security.Claims.Claim("ApplicationNumber", content.ApplicationNumber));
+            }
+
+            if(RedirectToApplicationSubmittedPage(pagename, content))
+            {
+                return RedirectToAction("ApplicationSent");
+            }
 
             // Page
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pagename));
@@ -98,25 +111,7 @@ namespace INZFS.MVC.Controllers
             //Overview
             if (pagename.ToLower() == "application-overview")
             {
-                var sections = _applicationDefinition.Application.Sections;
-                var applicationOverviewContentModel = new ApplicationOverviewContent();
-
-                applicationOverviewContentModel.ApplicationNumber = content.ApplicationNumber;
-                foreach (var section in sections)
-                {
-                    var sectionContentModel = GetSectionContent(content, section);
-                    var applicationOverviewModel = new ApplicationOverviewModel();
-                    applicationOverviewModel.SectionTag = section.Tag;
-                    applicationOverviewModel.Title = sectionContentModel.OverviewTitle;
-                    applicationOverviewModel.Url = sectionContentModel.Url;
-                    applicationOverviewModel.SectionStatus = sectionContentModel.OverallStatus;
-
-                    applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
-                }
-
-                applicationOverviewContentModel.TotalSections = sections.Count;
-                applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
-                                                    Sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+                var applicationOverviewContentModel = GetApplicationOverviewContent(content);
 
                 SetPageTitle("Application Overview");
                 return View("ApplicationOverview", applicationOverviewContentModel);
@@ -134,6 +129,30 @@ namespace INZFS.MVC.Controllers
 
             return NotFound();
 
+        }
+
+        private bool RedirectToApplicationSubmittedPage(string pageName, ApplicationContent content)
+        {
+            if (content.ApplicationStatus == ApplicationStatus.Submitted)
+            {
+                if(pageName.ToLower() == "application-overview")
+                {
+                    return true;
+                }
+                var currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section =>
+                 section.Pages.Any(page => page.Name.ToLower() == pageName.ToLower()));
+                
+                if (currentSection == null)
+                {
+                    currentSection = _applicationDefinition.Application.Sections.FirstOrDefault(section => section.Url.ToLower().Equals(pageName.ToLower()));
+                }
+                if(currentSection?.BelongsToApplication == true)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public async Task<bool> CreateDirectory(string directoryName)
@@ -183,20 +202,11 @@ namespace INZFS.MVC.Controllers
                     }
                    
                 }
-                
-                //UploadFile
-                //else
-                //{
-                //    //TODO - Handle validation Error
-                //    if (submitAction != "DeleteFile")
-                //    {
-                //        ModelState.AddModelError("DataInput", "No file was uploaded.");
-                //    }
-                //}
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
                 var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                
                 if (contentToSave == null)
                 {
                     contentToSave = new ApplicationContent();
@@ -214,13 +224,6 @@ namespace INZFS.MVC.Controllers
                 {
                     if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
-                        //var errorMessage = await _fileUploadService.Validate(file);
-                        //if (!string.IsNullOrEmpty(errorMessage))
-                        //{
-                        //    //TODO - Handle validation Error
-                        //    ModelState.AddModelError("DataInput", errorMessage);
-                        //}
-
                         var directoryName = Guid.NewGuid().ToString();
                         try
                         {
@@ -450,15 +453,70 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Submit()
         {
-            return View("ApplicationSubmit");
+            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            if(content.ApplicationStatus == ApplicationStatus.Submitted)
+            {
+                return View("ApplicationSent", content.ApplicationNumber);
+            }
+            var applicationOverviewContentModel = GetApplicationOverviewContent(content);
+            if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
+            {
+                var model = new CommonModel
+                {
+                    ShowBackLink = true,
+                    BackLinkText = "Back",
+                    BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
+                };
+                return View("ApplicationSubmit", model);
+            }
+            else
+            {
+                return RedirectToAction("section", new { pagename = "application-overview" });
+            }
         }
-
         public async Task<IActionResult> Complete()
         {
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            if (content.ApplicationStatus == ApplicationStatus.Submitted)
+            {
+                return RedirectToAction("ApplicationSent");
+            }
+            var applicationOverviewContentModel = GetApplicationOverviewContent(content);
+            if (applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
+            {
+                await _contentRepository.UpdateStatus(User.Identity.Name, ApplicationStatus.Submitted);
+                var model = new CommonModel { 
+                    ApplicationNumber = content.ApplicationNumber,
+                    ShowBackLink = true,
+                    BackLinkText = "Back",
+                    BackLinkUrl = Url.ActionLink("Submit", "FundController")
+                };
 
-            return View("ApplicationComplete", content.ApplicationNumber);
+                return View("ApplicationComplete", model);
+            }
+            else
+            {
+                return RedirectToAction("section", new { pagename = "application-overview" });
+            }
         }
+
+        public async Task<IActionResult> ApplicationEquality()
+        {
+            var model = new CommonModel
+            {
+                ShowBackLink = true,
+                BackLinkText = "Back to application overview",
+                BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
+            };
+            return View("ApplicationEquality", model);
+        }
+
+        public async Task<IActionResult> ApplicationSent()
+        {
+            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            return View("ApplicationSent", content.ApplicationNumber);
+        }
+        //
 
         [HttpPost, ActionName("ApplicationComplete")]
         public async Task<IActionResult> ApplicationComplete(string equality)
@@ -469,7 +527,7 @@ namespace INZFS.MVC.Controllers
             }
             else 
             {
-                return RedirectToAction("section", new { pagename = "application-overview" });
+                return RedirectToAction("ApplicationSent");
             }
         }
 
@@ -632,6 +690,8 @@ namespace INZFS.MVC.Controllers
 
             currentModel.QuestionNumber = index + 1;
             currentModel.TotalQuestions = currentSection.Pages.Count(p => !p.HideFromSummary);
+            currentModel.HideQuestionCounter = currentSection.HideQuestionCounter;
+            currentModel.HideBreadCrumbs = currentSection.HideBreadCrumbs;
 
             if (string.IsNullOrEmpty(currentPage.ContinueButtonText))
             {
@@ -656,14 +716,8 @@ namespace INZFS.MVC.Controllers
                 currentModel.Description = currentPage.Description;
             }
 
-            if (!string.IsNullOrEmpty(currentPage.UploadText))
-            {
-                currentModel.UploadText = currentPage.UploadText;
-            }
-
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
             currentModel.GridDisplayType = currentPage.GridDisplayType;
-
             return currentModel;
         }
 
@@ -689,20 +743,24 @@ namespace INZFS.MVC.Controllers
                         continue;
                     }
                 }
+                if(pageContent.HideFromSummary)
+                {
+                    continue;
+                }
 
                 var field = content?.Fields?.FirstOrDefault(f => f.Name.Equals(pageContent.FieldName));
                 
                 var sectionModel = new SectionModel();
                 sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
                 sectionModel.Url = pageContent.Name;
-                sectionModel.HideFromSummary = pageContent.HideFromSummary;
-
+                
                 if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
                 {
-                    sectionModel.SectionStatus = SectionStatus.NotStarted;
+                    sectionModel.SectionStatus = FieldStatus.NotStarted;
                 }
                 else
                 {
+                    /*
                     bool markAsComplete = true;
                     if (pageContent.ShowMarkComplete)
                     {
@@ -718,6 +776,12 @@ namespace INZFS.MVC.Controllers
                     {
                         sectionModel.SectionStatus = SectionStatus.InProgress;
                     }
+                    */
+                    sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
+                    if(sectionModel.SectionStatus == FieldStatus.Completed)
+                    {
+                        sectionContentModel.TotalQuestionsCompleted++;
+                    }
 
                 }
                 sectionContentModel.Sections.Add(sectionModel);
@@ -727,9 +791,33 @@ namespace INZFS.MVC.Controllers
             return sectionContentModel;
         }
 
+        private ApplicationOverviewContent GetApplicationOverviewContent(ApplicationContent content)
+        {
+            var sections = _applicationDefinition.Application.Sections.Where(s => s.BelongsToApplication == true);
+            var applicationOverviewContentModel = new ApplicationOverviewContent();
+
+            applicationOverviewContentModel.ApplicationNumber = content.ApplicationNumber;
+            foreach (var section in sections)
+            {
+                var sectionContentModel = GetSectionContent(content, section);
+                var applicationOverviewModel = new ApplicationOverviewModel();
+                applicationOverviewModel.SectionTag = section.Tag;
+                applicationOverviewModel.Title = sectionContentModel.OverviewTitle;
+                applicationOverviewModel.Url = sectionContentModel.Url;
+                applicationOverviewModel.SectionStatus = sectionContentModel.OverallStatus;
+
+                applicationOverviewContentModel.Sections.Add(applicationOverviewModel);
+            }
+
+            applicationOverviewContentModel.TotalSections = sections.Count();
+            applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
+                                                Sections.Count(section => section.SectionStatus == FieldStatus.Completed);
+            return applicationOverviewContentModel;
+        }
+
         private void SetPageTitle(string title)
         {
-            ViewData["Title"] = $"{title} - Energy Entrepreneur Fund";
+            ViewData["Title"] = $"{title}";
         }
 
         private FieldStatus GetFieldStatus(Page currentPage, BaseModel model)
