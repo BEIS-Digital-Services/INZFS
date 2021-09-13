@@ -101,7 +101,7 @@
 
         </div>
 
-        @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null && Model.UploadedFile.ParsedExcelData != null)
+        @if (Model.PageName == "project-cost-breakdown")
         {
             <table class="govuk-table">
                 <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
@@ -119,10 +119,10 @@
                             Total BEIS grant applied for
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -131,10 +131,10 @@
                             Total match funding contribution
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -143,10 +143,10 @@
                             Total project cost
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            -
+                            
                         </td>
                     </tr>
 

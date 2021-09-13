@@ -46,8 +46,10 @@
         </fieldset>
     </div>
 
+    @Html.Partial("_Accordion", Model.PageName)
 
-    @Html.Partial("_Accordion", "")
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)

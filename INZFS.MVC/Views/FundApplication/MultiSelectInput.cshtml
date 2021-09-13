@@ -27,7 +27,7 @@
                 @foreach (var item in Model.SelectedOptions)
                 {
                     <div class="govuk-checkboxes__item">
-                        <input class="govuk-checkboxes__input" id="checkboxSelect" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) { @if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text> } }>
+                        <input class="govuk-checkboxes__input" id="checkboxSelect-@item.Replace(" ","-").ToLower()" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) { @if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text> } }>
                         <label class="govuk-label govuk-checkboxes__label">
                             @item
                         </label>
@@ -36,7 +36,16 @@
         </fieldset>
     </div>
 
-    @Html.Partial("_Accordion", "")
+    @if (Model.HasOtherOption)
+    {
+        @Html.Partial("_OtheroptionMultiSelect", Model)
+    }
+
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)
@@ -46,3 +55,6 @@
 </form>
 
 @Html.Partial("_BackButton", Model)
+
+
+<script src="~/js/ToggleOtherOption.js"></script>
