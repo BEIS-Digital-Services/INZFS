@@ -50,14 +50,15 @@ namespace INZFS.MVC.Controllers
         private readonly ILogger _logger;
         private readonly IContentRepository _contentRepository;
         private readonly ApplicationDefinition _applicationDefinition;
-        
+        private readonly IApplicationEmailService _applicationEmailService;
+
         public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager,
             IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
             IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
             IUpdateModelAccessor updateModelAccessor, INavigation navigation,
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
-            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition)
+            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition, IApplicationEmailService applicationEmailService)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -71,6 +72,7 @@ namespace INZFS.MVC.Controllers
             _virusScanService = virusScanService;
             _fileUploadService = fileUploadService;
             _applicationDefinition = applicationDefinition;
+            _applicationEmailService = applicationEmailService;
         }
 
         [HttpGet]
@@ -491,7 +493,7 @@ namespace INZFS.MVC.Controllers
                     BackLinkText = "Back",
                     BackLinkUrl = Url.ActionLink("Submit", "FundController")
                 };
-
+                await _applicationEmailService.SendConfirmationEmailAsync(User);
                 return View("ApplicationComplete", model);
             }
             else
