@@ -14,7 +14,6 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Kind { get; set; }
         public int QuestionNumber { get; set; } = 1;
         public int TotalQuestions { get; set; }
-        public bool InsetText { get; set; }
         public bool DisplayQuestionCounter { get; set; } = false;
         public string PageName { get; set; }
         public string LabelTitle { get; set; }
