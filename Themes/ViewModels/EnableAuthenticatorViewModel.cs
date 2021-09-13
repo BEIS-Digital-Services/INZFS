@@ -23,9 +23,6 @@ namespace INZFS.Theme.ViewModels
         [Compare("Email")]
         public string ConfirmEmail { get; set; }
 
-
-        
-
         
     }
 

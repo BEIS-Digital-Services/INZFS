@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 using Castle.Core.Logging;
 using INZFS.Theme.Models;
@@ -8,6 +9,7 @@ using INZFS.Theme.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.Modules;
@@ -23,6 +25,8 @@ namespace INZFS.Theme.Controllers
         private readonly UserManager<IUser> _userManager;
         private readonly IUrlEncodingService _encodingService;
         private readonly IEnumerable<ILoginFormEvent> _accountEvents;
+        private readonly INotificationService _notificationService;
+        private readonly NotificationOption _notificationOption;
         private readonly ILogger<AccountController> _logger;
 
 
@@ -30,12 +34,17 @@ namespace INZFS.Theme.Controllers
             UserManager<IUser> userManager,
             IUrlEncodingService encodingService,
             IEnumerable<ILoginFormEvent> accountEvents,
-            ILogger<AccountController> logger)
+            INotificationService notificationService,
+            IOptions<NotificationOption> notificationOption,
+            ILogger<AccountController> logger
+            )
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _encodingService = encodingService;
             _accountEvents = accountEvents;
+            _notificationService = notificationService;
+            _notificationOption = notificationOption.Value;
             _logger = logger;
         }
 
@@ -51,7 +60,7 @@ namespace INZFS.Theme.Controllers
 
             return View(new LoginViewModel());
         }
-
+        
         [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -93,7 +102,105 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
+
         [AllowAnonymous]
+        [HttpGet]
+        public async Task<IActionResult> ForgotPassword(string returnUrl)
+        {
+            if (User.Identity?.IsAuthenticated ?? false)
+            {
+                returnUrl ??= Url.Content("~/");
+                return LocalRedirect(returnUrl);
+            }
+
+            return View(new ForgotPasswordViewModel());
+        }
+ 
+        
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model, string returnUrl)
+        {
+            if (ModelState.IsValid)
+            {
+
+                var user = await _userManager.FindByEmailAsync(model.EmailAddress);
+                var tokenEmail = _encodingService.Encrypt(model.EmailAddress);
+                if (user != null)
+                {
+                    var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+                    token = _encodingService.Base64UrlEncode(token);
+                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, Request.Scheme);
+                    await SendForgotPasswordEmailAsync(model.EmailAddress, resetUrl);
+                }
+              
+                return RedirectToAction("ForgotPasswordConfirm", new {token = tokenEmail});
+            }
+
+            return View(model);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult ForgotPasswordConfirm(string token)
+        {
+            var model = new ForgotPasswordViewModel();
+            model.EmailAddress = _encodingService.Decrypt(token);
+            return View(model);
+        }
+        
+        
+        [AllowAnonymous]
+        [HttpGet]
+        public IActionResult ResetPassword(string token, string idToken)
+        {
+            
+            return View();
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model, string token, string idToken)
+        {
+            if (ModelState.IsValid)
+            {
+                var email =  _encodingService.Decrypt(idToken);
+                var user = await _userManager.FindByEmailAsync(email);
+                if (user != null)
+                {
+                    token = _encodingService.Base64UrlDecode(token);
+                    var result = await _userManager.ResetPasswordAsync(user, token, model.NewPassword);
+
+                    if (result.Succeeded)
+                    {
+                        await SendForgotPasswordConfirmationEmailAsync(email);
+                        return RedirectToAction("ResetPasswordSuccess");
+                    }
+
+                    AddIdentityErrors(result);
+                }
+                else
+                {
+                    _logger.LogInformation($"The user for reset password has not found for email={email}");
+                    ModelState.AddModelError(string.Empty, "Invalid token.");
+                }
+
+                
+            }
+
+            return View(model);
+        }
+
+
+        [AllowAnonymous]
+        public  IActionResult ResetPasswordSuccess()
+        {
+            return View();
+        }
+
+         [AllowAnonymous]
         public async Task<IActionResult> LogOff()
         {
             if (User.Identity?.IsAuthenticated ?? false)
@@ -106,12 +213,38 @@ namespace INZFS.Theme.Controllers
         }
 
 
+        private async Task SendForgotPasswordEmailAsync(string email, string tokenLink)
+        {
+            await _notificationService.SendEmailAsync(email, _notificationOption.ForgotPasswordEmailTemplate,
+                new Dictionary<string, object>() { { "Url", tokenLink } });
+        }
+        
+        private async Task SendForgotPasswordConfirmationEmailAsync(string email)
+        {
+            await _notificationService.SendEmailAsync(email, _notificationOption.ForgotPasswordConfirmEmailTemplate);
+        }
+
+
         [AllowAnonymous]
         [HttpGet("login")]
         public async Task<IActionResult> LoginOld(string returnUrl)
         {
             return NotFound();
+        } 
+        
+        [AllowAnonymous]
+        [HttpGet("forgotpassword")]
+        public async Task<IActionResult> ForgottenPasswordOld(string returnUrl)
+        {
+            return NotFound();
         }
 
+        private void AddIdentityErrors(IdentityResult result)
+        {
+            foreach (var error in result.Errors)
+            {
+                ModelState.AddModelError(string.Empty, error.Description);
+            }
+        }
     }
 }
