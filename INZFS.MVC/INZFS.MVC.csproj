@@ -5,6 +5,12 @@
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		<PreserveCompilationContext>false</PreserveCompilationContext>
 	</PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Admin\**" />
+    <EmbeddedResource Remove="Views\Admin\**" />
+    <None Remove="Views\Admin\**" />
+  </ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
@@ -37,9 +43,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Remove="ClosedXML" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Views\Admin\" />
 	</ItemGroup>
 </Project>
 

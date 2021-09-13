@@ -79,6 +79,13 @@ namespace INZFS.MVC.Models.DynamicForm
             Hint = page.Hint;
             ShowMarkAsComplete = page.ShowMarkComplete;
 
+
+            var actionErrors = ValidateActions(page);
+            if (actionErrors.Any())
+            {
+                return actionErrors;
+            }
+
             var errors = ExtendedValidation(validationContext);
             if(!errors.Any())
             {
@@ -89,11 +96,26 @@ namespace INZFS.MVC.Models.DynamicForm
                     return customValidator.Validate(GetData(), page.FriendlyFieldName);
                 }
             }
+
+
             return errors;
         }
 
         protected abstract IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext);
-        
+
+        private IEnumerable<ValidationResult> ValidateActions(Page page) 
+        {
+            
+            if (page.Actions != null && page.Actions.Count > 0)
+            {
+                yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
+            }
+
+        }
+
+
+
+
     }
 
 
