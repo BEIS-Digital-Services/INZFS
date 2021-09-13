@@ -43,7 +43,7 @@ describe('Phase banner', () => {
       const $ = render('phase-banner', examples.default)
 
       const phaseBannerText = $('.govuk-phase-banner__text').html().trim()
-      expect(phaseBannerText).toEqual('This is a new service - your <a href="#" class="govuk-link">feedback</a> will help us to improve it.')
+        expect(phaseBannerText).toEqual('This is a new service - your <a href=href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer" class="govuk-link">feedback</a> will help us to improve it.')
     })
 
     it('allows additional attributes to be added to the component', () => {
