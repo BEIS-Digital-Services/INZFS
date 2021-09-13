@@ -1,11 +1,7 @@
 @model BaseModel
 @using INZFS.MVC.Models.DynamicForm
 
-@if (!string.IsNullOrEmpty(Model.LabelTitle))
-{
-    <label class="govuk-label" for="jobs-retained">
-        @Model.LabelTitle
-    </label>
-}
+@Html.Partial("_QuestionDescription", Model.PageName)
+
 <input class="govuk-input govuk-input--width-4  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
        name="DataInput" type="number" value="@Model.DataInput">

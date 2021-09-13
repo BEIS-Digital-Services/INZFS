@@ -98,3 +98,29 @@
 }
 
 
+@*SECTION 7 PREFORMANCE DATA*@
+
+@if (Model == "number-of-employees")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofemployees.cshtml")
+}
+
+@if (Model == "fte-jobs-retained")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Full-TimeEmployment(FTE)jobsretained.cshtml")
+}
+
+@if (Model == "fte-jobs-created")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Full-TimeEmployment(FTE)jobscreated.cshtml")
+}
+
+@if (Model == "number-of-partner-organisations")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofpartnerorganisations.cshtml")
+}
+
+@if (Model == "consumer-trials-participants")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofpartnerorganisations.cshtml")
+}
