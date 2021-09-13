@@ -38,6 +38,10 @@
 
     </div>
 
-
+    @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
+                        {
+                            { "ApplicationNumber", Model.ApplicationNumber },
+                            { "ShowDownload", "false" }
+                        })
 
 </div>
