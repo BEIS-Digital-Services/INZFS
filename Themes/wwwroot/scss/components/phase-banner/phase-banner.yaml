@@ -25,8 +25,8 @@ examples:
   - name: default
     data:
       tag:
-        text: alpha
-      html: This is a new service - your <a href="#" class="govuk-link">feedback</a> will help us to improve it.
+        text: beta
+      html: This is a new service - your <a href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer"class="govuk-link">feedback</a> will help us to improve it.
 
 # Hidden examples are not shown in the review app, but are used for tests and HTML fixtures
   - name: classes
@@ -41,7 +41,7 @@ examples:
   - name: html as text
     hidden: true
     data:
-      text: This is a new service - your <a href="#" class="govuk-link">feedback</a> will help us to improve it.
+      text: This is a new service - your <a href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer" class="govuk-link">feedback</a> will help us to improve it.
   - name: attributes
     hidden: true
     data:
