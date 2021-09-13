@@ -7,6 +7,7 @@ using System.Text.Encodings.Web;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.WebUtilities;
 
 namespace INZFS.Theme.Services
 {
@@ -18,6 +19,8 @@ namespace INZFS.Theme.Services
         string MaskEmail(string email);
         string Encrypt(string value);
         string Decrypt(string value);
+        string Base64UrlEncode(string value);
+        string Base64UrlDecode(string value);
     }
 
 
@@ -78,6 +81,16 @@ namespace INZFS.Theme.Services
         {
             var protectedData = WebUtility.UrlDecode(value);
             return protector.Unprotect(protectedData);
+        }
+
+        public string Base64UrlEncode(string value)
+        {
+            return WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(value));
+        }
+        
+        public string Base64UrlDecode(string value)
+        {
+            return Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(value));
         }
     }
    

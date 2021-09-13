@@ -20,4 +20,27 @@ namespace INZFS.Theme.ViewModels
         public bool RememberMe { get; set; }
         
     }
+
+    public class ForgotPasswordViewModel
+    {
+        [Required]
+        [Display(Name = "Email address")]
+        [RegularExpression(EmailValidationConstants.EmailValidationExpression, ErrorMessage = EmailValidationConstants.EmailValidationMessage)]
+        public string EmailAddress { get; set; }
+        
+    }
+    
+    public class ResetPasswordViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "New password")]
+        public string NewPassword { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm new password")]
+        [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+    }
 }
