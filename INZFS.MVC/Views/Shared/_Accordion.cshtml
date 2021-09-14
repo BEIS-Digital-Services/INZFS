@@ -71,6 +71,10 @@
 {
     @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
 }
+@if (Model == "value-for-money")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_ValueforMoney.cshtml")
+}
 @if (Model == "AddressInputModel")
 {
     @Html.Partial("../Accordion/AddressAccordion/_OrganisationAddressAccordion.cshtml")

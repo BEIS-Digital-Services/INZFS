@@ -1052,21 +1052,22 @@
           {
             "name": "subsidy-requirements",
             "fieldType": "gdsStaticPage",
-            "question": "6.1 Funding levels and subsidy requirements",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
+            "question": "Funding levels and subsidy requirements",
             "nextPageName": "subsidy-sole-applicant"
           },
           {
             "name": "subsidy-sole-applicant",
             "sectionTitle": "Are you a sole applicant?",
             "question": "Are you a sole applicant?",
-            "hint": "Answer no if you are applying as part of a consortium of companies",
+            "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
             "friendlyFieldName": "Subsidy Sole Applicant",
             "fieldName": "subsidy-sole-applicant",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true,
+            "showMarkComplete": false,
             "hideFromSummary": true,
             "continueButtonText": "Continue",
             "previousPage": {
@@ -1238,8 +1239,7 @@
           {
             "name": "project-cost-breakdown",
             "sectionTitle": "6.2. Project cost breakdown",
-            "question": "6.2 Project cost breakdown",
-            "description": "Provide a breakdown of your costs using the template provided in the download section of this page.",
+            "question": "Project cost breakdown",
             "errorMessage": "Select the Project cost breakdown Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Project Cost Breakdown",
@@ -1254,7 +1254,7 @@
           {
             "name": "financial-background",
             "sectionTitle": "6.3. Financial background",
-            "question": "6.3. Financial background",
+            "question": "Additional financial information (optional)",
             "description": "You can give extra details about the information you enter on the Finance Spreadsheet here.",
             "errorMessage": "Please provide a summary of your financial background",
             "fieldType": "gdsTextArea",
@@ -1266,18 +1266,20 @@
             "showMarkComplete": true
           },
           {
-            "name": "in-kind-contributions",
-            "sectionTitle": "6.4. In-kind contributions",
-            "question": "6.4. In-kind contributions",
+            "name": "value-for-money",
+            "sectionTitle": "6.4. Value for money",
+            "question": "Value for money",
             "description": "In-kind contributions are valuable items or services which you don't need to pay for during your project.",
             "errorMessage": "Please provide a summary of your in-kind contributions",
             "fieldType": "gdsTextArea",
-            "friendlyFieldName": "In-kind Contributions",
-            "maxLength": 200,
+            "friendlyFieldName": "Value for money",
+            "maxLength": 500,
             "maxLengthValidationType": "Word",
-            "fieldName": "in-kind-contributions",
+            "fieldName": "value-for-money",
             "mandatory": true,
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "continueButtonText": "Save and continue to financial proposal overview"
+
           }
         ]
       },
