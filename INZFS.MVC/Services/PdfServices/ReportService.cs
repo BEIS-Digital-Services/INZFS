@@ -51,7 +51,9 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-            <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
+            <div style=""height:297mm;width:210mm"">
+                <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
+            </div>
           ";
     }
 
