@@ -10,5 +10,6 @@
         public string ChangeEmailTemplate { get; set; }
         public string ForgotPasswordEmailTemplate { get; set; }
         public string ForgotPasswordConfirmEmailTemplate { get; set; }
+        public string AuthenticationChangeTemplate { get; set; }
     }
 }
