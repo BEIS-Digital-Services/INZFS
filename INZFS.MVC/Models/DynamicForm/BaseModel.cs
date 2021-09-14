@@ -38,13 +38,11 @@ namespace INZFS.MVC.Models.DynamicForm
         public int? MaxLength { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string SectionUrl { get; set; }
         public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
@@ -55,6 +53,8 @@ namespace INZFS.MVC.Models.DynamicForm
         public string AcceptableFileExtensions { get; set; }
 
         public GridDisplayType GridDisplayType { get; set; }
+        public bool HideQuestionCounter { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public virtual string GetData()
         {
             return DataInput;
@@ -79,6 +79,13 @@ namespace INZFS.MVC.Models.DynamicForm
             Hint = page.Hint;
             ShowMarkAsComplete = page.ShowMarkComplete;
 
+
+            var actionErrors = ValidateActions(page);
+            if (actionErrors.Any())
+            {
+                return actionErrors;
+            }
+
             var errors = ExtendedValidation(validationContext);
             if(!errors.Any())
             {
@@ -89,11 +96,29 @@ namespace INZFS.MVC.Models.DynamicForm
                     return customValidator.Validate(GetData(), page.FriendlyFieldName);
                 }
             }
+
+
             return errors;
         }
 
         protected abstract IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext);
-        
+
+        private IEnumerable<ValidationResult> ValidateActions(Page page) 
+        {
+            var userInput = GetData();
+            if (page.Actions != null && page.Actions.Count > 0)
+            {
+                if (string.IsNullOrEmpty(userInput))
+                {
+                    yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
+                }
+            }
+
+        }
+
+
+
+
     }
 
 

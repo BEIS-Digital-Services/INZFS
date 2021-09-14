@@ -2,9 +2,8 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
 
-
+@Html.Partial("_Steps")
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
@@ -47,8 +46,10 @@
         </fieldset>
     </div>
 
+    @Html.Partial("_Accordion", Model.PageName)
 
-    @Html.Partial("_Accordion", "")
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)
