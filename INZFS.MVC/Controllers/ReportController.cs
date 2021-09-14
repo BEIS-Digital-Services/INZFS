@@ -16,7 +16,7 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public async Task<FileContentResult> GeneratePdf()
+        public async Task<FileContentResult> Download()
         {
             byte[] bytes = await _reportService.GeneratePdfReport(User.Identity.Name);
             string type = "application/pdf";
@@ -24,5 +24,14 @@ namespace INZFS.MVC.Controllers
 
             return File(bytes, type, name);
         }
+        //public async Task<FileContentResult> GenerateOdt()
+        //{
+        //    byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
+        //    string type = "application/vnd.oasis.opendocument.text";
+        //    string name = "EEF_accessible_summary.odt";
+
+        //    return File(bytes, type, name);
+
+        //}
     }
 }

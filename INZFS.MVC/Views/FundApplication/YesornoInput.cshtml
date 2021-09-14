@@ -4,10 +4,7 @@
 @using INZFS.MVC.TagHelpers
 
 
-@if (Model.DisplayQuestionCounter)
-{
-<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
-}
+@Html.Partial("_Steps")
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -43,7 +40,11 @@
     </div>
 
     @Html.Partial("_QuestionDescriptionBottom", Model.PageName)
-    @Html.Partial("_Accordion", "")
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)

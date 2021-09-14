@@ -12,6 +12,18 @@
 {
     @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
 }
+@if (Model == "business-upload-trl-evidence")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadinessEvidence.cshtml")
+}
+@if (Model == "business-justification-for-cost-and-performance")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessJustificationForCostAndPerformance.cshtml")
+}
+@if (Model == "business-upload-evidence-for-impact")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadEvidenceForImpact.cshtml")
+}
 @if (Model == "business-infrastructure")
 {
     @Html.Partial("../Accordion/BusinessProposal/_BusinessInfrastructure.cshtml")
@@ -32,17 +44,50 @@
 {
     @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlan.cshtml")
 }
+@if (Model == "business-project-plan-document")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlanDocument.cshtml")
+}
+@if (Model == "business-project-plan-document")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperience.cshtml")
+}
+@if (Model == "business-skills-and-experience")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadRiskRegister.cshtml")
+}
 @if (Model == "business-project-evaluation")
 {
     @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
+@if (Model == "business-skills-and-experience-document")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperienceDocument.cshtml")
+}
+
 
 @*SECTION 6 FINANCE PROPOSAL*@
 @if (Model == "project-cost-breakdown")
 {
     @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
 }
+@if (Model == "value-for-money")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_ValueforMoney.cshtml")
+}
 @if (Model == "AddressInputModel")
 {
     @Html.Partial("../Accordion/AddressAccordion/_OrganisationAddressAccordion.cshtml")
 }
+
+@*SECTION 7 PREFORMANCE DATA*@
+@if (Model == "trl-at-project-start")
+{
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtStart.cshtml")
+}
+
+@if (Model == "trl-at-project-close")
+{
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtClose.cshtml")
+}
+

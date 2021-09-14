@@ -1,7 +1,6 @@
-using INZFS.MVC;
-using INZFS.MVC.Models;
 using iText.Html2pdf;
 using iText.Kernel.Pdf;
+using INZFS.MVC;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -31,9 +30,7 @@ public class ReportService : IReportService
     {
         _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
 
-        OpenHtmlString();
-        PopulateHtmlSections();
-        CloseHtmlString();
+        BuildHtmlString();
 
         using (MemoryStream stream = new())
         using (PdfWriter writer = new(stream))
@@ -41,6 +38,13 @@ public class ReportService : IReportService
             HtmlConverter.ConvertToPdf(html, writer);
             return stream.ToArray();
         }
+    }
+
+    private void BuildHtmlString()
+    {
+        OpenHtmlString();
+        PopulateHtmlSections();
+        CloseHtmlString();
     }
 
     private void OpenHtmlString()
@@ -75,7 +79,7 @@ public class ReportService : IReportService
         }
     }
 
-    private void PopulateHtmlQuestions(Section section)
+    private void PopulateHtmlQuestions(INZFS.MVC.Section section)
     {
         foreach (var page in section.Pages) if (!page.HideFromSummary)
         {

@@ -10,6 +10,10 @@
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposal.cshtml")
 }
+@if (Model == "business-proposal-evidence")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposalEvidence.cshtml")
+}
 @if (Model == "business-plan")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessPlan.cshtml")
@@ -17,6 +21,22 @@
 @if (Model == "business-technology-readiness")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
+}
+@if (Model == "business-upload-trl-evidence")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadinessEvidence.cshtml")
+}
+@if (Model == "business-justification-for-cost-and-performance")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessJustificationForCostAndPerformance.cshtml")
+}
+@if (Model == "business-upload-cost-and-performance-figures")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadCostAndPerformanceFigures.cshtml")
+}
+@if (Model == "business-upload-evidence-for-impact")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadEvidenceForImpact.cshtml")
 }
 @if (Model == "business-infrastructure")
 {
@@ -38,13 +58,29 @@
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlan.cshtml")
 }
+@if (Model == "business-project-plan-document")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlanDocument.cshtml")
+}
 @if (Model == "business-project-evaluation")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
+@if (Model == "business-upload-risk-register")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadRiskRegister.cshtml")
+}
 @if (Model == "business-skills-and-experience")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessSkillsAndExperience.cshtml")
+}
+@if (Model == "business-skills-and-experience-document")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessSkillsAndExperienceDocument.cshtml")
+}
+@if (Model == "business-letter-of-support-document")
+{
+    @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessLatterOfSupportDocument.cshtml")
 }
 
 @*SECTION 6 FINANCE PROPOSAL*@
@@ -56,9 +92,35 @@
 {
     @Html.Partial("../QuestionDescription/FinanceProposal/_FinancialBackground.cshtml")
 }
-@if (Model == "in-kind-contributions")
+@if (Model == "value-for-money")
 {
-    @Html.Partial("../QuestionDescription/FinanceProposal/_InKindContributions.cshtml")
+    @Html.Partial("../QuestionDescription/FinanceProposal/_ValueforMoney.cshtml")
 }
 
 
+@*SECTION 7 PREFORMANCE DATA*@
+
+@if (Model == "number-of-employees")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofemployees.cshtml")
+}
+
+@if (Model == "fte-jobs-retained")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_FullTimeEmploymentjobsretained.cshtml")
+}
+
+@if (Model == "fte-jobs-created")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_FullTimeEmploymentjobscreated.cshtml")
+}
+
+@if (Model == "number-of-partner-organisations")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofpartnerorganisations.cshtml")
+}
+
+@if (Model == "consumer-trials-participants")
+{
+    @Html.Partial("../QuestionDescription/PreformanceData/_Numberofpartnerorganisations.cshtml")
+}
