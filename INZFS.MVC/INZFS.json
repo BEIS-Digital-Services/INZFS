@@ -1107,12 +1107,12 @@
             "hideFromSummary": true,
             "actions": [
               {
-                "name": "aid for start-ups",
+                "name": "Aid for start-ups",
                 "value": "0",
                 "pageName": "subsidy-sole-applicant-value"
               },
               {
-                "name": "aid for research and development",
+                "name": "Aid for research and development",
                 "value": "1",
                 "pageName": "subsidy-sole-applicant-result-research-development"
               }
