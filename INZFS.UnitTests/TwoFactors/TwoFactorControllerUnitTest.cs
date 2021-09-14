@@ -171,6 +171,7 @@ namespace INZFS.UnitTests.TwoFactors
 
         public TwoFactorControllerBuilder WithDefault()
         {
+            notificationOptionMock.Setup(r => r.Value).Returns(new NotificationOption());
             return this;
         }
         

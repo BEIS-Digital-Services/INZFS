@@ -163,7 +163,7 @@ namespace INZFS.Theme.Controllers
                 verificationMethod = "Authenticator app";
             }
 
-            var link = $"{Request.Scheme}://{Request.Host}/";
+            var link = $"{Request?.Scheme}://{Request?.Host}/";
 
             var email = await _userManager.GetEmailAsync(user);
             var parameters = new Dictionary<string, dynamic>();
