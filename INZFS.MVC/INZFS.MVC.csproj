@@ -5,13 +5,20 @@
 		<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 		<PreserveCompilationContext>false</PreserveCompilationContext>
 	</PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Views\Admin\**" />
+    <EmbeddedResource Remove="Views\Admin\**" />
+    <None Remove="Views\Admin\**" />
+  </ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Aspose.Words" Version="21.8.0" />
+    <PackageReference Include="GovukNotify" Version="4.0.1" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
+		<PackageReference Include="itext7.pdfhtml" Version="3.0.5" />
 		<PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
 		<PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-16369" />
 		<PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-16369" />
@@ -37,9 +44,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Remove="ClosedXML" />
-	</ItemGroup>
-	<ItemGroup>
-		<Folder Include="Views\Admin\" />
 	</ItemGroup>
 </Project>
 
