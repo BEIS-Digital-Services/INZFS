@@ -247,6 +247,7 @@ namespace INZFS.Theme.Controllers
                     {
                         var method =  await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId) ? AuthenticationMethod.Phone : AuthenticationMethod.Email;
                         await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+                        await SendAuthenticationChangeEmail(user, method);
                         return RedirectToAction("Index");
                     }
 
@@ -301,10 +302,12 @@ namespace INZFS.Theme.Controllers
 
                 if (model.ChosenAction == ChangeAction.Remove)
                 {
+                    var user = await _userManager.GetUserAsync(User);
                     var userId = await GetUserId();
                     await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, false);
                     var method = await _factorSettingsService.GetAuthenticatorConfirmedAsync(userId) ? AuthenticationMethod.Authenticator : AuthenticationMethod.Email;
                     await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+                    await SendAuthenticationChangeEmail(user, method);
                     return RedirectToAction("Index");
                 }
             }
@@ -411,6 +414,7 @@ namespace INZFS.Theme.Controllers
                 if (isValidToken)
                 {
                     await SetTwoFactorEnabledAsync(user, true, model.Method);
+                    await SendAuthenticationChangeEmail(user, model.Method);
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("Code", "Verification code is not valid, please enter a valid code and try again");
@@ -454,7 +458,24 @@ namespace INZFS.Theme.Controllers
             parameters.Add("url", confirmationLink);
             await _notificationService.SendEmailAsync(email, _notificationOption.ChangeEmailTemplate, parameters);
         }
-        
+
+        private async Task SendAuthenticationChangeEmail(IUser user, AuthenticationMethod method)
+        {
+            var verificationMethod = method.ToString();
+            if (method == AuthenticationMethod.Authenticator)
+            {
+                verificationMethod = "Authenticator app";
+            }
+
+            var link = $"{Request.Scheme}://{Request.Host}/";
+
+            var email = await _userManager.GetEmailAsync(user);
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("VerificationMethod", verificationMethod);
+            parameters.Add("Link", link);
+
+            await _notificationService.SendEmailAsync(email, _notificationOption.AuthenticationChangeTemplate, parameters);
+        }
 
         private async Task<string> GetUserId()
         {
