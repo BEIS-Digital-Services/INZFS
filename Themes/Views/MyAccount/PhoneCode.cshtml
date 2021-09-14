@@ -2,6 +2,7 @@
 @model INZFS.Theme.ViewModels.EnterCodeViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Enter your verification code";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -13,7 +14,7 @@
                 <div class="govuk-form-group">
                     <h1 class="govuk-label-wrapper govuk-!-margin-bottom-6 ">
                         <label class="govuk-label govuk-label--l" for="code">
-                            Enter your verification code
+                            @ViewData["Title"]
                         </label>
                     </h1>
                     @if (!string.IsNullOrEmpty(Model.Message))

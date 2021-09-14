@@ -2,6 +2,7 @@
 @model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Choose primary verification method";
 }
 
 
@@ -13,7 +14,7 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
-                            <h1 class="govuk-heading-l">Choose primary verification method</h1>
+                            <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
                         </legend>
                         <div class="govuk-radios govuk-radios">
                             <div class="govuk-radios__item">

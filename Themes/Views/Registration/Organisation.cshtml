@@ -1,6 +1,7 @@
 @model INZFS.Theme.ViewModels.RegistrationOrganisationViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "What is your organisation's name?";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -12,7 +13,7 @@
                 <div class="govuk-form-group" asp-validation-error-class-for="OrganisationName">
                     <h1 class="govuk-label-wrapper">
                         <label class="govuk-label govuk-label--l" for="name">
-                            What is your organisation's name?
+                            @ViewData["Title"]
                         </label>
                     </h1>
                     <div id="org-name-hint" class="govuk-hint">
