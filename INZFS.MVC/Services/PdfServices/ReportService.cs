@@ -55,8 +55,15 @@ public class ReportService : IReportService
            <head>
            </head>
           <body>
-            <div style=""height:297mm;width:210mm"">
-                <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
+            <div style=""height:297mm;"">
+                <div style=""display:flex; justify-content:space-between;"">
+                    <p>BEIS</p>
+                    <p style=""width: 45mm;"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
+                </div>
+                <h1 style=""text-align:center;"">The Energy Entrepreneurs Fund (EEF)</h1>
+                <h2>Phase 9 Application Form</h2>
+                <p>This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
+                <p>Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
             </div>
           ";
     }
