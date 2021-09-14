@@ -2,6 +2,7 @@
 @model INZFS.Theme.ViewModels.ChangeScanQrForAuthenticatorViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Change your authenticator preference";
 }
 
 
@@ -13,7 +14,7 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset">
                         <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
-                            <h1 class="govuk-heading-l">Change your authenticator preference</h1>
+                            <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
                         </legend>
                         <div class="govuk-radios govuk-radios">
                             <div class="govuk-radios__item">

@@ -1,6 +1,7 @@
 ﻿@model INZFS.Theme.ViewModels.ChangeEmailViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Change your email";
 }
 
 <partial name="_ErrorModelSummary" />
@@ -9,7 +10,7 @@
     <form method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">Change your email</h1>
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body">You currently login and get an access code sent to: <strong>@Model.CurrentEmail</strong>. To change you will need to re-verify your email address</p>
                 <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
                     <span asp-validation-for="Password" class="govuk-error-message"></span>
