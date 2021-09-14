@@ -105,10 +105,13 @@ namespace INZFS.MVC.Models.DynamicForm
 
         private IEnumerable<ValidationResult> ValidateActions(Page page) 
         {
-            
+            var userInput = GetData();
             if (page.Actions != null && page.Actions.Count > 0)
             {
-                yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
+                if (string.IsNullOrEmpty(userInput))
+                {
+                    yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
+                }
             }
 
         }
