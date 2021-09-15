@@ -1,4 +1,5 @@
-@model string
+@model ApplicationSentModel
+@using INZFS.MVC.Models
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -39,13 +40,13 @@
         <aside class="app-related-items" role="complementary">
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Status</p>
             <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10">Independent assessment</p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Date submitted</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">27 June 2021</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.SubmittedDate.ToString("dd MMMM yyyy")</p>
 
         </aside>
 
