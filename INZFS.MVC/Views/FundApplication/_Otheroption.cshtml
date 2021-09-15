@@ -1,0 +1,21 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+<div class="govuk-radios__item">
+    <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value="Other" data-aria-controls="other-org"
+           @if (Model.DataInput == "Other") { <text> checked="checked" </text> }>
+    <label class="govuk-label govuk-radios__label" for="organisation-6">
+        Other
+    </label>
+</div>
+<div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="other-org">
+    <div class="govuk-form-group">
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+        <label class="govuk-label" for="organisation-7">
+            Organisation type
+        </label>
+        <input class="govuk-input govuk-!-width-one-third" id="textInput" name="OtherOption" type="text" spellcheck="true" autocomplete="other" value="@Model.OtherOption">
+    </div>
+</div>

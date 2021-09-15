@@ -1,6 +1,6 @@
 {
-  "instance_min_count": 1,
-  "instance_max_count": 4,
+  "instance_min_count": $(instance_min_count),
+  "instance_max_count": $(instance_max_count),
   "scaling_rules": [
     {
       "metric_type": "throughput",
@@ -52,8 +52,8 @@
         "start_time": "08:00",
         "end_time": "18:00",
         "days_of_week": [1, 2, 3, 4, 5],
-        "instance_min_count": 1,
-        "instance_max_count": 4,
+        "instance_min_count": $(instance_min_count),
+        "instance_max_count": $(instance_max_count),
         "initial_min_instance_count": 1
       }
     ]

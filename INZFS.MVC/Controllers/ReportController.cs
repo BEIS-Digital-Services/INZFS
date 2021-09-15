@@ -16,11 +16,11 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public FileContentResult GeneratePdf(string companyName, string applicationId)
+        public async Task<FileContentResult> GeneratePdf()
         {
-            byte[] bytes = _reportService.GeneratePdfReport(companyName, applicationId);
+            byte[] bytes = await _reportService.GeneratePdfReport(User.Identity.Name);
             string type = "application/pdf";
-            string name = $"EEF_{ companyName.Trim() }_{ applicationId }.pdf";
+            string name = $"EEF_application_summary.pdf";
 
             return File(bytes, type, name);
         }

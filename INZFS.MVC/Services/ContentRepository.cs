@@ -1,4 +1,6 @@
 ﻿using INZFS.MVC.Forms;
+using INZFS.MVC.Records;
+using INZFS.MVC.Services;
 using OrchardCore.ContentManagement;
 using OrchardCore.ContentManagement.Records;
 using OrchardCore.Flows.Models;
@@ -19,13 +21,19 @@ namespace INZFS.MVC
         public Task<IEnumerable<ContentItem>> GetContentItems(Expression<Func<ContentItemIndex, bool>> predicate, string userName);
 
         public Task<ContentItem> GetContentItemById(string contentId);
+
+        public Task<ApplicationContent> GetApplicationContent(string userName);
+        public Task<ApplicationContent> CreateApplicationContent(string userName);
+
     }
     public class ContentRepository : IContentRepository
     {
         private readonly ISession _session;
-        public ContentRepository(ISession session)
+        private readonly IApplicationNumberGenerator _applicationNumberGenerator;
+        public ContentRepository(ISession session, IApplicationNumberGenerator applicationNumberGenerator)
         {
             _session = session;
+            _applicationNumberGenerator = applicationNumberGenerator;
         }
         public async Task<T> GetContentItemFromBagPart<T>(string contentToFilter, string userName) where T : ContentPart
         {
@@ -47,11 +55,11 @@ namespace INZFS.MVC
             var query = _session.Query<ContentItem, ContentItemIndex>();
             query = query.With<ContentItemIndex>(predicate);
             query = query.With<ContentItemIndex>(x => x.Published);
-            if(!string.IsNullOrEmpty(userName))
+            if (!string.IsNullOrEmpty(userName))
             {
                 query = query.With<ContentItemIndex>(x => x.Author == userName);
             }
-            
+
             return await query.ListAsync();
         }
 
@@ -69,5 +77,50 @@ namespace INZFS.MVC
 
             return await query.FirstOrDefaultAsync();
         }
+
+        public async Task<ApplicationContent> GetApplicationContent(string userName)
+        {
+            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
+            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
+            return await query.FirstOrDefaultAsync();
+        }
+
+        public async Task<ApplicationContent> CreateApplicationContent(string userName)
+        {
+            var contentToSave = new ApplicationContent();
+            contentToSave.Application = new Application();
+            contentToSave.Author = userName;
+            contentToSave.CreatedUtc = DateTime.UtcNow;
+            contentToSave.ModifiedUtc = DateTime.UtcNow;
+            contentToSave.ApplicationNumber = await GetNewApplicationNumber();
+            contentToSave.ApplicationStatus = ApplicationStatus.InProgress;
+            _session.Save(contentToSave);
+
+            return contentToSave;
+
+        }
+        private async Task<string> GetNewApplicationNumber()
+        {
+            string applicationNumber;
+            bool duplicateFound;
+            IEnumerable<ApplicationContent> cachedRecords = null;
+            do
+            {
+                applicationNumber = _applicationNumberGenerator.Generate(4);
+
+                if(cachedRecords == null)
+                {
+                    var applicationNumberQuery = _session.Query<ApplicationContent, ApplicationContentIndex>();
+                    cachedRecords = await applicationNumberQuery.ListAsync();
+
+                }
+
+                duplicateFound = cachedRecords.Any(record => record.ApplicationNumber == applicationNumber);
+
+            } while (duplicateFound);
+
+            return applicationNumber;
+        }
+
     }
 }

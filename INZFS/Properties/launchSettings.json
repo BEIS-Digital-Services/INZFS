@@ -12,6 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "ApiKey": "lltestapi-bb94d8fd-a2ae-472a-b355-9c39d6d0b916-32fd33b5-e505-4bba-b304-d5cbfd3cdea0",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -19,7 +20,21 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__RecipeName": "INZFS.Web",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseConnectionString": "",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__ShellName": "Default",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminEmail": "lorenzo2.lane@beis.gov.uk",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminUsername": "admin",
+        "OrchardCore__OrchardCore_AutoSetup__AutoSetupPath": "",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix": "EEFX",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteTimeZone": "Europe/London",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName": "EEF",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider": "Sqlite",
+        "OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword": "TestUser!1",
+        "TwoFactor__Status": "1",
+        "TwoFactor__AccountName": "INZFS-Dev",
+        "GovNotifyApiKey": ""
       },
       "dotnetRunMessages": "true",
       "applicationUrl": "https://localhost:5001;http://localhost:5000"

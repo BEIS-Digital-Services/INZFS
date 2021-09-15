@@ -1,0 +1,53 @@
+
+@model TextAreaModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+
+@*To :
+    Working if only textbox id is set to with-hint*@
+
+<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(TextAreaModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count"
+         @if (Model.MaxLengthValidationType == MaxLengthValidationType.Character) { <text> data-maxlength="@Model.MaxLength" </text>  } else { <text> data-maxwords="@Model.MaxLength" </text>  }>
+        <div class="govuk-form-group">
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="@Model.FieldName">
+                    @Model.Question
+                </label>
+            </h1>
+            @Html.Partial("_QuestionDescription", Model.PageName)
+            @Html.Partial("_Hint", Model.Hint)
+            <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
+                      name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
+        </div>
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+            You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
+        </div>
+
+    </div>
+
+    @Html.Partial("_SaveProgress")
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+@Html.Partial("_BackButton", Model)
