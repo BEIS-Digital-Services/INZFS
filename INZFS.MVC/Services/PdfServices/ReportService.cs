@@ -10,11 +10,11 @@ public class ReportService : IReportService
     private string html;
     private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
     private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
-    private string questionHeaderStyle = @"style=""color:white; text-align:left;""";
-    private string answerCellStyle = @"style=""border:1px solid grey""";
+    private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
+    private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
 
-    private string coverPageTextColour = "rgb(28,28,28)";
-    private string sectionTitleTextColour = "rgb(20,40,99)";
+    private string coverPageTextColour = @"style=""rgb(28,28,28)""";
+    private string sectionTitleTextColour = @"style=""rgb(20,40,99)""";
 
     private readonly ApplicationDefinition _applicationDefinition;
     private readonly IContentRepository _contentRepository;
@@ -58,14 +58,14 @@ public class ReportService : IReportService
 
             <div style=""height:265mm;"">
                 <div style=""display:flex; justify-content:space-between;"">
-                    <p style=""float: left;"">BEIS</p>
-                    <p style=""width: 45mm; float:right;"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
+                    <p style=""float: left; color:rgb(28,28,28)"">BEIS</p>
+                    <p style=""width: 45mm; float:right; color:rgb(28,28,28)"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
                 </div>
                 <div style=""padding-left: 15mm; padding-right:15mm; padding-top: 15%;"">
-                    <h1 style=""font-size:5rem;"">The Energy Entrepreneurs Fund (EEF)</h1>
-                    <h2>Phase 9 Application Form</h2>
-                    <p>This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
-                    <p>Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
+                    <h1 style=""font-size:5rem; color:rgb(28,28,28)"">The Energy Entrepreneurs Fund (EEF)</h1>
+                    <h2 style=""color:rgb(28,28,28)"">Phase 9 Application Form</h2>
+                    <p style=""color:rgb(28,28,28)"">This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
+                    <p style=""color:rgb(28,28,28)"">Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
                 </div>
             </div>
 
@@ -99,7 +99,7 @@ public class ReportService : IReportService
         foreach (var section in _applicationDefinition.Application.Sections)
         {
             string sectionHtml = $@"
-                <h2 style=""color:rgb(28, 28, 28)"", id=""{section.Tag}"" >{ section.Title }</h2>
+                <h2 style=""color:rgb(28, 28, 28);"", id=""{section.Tag}"" >{ section.Title }</h2>
             ";
             html = html + sectionHtml;
 
