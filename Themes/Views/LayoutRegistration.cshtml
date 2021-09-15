@@ -66,9 +66,29 @@
 	<!-- end header component -->
 	<!-- main content component -->
 	<div class="govuk-width-container">
+    <div class="govuk-phase-banner">
+        <p class="govuk-phase-banner__content">
+            <strong class="govuk-tag govuk-phase-banner__content__tag">
+                BETA
+            </strong>
+            <span class="govuk-phase-banner__text">
+                This is a new service – your <a class="govuk-link" href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund">feedback</a> will help us to improve it.
+            </span>
+        </p>
+    </div>
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-three-quarters">
-				<a href="#" class="govuk-back-link" id="govuk-back-link">Back</a>
+            <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
+                        <a class="govuk-breadcrumbs__link" href="/">Apply for the Energy Entrepreneurs Fund: phase 9
+                        </a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                        @(ViewData["Title"])
+                    </li>
+                </ol>
+            </nav>
 			</div>
 			<div class="govuk-grid-column-one-quarter govuk-youraccount-right">
 				@if (User.Identity?.IsAuthenticated ?? false)

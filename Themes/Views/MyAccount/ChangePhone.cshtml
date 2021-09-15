@@ -2,6 +2,7 @@
 @model INZFS.Theme.ViewModels.ChangePhoneViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Change your security preference";
 }
 
 
@@ -13,7 +14,7 @@
                 <div class="govuk-form-group">
                     <fieldset class="govuk-fieldset" aria-describedby="text-message-hint">
                         <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
-                            <h1 class="govuk-fieldset__heading">Change your security preference</h1>
+                            <h1 class="govuk-fieldset__heading">@ViewData["Title"]</h1>
                         </legend>
                         <div id="text-message-hint" class="govuk-hint">
                             You currently get an access code as a text message sent to: <strong>@Model.PhoneNumber</strong>.
