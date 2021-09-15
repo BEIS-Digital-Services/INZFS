@@ -1374,7 +1374,7 @@
             "labelTitle": "Number of partner organisations, excluding your own",
             "mandatory": true,
             "accordianReference": "",
-            "maxLength": 3,
+            "maxLength": 2,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true
           },
