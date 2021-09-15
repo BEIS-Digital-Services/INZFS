@@ -45,5 +45,8 @@
 	<ItemGroup>
 		<EmbeddedResource Remove="ClosedXML" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Services\PdfServices\Assets\" />
+	</ItemGroup>
 </Project>
 
