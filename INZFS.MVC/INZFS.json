@@ -1033,6 +1033,7 @@
             "fieldName": "business-letter-of-support-document",
             "mandatory": false,
             "accordianReference": "",
+            "continueButtonText": "Save and return to business proposal overview",
             "showMarkComplete": true,
             "filetoDownload": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
