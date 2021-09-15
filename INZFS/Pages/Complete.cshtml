@@ -1,0 +1,113 @@
+﻿@page "/complete/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+@using INZFS.Web.POCO
+@model INZFS.Web.POCO.EqualityPoco
+@using Microsoft.AspNetCore.Http
+
+
+@{
+	var completePage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+	var titlePart = (string)completePage.Content.AliasPart.Alias;
+}
+
+@Orchard.ConsoleLog(completePage)
+
+<body class="govuk-template__body competition-overview">
+	<div class="govuk-width-container">
+		<div class="govuk-width-container">
+			<main class="govuk-main-wrapper " id="main-content" role="main">
+
+				<div class="govuk-grid-row">
+
+					<div class="govuk-grid-column-two-thirds">
+						<div class="govuk-panel govuk-panel--confirmation">
+							<h1 class="govuk-panel__title">
+								@completePage.Content.Complete.BannerHeader1.Text
+							</h1>
+							<div class="govuk-panel__body">
+								@completePage.Content.Complete.BannerBody1.Text
+							</div>
+						</div>
+
+						<h1 class="govuk-heading-xl">@completePage.Content.Complete.Header1.Text</h1>
+
+						<p class="govuk-body">@completePage.Content.Complete.Body1.Text<a class="govuk-link" href="page-161.html">privacy notice</a>.</p>
+
+						<h2 class="govuk-heading-l">@completePage.Content.Complete.Header2.Text</h2>
+
+						<p class="govuk-body">@completePage.Content.Complete.Body2.Text</p>
+
+						<p class="govuk-body">@completePage.Content.Complete.Body3.Text</p>
+						<form method="post">
+							<div class="govuk-form-group">
+								<fieldset class="govuk-fieldset">
+									<legend class="govuk-fieldset__legend govuk-fieldset__legend--l"></legend>
+									<div class="govuk-radios">
+										<div class="govuk-radios__item">
+											<input class="govuk-radios__input" id="yes-equality" name="equality" type="radio" value="yes-equality">
+											<label class="govuk-label govuk-radios__label" for="yes-equality">
+												Yes, answer the equality questions
+											</label>
+										</div>
+										<div class="govuk-radios__item">
+											<input class="govuk-radios__input" id="no-equality" name="equality" type="radio" value="no-equality">
+											<label class="govuk-label govuk-radios__label" for="no-equality">
+												No, skip the equality questions
+											</label>
+										</div>
+
+									</div>
+
+								</fieldset>
+							</div>
+
+
+							<details class="govuk-details" data-module="govuk-details">
+								<summary class="govuk-details__summary">
+									<span class="govuk-details__summary-text">
+										@completePage.Content.Complete.DetailsHeader1a.Text
+									</span>
+								</summary>
+								<div class="govuk-details__text">
+									@completePage.Content.Complete.DetailsBody1.Text
+								</div>
+							</details>
+
+							<button class="govuk-button" data-module="govuk-button">
+								Continue
+							</button>
+						</form>
+					</div>
+
+				</div>
+
+			</main>
+		</div>
+	</div>
+
+
+</body>
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+
+
+    public async Task<IActionResult> OnPostAsync()
+    {
+        var completePage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        var equalityAnswer = Request.Form["equality"].ToString();
+		string returnUrl = "/";
+        if (equalityAnswer == "yes-equality")
+        {
+			returnUrl = @"/FundApplication/section/eq-survey-question-one";
+            return Redirect(returnUrl);
+        }
+        else
+        {
+			returnUrl = @completePage.Content.Complete.Url2.Text;
+            return Redirect(returnUrl);
+        }
+    }
+}

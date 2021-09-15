@@ -1,0 +1,73 @@
+
+@model AddressInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(AddressInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address-line-1">
+                    Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
+                </label>
+                <input class="govuk-input" id="address-line-1" name="AddressLine1" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.AddressLine1">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address-line-2">
+                    <span class="govuk-visually-hidden">Building and street line 2 of 2</span>
+                </label>
+                <input class="govuk-input" id="address-line-2" name="AddressLine2" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.AddressLine2">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address-town">
+                    Town or city
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="City" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.City">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address-county">
+                    County
+                </label>
+                <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="County" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.County">
+            </div>
+            <div class="govuk-form-group">
+                <label class="govuk-label" for="address-postcode">
+                    Postcode
+                </label>
+                <div id="changed-name-hint" class="govuk-hint">
+                    Please use the following format: SW1H 0ET
+                </div>
+                <input class="govuk-input govuk-input--width-10" id="address-postcode" name="PostCode" type="text" spellcheck="true" autocomplete="address-line1" pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}" value="@Model.PostCode">
+            </div>
+        </fieldset>
+    </div>
+
+
+    @Html.Partial("_Accordion", "")
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+@Html.Partial("_BackButton", Model)

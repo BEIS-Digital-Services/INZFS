@@ -1,0 +1,83 @@
+﻿@page "/registerToAttend/{slug}"
+@inject OrchardCore.IOrchardHelper Orchard
+    
+@{
+    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    Layout = "_LayoutWithoutBackBtn";
+}
+
+@Orchard.ConsoleLog(govpage)
+
+<body class="govuk-template__body competition-overview">
+    <div class="govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                    <ol class="govuk-breadcrumbs__list">
+                        <li class="govuk-breadcrumbs__list-item">
+                            <a class="govuk-breadcrumbs__link" href="/">Energy Entrepeneurs Fund 9</a>
+                        </li>
+                        <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                            Register to attend
+                        </li>
+                    </ol>
+                </nav>
+            </div>
+            <div class="govuk-grid-column-one-quarter govuk-youraccount-right"></div>
+        </div>
+
+
+        <main class="govuk-main-wrapper " id="main-content" role="main">
+
+            <div class="govuk-grid-row">
+                <div class="govuk-grid-column-two-thirds">
+                    <h1 class="govuk-heading-xl">@govpage.DisplayText</h1>
+                </div>
+            </div>
+
+
+            <div class="govuk-grid-row">
+
+                <div class="govuk-grid-column-two-thirds">
+
+                    <p class="govuk-body-l">@govpage.Content.registerToAttend.Heading1.Text</p>
+
+
+                    <h2 class="govuk-heading-l">@govpage.Content.registerToAttend.Heading2.Text</h2>
+
+                    <p class="govuk-body-l">@govpage.Content.registerToAttend.Body1.Text</p>
+
+                    <p class="govuk-body">@govpage.Content.registerToAttend.Body2.Text</p>
+
+                    <p class="govuk-body">@govpage.Content.registerToAttend.Body3.Text</p>
+
+                    <p class="govuk-body">@govpage.Content.registerToAttend.Body4.Text</p>
+
+                    <h3 class="govuk-heading-m">@govpage.Content.registerToAttend.Heading3.Text</h3>
+
+                    <p class="govuk-body">To register for the event please email <a class="govuk-link" href="#">contact.eef@beis.gov.uk</a> with the subject line “Event registration”, your name and contact information and we will be in contact with you.</p>
+
+                </div>
+                <div class="govuk-grid-column-one-third">
+
+                    <aside class="app-related-items" role="complementary">
+                        <h3 class="govuk-heading-s" id="subsection-title">Event info</h3>
+                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.registerToAttend.dateText1.Text</p>
+                        <p class="govuk-body-m govuk-!-margin-bottom-0">@govpage.Content.registerToAttend.date1.Text</p>
+                    </aside>
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+    <script src="~/js/GovFrontendInit.js"></script>
+
+</body>
+
+@functions
+{
+    [FromRoute]
+    public string Slug { get; set; }
+}
+

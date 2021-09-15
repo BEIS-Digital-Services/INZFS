@@ -1,0 +1,62 @@
+@model StaticPageModel
+@using INZFS.MVC.Models.DynamicForm
+
+@{string pageName = Model.PageName.ToLower();}
+
+
+
+@if (pageName == "not-eligible-for-funding")
+{
+    @Html.Partial("../Static/Eligibility/NotEligibleForFunding.cshtml")
+}
+
+@* Subsidy **@
+@if (pageName == "subsidy-requirements")
+{
+    @Html.Partial("../Static/SubsidyRequirements.cshtml")
+}
+
+@if (pageName == "subsidy-aid-info")
+{
+    @Html.Partial("../Static/SubsidyAidInfo.cshtml")
+}
+
+@if (pageName == "subsidy-sole-applicant-result-applying-less")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultApplyingLess.cshtml")
+}
+
+@if (pageName == "subsidy-sole-applicant-result-applying-more")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultApplyingMore.cshtml")
+}
+
+@if (pageName == "subsidy-sole-applicant-result-research-development")
+{
+    @Html.Partial("../Static/SubsidySoleApplicantResultResearchDevelopment.cshtml")
+}
+
+@if (pageName == "subsidy-category-info")
+{
+    @Html.Partial("../Static/SubsidyCategoryInfo.cshtml")
+}
+
+@if (pageName == "subsidy-consortium-result-feasibility")
+{
+    @Html.Partial("../Static/SubsidyConsortiumResultFeasibility.cshtml")
+}
+
+@if (pageName == "subsidy-consortium-result-industrial")
+{
+    @Html.Partial("../Static/SubsidyConsortiumResultIndustrial.cshtml")
+}
+
+@if (pageName == "subsidy-consortium-result-experimental")
+{
+    @Html.Partial("../Static/SubsidyConsortiumResultExperimental.cshtml")
+}
+
+@if (pageName == "eq-survey-complete")
+{
+    @Html.Partial("../Static/EqualitySurveyComplete.cshtml")
+}

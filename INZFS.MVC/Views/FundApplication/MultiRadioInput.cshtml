@@ -1,0 +1,50 @@
+
+@model MultiRadioInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+@if (Model.DisplayQuestionCounter == true)
+{
+    <span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+}
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(MultiRadioInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
+        <label class="govuk-label govuk-label--l">
+            @Model.Question
+        </label>
+        @Html.Partial("_Hint", Model.Hint)
+        <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
+            <div class="govuk-radios govuk-radios" asp-validation-error-class-for="@Model.Question">
+                @foreach (var Action in Model.Actions)
+                {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value="@Action.Value"
+                               @if (Model.DataInput == Action.Value) { <text> checked="checked" </text> }>
+                        <label class="govuk-label govuk-radios__label">
+                            @Action.Name
+                        </label>
+                    </div>
+                }
+            </div>
+        </fieldset>
+    </div>
+
+
+    @Html.Partial("_Accordion", "")
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+</form>
+
+@Html.Partial("_BackButton", Model)

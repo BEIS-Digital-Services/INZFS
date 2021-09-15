@@ -1,0 +1,61 @@
+﻿@model RadioSingleSelectModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+<span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(RadioSingleSelectModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+
+
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+                <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
+
+                @foreach (var item in Model.SelectedOptions)
+                {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value="@item.ToString()"
+                               @if (Model.DataInput == @item) { <text> checked="checked" </text> }>
+                        <label class="govuk-label govuk-radios__label" for="organisation">
+                            @item
+                        </label>
+                    </div>
+                }
+
+                @if (Model.HasOtherOption)
+                {
+                    @Html.Partial("_Otheroption", Model)
+                }
+
+
+
+            </div>
+
+        </fieldset>
+    </div>
+
+
+    @Html.Partial("_Accordion", "")
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+@Html.Partial("_BackButton", Model)

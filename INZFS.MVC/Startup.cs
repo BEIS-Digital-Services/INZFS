@@ -1,14 +1,5 @@
 using System;
-using INZFS.MVC.Drivers;
-using INZFS.MVC.Drivers.ProposalFinance;
-using INZFS.MVC.Drivers.ProposalWritten;
 using INZFS.MVC.Forms;
-using INZFS.MVC.Migrations;
-using INZFS.MVC.Migrations.ProposalFinance;
-using INZFS.MVC.Migrations.ProposalWritten;
-using INZFS.MVC.Models;
-using INZFS.MVC.Models.ProposalFinance;
-using INZFS.MVC.Models.ProposalWritten;
 using INZFS.MVC.Services;
 using INZFS.MVC.TagHelpers;
 using Microsoft.AspNetCore.Builder;
@@ -24,18 +15,29 @@ using OrchardCore.Environment.Shell;
 using System.IO;
 using nClam;
 using Microsoft.Extensions.Configuration;
-using INZFS.MVC.Handlers;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
-
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using INZFS.MVC.ModelProviders;
+using YesSql.Indexes;
+using INZFS.MVC.Records;
+using INZFS.MVC.Migrations.Indexes;
+using INZFS.MVC.Services.FileUpload;
+using INZFS.MVC.Services.VirusScan;
+using Azure.Storage.Blobs;
+using Microsoft.Extensions.Hosting;
+using System.Reflection;
 
 namespace INZFS.MVC
 {
     public class Startup : StartupBase
     {
-        public Startup(IConfiguration configuration)
+        private readonly IHostEnvironment _environment;
+        public Startup(IConfiguration configuration, IHostEnvironment environment)
         {
             Configuration = configuration;
+            _environment = environment;
         }
 
         public IConfiguration Configuration { get; }
@@ -63,7 +65,9 @@ namespace INZFS.MVC
             services.AddScoped<INavigation, Navigation>();
             services.AddScoped<INavigationProvider, AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
-
+            services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IVirusScanService, VirusScanService>();
+            services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
@@ -85,61 +89,35 @@ namespace INZFS.MVC
                 return new GovFileStore(customFolderPath);
             });
 
-            services.AddControllers();
+            services.AddSingleton<ApplicationDefinition>(sp =>
+            {
+                string fileName = "INZFS.MVC.INZFS.json";
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                var stream = assembly.GetManifestResourceStream(fileName);
+                StreamReader reader = new StreamReader(stream);
+                string jsonString = reader.ReadToEnd();
+                reader.Close();
+                stream.Close();
+
+                var options = new JsonSerializerOptions();
+                options.PropertyNameCaseInsensitive = true;
+                options.Converters.Add(new JsonStringEnumConverter());
+                var applicationDefinition = JsonSerializer.Deserialize<ApplicationDefinition>(jsonString, options);
+                return applicationDefinition;
+            });
+            //services.AddControllers();
+            services.AddControllers(options =>
+            {
+                options.ModelBinderProviders.Insert(0, new BaseModelBinderProvider());
+            });
         }
 
         private void ConfigureContent(IServiceCollection services)
         {
+            
+            services.AddScoped<IDataMigration, ApplicationContentIndexMigration>();
+            services.AddSingleton<IIndexProvider, ApplicationContentIndexProvider>();
 
-            services.AddContentPart<CompanyDetailsPart>()
-            .UseDisplayDriver<CompanyDetailsDriver>();
-            services.AddScoped<IDataMigration, CompanyDetailsMigration>();
-
-            services.AddContentPart<ProjectSummaryPart>()
-            .UseDisplayDriver<ProjectSummaryDriver>()
-            .AddHandler<ProjectSummaryPartHandler>();
-
-            services.AddScoped<IDataMigration, ProjectSummaryMigration>();
-
-
-            services.AddContentPart<ProjectDetailsPart>()
-            .UseDisplayDriver<ProjectDetailsDriver>();
-            services.AddScoped<IDataMigration, ProjectDetailsMigration>();
-
-            services.AddContentPart<OrgFundingPart>()
-           .UseDisplayDriver<OrgFundingDriver>();
-            services.AddScoped<IDataMigration, OrgFundingMigration>();
-
-            services.AddContentPart<ProjectProposalDetailsPart>()
-            .UseDisplayDriver<ProjectProposalDetailsDriver>();
-            services.AddScoped<IDataMigration, ProjectProposalDetailsMigration>();
-
-            services.AddContentPart<ProjectExperiencePart>()
-            .UseDisplayDriver<ProjectExperienceDriver>();
-            services.AddScoped<IDataMigration, ProjectExperienceMigration>();
-
-            services.AddContentPart<FinanceTurnoverPart>()
-           .UseDisplayDriver<FinanceTurnoverDriver>();
-            services.AddScoped<IDataMigration, FinanceTurnoverMigration>();
-
-            services.AddContentPart<FinanceBalanceSheetPart>()
-           .UseDisplayDriver<FinanceBalanceSheetDriver>();
-            services.AddScoped<IDataMigration, FinanceBalanceSheetMigration>();
-
-            services.AddContentPart<FinanceRecoverVatPart>()
-           .UseDisplayDriver<FinanceRecoverVatDriver>();
-            services.AddScoped<IDataMigration, FinanceRecoverVatMigration>();
-
-            services.AddContentPart<FinanceBarriersPart>()
-           .UseDisplayDriver<FinanceBarriersDriver>();
-            services.AddScoped<IDataMigration, FinanceBarriersMigration>();
-
-            services.AddContentPart<ApplicationDocumentPart>()
-                .UseDisplayDriver<ApplicationDocumentDriver>()
-                  .AddHandler<ApplicationDocumentPartHandler>();
-            services.AddScoped<IDataMigration, ApplicationDocumentMigration>();
-
-            services.AddScoped<IDataMigration, ApplicationContainerMigration>();
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
         {

@@ -1,0 +1,44 @@
+@model string
+@*SECTION 5 BUSINESS PROPOSAL*@
+@if (Model == "business-proposal")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProposal.cshtml")
+}
+@if (Model == "business-plan")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessPlan.cshtml")
+}
+@if (Model == "business-technology-readiness")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
+}
+@if (Model == "business-infrastructure")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessInfrastructure.cshtml")
+}
+@if (Model == "business-environmental-impact")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessEnvironmentalImpact.cshtml")
+}
+@if (Model == "business-regulations")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessRegulations.cshtml")
+}
+@if (Model == "business-impact-on-climate-change")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessImpactOnClimateChange.cshtml")
+}
+@if (Model == "business-project-plan")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlan.cshtml")
+}
+@if (Model == "business-project-evaluation")
+{
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectEvaluation.cshtml")
+}
+
+@*SECTION 6 FINANCE PROPOSAL*@
+@if (Model == "project-cost-breakdown")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
+}
