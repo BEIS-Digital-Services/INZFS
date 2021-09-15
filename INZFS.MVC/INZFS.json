@@ -367,7 +367,7 @@
             "fieldName": "consortium-applicant",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": false
+            "showMarkComplete": true
           },
           {
             "name": "consortium-applicant-details",
