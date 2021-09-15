@@ -35,9 +35,9 @@
             You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
         </div>
 
+        @Html.Partial("_SaveProgress")
     </div>
 
-    @Html.Partial("_SaveProgress")
 
     @Html.Partial("_Accordion", Model.PageName)
 
