@@ -19,12 +19,14 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             //Sections = new List<SectionContent>();
             Sections = new List<ApplicationOverviewModel>();
+            HasErrors = false;
         }
         public List<ApplicationOverviewModel> Sections { get; set; }
         //public List<SectionContent> Sections { get; set; }
         public int TotalSections { get; set; }
         public int TotalSectionsCompleted { get; set; }
         public string ApplicationNumber { get; set; }
+        public bool HasErrors { get; set; }
     }
 
     public class ApplicationOverviewModel : SectionModel
@@ -70,7 +72,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public FieldStatus OverallStatus
         {
             get {
-                if (Sections.All(section => section.SectionStatus == FieldStatus.Completed))
+                if (Sections.All(section => (section.SectionStatus == FieldStatus.Completed || section.SectionStatus == FieldStatus.NotApplicable)))
                 {
                     return FieldStatus.Completed;
                 }
@@ -89,6 +91,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public int TotalQuestions { get; set; }
         public int TotalQuestionsCompleted { get; set; }
         public string ApplicationNumber { get; set; }
+        public bool HasErrors { get; set; }
     }
 }
 

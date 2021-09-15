@@ -206,6 +206,7 @@ namespace INZFS.Theme.Controllers
             if (User.Identity?.IsAuthenticated ?? false)
             {
                 await _signInManager.SignOutAsync();
+                TempData.Clear();
                 _logger.LogInformation(4, "User logged out.");
             }
 
