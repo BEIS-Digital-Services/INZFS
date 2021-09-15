@@ -1,5 +1,6 @@
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Success";
 }
 
 
@@ -7,7 +8,7 @@
     <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
-            
+
             @if (!ViewData.ModelState.IsValid)
             {
                 <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
@@ -32,7 +33,7 @@
             }
             else
             {
-                <h1 class="govuk-heading-xl">Success</h1>
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body-l govuk-!-margin-bottom-0">Thank you for verifying your email. We have some questions which we'd like you to answer to create your account.</p>
 
                 <a href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">
