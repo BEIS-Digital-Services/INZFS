@@ -185,24 +185,29 @@ namespace INZFS.MVC.Controllers
                     }
                 }
 
-                if(ModelState.IsValid)
+                if(ModelState.IsValid && submitAction != "UploadFile")
                 {
-                    var markedAsComplete = GetFieldStatus(currentPage, model) == FieldStatus.Completed;
-                    //if (currentPage.Mandatory)
-                    if (markedAsComplete)
+                    var fieldStatus = GetFieldStatus(currentPage, model);
+                    var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                    if (contentToSave != null)
                     {
-                        var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
-                        if (contentToSave != null)
+                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
+                        if (fieldStatus == FieldStatus.Completed)
                         {
-                            var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
-
-                            if ((submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation) && file != null) || file == null)
+                            if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
                                 ModelState.AddModelError("DataInput", "No file was uploaded.");
                             }
                         }
+                        if (fieldStatus == FieldStatus.NotApplicable)
+                        {
+                            if (submitAction != "DeleteFile" && !string.IsNullOrEmpty(existingData?.AdditionalInformation))
+                            {
+                                ModelState.AddModelError("DataInput", "Please remove the uploaded file if this question is not applicable.");
+                                return PopulateViewModel(currentPage, model, existingData);
+                            }
+                        }
                     }
-                   
                 }
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
@@ -608,7 +613,7 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        protected ViewResult PopulateViewModel(Page currentPage, BaseModel currentModel)
+        protected ViewResult PopulateViewModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
             SetPageTitle(currentPage.SectionTitle);
             switch (currentPage.FieldType)
@@ -626,7 +631,14 @@ namespace INZFS.MVC.Controllers
                 case FieldType.gdsMultiSelect:
                     return View("MultiSelectInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsFileUpload:
-                    return View("FileUpload", PopulateModel(currentPage, currentModel));
+                    var model = PopulateModel(currentPage, currentModel, field);
+                    var uploadmodel = (FileUploadModel)model;
+                    if (!string.IsNullOrEmpty(field?.AdditionalInformation))
+                    {
+                        uploadmodel.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
+                    }
+                    uploadmodel.FieldStatus = field?.FieldStatus;
+                    return View("FileUpload", uploadmodel);
                 case FieldType.gdsCurrencyBox:
                     return View("CurrencyInput", PopulateModel(currentPage, currentModel));
                 case FieldType.gdsSingleRadioSelectOption:
@@ -755,7 +767,7 @@ namespace INZFS.MVC.Controllers
                 sectionModel.Title = pageContent.SectionTitle ?? pageContent.Question;
                 sectionModel.Url = pageContent.Name;
                 
-                if (string.IsNullOrEmpty(field?.Data) && string.IsNullOrEmpty(field?.AdditionalInformation))
+                if (field?.FieldStatus == null)
                 {
                     sectionModel.SectionStatus = FieldStatus.NotStarted;
                 }
