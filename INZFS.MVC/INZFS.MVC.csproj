@@ -7,8 +7,11 @@
 	</PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\PdfServices\Assets\**" />
     <Compile Remove="Views\Admin\**" />
+    <EmbeddedResource Remove="Services\PdfServices\Assets\**" />
     <EmbeddedResource Remove="Views\Admin\**" />
+    <None Remove="Services\PdfServices\Assets\**" />
     <None Remove="Views\Admin\**" />
   </ItemGroup>
 	<ItemGroup>
@@ -44,9 +47,6 @@
 	</ItemGroup>
 	<ItemGroup>
 		<EmbeddedResource Remove="ClosedXML" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Services\PdfServices\Assets\" />
 	</ItemGroup>
 </Project>
 

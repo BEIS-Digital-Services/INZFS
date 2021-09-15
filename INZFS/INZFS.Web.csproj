@@ -16,6 +16,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\assets\images\beis_logo.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="wwwroot\assets\images\beis_logo.png">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-16368" />
         <PackageReference Include="OrchardCore.AutoSetup" Version="1.0.0-rc2-16368" />
@@ -36,7 +46,6 @@
   <ItemGroup>
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
-    <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
 
   <ItemGroup>

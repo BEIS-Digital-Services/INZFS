@@ -4,6 +4,9 @@ using INZFS.MVC;
 using System;
 using System.IO;
 using System.Threading.Tasks;
+using System.Security.Policy;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Hosting;
 
 public class ReportService : IReportService
 {
@@ -14,22 +17,21 @@ public class ReportService : IReportService
     private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
     private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
 
-    private string coverPageTextColour = @"style=""rgb(28,28,28)""";
-    private string sectionTitleTextColour = @"style=""rgb(20,40,99)""";
-
     private readonly ApplicationDefinition _applicationDefinition;
     private readonly IContentRepository _contentRepository;
     private ApplicationContent _applicationContent;
-    
+    private string _logoFilepath;
+
     public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
     {
         _contentRepository = contentRepository;
         _applicationDefinition = applicationDefinition;
     }
 
-    public async Task<byte[]> GeneratePdfReport(string applicationAuthor)
+    public async Task<byte[]> GeneratePdfReport(string applicationAuthor, string logoFilepath)
     {
         _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+        _logoFilepath = logoFilepath;
 
         BuildHtmlString();
 
@@ -58,7 +60,7 @@ public class ReportService : IReportService
           <body style=""font-family: Helvetica, sans-serif;"">
 
             <div style=""height:265mm;"">
-                <p style=""float: left; color:rgb(28,28,28);"">BEIS</p>
+                <img src=""{_logoFilepath}"" width=45mm style=""float:left;""></img>
                 <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
                 <div style=""padding-left: 15mm; padding-right:15mm; margin-top: 65mm;"">
                     <h1 style=""font-size:5rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
