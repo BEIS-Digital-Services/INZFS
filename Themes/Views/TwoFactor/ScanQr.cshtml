@@ -2,12 +2,13 @@
 @model INZFS.Theme.ViewModels.EnableAuthenticatorQrCodeViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Scan this QR code";
 }
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l">Scan this QR code</h1>
+            <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
             <p class="govuk-body-l">Open the Authenticator app and scan this QR code.</p>
             <div class="govuk-grid-row govuk-!-margin-bottom-3">
                 <div class="govuk-grid-column-full">
