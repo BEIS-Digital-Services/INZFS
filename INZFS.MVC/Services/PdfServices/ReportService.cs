@@ -54,16 +54,37 @@ public class ReportService : IReportService
            <html lang=""en"">
            <head>
            </head>
-          <body>
-            <div style=""height:297mm;"">
+          <body style=""font-family: Helvetica, sans-serif;"">
+
+            <div style=""height:265mm;"">
                 <div style=""display:flex; justify-content:space-between;"">
-                    <p>BEIS</p>
-                    <p style=""width: 45mm;"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
+                    <p style=""float: left;"">BEIS</p>
+                    <p style=""width: 45mm; float:right;"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
                 </div>
-                <h1 style=""text-align:center;"">The Energy Entrepreneurs Fund (EEF)</h1>
-                <h2>Phase 9 Application Form</h2>
-                <p>This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
-                <p>Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
+                <div style=""padding-left: 15mm; padding-right:15mm; padding-top: 15%;"">
+                    <h1 style=""font-size:5rem;"">The Energy Entrepreneurs Fund (EEF)</h1>
+                    <h2>Phase 9 Application Form</h2>
+                    <p>This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
+                    <p>Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
+                </div>
+            </div>
+
+            <div style=""height:265mm;"">
+                <h2>Contents</h2>
+
+                <h3>Your information</h3>
+                <a href=""#your-details-and-eligibility"" style=""display:block; margin-bottom: 1rem;"">1. Your details and eligibility</a>
+                <a href=""#summary-of-finances"" style=""display:block; margin-bottom: 1rem;"">2. Summary of finances</a>
+                <a href=""#your-organisation"" style=""display:block; margin-bottom: 1rem;"">3. About your organisation (and partners)</a>
+
+                <h3>Your proposal</h3>
+                <a href=""#proposal-summary"" style=""display:block; margin-bottom: 1rem;"">4. Proposal summary</a>
+                <a href=""#business-proposal"" style=""display:block; margin-bottom: 1rem;"">5. Business proposal, project plans and risk</a>
+                <a href=""#finance-proposal"" style=""display:block; margin-bottom: 1rem;"">6. Financial proposal and costs</a>
+
+                <h3>Un-assessed data</h3>
+                <a href=""#performance-data"" style=""display:block; margin-bottom: 1rem;"">7. Performance Data</a>
+
             </div>
           ";
     }
@@ -78,7 +99,7 @@ public class ReportService : IReportService
         foreach (var section in _applicationDefinition.Application.Sections)
         {
             string sectionHtml = $@"
-                <h2 style=""color:rgb(28, 28, 28)"" >{ section.Title }</h2>
+                <h2 style=""color:rgb(28, 28, 28)"", id=""{section.Tag}"" >{ section.Title }</h2>
             ";
             html = html + sectionHtml;
 
