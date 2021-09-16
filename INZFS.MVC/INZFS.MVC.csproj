@@ -16,9 +16,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+    <PackageReference Include="Aspose.Words" Version="21.9.0" />
     <PackageReference Include="GovukNotify" Version="4.0.1" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
-		<PackageReference Include="itext7.pdfhtml" Version="3.0.5" />
 		<PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
 		<PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-16369" />
 		<PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-16369" />
