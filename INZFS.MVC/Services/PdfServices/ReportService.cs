@@ -8,9 +8,14 @@ using System.Threading.Tasks;
 public class ReportService : IReportService
 {
     private string html;
-    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:1px solid grey;""";
-    private string questionTableStyle = @"style=""background-color:rgb(248,241,220); width:100%; border:1px solid grey;""";
-    private string questionHeaderStyle = @"style=""text-align:left;""";
+
+    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
+    private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
+    private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
+    private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
+
+    private string coverPageTextColour = @"style=""rgb(28,28,28)""";
+    private string sectionTitleTextColour = @"style=""rgb(20,40,99)""";
 
     private readonly ApplicationDefinition _applicationDefinition;
     private readonly IContentRepository _contentRepository;
@@ -50,8 +55,36 @@ public class ReportService : IReportService
            <html lang=""en"">
            <head>
            </head>
-          <body>
-            <h1 style=""text-align:center;"">EEF 8A Application Form</h1>
+          <body style=""font-family: Helvetica, sans-serif;"">
+
+            <div style=""height:265mm;"">
+                <p style=""float: left; color:rgb(28,28,28);"">BEIS</p>
+                <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
+                <div style=""padding-left: 15mm; padding-right:15mm; margin-top: 65mm;"">
+                    <h1 style=""font-size:5rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
+                    <h2 style=""color:rgb(28,28,28);"">Phase 9 Application Form</h2>
+                    <p style=""color:rgb(28,28,28);"">This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
+                    <p style=""color:rgb(28,28,28);"">Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
+                </div>
+            </div>
+
+            <div style=""height:265mm;"">
+                <h2>Contents</h2>
+
+                <h3>Your information</h3>
+                <a href=""#your-details-and-eligibility"" style=""display:block; margin-bottom: 1rem;"">1. Your details and eligibility</a>
+                <a href=""#summary-of-finances"" style=""display:block; margin-bottom: 1rem;"">2. Summary of finances</a>
+                <a href=""#your-organisation"" style=""display:block; margin-bottom: 1rem;"">3. About your organisation (and partners)</a>
+
+                <h3>Your proposal</h3>
+                <a href=""#proposal-summary"" style=""display:block; margin-bottom: 1rem;"">4. Proposal summary</a>
+                <a href=""#business-proposal"" style=""display:block; margin-bottom: 1rem;"">5. Business proposal, project plans and risk</a>
+                <a href=""#finance-proposal"" style=""display:block; margin-bottom: 1rem;"">6. Financial proposal and costs</a>
+
+                <h3>Un-assessed data</h3>
+                <a href=""#performance-data"" style=""display:block; margin-bottom: 1rem;"">7. Performance Data</a>
+
+            </div>
           ";
     }
 
@@ -65,7 +98,7 @@ public class ReportService : IReportService
         foreach (var section in _applicationDefinition.Application.Sections)
         {
             string sectionHtml = $@"
-                <h2>{ section.Title }</h2>
+                <h2 style=""color:rgb(18,31,54);"", id=""{section.Tag}"" >{ section.OverviewTitle }</h2>
             ";
             html = html + sectionHtml;
 
@@ -75,15 +108,15 @@ public class ReportService : IReportService
 
     private void PopulateHtmlQuestions(INZFS.MVC.Section section)
     {
-        foreach (var page in section.Pages)
+        foreach (var page in section.Pages) if (!page.HideFromSummary)
         {
             String questionHtml = $@"
                 <table { tableStyle }>
                   <tr { questionTableStyle }>
-                    <th { questionHeaderStyle }>{ page.Question }</th>
+                    <th { questionHeaderStyle }>{ page.SectionTitle }</th>
                   </tr>
                   <tr>
-                    <td>{ GetAnswer(page) }</td>
+                    <td { answerCellStyle }>{ GetAnswer(page) }</td>
                   </tr>
                 </table>
                 ";
