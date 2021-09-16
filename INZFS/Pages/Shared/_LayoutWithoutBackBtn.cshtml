@@ -80,7 +80,7 @@
         </div>
         @if (User.Identity?.IsAuthenticated ?? false)
         {
-            <p><a class="govuk-body-m govuk-link" href="/Account/MyAccount" style="float:right">Your account</a></p>
+            <p><a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">Your account</a></p>
 
         }
 
