@@ -12,13 +12,16 @@ namespace INZFS.MVC.Validators
         public IEnumerable<ValidationResult> Validate(string dataInput, string friendlyFriendlyFieldName)
         {
 
-            var numberOnly = dataInput.Replace(",", "");
-            double currencyValue = 0.0;
-            if (double.TryParse(numberOnly, out currencyValue))
+            if (!string.IsNullOrEmpty(dataInput))
             {
-                if (currencyValue > 1500000)
+                var numberOnly = dataInput.Replace(",", "");
+                double currencyValue = 0.0;
+                if (double.TryParse(numberOnly, out currencyValue))
                 {
-                    yield return new ValidationResult($"Company's {friendlyFriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(dataInput) });
+                    if (currencyValue > 1500000)
+                    {
+                        yield return new ValidationResult($"Company's {friendlyFriendlyFieldName} cannot be greater than £1,500,000", new[] { nameof(dataInput) });
+                    }
                 }
             }
         }
