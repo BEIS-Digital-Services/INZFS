@@ -1057,7 +1057,8 @@
             "fieldType": "gdsStaticPage",
             "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Funding levels and subsidy requirements",
-            "nextPageName": "subsidy-sole-applicant"
+            "nextPageName": "subsidy-sole-applicant",
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "subsidy-sole-applicant",
