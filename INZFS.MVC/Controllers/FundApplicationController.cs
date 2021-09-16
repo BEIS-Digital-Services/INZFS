@@ -486,6 +486,7 @@ namespace INZFS.MVC.Controllers
         }
         public async Task<IActionResult> Complete()
         {
+            SetPageTitle("Application completed");
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
             if (content.ApplicationStatus != ApplicationStatus.InProgress)
             {
@@ -513,6 +514,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> ApplicationEquality()
         {
+            SetPageTitle("Equality questions");
             var model = new CommonModel
             {
                 ShowBackLink = true,
@@ -524,6 +526,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> ApplicationSent()
         {
+            SetPageTitle("Your application");
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
             return View("ApplicationSent", new ApplicationSentModel { 
                 ApplicationNumber = content.ApplicationNumber,
