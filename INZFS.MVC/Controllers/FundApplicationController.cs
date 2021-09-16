@@ -32,6 +32,7 @@ using INZFS.MVC.Services;
 using INZFS.MVC.Records;
 using System.Security.Claims;
 using INZFS.MVC.Extensions;
+using INZFS.MVC.Constants;
 
 namespace INZFS.MVC.Controllers
 {
@@ -135,7 +136,7 @@ namespace INZFS.MVC.Controllers
 
         private bool RedirectToApplicationSubmittedPage(string pageName, ApplicationContent content)
         {
-            if (content.ApplicationStatus == ApplicationStatus.Submitted)
+            if (content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 if(pageName.ToLower() == "application-overview")
                 {
@@ -461,13 +462,14 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> Submit()
         {
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-            if(content.ApplicationStatus == ApplicationStatus.Submitted)
+            if(content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return View("ApplicationSent", content.ApplicationNumber);
             }
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
             {
+                TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
                 {
                     ShowBackLink = true,
@@ -478,13 +480,14 @@ namespace INZFS.MVC.Controllers
             }
             else
             {
+                TempData[TempDataKeys.ApplicationOverviewError] = true;
                 return RedirectToAction("section", new { pagename = "application-overview" });
             }
         }
         public async Task<IActionResult> Complete()
         {
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-            if (content.ApplicationStatus == ApplicationStatus.Submitted)
+            if (content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
             }
@@ -524,7 +527,7 @@ namespace INZFS.MVC.Controllers
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
             return View("ApplicationSent", content.ApplicationNumber);
         }
-        //
+        
 
         [HttpPost, ActionName("ApplicationComplete")]
         public async Task<IActionResult> ApplicationComplete(string equality)
@@ -744,6 +747,7 @@ namespace INZFS.MVC.Controllers
             sectionContentModel.OverviewTitle = section.OverviewTitle;
             sectionContentModel.Url = section.Url;
             sectionContentModel.ReturnUrl = section.ReturnUrl;
+            sectionContentModel.HasErrors = TempData.ContainsKey(TempDataKeys.ApplicationOverviewError) && (bool)TempData.ContainsKey(TempDataKeys.ApplicationOverviewError);
 
             foreach (var pageContent in section.Pages)
             {
@@ -773,23 +777,6 @@ namespace INZFS.MVC.Controllers
                 }
                 else
                 {
-                    /*
-                    bool markAsComplete = true;
-                    if (pageContent.ShowMarkComplete)
-                    {
-                        markAsComplete = field?.MarkAsComplete != null ? field.MarkAsComplete.Value : false;
-                    }
-                    
-                    if (markAsComplete)
-                    {
-                        sectionModel.SectionStatus = SectionStatus.Completed;
-                        sectionContentModel.TotalQuestionsCompleted++;
-                    }
-                    else
-                    {
-                        sectionModel.SectionStatus = SectionStatus.InProgress;
-                    }
-                    */
                     sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
                     if(sectionModel.SectionStatus == FieldStatus.Completed)
                     {
@@ -825,6 +812,9 @@ namespace INZFS.MVC.Controllers
             applicationOverviewContentModel.TotalSections = sections.Count();
             applicationOverviewContentModel.TotalSectionsCompleted = applicationOverviewContentModel.
                                                 Sections.Count(section => section.SectionStatus == FieldStatus.Completed);
+
+            applicationOverviewContentModel.HasErrors = TempData.ContainsKey(TempDataKeys.ApplicationOverviewError) 
+                                    && (bool)TempData.ContainsKey(TempDataKeys.ApplicationOverviewError);
             return applicationOverviewContentModel;
         }
 

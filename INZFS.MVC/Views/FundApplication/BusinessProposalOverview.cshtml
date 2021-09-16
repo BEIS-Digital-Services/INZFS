@@ -3,11 +3,11 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
-
+@Html.Partial("_SectionErrorMessage", Model)
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">
-            5. Business proposal, project plans and risk
+            @Model.OverviewTitle
         </h1>
     </div>
 </div>
@@ -31,8 +31,12 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Take(2).ToList())
-
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Take(2).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
@@ -41,7 +45,12 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(2).Take(1).ToList())
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(2).Take(1).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
                     Technology readiness level (7.5% of score)
@@ -49,7 +58,12 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(3).Take(2).ToList())
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(3).Take(2).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
                     Cost and performance (7.5% of score)
@@ -57,7 +71,13 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(5).Take(6).ToList())
+
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(5).Take(6).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
                     Impact on climate change (20% of score)
@@ -65,7 +85,12 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(11).Take(2).ToList())
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(11).Take(2).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
@@ -74,8 +99,12 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(13).Take(2).ToList())
-
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(13).Take(2).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
                     Evaluation (7.5% of score)
@@ -83,16 +112,24 @@
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections.Skip(15).Take(2).ToList())
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(15).Take(2).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
                 <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-top-6 govuk-!-margin-bottom-1">
                     Experience (10% of score)
                 </p>
 
                 <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
-
-                @Html.Partial("_SectionList", Model.Sections.Skip(17).Take(3).ToList())
-
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", Model.Sections.Skip(17).Take(3).ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
             </div>
         </div>
