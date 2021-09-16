@@ -24,5 +24,10 @@ namespace INZFS.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult RegisterToAttend()
+        {
+            return View();
+        }
     }
 }

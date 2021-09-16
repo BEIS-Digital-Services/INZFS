@@ -11,29 +11,16 @@
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" media="screen" href="/assets/static/govuk-template.css">
-    <!--<![endif]-->
-    <!--[if IE 8]><link rel="stylesheet" media="screen" href="/assets/static/govuk-template-ie8.css" /><![endif]-->
-    <link rel="stylesheet" media="print" href="/assets/static/govuk-template-print.css">
-    <link rel="stylesheet" media="all" href="/assets/static/fonts.css">
+    <!--[if !IE 8]><!-->
     <link rel="stylesheet" media="all" href="/css/application.css">
+    <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
     <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
+
+    <!--<![endif]-->
+    <!--[if IE 8]>
+        <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
+    <![endif]-->
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-
-
-    <!--[if lt IE 9]><script src="/assets/static/ie.js"></script><![endif]-->
-
-    <link rel="stylesheet" media="screen" href="/assets/static/core-layout.css">
-
-    <!--[if lte IE 8]><link rel="stylesheet" media="screen" href="/assets/static/core-layout-ie8.css" /><script>var ieVersion = 8;</script><![endif]-->
-
-    <link rel="stylesheet" media="print" href="/assets/static/core-layout-print.css">
-
-    <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml">
-    <link rel="stylesheet" media="screen" href="/assets/frontend/application.css">
-    <link rel="stylesheet" media="print" href="/assets/frontend/print.css">
-    <!-- <link rel="canonical" href="https://www.gov.uk/"> -->
 </head>
 <body class="govuk-template__body app-body-class js-enabled" data-test="My value" data-other="report:details">
 
@@ -144,7 +131,7 @@
 
             <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
                 <p style="margin-top:10px;">
-                    <a class="govuk-body-m govuk-link" href="/MyAccount" style="float:right">
+                    <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">
                         Your account
                     </a>
 
