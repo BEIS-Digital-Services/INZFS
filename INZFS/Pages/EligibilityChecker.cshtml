@@ -73,7 +73,7 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA>
+                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
@@ -87,7 +87,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <button id="continueBtn" class="govuk-button govuk-!-margin-top-6" disabled="disabled">Continue</button>
+                <button id="continueBtn" class="govuk-button govuk-!-margin-top-6">Continue</button>
             </form>
 
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
@@ -142,7 +142,6 @@
     <style src="/css/application.css"></style>
     <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
     <script src="~/js/GovFrontendInit.js"></script>
-    <script src="/js/ToggleCheckBox.js"></script>
     <script src="~/js/BackLink.js"></script>
   
 </body>
