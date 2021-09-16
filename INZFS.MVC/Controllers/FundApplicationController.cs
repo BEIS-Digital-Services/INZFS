@@ -525,7 +525,11 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> ApplicationSent()
         {
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
-            return View("ApplicationSent", content.ApplicationNumber);
+            return View("ApplicationSent", new ApplicationSentModel { 
+                ApplicationNumber = content.ApplicationNumber,
+                ApplicationStatus = content.ApplicationStatus.ToStatusString(),
+                SubmittedDate = content.SubmittedUtc.Value
+            } );
         }
         
 
