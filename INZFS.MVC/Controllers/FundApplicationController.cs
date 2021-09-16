@@ -281,22 +281,22 @@ namespace INZFS.MVC.Controllers
                                         }
                                         catch (DivisionByZeroException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                         catch (FormatException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Template spreadsheet is incomplete.");
+                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
 
                                         }
                                     }
                                     else
                                     {
-                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                     }
                                 }
                                 catch (ArgumentException e)
                                 {
-                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the expected formatting. Please use the provided template.");
+                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                             }
                             catch (InvalidDataException e)
