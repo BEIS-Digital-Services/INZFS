@@ -1,67 +1,67 @@
 ﻿@page "/eligibilityInfo/{slug}"
 @inject OrchardCore.IOrchardHelper Orchard
 
-
 @{
-	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    ViewData["Title"] = "Eligibility Info";
 }
 
 <div class="govuk-width-container">
 
-	<div class="govuk-grid-row">
-		<div class="govuk-grid-column-three-quarters">
-			<div class="govuk-breadcrumbs">
-				<ol class="govuk-breadcrumbs__list">
-					<li class="govuk-breadcrumbs__list-item">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <div class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
                         <a class="govuk-breadcrumbs__link" href="/">Apply for the Energy Entrepreneurs Fund: phase 9</a>
-					</li>
-					<li class="govuk-breadcrumbs__list-item">
-						@eligibility.Content.EligibilityInfo.Header1.Text
-					</li>
-				</ol>
-			</div>
-		</div>
-		<div class="govuk-grid-column-one-quarter govuk-signout-right"></div>
-	</div>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item">
+                        @eligibility.Content.EligibilityInfo.Header1.Text
+                    </li>
+                </ol>
+            </div>
+        </div>
+        <div class="govuk-grid-column-one-quarter govuk-signout-right"></div>
+    </div>
 
-	<main class="govuk-main-wrapper " id="main-content" role="main">
+    <main class="govuk-main-wrapper " id="main-content" role="main">
 
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-two-thirds">
-				<h1 class="govuk-heading-l">@eligibility.Content.EligibilityInfo.Header1.Text</h1>
-			</div>
-		</div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">@eligibility.Content.EligibilityInfo.Header1.Text</h1>
+            </div>
+        </div>
 
-		<div class="govuk-grid-row">
-			<div class="govuk-grid-column-two-thirds">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
 
-				<p class="govuk-body">@eligibility.Content.EligibilityInfo.Body1.Text</p>
+                <p class="govuk-body">@eligibility.Content.EligibilityInfo.Body1.Text</p>
 
-				<p class="govuk-body">@eligibility.Content.EligibilityInfo.Body2.Text</p>
+                <p class="govuk-body">@eligibility.Content.EligibilityInfo.Body2.Text</p>
 
-				<h2 class="govuk-heading-l">@eligibility.Content.EligibilityInfo.Header2.Text</h2>
+                <h2 class="govuk-heading-l">@eligibility.Content.EligibilityInfo.Header2.Text</h2>
 
-				<p class="govuk-body">@eligibility.Content.EligibilityInfo.Body3.Text</p>
+                <p class="govuk-body">@eligibility.Content.EligibilityInfo.Body3.Text</p>
 
-				<a href="@eligibility.Content.EligibilityInfo.Button1.Text">
-					<button class="govuk-button" data-module="govuk-button">
-						Continue
-					</button>
-				</a>
+                <a href="@eligibility.Content.EligibilityInfo.Button1.Text">
+                    <button class="govuk-button" data-module="govuk-button">
+                        Continue
+                    </button>
+                </a>
 
-			</div>
+            </div>
 
-		</div>
-	</main>
+        </div>
+    </main>
 </div>
 
 @functions
 {
-	[FromRoute]
-	public string Slug { get; set; }
+    [FromRoute]
+    public string Slug { get; set; }
 
 }
 
-@{ 
-	Layout = "_LayoutWithoutBackBtn";
+@{
+    Layout = "_LayoutWithoutBackBtn";
 }
