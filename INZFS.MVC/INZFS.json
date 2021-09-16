@@ -599,6 +599,7 @@
             "customValidator": "PastOrPresentDateValidator",
             "friendlyFieldName": "Parent Balance sheet date",
             "fieldName": "parent-balance-sheet-date",
+            "continueButtonText": "Save and return to your organisation and partners",
             "mandatory": true,
             "showMarkComplete": true,
             "dependsOn": {
