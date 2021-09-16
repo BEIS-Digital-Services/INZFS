@@ -11,9 +11,12 @@ namespace INZFS.MVC.Validators
     {
         public IEnumerable<ValidationResult> Validate(string dataInput, string friendlyFriendlyFieldName)
         {
-            if (dataInput.Length < 7 || dataInput.Length > 9)
+            if (!string.IsNullOrEmpty(dataInput))
             {
-                yield return new ValidationResult($"{friendlyFriendlyFieldName} must be between 7 and 9 characters", new[] { nameof(dataInput) });
+                if (dataInput.Length < 7 || dataInput.Length > 9)
+                {
+                    yield return new ValidationResult($"{friendlyFriendlyFieldName} must be between 7 and 9 characters", new[] { nameof(dataInput) });
+                }
             }
         }
     }
