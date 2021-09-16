@@ -4,37 +4,37 @@
 @model INZFS.Web.POCO.EligibilityCheckerPOCO
 @using Microsoft.AspNetCore.Http
 
-
 @{
-	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
-	var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
-	var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
-	var AccordionListEnabled = @eligibility.Content.EligibilityChecker.AccordionBullet1.Text == null;
-	var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-	var questionSettingA = "Question1";
-	switch (titlePart)
-	{
-		case "Question1":
-			questionSettingA = "Question1";
-			break;
-		case "Question2":
-			questionSettingA = "Question2";
-			break;
-		case "Question3":
-			questionSettingA = "Question3";
-			break;
-		case "Question4":
-			questionSettingA = "Question4";
-			break;
-		case "Question5":
-			questionSettingA = "Question5";
-			break;
-		case "Question6":
-			questionSettingA = "Question6";
-			break;
-		default: questionSettingA = "Question1"; break;
+    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+    var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
+    var AccordionListEnabled = @eligibility.Content.EligibilityChecker.AccordionBullet1.Text == null;
+    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+    var questionSettingA = "Question1";
+    ViewData["Title"] = "Eligibility Checker";
+    switch (titlePart)
+    {
+        case "Question1":
+            questionSettingA = "Question1";
+            break;
+        case "Question2":
+            questionSettingA = "Question2";
+            break;
+        case "Question3":
+            questionSettingA = "Question3";
+            break;
+        case "Question4":
+            questionSettingA = "Question4";
+            break;
+        case "Question5":
+            questionSettingA = "Question5";
+            break;
+        case "Question6":
+            questionSettingA = "Question6";
+            break;
+        default: questionSettingA = "Question1"; break;
 
-	}
+    }
 
 
 }
@@ -143,21 +143,21 @@
     <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
     <script src="~/js/GovFrontendInit.js"></script>
     <script src="~/js/BackLink.js"></script>
-  
+
 </body>
 
 @functions
 {
-	[FromRoute]
-	public string Slug { get; set; }
-	[BindProperty]
-	public string RedirectUrl { get; set; }
+    [FromRoute]
+    public string Slug { get; set; }
+    [BindProperty]
+    public string RedirectUrl { get; set; }
 
-	public async Task<IActionResult> OnPostAsync()
-	{
+    public async Task<IActionResult> OnPostAsync()
+    {
 
-		@inject OrchardCore.IOrchardHelper Orchard
-		var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        @inject OrchardCore.IOrchardHelper Orchard
+        var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
         var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
         var titlePart = (string)@eligibility.Content.AliasPart.Alias;
         var QuestionValue = Request.Form["questionSettingA"].ToString();
@@ -210,5 +210,5 @@
 
 }
 @{
-	Layout = "_LayoutWithoutBackBtn";
+    Layout = "_LayoutWithoutBackBtn";
 }
