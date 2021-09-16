@@ -73,7 +73,8 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "continueButtonText": "Save and return to your details and eligibility"
           }
         ]
       },
@@ -702,7 +703,8 @@
             "maxLength": 400,
             "maxLengthValidationType": "Word",
             "hint": "Explain why public sector funding is required to take this concept forward.",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "continueButtonText": "Save and return to Proposal summary"
           }
         ]
       },
@@ -1033,7 +1035,7 @@
             "fieldName": "business-letter-of-support-document",
             "mandatory": false,
             "accordianReference": "",
-            "continueButtonText": "Save and return to business proposal overview",
+            "continueButtonText": "Save and return to the business proposal overview",
             "showMarkComplete": true,
             "filetoDownload": "",
             "AcceptableFileExtensions": "pdf, xls, xlsx, ppt, pptx, doc, docx, gif, jpeg, png"
@@ -1279,7 +1281,7 @@
             "fieldName": "value-for-money",
             "mandatory": true,
             "showMarkComplete": true,
-            "continueButtonText": "Save and continue to financial proposal overview"
+            "continueButtonText": "Save and return to the financial proposal overview"
 
           }
         ]

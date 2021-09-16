@@ -123,9 +123,11 @@ namespace INZFS.MVC
     {
         InProgress,
         Submitted,
-        Reviewed,
-        Approved,
-        Rejected
+        Assessment,
+        IndependentAssessment,
+        Successful,
+        Unsuccessful,
+        Withdrawn
     }
 
     public class ApplicationContent
@@ -189,6 +191,7 @@ namespace INZFS.MVC
 
         public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationNumber { get; set; }
+        public DateTime? SubmittedUtc { get; set; }
 
     }
 
