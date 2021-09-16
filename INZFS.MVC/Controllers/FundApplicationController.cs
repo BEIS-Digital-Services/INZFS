@@ -778,11 +778,24 @@ namespace INZFS.MVC.Controllers
                 else
                 {
                     sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
-                    if(sectionModel.SectionStatus == FieldStatus.Completed)
-                    {
-                        sectionContentModel.TotalQuestionsCompleted++;
-                    }
+                }
 
+                if (pageContent.Name == "subsidy-requirements")
+                {
+                    var resultsFields = content?.Fields?.FindAll(f => f.Name.Contains("subsidy") && f.Name.Contains("result"));
+                    if (resultsFields.Any(f => f.Data == "true"))
+                    {
+                        sectionModel.SectionStatus = FieldStatus.Completed;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = FieldStatus.NotStarted;
+                    }
+                }
+
+                if (sectionModel.SectionStatus == FieldStatus.Completed)
+                {
+                    sectionContentModel.TotalQuestionsCompleted++;
                 }
                 sectionContentModel.Sections.Add(sectionModel);
             }
