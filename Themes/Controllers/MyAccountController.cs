@@ -68,7 +68,7 @@ namespace INZFS.Theme.Controllers
             var model = new ChangeEmailViewModel();
             var user = await _userManager.GetUserAsync(User);
             var userEmail = await _userManager.GetEmailAsync(user);
-            model.CurrentEmail = userEmail;
+            model.CurrentEmail = _encodingService.MaskEmail(userEmail);
             return View("ChangeEmail", model);
         }
         
