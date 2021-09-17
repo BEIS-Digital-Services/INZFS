@@ -215,7 +215,8 @@
           {
             "name": "organisation-website",
             "sectionTitle": "3.2 Organisation website",
-            "question": "Organisation Website",
+            "question": "What is your organisation's website?",
+            "hint": "Enter your organisation's website address, if you have one",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
@@ -246,7 +247,7 @@
           {
             "name": "company-registration-number",
             "sectionTitle": "3.4 Company registration number",
-            "question": "What is your organisation’s company number?",
+            "question": "What is your organisation's company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registration number",
@@ -301,7 +302,8 @@
           {
             "name": "organisation-size",
             "sectionTitle": "3.7 Organisation size",
-            "question": "What is your organisation's size?",
+            "question": "How many full-time employees does your organisation currently have?",
+            "hint": "This number includes directors.",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Organisation size",
@@ -317,13 +319,13 @@
             ]
           },
           {
-            "name": "organisation-maturity",
-            "sectionTitle": "3.8 Organisation maturity",
+            "name": "organisation-age",
+            "sectionTitle": "3.8 Organisation age",
             "question": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
-            "friendlyFieldName": "Organisation maturity",
-            "fieldName": "organisation-maturity",
+            "friendlyFieldName": "Organisation age",
+            "fieldName": "organisation-age",
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
@@ -341,6 +343,7 @@
             "question": "How is your organisation currently funded?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
+            "hint": "Select all that apply.",
             "friendlyFieldName": "Organisation funding",
             "fieldName": "organisation-funding",
             "mandatory": true,
@@ -465,7 +468,7 @@
           {
             "name": "parentcompany-registration-number",
             "sectionTitle": "3.15 Parent company registration number",
-            "question": "What is your parent organisation’s company number?",
+            "question": "What is your parent organisation's company number?",
             "hint": "Your parent company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter your parent company registration number",
