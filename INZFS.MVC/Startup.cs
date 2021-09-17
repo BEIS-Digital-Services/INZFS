@@ -30,6 +30,7 @@ using Microsoft.Extensions.Hosting;
 using System.Reflection;
 using Notify.Interfaces;
 using Notify.Client;
+using INZFS.MVC.Services.PdfServices;
 
 namespace INZFS.MVC
 {

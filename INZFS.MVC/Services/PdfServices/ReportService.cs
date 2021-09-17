@@ -5,52 +5,59 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-public class ReportService : IReportService
+
+namespace INZFS.MVC.Services.PdfServices
 {
-    private string html;
-
-    private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
-    private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
-    private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
-    private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
-
-    private string coverPageTextColour = @"style=""rgb(28,28,28)""";
-    private string sectionTitleTextColour = @"style=""rgb(20,40,99)""";
-
-    private readonly ApplicationDefinition _applicationDefinition;
-    private readonly IContentRepository _contentRepository;
-    private ApplicationContent _applicationContent;
-    
-    public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
+    public class ReportService : IReportService
     {
-        _contentRepository = contentRepository;
-        _applicationDefinition = applicationDefinition;
-    }
+        private string html;
 
-    public async Task<byte[]> GeneratePdfReport(string applicationAuthor)
-    {
-        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+        private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
+        private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
+        private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
+        private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
 
-        BuildHtmlString();
+        private string coverPageTextColour = @"style=""rgb(28,28,28)""";
+        private string sectionTitleTextColour = @"style=""rgb(20,40,99)""";
 
-        using (MemoryStream stream = new())
-        using (PdfWriter writer = new(stream))
+        private readonly ApplicationDefinition _applicationDefinition;
+        private readonly IContentRepository _contentRepository;
+
+        public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
         {
-            HtmlConverter.ConvertToPdf(html, writer);
-            return stream.ToArray();
+            _contentRepository = contentRepository;
+            _applicationDefinition = applicationDefinition;
         }
-    }
 
-    private void BuildHtmlString()
-    {
-        OpenHtmlString();
-        PopulateHtmlSections();
-        CloseHtmlString();
-    }
+        public async Task<ReportContent> GeneratePdfReport(string applicationAuthor)
+        {
+            var applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+            var reportContent = new ReportContent
+            {
+                ApplicationNumber = applicationContent.ApplicationNumber
+            };
 
-    private void OpenHtmlString()
-    {
-        html = $@"
+            BuildHtmlString(applicationContent);
+
+            using (MemoryStream stream = new())
+            using (PdfWriter writer = new(stream))
+            {
+                HtmlConverter.ConvertToPdf(html, writer);
+                reportContent.FileContents = stream.ToArray();
+                return reportContent;
+            }
+        }
+
+        private void BuildHtmlString(ApplicationContent applicationContent)
+        {
+            OpenHtmlString(applicationContent.ApplicationNumber);
+            PopulateHtmlSections(applicationContent);
+            CloseHtmlString();
+        }
+
+        private void OpenHtmlString(string applicationNumber)
+        {
+            html = $@"
            <!DOCTYPE html>
            <html lang=""en"">
            <head>
@@ -64,7 +71,7 @@ public class ReportService : IReportService
                     <h1 style=""font-size:5rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
                     <h2 style=""color:rgb(28,28,28);"">Phase 9 Application Form</h2>
                     <p style=""color:rgb(28,28,28);"">This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
-                    <p style=""color:rgb(28,28,28);"">Your Application Reference is <strong>{ _applicationContent.ApplicationNumber }</strong></p> 
+                    <p style=""color:rgb(28,28,28);"">Your Application Reference is <strong>{ applicationNumber }</strong></p> 
                 </div>
             </div>
 
@@ -86,55 +93,57 @@ public class ReportService : IReportService
 
             </div>
           ";
-    }
+        }
 
-    private void CloseHtmlString()
-    {
-        html = html + "</body></html>";
-    }
-
-    private void PopulateHtmlSections()
-    {
-        foreach (var section in _applicationDefinition.Application.Sections)
+        private void CloseHtmlString()
         {
-            string sectionHtml = $@"
+            html = html + "</body></html>";
+        }
+
+        private void PopulateHtmlSections(ApplicationContent applicationContent)
+        {
+            foreach (var section in _applicationDefinition.Application.Sections)
+            {
+                string sectionHtml = $@"
                 <h2 style=""color:rgb(18,31,54);"", id=""{section.Tag}"" >{ section.OverviewTitle }</h2>
             ";
-            html = html + sectionHtml;
+                html = html + sectionHtml;
 
-            PopulateHtmlQuestions(section);
+                PopulateHtmlQuestions(section, applicationContent);
+            }
         }
-    }
 
-    private void PopulateHtmlQuestions(INZFS.MVC.Section section)
-    {
-        foreach (var page in section.Pages) if (!page.HideFromSummary)
+        private void PopulateHtmlQuestions(INZFS.MVC.Section section, ApplicationContent applicationContent)
         {
-            String questionHtml = $@"
+            foreach (var page in section.Pages) if (!page.HideFromSummary)
+                {
+                    String questionHtml = $@"
                 <table { tableStyle }>
                   <tr { questionTableStyle }>
                     <th { questionHeaderStyle }>{ page.SectionTitle }</th>
                   </tr>
                   <tr>
-                    <td { answerCellStyle }>{ GetAnswer(page) }</td>
+                    <td { answerCellStyle }>{ GetAnswer(page, applicationContent) }</td>
                   </tr>
                 </table>
                 ";
-            html = html + questionHtml;
+                    html = html + questionHtml;
+                }
         }
-    }
 
-    private string GetAnswer(Page page)
-    {
-        var answer = _applicationContent?.Fields.Find(question => question.Name == page.Name);
+        private string GetAnswer(Page page, ApplicationContent applicationContent)
+        {
+            var answer = applicationContent?.Fields.Find(question => question.Name == page.Name);
 
-        if (answer == null)
-        {
-            return @"<span style=""color:red;"">No response</span>";
-        }
-        else 
-        {
-            return answer.Data;
+            if (answer == null)
+            {
+                return @"<span style=""color:red;"">No response</span>";
+            }
+            else
+            {
+                return answer.Data;
+            }
         }
     }
 }
+    
