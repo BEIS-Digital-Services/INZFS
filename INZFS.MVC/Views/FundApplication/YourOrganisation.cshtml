@@ -15,10 +15,7 @@
     <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-tabs" data-module="govuk-tabs">
-            <h2 class="govuk-tabs__title">
-                6. Finance Proposal
-            </h2>
-
+            
             <div class="govuk">
 
                 @{
@@ -42,18 +39,18 @@
                     var completedCount2 = sections2.Count(section => section.SectionStatus == FieldStatus.Completed);
                 }
 
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Parent organisation details<span class="summary-list-section summary-list-section--right">  @completedCount out of  11 completed/span></p>
-                <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+                @if (sections2.Count() > 0)
+                {
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Parent organisation details<span class="summary-list-section summary-list-section--right">  @completedCount2 out of  10 completed</span></p>
+                    <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
 
-                <dl class="govuk-summary-list">
-                    @Html.Partial("_SectionList", sections2.ToList(), new ViewDataDictionary(ViewData)
-                                    {
-                                        { "HasErrors", Model.HasErrors }
-                                    })
-                </dl>
-
-
-
+                    <dl class="govuk-summary-list">
+                        @Html.Partial("_SectionList", sections2.ToList(), new ViewDataDictionary(ViewData)
+                                        {
+                                            { "HasErrors", Model.HasErrors }
+                                        })
+                    </dl>
+                }
             </div>
         </div>
 
