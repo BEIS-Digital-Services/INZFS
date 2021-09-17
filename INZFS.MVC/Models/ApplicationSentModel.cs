@@ -9,6 +9,7 @@ namespace INZFS.MVC.Models
     public class ApplicationSentModel
     {
         public string ApplicationNumber { get; set; }
+        public string ApplicationStatus { get; set; }
         public DateTime SubmittedDate { get; set; }
     }
 }
