@@ -363,12 +363,16 @@
             "question": "Are you a sole applicant?",
             "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
+            "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Consortium Applicant",
             "fieldName": "consortium-applicant",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "selectOptions": [
+              "Yes, I am a sole applicant",
+              "No, I am applying with businesses as a partnership (consortium)"
+            ]
           },
           {
             "name": "consortium-applicant-details",
@@ -387,7 +391,7 @@
             "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
               "fieldName": "consortium-applicant",
-              "value": "0"
+              "value": "No, I am applying with businesses as a partnership (consortium)"
             }
           },
           {
@@ -396,17 +400,21 @@
             "question": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
-            "fieldType": "gdsYesorNoRadio",
+            "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent Organisation",
             "fieldName": "parent-organisation",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "selectOptions": [
+              "Yes, continue to complete parent organisation details",
+              "No, return to the 'about your organisation' overview"
+            ]
           },
           {
             "name": "parent-organisation-name",
             "sectionTitle": "3.12 Parent organisation name",
-            "question": "Parent organisation name",
+            "question": "What is your parent organisation’s name?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name",
             "fieldType": "gdsTextBox",
@@ -420,13 +428,13 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
             "name": "parent-organisation-website",
             "sectionTitle": "3.13 Parent organisation website",
-            "question": "Parent organisation Website",
+            "question": "What is your parent organisation’s website?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation website",
             "fieldType": "gdsTextBox",
@@ -440,7 +448,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
@@ -459,7 +467,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
@@ -480,15 +488,16 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             },
             "customValidator": "CompanyRegistrationNumberValidator"
           },
           {
             "name": "parent-organisation-size",
             "sectionTitle": "3.16 Parent organisation size",
-            "question": "What is your parent organisation's size?",
+            "question": "How many full-time employees does your parent organisation currently have?",
             "errorMessage": "Select option",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
             "fieldName": "parent-organisation-size",
@@ -503,7 +512,7 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
@@ -526,13 +535,13 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
             "name": "parent-recent-turnover",
             "sectionTitle": "3.18 Parent organisation's most recent annual turnover",
-            "question": "Most recent annual turnover",
+            "question": "What is your parent organisation’s most recent annual turnover?",
             "hint": "The amount of money your business has taken over a period of 12 months.",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
@@ -547,14 +556,14 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             },
             "customValidator": "TurnOverValidator"
           },
           {
             "name": "parent-recent-turnover-date",
             "sectionTitle": "3.19 Parent organisation's most recent turnover date",
-            "question": "Most recent turnover date",
+            "question": "What is your parent's organisations most recent turnover date?",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
@@ -565,13 +574,13 @@
             "customValidator": "PastOrPresentDateValidator",
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
             "name": "parent-balance-sheet-total",
             "sectionTitle": "3.20 Parent organisation's balance sheet total",
-            "question": "Parent balance sheet total",
+            "question": "What is your parent organisation’s balance sheet total?",
             "hint": "Amount, in pounds",
             "description": "Description",
             "errorMessage": "Please enter balance sheet total",
@@ -586,13 +595,13 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           },
           {
             "name": "parent-balance-sheet-date",
             "sectionTitle": "3.21 Parent organisation's balance sheet date",
-            "question": "Parent balance sheet date",
+            "question": "What is your parent organisation’s balance sheet date?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -604,11 +613,9 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "Yes, continue to complete parent organisation details"
             }
           }
-
-
         ]
       },
       {
