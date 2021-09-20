@@ -375,9 +375,9 @@
           },
           {
             "name": "consortium-applicant-details",
-            "sectionTitle": "Consortium details",
-            "question": "Consortium details",
-            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "sectionTitle": "3.10. Consortium applicants",
+            "question": "Consortium applicant details",
+            "hint": "",
             "errorMessage": "Select the Consortium details Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Consortium File Upload",
