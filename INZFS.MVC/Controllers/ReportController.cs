@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using INZFS.MVC.Services.PdfServices;
 
 namespace INZFS.MVC.Controllers
 {
@@ -16,13 +17,13 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
         }
         [HttpGet]
-        public async Task<FileContentResult> DownloadPdf(string applicationNumber)
+        public async Task<FileContentResult> DownloadPdf()
         {
-            byte[] bytes = await _reportService.GeneratePdfReport(User.Identity.Name);
+            var reportContent = await _reportService.GeneratePdfReport(User.Identity.Name);
             string type = "application/pdf";
-            string name = $"{applicationNumber}.pdf";
+            string name = $"{reportContent.ApplicationNumber}.pdf";
 
-            return File(bytes, type, name);
+            return File(reportContent.FileContents, type, name);
         }
         //public async Task<FileContentResult> GenerateOdt()
         //{
