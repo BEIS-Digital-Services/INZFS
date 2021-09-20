@@ -18,6 +18,7 @@
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Eligibility to apply for fund",
             "fieldName": "eligibility-to-apply-for-fund",
             "mandatory": true,
@@ -123,6 +124,7 @@
             "question": "Is your organisation VAT registered?",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Vat Recovery",
             "fieldName": "vat-recovery",
             "mandatory": true,
@@ -136,6 +138,7 @@
             "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Organisation Running",
             "fieldName": "organisation-running",
             "mandatory": true,
@@ -363,7 +366,8 @@
             "question": "Are you a sole applicant?",
             "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "errorMessage": "Select Yes or No",
-            "fieldType": "gdsSingleRadioSelectOption",
+            "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "CustomInput",
             "friendlyFieldName": "Consortium Applicant",
             "fieldName": "consortium-applicant",
             "mandatory": true,
@@ -391,7 +395,7 @@
             "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
               "fieldName": "consortium-applicant",
-              "value": "No, I am applying with businesses as a partnership (consortium)"
+              "value": "1"
             }
           },
           {
@@ -400,7 +404,8 @@
             "question": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
-            "fieldType": "gdsSingleRadioSelectOption",
+            "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "CustomInput",
             "friendlyFieldName": "Parent Organisation",
             "fieldName": "parent-organisation",
             "mandatory": true,
@@ -428,7 +433,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -448,7 +453,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -467,7 +472,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -488,7 +493,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             },
             "customValidator": "CompanyRegistrationNumberValidator"
           },
@@ -512,7 +517,7 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -535,7 +540,7 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -556,7 +561,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             },
             "customValidator": "TurnOverValidator"
           },
@@ -574,7 +579,7 @@
             "customValidator": "PastOrPresentDateValidator",
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -595,7 +600,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           },
           {
@@ -613,7 +618,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "Yes, continue to complete parent organisation details"
+              "value": "0"
             }
           }
         ]
@@ -677,6 +682,7 @@
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Project Location",
             "fieldName": "project-location",
             "mandatory": true,
@@ -1075,6 +1081,7 @@
             "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Subsidy Sole Applicant",
             "fieldName": "subsidy-sole-applicant",
             "mandatory": true,
@@ -1397,6 +1404,7 @@
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Consumer trials",
             "fieldName": "consumer-trials",
             "mandatory": true,

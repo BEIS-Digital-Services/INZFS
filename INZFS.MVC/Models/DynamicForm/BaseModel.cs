@@ -25,6 +25,8 @@ namespace INZFS.MVC.Models.DynamicForm
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
         public TextType TextType { get; set; }
+        public YesNoType YesNoInput { get; set; }
+
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
         public string OtherOption { get; set; }
