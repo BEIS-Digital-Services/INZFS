@@ -1284,6 +1284,7 @@
             "fieldName": "financial-background",
             "maxLength": 500,
             "maxLengthValidationType": "Word",
+            "gridDisplayType": "FullPage",
             "mandatory": true,
             "showMarkComplete": true
           },
@@ -1300,6 +1301,7 @@
             "fieldName": "value-for-money",
             "mandatory": true,
             "showMarkComplete": true,
+            "gridDisplayType": "FullPage",
             "continueButtonText": "Save and return to the financial proposal overview"
 
           }
