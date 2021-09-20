@@ -49,11 +49,6 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Register(string returnUrl)
         {
-            if (User.Identity?.IsAuthenticated ?? false)
-            {
-                await _signInManager.SignOutAsync();
-            }
-
             return View(new RegistrationViewModel());
         }
 
@@ -79,9 +74,15 @@ namespace INZFS.Theme.Controllers
 
                     if (result.Succeeded)
                     {
+                        if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            await _signInManager.SignOutAsync();
+                        }
+
                         var idToken = _encodingService.GetHexFromString(model.Email);
                         await SendEmail(user, model.Email, idToken, returnUrl);
                         await _registrationManager.RegisterSignInAsync(user);
+
                         return RedirectToAction("Organisation");
                     }
                     else

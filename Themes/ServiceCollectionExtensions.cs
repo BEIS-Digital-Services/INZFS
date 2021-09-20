@@ -37,6 +37,7 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.ConfigureApplicationCookie(options =>
             {
+                options.ExpireTimeSpan = new TimeSpan(0, 0, 30, 0);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LogOff";
                 options.AccessDeniedPath = "/Error/403";
