@@ -28,6 +28,12 @@ namespace INZFS.MVC
         CurrencyBox,
         NumberBox
     }
+
+    public enum YesNoType
+    {
+        Standard,
+        CustomInput
+    }
     public enum MaxLengthValidationType
     {
         Character,
@@ -55,7 +61,8 @@ namespace INZFS.MVC
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
         public TextType TextType { get; set; }
-        public string FieldName { get; set; }
+        public YesNoType YesNoInput { get; set; }
+    public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
