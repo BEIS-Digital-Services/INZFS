@@ -461,10 +461,11 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> Submit()
         {
+            SetPageTitle("Submit application");
             var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
             if(content.ApplicationStatus != ApplicationStatus.InProgress)
             {
-                return View("ApplicationSent", content.ApplicationNumber);
+                return RedirectToAction("ApplicationSent");
             }
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
