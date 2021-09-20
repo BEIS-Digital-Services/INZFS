@@ -666,6 +666,7 @@ namespace INZFS.MVC.Controllers
         private BaseModel PopulateModel(Page currentPage, BaseModel currentModel, Field field = null)
         {
             currentModel.TextType = currentPage.TextType;
+            currentModel.YesNoInput = currentPage.YesNoInput;
             currentModel.Question = currentPage.Question;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
