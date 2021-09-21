@@ -1,4 +1,11 @@
 @model string
+@*SECTION 1 CONFIRM YOUR ELIGIBILITY*@
+
+@if (Model == "eligibility-to-apply-for-fund")
+{
+    @Html.Partial("../Accordion/YourDetails/_DetailsConfirmYourEligibility.cshtml")
+}
+
 @*SECTION 5 BUSINESS PROPOSAL*@
 
 @if (Model == "business-proposal")
