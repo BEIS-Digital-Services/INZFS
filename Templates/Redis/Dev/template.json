@@ -1,0 +1,35 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Redis_inzfs_redis_name": {
+            "defaultValue": "inzfs-redis",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Cache/Redis",
+            "apiVersion": "2020-12-01",
+            "name": "[parameters('Redis_inzfs_redis_name')]",
+            "location": "UK South",
+            "properties": {
+                "redisVersion": "4.0.14",
+                "sku": {
+                    "name": "Basic",
+                    "family": "C",
+                    "capacity": 0
+                },
+                "enableNonSslPort": false,
+                "publicNetworkAccess": "Enabled",
+                "redisConfiguration": {
+                    "maxclients": "256",
+                    "maxmemory-reserved": "2",
+                    "maxfragmentationmemory-reserved": "12",
+                    "maxmemory-delta": "2"
+                }
+            }
+        }
+    ]
+}
