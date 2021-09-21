@@ -4695,7 +4695,7 @@
           "ContentItemId": "4tw4a7s1zbh8f57215d4svh85b",
           "ContentItemVersionId": "4h46b7997nmh5396kp8mpwm4de",
           "ContentType": "GovPage",
-          "DisplayText": "Energy Entrepreneurs Fund 8B",
+          "DisplayText": "Apply for the Energy Entrepreneurs Fund: phase 9",
           "Latest": true,
           "Published": true,
           "ModifiedUtc": "2021-07-08T15:44:36.2948453Z",
@@ -4705,7 +4705,7 @@
           "Author": "admin",
           "GovPage": {
             "govukheadingm": {
-              "Text": "The Energy Entrepreneurs Fund (EEF) supports innovative carbon-reduction technology through capital grants of up to £1 million."
+              "Text": "The Energy Entrepreneurs Fund (EEF) supports innovative carbon-reduction technology through grants of up to £1 million."
             },
             "govukheadingm2": {
               "Text": "Apply for funding Step by step"
@@ -4714,8 +4714,14 @@
               "Url": null,
               "Text": null
             },
-            "GovMainInfo": {
-              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: "
+            "GovMainInfo1": {
+              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups."
+            },
+            "GovMainInfo2": {
+              "Text": "Academic institutions are welcome to apply as part of a consortium, but can not be the sole applicant."
+            },
+            "GovMainInfo3": {
+              "Text": "To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply."
             },
             "NavHeading1": {
               "Text": "Check to see if EEF is the right fund for you"
@@ -4776,7 +4782,7 @@
             "Markdown": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: "
           },
           "TitlePart": {
-            "Title": "Energy Entrepreneurs Fund 8B"
+            "Title": "Apply for the Energy Entrepreneurs Fund: phase 9"
           },
           "AliasPart": {
             "Alias": "Energy-Entrepreneurs"
@@ -4950,7 +4956,7 @@
                 "ContentItemId": "44g3jfpn0n9cqtm64ejrf5v74s",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy efficiency",
+                "DisplayText": "energy efficiency",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3311995Z",
@@ -4973,7 +4979,7 @@
                 "ContentItemId": "4kedze4t4v0w3rvzfq2pdjgvxs",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Power generation",
+                "DisplayText": "power generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3354716Z",
@@ -4988,7 +4994,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Power generation",
+                  "DefaultValue": "power generation",
                   "Placeholder": null
                 }
               },
@@ -4996,7 +5002,7 @@
                 "ContentItemId": "4am7h1akkv9zetkn64x7h6rcmj",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Heat generation",
+                "DisplayText": "heat generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3385775Z",
@@ -5011,7 +5017,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Heat generation",
+                  "DefaultValue": "heat generation",
                   "Placeholder": null
                 }
               },
@@ -5019,7 +5025,7 @@
                 "ContentItemId": "44agfk8hfg42e25ww4dvncsknf",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy storage",
+                "DisplayText": "energy storage",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3430843Z",
@@ -5034,7 +5040,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Energy storage",
+                  "DefaultValue": "energy storage",
                   "Placeholder": null
                 }
               }
