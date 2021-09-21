@@ -37,7 +37,8 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = new TimeSpan(0, 0, 30, 0);
+                options.Cookie.Name = "inzfs_auth";
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LogOff";
                 options.AccessDeniedPath = "/Error/403";
@@ -55,8 +56,12 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequiredLength = 8;
             });
 
-            services.AddAuthentication(RegistrationConstants.RegistrationCookie)
-                .AddCookie(RegistrationConstants.RegistrationCookie);
+            services.AddAuthentication(RegistrationConstants.RegistrationScheme)
+                .AddCookie(RegistrationConstants.RegistrationScheme, options =>
+                {
+                    options.Cookie.Name = $"inzfs_{RegistrationConstants.RegistrationCookie}";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                });
             
             services.AddScoped<IRegistrationManager, RegistrationManager>();
 
