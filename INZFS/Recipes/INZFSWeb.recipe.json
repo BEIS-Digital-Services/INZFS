@@ -4956,7 +4956,7 @@
                 "ContentItemId": "44g3jfpn0n9cqtm64ejrf5v74s",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy efficiency",
+                "DisplayText": "energy efficiency",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3311995Z",
@@ -4979,7 +4979,7 @@
                 "ContentItemId": "4kedze4t4v0w3rvzfq2pdjgvxs",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Power generation",
+                "DisplayText": "power generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3354716Z",
@@ -4994,7 +4994,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Power generation",
+                  "DefaultValue": "power generation",
                   "Placeholder": null
                 }
               },
@@ -5002,7 +5002,7 @@
                 "ContentItemId": "4am7h1akkv9zetkn64x7h6rcmj",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Heat generation",
+                "DisplayText": "heat generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3385775Z",
@@ -5017,7 +5017,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Heat generation",
+                  "DefaultValue": "heat generation",
                   "Placeholder": null
                 }
               },
@@ -5025,7 +5025,7 @@
                 "ContentItemId": "44agfk8hfg42e25ww4dvncsknf",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy storage",
+                "DisplayText": "energy storage",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3430843Z",
@@ -5040,7 +5040,7 @@
                   "Id": null
                 },
                 "TextAreaPart": {
-                  "DefaultValue": "Energy storage",
+                  "DefaultValue": "energy storage",
                   "Placeholder": null
                 }
               }
