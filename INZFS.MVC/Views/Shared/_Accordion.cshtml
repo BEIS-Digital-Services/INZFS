@@ -59,6 +59,10 @@
 }
 
 @*SECTION 6 FINANCE PROPOSAL*@
+@if (Model == "subsidy-consortium-category")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_SubsidyConsortiumCategory.cshtml")
+}
 @if (Model == "project-cost-breakdown")
 {
     @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
