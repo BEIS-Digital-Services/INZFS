@@ -1,4 +1,12 @@
 @model string
+
+@*SECTION 1 CONFIRM YOUR ELIGIBILITY*@
+
+@if (Model == "eligibility-to-apply-for-fund")
+{
+    @Html.Partial("../Accordion/YourDetails/_DetailsConfirmYourEligibility.cshtml")
+}
+
 @*SECTION 4 PROPOSAL SUMMARY*@
 
 @if (Model == "grant-justification")
@@ -66,6 +74,10 @@
 }
 
 @*SECTION 6 FINANCE PROPOSAL*@
+@if (Model == "subsidy-consortium-category")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_SubsidyConsortiumCategory.cshtml")
+}
 @if (Model == "project-cost-breakdown")
 {
     @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
