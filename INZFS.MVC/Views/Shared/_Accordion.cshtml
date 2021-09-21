@@ -1,4 +1,11 @@
 @model string
+@*SECTION 4 PROPOSAL SUMMARY*@
+
+@if (Model == "grant-justification")
+{
+    @Html.Partial("../Accordion/ProposalSummary/_ProposalGrantJustification.cshtml")
+}
+
 @*SECTION 5 BUSINESS PROPOSAL*@
 
 @if (Model == "business-proposal")
