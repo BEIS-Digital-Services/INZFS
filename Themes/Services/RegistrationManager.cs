@@ -81,6 +81,6 @@ namespace INZFS.Theme.Services
     public static class RegistrationConstants
     {
         public const string RegistrationScheme = "Registration";
-        public const string RegistrationCookie = "Registration";
+        public const string RegistrationCookie = "registration";
     }
 }
