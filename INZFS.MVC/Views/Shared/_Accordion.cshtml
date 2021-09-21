@@ -1,9 +1,17 @@
 @model string
+
 @*SECTION 1 CONFIRM YOUR ELIGIBILITY*@
 
 @if (Model == "eligibility-to-apply-for-fund")
 {
     @Html.Partial("../Accordion/YourDetails/_DetailsConfirmYourEligibility.cshtml")
+}
+
+@*SECTION 4 PROPOSAL SUMMARY*@
+
+@if (Model == "grant-justification")
+{
+    @Html.Partial("../Accordion/ProposalSummary/_ProposalGrantJustification.cshtml")
 }
 
 @*SECTION 5 BUSINESS PROPOSAL*@
