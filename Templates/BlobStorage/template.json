@@ -1,142 +1,150 @@
 {
-    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "location": {
-            "type": "string"
-        },
-        "storageAccountName": {
-            "type": "string"
-        },
-        "accountType": {
-            "type": "string"
-        },
-        "kind": {
-            "type": "string"
-        },
-        "accessTier": {
-            "type": "string"
-        },
-        "minimumTlsVersion": {
-            "type": "string"
-        },
-        "supportsHttpsTrafficOnly": {
-            "type": "bool"
-        },
-        "allowBlobPublicAccess": {
-            "type": "bool"
-        },
-        "allowSharedKeyAccess": {
-            "type": "bool"
-        },
-        "allowCrossTenantReplication": {
-            "type": "bool"
-        },
-        "defaultOAuth": {
-            "type": "bool"
-        },
-        "networkAclsBypass": {
-            "type": "string"
-        },
-        "networkAclsDefaultAction": {
-            "type": "string"
-        },
-        "isContainerRestoreEnabled": {
-            "type": "bool"
-        },
-        "isBlobSoftDeleteEnabled": {
-            "type": "bool"
-        },
-        "blobSoftDeleteRetentionDays": {
-            "type": "int"
-        },
-        "isContainerSoftDeleteEnabled": {
-            "type": "bool"
-        },
-        "containerSoftDeleteRetentionDays": {
-            "type": "int"
-        },
-        "changeFeed": {
-            "type": "bool"
-        },
-        "isVersioningEnabled": {
-            "type": "bool"
-        },
-        "isShareSoftDeleteEnabled": {
-            "type": "bool"
-        },
-        "shareSoftDeleteRetentionDays": {
-            "type": "int"
+        "storageAccounts_eefblob_name": {
+            "defaultValue": "eefblob",
+            "type": "String"
         }
     },
     "variables": {},
     "resources": [
         {
-            "name": "[parameters('storageAccountName')]",
             "type": "Microsoft.Storage/storageAccounts",
-            "apiVersion": "2021-06-01",
-            "location": "[parameters('location')]",
-            "properties": {
-                "accessTier": "[parameters('accessTier')]",
-                "minimumTlsVersion": "[parameters('minimumTlsVersion')]",
-                "supportsHttpsTrafficOnly": "[parameters('supportsHttpsTrafficOnly')]",
-                "allowBlobPublicAccess": "[parameters('allowBlobPublicAccess')]",
-                "allowSharedKeyAccess": "[parameters('allowSharedKeyAccess')]",
-                "allowCrossTenantReplication": "[parameters('allowCrossTenantReplication')]",
-                "defaultToOAuthAuthentication": "[parameters('defaultOAuth')]",
-                "networkAcls": {
-                    "bypass": "[parameters('networkAclsBypass')]",
-                    "defaultAction": "[parameters('networkAclsDefaultAction')]",
-                    "ipRules": []
-                }
-            },
-            "dependsOn": [],
+            "apiVersion": "2021-04-01",
+            "name": "[parameters('storageAccounts_eefblob_name')]",
+            "location": "uksouth",
             "sku": {
-                "name": "[parameters('accountType')]"
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
             },
-            "kind": "[parameters('kind')]",
-            "tags": {}
+            "kind": "StorageV2",
+            "properties": {
+                "allowCrossTenantReplication": true,
+                "minimumTlsVersion": "TLS1_2",
+                "allowBlobPublicAccess": true,
+                "allowSharedKeyAccess": true,
+                "networkAcls": {
+                    "bypass": "AzureServices",
+                    "virtualNetworkRules": [],
+                    "ipRules": [],
+                    "defaultAction": "Allow"
+                },
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "keyType": "Account",
+                            "enabled": true
+                        },
+                        "blob": {
+                            "keyType": "Account",
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
         },
         {
-            "name": "[concat(parameters('storageAccountName'), '/default')]",
             "type": "Microsoft.Storage/storageAccounts/blobServices",
-            "apiVersion": "2021-06-01",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
             "properties": {
-                "restorePolicy": {
-                    "enabled": "[parameters('isContainerRestoreEnabled')]"
+                "changeFeed": {
+                    "enabled": false
                 },
-                "deleteRetentionPolicy": {
-                    "enabled": "[parameters('isBlobSoftDeleteEnabled')]",
-                    "days": "[parameters('blobSoftDeleteRetentionDays')]"
+                "restorePolicy": {
+                    "enabled": false
                 },
                 "containerDeleteRetentionPolicy": {
-                    "enabled": "[parameters('isContainerSoftDeleteEnabled')]",
-                    "days": "[parameters('containerSoftDeleteRetentionDays')]"
+                    "enabled": true,
+                    "days": 7
                 },
-                "changeFeed": {
-                    "enabled": "[parameters('changeFeed')]"
+                "cors": {
+                    "corsRules": []
                 },
-                "isVersioningEnabled": "[parameters('isVersioningEnabled')]"
-            },
-            "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]"
-            ]
+                "deleteRetentionPolicy": {
+                    "enabled": true,
+                    "days": 7
+                },
+                "isVersioningEnabled": false
+            }
         },
         {
-            "name": "[concat(parameters('storageAccountName'), '/default')]",
-            "type": "Microsoft.Storage/storageAccounts/fileservices",
-            "apiVersion": "2021-06-01",
-            "properties": {
-                "shareDeleteRetentionPolicy": {
-                    "enabled": "[parameters('isShareSoftDeleteEnabled')]",
-                    "days": "[parameters('shareSoftDeleteRetentionDays')]"
-                }
-            },
+            "type": "Microsoft.Storage/storageAccounts/fileServices",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default')]",
             "dependsOn": [
-                "[concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName'))]",
-                "[concat(concat('Microsoft.Storage/storageAccounts/', parameters('storageAccountName')), '/blobServices/default')]"
-            ]
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
+            ],
+            "sku": {
+                "name": "Standard_RAGRS",
+                "tier": "Standard"
+            },
+            "properties": {
+                "protocolSettings": {
+                    "smb": {}
+                },
+                "cors": {
+                    "corsRules": []
+                },
+                "shareDeleteRetentionPolicy": {
+                    "enabled": true,
+                    "days": 7
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/queueServices",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/tableServices",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
+            ],
+            "properties": {
+                "cors": {
+                    "corsRules": []
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2021-04-01",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default/eef-lab1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_eefblob_name'), 'default')]",
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
+            ],
+            "properties": {
+                "immutableStorageWithVersioning": {
+                    "enabled": false
+                },
+                "defaultEncryptionScope": "$account-encryption-key",
+                "denyEncryptionScopeOverride": false,
+                "publicAccess": "Container"
+            }
         }
-    ],
-    "outputs": {}
+    ]
 }
