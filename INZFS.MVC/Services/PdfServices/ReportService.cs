@@ -19,6 +19,16 @@ public class ReportService : IReportService
     {
         _contentRepository = contentRepository;
         _applicationDefinition = applicationDefinition;
+
+        try
+        {
+            License license = new();
+            license.SetLicense("Aspose.Words.NET.lic");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine("Error while applying Aspose.Words Licence: " + e.Message);
+        }
     }
 
     public async Task<byte[]> GeneratePdfReport(string applicationAuthor)
@@ -29,8 +39,8 @@ public class ReportService : IReportService
 
         using (MemoryStream stream = new())
         {
-            Aspose.Words.Document doc = new Aspose.Words.Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
+            Document doc = new();
+            DocumentBuilder builder = new(doc);
 
             builder.InsertHtml(html);
 
@@ -47,8 +57,8 @@ public class ReportService : IReportService
 
         using (MemoryStream stream = new())
         {
-            Aspose.Words.Document doc = new Aspose.Words.Document();
-            DocumentBuilder builder = new DocumentBuilder(doc);
+            Document doc = new();
+            DocumentBuilder builder = new(doc);
 
             builder.InsertHtml(html);
 
