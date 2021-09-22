@@ -1,0 +1,31 @@
+@model List<ApplicationOverviewModel>
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC
+
+@{
+    var hasErrors = ViewData["HasErrors"] != null && (bool)ViewData["HasErrors"];
+}
+<dl class="govuk-summary-list">
+
+    @foreach (var item in Model)
+    {
+        @if (hasErrors && item.SectionStatus != FieldStatus.Completed)
+        {
+            <div class="govuk-body-m govuk-summary-list__row govuk-error-message">
+                <dt class="govuk-summary-list__key govuk-form-group--error govuk-!-margin-bottom-0" id="application-notcomplete">
+                    Review this section and mark as complete
+                </dt>
+            </div>
+        }
+        <div class="govuk-body-m govuk-summary-list__row">
+            <dt class="govuk-summary-list__key @( hasErrors && item.SectionStatus != FieldStatus.Completed ? "govuk-form-group--error" : " " )">
+                <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
+                    @item.Title <span class="govuk-visually-hidden">@item.Title</span>
+                </a>
+            </dt>
+            <dd class="govuk-summary-list__actions">
+                @item.GetStatusString()
+            </dd>
+        </div>
+    }
+</dl>

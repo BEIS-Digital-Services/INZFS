@@ -39,6 +39,8 @@ namespace INZFS.MVC
             if(content != null)
             {
                 content.ApplicationStatus = newStatus;
+                content.ModifiedUtc = DateTime.UtcNow;
+                content.SubmittedUtc = DateTime.UtcNow;
                 _session.Save(content);
             }
         }
