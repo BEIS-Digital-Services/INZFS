@@ -3,14 +3,11 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
-
-
+@Html.Partial("_SectionErrorMessage", Model)
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-        <h1 class="govuk-heading-l">
-            3. Your Organisation (and partners)
-        </h1>
+        <h1 class="govuk-heading-l">@Model.OverviewTitle</h1>
     </div>
 </div>
 
@@ -18,18 +15,46 @@
     <div class="govuk-grid-column-two-thirds">
 
         <div class="govuk-tabs" data-module="govuk-tabs">
+            
             <div class="govuk">
 
-                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">
-                    &nbsp;
-                    <span class="summary-list-section summary-list-section--right">@Model.TotalQuestionsCompleted out of  @Model.TotalQuestions completed</span>
-                </p>
+                @{
+                    var sections = Model.Sections.Take(11);
+                    var completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
+                }
+
+                <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">&nbsp;<span class="summary-list-section summary-list-section--right"> @completedCount out of  11 completed</span></p>
                 <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-                @Html.Partial("_SectionList", Model.Sections)
+                <dl class="govuk-summary-list">
+                    @Html.Partial("_SectionList", sections.ToList(), new ViewDataDictionary(ViewData)
+                                    {
+                                        { "HasErrors", Model.HasErrors }
+                                    })
+                </dl>
 
+
+                @{
+                    var sections2 = Model.Sections.Skip(11).Take(10);
+                    var completedCount2 = sections2.Count(section => section.SectionStatus == FieldStatus.Completed);
+                }
+
+                @if (sections2.Count() > 0)
+                {
+                    <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Parent organisation details<span class="summary-list-section summary-list-section--right">  @completedCount2 out of  10 completed</span></p>
+                    <hr class="govuk-section-break govuk-!-padding-bottom-1 govuk-section-break--visible">
+
+                    <dl class="govuk-summary-list">
+                        @Html.Partial("_SectionList", sections2.ToList(), new ViewDataDictionary(ViewData)
+                                        {
+                                            { "HasErrors", Model.HasErrors }
+                                        })
+                    </dl>
+                }
             </div>
         </div>
+
+
         <a href="application-overview">
             <button class="govuk-button" data-module="govuk-button">
                 Back to application overview
@@ -38,10 +63,10 @@
 
     </div>
 
+
     @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
                         {
                             { "ApplicationNumber", Model.ApplicationNumber },
                             { "ShowDownload", "false" }
                         })
-
 </div>

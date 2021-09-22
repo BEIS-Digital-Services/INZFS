@@ -18,6 +18,7 @@
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Eligibility to apply for fund",
             "fieldName": "eligibility-to-apply-for-fund",
             "mandatory": true,
@@ -73,7 +74,8 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "continueButtonText": "Save and return to your details and eligibility"
           }
         ]
       },
@@ -122,6 +124,7 @@
             "question": "Is your organisation VAT registered?",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Vat Recovery",
             "fieldName": "vat-recovery",
             "mandatory": true,
@@ -135,6 +138,7 @@
             "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Organisation Running",
             "fieldName": "organisation-running",
             "mandatory": true,
@@ -180,8 +184,8 @@
               "fieldName": "organisation-running",
               "value": "1"
             },
-            "customValidator": "PastOrPresentDateValidator"
-
+            "customValidator": "PastOrPresentDateValidator",
+            "continueButtonText": "Save and return to summary finances overview"
           }
         ]
       },
@@ -214,7 +218,8 @@
           {
             "name": "organisation-website",
             "sectionTitle": "3.2 Organisation website",
-            "question": "Organisation Website",
+            "question": "What is your organisation's website?",
+            "hint": "Enter your organisation's website address, if you have one",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
@@ -245,7 +250,7 @@
           {
             "name": "company-registration-number",
             "sectionTitle": "3.4 Company registration number",
-            "question": "What is your organisation’s company number?",
+            "question": "What is your organisation's company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter company registration number",
@@ -300,7 +305,8 @@
           {
             "name": "organisation-size",
             "sectionTitle": "3.7 Organisation size",
-            "question": "What is your organisation's size?",
+            "question": "How many full-time employees does your organisation currently have?",
+            "hint": "This number includes directors.",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Organisation size",
@@ -316,13 +322,13 @@
             ]
           },
           {
-            "name": "organisation-maturity",
-            "sectionTitle": "3.8 Organisation maturity",
+            "name": "organisation-age",
+            "sectionTitle": "3.8 Organisation age",
             "question": "How old is your organisation?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
-            "friendlyFieldName": "Organisation maturity",
-            "fieldName": "organisation-maturity",
+            "friendlyFieldName": "Organisation age",
+            "fieldName": "organisation-age",
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
@@ -340,6 +346,7 @@
             "question": "How is your organisation currently funded?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
+            "hint": "Select all that apply.",
             "friendlyFieldName": "Organisation funding",
             "fieldName": "organisation-funding",
             "mandatory": true,
@@ -363,17 +370,22 @@
             "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "CustomInput",
             "friendlyFieldName": "Consortium Applicant",
             "fieldName": "consortium-applicant",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "selectOptions": [
+              "Yes, I am a sole applicant",
+              "No, I am applying with businesses as a partnership (consortium)"
+            ]
           },
           {
             "name": "consortium-applicant-details",
-            "sectionTitle": "Consortium details",
-            "question": "Consortium details",
-            "hint": "Upload your consortium applicant partners details using the form provided in the download section of this page.",
+            "sectionTitle": "3.10. Consortium applicants",
+            "question": "Consortium applicant details",
+            "hint": "",
             "errorMessage": "Select the Consortium details Excel",
             "fieldType": "gdsFileUpload",
             "friendlyFieldName": "Consortium File Upload",
@@ -386,7 +398,7 @@
             "AcceptableFileExtensions": "xls, xlsx",
             "dependsOn": {
               "fieldName": "consortium-applicant",
-              "value": "0"
+              "value": "1"
             }
           },
           {
@@ -396,16 +408,21 @@
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "CustomInput",
             "friendlyFieldName": "Parent Organisation",
             "fieldName": "parent-organisation",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "selectOptions": [
+              "Yes, continue to complete parent organisation details",
+              "No, return to the 'about your organisation' overview"
+            ]
           },
           {
             "name": "parent-organisation-name",
             "sectionTitle": "3.12 Parent organisation name",
-            "question": "Parent organisation name",
+            "question": "What is your parent organisation’s name?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation name",
             "fieldType": "gdsTextBox",
@@ -419,13 +436,13 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
             "name": "parent-organisation-website",
             "sectionTitle": "3.13 Parent organisation website",
-            "question": "Parent organisation Website",
+            "question": "What is your parent organisation’s website?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation website",
             "fieldType": "gdsTextBox",
@@ -439,7 +456,7 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
@@ -458,13 +475,13 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
             "name": "parentcompany-registration-number",
             "sectionTitle": "3.15 Parent company registration number",
-            "question": "What is your parent organisation’s company number?",
+            "question": "What is your parent organisation's company number?",
             "hint": "Your parent company registration number should be 8 characters long",
             "description": "Description",
             "errorMessage": "Please enter your parent company registration number",
@@ -479,15 +496,16 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             },
             "customValidator": "CompanyRegistrationNumberValidator"
           },
           {
             "name": "parent-organisation-size",
             "sectionTitle": "3.16 Parent organisation size",
-            "question": "What is your parent organisation's size?",
+            "question": "How many full-time employees does your parent organisation currently have?",
             "errorMessage": "Select option",
+            "hint": "If you answer yes, you will return to application overview and this section will be marked as not applicable.",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Parent organisation size",
             "fieldName": "parent-organisation-size",
@@ -502,7 +520,7 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
@@ -525,13 +543,13 @@
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
             "name": "parent-recent-turnover",
             "sectionTitle": "3.18 Parent organisation's most recent annual turnover",
-            "question": "Most recent annual turnover",
+            "question": "What is your parent organisation’s most recent annual turnover?",
             "hint": "The amount of money your business has taken over a period of 12 months.",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
@@ -546,14 +564,14 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             },
             "customValidator": "TurnOverValidator"
           },
           {
             "name": "parent-recent-turnover-date",
             "sectionTitle": "3.19 Parent organisation's most recent turnover date",
-            "question": "Most recent turnover date",
+            "question": "What is your parent's organisations most recent turnover date?",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
@@ -564,13 +582,13 @@
             "customValidator": "PastOrPresentDateValidator",
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
             "name": "parent-balance-sheet-total",
             "sectionTitle": "3.20 Parent organisation's balance sheet total",
-            "question": "Parent balance sheet total",
+            "question": "What is your parent organisation’s balance sheet total?",
             "hint": "Amount, in pounds",
             "description": "Description",
             "errorMessage": "Please enter balance sheet total",
@@ -585,28 +603,27 @@
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           },
           {
             "name": "parent-balance-sheet-date",
             "sectionTitle": "3.21 Parent organisation's balance sheet date",
-            "question": "Parent balance sheet date",
+            "question": "What is your parent organisation’s balance sheet date?",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
             "customValidator": "PastOrPresentDateValidator",
             "friendlyFieldName": "Parent Balance sheet date",
             "fieldName": "parent-balance-sheet-date",
+            "continueButtonText": "Save and return to your organisation and partners",
             "mandatory": true,
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
-              "value": "1"
+              "value": "0"
             }
           }
-
-
         ]
       },
       {
@@ -668,6 +685,7 @@
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Project Location",
             "fieldName": "project-location",
             "mandatory": true,
@@ -702,7 +720,8 @@
             "maxLength": 400,
             "maxLengthValidationType": "Word",
             "hint": "Explain why public sector funding is required to take this concept forward.",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "continueButtonText": "Save and return to Proposal summary"
           }
         ]
       },
@@ -1055,15 +1074,17 @@
             "fieldType": "gdsStaticPage",
             "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Funding levels and subsidy requirements",
-            "nextPageName": "subsidy-sole-applicant"
+            "nextPageName": "subsidy-sole-applicant",
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "subsidy-sole-applicant",
-            "sectionTitle": "Are you a sole applicant?",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Are you a sole applicant?",
             "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Subsidy Sole Applicant",
             "fieldName": "subsidy-sole-applicant",
             "mandatory": true,
@@ -1092,10 +1113,12 @@
             "name": "subsidy-aid-info",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
-            "nextPageName": "subsidy-sole-applicant-aid-category"
+            "nextPageName": "subsidy-sole-applicant-aid-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements"
           },
           {
             "name": "subsidy-sole-applicant-aid-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Which category are you applying under?",
             "description": "",
             "errorMessage": "Please provide something",
@@ -1121,6 +1144,7 @@
           },
           {
             "name": "subsidy-sole-applicant-value",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "How much money are you applying for?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1152,10 +1176,12 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result applying less",
             "fieldName": "subsidy-sole-applicant-result-applying-less",
-            "mandatory": true
+            "mandatory": true,
+            "sectionTitle": "6.1 Funding levels and subsidy requirements"
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1166,6 +1192,7 @@
           },
           {
             "name": "subsidy-sole-applicant-result-research-development",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1176,6 +1203,7 @@
           },
           {
             "name": "subsidy-consortium-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Which of the following are you applying under?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1209,6 +1237,7 @@
           },
           {
             "name": "subsidy-consortium-result-feasibility",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1219,6 +1248,7 @@
           },
           {
             "name": "subsidy-consortium-result-industrial",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1229,6 +1259,7 @@
           },
           {
             "name": "subsidy-consortium-result-experimental",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1263,6 +1294,7 @@
             "fieldName": "financial-background",
             "maxLength": 500,
             "maxLengthValidationType": "Word",
+            "gridDisplayType": "FullPage",
             "mandatory": true,
             "showMarkComplete": true
           },
@@ -1279,7 +1311,8 @@
             "fieldName": "value-for-money",
             "mandatory": true,
             "showMarkComplete": true,
-            "continueButtonText": "Save and continue to financial proposal overview"
+            "gridDisplayType": "FullPage",
+            "continueButtonText": "Save and return to the financial proposal overview"
 
           }
         ]
@@ -1386,6 +1419,7 @@
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
+            "yesNoInput": "Standard",
             "friendlyFieldName": "Consumer trials",
             "fieldName": "consumer-trials",
             "mandatory": true,

@@ -1,4 +1,5 @@
-@model string
+@model ApplicationSentModel
+@using INZFS.MVC.Models
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -39,13 +40,13 @@
         <aside class="app-related-items" role="complementary">
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Status</p>
-            <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10">Independent assessment</p>
+            <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10">@Model.ApplicationStatus</p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Date submitted</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">27 June 2021</p>
+            <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.SubmittedDate.ToString("dd MMMM yyyy")</p>
 
         </aside>
 
@@ -53,14 +54,14 @@
 
             <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
             <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
-            <a asp-controller="Report" asp-action="Download">
+            
+            <a asp-controller="Report" asp-action="DownloadPdf">
                 <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" data-module="govuk-button">
                     Download your application
                 </button>
             </a>
-            
-            <p class="govuk-body-m"><a class="govuk-link" href="#">Download an accessible text version</a></p>
 
+            <p class="govuk-body-m"><a class="govuk-link" asp-controller="Report" asp-action="GenerateOdt">Download an accessible text version</a></p>
         </aside>
 
     </div>

@@ -23,7 +23,7 @@
         <aside class="app-related-items" role="complementary">
             <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
             <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
-            <a asp-controller="Report" asp-action="Download">
+            <a asp-controller="Report" asp-action="DownloadPdf">
                 <button class="govuk-button govuk-button--secondary" type="button">
                     Download your application
                 </button>
@@ -33,7 +33,15 @@
             </a>
 
         </aside>
+        <br/>
     }
+    
+    <aside class="app-related-items" role="complementary">
 
+        <div class="govuk-timeout-warning-fallback">
+            <p class="govuk-body-m">You will be signed out if you are inactive for 30 minutes and will lose any unsaved changes. We do this to keep your information secure.</p>
+        </div>
+
+    </aside>
 
 </div>
