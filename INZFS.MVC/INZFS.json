@@ -1215,6 +1215,7 @@
             "accordianReference": "",
             "continueButtonText": "Continue",
             "hideFromSummary": true,
+            "previousPageName":  "subsidy-sole-applicant",
             "actions": [
               {
                 "name": "Feasibility study",
