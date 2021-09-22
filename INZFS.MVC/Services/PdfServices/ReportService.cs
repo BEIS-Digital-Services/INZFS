@@ -48,35 +48,41 @@ namespace INZFS.MVC.Services.PdfServices
 
             BuildHtmlString(applicationContent);
 
-        using (MemoryStream stream = new())
-        {
-            Document doc = new();
-            DocumentBuilder builder = new(doc);
+            using (MemoryStream stream = new())
+            {
+                Document doc = new();
+                DocumentBuilder builder = new(doc);
 
-            builder.InsertHtml(html);
+                builder.InsertHtml(html);
 
-            doc.Save(stream, SaveFormat.Pdf);
-            return stream.ToArray();
+                doc.Save(stream, SaveFormat.Pdf);
+                reportContent.FileContents = stream.ToArray();
+                return reportContent;
+            }
         }
-    }
 
-    public async Task<byte[]> GenerateOdtReport(string applicationAuthor)
-    {
-        _applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
-
-        BuildHtmlString();
-
-        using (MemoryStream stream = new())
+        public async Task<ReportContent> GenerateOdtReport(string applicationAuthor)
         {
-            Document doc = new();
-            DocumentBuilder builder = new(doc);
+            var applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+            var reportContent = new ReportContent
+            {
+                ApplicationNumber = applicationContent.ApplicationNumber
+            };
+            
+            BuildHtmlString(applicationContent);
 
-            builder.InsertHtml(html);
+            using (MemoryStream stream = new())
+            {
+                Document doc = new();
+                DocumentBuilder builder = new(doc);
 
-            doc.Save(stream, SaveFormat.Odt);
-            return stream.ToArray();
+                builder.InsertHtml(html);
+
+                doc.Save(stream, SaveFormat.Odt);
+                reportContent.FileContents = stream.ToArray();
+                return reportContent;
+            }
         }
-    }
 
         //To reimplement this method, Nuget packages DocumentFormat.OpenXml and NS.HtmlToOpenXml are required
         //public async Task<byte[]> GenerateDocXReport(string applicationAuthor)
