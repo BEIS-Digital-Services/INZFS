@@ -6,6 +6,6 @@ namespace INZFS.MVC.Services.PdfServices
     public interface IReportService
     {
         public Task<ReportContent> GeneratePdfReport(string applicationAuthor);
-        public Task<byte[]> GenerateOdtReport(string applicationAuthor);
+        public Task<ReportContent> GenerateOdtReport(string applicationAuthor);
     }
 }

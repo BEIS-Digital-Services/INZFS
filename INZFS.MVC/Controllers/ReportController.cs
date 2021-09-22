@@ -27,11 +27,11 @@ namespace INZFS.MVC.Controllers
         }
         public async Task<FileContentResult> GenerateOdt()
         {
-            byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
+            var reportContent = await _reportService.GenerateOdtReport(User.Identity.Name);
             string type = "application/vnd.oasis.opendocument.text";
-            string name = "EEF_accessible_summary.odt";
+            string name = $"{reportContent.ApplicationNumber}.odt";
 
-            return File(bytes, type, name);
+            return File(reportContent.FileContents, type, name);
 
         }
     }
