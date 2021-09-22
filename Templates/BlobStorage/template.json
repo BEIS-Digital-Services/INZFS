@@ -132,7 +132,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
             "apiVersion": "2021-04-01",
-            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default/eef-lab1')]",
+            "name": "[concat(parameters('storageAccounts_eefblob_name'), '/default/eef-$(env)')]",
             "dependsOn": [
                 "[resourceId('Microsoft.Storage/storageAccounts/blobServices', parameters('storageAccounts_eefblob_name'), 'default')]",
                 "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblob_name'))]"
