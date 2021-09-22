@@ -732,7 +732,7 @@ namespace INZFS.MVC.Controllers
             var currentPageIndex = currentSection.Pages.FindIndex(p => p.Name == currentPage.Name);
             if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
+                currentModel.PreviousPageName = currentPage.PreviousPageName ?? currentSection.Pages[currentPageIndex -1].Name;
             } 
 
 
