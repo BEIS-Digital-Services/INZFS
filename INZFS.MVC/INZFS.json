@@ -184,8 +184,8 @@
               "fieldName": "organisation-running",
               "value": "1"
             },
-            "customValidator": "PastOrPresentDateValidator"
-
+            "customValidator": "PastOrPresentDateValidator",
+            "continueButtonText": "Save and return to summary finances overview"
           }
         ]
       },
