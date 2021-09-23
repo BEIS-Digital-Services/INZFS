@@ -1,0 +1,8 @@
+---
+applications:
+- instances: 1
+  memory: 2G
+  disk_quota: 3G
+  route-path: london.cloudapps.digital
+  env:
+    ACCEPT_EULA: Y
