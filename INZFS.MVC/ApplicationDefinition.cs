@@ -62,7 +62,7 @@ namespace INZFS.MVC
         public FieldType FieldType { get; set; }
         public TextType TextType { get; set; }
         public YesNoType YesNoInput { get; set; }
-    public string FieldName { get; set; }
+        public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
@@ -83,8 +83,8 @@ namespace INZFS.MVC
         public PreviousPage PreviousPage { get; set; }
         public DependsOn DependsOn { get; set; }
         public string CustomValidator { get; set; }
+        public List<string> FieldValidationDependsOn { get; set; }
         public string AcceptableFileExtensions { get; set; }
-        
     }
 
     public class DependsOn

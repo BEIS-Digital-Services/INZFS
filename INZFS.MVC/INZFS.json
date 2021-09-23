@@ -663,7 +663,10 @@
             "fieldName": "estimated-start-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "customValidator": "ProposalSummaryStartDateValidator"
+            "customValidator": "ProposalSummaryStartDateValidator",
+            "fieldValidationDependsOn": [
+              "estimated-end-date"
+            ]
           },
           {
             "name": "estimated-end-date",
@@ -676,7 +679,10 @@
             "fieldName": "estimated-end-date",
             "mandatory": true,
             "showMarkComplete": true,
-            "customValidator": "ProposalSummaryEndDateValidator"
+            "customValidator": "ProposalSummaryEndDateValidator",
+            "fieldValidationDependsOn": [
+              "estimated-start-date"
+            ]
           },
           {
             "name": "project-location",
