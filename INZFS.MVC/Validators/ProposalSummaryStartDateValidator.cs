@@ -1,4 +1,6 @@
-﻿using System;
+﻿using INZFS.MVC.Models.DynamicForm;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
@@ -10,18 +12,56 @@ namespace INZFS.MVC.Validators
 {
     public class ProposalSummaryStartDateValidator : ICustomValidator
     {
-        public IEnumerable<ValidationResult> Validate(string dataInput, string friendlyFriendlyFieldName)
+        private readonly IContentRepository _contentRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ApplicationDefinition _applicationDefinition;
+
+        public ProposalSummaryStartDateValidator(IContentRepository contentRepository,
+            IHttpContextAccessor httpContextAccessor,
+            ApplicationDefinition applicationDefinition)
         {
-            DateTime startDate;
-            if (DateTime.TryParseExact(dataInput, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
+            _contentRepository = contentRepository;
+            _httpContextAccessor = httpContextAccessor;
+            _applicationDefinition = applicationDefinition;
+        }
+        public IEnumerable<ValidationResult> Validate(BaseModel model, Page currentPage)
+        {
+            var dataInput = model.GetData();
+            bool isValid = true;
+
+            if (!string.IsNullOrEmpty(dataInput))
             {
-                if(startDate > new DateTime(2023, 3, 31))
+                DateTime startDate;
+                if (DateTime.TryParseExact(dataInput, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
                 {
-                    yield return new ValidationResult($"{friendlyFriendlyFieldName} must be the same as or before 31st March 2023", new[] { "DateUtc" });
-                }
-                if (startDate < new DateTime(2022, 1, 31))
-                {
-                    yield return new ValidationResult($"{friendlyFriendlyFieldName} must be after the 31st January 2022", new[] { "DateUtc" });
+                    if (startDate > new DateTime(2023, 3, 31))
+                    {
+                        isValid = false;
+                        yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be the same as or before 31st March 2023", new[] { "DateUtc" });
+                    }
+                    if (startDate < new DateTime(2022, 1, 31))
+                    {
+                        isValid = false;
+                        yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be after the 31st January 2022", new[] { "DateUtc" });
+                    }
+
+                    if (currentPage.FieldValidationDependsOn?.Count() > 0 && isValid)
+                    {
+                        var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+                        var content = _contentRepository.GetApplicationContent(username).Result;
+
+                        // Get dependendant field data
+                        var field = content.Fields.FirstOrDefault(f => f.Name.ToLower().Equals(currentPage.FieldValidationDependsOn[0].Trim().ToLower()));
+                        if (!string.IsNullOrEmpty(field?.Data))
+                        {
+                            var endDate = DateTime.Parse(field.Data);
+                            if (endDate < startDate)
+                            {
+                                yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be before project end date", new[] { "DateUtc" });
+                            }
+                        }
+
+                    }
                 }
             }
         }
