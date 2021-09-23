@@ -58,7 +58,8 @@
             "accordianReference": "",
             "maxLength": 100,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "previousPageName": "eligibility-to-apply-for-fund"
           },
           {
             "name": "job-title",
@@ -184,8 +185,8 @@
               "fieldName": "organisation-running",
               "value": "1"
             },
-            "customValidator": "PastOrPresentDateValidator"
-
+            "customValidator": "PastOrPresentDateValidator",
+            "continueButtonText": "Save and return to summary finances overview"
           }
         ]
       },
@@ -1085,7 +1086,7 @@
           },
           {
             "name": "subsidy-sole-applicant",
-            "sectionTitle": "Are you a sole applicant?",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Are you a sole applicant?",
             "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
@@ -1119,10 +1120,12 @@
             "name": "subsidy-aid-info",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
-            "nextPageName": "subsidy-sole-applicant-aid-category"
+            "nextPageName": "subsidy-sole-applicant-aid-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements"
           },
           {
             "name": "subsidy-sole-applicant-aid-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Which category are you applying under?",
             "description": "",
             "errorMessage": "Please provide something",
@@ -1148,6 +1151,7 @@
           },
           {
             "name": "subsidy-sole-applicant-value",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "How much money are you applying for?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1179,10 +1183,12 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result applying less",
             "fieldName": "subsidy-sole-applicant-result-applying-less",
-            "mandatory": true
+            "mandatory": true,
+            "sectionTitle": "6.1 Funding levels and subsidy requirements"
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1193,6 +1199,7 @@
           },
           {
             "name": "subsidy-sole-applicant-result-research-development",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1203,6 +1210,7 @@
           },
           {
             "name": "subsidy-consortium-category",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "question": "Which of the following are you applying under?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1213,6 +1221,7 @@
             "accordianReference": "",
             "continueButtonText": "Continue",
             "hideFromSummary": true,
+            "previousPageName":  "subsidy-sole-applicant",
             "actions": [
               {
                 "name": "Feasibility study",
@@ -1236,6 +1245,7 @@
           },
           {
             "name": "subsidy-consortium-result-feasibility",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1246,6 +1256,7 @@
           },
           {
             "name": "subsidy-consortium-result-industrial",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1256,6 +1267,7 @@
           },
           {
             "name": "subsidy-consortium-result-experimental",
+            "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
