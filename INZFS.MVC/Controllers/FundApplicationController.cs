@@ -261,8 +261,8 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").First<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").First<IXLCell>();
                                     IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
@@ -295,6 +295,10 @@ namespace INZFS.MVC.Controllers
                                     }
                                 }
                                 catch (ArgumentException e)
+                                {
+                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                }
+                                catch (InvalidOperationException e)
                                 {
                                     ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
