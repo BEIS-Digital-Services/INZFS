@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using INZFS.Theme.Attributes;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
@@ -21,17 +22,26 @@ namespace INZFS.Theme.Controllers
     {
         private readonly UserManager<IUser> _userManager;
         private readonly INotificationService _notificationService;
-        private readonly SignInManager<IUser> _signInManager;
         private readonly IUrlEncodingService _encodingService;
+        private readonly IRegistrationManager _registrationManager;
+        private readonly IRegistrationQuestionnaireService _questionnaireService;
+        private readonly SignInManager<IUser> _signInManager;
         private readonly NotificationOption _notificationOption;
 
-        public RegistrationController(UserManager<IUser> userManager, INotificationService notificationService,
-            SignInManager<IUser> signInManager, IUrlEncodingService encodingService, IOptions<NotificationOption> notificationOption) 
+        public RegistrationController(UserManager<IUser> userManager, 
+            INotificationService notificationService,
+            IUrlEncodingService encodingService, 
+            IOptions<NotificationOption> notificationOption, 
+            IRegistrationManager registrationManager,
+            IRegistrationQuestionnaireService questionnaireService,
+            SignInManager<IUser> signInManager) 
         {
             _userManager = userManager;
             _notificationService = notificationService;
-            _signInManager = signInManager;
             _encodingService = encodingService;
+            _registrationManager = registrationManager;
+            _questionnaireService = questionnaireService;
+            _signInManager = signInManager;
             _notificationOption = notificationOption.Value;
         }
 
@@ -45,6 +55,7 @@ namespace INZFS.Theme.Controllers
 
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegistrationViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -57,24 +68,26 @@ namespace INZFS.Theme.Controllers
                 }
                 else
                 {
-                    user = new User()
-                    {
-                        UserId = Guid.NewGuid().ToString(),
-                        UserName = model.Email,
-                        Email = model.Email
-                    };
+                    user = BuildUser(model);
 
                     var result = await _userManager.CreateAsync(user, model.Password);
 
                     if (result.Succeeded)
                     {
+                        if (User.Identity?.IsAuthenticated ?? false)
+                        {
+                            await _signInManager.SignOutAsync();
+                        }
+
                         var idToken = _encodingService.GetHexFromString(model.Email);
                         await SendEmail(user, model.Email, idToken, returnUrl);
-                        return RedirectToAction("Success", new {token = idToken});
+                        await _registrationManager.RegisterSignInAsync(user);
+
+                        return RedirectToAction("Organisation");
                     }
                     else
                     {
-                        foreach (IdentityError error in result.Errors)
+                        foreach (IdentityError error in result.Errors) 
                         {
                             var safeErrorCode = error.Code ?? "";
                             ModelState.AddModelError(safeErrorCode, error.Description);
@@ -82,11 +95,63 @@ namespace INZFS.Theme.Controllers
                     }
                 }
             }
-
             return View("Register", model);
         }
 
+        private static IUser BuildUser(RegistrationViewModel model)
+        {
+            var claims = new List<UserClaim>
+            {
+                new UserClaim()
+                {
+                    ClaimType = nameof(model.IsConsentedToUsePersonalInformation),
+                    ClaimValue = model.IsConsentedToUsePersonalInformation.ToString()
+                },
+                new UserClaim()
+                {
+                    ClaimType = nameof(model.IsConsentedUseEmailAndSms),
+                    ClaimValue = model.IsConsentedUseEmailAndSms.ToString()
+                }
+            };
 
+
+            IUser user = new User()
+            {
+                UserId = Guid.NewGuid().ToString(),
+                UserName = model.Email,
+                Email = model.Email,
+                UserClaims = claims
+            };
+
+
+            return user;
+        }
+
+
+        [RegistrationAuthorize]
+        [HttpGet]
+        public async Task<IActionResult> Organisation()
+        {
+            
+            return View(new RegistrationOrganisationViewModel());
+        }
+        
+        [RegistrationAuthorize]
+        [ValidateAntiForgeryToken]
+        [HttpPost]
+        public async Task<IActionResult> Organisation(RegistrationOrganisationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _registrationManager.GetRegistrationAuthenticationUserAsync();
+                var email = await _userManager.GetEmailAsync(user);
+                var userId = await _userManager.GetUserIdAsync(user);
+                await _questionnaireService.SaveOrganisationAsync(userId, model.OrganisationName);
+                var idToken = _encodingService.GetHexFromString(email);
+                return RedirectToAction("Success", new { token = idToken });
+            }
+            return View(model);
+        }
 
 
         [AllowAnonymous]
@@ -131,6 +196,7 @@ namespace INZFS.Theme.Controllers
 
                 if (result.Succeeded)
                 {
+                    await SendRegistrationSuccessEmail(user);
                     return View("Verified");
                 }
                
@@ -169,6 +235,16 @@ namespace INZFS.Theme.Controllers
             //TODO: the template id should be moved to DB or Orchard workflow
             await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationTemplate,
                 new Dictionary<string, object>() {{"Url", tokenLink}});
+        }
+
+        private async Task SendRegistrationSuccessEmail(IUser user)
+        {
+            var link = Url.Action("Login", "Account", new {area = "INZFS.Theme"}, Request.Scheme);
+
+            var email = await _userManager.GetEmailAsync(user);
+            var parameters = new Dictionary<string, dynamic>();
+            parameters.Add("Link", link);
+            await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationConfirmTemplate, parameters);
         }
 
     }

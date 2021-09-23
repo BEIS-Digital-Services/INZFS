@@ -1,13 +1,16 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
 
         <h1 class="govuk-heading-l">Applying under aid for start-ups</h1>
 
         <p class="govuk-body govuk-!-font-weight-bold">Based on the amount of money you're applying for, your minimum company contribution is:</p>
-        <p class="govuk-body govuk-colour--blue govuk-!-font-size-48">20%</p>
+        <p class="govuk-body govuk-colour--blue govuk-!-font-size-48" style="font-weight: bold;color: #1D70B8;">20%</p>
         <p class="govuk-body govuk-!-font-weight-regular">This is the minimum contribution you need to make towards your eligible project costs. (This is referred to throughout the application as 'match funding')</p>
         <p class="govuk-body govuk-!-font-weight-bold">The maximum amount of public funding you can apply for towards your total eligible project costs is:</p>
-        <p class="govuk-body govuk-colour--blue govuk-!-font-size-48">80%</p>
+        <p class="govuk-body govuk-colour--blue govuk-!-font-size-48" style="font-weight: bold;color: #1D70B8;">80%</p>
 
         <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon govuk-warning-text__icon--twolines" aria-hidden="true">!</span>
@@ -17,24 +20,22 @@
             </strong>
         </div>
 
-        <div class="govuk-button-group">
+        <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
-            <a href="@Model.NextPageName">
-                <button class="govuk-button" data-module="govuk-button">
-                    Save and continue to next question
-                </button>
-            </a>
+            @Html.Partial("_ResultAcknowledged", Model)
 
-            <a href="subsidy-requirements">
-                <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
-                    Start again
-                </button>
-            </a>
+            <div class="govuk-button-group">
 
-            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
+                @Html.Partial("_SaveContinue", Model.ContinueButtonText)
 
+                <a href="subsidy-requirements">
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                        Start again
+                    </button>
+                </a>
 
-        </div>
+                <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
+</form>
 
 
 

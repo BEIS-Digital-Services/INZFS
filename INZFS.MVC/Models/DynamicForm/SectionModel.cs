@@ -19,11 +19,14 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             //Sections = new List<SectionContent>();
             Sections = new List<ApplicationOverviewModel>();
+            HasErrors = false;
         }
         public List<ApplicationOverviewModel> Sections { get; set; }
         //public List<SectionContent> Sections { get; set; }
         public int TotalSections { get; set; }
         public int TotalSectionsCompleted { get; set; }
+        public string ApplicationNumber { get; set; }
+        public bool HasErrors { get; set; }
     }
 
     public class ApplicationOverviewModel : SectionModel
@@ -36,18 +39,18 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Url { get; set; }
         public string SectionTag { get; set; }
         public bool HideFromSummary { get; set; }
-        public SectionStatus SectionStatus { get; set; }
+        public FieldStatus SectionStatus { get; set; }
         public string GetStatusString()
         {
             switch (SectionStatus)
             {
-                case SectionStatus.NotStarted:
+                case FieldStatus.NotStarted:
                     return "Not Started";
-                case SectionStatus.InProgress:
+                case FieldStatus.InProgress:
                     return "In Progress";
-                case SectionStatus.Completed:
+                case FieldStatus.Completed:
                     return "Completed";
-                case SectionStatus.NotApplicable:
+                case FieldStatus.NotApplicable:
                     return "Not Applicable";
                 default:
                     throw new Exception("Invalid status");
@@ -66,27 +69,29 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Url { get; set; }
         public string ReturnUrl { get; set; }
         public List<SectionModel> Sections { get; set; }
-        public SectionStatus OverallStatus
+        public FieldStatus OverallStatus
         {
             get {
-                if (Sections.All(section => section.SectionStatus == SectionStatus.Completed))
+                if (Sections.All(section => (section.SectionStatus == FieldStatus.Completed || section.SectionStatus == FieldStatus.NotApplicable)))
                 {
-                    return SectionStatus.Completed;
+                    return FieldStatus.Completed;
                 }
-                if (Sections.Any(section => section.SectionStatus == SectionStatus.InProgress || section.SectionStatus == SectionStatus.Completed))
+                if (Sections.Any(section => section.SectionStatus == FieldStatus.InProgress || section.SectionStatus == FieldStatus.Completed))
                 {
-                    return SectionStatus.InProgress;
+                    return FieldStatus.InProgress;
                 }
-                if (Sections.All(section => section.SectionStatus == SectionStatus.NotStarted))
+                if (Sections.All(section => section.SectionStatus == FieldStatus.NotStarted))
                 {
-                    return SectionStatus.NotStarted;
+                    return FieldStatus.NotStarted;
                 }
 
-                return SectionStatus.NotApplicable;
+                return FieldStatus.NotApplicable;
             }
         }
         public int TotalQuestions { get; set; }
         public int TotalQuestionsCompleted { get; set; }
+        public string ApplicationNumber { get; set; }
+        public bool HasErrors { get; set; }
     }
 }
 

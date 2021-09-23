@@ -3,69 +3,39 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
-else
-{
-<a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.SectionInfo.Url">
-    @Model.SectionInfo.Title
-</a>
-}
-    <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
 
-    <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+@Html.Partial("_Steps")
 
-        <input type="hidden" name="PageName" value="@Model.PageName" />
-        <input type="hidden" name="Kind" value="@nameof(YesornoInputModel)" />
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
-        @Html.Partial("_ErrorMessage")
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(YesornoInputModel)" />
 
-        <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
-            <label class="govuk-label govuk-label--l">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question
+    @Html.Partial("_ErrorMessage")
 
-                }
-                else
-                {
-                    @Model.TitleQuestion
-                }
-            </label>
-            @Html.Partial("_Hint", Model.Hint)
-            <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
-                <div class="govuk-radios govuk-radios--inline" asp-validation-error-class-for="@Model.Question">
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=1
-                               @if (Model.DataInput == "1") { <text> checked="checked" </text>  }>
-                        <label class="govuk-label govuk-radios__label">
-                            Yes
-                        </label>
-                    </div>
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0
-                               @if (Model.DataInput == "0") { <text> checked="checked" </text>  }>
-                        <label class="govuk-label govuk-radios__label">
-                            No
-                        </label>
-                    </div>
-                </div>
-            </fieldset>
-        </div>
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
+        <label class="govuk-label govuk-label--l">
+            @Model.Question
+        </label>
+        @Html.Partial("_QuestionDescription", Model.PageName)
+        @Html.Partial("_Hint", Model.Hint)
+        @Html.Partial($"../YesNoRadioTypes/_{Model.YesNoInput}.cshtml", Model)
 
+    </div>
 
-        @Html.Partial("_Accordion", "")
-        @if (Model.ShowMarkAsComplete)
-        {
-            @Html.Partial("_MarkAsComplete", Model)
-        }
+    @Html.Partial("_QuestionDescriptionBottom", Model.PageName)
 
-        @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+    @Html.Partial("_Accordion", Model.PageName)
 
-    </form>
+    @Html.Partial("_InsetText", Model.PageName)
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+@Html.Partial("_BackButton", Model)

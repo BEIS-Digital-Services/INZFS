@@ -4,17 +4,11 @@
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
+@{
+    string extensions = string.Join(",", Model.AcceptableFileExtensions.Split(',').Select(x => "." + x.Trim()));
 }
 
-@if (Model.DisplayQuestionCounter)
-{
-    <span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
-}
+@Html.Partial("_Steps")
 
 <div class="@(string.IsNullOrEmpty(Model.FileToDownload) == true ? "" : "govuk-grid-column-two-thirds")">
     <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
@@ -27,87 +21,87 @@
         <div class="govuk-form-group">
 
             <label class="govuk-label govuk-label--l">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question
-
-                }
-                else
-                {
-                    @Model.TitleQuestion
-                }
+                @Model.Question
             </label>
             @Html.Partial("_Hint", Model.Hint)
             @Html.Partial("_QuestionDescription", Model.PageName)
 
-            @if (string.IsNullOrEmpty(@Model.UploadText))
+        </div>
+
+        <div class="govuk-form-group">
+            <details class="govuk-details" data-module="govuk-details">
+                <summary class="govuk-details__summary">
+                    <span class="govuk-details__summary-text">
+                        What file can I upload?
+                    </span>
+                </summary>
+                <div class="govuk-details__text">
+                    <p class="govuk-body">You can only upload the following file types:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>@Model.AcceptableFileExtensions.ToUpper()</li>
+                    </ul>
+                </div>
+            </details>
+
+        </div>
+
+        <div class="govuk-grid-row govuk-!-margin-bottom-3">
+
+
+            <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-3">
+                <div class="file-upload--border">
+                    <input class="govuk-file-upload govuk-!-font-size-16" id="file" name="file" type="file"
+                           accept="@extensions">
+                </div>
+            </div>
+
+            <div class="govuk-grid-column-one-quarter">
+                <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="submit" name="submit.Publish" value="UploadFile">
+                    Upload
+                </button>
+            </div>
+
+            @if (Model.UploadedFile != null)
             {
-                <label class="govuk-label govuk-!-font-weight-bold" for="file">
-                    Upload Some file
-                </label>
+                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
+                    <div class="file-upload--border">
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row govuk-!-font-size-16">
+                                <dd class="govuk-summary-list__value">
+                                    @Model.UploadedFile.Name <span class="govuk-!-margin-left-6">@Model.UploadedFile.Size MB</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions">
+                                    <button type="submit" name="submit.Publish" class="govuk-link govuk-!-font-size-16"
+                                            value="DeleteFile" data-module="govuk-button" style=" background: transparent; border: none; color: #1d70b8;">
+                                        Remove
+                                    </button>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
             }
             else
             {
-                <label class="govuk-label govuk-!-font-weight-bold" for="file">
-                    @Model.UploadText
-                </label>
+
+                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
+                    <div class="file-upload--border">
+                        <dl class="govuk-summary-list">
+
+                            <div class="govuk-summary-list__row govuk-!-font-size-16">
+                                <dd class="govuk-summary-list__value">
+                                    No file uploaded
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
             }
 
-            <input class="govuk-file-upload" id="file" name="file" type="file"
-                   accept=".txt,.pdf,.xlsx,.doc,.docx">
-            <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="submit" name="submit.Publish"
-                    value="UploadFile">
-                Upload file
-            </button>
+
         </div>
 
-        <details class="govuk-details" data-module="govuk-details">
-            <summary class="govuk-details__summary">
-                <span class="govuk-details__summary-text">
-                    What file can I upload?
-                </span>
-            </summary>
-            <div class="govuk-details__text">
-                <p class="govuk-body">You can only upload the following file types:</p>
-                <ul class="govuk-list govuk-list--bullet">
-                    <li>PDF, XLS, XLSX, PPT, PPTX, DOC, DOCX, GIF, JPEG, PNG</li>
-                </ul>
-            </div>
-        </details>
-
-        <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">Uploaded file</h2>
-        @*
-        <p class="govuk-body nofileupload govuk-!-margin-bottom-6">@(!string.IsNullOrEmpty(Model.DataInput) ? Model.DataInput : "No file uploaded")</p>
-        *@
-
-        @if (Model.UploadedFile != null)
-        {
-            <dl class="govuk-summary-list fileTable">
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key govuk-!-font-weight-regular">
-                        @Model.UploadedFile.Name
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.UploadedFile.Size MB
-                    </dd>
-                    <dd class="govuk-summary-list__actions">
-                        @*<a class="govuk-link" href="#">
-                            Remove<span class="govuk-visually-hidden"> file uploaded</span>
-                        </a>*@
-                        <button type="submit" name="submit.Publish" class="govuk-button govuk-button--warning"
-                                value="DeleteFile" data-module="govuk-button">
-                            Remove
-                        </button>
-                    </dd>
-                </div>
-            </dl>
-        }
-        else
-        {
-            <p class="govuk-body nofileupload govuk-!-margin-bottom-6">No file uploaded</p>
-        }
-
-        @if (Model.PageName == "project-cost-breakdown" && Model.UploadedFile != null && Model.UploadedFile.ParsedExcelData != null)
+        @if (Model.PageName == "project-cost-breakdown")
         {
             <table class="govuk-table">
                 <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
@@ -125,10 +119,10 @@
                             Total BEIS grant applied for
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -137,10 +131,10 @@
                             Total match funding contribution
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
                         </td>
                     </tr>
 
@@ -149,10 +143,10 @@
                             Total project cost
                         </td>
                         <td class="govuk-table__cell">
-                            @(Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
+                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            -
+                            
                         </td>
                     </tr>
 
@@ -176,16 +170,6 @@
 
     </form>
 
-    <a href="@Model.SectionUrl">@Model.ReturnToSummaryPageLinkText</a>
+</div>
 
-
-        @if (!string.IsNullOrEmpty(Model.FileToDownload))
-        {
-            <div class="govuk-grid-column-one-third">
-                <aside class="app-related-items" role="complementary">
-                    <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-3">Downloads</p>
-                    <p class="govuk-body-m govuk-!-margin-bottom-3"><a class="govuk-link" href="#">Download consortium details form</a></p>
-                </aside>
-            </div>
-        }
-
+@Html.Partial("_BackButton", Model)

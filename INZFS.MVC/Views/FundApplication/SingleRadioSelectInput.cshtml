@@ -2,22 +2,8 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
-else
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.SectionInfo.Url">
-        @Model.SectionInfo.Title
-    </a>
-}
 
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
-
-
+@Html.Partial("_Steps")
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
@@ -31,19 +17,13 @@ else
         <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l govuk-!-margin-bottom-6">
                 <h1 class="govuk-fieldset__heading">
-                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                    {
-                        @Model.Question
-
-                    }
-                    else
-                    {
-                        @Model.TitleQuestion
-                    }
+                    @Model.Question
                 </h1>
             </legend>
             <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
                 <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
+
+                @Html.Partial("_Hint", Model.Hint)
 
                 @foreach (var item in Model.SelectedOptions)
                 {
@@ -68,8 +48,10 @@ else
         </fieldset>
     </div>
 
+    @Html.Partial("_Accordion", Model.PageName)
 
-    @Html.Partial("_Accordion", "")
+    @Html.Partial("_InsetText", Model.PageName)
+
     @if (Model.ShowMarkAsComplete)
     {
         @Html.Partial("_MarkAsComplete", Model)
@@ -79,4 +61,4 @@ else
 
 </form>
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+@Html.Partial("_BackButton", Model)

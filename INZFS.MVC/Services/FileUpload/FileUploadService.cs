@@ -59,29 +59,35 @@ namespace INZFS.MVC.Services.FileUpload
             }
         }
 
-        public bool IsValidFileExtension(IFormFile file)
+        public bool IsValidFileExtension(IFormFile file, string permittedExtensions)
         {
             var ext = Path.GetExtension(file.FileName).ToLowerInvariant();
 
-            return string.IsNullOrEmpty(ext) || !permittedExtensions.Contains(ext);
+            return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file)
+        public async Task<string> Validate(IFormFile file, Page currentPage)
         {
-            if (file == null || file.Length == 0)
+            
+            if (file == null)
             {
-                return "Empty file";
+                return currentPage.ErrorMessage;
             }
 
-            if (IsValidFileExtension(file))
+            if (file.Length == 0)
             {
-                return "Cannot accept files other than  .ppt, .pptx, .pdf, .xls, .xlsx, .doc, .docx, gif, jpeg, png";
+                return "The selected file is empty";
             }
-            
+
+            if (IsValidFileExtension(file, currentPage.AcceptableFileExtensions))
+            {
+                return $"The selected file must be {currentPage.AcceptableFileExtensions}";
+            }
+
             var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
             if ((double)file.Length > maxSize)
             {
-                return "File size cannot be more than 10 MB";
+                return "The selected file must be smaller than 10MB";
             }
             var containsVirus = _virusScanService.ScanFile(file);
             return containsVirus;

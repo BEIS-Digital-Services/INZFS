@@ -24,7 +24,7 @@ namespace INZFS.MVC.Models.DynamicForm
         {
             
 
-            if (Mandatory == true)
+            if (Mandatory == true && MarkAsComplete)
             {
                 if ((AddressLine1 == null && AddressLine2 == null))
                 {
@@ -37,6 +37,10 @@ namespace INZFS.MVC.Models.DynamicForm
                 if (PostCode == null)
                 {
                     yield return new ValidationResult($"Please add your postcode into the Postcode field", new[] { nameof(DataInput) });
+                }
+                if (PostCode != null && PostCode.Length > 8)
+                {
+                    yield return new ValidationResult($"You have entered a postcode which is {PostCode.Length} characters in length. Please enter a postcode which is below 8 characters in length", new[] { nameof(DataInput) });
                 }
                 else
                 {

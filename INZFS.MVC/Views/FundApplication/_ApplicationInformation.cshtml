@@ -1,0 +1,47 @@
+
+<div class="govuk-grid-column-one-third">
+
+    <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+
+    <aside class="app-related-items" role="complementary">
+
+        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
+        <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
+
+        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
+        <p class="govuk-body-m govuk-!-margin-bottom-10">@ViewData["ApplicationNumber"]</p>
+
+    </aside>
+    <aside class="app-related-items" role="complementary">
+
+        <p class="govuk-body-m govuk-colour--mid-grey">Useful documents</p>
+        <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="/all-eef-documents">Application guidance, questions and templates</a></p>
+
+    </aside>
+    @if (ViewData["ShowDownload"] != null && ViewData["ShowDownload"] == "true")
+    {
+        <aside class="app-related-items" role="complementary">
+            <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
+            <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
+            <a asp-controller="Report" asp-action="DownloadPdf">
+                <button class="govuk-button govuk-button--secondary" type="button">
+                    Download your application
+                </button>
+            </a>
+            <a asp-controller="Report" asp-action="GenerateOdt">
+                Download an accessible text version
+            </a>
+
+        </aside>
+        <br/>
+    }
+    
+    <aside class="app-related-items" role="complementary">
+
+        <div class="govuk-timeout-warning-fallback">
+            <p class="govuk-body-m">You will be signed out if you are inactive for 30 minutes and will lose any unsaved changes. We do this to keep your information secure.</p>
+        </div>
+
+    </aside>
+
+</div>

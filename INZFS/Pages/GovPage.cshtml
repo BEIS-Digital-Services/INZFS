@@ -6,8 +6,6 @@
 
 }
 
-@Orchard.ConsoleLog(govpage)
-
 <body class="govuk-template__body competition-overview">
 	<div class="govuk-width-container">
 
@@ -59,7 +57,7 @@
 						</svg>
 					</a>
 
-					<p class="govuk-body-s"><a class="govuk-link" href="/login">Sign into your account</a>.</p>
+					<p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Login", "Account", new {area = "INZFS.Theme"})">Sign into your account</a>.</p>
 
 					<h2 class="govuk-heading-m">What happens after you submit your application</h2>
 
@@ -110,9 +108,7 @@
 		</main>
 	</div>
 	<script src="~/js/govuk-frontend-3.12.0.min.js"></script>
-	<script>
-		window.GOVUKFrontend.initAll()
-	</script>
+	<script src="~/js/GovFrontendInit.js"></script>
 
 </body>
 

@@ -4,47 +4,46 @@
 @model INZFS.Web.POCO.EligibilityCheckerPOCO
 @using Microsoft.AspNetCore.Http
 
-
 @{
-	var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
-	var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
-	var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
-	var AccordionListEnabled = @eligibility.Content.EligibilityChecker.AccordionBullet1.Text == null;
-	var titlePart = (string)@eligibility.Content.AliasPart.Alias;
-	var questionSettingA = "Question1";
-	switch (titlePart)
-	{
-		case "Question1":
-			questionSettingA = "Question1";
-			break;
-		case "Question2":
-			questionSettingA = "Question2";
-			break;
-		case "Question3":
-			questionSettingA = "Question3";
-			break;
-		case "Question4":
-			questionSettingA = "Question4";
-			break;
-		case "Question5":
-			questionSettingA = "Question5";
-			break;
-		case "Question6":
-			questionSettingA = "Question6";
-			break;
-		default: questionSettingA = "Question1"; break;
+    var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
+    var listenabled = @eligibility.Content.EligibilityChecker.Bullet1.Text == null;
+    var AccordionListEnabled = @eligibility.Content.EligibilityChecker.AccordionBullet1.Text == null;
+    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+    var questionSettingA = "Question1";
+    ViewData["Title"] = "Eligibility Checker";
+    switch (titlePart)
+    {
+        case "Question1":
+            questionSettingA = "Question1";
+            break;
+        case "Question2":
+            questionSettingA = "Question2";
+            break;
+        case "Question3":
+            questionSettingA = "Question3";
+            break;
+        case "Question4":
+            questionSettingA = "Question4";
+            break;
+        case "Question5":
+            questionSettingA = "Question5";
+            break;
+        case "Question6":
+            questionSettingA = "Question6";
+            break;
+        default: questionSettingA = "Question1"; break;
 
-	}
+    }
 
 
 }
-@Orchard.ConsoleLog(eligibility)
 
 <body class="govuk-template__body competition-overview">
     <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                <a href="#" onclick="history.back(-1)" class="govuk-back-link">Back</a>
+                <a href="#" class="govuk-back-link" id="govuk-back-link">Back</a>
             </div>
             <div class="govuk-grid-column-one-quarter govuk-signout-right">
             </div>
@@ -52,7 +51,7 @@
         <main class="govuk-main-wrapper app-content">
 
 
-            <div class="govuk-caption-m">
+            <div class="govuk-caption-l">
                 @eligibility.Content.EligibilityChecker.Body1.Text
             </div>
             <h1 class="govuk-heading-xl" style="padding-top: 10px;">@eligibility.Content.EligibilityChecker.Header1.Text</h1>
@@ -74,13 +73,13 @@
                     <fieldset class="govuk-fieldset">
                         <div class="govuk-radios govuk-radios--inline">
                             <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     Yes
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA onclick="checkingRadio()">
+                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
                                 <label class="govuk-label govuk-radios__label">
                                     No
                                 </label>
@@ -88,7 +87,7 @@
                         </div>
                     </fieldset>
                 </div>
-                <button id="continueBtn" class="govuk-button govuk-!-margin-top-6" disabled="disabled">Continue</button>
+                <button id="continueBtn" class="govuk-button govuk-!-margin-top-6">Continue</button>
             </form>
 
             <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
@@ -142,29 +141,23 @@
     </div>
     <style src="/css/application.css"></style>
     <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
-    <script>
-        window.GOVUKFrontend.initAll()
-    </script>
-    <script type="text/javascript">
-        function checkingRadio() {
-            button = document.querySelector('#continueBtn');
-            button.disabled = false;
-        }  
-    </script>
+    <script src="~/js/GovFrontendInit.js"></script>
+    <script src="~/js/BackLink.js"></script>
+
 </body>
 
 @functions
 {
-	[FromRoute]
-	public string Slug { get; set; }
-	[BindProperty]
-	public string RedirectUrl { get; set; }
+    [FromRoute]
+    public string Slug { get; set; }
+    [BindProperty]
+    public string RedirectUrl { get; set; }
 
-	public async Task<IActionResult> OnPostAsync()
-	{
+    public async Task<IActionResult> OnPostAsync()
+    {
 
-		@inject OrchardCore.IOrchardHelper Orchard
-		var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+        @inject OrchardCore.IOrchardHelper Orchard
+        var eligibility = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
         var redirect = (string)@eligibility.Content.EligibilityChecker.Button1.Text;
         var titlePart = (string)@eligibility.Content.AliasPart.Alias;
         var QuestionValue = Request.Form["questionSettingA"].ToString();
@@ -217,5 +210,5 @@
 
 }
 @{
-	Layout = "_LayoutWithoutBackBtn";
+    Layout = "_LayoutWithoutBackBtn";
 }

@@ -3,14 +3,9 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back
-    </a>
-}
 
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+
+@Html.Partial("_Steps")
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
@@ -22,25 +17,20 @@
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <h1 class="govuk-label-wrapper">
             <label class="govuk-label govuk-label--l" for="event-name">
-                @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                {
-                    @Model.Question.ToString()
-
-                }
-                else
-                {
-                    @Model.TitleQuestion.ToString()
-                }
+                @Model.Question
             </label>
         </h1>
         @Html.Partial("_Hint", Model.Hint)
+
         <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
-        <input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
-               name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
+
+        @Html.Partial($"../TextBoxTypes/_{Model.TextType}.cshtml", Model)
+
     </div>
 
+    @Html.Partial("_Accordion", Model.PageName)
 
-    @Html.Partial("_Accordion", "")
+    @Html.Partial("_InsetText", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)
     {
@@ -51,4 +41,4 @@
 
 </form>
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+@Html.Partial("_BackButton", Model)

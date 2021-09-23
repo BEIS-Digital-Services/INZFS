@@ -1,7 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
-public interface IReportService
+namespace INZFS.MVC.Services.PdfServices
 {
-    public Task<byte[]> GeneratePdfReport(string applicationAuthor);
+    public interface IReportService
+    {
+        public Task<ReportContent> GeneratePdfReport(string applicationAuthor);
+        //public Task<byte[]> GenerateOdtReport(string applicationAuthor);
+    }
 }
