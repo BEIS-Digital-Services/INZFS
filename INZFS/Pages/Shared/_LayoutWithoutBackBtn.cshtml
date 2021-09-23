@@ -1,56 +1,28 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="govuk-template">
 <head>
     <meta charset="utf-8">
-    <title>@ViewData["Title"] - OrchardCMSCore Test Site</title>
+    <title>@ViewData["Title"] - Energy Entrepreneur's Fund</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="blue">
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-    <!--[if gt IE 8]><!-->
-    <link rel="stylesheet" media="screen" href="/assets/static/govuk-template.css">
-    <!--<![endif]-->
-    <!--[if IE 8]><link rel="stylesheet" media="screen" href="/assets/static/govuk-template-ie8.css" /><![endif]-->
-    <link rel="stylesheet" media="print" href="/assets/static/govuk-template-print.css">
-
-    <link rel="stylesheet" media="all" href="/assets/static/fonts.css">
-    <!--[if lt IE 9]><script src="/assets/static/ie.js"></script><![endif]-->
-
-    <link rel="shortcut icon" href="/assets/static/favicon.ico" type="image/x-icon">
-    <link rel="mask-icon" href="/assets/static/gov.uk_logotype_crown.svg" color="#0b0c0c">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/static/apple-touch-icon-180x180.png">
-    <link rel="apple-touch-icon" sizes="167x167" href="/assets/static/apple-touch-icon-167x167.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="/assets/static/apple-touch-icon-152x152.png">
-    <link rel="apple-touch-icon" href="/assets/static/apple-touch-icon.png">
-
     <meta name="theme-color" content="#0b0c0c">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--[if !IE 8]><!-->
+    <link rel="stylesheet" media="all" href="/css/application.css">
+    <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
+    <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
 
-    <link rel="stylesheet" media="screen" href="/assets/static/core-layout.css">
-    <link rel="stylesheet" href="~/css/dbeis-overrides.css">
-    <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css">
-    <!--[if lte IE 8]><link rel="stylesheet" media="screen" href="/assets/static/core-layout-ie8.css" /><script>var ieVersion = 8;</script><![endif]-->
-
-    <link rel="stylesheet" media="print" href="/assets/static/core-layout-print.css">
-
-    <meta property="og:image" content="/assets/static/opengraph-image.png">
-    <link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml">
-    <link rel="stylesheet" media="screen" href="/assets/frontend/application.css">
-    <link rel="stylesheet" media="print" href="/assets/frontend/print.css">
-    <!-- <link rel="canonical" href="https://www.gov.uk/"> -->
-    <meta name="govuk:rendering-application" content="frontend">
+    <!--<![endif]-->
+    <!--[if IE 8]>
+        <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
+    <![endif]-->
 </head>
 <body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
-    <script>
-        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
-    </script>
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
     <header class="govuk-header " role="banner" data-module="govuk-header">
-        <div class="govuk-header__container app-width-container">
+        <div class="govuk-header__container govuk-width-container">
             <div class="govuk-header__logo">
                 <a href="#" class="govuk-header__link govuk-header__link--homepage">
                     <span class="govuk-header__logotype">
@@ -69,9 +41,47 @@
                     Energy Entrepreneurs Fund (EEF)
                 </a>
                 <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1" style="float:right">
+                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" style="color:white" href="/Account/Account/LogOff">
+                            Sign out
+                        </a>
+                    </span>
+                }
             </div>
         </div>
+
     </header>
+
+    <div class="govuk-width-container app-width-container">
+        <div class="govuk-phase-banner">
+            <p class="govuk-phase-banner__content">
+                <strong class="govuk-tag govuk-phase-banner__content__tag">
+                    BETA
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a new service – your <a class="govuk-link" href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer">feedback</a> will help us to improve it.
+                </span>
+            </p>
+        </div>
+        @if (User.Identity?.IsAuthenticated ?? false)
+        {
+            <p><a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">Your account</a></p>
+
+        }
+
+
+
+        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+            <div class="govuk-width-container">
+
+                @RenderBody()
+            </div>
+
+
+        </main>
+    </div>
 
     <div class="govuk-width-container app-width-container">
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
@@ -83,9 +93,32 @@
         <div class="govuk-width-container ">
             <div class="govuk-footer__meta">
                 <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+                    <h2 class="govuk-visually-hidden">Support links</h2>
+                    <ul class="govuk-footer__inline-list">
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="/page/privacynotice">
+                                Privacy notice
+                            </a>
+                        </li>
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="/page/cookiepolicy">
+                                Cookies
+                            </a>
+                        </li>
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="/page/accessibility">
+                                Accessibility statement
+                            </a>
+                        </li>
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="/page/help">
+                                How to get help with this service
+                            </a>
+                        </li>
+                    </ul>
 
                     <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
-                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"></path>
                     </svg>
                     <span class="govuk-footer__licence-description">
                         All content is available under the
@@ -98,12 +131,8 @@
             </div>
         </div>
     </footer>
-    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
-
-
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
+    <script src="~/js/EnableJs.js"></script>
 </body>
 
 </html>

@@ -1,16 +1,8 @@
 @model INZFS.Theme.ViewModels.RegistrationSuccessViewModel
 @{
     ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Verify your email address";
 }
-
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-        <a href="#"  onclick="history.back(-1)" class="govuk-back-link">Back</a>
-    </div>
-    <div class="govuk-grid-column-one-quarter"> </div>
-</div>
-
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <div class="govuk-grid-row">
@@ -18,9 +10,9 @@
         <div class="govuk-grid-column-two-thirds">
             <!-- <form action="" method="post" novalidate> -->
 
-            <h1 class="govuk-heading-xl">Verify your email address</h1>
+            <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
             <p class="govuk-body-l govuk-!-margin-bottom-0">You'll need to verify your email address to continue. </p>
-            <p class="govuk-body-l">We have sent a verification link to your email.</p>
+            <p class="govuk-body-l">We have sent a verification link to your email address, click this link to verify your account.</p>
             
             @if (Model.VerificationRequired)
             {

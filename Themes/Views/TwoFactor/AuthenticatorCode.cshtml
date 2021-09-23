@@ -1,35 +1,30 @@
 ﻿@model INZFS.Theme.ViewModels.EnterCodeViewModel
 @{
-    Layout = "_Layout";
+    ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Enter your verification code";
 }
 
 <partial name="_ErrorModelSummary" />
 
-<form method="post">
-    <div class="govuk-width-container">
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-l">Enter your authenticator code</h1>
-            </div>
-        </div>
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds govuk-!-margin-top-6">
                 <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper">
-                        <label class="govuk-label govuk-label--s" for="event-name">
-                            Enter the code generated from the Authenticator app
+                    <h1 class="govuk-label-wrapper govuk-!-margin-bottom-6 "><label class="govuk-label govuk-label--l" for="code">
+                            @ViewData["Title"]
                         </label>
                     </h1>
                     <span asp-validation-for="Code" class="govuk-error-message"></span>
-                    <input asp-for="Code"  class="govuk-input govuk-input--width-20" type="text" spellcheck="true" autocomplete="off">
-                </div>
-                <br />
-                <div class="edit-item-secondary group">
-                    <div class="edit-item-actions form-group">
-                        <input asp-for="Method" type="hidden"/>
-                        <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
+                    <div id="code-generated-hint" class="govuk-hint">
+                        Enter the code generated from the Authenticator App
+                    </div>
+                    <div class="govuk-form-group govuk-!-margin-bottom-9">
+                        <input asp-for="Code"  class="govuk-input govuk-input--width-20" type="text" spellcheck="true" autocomplete="off">
                     </div>
                 </div>
+                <input asp-for="Method" type="hidden"/>
+                <button type="submit" id="Veriy" name="Veriy" class="btn btn-success publish govuk-button">Continue</button>
                 @if (Model.IsActivated)
                 {
                     <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Alternative", "TwoFactor", new {area = "INZFS.Theme", returnUrl = Url.GetQuery("returnUrl")})">Choose alternative verification method</a></p>
@@ -37,5 +32,5 @@
                 <p class="govuk-body-s"><a class="govuk-link" href="#">Problems receiving your code?</a></p>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</main>

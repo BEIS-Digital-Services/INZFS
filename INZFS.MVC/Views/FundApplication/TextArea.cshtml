@@ -6,63 +6,42 @@
 
 
 @*To :
- Working if only textbox id is set to with-hint*@
+    Working if only textbox id is set to with-hint*@
 
-@if (!string.IsNullOrEmpty(Model.PreviousPageName))
-{
-    <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName">
-        Back to previous question
-    </a>
-}
-
-<span class="govuk-caption-l">Question @Model.QuestionNumber of @Model.TotalQuestions</span>
+@Html.Partial("_Steps")
 
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextAreaModel)" />
 
-    @Html.Partial("_ErrorMessage")
 
-    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count" 
-         @if(Model.MaxLengthValidationType == MaxLengthValidationType.Character)
-         {
-             <text>data-maxlength="@Model.MaxLength"</text>
-         }
-         else
-         {
-             <text>data-maxwords="@Model.MaxLength"</text>
-         }
-         >
+
+    <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count"
+         @if (Model.MaxLengthValidationType == MaxLengthValidationType.Character) { <text> data-maxlength="@Model.MaxLength" </text>  } else { <text> data-maxwords="@Model.MaxLength" </text> }>
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="@Model.FieldName">
-                    @if (string.IsNullOrEmpty(Model.TitleQuestion))
-                    {
-                        @Model.Question
-
-                    }
-                    else
-                    {
-                        @Model.TitleQuestion
-                    }
+                    @Model.Question
                 </label>
             </h1>
             @Html.Partial("_QuestionDescription", Model.PageName)
             @Html.Partial("_Hint", Model.Hint)
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
             <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
-                      name="DataInput" rows="5" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
+                      name="DataInput" rows="10" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
         </div>
-        <div id="with-hint-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+        <div id="with-hint-info" class="govuk-hint govuk-character-count__message  govuk-!-font-size-16" aria-live="polite">
             You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )
         </div>
 
+        @Html.Partial("_SaveProgress")
     </div>
 
-    @Html.Partial("_SaveProgress")
 
     @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
 
     @if (Model.ShowMarkAsComplete)
     {
@@ -73,4 +52,4 @@
 
 </form>
 
-<a href="@Model.SectionUrl" id="returnToSummaryView">@Model.ReturnToSummaryPageLinkText</a>
+@Html.Partial("_BackButton", Model)

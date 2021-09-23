@@ -13,6 +13,8 @@
     <resources type="HeadLink" />
     <resources type="Stylesheet" />
     <resources type="HeadScript" />
+    @*<script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>*@
+
 </head>
 <body class="govuk-template__body">
     <header class="govuk-header " role="banner" data-module="govuk-header">
@@ -44,10 +46,10 @@
     <div class="govuk-phase-banner">
         <p class="govuk-phase-banner__content">
             <strong class="govuk-tag govuk-phase-banner__content__tag">
-                alpha
+                BETA
             </strong>
             <span class="govuk-phase-banner__text">
-                This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+                This is a new service – your <a class="govuk-link" href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer">feedback</a> will help us to improve it.
             </span>
         </p>
     </div>
@@ -66,29 +68,29 @@
                     <h2 class="govuk-visually-hidden">Support links</h2>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#1">
-                                Help
+                            <a class="govuk-footer__link" href="/page/privacynotice">
+                                Privacy notice
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#2">
+                            <a class="govuk-footer__link" href="/page/cookiepolicy">
                                 Cookies
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#3">
-                                Contact
+                            <a class="govuk-footer__link" href="/page/accessibility">
+                                Accessibility statement
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#4">
-                                Terms and conditions
+                            <a class="govuk-footer__link" href="/page/help">
+                                How to get help with this service
                             </a>
                         </li>
                     </ul>
 
                     <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
-                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145" />
+                        <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"></path>
                     </svg>
                     <span class="govuk-footer__licence-description">
                         All content is available under the
@@ -101,8 +103,8 @@
             </div>
         </div>
     </footer>
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <script src="~/js/EnableJs.js"></script>
 </body>
 </html>

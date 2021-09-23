@@ -1,4 +1,5 @@
-﻿using OrchardCore.ContentManagement;
+﻿using INZFS.MVC.Validators;
+using OrchardCore.ContentManagement;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,12 +18,15 @@ namespace INZFS.MVC.Models.DynamicForm
         public string PageName { get; set; }
         public string PreviousPageName { get; set; }
         public string FieldName { get; set; }
+        public string SectionTitle { get; set; }
         public string Question { get; set; }
-        public string TitleQuestion { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
+        public TextType TextType { get; set; }
+        public YesNoType YesNoInput { get; set; }
+
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
         public string OtherOption { get; set; }
@@ -31,23 +35,28 @@ namespace INZFS.MVC.Models.DynamicForm
         public bool HasOtherOption { get; set; }
         public bool ShowMarkAsComplete { get; set; }
         public bool MarkAsComplete { get; set; }
+        public bool ResultAcknowledged { get; set; }
         public string Hint { get; set; }
         public int? MaxLength { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string SectionUrl { get; set; }
         public Section SectionInfo { get; set; }
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
         protected Page CurrentPage { get; set; }
         public PreviousPage PreviousPage { get; set; }
+        public FieldStatus? FieldStatus { get; set; }
+        public FieldType FieldType { get; set; }
+        public string AcceptableFileExtensions { get; set; }
 
+        public GridDisplayType GridDisplayType { get; set; }
+        public bool HideQuestionCounter { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public virtual string GetData()
         {
             return DataInput;
@@ -71,11 +80,47 @@ namespace INZFS.MVC.Models.DynamicForm
             Mandatory = page.Mandatory;
             Hint = page.Hint;
             ShowMarkAsComplete = page.ShowMarkComplete;
-            return ExtendedValidation(validationContext);
+
+
+            var actionErrors = ValidateActions(page);
+            if (actionErrors.Any())
+            {
+                return actionErrors;
+            }
+
+            var errors = ExtendedValidation(validationContext);
+            if(!errors.Any())
+            {
+                if (!string.IsNullOrEmpty(page.CustomValidator))
+                {
+                    Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
+                    var customValidator = (ICustomValidator)Activator.CreateInstance(type);
+                    return customValidator.Validate(GetData(), page.FriendlyFieldName);
+                }
+            }
+
+
+            return errors;
         }
 
         protected abstract IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext);
-        
+
+        private IEnumerable<ValidationResult> ValidateActions(Page page) 
+        {
+            var userInput = GetData();
+            if (page.Actions != null && page.Actions.Count > 0)
+            {
+                if (string.IsNullOrEmpty(userInput))
+                {
+                    yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
+                }
+            }
+
+        }
+
+
+
+
     }
 
 

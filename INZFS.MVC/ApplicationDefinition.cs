@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using INZFS.MVC.Records;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,28 @@ namespace INZFS.MVC
         gdsAddressTextBox,
         gdsStaticPage
     }
+    public enum TextType
+    {
+        Standard,
+        CurrencyBox,
+        NumberBox
+    }
 
+    public enum YesNoType
+    {
+        Standard,
+        CustomInput
+    }
     public enum MaxLengthValidationType
     {
         Character,
         Word
+    }
+
+    public enum GridDisplayType
+    {
+        TwoThird,
+        FullPage
     }
 
     public class Page
@@ -33,7 +51,8 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public string  TitleQuestion { get; set; }
+        public GridDisplayType GridDisplayType { get; set; }
+        public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
@@ -41,7 +60,9 @@ namespace INZFS.MVC
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
-        public string FieldName { get; set; }
+        public TextType TextType { get; set; }
+        public YesNoType YesNoInput { get; set; }
+    public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
@@ -52,21 +73,32 @@ namespace INZFS.MVC
         public int? MaxLength { get; set; }
         public bool HasOtherOption { get; set; }
         public bool ShowMarkComplete { get; set; }
-        public bool ShowSaveProgessButton { get; set; }
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
-
         public string FileToDownload { get; set; }
-        public string UploadText { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         public List<Action> Actions { get; set; }
         public List<string> SelectOptions { get; set; }
         public bool HideFromSummary { get; set; }
         public PreviousPage PreviousPage { get; set; }
+        public DependsOn DependsOn { get; set; }
+        public string CustomValidator { get; set; }
+        public string AcceptableFileExtensions { get; set; }
+        
+    }
+
+    public class DependsOn
+    {
+        public string FieldName { get; set; }
+        public string Value { get; set; }
     }
 
     public class Section
     {
+        public Section()
+        {
+            BelongsToApplication = true;
+        }
         public string Title { get; set; }
         public string OverviewTitle { get; set; }
         public string Tag { get; set; }
@@ -75,6 +107,9 @@ namespace INZFS.MVC
         public string ReturnToSummaryPageLinkText { get; set; }
         public string ContinueButtonText { get; set; }
         public string RazorView { get; set; }
+        public bool HideQuestionCounter { get; set; }
+        public bool BelongsToApplication { get; set; }
+        public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
     }
 
@@ -89,6 +124,17 @@ namespace INZFS.MVC
     public class ApplicationDefinition
     {
         public Application Application { get; set; }
+    }
+
+    public enum ApplicationStatus
+    {
+        InProgress,
+        Submitted,
+        Assessment,
+        IndependentAssessment,
+        Successful,
+        Unsuccessful,
+        Withdrawn
     }
 
     public class ApplicationContent
@@ -149,6 +195,19 @@ namespace INZFS.MVC
         public string DisplayText { get; set; }
 
         public List<Field> Fields { get; set; }
+
+        public ApplicationStatus ApplicationStatus { get; set; }
+        public string ApplicationNumber { get; set; }
+        public DateTime? SubmittedUtc { get; set; }
+
+    }
+
+    public enum FieldStatus
+    {
+        NotStarted,
+        InProgress,
+        Completed,
+        NotApplicable
     }
 
     public class Field
@@ -158,6 +217,7 @@ namespace INZFS.MVC
         public string OtherOption { get; set; }
         public string AdditionalInformation { get; set; }
         public bool? MarkAsComplete { get; set; }
+        public FieldStatus? FieldStatus { get; set; }
     }
 
     public class UploadedFile

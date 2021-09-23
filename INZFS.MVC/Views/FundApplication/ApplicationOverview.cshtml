@@ -2,6 +2,25 @@
 @using INZFS.MVC
 @using INZFS.MVC.Models.DynamicForm
 
+@if (Model.HasErrors && Model.TotalSections != Model.TotalSectionsCompleted)
+{
+    <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+        <h2 class="govuk-error-summary__title" id="error-summary-title">
+            There is a problem
+        </h2>
+        <div class="govuk-error-summary__body">
+            <ul class="govuk-list govuk-error-summary__list">
+                @foreach (var item in Model.Sections.Where(s => s.SectionStatus != FieldStatus.Completed))
+                {
+                    <li>
+                        <a href="#@item.SectionTag">Some steps in @item.Title are incomplete</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+}
+
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Application overview</h1>
@@ -27,76 +46,43 @@
 
         @{
             var sections = Model.Sections.Take(3);
-            var completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            var completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-        <dl class="govuk-summary-list">
-            @foreach (var item in sections)
-            {
-                <div class="govuk-body-m govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                        </a>
-                    </dt>
-                    <dd class="govuk-summary-list__actions">
-                        @item.GetStatusString()
-                    </dd>
-                </div>
-            }
-        </dl>
+        @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
+                                {
+                                    { "HasErrors", Model.HasErrors }
+                                })
+
 
         @{
             sections = Model.Sections.Skip(3).Take(3);
-            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
+        @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
+                                {
+                                    { "HasErrors", Model.HasErrors }
+                                })
 
-        <dl class="govuk-summary-list">
-            @foreach (var item in sections)
-            {
-                <div class="govuk-body-m govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                        </a>
-                    </dt>
-                    <dd class="govuk-summary-list__actions">
-                        @item.GetStatusString()
-                    </dd>
-                </div>
-            }
-        </dl>
 
         @{
             sections = Model.Sections.Skip(6).Take(1);
-            completedCount = sections.Count(section => section.SectionStatus == SectionStatus.Completed);
+            completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
         <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">@completedCount out of 1 completed</span></p>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
-
-        <dl class="govuk-summary-list">
-            @foreach (var item in sections)
-            {
-                <div class="govuk-body-m govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        <a class="govuk-link govuk-!-font-weight-regular" id="@item.SectionTag" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@item.Url">
-                            @item.Title <span class="govuk-visually-hidden">@item.Title</span>
-                        </a>
-                    </dt>
-                    <dd class="govuk-summary-list__actions">
-                        @item.GetStatusString()
-                    </dd>
-                </div>
-            }
-        </dl>
+        @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
+                                {
+                                    { "HasErrors", Model.HasErrors }
+                                })
 
         <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="submit">
             <button class="govuk-button" data-module="govuk-button">
@@ -105,35 +91,12 @@
         </a>
 
     </div>
-    <div class="govuk-grid-column-one-third">
 
-        <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->
+    @Html.Partial("_ApplicationInformation", new ViewDataDictionary(ViewData)
+                                {
+                                    { "ApplicationNumber", Model.ApplicationNumber },
+                                    { "ShowDownload", "true" }
+                                })
 
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">25 March at 11.59pm</p>
-
-            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Application</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-10">EEF18453SA</p>
-
-        </aside>
-        <aside class="app-related-items" role="complementary">
-
-            <p class="govuk-body-m govuk-colour--mid-grey">Useful documents</p>
-            <p class="govuk-body-m govuk-!-margin-bottom-6"><a class="govuk-link" href="/all-eef-documents">Application guidance, questions and templates</a></p>
-
-        </aside>
-        <aside class="app-related-items" role="complementary">
-            <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
-            <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
-            <a asp-controller="Report" asp-action="GeneratePdf">
-                <button class="govuk-button govuk-button--secondary" type="button">
-                    Download your application
-                </button>
-            </a>
-        </aside>
-
-    </div>
 
 </div>

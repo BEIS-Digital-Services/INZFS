@@ -17,11 +17,11 @@ namespace INZFS.MVC.Models.DynamicForm
 
         protected override IEnumerable<ValidationResult> ExtendedValidation(ValidationContext validationContext)
         {
-            if (Mandatory == true )
+            if (Mandatory == true && MarkAsComplete)
             {
-                if (UserInput == null )
+                if (UserInput == null)
                 {
-                    yield return new ValidationResult(ErrorMessage, new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Select {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
                 }
             }
         }
@@ -29,8 +29,23 @@ namespace INZFS.MVC.Models.DynamicForm
 
         public override string GetData()
         {
-            string UsersChoices = string.Join(",", UserInput);
-            return UsersChoices;
+            try
+            {
+                string UsersChoices = string.Join(",", UserInput);
+                return UsersChoices;
+            }
+            catch (Exception)
+            {
+                return string.Empty;
+            }
+          
         }
+
+        public override string GetOtherSelected()
+        {
+            return OtherOption;
+        }
+
+
     }
 }
