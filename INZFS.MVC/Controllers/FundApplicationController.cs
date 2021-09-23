@@ -286,7 +286,6 @@ namespace INZFS.MVC.Controllers
                                         catch (FormatException e)
                                         {
                                             ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
-
                                         }
                                     }
                                     else
