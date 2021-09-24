@@ -35,7 +35,7 @@
                     }
 
 
-                    <p class="govuk-body">@eligibility.Content.EligibilityResult.Body1.Text</p>
+                    <p class="govuk-body">@Html.Raw(eligibility.Content.EligibilityResult.Body1.Text)</p>
 
                     @if (!listenabled)
                     {
