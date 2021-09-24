@@ -31,6 +31,10 @@ using System.Reflection;
 using Notify.Interfaces;
 using Notify.Client;
 using INZFS.MVC.Services.PdfServices;
+using INZFS.MVC.Validators;
+using System.Collections.Generic;
+using Microsoft.Extensions.DependencyModel;
+using System.Linq;
 
 namespace INZFS.MVC
 {
@@ -116,6 +120,33 @@ namespace INZFS.MVC
             services.AddScoped<INotificationClient>(services =>
                 new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));
             services.AddScoped<IApplicationEmailService, ApplicationEmailService>();
+
+            services.AddScoped<ICustomerValidatorFactory, CustomerValidatorFactory>();
+            RegisterCustomValidators(services);
+            services.AddHttpContextAccessor();
+        }
+
+        private static void RegisterCustomValidators(IServiceCollection serviceCollection)
+        {
+            var customValidators = GetAllTypesOf<ICustomValidator>();
+
+            foreach (var customValidator in customValidators)
+            {
+                if (customValidator.IsInterface || customValidator.IsAbstract) continue;
+                var serviceType = customValidator.GetInterfaces()[0];
+                serviceCollection.AddScoped(serviceType, customValidator);
+            }
+        }
+
+        private static IEnumerable<Type> GetAllTypesOf<T>()
+        {
+            var platform = Environment.OSVersion.Platform.ToString();
+            var runtimeAssemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(platform);
+
+            return runtimeAssemblyNames
+                .Select(Assembly.Load)
+                .SelectMany(a => a.ExportedTypes)
+                .Where(t => typeof(T).IsAssignableFrom(t));
         }
 
         private void ConfigureContent(IServiceCollection services)
