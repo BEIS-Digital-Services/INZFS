@@ -129,10 +129,10 @@ namespace INZFS.MVC.Services.PdfServices
           <body style=""font-family: Arial, sans-serif;"">
 
             <div class=""page"" style=""height:297mm; margin-bottom:60mm;"">
-                <img src=""{_logoFilepath}"" style=""float:left; width: 45mm;""></img>
+                <img src=""{_logoFilepath}"" style=""float:left; width: 40mm; ""></img>
                 <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
                 <div style=""padding-left:15mm; padding-right:15mm; margin-top: 65mm;"">
-                    <h1 style=""font-size:4rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
+                    <h1 style=""font-size:4rem; text-align:left; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
                     <h2 style=""color:rgb(28,28,28);"">Phase 9 Application Form</h2>
                     <p style=""color:rgb(28,28,28);"">This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
                     <p style=""color:rgb(28,28,28);"">Your Application Reference is <strong>{ applicationNumber }</strong></p> 
