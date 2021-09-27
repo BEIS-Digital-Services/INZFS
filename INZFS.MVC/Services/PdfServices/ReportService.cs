@@ -121,6 +121,8 @@ namespace INZFS.MVC.Services.PdfServices
 
         private void OpenHtmlString(string applicationNumber)
         {
+            var utcTime = DateTime.UtcNow;
+            var gmtTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
             html = $@"
            <!DOCTYPE html>
            <html lang=""en"">
@@ -130,7 +132,7 @@ namespace INZFS.MVC.Services.PdfServices
 
             <div class=""page"" style=""height:297mm; margin-bottom:60mm;"">
                 <img src=""{_logoFilepath}"" style=""float:left; width: 40mm; ""></img>
-                <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
+                <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ gmtTime.ToString("dd MMMM yyyy HH:mm") }</strong></p>
                 <div style=""padding-left:15mm; padding-right:15mm; margin-top: 65mm;"">
                     <h1 style=""font-size:4rem; text-align:left; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
                     <h2 style=""color:rgb(28,28,28);"">Phase 9 Application Form</h2>
