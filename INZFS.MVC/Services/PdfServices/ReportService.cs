@@ -123,7 +123,7 @@ namespace INZFS.MVC.Services.PdfServices
            <html lang=""en"">
            <head>
            </head>
-          <body style=""font-family: Helvetica, sans-serif;"">
+          <body style=""font-family: Arial, sans-serif;"">
 
             <div style=""height:265mm;"">
                 <p style=""float: left; color:rgb(28,28,28);"">BEIS</p>
