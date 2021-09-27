@@ -6,20 +6,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace INZFS.MVC.Controllers
 {
     public class ReportController : Controller
     {
         private readonly IReportService _reportService;
-        public ReportController(IReportService reportService)
+        private IWebHostEnvironment _env;
+        public ReportController(IReportService reportService, IWebHostEnvironment env)
         {
             _reportService = reportService;
+            _env = env;
         }
         [HttpGet]
         public async Task<FileContentResult> DownloadPdf()
         {
-            var reportContent = await _reportService.GeneratePdfReport(User.Identity.Name);
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            var reportContent = await _reportService.GeneratePdfReport(User.Identity.Name, logoFilepath);
             string type = "application/pdf";
             string name = $"{reportContent.ApplicationNumber}.pdf";
 
@@ -27,7 +32,8 @@ namespace INZFS.MVC.Controllers
         }
         public async Task<FileContentResult> GenerateOdt()
         {
-            var reportContent = await _reportService.GenerateOdtReport(User.Identity.Name);
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            var reportContent = await _reportService.GenerateOdtReport(User.Identity.Name, logoFilepath);
             string type = "application/vnd.oasis.opendocument.text";
             string name = $"{reportContent.ApplicationNumber}.odt";
 
