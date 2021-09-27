@@ -11,10 +11,10 @@ namespace INZFS.MVC.Services.PdfServices
     {
         private string html;
 
-        private string tableStyle = @"style=""margin-bottom:2rem; width:100%; border:none;""";
-        private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%;""";
+        private string tableStyle = @"style=""width:100%; border:none;""";
+        private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%; border: 1px solid rgb(18,31,54);""";
         private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
-        private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
+        private string answerCellStyle = @"style=""border:1px solid grey; padding:10px; margin-bottom:2cm;""";
 
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IContentRepository _contentRepository;
@@ -53,6 +53,9 @@ namespace INZFS.MVC.Services.PdfServices
                 DocumentBuilder builder = new(doc);
 
                 builder.InsertHtml(html);
+
+                var setup = doc.FirstSection.PageSetup;
+                setup.PaperSize = PaperSize.A4;
 
                 doc.Save(stream, SaveFormat.Pdf);
                 reportContent.FileContents = stream.ToArray();
@@ -125,18 +128,20 @@ namespace INZFS.MVC.Services.PdfServices
            </head>
           <body style=""font-family: Arial, sans-serif;"">
 
-            <div style=""height:265mm;"">
-                <img src=""{_logoFilepath}"" width=45mm style=""float:left;""></img>
+            <div class=""page"" style=""height:297mm; margin-bottom:60mm;"">
+                <img src=""{_logoFilepath}"" style=""float:left; width: 45mm;""></img>
                 <p style=""width: 45mm; float:right; text-align: right; color:rgb(28,28,28);"">This document was downloaded on:<br><strong>{ DateTime.Now.ToString("dd MMMM yyyy HH:mm") }</strong></p>
-                <div style=""padding-left: 15mm; padding-right:15mm; margin-top: 65mm;"">
-                    <h1 style=""font-size:5rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
+                <div style=""padding-left:15mm; padding-right:15mm; margin-top: 65mm;"">
+                    <h1 style=""font-size:4rem; color:rgb(28,28,28);"">The Energy Entrepreneurs Fund (EEF)</h1>
                     <h2 style=""color:rgb(28,28,28);"">Phase 9 Application Form</h2>
                     <p style=""color:rgb(28,28,28);"">This is a copy of your online application for the Energy Entrepreneurs Fund for your records</p>
                     <p style=""color:rgb(28,28,28);"">Your Application Reference is <strong>{ applicationNumber }</strong></p> 
                 </div>
             </div>
 
-            <div style=""height:265mm;"">
+            <p style=""page-break-before: always;""></p>
+
+            <div style=""height:265mm; margin-bottom:150mm;"">
                 <h2>Contents</h2>
 
                 <h3>Your information</h3>
