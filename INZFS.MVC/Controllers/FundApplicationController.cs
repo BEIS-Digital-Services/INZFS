@@ -507,7 +507,8 @@ namespace INZFS.MVC.Controllers
                     BackLinkUrl = Url.ActionLink("Submit", "FundController")
                 };
 
-                await _applicationEmailService.SendConfirmationEmailAsync(User);
+                var url = Url.Action("ApplicationSent", "FundApplication",null, Request.Scheme);
+                await _applicationEmailService.SendConfirmationEmailAsync(User, applicationOverviewContentModel.ApplicationNumber, url);
                 return View("ApplicationComplete", model);
             }
             else
