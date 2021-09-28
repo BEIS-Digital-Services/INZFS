@@ -6,9 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INZFS.MVC.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
         private readonly IReportService _reportService;
