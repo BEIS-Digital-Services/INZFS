@@ -57,7 +57,7 @@ namespace INZFS.MVC.Services.PdfServices
                 var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
                 return blob.Content;
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
                 Console.WriteLine("Error getting Aspose.Words License from Blob Storage: " + e.Message);
                 return null;
