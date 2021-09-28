@@ -1,4 +1,10 @@
 @model string
+@*SECTION 1 Your details and eligibility *@
+@if (Model == "eligibility-to-apply-for-fund")
+{
+    @Html.Partial("../QuestionDescription/YourDetailsEligibility/_EligibilityToApplyForFund.cshtml")
+}
+
 @*SECTION 3 ABOUT YOUR ORG*@
 @if (Model == "organisation-introduction")
 {
@@ -9,10 +15,10 @@
     @Html.Partial("../QuestionDescription/AboutYourOrg/_ConsortiumApplicantDetails.cshtml")
 }
 
-@*SECTION 5 BUSINESS PROPOSAL*@
-@if (Model == "eligibility-to-apply-for-fund")
+@*SECTION 4  Proposal summary *@
+@if (Model == "grant-justification")
 {
-    @Html.Partial("../QuestionDescription/YourDetailsEligibility/_EligibilityToApplyForFund.cshtml")
+    @Html.Partial("../QuestionDescription/ProposalSummary/_GrantJustification.cshtml")
 }
 
 @*SECTION 5 BUSINESS PROPOSAL*@

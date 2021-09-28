@@ -42,6 +42,7 @@ namespace INZFS.MVC
 
     public enum GridDisplayType
     {
+        None,
         TwoThird,
         FullPage
     }
@@ -51,7 +52,7 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public GridDisplayType GridDisplayType { get; set; }
+        public GridDisplayType? GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
@@ -112,6 +113,7 @@ namespace INZFS.MVC
         public bool BelongsToApplication { get; set; }
         public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
+        public GridDisplayType GridDisplayType { get; set; }
     }
 
     public class Application
