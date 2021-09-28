@@ -4708,7 +4708,7 @@
               "Text": "The Energy Entrepreneurs Fund (EEF) supports innovative carbon-reduction technology through capital grants of up to £1 million."
             },
             "govukheadingm2": {
-              "Text": "Apply for funding Step by step"
+              "Text": "Before you apply"
             },
             "GovLink1": {
               "Url": null,
@@ -4718,7 +4718,7 @@
               "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: "
             },
             "NavHeading1": {
-              "Text": "Check to see if EEF is the right fund for you"
+              "Text": "Check if EEF is the right fund for you"
             },
             "NavHeading3": {
               "Text": "Start your application"
@@ -4728,6 +4728,9 @@
             },
             "NavHeading2": {
               "Text": "Download and read the application guide, questions and templates"
+            },
+            "NavHeading7": {
+              "Text": "Submit questions ahead of the applicant information presentation"
             },
             "NavHeading5": {
               "Text": "How your application is assessed "
@@ -4770,6 +4773,9 @@
             },
             "NavUrl6": {
               "Text": "/"
+            },
+            "NavUrl7": {
+              "Text": "/FundApplication/section/application-overview"
             }
           },
           "MarkdownBodyPart": {
@@ -4816,7 +4822,7 @@
                 "ContentItemId": "41k9by4qrk2z23gxkekmmkbmds",
                 "ContentItemVersionId": null,
                 "ContentType": "Input",
-                "DisplayText": "Applications open",
+                "DisplayText": "Applications opens",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3116659Z",
@@ -4825,7 +4831,7 @@
                 "Owner": "",
                 "Author": "admin",
                 "FormInputElementPart": {
-                  "Name": "Applications open"
+                  "Name": "Applications opens"
                 },
                 "FormElementPart": {
                   "Id": null

@@ -261,8 +261,8 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").First<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").First<IXLCell>();
                                     IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
@@ -272,10 +272,10 @@ namespace INZFS.MVC.Controllers
                                         try
                                         {
                                             ParsedExcelData parsedExcelData = new();
-                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().GetValue<double>().ToString("£0.00");
-                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().GetValue<double>().ToString("C", new CultureInfo("en-GB"));
+                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().GetValue<double>().ToString("C", new CultureInfo("en-GB"));
                                             parsedExcelData.ParsedTotalGrantFundingPercentage = totalGrantFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
-                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().GetValue<double>().ToString("£0.00");
+                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().GetValue<double>().ToString("C", new CultureInfo("en-GB"));
                                             parsedExcelData.ParsedTotalMatchFundingPercentage = totalMatchFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
                                             uploadedFile.ParsedExcelData = parsedExcelData;
                                         }
@@ -286,7 +286,6 @@ namespace INZFS.MVC.Controllers
                                         catch (FormatException e)
                                         {
                                             ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
-
                                         }
                                     }
                                     else
@@ -295,6 +294,10 @@ namespace INZFS.MVC.Controllers
                                     }
                                 }
                                 catch (ArgumentException e)
+                                {
+                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                }
+                                catch (InvalidOperationException e)
                                 {
                                     ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
@@ -732,7 +735,7 @@ namespace INZFS.MVC.Controllers
             var currentPageIndex = currentSection.Pages.FindIndex(p => p.Name == currentPage.Name);
             if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
+                currentModel.PreviousPageName = currentPage.PreviousPageName ?? currentSection.Pages[currentPageIndex -1].Name;
             } 
 
 
@@ -742,7 +745,7 @@ namespace INZFS.MVC.Controllers
             }
 
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
-            currentModel.GridDisplayType = currentPage.GridDisplayType;
+            currentModel.GridDisplayType = currentPage.GridDisplayType == null ? currentSection.GridDisplayType : currentPage.GridDisplayType.Value;
             return currentModel;
         }
 

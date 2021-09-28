@@ -183,7 +183,7 @@ namespace INZFS.MVC.Services.PdfServices
                 <h3>Your proposal</h3>
                 <a href=""#proposal-summary"" style=""display:block; margin-bottom: 1rem;"">4. Proposal summary</a>
                 <a href=""#business-proposal"" style=""display:block; margin-bottom: 1rem;"">5. Business proposal, project plans and risk</a>
-                <a href=""#finance-proposal"" style=""display:block; margin-bottom: 1rem;"">6. Financial proposal and costs</a>
+                <a href=""#finance-proposal"" style=""display:block; margin-bottom: 1rem;"">6. Financial proposal</a>
 
                 <h3>Un-assessed data</h3>
                 <a href=""#performance-data"" style=""display:block; margin-bottom: 1rem;"">7. Performance Data</a>

@@ -1,4 +1,5 @@
 ﻿using INZFS.MVC.Validators;
+using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using System;
 using System.Collections.Generic;
@@ -93,9 +94,9 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 if (!string.IsNullOrEmpty(page.CustomValidator))
                 {
-                    Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
-                    var customValidator = (ICustomValidator)Activator.CreateInstance(type);
-                    return customValidator.Validate(GetData(), page.FriendlyFieldName);
+                    var factory = (ICustomerValidatorFactory)validationContext.GetService(typeof(ICustomerValidatorFactory));
+                    var customValidator = factory.Get(page.CustomValidator);
+                    return customValidator.Validate(this, page);
                 }
             }
 
@@ -107,9 +108,9 @@ namespace INZFS.MVC.Models.DynamicForm
 
         private IEnumerable<ValidationResult> ValidateActions(Page page) 
         {
-            var userInput = GetData();
             if (page.Actions != null && page.Actions.Count > 0)
             {
+                var userInput = GetData();
                 if (string.IsNullOrEmpty(userInput))
                 {
                     yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
@@ -117,12 +118,5 @@ namespace INZFS.MVC.Models.DynamicForm
             }
 
         }
-
-
-
-
     }
-
-
-
 }
