@@ -66,7 +66,7 @@ namespace INZFS.Theme.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             if (ModelState.IsValid)
             {
