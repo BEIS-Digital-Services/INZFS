@@ -1,5 +1,7 @@
 using Aspose.Words;
+using Azure.Storage.Blobs;
 using INZFS.MVC;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -18,22 +20,49 @@ namespace INZFS.MVC.Services.PdfServices
 
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IContentRepository _contentRepository;
+        private readonly IConfiguration _configuration;
         private string _logoFilepath;
 
-        public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition)
+        public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, IConfiguration configuration)
         {
             _contentRepository = contentRepository;
             _applicationDefinition = applicationDefinition;
+            _configuration = configuration;
 
+            BinaryData lic = getLicenseFromBlobStore();
+
+            if (lic != null)
+            {
+                try
+                {
+                    MemoryStream stream = new MemoryStream(File.ReadAllBytes(lic.ToString()));
+                    License license = new();
+                    license.SetLicense(stream);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while applying Aspose.Words Licence: " + e.Message);
+                }
+            }
+        }
+
+        private BinaryData getLicenseFromBlobStore()
+        {
             try
             {
-                License license = new();
-                license.SetLicense("Aspose.Words.NET.lic");
+                string connectionString = _configuration["AzureBlobStorage"];
+                string containerName = "aspose";
+                string blobName = "Aspose.Words.NET.lic";
+
+                var blobToDownload = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
+                return blobToDownload.Content;
             }
-            catch (Exception e)
+            catch (FormatException e)
             {
-                Console.WriteLine("Error while applying Aspose.Words Licence: " + e.Message);
+                Console.WriteLine("Error getting Aspose.Words License from Blob Storage: " + e.Message);
+                return null;
             }
+
         }
 
         public async Task<ReportContent> GeneratePdfReport(string applicationAuthor, string logoFilepath)
