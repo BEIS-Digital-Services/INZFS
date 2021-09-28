@@ -745,7 +745,7 @@ namespace INZFS.MVC.Controllers
             }
 
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
-            currentModel.GridDisplayType = currentPage.GridDisplayType;
+            currentModel.GridDisplayType = currentPage.GridDisplayType == null ? currentSection.GridDisplayType : currentPage.GridDisplayType.Value;
             return currentModel;
         }
 
