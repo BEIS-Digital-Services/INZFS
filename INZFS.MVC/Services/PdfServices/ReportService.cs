@@ -16,7 +16,7 @@ namespace INZFS.MVC.Services.PdfServices
         private string tableStyle = @"style=""width:100%; border:none;""";
         private string questionTableStyle = @"style=""background-color:rgb(18,31,54); width:100%; border: 1px solid rgb(18,31,54);""";
         private string questionHeaderStyle = @"style=""color:white; text-align:left; padding:10px;""";
-        private string answerCellStyle = @"style=""border:1px solid grey; padding:10px; margin-bottom:2cm;""";
+        private string answerCellStyle = @"style=""border:1px solid grey; padding:10px;""";
 
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IContentRepository _contentRepository;
@@ -29,7 +29,7 @@ namespace INZFS.MVC.Services.PdfServices
             _applicationDefinition = applicationDefinition;
             _configuration = configuration;
 
-            BinaryData lic = getLicenseFromBlobStore();
+            BinaryData lic = FetchLicenceFromBlobStorage();
 
             if (lic != null)
             {
@@ -46,7 +46,7 @@ namespace INZFS.MVC.Services.PdfServices
             }
         }
 
-        private BinaryData getLicenseFromBlobStore()
+        private BinaryData FetchLicenceFromBlobStorage()
         {
             try
             {
@@ -54,8 +54,8 @@ namespace INZFS.MVC.Services.PdfServices
                 string containerName = "aspose";
                 string blobName = "Aspose.Words.NET.lic";
 
-                var blobToDownload = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
-                return blobToDownload.Content;
+                var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
+                return blob.Content;
             }
             catch (FormatException e)
             {
@@ -223,6 +223,7 @@ namespace INZFS.MVC.Services.PdfServices
                     <td { answerCellStyle }>{ GetAnswer(page, applicationContent) }</td>
                   </tr>
                 </table>
+                <div style=""min-height: 5mm;""></div>
                 ";
                     html = html + questionHtml;
                 }
