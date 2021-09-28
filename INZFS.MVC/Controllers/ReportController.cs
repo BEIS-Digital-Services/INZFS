@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 
 namespace INZFS.MVC.Controllers
 {
+    [Authorize]
     public class ReportController : Controller
     {
         private readonly IReportService _reportService;

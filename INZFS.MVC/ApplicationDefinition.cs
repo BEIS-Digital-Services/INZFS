@@ -42,6 +42,7 @@ namespace INZFS.MVC
 
     public enum GridDisplayType
     {
+        None,
         TwoThird,
         FullPage
     }
@@ -51,18 +52,19 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public GridDisplayType GridDisplayType { get; set; }
+        public GridDisplayType? GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
+        public string PreviousPageName { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
         public TextType TextType { get; set; }
         public YesNoType YesNoInput { get; set; }
-    public string FieldName { get; set; }
+        public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
@@ -83,8 +85,8 @@ namespace INZFS.MVC
         public PreviousPage PreviousPage { get; set; }
         public DependsOn DependsOn { get; set; }
         public string CustomValidator { get; set; }
+        public List<string> FieldValidationDependsOn { get; set; }
         public string AcceptableFileExtensions { get; set; }
-        
     }
 
     public class DependsOn
@@ -111,6 +113,7 @@ namespace INZFS.MVC
         public bool BelongsToApplication { get; set; }
         public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
+        public GridDisplayType GridDisplayType { get; set; }
     }
 
     public class Application
