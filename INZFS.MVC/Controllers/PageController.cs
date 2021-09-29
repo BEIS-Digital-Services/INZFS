@@ -29,5 +29,10 @@ namespace INZFS.MVC.Controllers
         {
             return View();
         }
+
+        public IActionResult QAndA()
+        {
+            return View();
+        }
     }
 }
