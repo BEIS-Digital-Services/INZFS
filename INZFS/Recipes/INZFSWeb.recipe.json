@@ -4715,7 +4715,13 @@
               "Text": null
             },
             "GovMainInfo": {
-              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: "
+              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups."
+            },
+            "GovMainInfo1": {
+              "Text": "Academic institutions are welcome to apply as part of a consortium, but can not be the sole applicant."
+            },
+            "GovMainInfo2": {
+              "Text": "To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply."
             },
             "NavHeading1": {
               "Text": "Check if EEF is the right fund for you"
