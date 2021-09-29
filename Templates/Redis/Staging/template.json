@@ -1,0 +1,71 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "Redis_eef_redis_staging_name": {
+            "defaultValue": "eef-redis-staging",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Cache/Redis",
+            "apiVersion": "2020-12-01",
+            "name": "[parameters('Redis_eef_redis_staging_name')]",
+            "location": "UK South",
+            "properties": {
+                "redisVersion": "4.0.14",
+                "sku": {
+                    "name": "Standard",
+                    "family": "C",
+                    "capacity": 1
+                },
+                "enableNonSslPort": false,
+                "publicNetworkAccess": "Enabled",
+                "redisConfiguration": {
+                    "maxclients": "1000",
+                    "maxmemory-reserved": "50",
+                    "maxfragmentationmemory-reserved": "50",
+                    "maxmemory-delta": "50"
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Cache/Redis/firewallRules",
+            "apiVersion": "2020-12-01",
+            "name": "[concat(parameters('Redis_eef_redis_staging_name'), '/CFEgress1')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Cache/Redis', parameters('Redis_eef_redis_staging_name'))]"
+            ],
+            "properties": {
+                "startIP": "35.178.62.180",
+                "endIP": "35.178.62.180"
+            }
+        },
+        {
+            "type": "Microsoft.Cache/Redis/firewallRules",
+            "apiVersion": "2020-12-01",
+            "name": "[concat(parameters('Redis_eef_redis_staging_name'), '/CFEgress2')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Cache/Redis', parameters('Redis_eef_redis_staging_name'))]"
+            ],
+            "properties": {
+                "startIP": "18.130.41.69",
+                "endIP": "18.130.41.69"
+            }
+        },
+        {
+            "type": "Microsoft.Cache/Redis/firewallRules",
+            "apiVersion": "2020-12-01",
+            "name": "[concat(parameters('Redis_eef_redis_staging_name'), '/CFEgress3')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Cache/Redis', parameters('Redis_eef_redis_staging_name'))]"
+            ],
+            "properties": {
+                "startIP": "35.177.73.214",
+                "endIP": "35.177.73.214"
+            }
+        }
+    ]
+}
