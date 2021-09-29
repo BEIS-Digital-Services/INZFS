@@ -101,6 +101,7 @@
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
+                "isDevopsAuditEnabled": false,
                 "retentionDays": 0,
                 "auditActionsAndGroups": [],
                 "isStorageSecondaryKeyInUse": false,
@@ -155,6 +156,8 @@
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -169,6 +172,8 @@
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -274,6 +279,7 @@
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
+                "isDevopsAuditEnabled": false,
                 "retentionDays": 0,
                 "auditActionsAndGroups": [],
                 "isStorageSecondaryKeyInUse": false,
@@ -447,6 +453,8 @@
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -490,6 +498,8 @@
             ],
             "properties": {
                 "retentionDays": 0,
+                "auditActionsAndGroups": [],
+                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
