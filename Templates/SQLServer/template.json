@@ -111,7 +111,7 @@
         {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)')]",
             "location": "uksouth",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
@@ -378,9 +378,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/CreateIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/CreateIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -390,9 +390,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/DbParameterization')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/DbParameterization')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -402,9 +402,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/DefragmentIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/DefragmentIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -414,9 +414,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/DropIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/DropIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -426,9 +426,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/ForceLastGoodPlan')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/ForceLastGoodPlan')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -438,10 +438,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "location": "UK South",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -451,9 +451,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -466,9 +466,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -481,9 +481,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -494,9 +494,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -509,10 +509,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "location": "UK South",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -522,9 +522,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/ledgerDigestUploads",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Current')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Current')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {}
@@ -532,9 +532,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -552,9 +552,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Current')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Current')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {
@@ -564,9 +564,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-lab1/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_name'), '/eef-$(env)/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-lab1')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_name'), 'eef-$(env)')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_name'))]"
             ],
             "properties": {

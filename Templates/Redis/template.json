@@ -4,7 +4,7 @@
     "parameters": {},
     "resources": [
         {
-            "name": "eef-redis",
+            "name": "eef$(env)-redis",
             "type": "Microsoft.Cache/redis",
             "apiVersion": "2020-06-01",
             "location": "uksouth",
