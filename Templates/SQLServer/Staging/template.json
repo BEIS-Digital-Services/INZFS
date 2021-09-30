@@ -113,22 +113,24 @@
         {
             "type": "Microsoft.Sql/servers/databases",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging')]",
             "location": "uksouth",
             "dependsOn": [
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "sku": {
-                "name": "Standard",
-                "tier": "Standard",
-                "capacity": 10
+                "name": "GP_Gen5",
+                "tier": "GeneralPurpose",
+                "family": "Gen5",
+                "capacity": 2
             },
-            "kind": "v12.0,user",
+            "kind": "v12.0,user,vcore",
             "properties": {
                 "collation": "SQL_Latin1_General_CP1_CI_AS",
-                "maxSizeBytes": 32212254720,
+                "maxSizeBytes": 34359738368,
                 "catalogCollation": "SQL_Latin1_General_CP1_CI_AS",
                 "zoneRedundant": false,
+                "licenseType": "LicenseIncluded",
                 "readScale": "Disabled",
                 "requestedBackupStorageRedundancy": "Geo",
                 "maintenanceConfigurationId": "/subscriptions/05e3312e-4699-4ca0-b837-d8bd55ffa488/providers/Microsoft.Maintenance/publicMaintenanceConfigurations/SQL_Default",
@@ -373,9 +375,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/CreateIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/CreateIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -385,9 +387,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/DbParameterization')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/DbParameterization')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -397,9 +399,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/DefragmentIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/DefragmentIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -409,9 +411,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/DropIndex')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/DropIndex')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -421,9 +423,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/advisors",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/ForceLastGoodPlan')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/ForceLastGoodPlan')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -433,10 +435,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "location": "UK South",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -446,15 +448,13 @@
         {
             "type": "Microsoft.Sql/servers/databases/auditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
                 "retentionDays": 0,
-                "auditActionsAndGroups": [],
-                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -463,9 +463,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupLongTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -478,9 +478,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/backupShortTermRetentionPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -491,15 +491,13 @@
         {
             "type": "Microsoft.Sql/servers/databases/extendedAuditingSettings",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
                 "retentionDays": 0,
-                "auditActionsAndGroups": [],
-                "isStorageSecondaryKeyInUse": false,
                 "isAzureMonitorTargetEnabled": false,
                 "state": "Disabled",
                 "storageAccountSubscriptionId": "00000000-0000-0000-0000-000000000000"
@@ -508,10 +506,10 @@
         {
             "type": "Microsoft.Sql/servers/databases/geoBackupPolicies",
             "apiVersion": "2014-04-01",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "location": "UK South",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -521,9 +519,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/ledgerDigestUploads",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Current')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Current')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {}
@@ -531,9 +529,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/securityAlertPolicies",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -551,9 +549,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/transparentDataEncryption",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Current')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Current')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
@@ -563,9 +561,9 @@
         {
             "type": "Microsoft.Sql/servers/databases/vulnerabilityAssessments",
             "apiVersion": "2021-02-01-preview",
-            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/ef-staging/Default')]",
+            "name": "[concat(parameters('servers_eef_sqlserver_staging_name'), '/eef-staging/Default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'ef-staging')]",
+                "[resourceId('Microsoft.Sql/servers/databases', parameters('servers_eef_sqlserver_staging_name'), 'eef-staging')]",
                 "[resourceId('Microsoft.Sql/servers', parameters('servers_eef_sqlserver_staging_name'))]"
             ],
             "properties": {
