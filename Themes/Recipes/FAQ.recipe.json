@@ -52,27 +52,6 @@
           },
           "ListOfFAQs": {
             "ContentItems": [
-              {
-                "ContentItemId": "4hvscb8p9gpr1zps0s4322acmy",
-                "ContentItemVersionId": null,
-                "ContentType": "FAQ",
-                "DisplayText": "",
-                "Latest": false,
-                "Published": false,
-                "ModifiedUtc": "2021-10-04T10:47:05.2916931Z",
-                "PublishedUtc": null,
-                "CreatedUtc": null,
-                "Owner": "",
-                "Author": "admin",
-                "FAQ": {
-                  "Question": {
-                    "Text": "Question 1 goes here?"
-                  },
-                  "Answer": {
-                    "Text": "Answer 1!"
-                  }
-                }
-              }
             ]
           }
         }
