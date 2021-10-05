@@ -3692,7 +3692,7 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 2 of 6"
+              "Text": "Step 2 of 6"
             },
             "Body2": {
               "Text": null
@@ -3753,13 +3753,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 5 of 6"
+              "Text": "Step 5 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Are you able to match at least 10% of the grant you are applying for?"
+              "Text": "Can you match at least 10% of your total project costs?"
             },
             "Header2": {
               "Text": null
@@ -3777,19 +3777,19 @@
               "Text": "/eligibilityChecker/Question6"
             },
             "Bullet1": {
-              "Text": null
+              "Text": "private investors"
             },
             "Bullet2": {
-              "Text": null
+              "Text": "the applicant's own funds"
             },
             "Bullet3": {
-              "Text": null
+              "Text": "a bank loan"
             },
             "Bullet4": {
               "Text": null
             },
             "AccordionDetails1": {
-              "Text": "Applicants need private funding in place to cover at least 10% of the project’s costs. Funding may come from private investors or the applicant’s own resources. It may not include funding from public authorities."
+              "Text": "Applicants need private funding to cover at least 10% of the project's total cost. This could come from sources including, for example:"
             }
           },
           "AliasPart": {
@@ -3814,7 +3814,7 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 1 of 6"
+              "Text": "Step 1 of 6"
             },
             "Body2": {
               "Text": null
@@ -3896,19 +3896,19 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 3 of 6"
+              "Text": "Step 3 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Do you have proof that your innovation is feasible?"
+              "Text": "Do you have proof that your project is feasible?"
             },
             "Header2": {
               "Text": null
             },
             "Accordion1": {
-              "Text": "Guidance"
+              "Text": "Do you have proof that your project is feasible?"
             },
             "Boolean1": {
               "Value": false
@@ -3932,22 +3932,22 @@
               "Text": null
             },
             "AccordionDetails1": {
-              "Text": "Your innovation needs to have reached Technology Readiness 3 (TRL3) to be eligible for EEF support."
+              "Text": "Technology Readiness Level (TRL) is a way of judging the development of a innovation. BEIS uses this system in its assessment process. Your project must be at a minimum of TRL 3 (Proof of Concept) to get an EEF grant."
             },
             "AccordionDetails2": {
-              "Text": "Innovations which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
+              "Text": "Projects which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
             },
             "AccordionDetails3": {
-              "Text": "They have passed the basic and applied research stages (TRL1 and 2)."
+              "Text": "To prove that your projects is feasible you should be able to show:"
             },
             "AccordionBullet1": {
-              "Text": "show your innovation can be built or developed"
+              "Text": "your project can be built or developed"
             },
             "AccordionBullet2": {
               "Text": "results from testing for real-life application"
             },
             "AccordionBullet3": {
-              "Text": "confidently describe its functionality"
+              "Text": "how it works"
             },
             "AccordionBullet4": {
               "Text": null
@@ -3981,13 +3981,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 4 of 6"
+              "Text": "Step 4 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Do you require funding in excess of £1 million?"
+              "Text": "Are you applying for funding up to and including £1 million?"
             },
             "Header2": {
               "Text": null
@@ -4017,7 +4017,7 @@
               "Text": null
             },
             "AccordionDetails1": {
-              "Text": "The EEF provides successful applicants with grants up to £1 million. The maximum value of your project must not exceed £2.5 million."
+              "Text": "Successful applicants can get up to £1 million from EEF, depending on their project. If you need extra funding for your project, it may come from another source, excluding other public funds. The project's total value must not be more than £2.5 million."
             },
             "AccordionDetails2": {
               "Text": null
@@ -4504,7 +4504,7 @@
           "Author": "admin",
           "EligibilityInfo": {
             "Body1": {
-              "Text": "Use this tool to check if you are eligible to apply for funding before you start the application process"
+              "Text": "Use this tool to check if you are eligible to apply for funding before you start the application process."
             },
             "Body2": {
               "Text": "The questionnaire contains 6 questions."
@@ -4519,7 +4519,7 @@
               "Text": "/eligibilityChecker/Question1"
             },
             "Body3": {
-              "Text": "Results are indicative only and you can return at any time. Your answers will not be saved or used as part of your application if you wish to apply. "
+              "Text": "Results are indicative only. You can return and start again at any time. Your answers will not be saved or used as part of your application if you wish to apply."
             }
           },
           "AliasPart": {
@@ -4544,13 +4544,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 6 of 6"
+              "Text": "Step 6 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Does your innovation relate to one or more of the following areas?"
+              "Text": "Does your project relate to one or more of the following:"
             },
             "Header2": {
               "Text": null
@@ -4568,16 +4568,16 @@
               "Text": "/eligibilityResult/EligibilityResult7"
             },
             "Bullet1": {
-              "Text": "Energy efficiency "
+              "Text": "energy efficiency "
             },
             "Bullet2": {
-              "Text": "Power generation"
+              "Text": "power generation"
             },
             "Bullet3": {
-              "Text": "Heat generation"
+              "Text": "heat generation"
             },
             "Bullet4": {
-              "Text": "Energy storage"
+              "Text": "energy storage"
             },
             "AccordionDetails1": {
               "Text": "The EEF welcomes applications from a broad range of carbon reduction technologies. Your proposal must address either the Government’s 2050 Net Zero carbon targets or security of UK energy supply to be eligible."
@@ -4632,7 +4632,7 @@
               "Text": "You are eligible to apply"
             },
             "Body1": {
-              "Text": "Please refer to the detailed guidance before starting your application. You can also review the application questions. "
+              "Text": "Please refer to the <a class='govuk-link' href='#'>detailed guidance</a> before starting your application.  You can also <a class='govuk-link' href='#'>review the application questions.</a>"
             },
             "Body2": {
               "Text": "Please be aware that:"
@@ -4674,10 +4674,10 @@
               "Text": null
             },
             "BulletA": {
-              "Text": "Funding will not be available to any activities relating to your project beyond March 2024"
+              "Text": "funding will not be available for any activities related to your project beyond March 2024"
             },
             "BulletB": {
-              "Text": "You can only apply to funding related to your project related activities taking place from the grant's start date. Funding cannot be backdated to include any previous activities related to your project. "
+              "Text": "you can only apply for funding to cover project-related activities taking place from the grant's start date. Funding cannot be backdated to include any previous activities related to your project"
             },
             "Header2": {
               "Text": "Before you register"

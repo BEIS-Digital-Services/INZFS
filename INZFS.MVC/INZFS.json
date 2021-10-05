@@ -1097,7 +1097,7 @@
           {
             "name": "subsidy-sole-applicant",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
-            "question": "Are you a sole applicant?",
+            "question": "Are you the sole applicant?",
             "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
@@ -1594,7 +1594,7 @@
             "name": "eq-survey-question-one",
             "sectionTitle": "What is your sex?",
             "question": "What is your sex?",
-            "hint": "Please choose your biological sex",
+            "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsMultiLineRadio",
             "friendlyFieldName": "Sex",
