@@ -20,7 +20,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
       	<PackageReference Include="OrchardCore.Application.Cms.Core.Targets" Version="1.0.0-rc2-16368" />
         <PackageReference Include="OrchardCore.AutoSetup" Version="1.0.0-rc2-16368" />
-      	<PackageReference Include="OrchardCore.Redis" Version="1.0.0-rc2-16369" />
+      	<PackageReference Include="OrchardCore.Redis" Version="1.0.0" />
        	<PackageReference Include="OrchardCore.Logging.Serilog" Version="1.0.0-rc2-16368" />
        	<PackageReference Include="OrchardCore.Shells.Azure" Version="1.1.0-preview-16403" />
        	<PackageReference Include="prometheus-net" Version="5.0.1" />
