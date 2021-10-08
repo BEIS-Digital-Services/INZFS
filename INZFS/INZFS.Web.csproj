@@ -47,6 +47,7 @@
   <ItemGroup>
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
+    <Folder Include="wwwroot\assets\images\" />
   </ItemGroup>
 
   <ItemGroup>
