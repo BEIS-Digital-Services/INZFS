@@ -34,6 +34,8 @@ using System.Security.Claims;
 using INZFS.MVC.Extensions;
 using INZFS.MVC.Constants;
 
+
+
 namespace INZFS.MVC.Controllers
 {
     [Authorize]
@@ -59,7 +61,8 @@ namespace INZFS.MVC.Controllers
             INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
             IUpdateModelAccessor updateModelAccessor, INavigation navigation,
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
-            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition, IApplicationEmailService applicationEmailService)
+            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition, 
+            IApplicationEmailService applicationEmailService)
         {
             _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
@@ -86,10 +89,11 @@ namespace INZFS.MVC.Controllers
             pagename = pagename.ToLower().Trim();
 
 
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var userId = GetUserId();
+            var content = await _contentRepository.GetApplicationContent(userId);
             if(content == null)
             {
-                content = await _contentRepository.CreateApplicationContent(User.Identity.Name);
+                content = await _contentRepository.CreateApplicationContent(userId);
             }
             
             if (string.IsNullOrEmpty(User.Identity.ApplicationNumber()))
@@ -189,7 +193,7 @@ namespace INZFS.MVC.Controllers
                 if(ModelState.IsValid && submitAction != "UploadFile")
                 {
                     var fieldStatus = GetFieldStatus(currentPage, model);
-                    var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                    var contentToSave = await _contentRepository.GetApplicationContent(GetUserId());
                     if (contentToSave != null)
                     {
                         var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
@@ -213,13 +217,13 @@ namespace INZFS.MVC.Controllers
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
-                var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                var contentToSave = await _contentRepository.GetApplicationContent(GetUserId());
                 
                 if (contentToSave == null)
                 {
                     contentToSave = new ApplicationContent();
                     contentToSave.Application = new Application();
-                    contentToSave.Author = User.Identity.Name;
+                    contentToSave.UserId = GetUserId();
                     contentToSave.CreatedUtc = DateTime.UtcNow;
                 }
 
@@ -462,10 +466,15 @@ namespace INZFS.MVC.Controllers
             }
         }
 
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
         public async Task<IActionResult> Submit()
         {
             SetPageTitle("Submit application");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
             if(content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
@@ -491,7 +500,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> Complete()
         {
             SetPageTitle("Application completed");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
             if (content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
@@ -499,7 +508,7 @@ namespace INZFS.MVC.Controllers
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
             if (applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
             {
-                await _contentRepository.UpdateStatus(User.Identity.Name, ApplicationStatus.Submitted);
+                await _contentRepository.UpdateStatus(GetUserId(), ApplicationStatus.Submitted);
                 var model = new CommonModel { 
                     ApplicationNumber = content.ApplicationNumber,
                     ShowBackLink = true,
@@ -532,7 +541,7 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> ApplicationSent()
         {
             SetPageTitle("Your application");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
             return View("ApplicationSent", new ApplicationSentModel { 
                 ApplicationNumber = content.ApplicationNumber,
                 ApplicationStatus = content.ApplicationStatus.ToStatusString(),

@@ -65,10 +65,10 @@ namespace INZFS.MVC.Services.PdfServices
 
         }
 
-        public async Task<ReportContent> GeneratePdfReport(string applicationAuthor, string logoFilepath)
+        public async Task<ReportContent> GeneratePdfReport(string userId, string logoFilepath)
         {
             _logoFilepath = logoFilepath;
-            var applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+            var applicationContent = await _contentRepository.GetApplicationContent(userId);
             var reportContent = new ReportContent
             {
                 ApplicationNumber = applicationContent.ApplicationNumber
@@ -92,10 +92,9 @@ namespace INZFS.MVC.Services.PdfServices
             }
         }
 
-        public async Task<ReportContent> GenerateOdtReport(string applicationAuthor, string logoFilepath)
+        public async Task<ReportContent> GenerateOdtReport(string userId, string logoFilepath)
         {
-            _logoFilepath = logoFilepath;
-            var applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+            var applicationContent = await _contentRepository.GetApplicationContent(userId);
             var reportContent = new ReportContent
             {
                 ApplicationNumber = applicationContent.ApplicationNumber

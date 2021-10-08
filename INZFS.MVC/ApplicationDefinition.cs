@@ -152,9 +152,15 @@ namespace INZFS.MVC
         // Summary:
         //     The primary key in the database.
         public int Id { get; set; }
+
+        /// <summary>
+        /// Logged in user id
+        /// </summary>
+        public string UserId { get; set; }
         //
         // Summary:
         //     The logical identifier of the content item across versions.
+
         public string ContentItemId { get; set; }
         //
         // Summary:
