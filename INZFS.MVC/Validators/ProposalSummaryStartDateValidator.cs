@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -47,8 +48,8 @@ namespace INZFS.MVC.Validators
 
                     if (currentPage.FieldValidationDependsOn?.Count() > 0 && isValid)
                     {
-                        var username = _httpContextAccessor.HttpContext.User.Identity.Name;
-                        var content = _contentRepository.GetApplicationContent(username).Result;
+                        var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); ;
+                        var content = _contentRepository.GetApplicationContent(userId).Result;
 
                         // Get dependendant field data
                         var field = content.Fields.FirstOrDefault(f => f.Name.ToLower().Equals(currentPage.FieldValidationDependsOn[0].Trim().ToLower()));
