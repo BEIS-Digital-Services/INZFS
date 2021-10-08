@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 using Microsoft.AspNetCore.Authorization;
 
 namespace INZFS.MVC.Controllers
@@ -14,27 +16,31 @@ namespace INZFS.MVC.Controllers
     public class ReportController : Controller
     {
         private readonly IReportService _reportService;
-        public ReportController(IReportService reportService)
+        private IWebHostEnvironment _env;
+        public ReportController(IReportService reportService, IWebHostEnvironment env)
         {
             _reportService = reportService;
+            _env = env;
         }
         [HttpGet]
         public async Task<FileContentResult> DownloadPdf()
         {
-            var reportContent = await _reportService.GeneratePdfReport(User.Identity.Name);
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            var reportContent = await _reportService.GeneratePdfReport(User.Identity.Name, logoFilepath);
             string type = "application/pdf";
             string name = $"{reportContent.ApplicationNumber}.pdf";
 
             return File(reportContent.FileContents, type, name);
         }
-        //public async Task<FileContentResult> GenerateOdt()
-        //{
-        //    byte[] bytes = await _reportService.GenerateOdtReport(User.Identity.Name);
-        //    string type = "application/vnd.oasis.opendocument.text";
-        //    string name = "EEF_accessible_summary.odt";
+        public async Task<FileContentResult> GenerateOdt()
+        {
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            var reportContent = await _reportService.GenerateOdtReport(User.Identity.Name, logoFilepath);
+            string type = "application/vnd.oasis.opendocument.text";
+            string name = $"{reportContent.ApplicationNumber}.odt";
 
-        //    return File(bytes, type, name);
+            return File(reportContent.FileContents, type, name);
 
-        //}
+        }
     }
 }
