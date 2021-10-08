@@ -29,9 +29,9 @@ namespace INZFS.MVC.Services.PdfServices
             _applicationDefinition = applicationDefinition;
         }
 
-        public async Task<ReportContent> GeneratePdfReport(string applicationAuthor)
+        public async Task<ReportContent> GeneratePdfReport(string userId)
         {
-            var applicationContent = await _contentRepository.GetApplicationContent(applicationAuthor);
+            var applicationContent = await _contentRepository.GetApplicationContent(userId);
             var reportContent = new ReportContent
             {
                 ApplicationNumber = applicationContent.ApplicationNumber
