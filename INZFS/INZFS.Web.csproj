@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Update="Pages\Help.cshtml">
+      <CopyToPublishDirectory>Never</CopyToPublishDirectory>
+    </Content>
     <Content Update="Pages\QAndA.cshtml">
       <CopyToPublishDirectory>Never</CopyToPublishDirectory>
     </Content>
