@@ -12,11 +12,11 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
 
-    @Html.Partial("_ErrorMessage")
+    @Html.Partial("_ErrorMessage", "textInput")
 
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <h1 class="govuk-label-wrapper">
-            <label class="govuk-label govuk-label--l" for="event-name">
+            <label class="govuk-label govuk-label--l" for="@Model.FieldName">
                 @Model.Question
             </label>
         </h1>

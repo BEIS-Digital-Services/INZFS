@@ -19,6 +19,8 @@
 
     <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count"
          @if (Model.MaxLengthValidationType == MaxLengthValidationType.Character) { <text> data-maxlength="@Model.MaxLength" </text>  } else { <text> data-maxwords="@Model.MaxLength" </text> }>
+        @Html.Partial("_ErrorMessage", "with-hint")
+
         <div class="govuk-form-group">
             <h1 class="govuk-label-wrapper">
                 <label class="govuk-label govuk-label--l" for="@Model.FieldName">

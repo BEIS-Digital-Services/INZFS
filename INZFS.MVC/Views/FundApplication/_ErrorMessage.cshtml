@@ -1,3 +1,5 @@
+@model string
+
 
 @if (!ViewData.ModelState.IsValid)
 {
@@ -13,7 +15,7 @@
                     foreach (var error in value.Errors)
                     {
                         <li>
-                            <a href="#with-hint">@error.ErrorMessage</a>
+                            <a href="#@Model">@error.ErrorMessage</a>
                         </li>
                     }
                 }

@@ -15,7 +15,7 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(DateModel)" />
 
-    @Html.Partial("_ErrorMessage")
+    @Html.Partial("_ErrorMessage" ,"")
 
 
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
