@@ -138,7 +138,6 @@
             "name": "organisation-running",
             "sectionTitle": "2.4. Turnover",
             "question": "Is your organisation more than 1 year old?",
-            "hint": "If your organisation is less than one year old you don't have to enter any further information on this page.",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
             "yesNoInput": "Standard",
@@ -288,7 +287,7 @@
           {
             "name": "type-of-organisation",
             "sectionTitle": "3.6. Type of organisation",
-            "question": "Which type best describes your organisation?",
+            "question": "Which option describes your organisation best?",
             "errorMessage": "Select option",
             "fieldType": "gdsSingleRadioSelectOption",
             "friendlyFieldName": "Type of organisation",
@@ -319,10 +318,10 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less employees (micro enterprise)",
-              "11 to 50 employees (small enterprise)",
-              "51 to 250 employees (medium enterprise)",
-              "251 or more employees (large enterprise)"
+              "10 or less (micro enterprise)",
+              "11 to 50 (small enterprise)",
+              "51 to 250 (medium enterprise)",
+              "251 or more (large enterprise)"
             ]
           },
           {
@@ -407,13 +406,13 @@
           },
           {
             "name": "parent-organisation",
-            "sectionTitle": "3.11. Parent Organisation",
+            "sectionTitle": "3.11. Parent organisation",
             "question": "Do you have a parent organisation?",
             "description": "Description",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsYesorNoRadio",
             "yesNoInput": "CustomInput",
-            "friendlyFieldName": "Parent Organisation",
+            "friendlyFieldName": "Parent organisation",
             "fieldName": "parent-organisation",
             "mandatory": true,
             "accordianReference": "",
@@ -484,7 +483,7 @@
           },
           {
             "name": "parentcompany-registration-number",
-            "sectionTitle": "3.15. Parent company registration number",
+            "sectionTitle": "3.15. Parent company’s registration number",
             "question": "What is your parent organisation’s company number?",
             "hint": "Your company registration number should be 8 characters long",
             "description": "Description",
@@ -517,10 +516,10 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less employees (micro enterprise)",
-              "11 to 50 employees (small enterprise)",
-              "51 to 250 employees (medium enterprise)",
-              "251 or more employees (large enterprise)"
+              "10 or less (micro enterprise)",
+              "11 to 50 (small enterprise)",
+              "51 to 250 (medium enterprise)",
+              "251 or more (large enterprise)"
             ],
             "dependsOn": {
               "fieldName": "parent-organisation",
@@ -833,7 +832,7 @@
           {
             "name": "business-technology-benefit",
             "sectionTitle": "5.6. Type of technology benefit",
-            "question": "Select what kind of benefit you expect your technology to create",
+            "question": "Which of these options does your project relate to?",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
             "friendlyFieldName": "Type of technology benefit",
