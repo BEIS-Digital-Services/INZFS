@@ -45,6 +45,10 @@
 
         </div>
 
+        <div id="changed-name-hint" class="govuk-hint">
+            Uploaded file must be a maximum of 20 mb
+        </div>
+
         <div class="govuk-grid-row govuk-!-margin-bottom-3">
 
 
@@ -146,7 +150,6 @@
                             @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
                         </td>
                         <td class="govuk-table__cell">
-                            
                         </td>
                     </tr>
 
