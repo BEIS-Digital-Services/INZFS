@@ -26,7 +26,7 @@
                     "Author": "richard.anderson@beis.gov.uk",
                     "EEFDocLibPage": {
                         "Description": {
-                            "Html": "<p class=\"govuk-body-l\">The Energy Entrepreneurs Fund is a competitive funding scheme which supports innovative energy projects.<br></p>\n\n      <p class=\"govuk-body\">This page contains all the documents will need to complete your application.</p>\n\n      <p class=\"govuk-body\"> This includes:</p>\n\n      <ul class=\"govuk-list govuk-list--bullet\"><li>all the questions you need to answer</li><li>guidance for your application</li><li>templates which you need to complete and upload</li><li>optional templates for supporting evidence</li></ul>"
+                            "Html": "<p class=\"govuk-body\">This page contains all the documents will need to complete your application.</p>\n\n      <p class=\"govuk-body\"> This includes:</p>\n\n      <ul class=\"govuk-list govuk-list--bullet\"><li>all the questions you need to answer</li><li>guidance for your application</li><li>templates which you need to complete and upload</li><li>optional templates for supporting evidence</li></ul>"
                         }
                     },
                     "AutoroutePart": {
@@ -55,7 +55,7 @@
                                 "Author": "richard.anderson@beis.gov.uk",
                                 "EEFDocSection": {
                                     "Description": {
-                                        "Text": "This file may not be suitable for users of assistive technology."
+                                        "Text": ""
                                     },
                                     "EEFDocumentLibraryPickerField": {
                                         "Paths": [

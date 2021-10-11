@@ -14,7 +14,15 @@
 {
     @Html.Partial("../QuestionDescription/AboutYourOrg/_ConsortiumApplicantDetails.cshtml")
 }
+@if (Model == "parent-organisation-name")
+{
+    @Html.Partial("../QuestionDescription/AboutYourOrg/_ParentOrgDetails.cshtml")
+}
 
+@if (Model == "organisation-name")
+{
+    @Html.Partial("../QuestionDescription/AboutYourOrg/_ParentOrgDetails.cshtml")
+}
 @*SECTION 4  Proposal summary *@
 @if (Model == "grant-justification")
 {
