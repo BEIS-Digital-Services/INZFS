@@ -14,7 +14,7 @@
         "pages": [
           {
             "name": "eligibility-to-apply-for-fund",
-            "sectionTitle": "1.1 Confirm your eligibility",
+            "sectionTitle": "1.1. Confirm your eligibility",
             "question": "Are you eligible to apply for this fund?",
             "hint": "",
             "errorMessage": "Select Yes or No",
@@ -47,7 +47,7 @@
           },
           {
             "name": "full-name",
-            "sectionTitle": "1.2 Your name",
+            "sectionTitle": "1.2. Your name",
             "question": "What is your full name?",
             "description": "Description",
             "errorMessage": "Enter Full Name before marking as complete",
@@ -64,7 +64,7 @@
           },
           {
             "name": "job-title",
-            "sectionTitle": "1.3 Your job title",
+            "sectionTitle": "1.3. Your job title",
             "question": "What is your job title?",
             "description": "Description",
             "errorMessage": "Enter Job Title before marking as complete",
