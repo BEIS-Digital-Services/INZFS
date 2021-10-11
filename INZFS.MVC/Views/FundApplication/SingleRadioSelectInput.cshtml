@@ -9,7 +9,7 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(RadioSingleSelectModel)" />
 
-    @Html.Partial("_ErrorMessage")
+    @Html.Partial("_ErrorMessage", "radioButton")
 
 
 
@@ -28,7 +28,7 @@
                 @foreach (var item in Model.SelectedOptions)
                 {
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value="@item.ToString()"
+                        <input class="govuk-radios__input" id="radioButton" name="DataInput" type="radio" value="@item.ToString()"
                                @if (Model.DataInput == @item) { <text> checked="checked" </text> }>
                         <label class="govuk-label govuk-radios__label" for="organisation">
                             @item

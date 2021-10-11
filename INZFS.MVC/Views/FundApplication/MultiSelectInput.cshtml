@@ -12,7 +12,7 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(MultiSelectInputModel)" />
 
-    @Html.Partial("_ErrorMessage")
+    @Html.Partial("_ErrorMessage","")
 
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
         <fieldset class="govuk-fieldset" aria-describedby="org-funding funding-error">
