@@ -62,7 +62,10 @@
                     <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
                     <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
                     <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
-                    <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+                    @if (eligibility.Content.EligibilityChecker.Bullet4.Text != null)
+                    {
+                        <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+                    }
                 </ul>
 
             }
