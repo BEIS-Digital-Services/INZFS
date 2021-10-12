@@ -22,8 +22,7 @@ namespace INZFS.Theme.Services
     public class UserTwoFactorStore : UserStore,
          IUserTwoFactorStore<IUser>,
          IUserPhoneNumberStore<IUser>,
-         IUserAuthenticatorKeyStore<IUser>,
-         IUserLockoutStore<IUser>
+         IUserAuthenticatorKeyStore<IUser>
     {
         private readonly IUserTwoFactorSettingsService _twofactorSettingsService;
         private readonly TwoFactorOption _options;
@@ -106,41 +105,5 @@ namespace INZFS.Theme.Services
        {
            return (user as User)?.UserId;
        }
-
-       public async Task<DateTimeOffset?> GetLockoutEndDateAsync(IUser user, CancellationToken cancellationToken)
-       {
-           return new DateTimeOffset(DateTime.Now.AddDays(-1));
-       }
-
-       public Task SetLockoutEndDateAsync(IUser user, DateTimeOffset? lockoutEnd, CancellationToken cancellationToken)
-       {
-          return Task.CompletedTask;
-       }
-
-       public Task<int> IncrementAccessFailedCountAsync(IUser user, CancellationToken cancellationToken)
-       {
-           return Task.FromResult(0);
-        }
-
-       public Task ResetAccessFailedCountAsync(IUser user, CancellationToken cancellationToken)
-       {
-           return Task.CompletedTask;
-       }
-
-       public Task<int> GetAccessFailedCountAsync(IUser user, CancellationToken cancellationToken)
-       {
-           return Task.FromResult(0);
-        }
-
-       public Task<bool> GetLockoutEnabledAsync(IUser user, CancellationToken cancellationToken)
-       {
-           return Task.FromResult(false);
-       }
-
-       public Task SetLockoutEnabledAsync(IUser user, bool enabled, CancellationToken cancellationToken)
-       {
-           return Task.CompletedTask;
-       }
     }
-
 }
