@@ -149,8 +149,6 @@ namespace INZFS.MVC.Services.PdfServices
 
         private void OpenHtmlString(string applicationNumber)
         {
-            var utcTime = DateTime.UtcNow;
-            var gmtTime = TimeZoneInfo.ConvertTimeFromUtc(utcTime, TimeZoneInfo.FindSystemTimeZoneById("GMT Standard Time"));
             html = $@"
            <!DOCTYPE html>
            <html lang=""en"">
