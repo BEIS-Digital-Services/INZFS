@@ -120,6 +120,7 @@ namespace INZFS.Theme.Controllers
                 UserId = Guid.NewGuid().ToString(),
                 UserName = model.Email,
                 Email = model.Email,
+                IsLockoutEnabled = true,
                 UserClaims = claims
             };
 
