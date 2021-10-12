@@ -35,9 +35,8 @@ namespace INZFS.MVC.Services.PdfServices
             {
                 try
                 {
-                    MemoryStream stream = new MemoryStream(File.ReadAllBytes(lic.ToString()));
                     License license = new();
-                    license.SetLicense(stream);
+                    license.SetLicense(lic.ToStream());
                 }
                 catch (Exception e)
                 {
