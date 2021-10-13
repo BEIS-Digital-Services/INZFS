@@ -717,23 +717,6 @@
             "maxLengthValidationType": "Word",
             "hint": "Give a brief introduction to your project. Highlight any work you’ve done, including scientific studies or market research for example. You should also explain what your project aims to achieve.",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage"
-          },
-          {
-            "name": "grant-justification",
-            "sectionTitle": "4.6. Grant justification",
-            "question": "Grant justification",
-            "description": "Description",
-            "errorMessage": "Enter Grant justification",
-            "fieldType": "gdsTextArea",
-            "friendlyFieldName": "Grant justification",
-            "fieldName": "grant-justification",
-            "mandatory": true,
-            "accordianReference": "",
-            "maxLength": 400,
-            "maxLengthValidationType": "Word",
-            "hint": "",
-            "showMarkComplete": true,
             "gridDisplayType": "FullPage",
             "continueButtonText": "Save and return to Proposal summary"
           }
