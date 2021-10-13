@@ -7,10 +7,6 @@
 {
     @if (Model.PageName.StartsWith("eq"))
     {
-        <a class="govuk-back-link" id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPage.text">
-            Back to previous question
-        </a>
-
         <p class="govuk-body-s">
             <a id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPage.text"
                class="govuk-link govuk-!-font-weight-regular">Back to previous step</a>

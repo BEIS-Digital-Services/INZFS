@@ -1,8 +1,8 @@
-﻿@page "/page/{slug}"
+﻿@page "/page/qanda"
 @inject OrchardCore.IOrchardHelper Orchard
 
 @{
-    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:qanda");
     Layout = "_LayoutWithoutBackBtn";
     ViewData["Title"] = "Energy Entrepreneurs Fund 9: questions and answers";
 }
@@ -94,9 +94,3 @@
     </main>
 
 </div>
-
-
-@functions
-{
-    public string Slug = "qanda";
-}
