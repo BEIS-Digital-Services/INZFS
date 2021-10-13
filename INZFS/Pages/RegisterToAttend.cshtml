@@ -55,8 +55,9 @@
 
                     <h3 class="govuk-heading-m">@govpage.Content.registerToAttend.Heading3.Text</h3>
 
-                    <p class="govuk-body">To register for the event please email <a class="govuk-link" href="#">contact.eef@beis.gov.uk</a> with the subject line “Event registration”, your name and contact information and we will be in contact with you.</p>
-
+                    <p class="govuk-body">
+                        @Html.Raw(govpage.Content.registerToAttend.Body5.Text)
+                    </p>
                 </div>
                 <div class="govuk-grid-column-one-third">
 
