@@ -2,7 +2,7 @@
 @inject OrchardCore.IOrchardHelper Orchard
     
 @{
-    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
+    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:registerToAttend");
     Layout = "_LayoutWithoutBackBtn";
 }
 
