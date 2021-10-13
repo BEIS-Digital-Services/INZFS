@@ -1592,7 +1592,7 @@
           {
             "name": "eq-survey-question-one",
             "sectionTitle": "What is your sex?",
-            "question": "What is your sex?",
+            "question": "What is your sex registered at birth?",
             "hint": "",
             "errorMessage": "Select Yes or No",
             "fieldType": "gdsMultiLineRadio",
