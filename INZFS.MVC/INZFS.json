@@ -1583,7 +1583,7 @@
         "tag": "equality-survey",
         "url": "application-overview",
         "ReturnUrl": "application-overview",
-        "continueButtonText": "Save and continue to next step",
+        "continueButtonText": "Continue",
         "RazorView": "EqualitySurvey",
         "hideQuestionCounter": true,
         "belongsToApplication": false,
