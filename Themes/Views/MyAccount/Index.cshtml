@@ -1,7 +1,9 @@
+@using INZFS.Theme.Models
 @model INZFS.Theme.ViewModels.MyAccountViewModel
 @{
     ViewLayout = "LayoutRegistration";
     ViewData["Title"] = "Your account details";
+    ViewData["Breadcrumbs"] = new BreadcrumbsModel() {IsDisplay = true, Url = "/FundApplication/section/application-overview" };
 }
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
