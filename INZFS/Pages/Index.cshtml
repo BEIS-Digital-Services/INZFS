@@ -88,17 +88,12 @@
 
                     <aside class="app-related-items" role="complementary">
                         <h3 class="govuk-heading-s" id="subsection-title">Key details</h3>
-                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[0].DisplayText</p>
-                        <p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[0].InputPart.DefaultValue</p>
 
-                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[1].DisplayText</p>
-                        <p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[1].InputPart.DefaultValue</p>
-
-                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@govpage.Content.GovDate.ContentItems[2].DisplayText</p>
-                        <p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
-
-                        <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Deadline</p>
-                        <p class="govuk-body-m">@govpage.Content.GovDate.ContentItems[2].InputPart.DefaultValue</p>
+                        @foreach (var ContentItem in govpage.Content.GovDate.ContentItems)
+                        {
+                            <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">@ContentItem.DisplayText</p>
+                            <p class="govuk-body-m">@ContentItem.InputPart.DefaultValue</p>
+                        }
 
                         <h3 class="govuk-heading-s" id="subsection-title">Events</h3>
                         <p class="govuk-body"><a class="govuk-link" href="/page/registerToAttend">Register to attend an engagement session</a></p>
