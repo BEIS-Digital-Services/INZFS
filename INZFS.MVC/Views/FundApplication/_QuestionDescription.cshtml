@@ -4,8 +4,16 @@
 {
     @Html.Partial("../QuestionDescription/YourDetailsEligibility/_EligibilityToApplyForFund.cshtml")
 }
+@if (Model == "full-name")
+{
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
+}
 
 @*SECTION 3 ABOUT YOUR ORG*@
+@if (Model == "organisation-name")
+{
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
+}
 @if (Model == "organisation-introduction")
 {
     @Html.Partial("../QuestionDescription/AboutYourOrg/_OrganisationIntroduction.cshtml")
@@ -16,13 +24,10 @@
 }
 @if (Model == "parent-organisation-name")
 {
-    @Html.Partial("../QuestionDescription/AboutYourOrg/_ParentOrgDetails.cshtml")
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
 }
 
-@if (Model == "organisation-name")
-{
-    @Html.Partial("../QuestionDescription/AboutYourOrg/_ParentOrgDetails.cshtml")
-}
+
 @*SECTION 4  Proposal summary *@
 @if (Model == "grant-justification")
 {
