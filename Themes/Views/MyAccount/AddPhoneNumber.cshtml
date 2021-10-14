@@ -1,7 +1,9 @@
-﻿@model INZFS.Theme.ViewModels.AddPhoneNumberViewModel
+﻿
+@model INZFS.Theme.ViewModels.AddPhoneNumberViewModel
 @{
     ViewLayout = "LayoutRegistration";
     ViewData["Title"] = "Add your phone number";
+    ViewData["Breadcrumbs"] = new INZFS.Theme.Models.BreadcrumbsModel() {IsDisplay = false};
 }
 
 <main class="govuk-main-wrapper " id="main-content" role="main">

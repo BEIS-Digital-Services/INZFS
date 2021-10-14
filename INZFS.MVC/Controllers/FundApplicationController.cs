@@ -41,39 +41,24 @@ namespace INZFS.MVC.Controllers
     [Authorize]
     public class FundApplicationController : Controller
     {
-        private readonly IContentManager _contentManager;
-        private readonly IVirusScanService _virusScanService;
         private readonly IFileUploadService _fileUploadService;
         private readonly IMediaFileStore _mediaFileStore;
-        private readonly dynamic New;
-        private readonly INotifier _notifier;
         private readonly YesSql.ISession _session;
-        private readonly IUpdateModelAccessor _updateModelAccessor;
-        private readonly INavigation _navigation;
-        private readonly ILogger _logger;
         private readonly IContentRepository _contentRepository;
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
         
-        public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager,
-            IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
-            IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
-            INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation,
+        public FundApplicationController(
+            IMediaFileStore mediaFileStore, 
+            IHtmlLocalizer<FundApplicationController> htmlLocalizer,
+            YesSql.ISession session,
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
-            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition, 
+            ApplicationDefinition applicationDefinition, 
             IApplicationEmailService applicationEmailService)
         {
-            _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
-            _notifier = notifier;
             _session = session;
-            _updateModelAccessor = updateModelAccessor;
-            _logger = logger;
-            New = shapeFactory;
-            _navigation = navigation;
             _contentRepository = contentRepository;
-            _virusScanService = virusScanService;
             _fileUploadService = fileUploadService;
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
@@ -799,7 +784,25 @@ namespace INZFS.MVC.Controllers
                 }
                 else
                 {
-                    sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
+                    if(pageContent.CompletionDependsOn?.Any() == true)
+                    {
+                        // Get status of the dependant fields
+                        bool areAlldependantFieldsComplete = false;
+                        var dependantFields = content?.Fields?.Where(f => pageContent.CompletionDependsOn.Contains(f.Name));
+                        if(dependantFields?.Any() == true)
+                        {
+                            areAlldependantFieldsComplete = dependantFields.All(f => f.FieldStatus.Value == FieldStatus.Completed);
+                        }
+
+                        sectionModel.SectionStatus = (areAlldependantFieldsComplete 
+                                                    && field.FieldStatus.HasValue 
+                                                    && field.FieldStatus.Value == FieldStatus.Completed) ? FieldStatus.Completed 
+                                                                                                         : FieldStatus.InProgress;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
+                    }
                 }
 
                 if (pageContent.Name == "subsidy-requirements")
