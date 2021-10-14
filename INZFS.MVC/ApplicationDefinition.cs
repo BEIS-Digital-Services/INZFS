@@ -87,6 +87,8 @@ namespace INZFS.MVC
         public string CustomValidator { get; set; }
         public List<string> FieldValidationDependsOn { get; set; }
         public string AcceptableFileExtensions { get; set; }
+        // Dependant fields that question depends on to determing its completetion state
+        public List<string> CompletionDependsOn { get; set; }
     }
 
     public class DependsOn

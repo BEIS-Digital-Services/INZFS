@@ -145,7 +145,11 @@
             "fieldName": "organisation-running",
             "mandatory": true,
             "accordianReference": "",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "completionDependsOn": [
+              "recent-turnover",
+              "recent-turnover-date"
+            ]
           },
           {
             "name": "recent-turnover",
