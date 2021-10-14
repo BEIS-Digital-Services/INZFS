@@ -45,13 +45,13 @@ namespace INZFS.MVC.Models.DynamicForm
             switch (SectionStatus)
             {
                 case FieldStatus.NotStarted:
-                    return "Not Started";
+                    return "Not started";
                 case FieldStatus.InProgress:
-                    return "In Progress";
+                    return "In progress";
                 case FieldStatus.Completed:
                     return "Completed";
                 case FieldStatus.NotApplicable:
-                    return "Not Applicable";
+                    return "Not applicable";
                 default:
                     throw new Exception("Invalid status");
             }
