@@ -17,6 +17,7 @@
         <label class="govuk-label govuk-label--l">
             @Model.Question
         </label>
+        @Html.Partial("_QuestionDescription", Model.PageName)
         @Html.Partial("_Hint", Model.Hint)
         <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
             <div class="govuk-radios govuk-radios" asp-validation-error-class-for="@Model.Question">
