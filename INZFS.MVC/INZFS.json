@@ -578,7 +578,7 @@
           {
             "name": "parent-recent-turnover-date",
             "sectionTitle": "3.19. Parent organisation’s most recent annual turnover date",
-            "question": "What is your parent’s organisations most recent turnover date?",
+            "question": "What is your parent’s organisations most recent annual turnover date?",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
