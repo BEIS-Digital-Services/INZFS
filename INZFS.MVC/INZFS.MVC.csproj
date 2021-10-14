@@ -8,11 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="Views\Admin\**" />
-    <Compile Remove="Views\QuestionDescription\NewFolder\**" />
     <EmbeddedResource Remove="Views\Admin\**" />
-    <EmbeddedResource Remove="Views\QuestionDescription\NewFolder\**" />
     <None Remove="Views\Admin\**" />
-    <None Remove="Views\QuestionDescription\NewFolder\**" />
   </ItemGroup>
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
