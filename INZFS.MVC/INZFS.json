@@ -1181,6 +1181,7 @@
             "friendlyFieldName": "Subsidy sole applicant result applying less",
             "fieldName": "subsidy-sole-applicant-result-applying-less",
             "mandatory": true,
+            "previousPageName": "subsidy-sole-applicant-value",
             "sectionTitle": "6.1 Funding levels and subsidy requirements",
             "gridDisplayType": "FullPage"
           },
@@ -1193,6 +1194,7 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result applying more",
             "fieldName": "subsidy-sole-applicant-result-applying-more",
+            "previousPageName": "subsidy-sole-applicant-value",
             "mandatory": true,
             "gridDisplayType": "FullPage"
           },
@@ -1205,6 +1207,7 @@
             "returnPageName": "finance-proposal-overview",
             "friendlyFieldName": "Subsidy sole applicant result research development",
             "fieldName": "subsidy-sole-applicant-result-research-development",
+            "previousPageName": "subsidy-sole-applicant-aid-category",
             "mandatory": true,
             "gridDisplayType": "FullPage"
           },
