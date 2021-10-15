@@ -86,14 +86,15 @@
                         var breadcrumb = ViewData["Breadcrumbs"] as BreadcrumbsModel;
                         var showBreadcrumb = (breadcrumb == null || breadcrumb.IsDisplay);
                         var breadcrumbHome = breadcrumb?.Url ?? "/";
+                        var breadcrumbtext = breadcrumb?.Text ?? "Apply for the Energy Entrepreneurs Fund: phase 9";
+
                     }
 
                     @if (showBreadcrumb)
                     {
                         <ol class="govuk-breadcrumbs__list">
                             <li class="govuk-breadcrumbs__list-item">
-                                <a class="govuk-breadcrumbs__link" href="@breadcrumbHome">Apply for the Energy Entrepreneurs Fund: phase 9
-                                </a>
+                                <a class="govuk-breadcrumbs__link" href="@breadcrumbHome">@breadcrumbtext</a>
                             </li>
                             <li class="govuk-breadcrumbs__list-item" aria-current="page">
                                 @(ViewData["Title"])
