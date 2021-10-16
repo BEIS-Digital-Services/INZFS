@@ -139,7 +139,8 @@ namespace INZFS.MVC
         IndependentAssessment,
         Successful,
         Unsuccessful,
-        Withdrawn
+        Withdrawn,
+        NotSubmitted,
     }
 
     public class ApplicationContent
@@ -147,6 +148,7 @@ namespace INZFS.MVC
         public ApplicationContent()
         {
             Fields = new List<Field>();
+            ApplicationStatus = ApplicationStatus.InProgress;
         }
         public Application Application { get; set; }
 
