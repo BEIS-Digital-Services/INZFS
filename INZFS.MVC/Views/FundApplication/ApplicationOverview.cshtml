@@ -2,7 +2,7 @@
 @using INZFS.MVC
 @using INZFS.MVC.Models.DynamicForm
 
-@if (Model.HasErrors && Model.TotalSections != Model.TotalSectionsCompleted)
+@if (Model.HasErrors)
 {
     <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
         <h2 class="govuk-error-summary__title" id="error-summary-title">
@@ -10,12 +10,22 @@
         </h2>
         <div class="govuk-error-summary__body">
             <ul class="govuk-list govuk-error-summary__list">
-                @foreach (var item in Model.Sections.Where(s => s.SectionStatus != FieldStatus.Completed))
+                @if (Model.TotalSections != Model.TotalSectionsCompleted)
+                {
+                    @foreach (var item in Model.Sections.Where(s => s.SectionStatus != FieldStatus.Completed))
+                    {
+                        <li>
+                            <a href="#@item.SectionTag">Some steps in @item.Title are incomplete</a>
+                        </li>
+                    }
+                }
+                else
                 {
                     <li>
-                        <a href="#@item.SectionTag">Some steps in @item.Title are incomplete</a>
+                        <a href="#">Applications are now closed. Please refer to the fund Page for other funds that you may be eligible for.</a>
                     </li>
                 }
+
             </ul>
         </div>
     </div>
