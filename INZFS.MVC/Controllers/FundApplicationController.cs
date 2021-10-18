@@ -250,9 +250,9 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").First<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").First<IXLCell>();
-                                    IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault<IXLCell>();
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault<IXLCell>();
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
@@ -294,6 +294,11 @@ namespace INZFS.MVC.Controllers
                             catch (InvalidDataException e)
                             {
                                 ModelState.AddModelError("DataInput", "Invalid file uploaded");
+                                return PopulateViewModel(currentPage, model);
+                            }
+                            catch (Exception ex)
+                            {
+                                ModelState.AddModelError("DataInput", "Invalid file uploaded - try again.");
                                 return PopulateViewModel(currentPage, model);
                             }
                         }
