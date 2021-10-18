@@ -784,11 +784,11 @@ namespace INZFS.MVC.Controllers
                 }
                 else
                 {
-                    if(pageContent.CompletionDependsOn?.Any() == true)
+                    if(pageContent.CompletionDependsOn != null && pageContent.CompletionDependsOn.Value == field.Data)
                     {
                         // Get status of the dependant fields
                         bool areAlldependantFieldsComplete = false;
-                        var dependantFields = content?.Fields?.Where(f => pageContent.CompletionDependsOn.Contains(f.Name));
+                        var dependantFields = content?.Fields?.Where(f => pageContent.CompletionDependsOn.Fields?.Contains(f.Name) == true);
                         if(dependantFields?.Any() == true)
                         {
                             areAlldependantFieldsComplete = dependantFields.All(f => f.FieldStatus.Value == FieldStatus.Completed);
