@@ -261,7 +261,16 @@ namespace INZFS.MVC.Controllers
                                         try
                                         {
                                             ParsedExcelData parsedExcelData = new();
-                                            parsedExcelData.ParsedTotalProjectCost = Double.Parse(totalProjectFunding.CellRight().CachedValue.ToString()).ToString("C", new CultureInfo("en-GB"));
+                                            var parsedTotalProjectCost = Double.Parse(totalProjectFunding.CellRight().CachedValue.ToString());
+                                            if(parsedTotalProjectCost > 0D)
+                                            {
+                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost.ToString("C", new CultureInfo("en-GB"));
+                                            }
+                                            else
+                                            {
+                                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                                            "Total project costs should be more than zero.");
+                                            }
                                             parsedExcelData.ParsedTotalGrantFunding = Double.Parse(totalGrantFunding.CellRight().CachedValue.ToString()).ToString("C", new CultureInfo("en-GB"));
                                             parsedExcelData.ParsedTotalGrantFundingPercentage = Double.Parse(totalGrantFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
                                             parsedExcelData.ParsedTotalMatchFunding = Double.Parse(totalMatchFunding.CellRight().CachedValue.ToString()).ToString("C", new CultureInfo("en-GB"));
@@ -270,36 +279,36 @@ namespace INZFS.MVC.Controllers
                                         }
                                         catch (DivisionByZeroException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
+                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                                "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                         catch (FormatException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
+                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", 
+                                                "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                     }
                                     else
                                     {
-                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                        return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                     }
                                 }
                                 catch (ArgumentException e)
                                 {
-                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                                 catch (InvalidOperationException e)
                                 {
-                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                             }
                             catch (InvalidDataException e)
                             {
-                                ModelState.AddModelError("DataInput", "Invalid file uploaded");
-                                return PopulateViewModel(currentPage, model);
+                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded");
                             }
                             catch (Exception ex)
                             {
-                                ModelState.AddModelError("DataInput", "Invalid file uploaded - try again.");
-                                return PopulateViewModel(currentPage, model);
+                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded - try again.");
                             }
                         }
 
@@ -454,6 +463,12 @@ namespace INZFS.MVC.Controllers
                 currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
                 return PopulateViewModel(currentPage, model);
             }
+        }
+
+        private ViewResult AddErrorAndPopulateViewModel(Page currentPage, BaseModel currentModel,string fieldName, string errorMessage)
+        {
+            ModelState.AddModelError(fieldName, errorMessage);
+            return PopulateViewModel(currentPage, currentModel);
         }
 
         private string GetUserId()
