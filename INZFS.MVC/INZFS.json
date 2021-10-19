@@ -146,10 +146,13 @@
             "mandatory": true,
             "accordianReference": "",
             "showMarkComplete": true,
-            "completionDependsOn": [
-              "recent-turnover",
-              "recent-turnover-date"
-            ]
+            "completionDependsOn": {
+              "value": "1",
+              "fields": [
+                "recent-turnover",
+                "recent-turnover-date"
+              ]
+            }
           },
           {
             "name": "recent-turnover",
