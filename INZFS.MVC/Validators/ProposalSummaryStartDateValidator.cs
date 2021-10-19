@@ -33,6 +33,7 @@ namespace INZFS.MVC.Validators
             if (!string.IsNullOrEmpty(dataInput))
             {
                 DateTime startDate;
+                DateTime endDate;
                 if (DateTime.TryParseExact(dataInput, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
                 {
                     if (startDate > new DateTime(2023, 3, 31))
@@ -55,11 +56,14 @@ namespace INZFS.MVC.Validators
                         var field = content.Fields.FirstOrDefault(f => f.Name.ToLower().Equals(currentPage.FieldValidationDependsOn[0].Trim().ToLower()));
                         if (!string.IsNullOrEmpty(field?.Data))
                         {
-                            var endDate = DateTime.Parse(field.Data);
-                            if (endDate < startDate)
+                            if (DateTime.TryParseExact(field.Data, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out endDate))
                             {
-                                yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be before project end date", new[] { "DateUtc" });
+                                if (endDate < startDate)
+                                {
+                                    yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be before project end date", new[] { "DateUtc" });
+                                }
                             }
+                         
                         }
 
                     }
