@@ -56,7 +56,7 @@ namespace INZFS.MVC.Validators
                         var field = content.Fields.FirstOrDefault(f => f.Name.ToLower().Equals(currentPage.FieldValidationDependsOn[0].Trim().ToLower()));
                         if (!string.IsNullOrEmpty(field?.Data))
                         {
-                            if (DateTime.TryParseExact(field.Data, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out endDate))
+                            if (DateTime.TryParseExact(field.Data, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate))
                             {
                                 if (endDate < startDate)
                                 {
