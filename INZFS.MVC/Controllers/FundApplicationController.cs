@@ -33,8 +33,9 @@ using INZFS.MVC.Records;
 using System.Security.Claims;
 using INZFS.MVC.Extensions;
 using INZFS.MVC.Constants;
-
-
+using INZFS.MVC.Filters;
+using INZFS.MVC.Settings;
+using Microsoft.Extensions.Options;
 
 namespace INZFS.MVC.Controllers
 {
@@ -47,14 +48,16 @@ namespace INZFS.MVC.Controllers
         private readonly IContentRepository _contentRepository;
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
-        
+        private readonly ApplicationOption _applicationOption;
+
         public FundApplicationController(
             IMediaFileStore mediaFileStore, 
             IHtmlLocalizer<FundApplicationController> htmlLocalizer,
             YesSql.ISession session,
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
             ApplicationDefinition applicationDefinition, 
-            IApplicationEmailService applicationEmailService)
+            IApplicationEmailService applicationEmailService,
+            IOptions<ApplicationOption> applicationOption)
         {
             _mediaFileStore = mediaFileStore;
             _session = session;
@@ -62,9 +65,11 @@ namespace INZFS.MVC.Controllers
             _fileUploadService = fileUploadService;
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
+            _applicationOption = applicationOption.Value;
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Section(string pagename, string id)
         {
             if(string.IsNullOrEmpty(pagename))
@@ -160,6 +165,7 @@ namespace INZFS.MVC.Controllers
         [Route("FundApplication/section/{pageName}")]
         [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitAction, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
@@ -479,13 +485,15 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> Submit()
         {
             SetPageTitle("Submit application");
+            
             var content = await _contentRepository.GetApplicationContent(GetUserId());
             if(content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
             }
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
-            if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
+            if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted 
+                                    && DateTime.UtcNow <= _applicationOption.EndDate)
             {
                 TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
@@ -502,6 +510,8 @@ namespace INZFS.MVC.Controllers
                 return RedirectToAction("section", new { pagename = "application-overview" });
             }
         }
+
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Complete()
         {
             SetPageTitle("Application completed");
@@ -531,6 +541,7 @@ namespace INZFS.MVC.Controllers
             }
         }
 
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> ApplicationEquality()
         {
             SetPageTitle("Equality questions");
@@ -547,10 +558,11 @@ namespace INZFS.MVC.Controllers
         {
             SetPageTitle("Your application");
             var content = await _contentRepository.GetApplicationContent(GetUserId());
+            var status = content.ApplicationStatus == ApplicationStatus.InProgress ? ApplicationStatus.NotSubmitted : content.ApplicationStatus;
             return View("ApplicationSent", new ApplicationSentModel { 
-                ApplicationNumber = content.ApplicationNumber,
-                ApplicationStatus = content.ApplicationStatus.ToStatusString(),
-                SubmittedDate = content.SubmittedUtc.Value
+                ApplicationNumber = content.ApplicationNumber ?? "N/A",
+                ApplicationStatus = status.ToStatusString(),
+                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow
             } );
         }
         

@@ -36,6 +36,8 @@ using System.Collections.Generic;
 using Microsoft.Extensions.DependencyModel;
 using System.Linq;
 using INZFS.MVC.Migrations;
+using INZFS.MVC.Filters;
+using INZFS.MVC.Settings;
 
 namespace INZFS.MVC
 {
@@ -123,6 +125,10 @@ namespace INZFS.MVC
             services.AddScoped<IApplicationEmailService, ApplicationEmailService>();
 
             services.AddScoped<ICustomerValidatorFactory, CustomerValidatorFactory>();
+            services.AddScoped<ApplicationRedirectionAttribute>();
+
+            services.Configure<ApplicationOption>(Configuration.GetSection("Application"));
+
             RegisterCustomValidators(services);
             services.AddHttpContextAccessor();
         }
