@@ -210,7 +210,7 @@ namespace INZFS.Theme.Controllers
         [HttpPost]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)

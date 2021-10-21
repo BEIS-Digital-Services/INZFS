@@ -182,10 +182,10 @@ namespace INZFS.Theme.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Verify(string token, string idtoken, string returnUrl = null)
         {
-
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false) || !string.IsNullOrEmpty(token))
             {
-                return RedirectToAction("LogOff", "Account", new {area = "INZFS.Theme"});
+                await _signInManager.SignOutAsync();
             }
 
             var email = _encodingService.GetStringFromHex(idtoken);

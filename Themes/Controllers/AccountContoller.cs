@@ -52,10 +52,10 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false ) || string.IsNullOrEmpty(returnUrl))
             {
-                returnUrl ??= Url.Content("~/");
-                return LocalRedirect(returnUrl);
+                await _signInManager.SignOutAsync();
             }
 
             return View(new LoginViewModel());
@@ -63,7 +63,6 @@ namespace INZFS.Theme.Controllers
         
         [AllowAnonymous]
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
