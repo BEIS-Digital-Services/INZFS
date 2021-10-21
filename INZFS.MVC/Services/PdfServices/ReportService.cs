@@ -4,6 +4,7 @@ using INZFS.MVC;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 
@@ -235,7 +236,7 @@ namespace INZFS.MVC.Services.PdfServices
             }
             else
             {
-                return answer.Data;
+                return Regex.Replace(answer.Data, "<[^>]*>", String.Empty);
             }
         }
     }
