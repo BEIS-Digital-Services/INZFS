@@ -52,10 +52,10 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false ) || string.IsNullOrEmpty(returnUrl))
             {
-                returnUrl ??= Url.Content("~/");
-                return LocalRedirect(returnUrl);
+                await _signInManager.SignOutAsync();
             }
 
             return View(new LoginViewModel());
@@ -131,7 +131,7 @@ namespace INZFS.Theme.Controllers
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     token = _encodingService.Base64UrlEncode(token);
-                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, Request.Scheme);
+                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, EmailConstant.Scheme);
                     await SendForgotPasswordEmailAsync(model.EmailAddress, resetUrl);
                 }
               

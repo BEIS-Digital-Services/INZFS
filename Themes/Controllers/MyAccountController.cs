@@ -88,7 +88,7 @@ namespace INZFS.Theme.Controllers
                         var id = await _userManager.GetUserIdAsync(user);
                         var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
                         var identifier = _encodingService.Encrypt($"{id}#{model.Email}");
-                        var confirmationLink = Url?.Action("Verify", "MyAccount", new { token = token, Identifier = identifier}, Request.Scheme);
+                        var confirmationLink = Url?.Action("Verify", "MyAccount", new { token = token, Identifier = identifier}, EmailConstant.Scheme);
                         await SendChangeEmailLink(model.Email, confirmationLink);
                         return RedirectToAction("SuccessChangeEmail");
                     }
@@ -467,7 +467,7 @@ namespace INZFS.Theme.Controllers
                 verificationMethod = "Authenticator app";
             }
 
-            var link = $"{Request.Scheme}://{Request.Host}/";
+            var link = $"{EmailConstant.Scheme}://{Request.Host}/";
 
             var email = await _userManager.GetEmailAsync(user);
             var parameters = new Dictionary<string, dynamic>();
