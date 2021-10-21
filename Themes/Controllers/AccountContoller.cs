@@ -130,7 +130,7 @@ namespace INZFS.Theme.Controllers
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     token = _encodingService.Base64UrlEncode(token);
-                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, Request.Scheme);
+                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, EmailConstant.Scheme);
                     await SendForgotPasswordEmailAsync(model.EmailAddress, resetUrl);
                 }
               
