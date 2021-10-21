@@ -63,6 +63,7 @@ namespace INZFS.Theme.Controllers
         
         [AllowAnonymous]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
             returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
