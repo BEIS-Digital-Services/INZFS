@@ -16,13 +16,13 @@ namespace INZFS.Theme
     {
         public AntiforgeryTokenSet GetAndStoreTokens(HttpContext httpContext)
         {
-            //HACK:Dummy tocken for form and cookies
+            //HACK:Dummy token for form and cookies
             return new AntiforgeryTokenSet("token", "token", "tovalidate", "header");
         }
 
         public AntiforgeryTokenSet GetTokens(HttpContext httpContext)
         {
-            //HACK:Dummy tocken for form and cookies
+            //HACK:Dummy token for form and cookies
             return new AntiforgeryTokenSet("token", "token", "tovalidate", "header");
         }
 
