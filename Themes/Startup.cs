@@ -3,6 +3,7 @@ using INZFS.Theme.Migrations;
 using INZFS.Theme.Models;
 using INZFS.Theme.Records;
 using INZFS.Theme.Services;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
@@ -42,6 +43,9 @@ namespace INZFS.Theme
          
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
             serviceCollection.AddScoped<IRegistrationQuestionnaireService, RegistrationQuestionnaireService>();
+
+            serviceCollection.AddSingleton<IAntiforgery, ThisCodeMustNotGoLiveAntiforgery>();
+
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)
