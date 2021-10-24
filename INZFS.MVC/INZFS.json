@@ -1086,6 +1086,7 @@
           {
             "name": "subsidy-sole-applicant",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Are you the sole applicant?",
             "question": "Are you the sole applicant?",
             "hint": "Answer 'no' if you are applying as part of a consortium of companies.",
             "errorMessage": "Select Yes or No",
@@ -1121,11 +1122,13 @@
             "hideFromSummary": true,
             "nextPageName": "subsidy-sole-applicant-aid-category",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "What aid category are you applying under?",
             "gridDisplayType": "FullPage"
           },
           {
             "name": "subsidy-sole-applicant-aid-category",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Which category are you applying under?",
             "question": "Which category are you applying under?",
             "description": "",
             "errorMessage": "Please provide something",
@@ -1152,6 +1155,7 @@
           {
             "name": "subsidy-sole-applicant-value",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "How much money are you applying for?",
             "question": "How much money are you applying for?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1186,11 +1190,13 @@
             "mandatory": true,
             "previousPageName": "subsidy-sole-applicant-value",
             "sectionTitle": "6.1 Funding levels and subsidy requirements",
+            "pageTitle": "Applying under aid for start-ups less than 500,000",
             "gridDisplayType": "FullPage"
           },
           {
             "name": "subsidy-sole-applicant-result-applying-more",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Applying under aid for start-ups more than 500,000",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1204,6 +1210,7 @@
           {
             "name": "subsidy-sole-applicant-result-research-development",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Applying under aid for research and development",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1217,6 +1224,7 @@
           {
             "name": "subsidy-consortium-category",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Which of the following are you applying under",
             "question": "Which of the following are you applying under?",
             "description": "",
             "errorMessage": "Please select an option",
@@ -1252,6 +1260,7 @@
           {
             "name": "subsidy-consortium-result-feasibility",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Recommendation for feasibility study applicants",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1264,6 +1273,7 @@
           {
             "name": "subsidy-consortium-result-industrial",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Recommendation for industrial research applicants",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",
@@ -1276,6 +1286,7 @@
           {
             "name": "subsidy-consortium-result-experimental",
             "sectionTitle": "6.1. Funding levels and subsidy requirements",
+            "pageTitle": "Recommendation for experimental development applicants",
             "fieldType": "gdsStaticPage",
             "hideFromSummary": true,
             "nextPageName": "project-cost-breakdown",

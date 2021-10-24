@@ -54,6 +54,7 @@ namespace INZFS.MVC
         public bool DisplayQuestionCounter { get; set; } = true;
         public GridDisplayType? GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
+        public string PageTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }

@@ -582,7 +582,7 @@ namespace INZFS.MVC.Controllers
 
         private ViewResult GetViewModel(Page currentPage, Field field)
         {
-            SetPageTitle(currentPage.SectionTitle);
+            SetPageTitle(currentPage.PageTitle ?? currentPage.SectionTitle);
             BaseModel model;
             switch (currentPage.FieldType)
             {
