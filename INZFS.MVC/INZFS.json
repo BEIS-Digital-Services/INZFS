@@ -725,7 +725,8 @@
             "hint": "Give a brief introduction to your project. Highlight any work you’ve done, including scientific studies or market research for example. You should also explain what your project aims to achieve.",
             "showMarkComplete": true,
             "gridDisplayType": "FullPage",
-            "continueButtonText": "Save and return to Proposal summary"
+            "continueButtonText": "Save and return to Proposal summary",
+            "customValidator": "SanitisedStringValidator"
           }
         ]
       },
