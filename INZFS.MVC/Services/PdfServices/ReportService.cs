@@ -195,7 +195,7 @@ namespace INZFS.MVC.Services.PdfServices
 
         private void PopulateHtmlSections(ApplicationContent applicationContent)
         {
-            foreach (var section in _applicationDefinition.Application.Sections)
+            foreach (var section in _applicationDefinition.Application.Sections) if (section.BelongsToApplication)
             {
                 string sectionHtml = $@"
                 <h2 style=""color:rgb(18,31,54);"", id=""{section.Tag}"" >{ section.OverviewTitle }</h2>
