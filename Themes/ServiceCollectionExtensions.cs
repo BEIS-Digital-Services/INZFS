@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using INZFS.Theme;
+using INZFS.Theme.KeyManagements;
 using INZFS.Theme.Migrations;
 using INZFS.Theme.Models;
 using INZFS.Theme.Records;
 using INZFS.Theme.Services;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.Data.Migration;
 using OrchardCore.Environment.Shell.Scope;
@@ -37,12 +40,18 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.ConfigureApplicationCookie(options =>
             {
-                options.Cookie.Name = "inzfs_auth";
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LogOff";
                 options.AccessDeniedPath = "/Error/403";
             });
+
+            services.AddAuthentication(RegistrationConstants.RegistrationScheme)
+                .AddCookie(RegistrationConstants.RegistrationScheme, options =>
+                {
+                    options.Cookie.Name = $"inzfs_{RegistrationConstants.RegistrationCookie}";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -56,13 +65,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequiredLength = 8;
             });
 
-            services.AddAuthentication(RegistrationConstants.RegistrationScheme)
-                .AddCookie(RegistrationConstants.RegistrationScheme, options =>
-                {
-                    options.Cookie.Name = $"inzfs_{RegistrationConstants.RegistrationCookie}";
-                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
-                });
-            
+                        
             services.AddScoped<IRegistrationManager, RegistrationManager>();
 
             return services;
@@ -78,6 +81,25 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
             services.Configure<NotificationOption>(Configuration.GetSection("Notification"));
+
+            return services;
+        }
+        
+        public static IServiceCollection AddKeyManagementOptions(
+            this IServiceCollection services, IConfiguration configuration, ILogger<INZFS.Theme.Startup> logger)
+        {
+            string protectionKey = configuration.GetValue<string>("TemporaryDpKeyGenerator"); //"d7a7c34c-b034-440a-9197-3ab86b461d96";
+            string environment = configuration.GetValue<string>("TemporaryDpKeyEnvironment"); // "lab1";
+
+            services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(serviceProvider =>
+            { 
+                return new ConfigureOptions<KeyManagementOptions>(options =>
+                {
+                    logger.LogWarning($"Replacing KeyManagementOptions for {options?.XmlRepository?.GetType().Name} using {protectionKey.Substring(0,3)} on env {environment} ");
+                    options.XmlRepository = new TemporaryDpKeyGeneratorXmlRepository(options, environment, protectionKey);
+                    logger.LogWarning($"Replacing KeyManagementOptions for {options?.XmlRepository?.GetType().Name} on env {environment}");
+                });
+            });
 
             return services;
         }
