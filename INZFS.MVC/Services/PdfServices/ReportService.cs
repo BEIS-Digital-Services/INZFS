@@ -236,7 +236,7 @@ namespace INZFS.MVC.Services.PdfServices
             }
             else
             {
-                return Regex.Replace(answer.Data, "<[^>]*>", String.Empty);
+                return answer.Data;
             }
         }
     }
