@@ -15,7 +15,7 @@
     @Html.Partial("_ErrorMessage")
 
     <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-        <fieldset class="govuk-fieldset" aria-describedby="org-funding funding-error">
+        <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <h1 class="govuk-fieldset__heading">
                     @Model.Question
