@@ -95,7 +95,7 @@ namespace INZFS.Theme.Controllers
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt. If you believe your account has been locked, please allow 5 minutes before logging in");
+                ModelState.AddModelError("Password", "Invalid login attempt. If you believe your account has been locked, please allow 5 minutes before logging in");
                 await _accountEvents.InvokeAsync((e, model) => e.LoggingInFailedAsync(model.EmailAddress), model, _logger);
             }
 
