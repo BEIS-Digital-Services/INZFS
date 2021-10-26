@@ -29,7 +29,7 @@ namespace INZFS.MVC.Controllers
             string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             var reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
             string type = "application/pdf";
-            string name = $"{reportContent.ApplicationNumber}.pdf";
+            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
 
             return File(reportContent.FileContents, type, name);
         }
@@ -38,7 +38,7 @@ namespace INZFS.MVC.Controllers
             string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             var reportContent = await _reportService.GenerateOdtReport(GetUserId(), logoFilepath);
             string type = "application/vnd.oasis.opendocument.text";
-            string name = $"{reportContent.ApplicationNumber}.odt";
+            string name = $"Application Form {reportContent.ApplicationNumber}.odt";
 
             return File(reportContent.FileContents, type, name);
 
