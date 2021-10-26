@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Notify.Client;
 using Notify.Interfaces;
@@ -22,9 +23,11 @@ namespace INZFS.Theme
 {
     public class Startup : StartupBase
     {
+        private readonly ILogger<Startup> _logger;
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
+            _logger = logger;
             Configuration = configuration;
         }
 
@@ -44,6 +47,7 @@ namespace INZFS.Theme
             serviceCollection.AddScoped<IUrlEncodingService, UrlEncodingService>();
             serviceCollection.AddScoped<IRegistrationQuestionnaireService, RegistrationQuestionnaireService>();
 
+            serviceCollection.AddKeyManagementOptions(Configuration, _logger);
             serviceCollection.AddSingleton<IAntiforgery, ThisCodeMustNotGoLiveAntiforgery>();
 
         }
