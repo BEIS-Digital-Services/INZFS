@@ -2,5 +2,5 @@
 @using INZFS.MVC.Models.DynamicForm
 @Html.Partial("_QuestionDescription", Model.PageName)
 
-<input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
+<input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
        name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
