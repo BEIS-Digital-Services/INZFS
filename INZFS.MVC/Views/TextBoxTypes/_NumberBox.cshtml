@@ -3,5 +3,5 @@
 
 @Html.Partial("_QuestionDescription", Model.PageName)
 
-<input class="govuk-input govuk-input--width-4  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
+<input class="govuk-input govuk-input--width-4  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
        name="DataInput" type="number" value="@Model.DataInput">
