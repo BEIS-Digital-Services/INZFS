@@ -21,6 +21,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string FieldName { get; set; }
         public string SectionTitle { get; set; }
         public string Question { get; set; }
+        public string FriendlyFieldName { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
@@ -49,7 +50,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
-        protected Page CurrentPage { get; set; }
+        public Page CurrentPage { get; set; }
         public PreviousPage PreviousPage { get; set; }
         public FieldStatus? FieldStatus { get; set; }
         public FieldType FieldType { get; set; }
