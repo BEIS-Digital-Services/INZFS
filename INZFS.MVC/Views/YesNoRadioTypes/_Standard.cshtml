@@ -1,21 +1,19 @@
 @model BaseModel
 @using INZFS.MVC.Models.DynamicForm
 
-<fieldset class="govuk-fieldset" aria-describedby="timing-hint">
-    <div class="govuk-radios govuk-radios--inline" asp-validation-error-class-for="@Model.Question">
-        <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=1
-                   @if (Model.DataInput == "1") { <text> checked="checked" </text> }>
-            <label class="govuk-label govuk-radios__label">
-                Yes
-            </label>
-        </div>
-        <div class="govuk-radios__item">
-            <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0
-                   @if (Model.DataInput == "0") { <text> checked="checked" </text> }>
-            <label class="govuk-label govuk-radios__label">
-                No
-            </label>
-        </div>
+<div class="govuk-radios govuk-radios--inline" asp-validation-error-class-for="@Model.Question">
+    <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=1
+                @if (Model.DataInput == "1") { <text> checked="checked" </text> }>
+        <label class="govuk-label govuk-radios__label">
+            Yes
+        </label>
     </div>
-</fieldset>
+    <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0
+                @if (Model.DataInput == "0") { <text> checked="checked" </text> }>
+        <label class="govuk-label govuk-radios__label">
+            No
+        </label>
+    </div>
+</div>
