@@ -3,5 +3,6 @@
 
 @Html.Partial("_QuestionDescription", Model.PageName)
 
+<label for="@Model.FieldName" class="govuk-label govuk-visually-hidden">@Model.FriendlyFieldName</label>
 <input class="govuk-input govuk-input--width-4  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
        name="DataInput" type="number" value="@Model.DataInput">
