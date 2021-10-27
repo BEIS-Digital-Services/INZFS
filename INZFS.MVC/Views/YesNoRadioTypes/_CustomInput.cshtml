@@ -4,24 +4,22 @@
 @{ 
     int i = 0;
 }
-<fieldset class="govuk-fieldset">
 
-    <div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
-        <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
+<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+    <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
 
-        @foreach (var item in Model.SelectedOptions)
-        {
-            <div class="govuk-radios__item">
+    @foreach (var item in Model.SelectedOptions)
+    {
+        <div class="govuk-radios__item">
 
-                <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value=@i.ToString()
-                       @if (Model.DataInput == i.ToString()) { <text> checked="checked" </text> }>
-                <label class="govuk-label govuk-radios__label" for="organisation">
-                    @item
-                </label>
-            </div>
+            <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value=@i.ToString()
+                    @if (Model.DataInput == i.ToString()) { <text> checked="checked" </text> }>
+            <label class="govuk-label govuk-radios__label" for="organisation">
+                @item
+            </label>
+        </div>
 
-            i += 1;
-        }
+        i += 1;
+    }
 
-    </div>
-</fieldset>
+</div>
