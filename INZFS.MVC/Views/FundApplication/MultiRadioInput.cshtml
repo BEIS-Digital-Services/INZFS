@@ -14,13 +14,16 @@
     @Html.Partial("_ErrorMessage")
 
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
-        <label class="govuk-label govuk-label--l">
-            @Model.Question
-        </label>
-        @Html.Partial("_QuestionDescription", Model.PageName)
-        @Html.Partial("_Hint", Model.Hint)
-        <fieldset class="govuk-fieldset" aria-describedby="timing-hint">
-            <div class="govuk-radios govuk-radios" asp-validation-error-class-for="@Model.Question">
+        
+        <fieldset class="govuk-fieldset" aria-describedby="question-hint">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            @Html.Partial("_QuestionDescription", Model.PageName)
+            @Html.Partial("_Hint", Model.Hint)
+            <div class="govuk-radios" asp-validation-error-class-for="@Model.Question">
                 @foreach (var Action in Model.Actions)
                 {
                     <div class="govuk-radios__item">
@@ -33,6 +36,7 @@
                 }
             </div>
         </fieldset>
+
     </div>
 
 
