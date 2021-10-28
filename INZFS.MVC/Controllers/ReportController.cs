@@ -10,6 +10,7 @@ using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace INZFS.MVC.Controllers
 {
@@ -41,6 +42,12 @@ namespace INZFS.MVC.Controllers
             string name = $"{reportContent.ApplicationNumber}.odt";
 
             return File(reportContent.FileContents, type, name);
+        }
+
+        public async Task<IFormFile> PreparePdfForBlobStorage()
+        {
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            var reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
 
         }
 

@@ -36,6 +36,8 @@ using INZFS.MVC.Constants;
 using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.Extensions.Options;
+using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Hosting;
 
 namespace INZFS.MVC.Controllers
 {
@@ -49,6 +51,8 @@ namespace INZFS.MVC.Controllers
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
         private readonly ApplicationOption _applicationOption;
+        private readonly IReportService _reportService;
+        private readonly IWebHostEnvironment _env;
 
         public FundApplicationController(
             IMediaFileStore mediaFileStore, 
@@ -57,7 +61,9 @@ namespace INZFS.MVC.Controllers
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
             ApplicationDefinition applicationDefinition, 
             IApplicationEmailService applicationEmailService,
-            IOptions<ApplicationOption> applicationOption)
+            IOptions<ApplicationOption> applicationOption,
+            IReportService reportService,
+            IWebHostEnvironment env)
         {
             _mediaFileStore = mediaFileStore;
             _session = session;
@@ -66,6 +72,8 @@ namespace INZFS.MVC.Controllers
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
             _applicationOption = applicationOption.Value;
+            _reportService = reportService;
+            _env = env;
         }
 
         [HttpGet]
@@ -502,12 +510,33 @@ namespace INZFS.MVC.Controllers
                     BackLinkText = "Back",
                     BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
                 };
+                AddApplicationToBlobStorage();
                 return View("ApplicationSubmit", model);
             }
             else
             {
                 TempData[TempDataKeys.ApplicationOverviewError] = true;
                 return RedirectToAction("section", new { pagename = "application-overview" });
+            }
+
+        }
+
+        public async void AddApplicationToBlobStorage()
+        {
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            ReportContent reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
+            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+
+            MemoryStream ms = new(reportContent.FileContents);
+            FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
+
+            try
+            {
+                var publicUrl = await _fileUploadService.SaveFile(file, "Submitted Applications");
+            }
+            catch (Exception e)
+            {
+                //do something with the error
             }
         }
 

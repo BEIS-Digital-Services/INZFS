@@ -256,6 +256,7 @@ namespace INZFS.MVC
         public string? ParsedTotalMatchFunding { get; set; }
         public string? ParsedTotalMatchFundingPercentage { get; set; }
     }
+
     public class Action
     {
         public string Name { get; set; }
