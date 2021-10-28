@@ -219,6 +219,9 @@ namespace INZFS.MVC
         public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationNumber { get; set; }
         public DateTime? SubmittedUtc { get; set; }
+        public double TotalProjectCost { get; set; }
+        public double TotalGrantFunding { get; set; }
+        public double TotalMatchFunding { get; set; }
 
     }
 
