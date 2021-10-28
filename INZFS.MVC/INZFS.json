@@ -260,7 +260,8 @@
             "accordianReference": "OrganisationAddress",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true
+            "showMarkComplete": true,
+            "customValidator": "SanitisedStringValidator"
           },
           {
             "name": "company-registration-number",
