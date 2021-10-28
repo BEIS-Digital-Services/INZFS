@@ -59,7 +59,7 @@
             var completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
+        <h2 class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your information <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></h2>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
         @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
@@ -73,7 +73,7 @@
             completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
 
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></p>
+        <h2 class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Your proposal <span class="summary-list-section summary-list-section--right">@completedCount out of 3 completed</span></h2>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
         @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
@@ -86,7 +86,8 @@
             sections = Model.Sections.Skip(6).Take(1);
             completedCount = sections.Count(section => section.SectionStatus == FieldStatus.Completed);
         }
-        <p class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">@completedCount out of 1 completed</span></p>
+
+        <h2 class="govuk-body-l govuk-!-font-weight-bold govuk-!-margin-bottom-0">Un-assessed data <span class="summary-list-section summary-list-section--right">@completedCount out of 1 completed</span></h2>
         <hr class="govuk-section-break govuk-!-padding-bottom-3 govuk-section-break--visible">
 
         @Html.Partial("_ApplicationSectionList", sections.ToList(), new ViewDataDictionary(ViewData)
