@@ -55,41 +55,51 @@
                 @eligibility.Content.EligibilityChecker.Body1.Text
             </div>
 
-            <h2 class="govuk-heading-xl">@eligibility.Content.EligibilityChecker.Header1.Text</h2>
+            
 
-            @if (!listenabled)
-            {
-                <ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
-                    <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
-                    <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
-                    <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
-                    @if (eligibility.Content.EligibilityChecker.Bullet4.Text != null)
-                    {
-                        <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
-                    }
-                </ul>
 
-            }
             <form method="post">
                 <div class="govuk-form-group" @*style="padding-top: 3px;"*@>
-                    <label class="govuk-label govuk-label--l">
-                    </label>
-                    <fieldset class="govuk-fieldset">
-                        <div class="govuk-radios govuk-radios--inline">
-                            <div class="govuk-radios__item">
-                                <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
-                                <label class="govuk-label govuk-radios__label">
-                                    Yes
-                                </label>
+                    <fieldset class="govuk-fieldset" aria-describedby="question-hint">
+                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                            <h1 class="govuk-fieldset__heading">
+                                @eligibility.Content.EligibilityChecker.Header1.Text
+                            </h1>
+                        </legend>
+                        @if (!listenabled)
+                        {
+                            <ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
+                                <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+                                <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+                                <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+                                @if (eligibility.Content.EligibilityChecker.Bullet4.Text != null)
+                                {
+                                    <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+                                }
+                            </ul>
+
+                        }
+
+                        <fieldset class="govuk-fieldset">
+                            <div class="govuk-radios govuk-radios--inline">
+                                <div class="govuk-radios__item">
+                                    <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
+                                    <label class="govuk-label govuk-radios__label">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
+                                    <label class="govuk-label govuk-radios__label">
+                                        No
+                                    </label>
+                                </div>
                             </div>
-                            <div class="govuk-radios__item">
-                                <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
-                                <label class="govuk-label govuk-radios__label">
-                                    No
-                                </label>
-                            </div>
-                        </div>
+                        </fieldset>
+
                     </fieldset>
+
+                    
                 </div>
                 <button id="continueBtn" class="govuk-button govuk-!-margin-top-6">Continue</button>
             </form>
