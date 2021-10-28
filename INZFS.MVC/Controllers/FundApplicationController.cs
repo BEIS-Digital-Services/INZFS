@@ -698,6 +698,7 @@ namespace INZFS.MVC.Controllers
             currentModel.TextType = currentPage.TextType;
             currentModel.YesNoInput = currentPage.YesNoInput;
             currentModel.Question = currentPage.Question;
+            currentModel.FriendlyFieldName = currentPage.FriendlyFieldName;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.SectionTitle = currentPage.SectionTitle ?? currentPage.Question;
