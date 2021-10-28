@@ -6,14 +6,6 @@
       "metric_type": "throughput",
       "breach_duration_secs": 60,
       "threshold": 90,
-      "operator": "<",
-      "cool_down_secs": 60,
-      "adjustment": "-1"
-    },
-    {
-      "metric_type": "throughput",
-      "breach_duration_secs": 60,
-      "threshold": 90,
       "operator": ">=",
       "cool_down_secs": 60,
       "adjustment": "+1"
