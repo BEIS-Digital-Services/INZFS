@@ -14,9 +14,13 @@
     @Html.Partial("_ErrorMessage")
 
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
-        <label class="govuk-label govuk-label--l">
-            @Model.Question
-        </label>
+
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l">
+                @Model.Question
+            </label>
+        </h1>
+
         @Html.Partial("_QuestionDescription", Model.PageName)
         @Html.Partial("_Hint", Model.Hint)
         @Html.Partial($"../YesNoRadioTypes/_{Model.YesNoInput}.cshtml", Model)
