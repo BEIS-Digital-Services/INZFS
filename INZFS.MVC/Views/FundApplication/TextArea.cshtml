@@ -28,6 +28,7 @@
             @Html.Partial("_QuestionDescription", Model.PageName)
             @Html.Partial("_Hint", Model.Hint)
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <label for="with-hint" class="govuk-label govuk-visually-hidden">@Model.FriendlyFieldName</label>
             <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
                       name="DataInput" rows="10" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
         </div>
