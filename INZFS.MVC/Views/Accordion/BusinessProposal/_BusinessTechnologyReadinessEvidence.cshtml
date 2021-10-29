@@ -1,10 +1,9 @@
+@model string
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-
     <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-
-                <button type="button" id="accordion-default-heading-0" aria-controls="accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                <button type="button" id="accordion-default-heading-0" aria-controls="@Model-accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Assessment criteria
                     <span class="govuk-accordion__icon" aria-hidden="true"></span>
                 </button>
@@ -25,8 +24,7 @@
     <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-
-                <button type="button" id="accordion-default-heading-1" aria-controls="accordion-default-content-2" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                <button type="button" id="accordion-default-heading-1" aria-controls="@Model-accordion-default-content-2" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Technology Readiness Level (TRL)
                     <span class="govuk-accordion__icon" aria-hidden="true"></span>
                 </button>
@@ -64,8 +62,7 @@
     <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-
-                <button type="button" id="accordion-default-heading-2" aria-controls="accordion-default-content-3" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                <button type="button" id="accordion-default-heading-2" aria-controls="@Model-accordion-default-content-3" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Obstacles and risks
                     <span class="govuk-accordion__icon" aria-hidden="true"></span>
                 </button>
@@ -82,7 +79,5 @@
             <p class="govuk-body-s">Use evidence where possible.</p>
         </div>
     </div>
-
-
 
 </div>
