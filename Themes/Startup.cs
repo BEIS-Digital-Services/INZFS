@@ -50,6 +50,8 @@ namespace INZFS.Theme
             serviceCollection.AddKeyManagementOptions(Configuration, _logger);
             serviceCollection.AddSingleton<IAntiforgery, ThisCodeMustNotGoLiveAntiforgery>();
 
+            serviceCollection.AddCommonPasswordCheck(Configuration);
+
         }
 
         public override void Configure(IApplicationBuilder app, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

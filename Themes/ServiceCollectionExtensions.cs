@@ -8,6 +8,7 @@ using INZFS.Theme.Migrations;
 using INZFS.Theme.Models;
 using INZFS.Theme.Records;
 using INZFS.Theme.Services;
+using INZFS.Theme.Validators;
 using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -103,5 +104,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
             return services;
         }
+
+        public static IServiceCollection AddCommonPasswordCheck(this IServiceCollection services, IConfiguration Configuration)
+        {
+            IdentityBuilder builder = new IdentityBuilder(typeof(IUser), services);
+            builder.AddPasswordValidator<CommonPasswordValidator>();
+            services.AddSingleton<ICommonPasswordLists, CommonPasswordLists>();
+            return services;
+        }
+
     }
 }
