@@ -20,18 +20,18 @@
     <PackageReference Include="GovukNotify" Version="4.0.1" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
 		<PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
-		<PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Forms" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Module.Targets" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.ContentManagement" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.DisplayManagement" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Navigation.Core" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Title" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.ContentFields" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.FileStorage.FileSystem" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Media" Version="1.0.0-rc2-16369" />
-		<PackageReference Include="OrchardCore.Flows" Version="1.0.0-rc2-16369" />
+		<PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Forms" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Module.Targets" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.ContentManagement" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.ContentTypes.Abstractions" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.DisplayManagement" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Navigation.Core" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Title" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.ContentFields" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.FileStorage.FileSystem" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Media" Version="1.1.0" />
+		<PackageReference Include="OrchardCore.Flows" Version="1.1.0" />
 		<PackageReference Include="nClam" Version="5.0.1" />
 		<PackageReference Include="ClosedXML" Version="0.95.4" />
 		<PackageReference Include="SkiaSharp.NativeAssets.Linux.NoDependencies" Version="2.80.3" />
