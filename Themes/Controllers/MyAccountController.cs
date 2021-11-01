@@ -183,19 +183,33 @@ namespace INZFS.Theme.Controllers
                     return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
                 }
 
-                var changePasswordResult = await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+                var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.OldPassword, lockoutOnFailure: true);
+                if (checkResult.Succeeded)
+                {
+                    var changePasswordResult =
+                        await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
                 if (changePasswordResult.Succeeded)
                 {
                     await _signInManager.RefreshSignInAsync(user);
                     _logger.LogInformation("User changed their password successfully.");
                     var email = await _userManager.GetEmailAsync(user);
-                    await _notificationService.SendEmailAsync(email, _notificationOption.EmailChangePasswordTemplate);
+                        await _notificationService.SendEmailAsync(email,
+                            _notificationOption.EmailChangePasswordTemplate);
                     return RedirectToAction("SuccessPasswordChange");
                 }
 
                 foreach (var error in changePasswordResult.Errors)
                 {
                     ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+                else if (checkResult.IsLockedOut)
+                {
+                    ModelState.AddModelError(string.Empty, "You've attempted to change your password too many times. Your account has been locked temporarily for your security. Try again in 5 minutes.");
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Incorrect current password.");
                 }
             }
 
