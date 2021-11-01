@@ -2010,7 +2010,7 @@
               {
                 "name": "Yes, a little",
                 "value": "0",
-                "pageName": "eq-survey-question-complete"
+                "pageName": "eq-survey-complete"
               },
               {
                 "name": "Not at all",
