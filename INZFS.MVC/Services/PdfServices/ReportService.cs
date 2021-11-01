@@ -231,7 +231,7 @@ namespace INZFS.MVC.Services.PdfServices
 
             if (answer == null)
             {
-                return @"<span style=""color:red;"">No response</span>";
+                return @"<span>No response</span>";
             }
             else
             {
