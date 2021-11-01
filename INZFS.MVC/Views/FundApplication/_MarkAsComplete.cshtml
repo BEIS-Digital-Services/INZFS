@@ -29,13 +29,13 @@ else if(Model is BaseModel && Model.FieldType == FieldType.gdsFileUpload)
         <div class="govuk-radios govuk-!-margin-bottom-3">
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="fileUploadMarkComplete" name="FieldStatus" type="radio" value="@FieldStatus.Completed"  asp-for="FieldStatus">
-                <label class="govuk-label govuk-radios__label" asp-for="FieldStatus">
+                <label class="govuk-label govuk-radios__label" for="fileUploadMarkComplete">
                     Mark this step as complete
                 </label>
             </div>
             <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="fileUploadNotComplete" name="FieldStatus" type="radio" value="@FieldStatus.NotApplicable" asp-for="FieldStatus">
-                <label class="govuk-label govuk-radios__label" for="fileUploadNotComplete" asp-for="FieldStatus">
+                <label class="govuk-label govuk-radios__label" for="fileUploadNotComplete">
                     Not applicable
                 </label>
             </div>
