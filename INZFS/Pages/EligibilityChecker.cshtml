@@ -61,19 +61,17 @@
         }
         <form method="post">
             <div class="govuk-form-group" @*style="padding-top: 3px;"*@>
-                <label class="govuk-label govuk-label--l">
-                </label>
                 <fieldset class="govuk-fieldset">
                     <div class="govuk-radios govuk-radios--inline">
                         <div class="govuk-radios__item">
                             <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
-                            <label class="govuk-label govuk-radios__label">
+                            <label class="govuk-label govuk-radios__label" for="checkYes">
                                 Yes
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             <input id="checkNo" class="govuk-radios__input" type="radio" value="0" asp-for=@questionSettingA>
-                            <label class="govuk-label govuk-radios__label">
+                            <label class="govuk-label govuk-radios__label" for=""checkNo">
                                 No
                             </label>
                         </div>
@@ -90,10 +88,11 @@
             <div class="govuk-accordion__section ">
                 <div class="govuk-accordion__section-header">
                     <h2 class="govuk-accordion__section-heading">
-                            <span class="govuk-accordion__section-button govuk-!-font-size-19" id="accordion-default-heading-1">
-                                @eligibility.Content.EligibilityChecker.Accordion1.Text
-                            </span>
-                    </h2>
+                        <button type="button" id="accordion-default-heading-1" aria-controls="accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                            @eligibility.Content.EligibilityChecker.Accordion1.Text
+                            <span class="govuk-accordion__icon" aria-hidden="true"></span>
+                        </button>
+                     </h2>
                 </div>
                 <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
 
@@ -113,7 +112,6 @@
                             {
                                 <li>@eligibility.Content.EligibilityChecker.AccordionBullet3.Text</li>
                             }
-
                             @if (@eligibility.Content.EligibilityChecker.AccordionBullet4.Text != null)
                             {
                                 <li>@eligibility.Content.EligibilityChecker.AccordionBullet4.Text</li>
