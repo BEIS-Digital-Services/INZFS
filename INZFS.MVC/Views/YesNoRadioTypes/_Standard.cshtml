@@ -5,14 +5,14 @@
     <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value=1
                 @if (Model.DataInput == "1") { <text> checked="checked" </text> }>
-        <label class="govuk-label govuk-radios__label">
+        <label class="govuk-label govuk-radios__label" for="radio-yes">
             Yes
         </label>
     </div>
     <div class="govuk-radios__item">
         <input class="govuk-radios__input" id="radio-no" name="DataInput" type="radio" value=0
                 @if (Model.DataInput == "0") { <text> checked="checked" </text> }>
-        <label class="govuk-label govuk-radios__label">
+        <label class="govuk-label govuk-radios__label" for="radio-no">
             No
         </label>
     </div>

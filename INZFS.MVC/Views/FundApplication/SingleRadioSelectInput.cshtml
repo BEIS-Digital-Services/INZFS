@@ -2,6 +2,9 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 
+@{
+    int i = 0;
+}
 
 @Html.Partial("_Steps")
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
@@ -28,12 +31,13 @@
                 @foreach (var item in Model.SelectedOptions)
                 {
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value="@item.ToString()"
+                        <input class="govuk-radios__input" id="radiobutton-@i.ToString()" name="DataInput" type="radio" value="@item.ToString()"
                                @if (Model.DataInput == @item) { <text> checked="checked" </text> }>
-                        <label class="govuk-label govuk-radios__label" for="organisation">
+                        <label class="govuk-label govuk-radios__label" for="radiobutton-@i.ToString()">
                             @item
                         </label>
                     </div>
+                    i += 1;
                 }
 
                 @if (Model.HasOtherOption)

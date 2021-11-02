@@ -12,9 +12,9 @@
     {
         <div class="govuk-radios__item">
 
-            <input class="govuk-radios__input" id="radiobutton" name="DataInput" type="radio" value=@i.ToString()
+            <input class="govuk-radios__input" id="radiobutton-@i.ToString()" name="DataInput" type="radio" value=@i.ToString()
                     @if (Model.DataInput == i.ToString()) { <text> checked="checked" </text> }>
-            <label class="govuk-label govuk-radios__label" for="organisation">
+            <label class="govuk-label govuk-radios__label" for="radiobutton-@i.ToString()">
                 @item
             </label>
         </div>
