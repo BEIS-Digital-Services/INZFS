@@ -504,6 +504,15 @@ namespace INZFS.MVC.Controllers
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted 
                                     && DateTime.UtcNow <= _applicationOption.EndDate)
             {
+                bool applicationUploadSuccess = await AddApplicationToBlobStorage();
+                bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
+
+                if(!applicationUploadSuccess || !jsonUploadSuccess)
+                {
+                    TempData[TempDataKeys.ApplicationOverviewError] = true;
+                    return RedirectToAction("section", new { pagename = "application-overview" });
+                }
+
                 TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
                 {
@@ -511,8 +520,6 @@ namespace INZFS.MVC.Controllers
                     BackLinkText = "Back",
                     BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
                 };
-                AddApplicationToBlobStorage();
-                GenerateApplicationSummaryJson();
                 return View("ApplicationSubmit", model);
             }
             else
@@ -520,23 +527,25 @@ namespace INZFS.MVC.Controllers
                 TempData[TempDataKeys.ApplicationOverviewError] = true;
                 return RedirectToAction("section", new { pagename = "application-overview" });
             }
-
         }
 
-        public void GenerateApplicationSummaryJson() 
+        public async Task<bool> GenerateApplicationSummaryJson() 
         {
             var content = _contentRepository.GetApplicationContent(GetUserId());
             string name = $"{GetUserId()}.json";
             string jsonStr = JsonSerializer.Serialize(content);
             byte[] encoded = Encoding.UTF8.GetBytes(jsonStr);
+           
 
             MemoryStream ms = new(encoded);
             FormFile file = new(ms, 0, encoded.Length, name, name);
 
-            AddFileToBlobStorage(file);
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
         }
 
-        public async void AddApplicationToBlobStorage()
+        public async Task<bool> AddApplicationToBlobStorage()
         {
             string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             ReportContent reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
@@ -545,18 +554,21 @@ namespace INZFS.MVC.Controllers
             MemoryStream ms = new(reportContent.FileContents);
             FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
 
-            AddFileToBlobStorage(file);
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
         }
 
-        public async void AddFileToBlobStorage(FormFile file)
+        public async Task<string> AddFileToBlobStorage(FormFile file)
         {
             try
             {
                 var publicUrl = await _fileUploadService.SaveFile(file, "Submitted Applications");
+                return publicUrl;
             }
             catch (Exception e)
             {
-                //do something with the error
+                return null;
             }
         }
 
