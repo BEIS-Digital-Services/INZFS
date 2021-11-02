@@ -38,6 +38,7 @@ using INZFS.MVC.Settings;
 using Microsoft.Extensions.Options;
 using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace INZFS.MVC.Controllers
 {
@@ -511,6 +512,7 @@ namespace INZFS.MVC.Controllers
                     BackLinkUrl = Url.ActionLink("section", "FundController", new { pagename = "application-overview" })
                 };
                 AddApplicationToBlobStorage();
+                GenerateApplicationSummaryJson();
                 return View("ApplicationSubmit", model);
             }
             else
@@ -519,6 +521,19 @@ namespace INZFS.MVC.Controllers
                 return RedirectToAction("section", new { pagename = "application-overview" });
             }
 
+        }
+
+        public void GenerateApplicationSummaryJson() 
+        {
+            var content = _contentRepository.GetApplicationContent(GetUserId());
+            string name = $"{GetUserId()}.json";
+            string jsonStr = JsonSerializer.Serialize(content);
+            byte[] encoded = Encoding.UTF8.GetBytes(jsonStr);
+
+            MemoryStream ms = new(encoded);
+            FormFile file = new(ms, 0, encoded.Length, name, name);
+
+            AddFileToBlobStorage(file);
         }
 
         public async void AddApplicationToBlobStorage()
@@ -530,6 +545,11 @@ namespace INZFS.MVC.Controllers
             MemoryStream ms = new(reportContent.FileContents);
             FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
 
+            AddFileToBlobStorage(file);
+        }
+
+        public async void AddFileToBlobStorage(FormFile file)
+        {
             try
             {
                 var publicUrl = await _fileUploadService.SaveFile(file, "Submitted Applications");

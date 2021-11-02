@@ -44,13 +44,6 @@ namespace INZFS.MVC.Controllers
             return File(reportContent.FileContents, type, name);
         }
 
-        public async Task<IFormFile> PreparePdfForBlobStorage()
-        {
-            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
-            var reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
-
-        }
-
         private string GetUserId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier);
