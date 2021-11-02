@@ -20,7 +20,7 @@
                     <input class="govuk-input govuk-input--width-20" asp-for="EmailAddress" spellcheck="false" autocomplete="email">
                 </div>
                 <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
-                    <label class="govuk-label" for="password">
+                    <label class="govuk-label" asp-for="Password">
                         Password
                     </label>
                     <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
