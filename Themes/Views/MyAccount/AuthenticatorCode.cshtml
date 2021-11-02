@@ -12,7 +12,7 @@
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-form-group">
-                    <h1 class="govuk-label-wrapper govuk-!-margin-bottom-6 "><label class="govuk-label govuk-label--l" for="code">@ViewData["Title"]</label></h1>
+                    <h1 class="govuk-label-wrapper govuk-!-margin-bottom-6 "><label class="govuk-label govuk-label--l" asp-for="Code">@ViewData["Title"]</label></h1>
                     <span asp-validation-for="Code" class="govuk-error-message"></span>
                     <div id="code-generated-hint" class="govuk-hint">
                         Enter the code generated from the Authenticator App
