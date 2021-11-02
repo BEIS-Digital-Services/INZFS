@@ -4,7 +4,6 @@
 @model INZFS.Web.POCO.EqualityPoco
 @using Microsoft.AspNetCore.Http
 
-
 @{
 	var completePage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
 	var titlePart = (string)completePage.Content.AliasPart.Alias;
@@ -16,9 +15,7 @@
 	<div class="govuk-width-container">
 		<div class="govuk-width-container">
 			<main class="govuk-main-wrapper " id="main-content" role="main">
-
 				<div class="govuk-grid-row">
-
 					<div class="govuk-grid-column-two-thirds">
 						<div class="govuk-panel govuk-panel--confirmation">
 							<h1 class="govuk-panel__title">
@@ -61,7 +58,6 @@
 								</fieldset>
 							</div>
 
-
 							<details class="govuk-details" data-module="govuk-details">
 								<summary class="govuk-details__summary">
 									<span class="govuk-details__summary-text">
@@ -78,14 +74,10 @@
 							</button>
 						</form>
 					</div>
-
 				</div>
-
 			</main>
 		</div>
 	</div>
-
-
 </body>
 
 @functions
