@@ -6,6 +6,10 @@
 
 @Html.Partial("_Steps")
 
+@{
+    int i = 0;
+}
+
 <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
 
     <input type="hidden" name="PageName" value="@Model.PageName" />
@@ -14,8 +18,8 @@
     @Html.Partial("_ErrorMessage")
 
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
-        
-        <fieldset class="govuk-fieldset" aria-describedby="question-hint">
+
+        <fieldset class="govuk-fieldset">
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <h1 class="govuk-fieldset__heading">
                     @Model.Question
@@ -27,12 +31,13 @@
                 @foreach (var Action in Model.Actions)
                 {
                     <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="radio-yes" name="DataInput" type="radio" value="@Action.Value"
+                        <input class="govuk-radios__input" id="radiobutton-@i.ToString()" name="DataInput" type="radio" value="@Action.Value"
                                @if (Model.DataInput == Action.Value) { <text> checked="checked" </text> }>
-                        <label class="govuk-label govuk-radios__label">
+                        <label class="govuk-label govuk-radios__label" for="radiobutton-@i.ToString()">
                             @Action.Name
                         </label>
                     </div>
+                    i += 1;
                 }
             </div>
         </fieldset>
