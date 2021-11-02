@@ -36,6 +36,9 @@ using INZFS.MVC.Constants;
 using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.Extensions.Options;
+using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace INZFS.MVC.Controllers
 {
@@ -49,6 +52,8 @@ namespace INZFS.MVC.Controllers
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
         private readonly ApplicationOption _applicationOption;
+        private readonly IReportService _reportService;
+        private readonly IWebHostEnvironment _env;
 
         public FundApplicationController(
             IMediaFileStore mediaFileStore, 
@@ -57,7 +62,9 @@ namespace INZFS.MVC.Controllers
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
             ApplicationDefinition applicationDefinition, 
             IApplicationEmailService applicationEmailService,
-            IOptions<ApplicationOption> applicationOption)
+            IOptions<ApplicationOption> applicationOption,
+            IReportService reportService,
+            IWebHostEnvironment env)
         {
             _mediaFileStore = mediaFileStore;
             _session = session;
@@ -66,6 +73,8 @@ namespace INZFS.MVC.Controllers
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
             _applicationOption = applicationOption.Value;
+            _reportService = reportService;
+            _env = env;
         }
 
         [HttpGet]
@@ -502,6 +511,15 @@ namespace INZFS.MVC.Controllers
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted 
                                     && DateTime.UtcNow <= _applicationOption.EndDate)
             {
+                bool applicationUploadSuccess = await AddApplicationToBlobStorage();
+                bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
+
+                if(!applicationUploadSuccess || !jsonUploadSuccess)
+                {
+                    TempData[TempDataKeys.ApplicationOverviewError] = true;
+                    return RedirectToAction("section", new { pagename = "application-overview" });
+                }
+
                 TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
                 {
@@ -515,6 +533,49 @@ namespace INZFS.MVC.Controllers
             {
                 TempData[TempDataKeys.ApplicationOverviewError] = true;
                 return RedirectToAction("section", new { pagename = "application-overview" });
+            }
+        }
+
+        public async Task<bool> GenerateApplicationSummaryJson() 
+        {
+            var content = _contentRepository.GetApplicationContent(GetUserId());
+            string name = $"{GetUserId()}.json";
+            string jsonStr = JsonSerializer.Serialize(content);
+            byte[] encoded = Encoding.UTF8.GetBytes(jsonStr);
+           
+
+            MemoryStream ms = new(encoded);
+            FormFile file = new(ms, 0, encoded.Length, name, name);
+
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
+        }
+
+        public async Task<bool> AddApplicationToBlobStorage()
+        {
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            ReportContent reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
+            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+
+            MemoryStream ms = new(reportContent.FileContents);
+            FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
+
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
+        }
+
+        public async Task<string> AddFileToBlobStorage(FormFile file)
+        {
+            try
+            {
+                var publicUrl = await _fileUploadService.SaveFile(file, "Submitted Applications");
+                return publicUrl;
+            }
+            catch (Exception e)
+            {
+                return null;
             }
         }
 
