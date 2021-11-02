@@ -10,6 +10,7 @@ using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 
 namespace INZFS.MVC.Controllers
 {
@@ -41,7 +42,6 @@ namespace INZFS.MVC.Controllers
             string name = $"Application Form {reportContent.ApplicationNumber}.odt";
 
             return File(reportContent.FileContents, type, name);
-
         }
 
         private string GetUserId()
