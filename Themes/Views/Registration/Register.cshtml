@@ -22,7 +22,7 @@
                         <label class="govuk-label" asp-for="Email">
                             Email address
                         </label>
-                        <div id="event-name-hint" class="govuk-hint">
+                        <div id="email-hint" class="govuk-hint">
                             We need your email so we can sign you in
                         </div>
                         <span asp-validation-for="Email" class="govuk-error-message"></span>
@@ -33,7 +33,7 @@
                             Confirm your email address
                         </label>
                         <span asp-validation-for="ConfirmEmail" class="govuk-error-message"></span>
-                        <input asp-for="ConfirmEmail" asp-validation-govuk-for="ConfirmEmail" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" aria-describedby="emailconfirm-hint" autocomplete="email">
+                        <input asp-for="ConfirmEmail" asp-validation-govuk-for="ConfirmEmail" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" autocomplete="email">
                     </div>
                 </fieldset>
 
