@@ -10,7 +10,6 @@
 @Orchard.ConsoleLog(govpage)
 
 <div class="govuk-width-container">
-
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
             <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
@@ -29,68 +28,55 @@
         <div class="govuk-grid-column-one-quarter govuk-youraccount-right"></div>
     </div>
 
-
-    <main class="govuk-main-wrapper " id="main-content" role="main">
-
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                <h1 class="govuk-heading-xl">
-                    @govpage.Content.qanda.Heading1.Text
-                </h1>
-            </div>
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                @govpage.Content.qanda.Heading1.Text
+            </h1>
         </div>
+    </div>
 
-        <div class="govuk-grid-row">
-            <div class="govuk-grid-column-two-thirds">
-                @if (govpage.Content.ListOfFAQs?.ContentItems.Count == 0)
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            @if (govpage.Content.ListOfFAQs?.ContentItems.Count == 0)
+            {
+                <h2 class="govuk-heading-m">@govpage.Content.qanda.Heading2.Text</h2>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body1.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body2.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body3.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body4.Text)
+                </p>
+            }
+            else
+            {
+                foreach (var faq in govpage.Content.ListOfFAQs.ContentItems)
                 {
-                    <h2 class="govuk-heading-m">@govpage.Content.qanda.Heading2.Text</h2>
+                    <h2 class="govuk-heading-m">@faq.FAQ.Question.Text</h2>
 
                     <p class="govuk-body-l">
-                        @Html.Raw(govpage.Content.qanda.Body1.Text)
-                    </p>
-
-                    <p class="govuk-body-l">
-                        @Html.Raw(govpage.Content.qanda.Body2.Text)
-                    </p>
-
-                    <p class="govuk-body-l">
-                        @Html.Raw(govpage.Content.qanda.Body3.Text)
-                    </p>
-
-                    <p class="govuk-body-l">
-                        @Html.Raw(govpage.Content.qanda.Body4.Text)
+                        @faq.FAQ.Answer.Text
                     </p>
                 }
-                else
-                {
-                    foreach (var faq in govpage.Content.ListOfFAQs.ContentItems)
-                    {
-                        <h2 class="govuk-heading-m">@faq.FAQ.Question.Text</h2>
-
-                        <p class="govuk-body-l">
-                            @faq.FAQ.Answer.Text
-                        </p>
-                    }
-                }
-            </div>
-
-
-
-            <div class="govuk-grid-column-one-third">
-
-                <aside class="app-related-items" role="complementary">
-
-                    <h3 class="govuk-heading-s govuk-!-margin-top-3" id="subsection-title">Need support?</h3>
-
-                    <p class="govuk-body-m">If you need support with your application please email <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@BEIS.gov.uk</a></p>
-
-
-                </aside>
-
-
-            </div>
+            }
         </div>
-    </main>
 
+        <div class="govuk-grid-column-one-third">
+
+            <aside class="app-related-items" role="complementary">
+                <h3 class="govuk-heading-s govuk-!-margin-top-3" id="subsection-title">Need support?</h3>
+                <p class="govuk-body-m">If you need support with your application please email <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@BEIS.gov.uk</a></p>
+            </aside>
+        </div>
+    </div>
 </div>
