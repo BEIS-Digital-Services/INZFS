@@ -4,7 +4,6 @@
 @model INZFS.Web.POCO.EqualityPoco
 @using Microsoft.AspNetCore.Http
 
-
 @{
 	var completePage = await Orchard.GetContentItemByHandleAsync($"alias:{Slug}");
 	var titlePart = (string)completePage.Content.AliasPart.Alias;
