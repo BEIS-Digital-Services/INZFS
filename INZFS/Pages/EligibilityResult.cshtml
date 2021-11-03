@@ -8,8 +8,6 @@
 
 }
 
-<body class="govuk-template__body competition-overview">
-    <div class="govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
                 <a href="#" class="govuk-back-link" id="govuk-back-link">Back</a>
@@ -17,86 +15,70 @@
             <div class="govuk-grid-column-one-quarter govuk-signout-right">
             </div>
         </div>
-        <main class="govuk-main-wrapper " id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
 
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-
-                    <h1 class="govuk-heading-l">@eligibility.Content.EligibilityResult.Header1.Text</h1>
-
-                </div>
-            </div>
-
-            <div class="govuk-grid-row">
-                <div class="govuk-grid-column-two-thirds">
-                    @if (@eligibility.Content.EligibilityResult.Header2.Text != null)
-                    {
-                        <h2 class="govuk-heading-m">@eligibility.Content.EligibilityResult.Header2.Text</h2>
-                    }
-
-
-                    <p class="govuk-body">@Html.Raw(eligibility.Content.EligibilityResult.Body1.Text)</p>
-
-                    @if (!listenabled)
-                    {
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
-
-                            @if (@eligibility.Content.EligibilityResult.Bullet2.Text != null)
-                            {
-                                <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
-                            }
-                            @if (@eligibility.Content.EligibilityResult.Bullet3.Text != null)
-                            {
-                                <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
-                            }
-                            @if (@eligibility.Content.EligibilityResult.Bullet4.Text != null)
-                            {
-                                <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
-                            }
-                        </ul>
-
-                    }
-
-                    <p class="govuk-body">@eligibility.Content.EligibilityResult.Body2.Text</p>
-
-                    @if (@eligibility.Content.EligibilityResult.Body3.Text != null)
-                    {
-                        <p class="govuk-body">@eligibility.Content.EligibilityResult.Body3.Text <a class="govuk-link" href="#">another source</a>.</p>
-                    }
-
-
-                    @if (!Secondlistenabled)
-                    {
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletA.Text</li>
-                            @if (@eligibility.Content.EligibilityResult.BulletB.Text != null)
-                            {
-                                <li>@eligibility.Content.EligibilityResult.BulletB.Text</li>
-                            }
-
-                        </ul>
-
-                    }
-                    <a href="~/Registration/Register">
-                        <button class="govuk-button" data-module="govuk-button">
-                            @eligibility.Content.EligibilityResult.Button1.Text
-                        </button>
-                    </a>
-                    @if (@eligibility.Content.EligibilityResult.Header1.Text == "You are eligible to apply")
-                    {
-                        <p class="govuk-body"><a class="govuk-link" href="/">Return to fund overview</a></p>
-                    }
-
-                </div>
+                <h1 class="govuk-heading-l">@eligibility.Content.EligibilityResult.Header1.Text</h1>
 
             </div>
-        </main>
+        </div>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                @if (@eligibility.Content.EligibilityResult.Header2.Text != null)
+                {
+                    <h2 class="govuk-heading-m">@eligibility.Content.EligibilityResult.Header2.Text</h2>
+                }
 
+                <p class="govuk-body">@Html.Raw(eligibility.Content.EligibilityResult.Body1.Text)</p>
 
-    </div>
-</body>
-<script src="~/js/BackLink.js"></script>
+                @if (!listenabled)
+                {
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>@eligibility.Content.EligibilityResult.Bullet1.Text</li>
+
+                        @if (@eligibility.Content.EligibilityResult.Bullet2.Text != null)
+                        {
+                            <li>@eligibility.Content.EligibilityResult.Bullet2.Text</li>
+                        }
+                        @if (@eligibility.Content.EligibilityResult.Bullet3.Text != null)
+                        {
+                            <li>@eligibility.Content.EligibilityResult.Bullet3.Text</li>
+                        }
+                        @if (@eligibility.Content.EligibilityResult.Bullet4.Text != null)
+                        {
+                            <li>@eligibility.Content.EligibilityResult.Bullet4.Text</li>
+                        }
+                    </ul>
+                }
+
+                <p class="govuk-body">@eligibility.Content.EligibilityResult.Body2.Text</p>
+
+                @if (@eligibility.Content.EligibilityResult.Body3.Text != null)
+                {
+                    <p class="govuk-body">@eligibility.Content.EligibilityResult.Body3.Text <a class="govuk-link" href="#">another source</a>.</p>
+                }
+
+                @if (!Secondlistenabled)
+                {
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li style="padding-top: 20px;">@eligibility.Content.EligibilityResult.BulletA.Text</li>
+                        @if (@eligibility.Content.EligibilityResult.BulletB.Text != null)
+                        {
+                            <li>@eligibility.Content.EligibilityResult.BulletB.Text</li>
+                        }
+                    </ul>
+                }
+                <a href="~/Registration/Register">
+                    <button class="govuk-button" data-module="govuk-button">
+                        @eligibility.Content.EligibilityResult.Button1.Text
+                    </button>
+                </a>
+                @if (@eligibility.Content.EligibilityResult.Header1.Text == "You are eligible to apply")
+                {
+                    <p class="govuk-body"><a class="govuk-link" href="/">Return to fund overview</a></p>
+                }
+            </div>
+        </div>
 
 @functions
 {
