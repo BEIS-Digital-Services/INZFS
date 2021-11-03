@@ -35,16 +35,17 @@
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Application overview</h1>
         <p class="govuk-body govuk-!-margin-bottom-0">
-            Application
-            @if (@Model.TotalSectionsCompleted == Model.TotalSections)
-            {
-                <text>complete</text>
-            }
-            else
-            {
-                <text>incomplete</text>
-            }
-
+            <strong>
+                Application
+                @if (@Model.TotalSectionsCompleted == Model.TotalSections)
+                {
+                    <text>complete</text>
+                }
+                else
+                {
+                    <text>incomplete</text>
+                }
+            </strong>
         </p>
         <p class="govuk-body govuk-!-font-weight-regular">You have completed @Model.TotalSectionsCompleted of @Model.TotalSections sections.</p>
     </div>
