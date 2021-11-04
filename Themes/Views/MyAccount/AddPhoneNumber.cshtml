@@ -1,7 +1,9 @@
-﻿@model INZFS.Theme.ViewModels.AddPhoneNumberViewModel
+﻿
+@model INZFS.Theme.ViewModels.AddPhoneNumberViewModel
 @{
     ViewLayout = "LayoutRegistration";
     ViewData["Title"] = "Add your phone number";
+    ViewData["Breadcrumbs"] = new INZFS.Theme.Models.BreadcrumbsModel() {IsDisplay = false};
 }
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
@@ -12,10 +14,10 @@
                 <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body govuk-!-margin-bottom-3">This number will be used to authenticate your account when you login</p>
                 <div class="govuk-form-group" asp-validation-error-class-for="PhoneNumber">
-                    <label class="govuk-label" for="phone">Your phone number </label>
+                    <label class="govuk-label" asp-for="PhoneNumber">Your phone number </label>
                     <span asp-validation-for="PhoneNumber" class="govuk-error-message"></span>
                     <div class="govuk-form-group">
-                        <input asp-for="PhoneNumber" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" aria-describedby="event-phone-hint" autocomplete="off">
+                        <input asp-for="PhoneNumber" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" autocomplete="off">
                     </div>
                 </div>
                 <button class="govuk-button" data-module="govuk-button">

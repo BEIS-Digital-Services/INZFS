@@ -1,10 +1,13 @@
+@model string
+
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-    <div class="govuk-accordion__section ">
+    <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-                <span class="govuk-accordion__section-button govuk-!-font-size-19" id="accordion-default-heading-1">
+                <button type="button" id="accordion-default-heading-0" aria-controls="@Model-accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Eligibility criteria
-                </span>
+                    <span class="govuk-accordion__icon" aria-hidden="true"></span>
+                </button>
             </h2>
         </div>
         <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
@@ -19,5 +22,4 @@
             </ul>
         </div>
     </div>
-
 </div>

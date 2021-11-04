@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace INZFS.MVC.Models.DynamicForm
@@ -26,37 +27,36 @@ namespace INZFS.MVC.Models.DynamicForm
 
             if (Mandatory == true && MarkAsComplete)
             {
-                if ((AddressLine1 == null && AddressLine2 == null))
+                if ((AddressLine1 == null))
                 {
-                    yield return new ValidationResult($"Please add your Address to the Address field", new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Please add your address to the address field", new[] { nameof(AddressLine1) });
                 }
                 if (City == null)
                 {
-                    yield return new ValidationResult($"Please add the current city or town your business is based in into the Town or City field", new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Please add the current city or town your business is based in into the town or city field", new[] { nameof(City) });
                 }
                 if (PostCode == null)
                 {
-                    yield return new ValidationResult($"Please add your postcode into the Postcode field", new[] { nameof(DataInput) });
+                    yield return new ValidationResult($"Please add your postcode into the Postcode field", new[] { nameof(PostCode) });
                 }
-                if (PostCode != null && PostCode.Length > 8)
-                {
-                    yield return new ValidationResult($"You have entered a postcode which is {PostCode.Length} characters in length. Please enter a postcode which is below 8 characters in length", new[] { nameof(DataInput) });
-                }
-                else
-                {
-                    addresslist.Add(AddressLine1);
-                    addresslist.Add(AddressLine2);
-                    addresslist.Add(City);
-                    addresslist.Add(County);
-                    addresslist.Add(PostCode);
-                }
-               
+            }
+            if (PostCode != null && PostCode.Trim().Length > 8)
+            {
+                yield return new ValidationResult($"You have entered a postcode which is {PostCode.Length} characters in length. Please enter a postcode which is below 8 characters in length", new[] { nameof(PostCode) });
+            }
+            else if (PostCode != null && !Regex.Match(PostCode.Trim(), @"[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}", RegexOptions.IgnoreCase).Success)
+            {
+                yield return new ValidationResult($"Enter your postcode in the requested format, for instance: AA1 1AA", new[] { nameof(PostCode) });
             }
         }
         public override string GetData()
         {
-            string Address = string.Join(",", addresslist);
-            return Address;
+            addresslist.Add(AddressLine1);
+            addresslist.Add(AddressLine2);
+            addresslist.Add(City);
+            addresslist.Add(County);
+            addresslist.Add(PostCode);
+            return string.Join(",", addresslist);
         }
     }
 }

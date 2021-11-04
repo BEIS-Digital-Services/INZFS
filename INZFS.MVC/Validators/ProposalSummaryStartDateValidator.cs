@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,6 +33,7 @@ namespace INZFS.MVC.Validators
             if (!string.IsNullOrEmpty(dataInput))
             {
                 DateTime startDate;
+                DateTime endDate;
                 if (DateTime.TryParseExact(dataInput, "d/M/yyyy", CultureInfo.CurrentCulture, DateTimeStyles.None, out startDate))
                 {
                     if (startDate > new DateTime(2023, 3, 31))
@@ -47,18 +49,21 @@ namespace INZFS.MVC.Validators
 
                     if (currentPage.FieldValidationDependsOn?.Count() > 0 && isValid)
                     {
-                        var username = _httpContextAccessor.HttpContext.User.Identity.Name;
-                        var content = _contentRepository.GetApplicationContent(username).Result;
+                        var userId = _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier); ;
+                        var content = _contentRepository.GetApplicationContent(userId).Result;
 
                         // Get dependendant field data
                         var field = content.Fields.FirstOrDefault(f => f.Name.ToLower().Equals(currentPage.FieldValidationDependsOn[0].Trim().ToLower()));
                         if (!string.IsNullOrEmpty(field?.Data))
                         {
-                            var endDate = DateTime.Parse(field.Data);
-                            if (endDate < startDate)
+                            if (DateTime.TryParseExact(field.Data, "d/M/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate))
                             {
-                                yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be before project end date", new[] { "DateUtc" });
+                                if (endDate < startDate)
+                                {
+                                    yield return new ValidationResult($"{currentPage.FriendlyFieldName} must be before project end date", new[] { "DateUtc" });
+                                }
                             }
+                         
                         }
 
                     }

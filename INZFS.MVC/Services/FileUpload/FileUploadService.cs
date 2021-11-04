@@ -85,10 +85,10 @@ namespace INZFS.MVC.Services.FileUpload
                 return $"The selected file must be {currentPage.AcceptableFileExtensions}";
             }
 
-            var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
+            var maxSize = 20 * Math.Pow(1024, 2); // 20 MB
             if ((double)file.Length > maxSize)
             {
-                return "The selected file must be smaller than 10MB";
+                return "The selected file must be smaller than 20MB";
             }
 
             //TODO : Switch to virus scanning service

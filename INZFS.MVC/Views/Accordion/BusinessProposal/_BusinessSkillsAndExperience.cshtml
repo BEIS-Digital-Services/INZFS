@@ -1,10 +1,9 @@
+@model string  
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
-
     <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-
-                <button type="button" id="accordion-default-heading-1" aria-controls="accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                <button type="button" id="accordion-default-heading-1" aria-controls="@Model-accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Experience and skills
                     <span class="govuk-accordion__icon" aria-hidden="true"></span>
                 </button>
@@ -20,20 +19,13 @@
                 <li>academic background</li>
             </ul>
             <p class="govuk-body-s">You should also include background information of people who will have an important role on the project. This includes your own organisation and any others in your consortium.</p>
-
-
-
-
         </div>
     </div>
-
-
 
     <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
             <h2 class="govuk-accordion__section-heading">
-
-                <button type="button" id="accordion-default-heading-2" aria-controls="accordion-default-content-2" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                <button type="button" id="accordion-default-heading-2" aria-controls="@Model-accordion-default-content-2" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
                     Contacts and supply chain
                     <span class="govuk-accordion__icon" aria-hidden="true"></span>
                 </button>
@@ -52,6 +44,4 @@
 
         </div>
     </div>
-
-
 </div>
