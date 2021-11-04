@@ -28,6 +28,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public string Section { get; set; }
         public TextType TextType { get; set; }
         public YesNoType YesNoInput { get; set; }
+        public UploadedFile UploadedFile { get; set; }
 
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
