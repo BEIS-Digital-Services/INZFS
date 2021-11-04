@@ -23,8 +23,11 @@
                     <label class="govuk-label" asp-for="Password">
                         Password
                     </label>
-                    <span asp-validation-for="Password" class="govuk-error-message"></span>
-                    <input class="govuk-input govuk-input--width-20" asp-for="Password"  type="password" spellcheck="false" autocomplete="password">
+                    <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
+                        <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" aria-describedby="create-password-hint" spellcheck="false">
+                        <button class="show-password__toggle password-changer" data-control="Password" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText">Show</button>
+                        <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                    </div>
                 </div>
                 <p class="govuk-body-s"><a class="govuk-link" asp-area="INZFS.Theme" asp-controller="Account" asp-action="ForgotPassword" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Forgotten your password?</a></p>
                 <button class="govuk-button" data-module="govuk-button">Sign in</button>
@@ -34,3 +37,5 @@
         </div>
     </form>
 </main>
+
+<script src="/INZFS.Theme/lib/password-changer.js"></script>

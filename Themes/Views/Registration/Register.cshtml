@@ -12,100 +12,109 @@
             <div class="govuk-grid-column-two-thirds">
                 <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body-l">You'll need to create an account to start an application.</p>
-                <div class="govuk-form-group" asp-validation-error-class-for="Email">
-                    <label class="govuk-label">
-                        Email address
-                    </label>
-                    <div id="event-name-hint" class="govuk-hint">
-                        We need your email so we can sign you in
-                    </div>
-                    <span asp-validation-for="Email" class="govuk-error-message"></span>
-                    <input type="text" asp-for="Email" class="govuk-input govuk-input--width-20" asp-validation-govuk-for="Email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" />
-                </div>
-                <div class="govuk-form-group" asp-validation-error-class-for="ConfirmEmail">
-                    <label class="govuk-label" for="emailconfirm">
-                        Confirm your email address
-                    </label>
-                    <span asp-validation-for="ConfirmEmail" class="govuk-error-message"></span>
-                    <input asp-for="ConfirmEmail" asp-validation-govuk-for="ConfirmEmail" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" aria-describedby="emailconfirm-hint" autocomplete="emailconfirm">
-                </div>
-                <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
-                    <label class="govuk-label" for="password">
-                        Create your password
-                    </label>
-                    <div id="create-password-hint" class="govuk-hint">
-                        Your password must:
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li>be at least 8 characters</li>
-                            <li>be a mixture of upper and lower case</li>
-                            <li>not include commonly used passwords</li>
-                        </ul>
-                    </div>
-                    <span asp-validation-for="Password" class="govuk-error-message"></span>
-                    <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
-                        <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" aria-describedby="create-password-hint" spellcheck="false">
-                        <button class="show-password__toggle password-changer" data-control="Password" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText">Show</button>
-                        <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
-                    </div>
-                </div>
-                <div class="govuk-form-group govuk-!-margin-bottom-6" asp-validation-error-class-for="ConfirmPassword">
-                    <label for="create-password" class="govuk-label"> Confirm your password</label>
-                    <span asp-validation-for="ConfirmPassword" class="govuk-error-message"></span>
-                    <div class="show-password__input-wrapper">
-                        <input asp-for="ConfirmPassword" asp-validation-govuk-for="ConfirmPassword" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
-                        <button class="show-password__toggle password-changer" data-control="ConfirmPassword" aria-controls="password-confirm" type="button" aria-label="Show password" id="buttonText1">Show</button>
-                        <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
-                    </div>
-
-                </div>
-                <p class="govuk-body-s">Review our <a class="govuk-link" href="/page/privacynotice">privacy notice</a></p>
-                <div class="govuk-form-group" >
-                    <fieldset class="govuk-fieldset">
-                        <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
-                            <h2 class="govuk-fieldset__heading">
-                                Consent to personal information
-                            </h2>
-                        </legend>
-                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                            <span asp-validation-for="IsConsentedToUsePersonalInformation" class="govuk-error-message"></span>
-                            <div class="govuk-checkboxes__item" asp-validation-error-class-for="IsConsentedToUsePersonalInformation">
-                                <input class="govuk-checkboxes__input" asp-for="IsConsentedToUsePersonalInformation" type="checkbox"/>
-                                <label class="govuk-label govuk-checkboxes__label" asp-for="IsConsentedToUsePersonalInformation">
-                                    I consent to BEIS processing my personal information
-                                </label>
-                            </div>
-                            <span asp-validation-for="IsConsentedUseEmailAndSms" class="govuk-error-message"></span>
-                            <div class="govuk-checkboxes__item" asp-validation-error-class-for="IsConsentedUseEmailAndSms">
-                                <input class="govuk-checkboxes__input" asp-for="IsConsentedUseEmailAndSms" type="checkbox" />
-                                <label class="govuk-label govuk-checkboxes__label" asp-for="IsConsentedUseEmailAndSms">
-                                    I consent to BEIS contacting me by email and SMS
-                                </label>
-                            </div>
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend">
+                        <h2 class="govuk-fieldset__heading govuk-visually-hidden">
+                            Email details
+                        </h2>
+                    </legend>
+                    <div class="govuk-form-group" asp-validation-error-class-for="Email">
+                        <label class="govuk-label" asp-for="Email">
+                            Email address
+                        </label>
+                        <div id="email-hint" class="govuk-hint">
+                            We need your email so we can sign you in
                         </div>
-                    </fieldset>
-                </div>
-                <details class="govuk-details" data-module="govuk-details">
-                    <summary class="govuk-details__summary">
-                        <span class="govuk-details__summary-text">
-                            How does BEIS process your personal information?
-                        </span>
-                    </summary>
-                    <div class="govuk-details__text">
-                        <p class="govuk-body">At the Department for Business, Energy and Industrial Strategy (BEIS) your privacy is important to us and we're committed to protecting your personal data and to handling it responsibly. The UK General Data Protection Regulation (UK GDPR) gives individuals (whether these be customers, contractors or members of staff) more control over the ways in which businesses process your personal data and how you are contacted and we need your consent to how we contact you. </p>
-                        <p class="govuk-body">By ticking the boxes below you are confirming that you are freely consenting to the Department for Business, Energy and Industrial Strategy (BEIS) holding and processing your personal data for the following purpose of:</p>
-                        <ul class="govuk-list govuk-list--bullet">
-                            <li>Sending updates regarding the EEF: phase 9 funding round </li>
-                            <li>Assess your application</li>
-                        </ul>
-                        <p class="govuk-body">You can withdraw or change your consent at any time by contacting <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@beis.gov.uk</a>. Please note that all processing of your personal data will cease once you have withdrawn consent, other than where this is required by law, but this will not affect any personal data that has already been processed prior to this point.</p>
-                        <h2 class="govuk-heading-m">Contact details for further information</h2>
-                        <p class="govuk-body govuk-!-padding-bottom-6">Georgina Hammond, <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@beis.gov.uk</a></p>
+                        <span asp-validation-for="Email" class="govuk-error-message"></span>
+                        <input type="text" asp-for="Email" class="govuk-input govuk-input--width-20" asp-validation-govuk-for="Email" spellcheck="false" aria-describedby="email-hint" autocomplete="email" />
+                    </div>
+                    <div class="govuk-form-group" asp-validation-error-class-for="ConfirmEmail">
+                        <label class="govuk-label" asp-for="ConfirmEmail">
+                            Confirm your email address
+                        </label>
+                        <span asp-validation-for="ConfirmEmail" class="govuk-error-message"></span>
+                        <input asp-for="ConfirmEmail" asp-validation-govuk-for="ConfirmEmail" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" autocomplete="email">
+                    </div>
+                </fieldset>
+
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend">
+                        <h2 class="govuk-fieldset__heading govuk-visually-hidden">
+                            Password details
+                        </h2>
+                    </legend>
+                    <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
+                        <label class="govuk-label" asp-for="Password">
+                            Create your password
+                        </label>
+                        <partial name="_Password-hint" />
+                        <span asp-validation-for="Password" class="govuk-error-message"></span>
+                        <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
+                            <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" aria-describedby="create-password-hint" spellcheck="false">
+                            <button class="show-password__toggle password-changer" data-control="Password" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText">Show</button>
+                            <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                        </div>
+                    </div>
+                    <div class="govuk-form-group govuk-!-margin-bottom-6" asp-validation-error-class-for="ConfirmPassword">
+                        <label asp-for="ConfirmPassword" class="govuk-label"> Confirm your password</label>
+                        <span asp-validation-for="ConfirmPassword" class="govuk-error-message"></span>
+                        <div class="show-password__input-wrapper">
+                            <input asp-for="ConfirmPassword" asp-validation-govuk-for="ConfirmPassword" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
+                            <button class="show-password__toggle password-changer" data-control="ConfirmPassword" aria-controls="password-confirm" type="button" aria-label="Show password" id="buttonText1">Show</button>
+                            <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                        </div>
 
                     </div>
-                </details>
-                <button class="govuk-button" data-module="govuk-button">Create and continue</button>
-                <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">Already have an account?</a></p>
-                <p class="govuk-body-s"><a class="govuk-link" href="../page/help">Need help signing in or creating an account?</a></p>
+
+                </fieldset>
+                    <p class="govuk-body-s">Review our <a class="govuk-link" href="/page/privacynotice">privacy notice</a></p>
+                    <div class="govuk-form-group" >
+                        <fieldset class="govuk-fieldset">
+                            <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
+                                <h2 class="govuk-fieldset__heading">
+                                    Consent to personal information
+                                </h2>
+                            </legend>
+                            <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                                <span asp-validation-for="IsConsentedToUsePersonalInformation" class="govuk-error-message"></span>
+                                <div class="govuk-checkboxes__item" asp-validation-error-class-for="IsConsentedToUsePersonalInformation">
+                                    <input class="govuk-checkboxes__input" asp-for="IsConsentedToUsePersonalInformation" type="checkbox"/>
+                                    <label class="govuk-label govuk-checkboxes__label" asp-for="IsConsentedToUsePersonalInformation">
+                                        I consent to BEIS processing my personal information
+                                    </label>
+                                </div>
+                                <span asp-validation-for="IsConsentedUseEmailAndSms" class="govuk-error-message"></span>
+                                <div class="govuk-checkboxes__item" asp-validation-error-class-for="IsConsentedUseEmailAndSms">
+                                    <input class="govuk-checkboxes__input" asp-for="IsConsentedUseEmailAndSms" type="checkbox" />
+                                    <label class="govuk-label govuk-checkboxes__label" asp-for="IsConsentedUseEmailAndSms">
+                                        I consent to BEIS contacting me by email and SMS
+                                    </label>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                    <details class="govuk-details" data-module="govuk-details">
+                        <summary class="govuk-details__summary">
+                            <span class="govuk-details__summary-text">
+                                How does BEIS process your personal information?
+                            </span>
+                        </summary>
+                        <div class="govuk-details__text">
+                            <p class="govuk-body">At the Department for Business, Energy and Industrial Strategy (BEIS) your privacy is important to us and we're committed to protecting your personal data and to handling it responsibly. The UK General Data Protection Regulation (UK GDPR) gives individuals (whether these be customers, contractors or members of staff) more control over the ways in which businesses process your personal data and how you are contacted and we need your consent to how we contact you. </p>
+                            <p class="govuk-body">By ticking the boxes below you are confirming that you are freely consenting to the Department for Business, Energy and Industrial Strategy (BEIS) holding and processing your personal data for the following purpose of:</p>
+                            <ul class="govuk-list govuk-list--bullet">
+                                <li>Sending updates regarding the EEF: phase 9 funding round </li>
+                                <li>Assess your application</li>
+                            </ul>
+                            <p class="govuk-body">You can withdraw or change your consent at any time by contacting <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@beis.gov.uk</a>. Please note that all processing of your personal data will cease once you have withdrawn consent, other than where this is required by law, but this will not affect any personal data that has already been processed prior to this point.</p>
+                            <h2 class="govuk-heading-m">Contact details for further information</h2>
+                            <p class="govuk-body govuk-!-padding-bottom-6">Georgina Hammond, <a class="govuk-link" href="mailto:entrepreneur@beis.gov.uk">entrepreneur@beis.gov.uk</a></p>
+
+                        </div>
+                    </details>
+                    <button class="govuk-button" data-module="govuk-button">Create and continue</button>
+                    <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">Already have an account?</a></p>
+                    <p class="govuk-body-s"><a class="govuk-link" href="../page/help">Need help signing in or creating an account?</a></p>
             </div>
         </div>
     </form>

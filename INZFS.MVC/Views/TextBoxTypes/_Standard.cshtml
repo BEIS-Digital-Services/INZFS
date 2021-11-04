@@ -1,5 +1,12 @@
 @model BaseModel
 @using INZFS.MVC.Models.DynamicForm
+@Html.Partial("_QuestionDescription", Model.PageName)
 
-<input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="textInput"
-       name="DataInput" type="text" spellcheck="true" value="@Model.DataInput">
+@*<label for="@Model.FieldName" class="govuk-label govuk-visually-hidden">@Model.FriendlyFieldName</label>*@
+<input class="govuk-input govuk-input--width-20 @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="@Model.FieldName"
+       name="DataInput" type="text" spellcheck="true" value="@Model.DataInput"
+      @if(!string.IsNullOrEmpty(Model.Hint))
+     {
+         <text>aria-describedby="question-hint"</text>
+     }
+     >

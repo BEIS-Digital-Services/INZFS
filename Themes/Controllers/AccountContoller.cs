@@ -52,10 +52,10 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false ) || string.IsNullOrEmpty(returnUrl))
             {
-                returnUrl ??= Url.Content("~/");
-                return LocalRedirect(returnUrl);
+                await _signInManager.SignOutAsync();
             }
 
             return View(new LoginViewModel());
@@ -66,14 +66,14 @@ namespace INZFS.Theme.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.EmailAddress) ?? await _userManager.FindByNameAsync(model.EmailAddress);
                 if (user != null)
                 {
-                    var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+                    var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
                     if (checkResult.Succeeded)
                     {
                         if (!await _userManager.IsEmailConfirmedAsync(user))
@@ -81,7 +81,7 @@ namespace INZFS.Theme.Controllers
                             var idToken = _encodingService.GetHexFromString(model.EmailAddress);
                             return RedirectToAction("Success", "Registration", new { area = "INZFS.Theme", token = idToken, toverify = true });
                         }
-                        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, lockoutOnFailure: false);
+                        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, lockoutOnFailure: true);
                         if (result.RequiresTwoFactor)
                         {
                             return RedirectToAction("Select", "TwoFactor", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
@@ -95,7 +95,7 @@ namespace INZFS.Theme.Controllers
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError("Password", "Invalid login attempt. If you believe your account has been locked, please allow 5 minutes before logging in");
                 await _accountEvents.InvokeAsync((e, model) => e.LoggingInFailedAsync(model.EmailAddress), model, _logger);
             }
 
@@ -131,7 +131,7 @@ namespace INZFS.Theme.Controllers
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     token = _encodingService.Base64UrlEncode(token);
-                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, Request.Scheme);
+                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, EmailConstant.Scheme);
                     await SendForgotPasswordEmailAsync(model.EmailAddress, resetUrl);
                 }
               

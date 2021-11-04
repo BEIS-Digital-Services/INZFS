@@ -16,7 +16,7 @@
             <span class="govuk-warning-text__icon govuk-warning-text__icon--twolines" aria-hidden="true">!</span>
             <strong class="govuk-warning-text__text">
                 <span class="govuk-warning-text__assistive">Warning</span>
-                You will need these figures to complete the project cost breakdown form in the next question
+                You will need these figures to complete the project cost breakdown form in the next step
             </strong>
         </div>
 
@@ -29,13 +29,13 @@
                 @Html.Partial("_SaveContinue", Model.ContinueButtonText)
 
                 <a href="subsidy-requirements">
-                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="button">
                         Start again
                     </button>
                 </a>
-
-                <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.ReturnPageName">Return to the financial proposal overview</a></p>
-</form>
+            </div>
+            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.PreviousPageName">Back to previous step</a></p>
+        </form>
 
 
 
@@ -51,7 +51,7 @@
                 </div>
                 <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
 
-                    <p class='govuk-body'>You can apply for up to £1 million under the aid for start-ups category.</p>
+                    <p class='govuk-body'>You can apply for up to &pound;1 million under the aid for start-ups category.</p>
 
                 </div>
             </div>
@@ -70,7 +70,7 @@
 
                     <p class='govuk-body'>This is in accordance of Article 10 of the Northern Ireland Protocol in the UK/EU withdrawal agreement.</p>
 
-                    <p class='govuk-body'>If the European Commission finds you have been given grant funding incorrectly, it’s likely that you will have to repay any aid received to the value of the gross grant equivalent.</p>
+                    <p class='govuk-body'>If the European Commission finds you have been given grant funding incorrectly, it's likely that you will have to repay any aid received to the value of the gross grant equivalent.</p>
 
                 </div>
             </div>

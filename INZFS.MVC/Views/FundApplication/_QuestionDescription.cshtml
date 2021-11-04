@@ -1,108 +1,132 @@
 @model string
-@*SECTION 3 ABOUT YOUR ORG*@
-@if (Model == "organisation-introduction")
-{
-    @Html.Partial("../QuestionDescription/AboutYourOrg/_OrganisationIntroduction.cshtml")
-}
-@if (Model == "consortium-applicant-details")
-{
-    @Html.Partial("../QuestionDescription/AboutYourOrg/_ConsortiumApplicantDetails.cshtml")
+
+@{ 
+    var pagename = Model.ToLower();
 }
 
-@*SECTION 5 BUSINESS PROPOSAL*@
-@if (Model == "eligibility-to-apply-for-fund")
+@*SECTION 1 Your details and eligibility *@
+@if (pagename == "eligibility-to-apply-for-fund")
 {
     @Html.Partial("../QuestionDescription/YourDetailsEligibility/_EligibilityToApplyForFund.cshtml")
 }
+@if (pagename == "full-name")
+{
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
+}
+
+@*SECTION 3 ABOUT YOUR ORG*@
+@if (pagename == "organisation-name")
+{
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
+}
+@if (pagename == "organisation-introduction")
+{
+    @Html.Partial("../QuestionDescription/AboutYourOrg/_OrganisationIntroduction.cshtml")
+}
+@if (pagename == "consortium-applicant-details")
+{
+    @Html.Partial("../QuestionDescription/AboutYourOrg/_ConsortiumApplicantDetails.cshtml")
+}
+@if (pagename == "parent-organisation-name")
+{
+    @Html.Partial("../QuestionDescription/Shared/_SharedNameDiscription.cshtml")
+}
+
+
+@*SECTION 4  Proposal summary *@
+@if (pagename == "grant-justification")
+{
+    @Html.Partial("../QuestionDescription/ProposalSummary/_GrantJustification.cshtml")
+}
 
 @*SECTION 5 BUSINESS PROPOSAL*@
-@if (Model == "business-proposal")
+@if (pagename == "business-proposal")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposal.cshtml")
 }
-@if (Model == "business-proposal-evidence")
+@if (pagename == "business-proposal-evidence")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProposalEvidence.cshtml")
 }
-@if (Model == "business-plan")
+@if (pagename == "business-plan")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessPlan.cshtml")
 }
-@if (Model == "business-technology-readiness")
+@if (pagename == "business-technology-readiness")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
 }
-@if (Model == "business-upload-trl-evidence")
+@if (pagename == "business-upload-trl-evidence")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessTechnologyReadinessEvidence.cshtml")
 }
-@if (Model == "business-justification-for-cost-and-performance")
+@if (pagename == "business-justification-for-cost-and-performance")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessJustificationForCostAndPerformance.cshtml")
 }
-@if (Model == "business-upload-cost-and-performance-figures")
+@if (pagename == "business-upload-cost-and-performance-figures")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadCostAndPerformanceFigures.cshtml")
 }
-@if (Model == "business-upload-evidence-for-impact")
+@if (pagename == "business-upload-evidence-for-impact")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadEvidenceForImpact.cshtml")
 }
-@if (Model == "business-infrastructure")
+@if (pagename == "business-infrastructure")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessInfrastructure.cshtml")
 }
-@if (Model == "business-environmental-impact")
+@if (pagename == "business-environmental-impact")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessEnvironmentalImpact.cshtml")
 }
-@if (Model == "business-regulations")
+@if (pagename == "business-regulations")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessRegulations.cshtml")
 }
-@if (Model == "business-impact-on-climate-change")
+@if (pagename == "business-impact-on-climate-change")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessImpactOnClimateChange.cshtml")
 }
-@if (Model == "business-project-plan")
+@if (pagename == "business-project-plan")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlan.cshtml")
 }
-@if (Model == "business-project-plan-document")
+@if (pagename == "business-project-plan-document")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectPlanDocument.cshtml")
 }
-@if (Model == "business-project-evaluation")
+@if (pagename == "business-project-evaluation")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessProjectEvaluation.cshtml")
 }
-@if (Model == "business-upload-risk-register")
+@if (pagename == "business-upload-risk-register")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessUploadRiskRegister.cshtml")
 }
-@if (Model == "business-skills-and-experience")
+@if (pagename == "business-skills-and-experience")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessSkillsAndExperience.cshtml")
 }
-@if (Model == "business-skills-and-experience-document")
+@if (pagename == "business-skills-and-experience-document")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessSkillsAndExperienceDocument.cshtml")
 }
-@if (Model == "business-letter-of-support-document")
+@if (pagename == "business-letter-of-support-document")
 {
     @Html.Partial("../QuestionDescription/BusinessProposal/_BusinessLatterOfSupportDocument.cshtml")
 }
 
 @*SECTION 6 FINANCE PROPOSAL*@
-@if (Model == "project-cost-breakdown")
+@if (pagename == "project-cost-breakdown")
 {
     @Html.Partial("../QuestionDescription/FinanceProposal/_ProjectCostBreakdown.cshtml")
 }
-@if (Model == "financial-background")
+@if (pagename == "financial-background")
 {
     @Html.Partial("../QuestionDescription/FinanceProposal/_FinancialBackground.cshtml")
 }
-@if (Model == "value-for-money")
+@if (pagename == "value-for-money")
 {
     @Html.Partial("../QuestionDescription/FinanceProposal/_ValueforMoney.cshtml")
 }
@@ -110,27 +134,34 @@
 
 @*SECTION 7 PREFORMANCE DATA*@
 
-@if (Model == "number-of-employees")
+@if (pagename == "number-of-employees")
 {
     @Html.Partial("../QuestionDescription/PreformanceData/_Numberofemployees.cshtml")
 }
 
-@if (Model == "fte-jobs-retained")
+@if (pagename == "fte-jobs-retained")
 {
     @Html.Partial("../QuestionDescription/PreformanceData/_FullTimeEmploymentjobsretained.cshtml")
 }
 
-@if (Model == "fte-jobs-created")
+@if (pagename == "fte-jobs-created")
 {
     @Html.Partial("../QuestionDescription/PreformanceData/_FullTimeEmploymentjobscreated.cshtml")
 }
 
-@if (Model == "number-of-partner-organisations")
+@if (pagename == "number-of-partner-organisations")
 {
     @Html.Partial("../QuestionDescription/PreformanceData/_Numberofpartnerorganisations.cshtml")
 }
 
-@if (Model == "consumer-trials-participants")
+@if (pagename == "consumer-trials-participants")
 {
     @Html.Partial("../QuestionDescription/PreformanceData/_Consumertrialsparticipants.cshtml")
+}
+
+@*  EQUALITY QUESTIONNAIRE *@
+
+@if (pagename == "eq-survey-question-one")
+{
+    @Html.Partial("../QuestionDescription/EqualityQuestionnaire/_QuestionOne.cshtml")
 }

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using INZFS.Theme.Models
+<!DOCTYPE html>
 <html lang="en" class="govuk-template ">
 <head>
     <meta charset="utf-8">
@@ -17,7 +18,8 @@
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
-   
+
+    
     
 </head>
 <body class="govuk-template__body ">
@@ -26,6 +28,7 @@
     <script src="~/js/EnableJs.js"></script>
 
 	<!-- start component HTML -->
+
 
 	<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
@@ -48,9 +51,9 @@
 			</div>
 
 			<div class="govuk-header__content">
-				<span class="govuk-header__link--service-name">
-					Energy Entrepreneurs Fund (EEF)
-				</span>
+                <span class="govuk-header__link--service-name">
+                    Apply for the Energy Entrepreneurs Fund: phase 9
+                </span>
 				<span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
 					@if (User.Identity?.IsAuthenticated ?? false)
 					{
@@ -78,17 +81,27 @@
     </div>
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-three-quarters">
-            <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
-                <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item">
-                        <a class="govuk-breadcrumbs__link" href="/">Apply for the Energy Entrepreneurs Fund: phase 9
-                        </a>
-                    </li>
-                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
-                        @(ViewData["Title"])
-                    </li>
-                </ol>
-            </nav>
+                <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                    @{
+                        var breadcrumb = ViewData["Breadcrumbs"] as BreadcrumbsModel;
+                        var showBreadcrumb = (breadcrumb == null || breadcrumb.IsDisplay);
+                        var breadcrumbHome = breadcrumb?.Url ?? "/";
+                        var breadcrumbtext = breadcrumb?.Text ?? "Apply for the Energy Entrepreneurs Fund: phase 9";
+
+                    }
+
+                    @if (showBreadcrumb)
+                    {
+                        <ol class="govuk-breadcrumbs__list">
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" href="@breadcrumbHome">@breadcrumbtext</a>
+                            </li>
+                            <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                                @(ViewData["Title"])
+                            </li>
+                        </ol>
+                    }
+                </nav>
 			</div>
 			<div class="govuk-grid-column-one-quarter govuk-youraccount-right">
 				@if (User.Identity?.IsAuthenticated ?? false)
@@ -108,7 +121,7 @@
         <div class="govuk-width-container ">
             <div class="govuk-footer__meta">
                 <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-                    <h2 class="govuk-visually-hidden">Support links</h2>
+                    <p class="govuk-visually-hidden">Support links</p>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
                             <a class="govuk-footer__link" href="/page/privacynotice">

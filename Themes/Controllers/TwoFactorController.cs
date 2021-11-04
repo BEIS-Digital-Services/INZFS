@@ -163,7 +163,7 @@ namespace INZFS.Theme.Controllers
                 verificationMethod = "Authenticator app";
             }
 
-            var link = $"{Request?.Scheme}://{Request?.Host}/";
+            var link = $"{EmailConstant.Scheme}://{Request?.Host}/";
 
             var email = await _userManager.GetEmailAsync(user);
             var parameters = new Dictionary<string, dynamic>();
@@ -210,7 +210,7 @@ namespace INZFS.Theme.Controllers
         [HttpPost]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
