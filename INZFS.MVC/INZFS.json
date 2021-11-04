@@ -252,6 +252,7 @@
             "sectionTitle": "3.3. Registered organisation address",
             "question": "What is your organisation’s registered address?",
             "description": "Description",
+            "hint": "Your address must be in the UK",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsAddressTextBox",
             "friendlyFieldName": "Organisation Address",
