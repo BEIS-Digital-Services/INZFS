@@ -256,6 +256,8 @@ namespace INZFS.MVC.Controllers
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
 
+                        model.UploadedFile = uploadedFile;
+
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             try
@@ -339,7 +341,6 @@ namespace INZFS.MVC.Controllers
                     else
                     {
                         var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
-
                         //TODO - Handle validation Error
                         if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                         {
@@ -372,9 +373,14 @@ namespace INZFS.MVC.Controllers
                         // TODO Delete  the old file
 
                         bool fileHasChanged = additionalInformation != existingFieldData?.AdditionalInformation;
+                        if (!string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+                        {
+                            model.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
+                        }
                         if ((fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation)) || submitAction == "DeleteFile")
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
+                            model.UploadedFile = uploadedFile;
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
                             if(submitAction == "DeleteFile")
                             {
