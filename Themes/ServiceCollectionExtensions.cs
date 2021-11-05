@@ -54,6 +54,14 @@ namespace Microsoft.Extensions.DependencyInjection
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 });
 
+            services.AddAuthentication(RegistrationConstants.MyAccountScheme)
+                .AddCookie(RegistrationConstants.MyAccountScheme, options =>
+                {
+                    options.Cookie.Name = $"inzfs_{RegistrationConstants.MyAccountCookie}";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                    options.LoginPath = "/MyAccount";
+                });
+
             services.Configure<IdentityOptions>(options =>
             {
                 options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
@@ -68,6 +76,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
                         
             services.AddScoped<IRegistrationManager, RegistrationManager>();
+            services.AddScoped<IMyAccountManager, MyAccountManager>();
 
             return services;
         }
@@ -89,8 +98,8 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddKeyManagementOptions(
             this IServiceCollection services, IConfiguration configuration, ILogger<INZFS.Theme.Startup> logger)
         {
-            string protectionKey = configuration.GetValue<string>("TemporaryDpKeyGenerator"); //"d7a7c34c-b034-440a-9197-3ab86b461d96";
-            string environment = configuration.GetValue<string>("TemporaryDpKeyEnvironment"); // "lab1";
+            string protectionKey = configuration.GetValue<string>("TemporaryDpKeyGenerator"); 
+            string environment = configuration.GetValue<string>("TemporaryDpKeyEnvironment"); 
 
             services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(serviceProvider =>
             { 

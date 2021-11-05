@@ -91,6 +91,15 @@ namespace INZFS.Theme.ViewModels
         public string PhoneNumber { get; set; }
     }
     
+    public class AuthLoginViewModel
+    {
+        [Required]
+        [DataType(DataType.Password)]
+        [Display(Name = "Current password")]
+        public string CurrentPassword { get; set; }
+    }
+
+
     public class ChangePhoneNumberViewModel
     {
         [Required(ErrorMessage = "The phone number field is required.")]

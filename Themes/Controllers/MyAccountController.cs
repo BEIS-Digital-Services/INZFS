@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Castle.Core.Logging;
+using INZFS.Theme.Attributes;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
@@ -24,16 +25,18 @@ namespace INZFS.Theme.Controllers
         private readonly INotificationService _notificationService;
         private readonly IUrlEncodingService _encodingService;
         private readonly ILogger<MyAccountController> _logger;
+        private readonly IMyAccountManager _myAccountManager;
         private readonly NotificationOption _notificationOption;
 
         public MyAccountController(UserManager<IUser> userManager,
             SignInManager<IUser> signInManager,
             ITwoFactorAuthenticationService twoFactorAuthenticationService,
-            IUserTwoFactorSettingsService factorSettingsService, 
+            IUserTwoFactorSettingsService factorSettingsService,
             INotificationService notificationService,
             IUrlEncodingService encodingService,
             IOptions<NotificationOption> notificationOption,
-            ILogger<MyAccountController> logger)
+            ILogger<MyAccountController> logger,
+            IMyAccountManager myAccountManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -42,6 +45,7 @@ namespace INZFS.Theme.Controllers
             _notificationService = notificationService;
             _encodingService = encodingService;
             _logger = logger;
+            _myAccountManager = myAccountManager;
             _notificationOption = notificationOption.Value;
         }
 
@@ -71,8 +75,8 @@ namespace INZFS.Theme.Controllers
             model.CurrentEmail = _encodingService.MaskEmail(userEmail);
             return View("ChangeEmail", model);
         }
-        
-        
+
+
         [HttpPost]
         public async Task<IActionResult> ChangeEmail(ChangeEmailViewModel model)
         {
@@ -88,7 +92,7 @@ namespace INZFS.Theme.Controllers
                         var id = await _userManager.GetUserIdAsync(user);
                         var token = await _userManager.GenerateChangeEmailTokenAsync(user, model.Email);
                         var identifier = _encodingService.Encrypt($"{id}#{model.Email}");
-                        var confirmationLink = Url?.Action("Verify", "MyAccount", new { token = token, Identifier = identifier}, EmailConstant.Scheme);
+                        var confirmationLink = Url?.Action("Verify", "MyAccount", new { token = token, Identifier = identifier }, EmailConstant.Scheme);
                         await SendChangeEmailLink(model.Email, confirmationLink);
                         return RedirectToAction("SuccessChangeEmail");
                     }
@@ -103,7 +107,7 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> SuccessChangeEmail()
         {
-           return View();
+            return View();
         }
 
         [HttpGet]
@@ -153,7 +157,7 @@ namespace INZFS.Theme.Controllers
                     return RedirectToAction("Success");
                 }
             }
-            
+
             ModelState.AddModelError(string.Empty, "Invalid token");
             return View();
         }
@@ -170,8 +174,8 @@ namespace INZFS.Theme.Controllers
         public IActionResult ChangePassword()
         {
             return View(new ChangePasswordViewModel());
-        } 
-        
+        }
+
         [HttpPost]
         public async Task<IActionResult> ChangePassword(ChangePasswordViewModel model)
         {
@@ -188,21 +192,21 @@ namespace INZFS.Theme.Controllers
                 {
                     var changePasswordResult =
                         await _userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
-                if (changePasswordResult.Succeeded)
-                {
-                    await _signInManager.RefreshSignInAsync(user);
-                    _logger.LogInformation("User changed their password successfully.");
-                    var email = await _userManager.GetEmailAsync(user);
+                    if (changePasswordResult.Succeeded)
+                    {
+                        await _signInManager.RefreshSignInAsync(user);
+                        _logger.LogInformation("User changed their password successfully.");
+                        var email = await _userManager.GetEmailAsync(user);
                         await _notificationService.SendEmailAsync(email,
                             _notificationOption.EmailChangePasswordTemplate);
-                    return RedirectToAction("SuccessPasswordChange");
-                }
+                        return RedirectToAction("SuccessPasswordChange");
+                    }
 
-                foreach (var error in changePasswordResult.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    foreach (var error in changePasswordResult.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
-            }
                 else if (checkResult.IsLockedOut)
                 {
                     ModelState.AddModelError(string.Empty, "You've attempted to change your password too many times. Your account has been locked temporarily for your security. Try again in 5 minutes.");
@@ -214,13 +218,54 @@ namespace INZFS.Theme.Controllers
             }
 
             return View(model);
-        } 
-        
-        public IActionResult SuccessPasswordChange()
-        {
-          return View();
         }
 
+        public IActionResult SuccessPasswordChange()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AuthLogin(string returnUrl)
+        {
+
+            return View("AuthLogin", new AuthLoginViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AuthLogin(AuthLoginViewModel model, string returnUrl)
+        {
+
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.CurrentPassword, lockoutOnFailure: true);
+                if (checkResult.Succeeded)
+                {
+                    checkResult = await _myAccountManager.MyAccountSignInAsync(user);
+                    if (checkResult.Succeeded)
+                    {
+                        return LocalRedirect(returnUrl);
+                    }
+                }
+                else if (checkResult.IsLockedOut)
+                {
+                    ModelState.AddModelError("CurrentPassword",
+                        $"You've attempted to enter current password too many times. Your account has been locked temporarily for your security. Try again in 5 minutes.");
+                }
+                else
+                {
+                    ModelState.AddModelError("CurrentPassword", "Incorrect current password.");
+                }
+
+            }
+
+
+            return View("AuthLogin", model);
+        }
+
+
+        [MyAccountAuthorize]
         public async Task<IActionResult> AddScanQr()
         {
             var user = await _userManager.GetUserAsync(User);
@@ -229,13 +274,15 @@ namespace INZFS.Theme.Controllers
         }
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangeScanQr()
         {
             return View(new ChangeScanQrForAuthenticatorViewModel());
         }
 
-        
+
         [HttpPost]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangeScanQr(ChangeScanQrForAuthenticatorViewModel model)
         {
             if (ModelState.IsValid)
@@ -259,8 +306,9 @@ namespace INZFS.Theme.Controllers
 
                     if (model.ChosenAction == ChangeAction.Remove)
                     {
-                        var method =  await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId) ? AuthenticationMethod.Phone : AuthenticationMethod.Email;
+                        var method = await _factorSettingsService.GetPhoneNumberConfirmedAsync(userId) ? AuthenticationMethod.Phone : AuthenticationMethod.Email;
                         await _factorSettingsService.SetTwoFactorDefaultAsync(userId, method);
+                        await _factorSettingsService.SetAuthenticatorConfirmedAsync(userId, false);
                         await SendAuthenticationChangeEmail(user, method);
                         return RedirectToAction("Index");
                     }
@@ -272,20 +320,22 @@ namespace INZFS.Theme.Controllers
         }
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> AddPhoneNumber()
         {
             var model = new AddPhoneNumberViewModel();
             return View(model);
         }
-        
+
         [HttpPost]
+        [MyAccountAuthorize]
         public async Task<IActionResult> AddPhoneNumber(AddPhoneNumberViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.GetUserAsync(User);
-
-                await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+                var userId = await GetUserId();
+                await _factorSettingsService.SetPhoneNumberAsync(userId, model.PhoneNumber);
                 var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
                 var code = await _userManager.GenerateTwoFactorTokenAsync(user, AuthenticationMethod.Phone.ToString());
                 await SendSms(phoneNumber, code);
@@ -295,9 +345,10 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
-        
+
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangePhone()
         {
             return View(new ChangePhoneViewModel());
@@ -305,6 +356,7 @@ namespace INZFS.Theme.Controllers
 
 
         [HttpPost]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangePhone(ChangePhoneViewModel model)
         {
             if (ModelState.IsValid)
@@ -328,17 +380,19 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
-        
+
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangePhoneNumber()
         {
             var model = new ChangePhoneNumberViewModel();
             model.CurrentPhoneNumber = await _factorSettingsService.GetPhoneNumberAsync(await GetUserId());
             return View(model);
         }
-        
+
         [HttpPost]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ChangePhoneNumber(ChangePhoneNumberViewModel model)
         {
             if (ModelState.IsValid)
@@ -346,37 +400,39 @@ namespace INZFS.Theme.Controllers
                 var user = await _userManager.GetUserAsync(User);
                 var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
                 await SendSms(model.PhoneNumber, code);
-                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.ChangePhone, token = _encodingService.GetHexFromString(model.PhoneNumber)});
+                return RedirectToAction("EnterCode", new { method = AuthenticationMethod.ChangePhone, token = _encodingService.GetHexFromString(model.PhoneNumber) });
             }
             return View(model);
         }
 
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> EnterCode(AuthenticationMethod method, string token)
         {
             var model = new EnterCodeViewModel();
-            
-            var user =  await _userManager.GetUserAsync(User);
-            
+
+            var user = await _userManager.GetUserAsync(User);
+
             if (method == AuthenticationMethod.Phone)
             {
                 var userId = await _userManager.GetUserIdAsync(user);
                 var phone = await _factorSettingsService.GetPhoneNumberAsync(userId);
                 model.Message = phone;
-            } 
-            
+            }
+
             if (method == AuthenticationMethod.ChangePhone && !string.IsNullOrEmpty(token))
             {
                 var phone = _encodingService.GetStringFromHex(token);
                 model.Message = phone;
             }
-            
+
             return View($"{method}Code", model);
         }
 
 
         [HttpGet]
+        [MyAccountAuthorize]
         public async Task<IActionResult> ResendCode(AuthenticationMethod method, string token)
         {
             var user = await _userManager.GetUserAsync(User);
@@ -399,11 +455,12 @@ namespace INZFS.Theme.Controllers
             }
 
 
-            return RedirectToAction("EnterCode", new { method, token});
+            return RedirectToAction("EnterCode", new { method, token });
         }
 
 
         [HttpPost]
+        [MyAccountAuthorize]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string token)
         {
             if (ModelState.IsValid)
@@ -416,7 +473,7 @@ namespace INZFS.Theme.Controllers
                 var isValidToken = false;
                 if (model.Method == AuthenticationMethod.ChangePhone)
                 {
-                    var phoneNumber = _encodingService.GetStringFromHex(token); 
+                    var phoneNumber = _encodingService.GetStringFromHex(token);
                     var result = await _userManager.ChangePhoneNumberAsync(user, phoneNumber, code);
                     isValidToken = result.Succeeded;
                 }
@@ -424,11 +481,12 @@ namespace INZFS.Theme.Controllers
                 {
                     isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user, model.Method.ToString(), code);
                 }
-                
+
                 if (isValidToken)
                 {
                     await SetTwoFactorEnabledAsync(user, true, model.Method);
                     await SendAuthenticationChangeEmail(user, model.Method);
+                    await _myAccountManager.SignOutAsync();
                     return RedirectToAction("Index");
                 }
                 ModelState.AddModelError("Code", "Verification code is not valid, please enter a valid code and try again");
@@ -447,12 +505,12 @@ namespace INZFS.Theme.Controllers
         {
             await _userManager.SetTwoFactorEnabledAsync(user, enabled);
             var userId = await _userManager.GetUserIdAsync(user);
-            
+
             if (method == AuthenticationMethod.Phone)
             {
                 await _factorSettingsService.SetPhoneNumberConfirmedAsync(userId, enabled);
             }
-            
+
             if (method == AuthenticationMethod.Authenticator)
             {
                 await _factorSettingsService.SetAuthenticatorConfirmedAsync(userId, enabled);

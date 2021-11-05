@@ -82,5 +82,7 @@ namespace INZFS.Theme.Services
     {
         public const string RegistrationScheme = "Registration";
         public const string RegistrationCookie = "registration";
+        public const string MyAccountScheme = "MyAccount";
+        public const string MyAccountCookie = "MyAccount";
     }
 }
