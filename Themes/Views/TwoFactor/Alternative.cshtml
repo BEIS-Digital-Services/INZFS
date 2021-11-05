@@ -2,7 +2,7 @@
 @model INZFS.Theme.ViewModels.ChooseAlternativeMethodViewModel
 @{
     ViewLayout = "LayoutRegistration";
-    ViewData["Title"] = "Choose primary verification method";
+    ViewData["Title"] = "Choose alternative verification method";
 }
 <main class="govuk-main-wrapper " id="main-content" role="main">
     <form method="post">
@@ -28,6 +28,13 @@
                 </div>  
             </div>
         </div>
-        <button class="govuk-button" data-module="govuk-button">Continue</button>
+        @if (Model.Methods.Any())
+        {
+            <button class="govuk-button" data-module="govuk-button">Continue</button>
+        }
+        else
+        {
+            <p class="govuk-body-l">There is no alternative method active</p>
+        }
     </form>
 </main>
