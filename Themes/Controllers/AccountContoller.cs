@@ -6,6 +6,7 @@ using Castle.Core.Logging;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -203,13 +204,11 @@ namespace INZFS.Theme.Controllers
          [AllowAnonymous]
         public async Task<IActionResult> LogOff()
         {
-            if (User.Identity?.IsAuthenticated ?? false)
-            {
-                await _signInManager.SignOutAsync();
-                TempData.Clear();
-                _logger.LogInformation(4, "User logged out.");
-            }
-
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(RegistrationConstants.MyAccountScheme);
+            await HttpContext.SignOutAsync(RegistrationConstants.RegistrationScheme);
+            TempData.Clear();
+            _logger.LogInformation(4, "User logged out.");
             return Redirect("~/");
         }
 
