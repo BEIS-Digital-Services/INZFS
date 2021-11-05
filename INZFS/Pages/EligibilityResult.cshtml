@@ -5,12 +5,38 @@
     var listenabled = @eligibility.Content.EligibilityResult.Bullet1.Text == null;
     var Secondlistenabled = @eligibility.Content.EligibilityResult.BulletA.Text == null;
     ViewData["Title"] = "Eligibility Result";
-
+    var backLink = "/";
+    var titlePart = (string)@eligibility.Content.AliasPart.Alias;
+    switch (titlePart)
+    {
+        case "EligibilityResult3":
+            backLink = "/eligibilityChecker/Question1";
+            break;
+        case "EligibilityResult4":
+            backLink = "/eligibilityChecker/Question2";
+            break;
+        case "EligibilityResult1":
+            backLink = "/eligibilityChecker/Question3";
+            break;
+        case "EligibilityResult5":
+            backLink = "/eligibilityChecker/Question4";
+            break;
+        case "EligibilityResult6":
+            backLink = "/eligibilityChecker/Question5";
+            break;
+        case "EligibilityResult2":
+            backLink = "/eligibilityChecker/Question6";
+            break;
+        case "EligibilityResult7":
+            backLink = "/eligibilityChecker/Question6";
+            break;
+        default: backLink = "/eligibilityChecker/Question1"; break;
+    }
 }
 
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-three-quarters">
-                <a href="#" class="govuk-back-link" id="govuk-back-link">Back</a>
+                <a href="@backLink" class="govuk-back-link" id="govuk-back-link">Back</a>
             </div>
             <div class="govuk-grid-column-one-quarter govuk-signout-right">
             </div>
