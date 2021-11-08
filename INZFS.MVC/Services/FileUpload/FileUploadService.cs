@@ -67,7 +67,7 @@ namespace INZFS.MVC.Services.FileUpload
             return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file, Page currentPage)
+        public async Task<string> Validate(IFormFile file, Page currentPage, bool virusScanningEnabled)
         {
             
             if (file == null)
@@ -91,8 +91,7 @@ namespace INZFS.MVC.Services.FileUpload
                 return "The selected file must be smaller than 20MB";
             }
 
-            //TODO : Switch to virus scanning service
-            var containsVirus = false; // await _virusScanService.ScanFile(file);
+            var containsVirus = virusScanningEnabled ? await _virusScanService.ScanFile(file): false;
             if (containsVirus)
             {
                 return "The selected file contains a virus";
