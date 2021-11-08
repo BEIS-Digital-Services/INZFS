@@ -23,6 +23,7 @@
                     <label class="govuk-label" asp-for="Password">
                         Password
                     </label>
+                    <span asp-validation-for="Password" class="govuk-error-message"></span>
                     <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
                         <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
                         <button class="show-password__toggle password-changer" data-control="Password" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText">Show</button>
