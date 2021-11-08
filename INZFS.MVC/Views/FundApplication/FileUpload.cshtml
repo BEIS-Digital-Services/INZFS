@@ -53,8 +53,18 @@
 
         <div class="govuk-grid-row govuk-!-margin-bottom-3">
 
+            @if (!ViewData.ModelState.IsValid)
+            {
+                var value = ViewData.ModelState["DataInput"];
+                if (value.Errors.Any())
+                {
+                    <span id="file-upload" class="govuk-form-group--error govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> @value.Errors.First().ErrorMessage
+                    </span>
+                }
+            }
 
-            <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-3">
+            <div class="govuk-grid-column-full govuk-!-margin-bottom-3">
                 <div class="file-upload--border">
                     <input class="govuk-file-upload govuk-!-font-size-16" id="file" name="file" type="file"
                            accept="@extensions">
@@ -69,43 +79,36 @@
 
             @if (Model.UploadedFile != null)
             {
-                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
+                <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
                     <div class="file-upload--border">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row govuk-!-font-size-16">
-                            <dd class="govuk-summary-list__value">
-                                @Model.UploadedFile.Name <span class="govuk-!-margin-left-6">@Model.UploadedFile.Size MB</span>
-                            </dd>
-                            <dd class="govuk-summary-list__actions">
-                                <button type="submit" name="submit.Publish" class="govuk-link govuk-!-font-size-16"
-                                        value="DeleteFile" data-module="govuk-button" style=" background: transparent; border: none; color: #1d70b8;">
-                                    Remove
-                                </button>
-                            </dd>
+                                <dd class="govuk-summary-list__value">
+                                    @Model.UploadedFile.Name <span class="govuk-!-margin-left-6">@Model.UploadedFile.Size MB</span>
+                                </dd>
+                                <dd class="govuk-summary-list__actions">
+                                    <button type="submit" name="submit.Publish" class="govuk-link govuk-!-font-size-16"
+                                            value="DeleteFile" data-module="govuk-button" style=" background: transparent; border: none; color: #1d70b8;">
+                                        Remove
+                                    </button>
+                                </dd>
+                            </div>
+                        </dl>
                     </div>
-                    </dl>
                 </div>
-            </div>
-        }
-        else
-        {
-
-            <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
-                <div class="file-upload--border">
-                    <dl class="govuk-summary-list">
-
-                        <div class="govuk-summary-list__row govuk-!-font-size-16">
-                        <dd class="govuk-summary-list__value">
-                            No file uploaded
-                        </dd>
+            }
+            else
+            {
+                <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
+                    <div class="file-upload--border">
+                        <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0 govuk-!-font-size-16">Uploaded file</h2>
+                        <p class="govuk-body nofileupload govuk-!-font-size-16">No file uploaded</p>
+                    </div>
                 </div>
-                </dl>
-            </div>
-    </div>
-}
+            }
 
 
-            </div>
+        </div>
 
             @if (Model.PageName == "project-cost-breakdown")
             {
