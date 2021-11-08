@@ -35,7 +35,6 @@ namespace INZFS.Web.Middleware
 
             context.Response.Headers.Add("Content-Security-Policy", new StringValues(
                 "base-uri 'self';" +
-                "font-src 'self' https://www.gov.uk/assets/static/fonts/;" +
                 "frame-ancestors 'none';" +
                 "frame-src 'none';" +
                 "img-src 'self' data: http://www.w3.org/2000/svg https://www.zcloud.net otpauth://totp ;" +
