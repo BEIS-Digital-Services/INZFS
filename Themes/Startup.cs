@@ -40,6 +40,7 @@ namespace INZFS.Theme
             serviceCollection.AddData();
             serviceCollection.AddAuthentications();
             serviceCollection.AddTwoFactorAuthentication(Configuration);
+            serviceCollection.AddTimeOut(Configuration);
 
             serviceCollection.AddScoped<INotificationClient>(services =>
                 new NotificationClient(Configuration.GetValue<string>("GovNotifyApiKey")));

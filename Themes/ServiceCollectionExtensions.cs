@@ -41,7 +41,6 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LogOff";
                 options.AccessDeniedPath = "/Error/403";
@@ -122,5 +121,11 @@ namespace Microsoft.Extensions.DependencyInjection
             return services;
         }
 
+        public static IServiceCollection AddTimeOut(
+            this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.Configure<TimeOutOption>(Configuration.GetSection("TimeOut"));
+            return services;
+        }
     }
 }
