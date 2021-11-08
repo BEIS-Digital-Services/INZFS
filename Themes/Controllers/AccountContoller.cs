@@ -204,12 +204,32 @@ namespace INZFS.Theme.Controllers
          [AllowAnonymous]
         public async Task<IActionResult> LogOff()
         {
+            await SignOutAsync();
+            return Redirect("~/");
+        }
+
+        
+
+        [AllowAnonymous]
+        public async Task<IActionResult> TimeOut()
+        {
+            await SignOutAsync();
+            return RedirectToAction("TimeOutSuccess");
+        }
+        
+        [AllowAnonymous]
+        public async Task<IActionResult> TimeOutSuccess()
+        {
+            return View();
+        }
+
+        private async Task SignOutAsync()
+        {
             await _signInManager.SignOutAsync();
             await HttpContext.SignOutAsync(RegistrationConstants.MyAccountScheme);
             await HttpContext.SignOutAsync(RegistrationConstants.RegistrationScheme);
             TempData.Clear();
             _logger.LogInformation(4, "User logged out.");
-            return Redirect("~/");
         }
 
 
