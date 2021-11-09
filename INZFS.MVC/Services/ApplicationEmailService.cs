@@ -41,24 +41,24 @@ namespace INZFS.MVC.Services
 
         public async Task<bool> SendConfirmationEmailAsync(ClaimsPrincipal claimsPrincipal, string applicationRef, string url)
         {
-            var user = await _userManager.GetUserAsync(claimsPrincipal);
+            //var user = await _userManager.GetUserAsync(claimsPrincipal);
             
-            var templateId = _configuration.GetValue<string>(ApplicationSubmissionConfirmationTemplateKey);
-            var email = await _userManager.GetEmailAsync(user);
-            try
-            {
-                var parameters = new Dictionary<string, dynamic>();
-                parameters.Add("reference", applicationRef);
-                parameters.Add("link", url);
+            //var templateId = _configuration.GetValue<string>(ApplicationSubmissionConfirmationTemplateKey);
+            //var email = await _userManager.GetEmailAsync(user);
+            //try
+            //{
+            //    var parameters = new Dictionary<string, dynamic>();
+            //    parameters.Add("reference", applicationRef);
+            //    parameters.Add("link", url);
 
-                //This should be going through a durable message queuing, which can be implemented in the next phase 
-                _notificationClient.SendEmail(email, templateId, parameters);
-            }
-            catch (Exception exception)
-            {
-                _logger.LogError(exception, "Unable to send email for template {templateId}", templateId);
-                return await Task.FromResult(false);
-            }
+            //    //This should be going through a durable message queuing, which can be implemented in the next phase 
+            //    _notificationClient.SendEmail(email, templateId, parameters);
+            //}
+            //catch (Exception exception)
+            //{
+            //    _logger.LogError(exception, "Unable to send email for template {templateId}", templateId);
+            //    return await Task.FromResult(false);
+            //}
             
             return await Task.FromResult(true);
         }

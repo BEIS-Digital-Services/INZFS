@@ -121,7 +121,8 @@ namespace INZFS.Theme.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 IsLockoutEnabled = true,
-                UserClaims = claims
+                UserClaims = claims,
+                EmailConfirmed = true
             };
 
 
