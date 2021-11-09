@@ -91,7 +91,7 @@ namespace INZFS.Theme.Controllers
                         {
                             _logger.LogInformation(1, "User logged in.");
                             await _accountEvents.InvokeAsync((e, model) => e.LoggedInAsync(user), model, _logger);
-                            return LocalRedirect(returnUrl);
+                            return RedirectToAction("TimeOutWarning", new { returnUrl });
                         }
                     }
                 }
@@ -103,6 +103,13 @@ namespace INZFS.Theme.Controllers
             return View(model);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> TimeOutWarning(string returnUrl)
+        {
+            return View();
+        }
+        
 
         [AllowAnonymous]
         [HttpGet]
