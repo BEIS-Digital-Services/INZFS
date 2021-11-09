@@ -993,7 +993,7 @@
           },
           {
             "name": "business-project-plan-document",
-            "sectionTitle": "5.15. Upload project plan Gantt chart",
+            "sectionTitle": "5.15. Upload project plan",
             "question": "Upload a project plan",
             "hint": "",
             "errorMessage": "You need to upload the required document to complete this section",
