@@ -111,7 +111,7 @@ namespace INZFS.UnitTests.TwoFactors
 
             var result = await sut.EnterCode(new EnterCodeViewModel() { Code = "384988" }, returnUrl);
 
-            result.Should().BeLocalRedirectResult();
+            result.Should().BeRedirectToActionResult();
 
         }
 
