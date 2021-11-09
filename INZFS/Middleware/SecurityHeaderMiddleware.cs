@@ -37,7 +37,7 @@ namespace INZFS.Web.Middleware
                 "base-uri 'self';" +
                 "frame-ancestors 'none';" +
                 "frame-src 'none';" +
-                "img-src 'self' data: http://www.w3.org/2000/svg https://www.zcloud.net otpauth://totp ;" +
+                "img-src 'self' data: https://www.google-analytics.com http://www.w3.org/2000/svg https://www.zcloud.net otpauth://totp ;" +
                 "media-src 'self';" +
                 "object-src 'self';" +
                 "script-src 'self' " +
@@ -46,6 +46,7 @@ namespace INZFS.Web.Middleware
                     "'sha256-5BF7094BFF6D37EFF5AB6973DAADE41133478BC82216EA8CDB033D850C3EC4E1' " +
                     "'nonce-BB60C4898C5AC94547F875BA438739DC6B2299EC3152ADAE0E0C3370F31BC35A' ") +
                     "https://www.googletagmanager.com/gtag/ " +
+                    "https://www.google-analytics.com" +
                     "https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js " +
                     "https://code.jquery.com/jquery-3.6.0.js " +
                     "https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js;"
