@@ -2,12 +2,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZVXSERBX11"></script>
+    <script src="~/js/GoogleAnalytics.js"></script>
     <meta charset="utf-8" />
-@{
-    string ContentID = ViewContext.RouteData.Values["contentitemid"].ToString();
-    var PageContent = await Orchard.GetContentItemByIdAsync(ContentID);
-    var Title = PageContent.DisplayText;
-}
+    @{
+        string ContentID = ViewContext.RouteData.Values["contentitemid"].ToString();
+        var PageContent = await Orchard.GetContentItemByIdAsync(ContentID);
+        var Title = PageContent.DisplayText;
+    }
     <title>@Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <meta name="theme-color" content="#0b0c0c">
