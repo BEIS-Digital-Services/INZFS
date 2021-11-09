@@ -368,6 +368,7 @@
             "fieldName": "organisation-funding",
             "mandatory": true,
             "accordianReference": "",
+            "hasOtherOption": true,
             "showMarkComplete": true,
             "selectOptions": [
               "No funding",
@@ -377,7 +378,9 @@
               "Angel investment",
               "Venture capital",
               "Private equity",
-              "Stock market flotation"
+              "Stock market flotation",
+              "Own revenue",
+              "Other"
             ]
           },
           {
