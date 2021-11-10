@@ -183,7 +183,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
@@ -201,14 +201,21 @@ namespace INZFS.MVC.Controllers
                         {
                             if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "No file was uploaded.");
+                                if(currentPage.Mandatory)
+                                {
+                                    ModelState.AddModelError("DataInput", "This section has a mandatory file upload. You must first choose your file and then upload it using the upload button below.");
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("DataInput", "You have not uploaded any evidence. Please upload a file before marking as complete. If this step is not relevant to your application please select 'not applicable'.");
+                                }
                             }
                         }
                         if (fieldStatus == FieldStatus.NotApplicable)
                         {
                             if (submitAction != "DeleteFile" && !string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "Please remove the uploaded file if this question is not applicable.");
+                                ModelState.AddModelError("DataInput", "You have told us this step is not applicable, your evidence will not be added to your proposal. Please select 'mark this step as complete' if you would like your evidence to be reviewed. Otherwise, please remove the file.");
                                 return PopulateViewModel(currentPage, model, existingData);
                             }
                         }
