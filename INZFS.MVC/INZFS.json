@@ -316,8 +316,7 @@
               "Private company",
               "Public limited company",
               "Public sector organisation",
-              "Research organisation",
-              "University"
+              "Research organisation"           
             ]
           },
           {
@@ -369,6 +368,7 @@
             "fieldName": "organisation-funding",
             "mandatory": true,
             "accordianReference": "",
+            "hasOtherOption": true,
             "showMarkComplete": true,
             "selectOptions": [
               "No funding",
@@ -378,7 +378,9 @@
               "Angel investment",
               "Venture capital",
               "Private equity",
-              "Stock market flotation"
+              "Stock market flotation",
+              "Own revenue",
+              "Other"
             ]
           },
           {
@@ -991,7 +993,7 @@
           },
           {
             "name": "business-project-plan-document",
-            "sectionTitle": "5.15. Upload project plan Gantt chart",
+            "sectionTitle": "5.15. Upload project plan",
             "question": "Upload a project plan",
             "hint": "",
             "errorMessage": "You need to upload the required document to complete this section",
