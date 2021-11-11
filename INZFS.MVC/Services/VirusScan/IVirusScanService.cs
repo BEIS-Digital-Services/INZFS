@@ -9,6 +9,6 @@ namespace INZFS.MVC.Services.VirusScan
 {
     public interface IVirusScanService
     {
-        public bool ScanFile(IFormFile file);
+        public bool ScanFile(IFormFile file, string cloudmersiveApiKey);
     }
 }
