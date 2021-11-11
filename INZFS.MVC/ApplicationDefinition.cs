@@ -42,6 +42,7 @@ namespace INZFS.MVC
 
     public enum GridDisplayType
     {
+        None,
         TwoThird,
         FullPage
     }
@@ -51,18 +52,20 @@ namespace INZFS.MVC
         public string Name { get; set; }
         public string Question { get; set; }
         public bool DisplayQuestionCounter { get; set; } = true;
-        public GridDisplayType GridDisplayType { get; set; }
+        public GridDisplayType? GridDisplayType { get; set; }
         public string  SectionTitle { get; set; }
+        public string PageTitle { get; set; }
         public string Description { get; set; }
         public string NextPageName { get; set; }
         public string ReturnPageName { get; set; }
+        public string PreviousPageName { get; set; }
         public string Hint { get; set; }
         //[JsonProperty("error-massage")]
         public string ErrorMessage { get; set; }
         public FieldType FieldType { get; set; }
         public TextType TextType { get; set; }
         public YesNoType YesNoInput { get; set; }
-    public string FieldName { get; set; }
+        public string FieldName { get; set; }
         public string FriendlyFieldName { get; set; }
         public bool Mandatory { get; set; }
 
@@ -83,8 +86,16 @@ namespace INZFS.MVC
         public PreviousPage PreviousPage { get; set; }
         public DependsOn DependsOn { get; set; }
         public string CustomValidator { get; set; }
+        public List<string> FieldValidationDependsOn { get; set; }
         public string AcceptableFileExtensions { get; set; }
-        
+        // Dependant fields that question depends on to determing its completetion state
+        public CompletionDependsOn CompletionDependsOn { get; set; }
+    }
+
+    public class CompletionDependsOn
+    {
+        public List<string> Fields { get; set; }
+        public string Value { get; set; }
     }
 
     public class DependsOn
@@ -111,6 +122,7 @@ namespace INZFS.MVC
         public bool BelongsToApplication { get; set; }
         public bool HideBreadCrumbs { get; set; }
         public List<Page> Pages { get; set; }
+        public GridDisplayType GridDisplayType { get; set; }
     }
 
     public class Application
@@ -134,7 +146,8 @@ namespace INZFS.MVC
         IndependentAssessment,
         Successful,
         Unsuccessful,
-        Withdrawn
+        Withdrawn,
+        NotSubmitted,
     }
 
     public class ApplicationContent
@@ -142,6 +155,7 @@ namespace INZFS.MVC
         public ApplicationContent()
         {
             Fields = new List<Field>();
+            ApplicationStatus = ApplicationStatus.InProgress;
         }
         public Application Application { get; set; }
 
@@ -149,9 +163,15 @@ namespace INZFS.MVC
         // Summary:
         //     The primary key in the database.
         public int Id { get; set; }
+
+        /// <summary>
+        /// Logged in user id
+        /// </summary>
+        public string UserId { get; set; }
         //
         // Summary:
         //     The logical identifier of the content item across versions.
+
         public string ContentItemId { get; set; }
         //
         // Summary:
@@ -199,6 +219,9 @@ namespace INZFS.MVC
         public ApplicationStatus ApplicationStatus { get; set; }
         public string ApplicationNumber { get; set; }
         public DateTime? SubmittedUtc { get; set; }
+        public double TotalProjectCost { get; set; }
+        public double TotalGrantFunding { get; set; }
+        public double TotalMatchFunding { get; set; }
 
     }
 
@@ -236,6 +259,7 @@ namespace INZFS.MVC
         public string? ParsedTotalMatchFunding { get; set; }
         public string? ParsedTotalMatchFundingPercentage { get; set; }
     }
+
     public class Action
     {
         public string Name { get; set; }

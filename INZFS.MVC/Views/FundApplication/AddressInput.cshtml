@@ -11,8 +11,30 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(AddressInputModel)" />
 
-    @Html.Partial("_ErrorMessage")
+    @*@Html.Partial("_ErrorMessage")*@
 
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+            <h2 class="govuk-error-summary__title" id="error-summary-title">
+                There is a problem
+            </h2>
+            <div class="govuk-error-summary__body">
+                <ul class="govuk-list govuk-error-summary__list">
+                    @foreach (var key in ViewData.ModelState.Keys)
+                    {
+                        var value = ViewData.ModelState[key];
+                        foreach (var error in value.Errors)
+                        {
+                            <li>
+                                <a href="#@key">@error.ErrorMessage</a>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    }
 
     <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
@@ -22,38 +44,39 @@
                     @Model.Question
                 </h1>
             </legend>
+            @Html.Partial("_Hint", Model.Hint)
             <div class="govuk-form-group">
-                <label class="govuk-label" for="address-line-1">
+                <label class="govuk-label" for="AddressLine1">
                     Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
                 </label>
-                <input class="govuk-input" id="address-line-1" name="AddressLine1" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.AddressLine1">
+                <input class="govuk-input" id="AddressLine1" name="AddressLine1" type="text" spellcheck="true" value="@Model.AddressLine1">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" for="address-line-2">
+                <label class="govuk-label" for="AddressLine2">
                     <span class="govuk-visually-hidden">Building and street line 2 of 2</span>
                 </label>
-                <input class="govuk-input" id="address-line-2" name="AddressLine2" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.AddressLine2">
+                <input class="govuk-input" id="AddressLine2" name="AddressLine2" type="text" spellcheck="true" value="@Model.AddressLine2">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" for="address-town">
+                <label class="govuk-label" for="City">
                     Town or city
                 </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="City" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.City">
+                <input class="govuk-input govuk-!-width-two-thirds" id="City" name="City" type="text" spellcheck="true" value="@Model.City">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" for="address-county">
+                <label class="govuk-label" for="County">
                     County
                 </label>
-                <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="County" type="text" spellcheck="true" autocomplete="address-line1" value="@Model.County">
+                <input class="govuk-input govuk-!-width-two-thirds" id="County" name="County" type="text" spellcheck="true" value="@Model.County">
             </div>
             <div class="govuk-form-group">
-                <label class="govuk-label" for="address-postcode">
+                <label class="govuk-label" for="PostCode">
                     Postcode
                 </label>
                 <div id="changed-name-hint" class="govuk-hint">
                     Please use the following format: SW1H 0ET
                 </div>
-                <input class="govuk-input govuk-input--width-10" id="address-postcode" name="PostCode" type="text" spellcheck="true" autocomplete="address-line1" pattern="[A-Za-z]{1,2}[0-9Rr][0-9A-Za-z]? [0-9][ABD-HJLNP-UW-Zabd-hjlnp-uw-z]{2}" value="@Model.PostCode">
+                <input class="govuk-input govuk-input--width-10" id="PostCode" name="PostCode" type="text" spellcheck="true" value="@Model.PostCode">
             </div>
         </fieldset>
     </div>

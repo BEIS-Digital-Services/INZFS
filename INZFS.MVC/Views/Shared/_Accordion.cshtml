@@ -1,81 +1,103 @@
 @model string
+@*SECTION 1 CONFIRM YOUR ELIGIBILITY*@
+@if (Model == "eligibility-to-apply-for-fund")
+{
+    @Html.Partial("../Accordion/YourDetails/_DetailsConfirmYourEligibility.cshtml", Model)
+}
+
+@*SECTION 2 SUMMARY PREPOSAL*@
+@if (Model == "balance-sheet-total")
+{
+    @Html.Partial("../Accordion/SummarySheet/_BalanceSheetTotal.cshtml", Model)
+}
+
+@*SECTION 4 PROPOSAL SUMMARY*@
+@if (Model == "grant-justification")
+{
+    @Html.Partial("../Accordion/ProposalSummary/_BalanceSheetTotal.cshtml", Model)
+}
+
 @*SECTION 5 BUSINESS PROPOSAL*@
 
 @if (Model == "business-proposal")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessProposal.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProposal.cshtml", Model)
 }
 @if (Model == "business-plan")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessPlan.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessPlan.cshtml", Model)
 }
 @if (Model == "business-technology-readiness")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadiness.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadiness.cshtml", Model)
 }
 @if (Model == "business-upload-trl-evidence")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadinessEvidence.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessTechnologyReadinessEvidence.cshtml", Model)
 }
 @if (Model == "business-justification-for-cost-and-performance")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessJustificationForCostAndPerformance.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessJustificationForCostAndPerformance.cshtml", Model)
 }
 @if (Model == "business-upload-evidence-for-impact")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadEvidenceForImpact.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadEvidenceForImpact.cshtml", Model)
 }
 @if (Model == "business-environmental-impact")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessEnvironmentalImpact.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessEnvironmentalImpact.cshtml", Model)
 }
 @if (Model == "business-impact-on-climate-change")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessImpactOnClimateChange.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessImpactOnClimateChange.cshtml", Model)
 }
 @if (Model == "business-project-plan")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlan.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlan.cshtml", Model)
 }
 @if (Model == "business-project-plan-document")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlanDocument.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectPlanDocument.cshtml", Model)
 }
 @if (Model == "business-upload-risk-register")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadRiskRegister.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessUploadRiskRegister.cshtml", Model)
 }
 @if (Model == "business-project-evaluation")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectEvaluation.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessProjectEvaluation.cshtml", Model)
 }
 @if (Model == "business-skills-and-experience")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperience.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperience.cshtml", Model)
 }
 @if (Model == "business-skills-and-experience-document")
 {
-    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperienceDoc.cshtml")
+    @Html.Partial("../Accordion/BusinessProposal/_BusinessSkillsAndExperienceDoc.cshtml", Model)
 }
 
 @*SECTION 6 FINANCE PROPOSAL*@
+@if (Model == "subsidy-consortium-category")
+{
+    @Html.Partial("../Accordion/FinanceProposal/_SubsidyConsortiumCategory.cshtml", Model)
+}
 @if (Model == "project-cost-breakdown")
 {
-    @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml")
+    @Html.Partial("../Accordion/FinanceProposal/_ProjectCostBreakdown.cshtml", Model)
 }
 @if (Model == "value-for-money")
 {
-    @Html.Partial("../Accordion/FinanceProposal/_ValueforMoney.cshtml")
+    @Html.Partial("../Accordion/FinanceProposal/_ValueforMoney.cshtml", Model)
 }
 
 @*SECTION 7 PREFORMANCE DATA*@
 @if (Model == "trl-at-project-start")
 {
-    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtStart.cshtml")
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtStart.cshtml", Model)
 }
 
 @if (Model == "trl-at-project-close")
 {
-    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtClose.cshtml")
+    @Html.Partial("../Accordion/PreformanceData/_TechnologyReadinessLevelAtClose.cshtml", Model)
 }
 

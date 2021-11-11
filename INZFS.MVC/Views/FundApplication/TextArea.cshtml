@@ -15,7 +15,7 @@
     <input type="hidden" name="PageName" value="@Model.PageName" />
     <input type="hidden" name="Kind" value="@nameof(TextAreaModel)" />
 
-
+    @Html.Partial("_ErrorMessage")
 
     <div class="govuk-character-count @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" data-module="govuk-character-count"
          @if (Model.MaxLengthValidationType == MaxLengthValidationType.Character) { <text> data-maxlength="@Model.MaxLength" </text>  } else { <text> data-maxwords="@Model.MaxLength" </text> }>
@@ -28,8 +28,9 @@
             @Html.Partial("_QuestionDescription", Model.PageName)
             @Html.Partial("_Hint", Model.Hint)
             <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+            <label for="with-hint" class="govuk-label govuk-visually-hidden">@Model.FriendlyFieldName</label>
             <textarea class="govuk-textarea govuk-js-character-count  @(ViewData.ModelState.IsValid ? "" : "govuk-input--error")" id="with-hint"
-                      name="DataInput" rows="10" aria-describedby="with-hint-info with-hint-hint">@Model.DataInput</textarea>
+                      name="DataInput" rows="10">@Model.DataInput</textarea>
         </div>
         <div id="with-hint-info" class="govuk-hint govuk-character-count__message  govuk-!-font-size-16" aria-live="polite">
             You can enter up to @Model.MaxLength @(Model.MaxLengthValidationType == MaxLengthValidationType.Character ? "characters" : "words" )

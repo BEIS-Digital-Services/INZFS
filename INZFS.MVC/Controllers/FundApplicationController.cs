@@ -33,50 +33,52 @@ using INZFS.MVC.Records;
 using System.Security.Claims;
 using INZFS.MVC.Extensions;
 using INZFS.MVC.Constants;
+using INZFS.MVC.Filters;
+using INZFS.MVC.Settings;
+using Microsoft.Extensions.Options;
+using INZFS.MVC.Services.PdfServices;
+using Microsoft.AspNetCore.Hosting;
+using System.Text;
 
 namespace INZFS.MVC.Controllers
 {
     [Authorize]
     public class FundApplicationController : Controller
     {
-        private readonly IContentManager _contentManager;
-        private readonly IVirusScanService _virusScanService;
         private readonly IFileUploadService _fileUploadService;
         private readonly IMediaFileStore _mediaFileStore;
-        private readonly dynamic New;
-        private readonly INotifier _notifier;
         private readonly YesSql.ISession _session;
-        private readonly IUpdateModelAccessor _updateModelAccessor;
-        private readonly INavigation _navigation;
-        private readonly ILogger _logger;
         private readonly IContentRepository _contentRepository;
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
-        
-        public FundApplicationController(ILogger<FundApplicationController> logger, IContentManager contentManager,
-            IMediaFileStore mediaFileStore, IContentDefinitionManager contentDefinitionManager,
-            IContentItemDisplayManager contentItemDisplayManager, IHtmlLocalizer<FundApplicationController> htmlLocalizer,
-            INotifier notifier, YesSql.ISession session, IShapeFactory shapeFactory,
-            IUpdateModelAccessor updateModelAccessor, INavigation navigation,
+        private readonly ApplicationOption _applicationOption;
+        private readonly IReportService _reportService;
+        private readonly IWebHostEnvironment _env;
+
+        public FundApplicationController(
+            IMediaFileStore mediaFileStore, 
+            IHtmlLocalizer<FundApplicationController> htmlLocalizer,
+            YesSql.ISession session,
             IContentRepository contentRepository, IFileUploadService fileUploadService, 
-            IVirusScanService virusScanService, ApplicationDefinition applicationDefinition, IApplicationEmailService applicationEmailService)
+            ApplicationDefinition applicationDefinition, 
+            IApplicationEmailService applicationEmailService,
+            IOptions<ApplicationOption> applicationOption,
+            IReportService reportService,
+            IWebHostEnvironment env)
         {
-            _contentManager = contentManager;
             _mediaFileStore = mediaFileStore;
-            _notifier = notifier;
             _session = session;
-            _updateModelAccessor = updateModelAccessor;
-            _logger = logger;
-            New = shapeFactory;
-            _navigation = navigation;
             _contentRepository = contentRepository;
-            _virusScanService = virusScanService;
             _fileUploadService = fileUploadService;
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
+            _applicationOption = applicationOption.Value;
+            _reportService = reportService;
+            _env = env;
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Section(string pagename, string id)
         {
             if(string.IsNullOrEmpty(pagename))
@@ -86,10 +88,11 @@ namespace INZFS.MVC.Controllers
             pagename = pagename.ToLower().Trim();
 
 
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var userId = GetUserId();
+            var content = await _contentRepository.GetApplicationContent(userId);
             if(content == null)
             {
-                content = await _contentRepository.CreateApplicationContent(User.Identity.Name);
+                content = await _contentRepository.CreateApplicationContent(userId);
             }
             
             if (string.IsNullOrEmpty(User.Identity.ApplicationNumber()))
@@ -171,6 +174,7 @@ namespace INZFS.MVC.Controllers
         [Route("FundApplication/section/{pageName}")]
         [HttpPost, ActionName("save")]
         [FormValueRequired("submit.Publish")]
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitAction, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
             var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
@@ -179,7 +183,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
@@ -189,7 +193,7 @@ namespace INZFS.MVC.Controllers
                 if(ModelState.IsValid && submitAction != "UploadFile")
                 {
                     var fieldStatus = GetFieldStatus(currentPage, model);
-                    var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                    var contentToSave = await _contentRepository.GetApplicationContent(GetUserId());
                     if (contentToSave != null)
                     {
                         var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
@@ -197,14 +201,21 @@ namespace INZFS.MVC.Controllers
                         {
                             if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "No file was uploaded.");
+                                if(currentPage.Mandatory)
+                                {
+                                    ModelState.AddModelError("DataInput", "This section has a mandatory file upload. You must first choose your file and then upload it using the upload button below.");
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("DataInput", "You have not uploaded any evidence. Please upload a file before marking as complete. If this step is not relevant to your application please select 'not applicable'.");
+                                }
                             }
                         }
                         if (fieldStatus == FieldStatus.NotApplicable)
                         {
                             if (submitAction != "DeleteFile" && !string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "Please remove the uploaded file if this question is not applicable.");
+                                ModelState.AddModelError("DataInput", "You have told us this step is not applicable, your evidence will not be added to your proposal. Please select 'mark this step as complete' if you would like your evidence to be reviewed. Otherwise, please remove the file.");
                                 return PopulateViewModel(currentPage, model, existingData);
                             }
                         }
@@ -213,13 +224,13 @@ namespace INZFS.MVC.Controllers
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
-                var contentToSave = await _contentRepository.GetApplicationContent(User.Identity.Name);
+                var contentToSave = await _contentRepository.GetApplicationContent(GetUserId());
                 
                 if (contentToSave == null)
                 {
                     contentToSave = new ApplicationContent();
                     contentToSave.Application = new Application();
-                    contentToSave.Author = User.Identity.Name;
+                    contentToSave.UserId = GetUserId();
                     contentToSave.CreatedUtc = DateTime.UtcNow;
                 }
 
@@ -252,6 +263,8 @@ namespace INZFS.MVC.Controllers
                             Size = (file.Length / (double)Math.Pow(1024, 2)).ToString("0.00")
                         };
 
+                        model.UploadedFile = uploadedFile;
+
                         if (file.FileName.ToLower().Contains(".xlsx") && currentPage.Name == "project-cost-breakdown")
                         {
                             try
@@ -261,9 +274,9 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total sum requested from BEIS").First<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Match funding contribution").First<IXLCell>();
-                                    IXLCell totalProjectFunding = ws.Search("Total project costs").First<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault<IXLCell>();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault<IXLCell>();
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault<IXLCell>();
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
@@ -272,37 +285,61 @@ namespace INZFS.MVC.Controllers
                                         try
                                         {
                                             ParsedExcelData parsedExcelData = new();
-                                            parsedExcelData.ParsedTotalProjectCost = totalProjectFunding.CellRight().GetValue<double>().ToString("£0.00");
-                                            parsedExcelData.ParsedTotalGrantFunding = totalGrantFunding.CellRight().GetValue<double>().ToString("£0.00");
-                                            parsedExcelData.ParsedTotalGrantFundingPercentage = totalGrantFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
-                                            parsedExcelData.ParsedTotalMatchFunding = totalMatchFunding.CellRight().GetValue<double>().ToString("£0.00");
-                                            parsedExcelData.ParsedTotalMatchFundingPercentage = totalMatchFunding.CellRight().CellRight().GetValue<double>().ToString("0.00%");
+                                            var parsedTotalProjectCost = Double.Parse(totalProjectFunding.CellRight().CachedValue.ToString());
+                                            var parsedTotalGrantFunding = Double.Parse(totalGrantFunding.CellRight().CachedValue.ToString());
+                                            var parsedTotalMatchFunding = Double.Parse(totalMatchFunding.CellRight().CachedValue.ToString());
+                                            if (parsedTotalProjectCost > 0D)
+                                            {
+                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost.ToString("C", new CultureInfo("en-GB"));
+                                                contentToSave.TotalProjectCost = parsedTotalProjectCost;
+                                            }
+                                            else
+                                            {
+                                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                                            "Total project costs should be more than zero.");
+                                            }
+                                            parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding.ToString("C", new CultureInfo("en-GB"));
+                                            parsedExcelData.ParsedTotalGrantFundingPercentage = Double.Parse(totalGrantFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            contentToSave.TotalGrantFunding = parsedTotalGrantFunding;
+
+                                            parsedExcelData.ParsedTotalMatchFunding = parsedTotalMatchFunding.ToString("C", new CultureInfo("en-GB"));
+                                            parsedExcelData.ParsedTotalMatchFundingPercentage = Double.Parse(totalMatchFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            contentToSave.TotalMatchFunding = parsedTotalMatchFunding;
+
                                             uploadedFile.ParsedExcelData = parsedExcelData;
                                         }
                                         catch (DivisionByZeroException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
+                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                                "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                         catch (FormatException e)
                                         {
-                                            ModelState.AddModelError("DataInput", "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
-
+                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", 
+                                                "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                     }
                                     else
                                     {
-                                        ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                        return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                     }
                                 }
                                 catch (ArgumentException e)
                                 {
-                                    ModelState.AddModelError("DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                }
+                                catch (InvalidOperationException e)
+                                {
+                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                             }
                             catch (InvalidDataException e)
                             {
-                                ModelState.AddModelError("DataInput", "Invalid file uploaded");
-                                return PopulateViewModel(currentPage, model);
+                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded");
+                            }
+                            catch (Exception ex)
+                            {
+                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded - try again.");
                             }
                         }
 
@@ -311,7 +348,6 @@ namespace INZFS.MVC.Controllers
                     else
                     {
                         var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
-
                         //TODO - Handle validation Error
                         if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                         {
@@ -344,9 +380,14 @@ namespace INZFS.MVC.Controllers
                         // TODO Delete  the old file
 
                         bool fileHasChanged = additionalInformation != existingFieldData?.AdditionalInformation;
+                        if (!string.IsNullOrEmpty(existingFieldData?.AdditionalInformation))
+                        {
+                            model.UploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
+                        }
                         if ((fileHasChanged && !string.IsNullOrEmpty(existingFieldData?.AdditionalInformation)) || submitAction == "DeleteFile")
                         {
                             var uploadedFile = JsonSerializer.Deserialize<UploadedFile>(existingFieldData.AdditionalInformation);
+                            model.UploadedFile = uploadedFile;
                             var deleteSucessful = await _fileUploadService.DeleteFile(uploadedFile.FileLocation);
                             if(submitAction == "DeleteFile")
                             {
@@ -459,17 +500,39 @@ namespace INZFS.MVC.Controllers
             }
         }
 
+        private ViewResult AddErrorAndPopulateViewModel(Page currentPage, BaseModel currentModel,string fieldName, string errorMessage)
+        {
+            ModelState.AddModelError(fieldName, errorMessage);
+            return PopulateViewModel(currentPage, currentModel);
+        }
+
+        private string GetUserId()
+        {
+            return User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
         public async Task<IActionResult> Submit()
         {
             SetPageTitle("Submit application");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
             if(content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
             }
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
-            if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
+            if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted 
+                                    && DateTime.UtcNow <= _applicationOption.EndDate)
             {
+                bool applicationUploadSuccess = await AddApplicationToBlobStorage();
+                bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
+
+                if(!applicationUploadSuccess || !jsonUploadSuccess)
+                {
+                    TempData[TempDataKeys.ApplicationOverviewError] = true;
+                    return RedirectToAction("section", new { pagename = "application-overview" });
+                }
+
                 TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
                 {
@@ -485,10 +548,55 @@ namespace INZFS.MVC.Controllers
                 return RedirectToAction("section", new { pagename = "application-overview" });
             }
         }
+
+        public async Task<bool> GenerateApplicationSummaryJson() 
+        {
+            var content = _contentRepository.GetApplicationContent(GetUserId());
+            string name = $"{GetUserId()}.json";
+            string jsonStr = JsonSerializer.Serialize(content);
+            byte[] encoded = Encoding.UTF8.GetBytes(jsonStr);
+           
+
+            MemoryStream ms = new(encoded);
+            FormFile file = new(ms, 0, encoded.Length, name, name);
+
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
+        }
+
+        public async Task<bool> AddApplicationToBlobStorage()
+        {
+            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
+            ReportContent reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
+            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+
+            MemoryStream ms = new(reportContent.FileContents);
+            FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
+
+            var url = await AddFileToBlobStorage(file);
+
+            return url != null ? true : false;
+        }
+
+        public async Task<string> AddFileToBlobStorage(FormFile file)
+        {
+            try
+            {
+                var publicUrl = await _fileUploadService.SaveFile(file, "Submitted Applications");
+                return publicUrl;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Complete()
         {
             SetPageTitle("Application completed");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
             if (content.ApplicationStatus != ApplicationStatus.InProgress)
             {
                 return RedirectToAction("ApplicationSent");
@@ -496,7 +604,7 @@ namespace INZFS.MVC.Controllers
             var applicationOverviewContentModel = GetApplicationOverviewContent(content);
             if (applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted)
             {
-                await _contentRepository.UpdateStatus(User.Identity.Name, ApplicationStatus.Submitted);
+                await _contentRepository.UpdateStatus(GetUserId(), ApplicationStatus.Submitted);
                 var model = new CommonModel { 
                     ApplicationNumber = content.ApplicationNumber,
                     ShowBackLink = true,
@@ -504,7 +612,8 @@ namespace INZFS.MVC.Controllers
                     BackLinkUrl = Url.ActionLink("Submit", "FundController")
                 };
 
-                await _applicationEmailService.SendConfirmationEmailAsync(User);
+                var url = Url.Action("ApplicationSent", "FundApplication",null, Request.Scheme);
+                await _applicationEmailService.SendConfirmationEmailAsync(User, applicationOverviewContentModel.ApplicationNumber, url);
                 return View("ApplicationComplete", model);
             }
             else
@@ -513,6 +622,7 @@ namespace INZFS.MVC.Controllers
             }
         }
 
+        [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> ApplicationEquality()
         {
             SetPageTitle("Equality questions");
@@ -528,11 +638,12 @@ namespace INZFS.MVC.Controllers
         public async Task<IActionResult> ApplicationSent()
         {
             SetPageTitle("Your application");
-            var content = await _contentRepository.GetApplicationContent(User.Identity.Name);
+            var content = await _contentRepository.GetApplicationContent(GetUserId());
+            var status = content.ApplicationStatus == ApplicationStatus.InProgress ? ApplicationStatus.NotSubmitted : content.ApplicationStatus;
             return View("ApplicationSent", new ApplicationSentModel { 
-                ApplicationNumber = content.ApplicationNumber,
-                ApplicationStatus = content.ApplicationStatus.ToStatusString(),
-                SubmittedDate = content.SubmittedUtc.Value
+                ApplicationNumber = content.ApplicationNumber ?? "N/A",
+                ApplicationStatus = status.ToStatusString(),
+                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow
             } );
         }
         
@@ -552,7 +663,7 @@ namespace INZFS.MVC.Controllers
 
         private ViewResult GetViewModel(Page currentPage, Field field)
         {
-            SetPageTitle(currentPage.SectionTitle);
+            SetPageTitle(currentPage.PageTitle ?? currentPage.SectionTitle);
             BaseModel model;
             switch (currentPage.FieldType)
             {
@@ -668,6 +779,7 @@ namespace INZFS.MVC.Controllers
             currentModel.TextType = currentPage.TextType;
             currentModel.YesNoInput = currentPage.YesNoInput;
             currentModel.Question = currentPage.Question;
+            currentModel.FriendlyFieldName = currentPage.FriendlyFieldName;
             currentModel.PageName = currentPage.Name;
             currentModel.FieldName = currentPage.FieldName;
             currentModel.SectionTitle = currentPage.SectionTitle ?? currentPage.Question;
@@ -732,7 +844,7 @@ namespace INZFS.MVC.Controllers
             var currentPageIndex = currentSection.Pages.FindIndex(p => p.Name == currentPage.Name);
             if (currentPageIndex >= 1)
             {
-                currentModel.PreviousPageName = currentSection.Pages[currentPageIndex -1].Name;
+                currentModel.PreviousPageName = currentPage.PreviousPageName ?? currentSection.Pages[currentPageIndex -1].Name;
             } 
 
 
@@ -742,7 +854,7 @@ namespace INZFS.MVC.Controllers
             }
 
             currentModel.DisplayQuestionCounter = currentPage.DisplayQuestionCounter;
-            currentModel.GridDisplayType = currentPage.GridDisplayType;
+            currentModel.GridDisplayType = currentPage.GridDisplayType == null ? currentSection.GridDisplayType : currentPage.GridDisplayType.Value;
             return currentModel;
         }
 
@@ -786,7 +898,25 @@ namespace INZFS.MVC.Controllers
                 }
                 else
                 {
-                    sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
+                    if(pageContent.CompletionDependsOn != null && pageContent.CompletionDependsOn.Value == field.Data)
+                    {
+                        // Get status of the dependant fields
+                        bool areAlldependantFieldsComplete = false;
+                        var dependantFields = content?.Fields?.Where(f => pageContent.CompletionDependsOn.Fields?.Contains(f.Name) == true);
+                        if(dependantFields?.Any() == true)
+                        {
+                            areAlldependantFieldsComplete = dependantFields.All(f => f.FieldStatus.Value == FieldStatus.Completed);
+                        }
+
+                        sectionModel.SectionStatus = (areAlldependantFieldsComplete 
+                                                    && field.FieldStatus.HasValue 
+                                                    && field.FieldStatus.Value == FieldStatus.Completed) ? FieldStatus.Completed 
+                                                                                                         : FieldStatus.InProgress;
+                    }
+                    else
+                    {
+                        sectionModel.SectionStatus = field.FieldStatus.HasValue ? field.FieldStatus.Value : FieldStatus.NotStarted;
+                    }
                 }
 
                 if (pageContent.Name == "subsidy-requirements")
