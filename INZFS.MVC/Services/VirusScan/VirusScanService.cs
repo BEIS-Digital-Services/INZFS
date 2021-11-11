@@ -15,11 +15,9 @@ namespace INZFS.MVC.Services.VirusScan
 {
     public class VirusScanService : IVirusScanService
     {
-        private string apikey = Environment.GetEnvironmentVariable("CloudMersiveApiKey");
-        public bool ScanFile(IFormFile file)
+        public bool ScanFile(IFormFile file, string cloudmersiveApiKey)
         {
-            Configuration.Default.AddApiKey("Apikey", apikey);
-        
+            Configuration.Default.AddApiKey("Apikey", cloudmersiveApiKey);
             var apiInstance = new ScanApi();
             var inputFile = file.OpenReadStream(); 
             var allowExecutables = false;  
