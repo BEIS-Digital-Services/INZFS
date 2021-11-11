@@ -13,7 +13,6 @@ using OrchardCore.Modules;
 using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
 using System.IO;
-using nClam;
 using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
@@ -53,18 +52,6 @@ namespace INZFS.MVC
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ClamClient>(x =>
-            {
-                var host = Configuration["ClamAVServerHost"];
-                if (int.TryParse(Configuration["ClamAVServerPort"], out var port))
-                {
-                    return new ClamClient(host, port);
-                }
-                else
-                {
-                    return new ClamClient(host);
-                }
-            });
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();

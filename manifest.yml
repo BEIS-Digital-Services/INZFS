@@ -31,3 +31,4 @@ applications:
     OrchardCore__OrchardCore_Media_Azure__ContainerName: $(BlobDir)
     OrchardCore__OrchardCore_Media_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
+    CloudMersiveApiKey: $(CloudMersiveApiKey)

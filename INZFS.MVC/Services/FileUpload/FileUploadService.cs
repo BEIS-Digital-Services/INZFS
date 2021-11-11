@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using nClam;
 using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using System.IO;
@@ -16,13 +16,12 @@ namespace INZFS.MVC.Services.FileUpload
     public class FileUploadService : IFileUploadService
     {
         private const string UploadedFileFolderRelativePath = "GovUpload/UploadedFiles";
-        private readonly ClamClient _clam;
+        private string[] permittedExtensions = { ".ppt", ".pptx", ".pdf", ".xls", ".xlsx", ".doc", ".docx", "gif", "jpeg", "png" };
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IVirusScanService _virusScanService;
         
-        public FileUploadService(ClamClient clam, IMediaFileStore mediaFileStore, IVirusScanService virusScanService)
+        public FileUploadService(IMediaFileStore mediaFileStore, IVirusScanService virusScanService)
         {
-            _clam = clam;
             _mediaFileStore = mediaFileStore;
             _virusScanService = virusScanService;
           
@@ -67,7 +66,7 @@ namespace INZFS.MVC.Services.FileUpload
             return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file, Page currentPage, bool virusScanningEnabled)
+        public async Task<string> Validate(IFormFile file, Page currentPage, bool virusScanningEnabled, string cloudmersiveApiKey)
         {
             
             if (file == null)
@@ -91,7 +90,7 @@ namespace INZFS.MVC.Services.FileUpload
                 return "The selected file must be smaller than 20MB";
             }
 
-            var containsVirus = virusScanningEnabled ? await _virusScanService.ScanFile(file): false;
+            var containsVirus = virusScanningEnabled ? _virusScanService.ScanFile(file, cloudmersiveApiKey) : false;
             if (containsVirus)
             {
                 return "The selected file contains a virus";
@@ -117,7 +116,7 @@ namespace INZFS.MVC.Services.FileUpload
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine("The following exception was encountered: " + ex);
                 return false;
             }
         }

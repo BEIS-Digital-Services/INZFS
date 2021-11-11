@@ -183,7 +183,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
