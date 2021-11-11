@@ -90,7 +90,7 @@ namespace INZFS.MVC.Services.FileUpload
                 return "The selected file must be smaller than 20MB";
             }
 
-            var containsVirus = virusScanningEnabled ? await _virusScanService.ScanFile(file): false;
+            var containsVirus = virusScanningEnabled ? _virusScanService.ScanFile(file): false;
             if (containsVirus)
             {
                 return "The selected file contains a virus";
