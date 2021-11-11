@@ -1,0 +1,53 @@
+[
+  {
+    "_comment": "CAUTION - this is pre-launch dummy data"
+  }
+  {
+    "_timestamp": "2021-11-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 1,
+    "dataType": "cost-per-transaction-gbp",
+    "period": "month"
+  },
+  {
+    "_timestamp": "2021-03-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 100,
+    "dataType": "user-satisfaction-percent",
+    "period": "month"
+  },
+  {
+    "_timestamp": "2021-03-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 100,
+    "dataType": "completion-rate",
+    "period": "month"
+  },
+  {
+    "_timestamp": "2021-04-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 100,
+    "dataType": "digital-take-up",
+    "period": "month"
+  },
+  {
+    "_timestamp": "2021-04-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 100,
+    "dataType": "quality-of-submissions-percent",
+    "period": "month"
+  },
+  {
+    "_timestamp": "2021-04-01T00:00:00+00:00",
+    "service": "apply-for-eef",
+    "channel": "digital",
+    "count": 5,
+    "dataType": "mailbox-enquiries",
+    "period": "month"
+  }
+]
