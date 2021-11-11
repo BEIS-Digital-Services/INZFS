@@ -1,7 +1,9 @@
+@using INZFS.Theme.Models
 @model INZFS.Theme.ViewModels.MyAccountViewModel
 @{
     ViewLayout = "LayoutRegistration";
     ViewData["Title"] = "Your account details";
+    ViewData["Breadcrumbs"] = new BreadcrumbsModel() {IsDisplay = true, Url = "/FundApplication/section/application-overview", Text = "Application overview" };
 }
 
 <main class="govuk-main-wrapper " id="main-content" role="main">
@@ -49,13 +51,13 @@
                     <dd class="govuk-summary-list__actions">
                         @if (Model.IsSmsEnabled)
                         {
-                            <a class="govuk-link" href="@Url.Action("ChangePhone", "MyAccount", new {area = "INZFS.Theme"})">
+                            <a class="govuk-link" href="@Url.Action("AuthLogin", new {returnUrl = Url.Action("ChangePhone", "MyAccount", new {area = "INZFS.Theme"})})">
                                 Change<span class="govuk-visually-hidden">Phone Number</span>
                             </a>
                         }
                         else
                         {
-                            <a class="govuk-link" href="@Url.Action("AddPhoneNumber", "MyAccount", new {area = "INZFS.Theme"})">
+                            <a class="govuk-link" href="@Url.Action("AuthLogin", new {returnUrl =Url.Action("AddPhoneNumber", "MyAccount", new {area = "INZFS.Theme"})})">
                                 Add<span class="govuk-visually-hidden">Phone Number</span>
                             </a>
                         }
@@ -81,13 +83,13 @@
                     <dd class="govuk-summary-list__actions">
                         @if (Model.IsAuthenticatorEnabled)
                         {
-                            <a class="govuk-link" href="@Url.Action("ChangeScanQr", "MyAccount", new {area = "INZFS.Theme"})">
+                            <a class="govuk-link" href="@Url.Action("AuthLogin", new {returnUrl =Url.Action("ChangeScanQr", "MyAccount", new {area = "INZFS.Theme"})})">
                                 Change<span class="govuk-visually-hidden">Authenticator App</span>
                             </a>
                         }
                         else
                         {
-                            <a class="govuk-link" href="@Url.Action("AddScanQr", "MyAccount", new {area = "INZFS.Theme"})">
+                            <a class="govuk-link" href="@Url.Action("AuthLogin", new {returnUrl =Url.Action("AddScanQr", "MyAccount", new {area = "INZFS.Theme"})})">
                                 Add<span class="govuk-visually-hidden">Authenticator App</span>
                             </a>
                         }

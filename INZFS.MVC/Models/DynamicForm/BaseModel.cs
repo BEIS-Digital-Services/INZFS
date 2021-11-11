@@ -1,4 +1,5 @@
 ﻿using INZFS.MVC.Validators;
+using Microsoft.Extensions.DependencyInjection;
 using OrchardCore.ContentManagement;
 using System;
 using System.Collections.Generic;
@@ -20,12 +21,14 @@ namespace INZFS.MVC.Models.DynamicForm
         public string FieldName { get; set; }
         public string SectionTitle { get; set; }
         public string Question { get; set; }
+        public string FriendlyFieldName { get; set; }
         public string Description { get; set; }
         public string ErrorMessage { get; set; }
         public bool? Mandatory { get; set; } = true;
         public string Section { get; set; }
         public TextType TextType { get; set; }
         public YesNoType YesNoInput { get; set; }
+        public UploadedFile UploadedFile { get; set; }
 
         public string AccordianReference { get; set; }
         public string DataInput { get; set; }
@@ -48,7 +51,7 @@ namespace INZFS.MVC.Models.DynamicForm
         public List<Action> Actions { get; set; }
         public MaxLengthValidationType MaxLengthValidationType { get; set; }
         protected ApplicationDefinition ApplicationDefinition { get; set; }
-        protected Page CurrentPage { get; set; }
+        public Page CurrentPage { get; set; }
         public PreviousPage PreviousPage { get; set; }
         public FieldStatus? FieldStatus { get; set; }
         public FieldType FieldType { get; set; }
@@ -93,9 +96,9 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 if (!string.IsNullOrEmpty(page.CustomValidator))
                 {
-                    Type type = Type.GetType("INZFS.MVC.Validators." + page.CustomValidator);
-                    var customValidator = (ICustomValidator)Activator.CreateInstance(type);
-                    return customValidator.Validate(GetData(), page.FriendlyFieldName);
+                    var factory = (ICustomerValidatorFactory)validationContext.GetService(typeof(ICustomerValidatorFactory));
+                    var customValidator = factory.Get(page.CustomValidator);
+                    return customValidator.Validate(this, page);
                 }
             }
 
@@ -107,9 +110,9 @@ namespace INZFS.MVC.Models.DynamicForm
 
         private IEnumerable<ValidationResult> ValidateActions(Page page) 
         {
-            var userInput = GetData();
             if (page.Actions != null && page.Actions.Count > 0)
             {
+                var userInput = GetData();
                 if (string.IsNullOrEmpty(userInput))
                 {
                     yield return new ValidationResult($" Choose mandatory field {CurrentPage.FriendlyFieldName.ToLower()} before continuing", new[] { nameof(DataInput) });
@@ -117,12 +120,5 @@ namespace INZFS.MVC.Models.DynamicForm
             }
 
         }
-
-
-
-
     }
-
-
-
 }

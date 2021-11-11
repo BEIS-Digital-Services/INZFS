@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using INZFS.Theme.Models
+<!DOCTYPE html>
 <html lang="en" class="govuk-template ">
 <head>
     <meta charset="utf-8">
@@ -17,7 +18,8 @@
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
-   
+
+    
     
 </head>
 <body class="govuk-template__body ">
@@ -26,6 +28,7 @@
     <script src="~/js/EnableJs.js"></script>
 
 	<!-- start component HTML -->
+
 
 	<a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
@@ -48,9 +51,9 @@
 			</div>
 
 			<div class="govuk-header__content">
-				<span class="govuk-header__link--service-name">
-					Energy Entrepreneurs Fund (EEF)
-				</span>
+                <span class="govuk-header__link--service-name">
+                    Apply for the Energy Entrepreneurs Fund: phase 9
+                </span>
 				<span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
 					@if (User.Identity?.IsAuthenticated ?? false)
 					{
@@ -78,17 +81,27 @@
     </div>
 		<div class="govuk-grid-row">
 			<div class="govuk-grid-column-three-quarters">
-            <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
-                <ol class="govuk-breadcrumbs__list">
-                    <li class="govuk-breadcrumbs__list-item">
-                        <a class="govuk-breadcrumbs__link" href="/">Apply for the Energy Entrepreneurs Fund: phase 9
-                        </a>
-                    </li>
-                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
-                        @(ViewData["Title"])
-                    </li>
-                </ol>
-            </nav>
+                <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                    @{
+                        var breadcrumb = ViewData["Breadcrumbs"] as BreadcrumbsModel;
+                        var showBreadcrumb = (breadcrumb == null || breadcrumb.IsDisplay);
+                        var breadcrumbHome = breadcrumb?.Url ?? "/";
+                        var breadcrumbtext = breadcrumb?.Text ?? "Apply for the Energy Entrepreneurs Fund: phase 9";
+
+                    }
+
+                    @if (showBreadcrumb)
+                    {
+                        <ol class="govuk-breadcrumbs__list">
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" href="@breadcrumbHome">@breadcrumbtext</a>
+                            </li>
+                            <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                                @(ViewData["Title"])
+                            </li>
+                        </ol>
+                    }
+                </nav>
 			</div>
 			<div class="govuk-grid-column-one-quarter govuk-youraccount-right">
 				@if (User.Identity?.IsAuthenticated ?? false)
@@ -108,29 +121,33 @@
         <div class="govuk-width-container ">
             <div class="govuk-footer__meta">
                 <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-                    <h2 class="govuk-visually-hidden">Support links</h2>
-                    <ul class="govuk-footer__inline-list">
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/privacynotice">
-                                Privacy notice
-                            </a>
-                        </li>
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/cookiepolicy">
-                                Cookies
-                            </a>
-                        </li>
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/accessibility">
-                                Accessibility statement
-                            </a>
-                        </li>
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/help">
-                                How to get help with this service
-                            </a>
-                        </li>
-                    </ul>
+                    <p class="govuk-visually-hidden">Support links</p>
+
+                    <nav>
+                        <ul class="govuk-footer__inline-list">
+                            <li class="govuk-footer__inline-list-item">
+                                <a class="govuk-footer__link" href="/page/privacynotice">
+                                    Privacy notice
+                                </a>
+                            </li>
+                            <li class="govuk-footer__inline-list-item">
+                                <a class="govuk-footer__link" href="/page/cookiepolicy">
+                                    Cookies
+                                </a>
+                            </li>
+                            <li class="govuk-footer__inline-list-item">
+                                <a class="govuk-footer__link" href="/page/accessibility">
+                                    Accessibility statement
+                                </a>
+                            </li>
+                            <li class="govuk-footer__inline-list-item">
+                                <a class="govuk-footer__link" href="/page/help">
+                                    How to get help with this service
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    
 
                     <svg aria-hidden="true" focusable="false" class="govuk-footer__licence-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 483.2 195.7" height="17" width="41">
                         <path fill="currentColor" d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"></path>
@@ -149,6 +166,7 @@
 	<!-- end Footer component -->
 	<!-- end component HTML -->
 
+    <partial name="_TimeoutJavascript"/>
     
 </body>
 </html>

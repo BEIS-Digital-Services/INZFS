@@ -1,0 +1,61 @@
+{
+  "name": "Questions and Answers",
+  "displayName": "Questions and Answers",
+  "description": "Content and Content Types for QandA section",
+  "author": "Ben Lander",
+  "website": "",
+  "version": "1.0",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+  "steps": [
+    {
+      "name": "Content",
+      "data": [
+        {
+          "ContentItemId": "4kdre7cagpd5nwdmpvpc6br7c5",
+          "ContentItemVersionId": "47t6kwn7bzas900kjb8mp2zswf",
+          "ContentType": "qanda",
+          "DisplayText": "Questions and Answers",
+          "Latest": true,
+          "Published": true,
+          "ModifiedUtc": "2021-10-04T10:47:05.0707488Z",
+          "PublishedUtc": "2021-10-04T10:47:05.3314513Z",
+          "CreatedUtc": "2021-10-04T09:23:24.4703528Z",
+          "Owner": "4x22aptjhbn8ttp9fscz3s42wb",
+          "Author": "admin",
+          "qanda": {
+            "Heading1": {
+              "Text": "Energy Entrepreneurs Fund 9: questions and answers"
+            },
+            "Heading2": {
+              "Text": "Questions and answers"
+            },
+            "Body1": {
+              "Text": "Questions asked ahead of the session will be answered at the applicant information presentation on 12 November 2021. All answers will also be published after the event."
+            },
+            "Body2": {
+              "Text": "To submit your questions please email general.entrepreneur@BEIS.gov.uk"
+            },
+            "Body3": {
+              "Text": "You can also review answers from previous rounds of the fund here."
+            },
+            "Body4": {
+              "Text": "To register to attend the event email general.entrepreneur@beis.gov.uk with the subject line, Event registration and we will send you the details.  "
+            }
+          },
+          "TitlePart": {
+            "Title": "Questions and Answers"
+          },
+          "AliasPart": {
+            "Alias": "qanda"
+          },
+          "ListOfFAQs": {
+            "ContentItems": [
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

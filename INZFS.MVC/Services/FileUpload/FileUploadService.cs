@@ -66,7 +66,7 @@ namespace INZFS.MVC.Services.FileUpload
             return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file, Page currentPage)
+        public async Task<string> Validate(IFormFile file, Page currentPage, bool virusScanningEnabled)
         {
             
             if (file == null)
@@ -84,14 +84,19 @@ namespace INZFS.MVC.Services.FileUpload
                 return $"The selected file must be {currentPage.AcceptableFileExtensions}";
             }
 
-            var maxSize = 10 * Math.Pow(1024, 2); // 10 MB
+            var maxSize = 20 * Math.Pow(1024, 2); // 20 MB
             if ((double)file.Length > maxSize)
             {
-                return "The selected file must be smaller than 10MB";
+                return "The selected file must be smaller than 20MB";
             }
-            var containsVirus = _virusScanService.ScanFile(file);
-            return containsVirus;
-          
+
+            var containsVirus = virusScanningEnabled ? await _virusScanService.ScanFile(file): false;
+            if (containsVirus)
+            {
+                return "The selected file contains a virus";
+            }
+
+            return string.Empty;
         }
         public async Task<bool> CreateDirectory(string directoryName)
         {

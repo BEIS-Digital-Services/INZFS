@@ -29,29 +29,29 @@ namespace INZFS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                if (_environment.IsDevelopment())
-                {
+            if (_environment.IsDevelopment())
+            {
                 services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
 
                 services.AddDistributedMemoryCache();
-                }
-                else
-                {
+            }
+            else
+            {
                 services.AddOrchardCms().AddSetupFeatures("OrchardCore.Redis.Cache", "OrchardCore.Redis.Lock", "OrchardCore.AutoSetup").AddAzureShellsConfiguration();
 
                 services.AddStackExchangeRedisCache(options =>
-                    {
-                        options.Configuration = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Redis__Configuration");
-                        options.InstanceName = "EEF";
-                    });
-                }
-            services.AddSession(options =>
-                    {
-                        options.Cookie.HttpOnly = true;
-                        options.Cookie.SecurePolicy = 0;
-                        options.IdleTimeout = TimeSpan.FromMinutes(30);
-                    });
+                {
+                    options.Configuration = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Redis__Configuration");
+                    options.InstanceName = "EEF";
+                });
             }
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SecurePolicy = 0;
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+            });
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,6 +82,6 @@ namespace INZFS
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
-            }
         }
+    }
 }

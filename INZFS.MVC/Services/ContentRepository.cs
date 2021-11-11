@@ -16,9 +16,9 @@ namespace INZFS.MVC
 {
     public interface IContentRepository
     {
-        public Task<ApplicationContent> GetApplicationContent(string userName);
-        public Task<ApplicationContent> CreateApplicationContent(string userName);
-        public Task UpdateStatus(string userName, ApplicationStatus newStatus);
+        public Task<ApplicationContent> GetApplicationContent(string userId);
+        public Task<ApplicationContent> CreateApplicationContent(string userId);
+        public Task UpdateStatus(string userId, ApplicationStatus newStatus);
 
     }
     public class ContentRepository : IContentRepository
@@ -31,10 +31,10 @@ namespace INZFS.MVC
             _applicationNumberGenerator = applicationNumberGenerator;
         }
 
-        public async Task UpdateStatus(string userName, ApplicationStatus newStatus)
+        public async Task UpdateStatus(string userId, ApplicationStatus newStatus)
         {
-            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
-            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
+            var query = _session.Query<ApplicationContent, ApplicationContentUserIdIndex>();
+            query = query.With<ApplicationContentUserIdIndex>(x => x.UserId == userId);
             var content = await query.FirstOrDefaultAsync();
             if(content != null)
             {
@@ -45,18 +45,18 @@ namespace INZFS.MVC
             }
         }
 
-        public async Task<ApplicationContent> GetApplicationContent(string userName)
+        public async Task<ApplicationContent> GetApplicationContent(string userId)
         {
-            var query = _session.Query<ApplicationContent, ApplicationContentIndex>();
-            query = query.With<ApplicationContentIndex>(x => x.Author == userName);
+            var query = _session.Query<ApplicationContent, ApplicationContentUserIdIndex>();
+            query = query.With<ApplicationContentUserIdIndex>(x => x.UserId == userId);
             return await query.FirstOrDefaultAsync();
         }
 
-        public async Task<ApplicationContent> CreateApplicationContent(string userName)
+        public async Task<ApplicationContent> CreateApplicationContent(string userId)
         {
             var contentToSave = new ApplicationContent();
             contentToSave.Application = new Application();
-            contentToSave.Author = userName;
+            contentToSave.UserId = userId;
             contentToSave.CreatedUtc = DateTime.UtcNow;
             contentToSave.ModifiedUtc = DateTime.UtcNow;
             contentToSave.ApplicationNumber = await GetNewApplicationNumber();

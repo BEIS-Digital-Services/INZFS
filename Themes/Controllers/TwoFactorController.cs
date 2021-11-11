@@ -163,7 +163,7 @@ namespace INZFS.Theme.Controllers
                 verificationMethod = "Authenticator app";
             }
 
-            var link = $"{Request?.Scheme}://{Request?.Host}/";
+            var link = $"{EmailConstant.Scheme}://{Request?.Host}/";
 
             var email = await _userManager.GetEmailAsync(user);
             var parameters = new Dictionary<string, dynamic>();
@@ -204,13 +204,13 @@ namespace INZFS.Theme.Controllers
 
             return View($"{method}Code", model);
         }
-        
-       
+
+
 
         [HttpPost]
         public async Task<IActionResult> EnterCode(EnterCodeViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
@@ -224,10 +224,10 @@ namespace INZFS.Theme.Controllers
                     .Replace(" ", string.Empty)
                     .Replace("-", string.Empty);
 
-                var isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user, model.Method.ToString(), code);
-                
+                var isValidToken = await _userManager.VerifyTwoFactorTokenAsync(user,model.Method.ToString(), code);
+
                 if (isValidToken)
-                {   
+                {
                     var result = await _signInManager.TwoFactorSignInAsync(model.Method.ToString(), code, false, false);
                     if (result?.Succeeded ?? false)
                     {
@@ -241,17 +241,18 @@ namespace INZFS.Theme.Controllers
                         }
 
                         _logger.LogInformation("User with ID '{UserId}' logged in with 2fa.", user.UserName);
-                        
-                        return LocalRedirect(returnUrl);
+
+                        return RedirectToAction("TimeOutWarning", "Account", new {returnUrl});
                     }
                 }
 
-                ModelState.AddModelError("Code", "Verification code is not valid, please enter a valid code and try again");
+                ModelState.AddModelError("Code",
+                    "Verification code is not valid, please enter a valid code and try again");
             }
 
             return View($"{model.Method}Code", model);
         }
-        
+
         [HttpGet]
         public async Task<IActionResult> Alternative(string returnUrl)
         {

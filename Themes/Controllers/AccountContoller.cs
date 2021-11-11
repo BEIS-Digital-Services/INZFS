@@ -6,6 +6,7 @@ using Castle.Core.Logging;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;
 using INZFS.Theme.ViewModels;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -52,10 +53,10 @@ namespace INZFS.Theme.Controllers
         [HttpGet]
         public async Task<IActionResult> Login(string returnUrl)
         {
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false ) || string.IsNullOrEmpty(returnUrl))
             {
-                returnUrl ??= Url.Content("~/");
-                return LocalRedirect(returnUrl);
+                await _signInManager.SignOutAsync();
             }
 
             return View(new LoginViewModel());
@@ -66,14 +67,14 @@ namespace INZFS.Theme.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            returnUrl ??= Url.Content("~/");
+            returnUrl ??= Url.Content("~/FundApplication/section/application-overview");
 
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.EmailAddress) ?? await _userManager.FindByNameAsync(model.EmailAddress);
                 if (user != null)
                 {
-                    var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: false);
+                    var checkResult = await _signInManager.CheckPasswordSignInAsync(user, model.Password, lockoutOnFailure: true);
                     if (checkResult.Succeeded)
                     {
                         if (!await _userManager.IsEmailConfirmedAsync(user))
@@ -81,7 +82,7 @@ namespace INZFS.Theme.Controllers
                             var idToken = _encodingService.GetHexFromString(model.EmailAddress);
                             return RedirectToAction("Success", "Registration", new { area = "INZFS.Theme", token = idToken, toverify = true });
                         }
-                        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, lockoutOnFailure: false);
+                        var result = await _signInManager.PasswordSignInAsync(user, model.Password, false, lockoutOnFailure: true);
                         if (result.RequiresTwoFactor)
                         {
                             return RedirectToAction("Select", "TwoFactor", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
@@ -90,18 +91,25 @@ namespace INZFS.Theme.Controllers
                         {
                             _logger.LogInformation(1, "User logged in.");
                             await _accountEvents.InvokeAsync((e, model) => e.LoggedInAsync(user), model, _logger);
-                            return LocalRedirect(returnUrl);
+                            return RedirectToAction("TimeOutWarning", new { returnUrl });
                         }
                     }
                 }
 
-                ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                ModelState.AddModelError("Password", "Invalid login attempt. If you believe your account has been locked, please allow 5 minutes before logging in");
                 await _accountEvents.InvokeAsync((e, model) => e.LoggingInFailedAsync(model.EmailAddress), model, _logger);
             }
 
             return View(model);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> TimeOutWarning(string returnUrl)
+        {
+            return View();
+        }
+        
 
         [AllowAnonymous]
         [HttpGet]
@@ -131,7 +139,7 @@ namespace INZFS.Theme.Controllers
                 {
                     var token = await _userManager.GeneratePasswordResetTokenAsync(user);
                     token = _encodingService.Base64UrlEncode(token);
-                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, Request.Scheme);
+                    var resetUrl = Url.Action("ResetPassword", "Account", new { area = "INZFS.Theme", token = token, idToken = tokenEmail }, EmailConstant.Scheme);
                     await SendForgotPasswordEmailAsync(model.EmailAddress, resetUrl);
                 }
               
@@ -203,14 +211,32 @@ namespace INZFS.Theme.Controllers
          [AllowAnonymous]
         public async Task<IActionResult> LogOff()
         {
-            if (User.Identity?.IsAuthenticated ?? false)
-            {
-                await _signInManager.SignOutAsync();
-                TempData.Clear();
-                _logger.LogInformation(4, "User logged out.");
-            }
-
+            await SignOutAsync();
             return Redirect("~/");
+        }
+
+        
+
+        [AllowAnonymous]
+        public async Task<IActionResult> TimeOut()
+        {
+            await SignOutAsync();
+            return RedirectToAction("TimeOutSuccess");
+        }
+        
+        [AllowAnonymous]
+        public async Task<IActionResult> TimeOutSuccess()
+        {
+            return View();
+        }
+
+        private async Task SignOutAsync()
+        {
+            await _signInManager.SignOutAsync();
+            await HttpContext.SignOutAsync(RegistrationConstants.MyAccountScheme);
+            await HttpContext.SignOutAsync(RegistrationConstants.RegistrationScheme);
+            TempData.Clear();
+            _logger.LogInformation(4, "User logged out.");
         }
 
 

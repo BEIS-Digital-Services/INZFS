@@ -20,9 +20,11 @@
 
         <div class="govuk-form-group">
 
-            <label class="govuk-label govuk-label--l">
-                @Model.Question
-            </label>
+            <h1 class="govuk-label-wrapper">
+                <label class="govuk-label govuk-label--l" for="file">
+                    @Model.Question
+                </label>
+            </h1>
             @Html.Partial("_Hint", Model.Hint)
             @Html.Partial("_QuestionDescription", Model.PageName)
 
@@ -45,10 +47,24 @@
 
         </div>
 
+        <div id="changed-name-hint" class="govuk-hint">
+            Uploaded file must be a maximum of 20 mb
+        </div>
+
         <div class="govuk-grid-row govuk-!-margin-bottom-3">
 
+            @if (!ViewData.ModelState.IsValid)
+            {
+                var value = ViewData.ModelState["DataInput"];
+                if (value.Errors.Any())
+                {
+                    <span id="file-upload" class="govuk-form-group--error govuk-error-message">
+                        <span class="govuk-visually-hidden">Error:</span> @value.Errors.First().ErrorMessage
+                    </span>
+                }
+            }
 
-            <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-3">
+            <div class="govuk-grid-column-full govuk-!-margin-bottom-3">
                 <div class="file-upload--border">
                     <input class="govuk-file-upload govuk-!-font-size-16" id="file" name="file" type="file"
                            accept="@extensions">
@@ -63,7 +79,7 @@
 
             @if (Model.UploadedFile != null)
             {
-                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
+                <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
                     <div class="file-upload--border">
                         <dl class="govuk-summary-list">
                             <div class="govuk-summary-list__row govuk-!-font-size-16">
@@ -83,17 +99,10 @@
             }
             else
             {
-
-                <div class="govuk-grid-column-three-quarters govuk-!-margin-bottom-6">
+                <div class="govuk-grid-column-full govuk-!-margin-bottom-6">
                     <div class="file-upload--border">
-                        <dl class="govuk-summary-list">
-
-                            <div class="govuk-summary-list__row govuk-!-font-size-16">
-                                <dd class="govuk-summary-list__value">
-                                    No file uploaded
-                                </dd>
-                            </div>
-                        </dl>
+                        <h2 class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0 govuk-!-font-size-16">Uploaded file</h2>
+                        <p class="govuk-body nofileupload govuk-!-font-size-16">No file uploaded</p>
                     </div>
                 </div>
             }
@@ -101,75 +110,74 @@
 
         </div>
 
-        @if (Model.PageName == "project-cost-breakdown")
-        {
-            <table class="govuk-table">
-                <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
-                <thead class="govuk-table__head">
-                    <tr class="govuk-table__row govuk-body-s">
-                        <th scope="col" class="govuk-table__header app-custom-class">Project funding source</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Value</th>
-                        <th scope="col" class="govuk-table__header app-custom-class">Percentage of total value</th>
-                    </tr>
-                </thead>
-                <tbody class="govuk-table__body govuk-body-s">
+            @if (Model.PageName == "project-cost-breakdown")
+            {
+                <table class="govuk-table">
+                    <caption class=" govuk-table__caption govuk-table__caption--m govuk-!-margin-bottom-0 govuk-!-font-size-16">Summary</caption>
+                    <thead class="govuk-table__head">
+                        <tr class="govuk-table__row govuk-body-s">
+                            <th scope="col" class="govuk-table__header app-custom-class">Project funding source</th>
+                            <th scope="col" class="govuk-table__header app-custom-class">Value</th>
+                            <th scope="col" class="govuk-table__header app-custom-class">Percentage of total value</th>
+                        </tr>
+                    </thead>
+                    <tbody class="govuk-table__body govuk-body-s">
 
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">
-                            Total BEIS grant applied for
-                        </td>
-                        <td class="govuk-table__cell">
-                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
-                        </td>
-                        <td class="govuk-table__cell">
-                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
-                        </td>
-                    </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                Total BEIS grant applied for
+                            </td>
+                            <td class="govuk-table__cell">
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
+                            </td>
+                            <td class="govuk-table__cell">
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
+                            </td>
+                        </tr>
 
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">
-                            Total match funding contribution
-                        </td>
-                        <td class="govuk-table__cell">
-                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
-                        </td>
-                        <td class="govuk-table__cell">
-                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
-                        </td>
-                    </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                Total match funding contribution
+                            </td>
+                            <td class="govuk-table__cell">
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
+                            </td>
+                            <td class="govuk-table__cell">
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
+                            </td>
+                        </tr>
 
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">
-                            Total project cost
-                        </td>
-                        <td class="govuk-table__cell">
-                            @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
-                        </td>
-                        <td class="govuk-table__cell">
-                            
-                        </td>
-                    </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">
+                                Total project cost
+                            </td>
+                            <td class="govuk-table__cell">
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
+                            </td>
+                            <td class="govuk-table__cell">
+                            </td>
+                        </tr>
 
-                </tbody>
-            </table>
-        }
+                    </tbody>
+                </table>
+            }
 
-        @Html.Partial("_Accordion", Model.PageName)
+            @Html.Partial("_Accordion", Model.PageName)
 
-        @if (Model.ShowMarkAsComplete)
-        {
-            @Html.Partial("_MarkAsComplete", Model)
-        }
+            @if (Model.ShowMarkAsComplete)
+            {
+                @Html.Partial("_MarkAsComplete", Model)
+            }
 
 
-        <div class="edit-item-secondary group">
-            <div class="edit-item-actions form-group">
-                <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+            <div class="edit-item-secondary group">
+                <div class="edit-item-actions form-group">
+                    <button type="submit" name="submit.Publish" class="btn btn-success publish govuk-button" value="submit.Publish">@Model.ContinueButtonText</button>
+                </div>
             </div>
-        </div>
 
-    </form>
+            </form>
 
-</div>
+            </div>
 
-@Html.Partial("_BackButton", Model)
+            @Html.Partial("_BackButton", Model)

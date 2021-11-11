@@ -3692,13 +3692,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 2 of 6"
+              "Text": "Step 2 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Have you previously applied to this fund on more than two occasions for your proposed technology?"
+              "Text": "Have you applied to this fund on more than two occasions for your proposed project?"
             },
             "Header2": {
               "Text": null
@@ -3753,13 +3753,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 5 of 6"
+              "Text": "Step 5 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Are you able to match at least 10% of the grant you are applying for?"
+              "Text": "Can you match at least 10% of your total project costs?"
             },
             "Header2": {
               "Text": null
@@ -3777,19 +3777,17 @@
               "Text": "/eligibilityChecker/Question6"
             },
             "Bullet1": {
-              "Text": null
+              "Text": "private investors"
             },
             "Bullet2": {
-              "Text": null
+              "Text": "the applicant's own funds"
             },
             "Bullet3": {
-              "Text": null
+              "Text": "a bank loan"
             },
-            "Bullet4": {
-              "Text": null
-            },
+
             "AccordionDetails1": {
-              "Text": "Applicants need private funding in place to cover at least 10% of the project’s costs. Funding may come from private investors or the applicant’s own resources. It may not include funding from public authorities."
+              "Text": "Applicants need private funding to cover at least 10% of the project's total cost. This could come from sources including, for example:"
             }
           },
           "AliasPart": {
@@ -3814,7 +3812,7 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 1 of 6"
+              "Text": "Step 1 of 6"
             },
             "Body2": {
               "Text": null
@@ -3896,19 +3894,19 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 3 of 6"
+              "Text": "Step 3 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Do you have proof that your innovation is feasible?"
+              "Text": "Do you have proof that your project is feasible?"
             },
             "Header2": {
               "Text": null
             },
             "Accordion1": {
-              "Text": "Guidance"
+              "Text": "Do you have proof that your project is feasible?"
             },
             "Boolean1": {
               "Value": false
@@ -3932,22 +3930,22 @@
               "Text": null
             },
             "AccordionDetails1": {
-              "Text": "Your innovation needs to have reached Technology Readiness 3 (TRL3) to be eligible for EEF support."
+              "Text": "Technology Readiness Level (TRL) is a way of judging the development of a innovation. BEIS uses this system in its assessment process. Your project must be at a minimum of TRL 3 (Proof of Concept) to get an EEF grant."
             },
             "AccordionDetails2": {
-              "Text": "Innovations which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
+              "Text": "Projects which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
             },
             "AccordionDetails3": {
-              "Text": "They have passed the basic and applied research stages (TRL1 and 2)."
+              "Text": "To prove that your projects is feasible you should be able to show:"
             },
             "AccordionBullet1": {
-              "Text": "show your innovation can be built or developed"
+              "Text": "your project can be built or developed"
             },
             "AccordionBullet2": {
               "Text": "results from testing for real-life application"
             },
             "AccordionBullet3": {
-              "Text": "confidently describe its functionality"
+              "Text": "how it works"
             },
             "AccordionBullet4": {
               "Text": null
@@ -3981,13 +3979,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 4 of 6"
+              "Text": "Step 4 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Do you require funding in excess of £1 million?"
+              "Text": "Are you applying for funding up to and including £1 million?"
             },
             "Header2": {
               "Text": null
@@ -4017,7 +4015,7 @@
               "Text": null
             },
             "AccordionDetails1": {
-              "Text": "The EEF provides successful applicants with grants up to £1 million. The maximum value of your project must not exceed £2.5 million."
+              "Text": "Successful applicants can get up to £1 million from EEF, depending on their project. If you need extra funding for your project, it may come from another source, excluding other public funds. The project's total value must not be more than £2.5 million."
             },
             "AccordionDetails2": {
               "Text": null
@@ -4504,10 +4502,10 @@
           "Author": "admin",
           "EligibilityInfo": {
             "Body1": {
-              "Text": "Use this tool to check if you are eligible to apply for funding before you start the application process"
+              "Text": "Use this tool to check if you are eligible to apply for funding before you start the application process."
             },
             "Body2": {
-              "Text": "The questionnaire contains 6 questions."
+              "Text": "The section contains 6 questions."
             },
             "Header1": {
               "Text": "Check if EEF is the right fund for you"
@@ -4519,7 +4517,7 @@
               "Text": "/eligibilityChecker/Question1"
             },
             "Body3": {
-              "Text": "Results are indicative only and you can return at any time. Your answers will not be saved or used as part of your application if you wish to apply. "
+              "Text": "Results are indicative only. You can return and start again at any time. Your answers will not be saved or used as part of your application if you wish to apply."
             }
           },
           "AliasPart": {
@@ -4544,13 +4542,13 @@
           "Author": "admin",
           "EligibilityChecker": {
             "Body1": {
-              "Text": "Question 6 of 6"
+              "Text": "Step 6 of 6"
             },
             "Body2": {
               "Text": null
             },
             "Header1": {
-              "Text": "Does your innovation relate to one or more of the following areas?"
+              "Text": "Does your project relate to one or more of the following:"
             },
             "Header2": {
               "Text": null
@@ -4568,16 +4566,16 @@
               "Text": "/eligibilityResult/EligibilityResult7"
             },
             "Bullet1": {
-              "Text": "Energy efficiency "
+              "Text": "energy efficiency "
             },
             "Bullet2": {
-              "Text": "Power generation"
+              "Text": "power generation"
             },
             "Bullet3": {
-              "Text": "Heat generation"
+              "Text": "heat generation"
             },
             "Bullet4": {
-              "Text": "Energy storage"
+              "Text": "energy storage"
             },
             "AccordionDetails1": {
               "Text": "The EEF welcomes applications from a broad range of carbon reduction technologies. Your proposal must address either the Government’s 2050 Net Zero carbon targets or security of UK energy supply to be eligible."
@@ -4632,7 +4630,7 @@
               "Text": "You are eligible to apply"
             },
             "Body1": {
-              "Text": "Please refer to the detailed guidance before starting your application. You can also review the application questions. "
+              "Text": "Please refer to the <a class='govuk-link' href='#'>detailed guidance</a> before starting your application.  You can also <a class='govuk-link' href='#'>review the application questions.</a>"
             },
             "Body2": {
               "Text": "Please be aware that:"
@@ -4674,10 +4672,10 @@
               "Text": null
             },
             "BulletA": {
-              "Text": "Funding will not be available to any activities relating to your project beyond March 2024"
+              "Text": "funding will not be available for any activities related to your project beyond March 2024"
             },
             "BulletB": {
-              "Text": "You can only apply to funding related to your project related activities taking place from the grant's start date. Funding cannot be backdated to include any previous activities related to your project. "
+              "Text": "you can only apply for funding to cover project-related activities taking place from the grant's start date. Funding cannot be backdated to include any previous activities related to your project"
             },
             "Header2": {
               "Text": "Before you register"
@@ -4708,17 +4706,23 @@
               "Text": "The Energy Entrepreneurs Fund (EEF) supports innovative carbon-reduction technology through capital grants of up to £1 million."
             },
             "govukheadingm2": {
-              "Text": "Apply for funding Step by step"
+              "Text": "Before you apply"
             },
             "GovLink1": {
               "Url": null,
               "Text": null
             },
             "GovMainInfo": {
-              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups. To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply. Your project’s scope must relate to at least one of the following categories: "
+              "Text": "The Fund is open to UK organisations of any size, in both the public and private sector. It is particularly focused on helping small and medium-sized businesses, including start-ups."
+            },
+            "GovMainInfo1": {
+              "Text": "Academic institutions are welcome to apply as part of a consortium, but can not be the sole applicant."
+            },
+            "GovMainInfo2": {
+              "Text": "To be eligible for the grant, your proposal needs to address the Government’s 2050 Net Zero carbon targets, or security of UK energy supply."
             },
             "NavHeading1": {
-              "Text": "Check to see if EEF is the right fund for you"
+              "Text": "Check if EEF is the right fund for you"
             },
             "NavHeading3": {
               "Text": "Start your application"
@@ -4728,6 +4732,9 @@
             },
             "NavHeading2": {
               "Text": "Download and read the application guide, questions and templates"
+            },
+            "NavHeading7": {
+              "Text": "Submit questions ahead of the applicant information presentation"
             },
             "NavHeading5": {
               "Text": "How your application is assessed "
@@ -4757,7 +4764,7 @@
               "Text": "/eligibilityInfo/Eligibility-Start"
             },
             "NavUrl2": {
-              "Text": "/"
+              "Text": "/all-eef-documents"
             },
             "NavUrl3": {
               "Text": "/"
@@ -4770,6 +4777,9 @@
             },
             "NavUrl6": {
               "Text": "/"
+            },
+            "NavUrl7": {
+              "Text": "/FundApplication/section/application-overview"
             }
           },
           "MarkdownBodyPart": {
@@ -4816,7 +4826,7 @@
                 "ContentItemId": "41k9by4qrk2z23gxkekmmkbmds",
                 "ContentItemVersionId": null,
                 "ContentType": "Input",
-                "DisplayText": "Applications open",
+                "DisplayText": "Applications opens",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3116659Z",
@@ -4825,7 +4835,7 @@
                 "Owner": "",
                 "Author": "admin",
                 "FormInputElementPart": {
-                  "Name": "Applications open"
+                  "Name": "Applications opens"
                 },
                 "FormElementPart": {
                   "Id": null
@@ -4950,7 +4960,7 @@
                 "ContentItemId": "44g3jfpn0n9cqtm64ejrf5v74s",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy efficiency",
+                "DisplayText": "energy efficiency",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3311995Z",
@@ -4973,7 +4983,7 @@
                 "ContentItemId": "4kedze4t4v0w3rvzfq2pdjgvxs",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Power generation",
+                "DisplayText": "power generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3354716Z",
@@ -4996,7 +5006,7 @@
                 "ContentItemId": "4am7h1akkv9zetkn64x7h6rcmj",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Heat generation",
+                "DisplayText": "heat generation",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3385775Z",
@@ -5019,7 +5029,7 @@
                 "ContentItemId": "44agfk8hfg42e25ww4dvncsknf",
                 "ContentItemVersionId": null,
                 "ContentType": "TextArea",
-                "DisplayText": "Energy storage",
+                "DisplayText": "energy storage",
                 "Latest": false,
                 "Published": false,
                 "ModifiedUtc": "2021-07-08T15:44:36.3430843Z",

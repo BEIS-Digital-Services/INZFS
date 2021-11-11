@@ -120,6 +120,7 @@ namespace INZFS.Theme.Controllers
                 UserId = Guid.NewGuid().ToString(),
                 UserName = model.Email,
                 Email = model.Email,
+                IsLockoutEnabled = true,
                 UserClaims = claims
             };
 
@@ -181,10 +182,10 @@ namespace INZFS.Theme.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Verify(string token, string idtoken, string returnUrl = null)
         {
-
-            if (User.Identity?.IsAuthenticated ?? false)
+            //HACK: for IN-1833 as user already logged in but does not flag User.Identity?.IsAuthenticated as true
+            if ((User.Identity?.IsAuthenticated ?? false) || !string.IsNullOrEmpty(token))
             {
-                return RedirectToAction("LogOff", "Account", new {area = "INZFS.Theme"});
+                await _signInManager.SignOutAsync();
             }
 
             var email = _encodingService.GetStringFromHex(idtoken);
@@ -230,7 +231,7 @@ namespace INZFS.Theme.Controllers
             
             var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
             var tokenLink = Url.Action("Verify", "Registration",
-                new {area = "INZFS.Theme", token = token, idtoken = idToken, returnUrl = returnUrl}, Request.Scheme);
+                new {area = "INZFS.Theme", token = token, idtoken = idToken, returnUrl = returnUrl}, EmailConstant.Scheme);
 
             //TODO: the template id should be moved to DB or Orchard workflow
             await _notificationService.SendEmailAsync(email, _notificationOption.EmailVerificationTemplate,
@@ -239,7 +240,7 @@ namespace INZFS.Theme.Controllers
 
         private async Task SendRegistrationSuccessEmail(IUser user)
         {
-            var link = Url.Action("Login", "Account", new {area = "INZFS.Theme"}, Request.Scheme);
+            var link = Url.Action("Login", "Account", new {area = "INZFS.Theme"}, EmailConstant.Scheme);
 
             var email = await _userManager.GetEmailAsync(user);
             var parameters = new Dictionary<string, dynamic>();

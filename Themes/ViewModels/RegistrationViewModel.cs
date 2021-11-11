@@ -54,6 +54,6 @@ namespace INZFS.Theme.ViewModels
     public class EmailValidationConstants
     {
         public const string EmailValidationExpression = @"^([\w\.\-\+]+)@([\w-]+\.)+[\w-]{2,10}$";
-        public const string EmailValidationMessage = "The Email field is not a valid e-mail address.";
+        public const string EmailValidationMessage = "Enter an email address in the correct format, like name@example.com";
     }
 }

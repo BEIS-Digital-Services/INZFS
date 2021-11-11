@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using System.Text;
 using System.Web;
 using INZFS.Theme;
+using INZFS.Theme.KeyManagements;
 using INZFS.Theme.Migrations;
 using INZFS.Theme.Models;
 using INZFS.Theme.Records;
 using INZFS.Theme.Services;
+using INZFS.Theme.Validators;
+using Microsoft.AspNetCore.DataProtection.KeyManagement;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using OrchardCore.Data.Migration;
 using OrchardCore.Environment.Shell.Scope;
@@ -37,11 +41,25 @@ namespace Microsoft.Extensions.DependencyInjection
         {
             services.ConfigureApplicationCookie(options =>
             {
-                options.ExpireTimeSpan = new TimeSpan(0, 0, 30, 0);
                 options.LoginPath = "/Account/Login";
                 options.LogoutPath = "/Account/LogOff";
                 options.AccessDeniedPath = "/Error/403";
             });
+
+            services.AddAuthentication(RegistrationConstants.RegistrationScheme)
+                .AddCookie(RegistrationConstants.RegistrationScheme, options =>
+                {
+                    options.Cookie.Name = $"inzfs_{RegistrationConstants.RegistrationCookie}";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                });
+
+            services.AddAuthentication(RegistrationConstants.MyAccountScheme)
+                .AddCookie(RegistrationConstants.MyAccountScheme, options =>
+                {
+                    options.Cookie.Name = $"inzfs_{RegistrationConstants.MyAccountCookie}";
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                    options.LoginPath = "/MyAccount";
+                });
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -55,10 +73,9 @@ namespace Microsoft.Extensions.DependencyInjection
                 options.Password.RequiredLength = 8;
             });
 
-            services.AddAuthentication(RegistrationConstants.RegistrationCookie)
-                .AddCookie(RegistrationConstants.RegistrationCookie);
-            
+                        
             services.AddScoped<IRegistrationManager, RegistrationManager>();
+            services.AddScoped<IMyAccountManager, MyAccountManager>();
 
             return services;
         }
@@ -74,6 +91,40 @@ namespace Microsoft.Extensions.DependencyInjection
             services.Configure<TwoFactorOption>(Configuration.GetSection("TwoFactor"));
             services.Configure<NotificationOption>(Configuration.GetSection("Notification"));
 
+            return services;
+        }
+        
+        public static IServiceCollection AddKeyManagementOptions(
+            this IServiceCollection services, IConfiguration configuration, ILogger<INZFS.Theme.Startup> logger)
+        {
+            string protectionKey = configuration.GetValue<string>("TemporaryDpKeyGenerator"); 
+            string environment = configuration.GetValue<string>("TemporaryDpKeyEnvironment"); 
+
+            services.AddSingleton<IConfigureOptions<KeyManagementOptions>>(serviceProvider =>
+            { 
+                return new ConfigureOptions<KeyManagementOptions>(options =>
+                {
+                    logger.LogWarning($"Replacing KeyManagementOptions for {options?.XmlRepository?.GetType().Name} using {protectionKey.Substring(0,3)} on env {environment} ");
+                    options.XmlRepository = new TemporaryDpKeyGeneratorXmlRepository(options, environment, protectionKey);
+                    logger.LogWarning($"Replacing KeyManagementOptions for {options?.XmlRepository?.GetType().Name} on env {environment}");
+                });
+            });
+
+            return services;
+        }
+
+        public static IServiceCollection AddCommonPasswordCheck(this IServiceCollection services, IConfiguration Configuration)
+        {
+            IdentityBuilder builder = new IdentityBuilder(typeof(IUser), services);
+            builder.AddPasswordValidator<CommonPasswordValidator>();
+            services.AddSingleton<ICommonPasswordLists, CommonPasswordLists>();
+            return services;
+        }
+
+        public static IServiceCollection AddTimeOut(
+            this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.Configure<TimeOutOption>(Configuration.GetSection("TimeOut"));
             return services;
         }
     }
