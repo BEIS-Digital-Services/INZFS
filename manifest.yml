@@ -14,6 +14,7 @@ applications:
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: $(SiteName)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider: $(DbProvider)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword: $(DbPassword)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix: $(Index)
     OrchardCore__OrchardCore_Redis__Configuration: $(RedisConfig)
     OrchardCore__OrchardCore_Shells_Database__DatabaseProvider: $(DbProvider)
     OrchardCore__OrchardCore_Shells_Database__ConnectionString: $(DbConnection2)
@@ -22,6 +23,7 @@ applications:
     OrchardCore__OrchardCore_Shells_Azure__ContainerName: $(BlobDir)
     OrchardCore__OrchardCore_Shells_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
+    OrchardCore__OrchardCore_Shells_Database__TablePrefix: $(Index)
     GovNotifyApiKey: $(GovNotifyApiKey)
     TwoFactor__Status: $(2FA-Status)
     TwoFactor__AccountName: "INZFS-Dev"
