@@ -1585,6 +1585,8 @@ exports.TimeoutWarning = TimeoutWarning;
 })));
 
 
-$(document).ready(function() {
+$(document).ready(function () {
+    alert('hello');
     window.GOVUKFrontend.initAll();
+    alert('hello finished');
 });
