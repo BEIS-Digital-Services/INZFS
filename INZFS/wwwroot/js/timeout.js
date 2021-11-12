@@ -1584,4 +1584,7 @@ exports.TimeoutWarning = TimeoutWarning;
 
 })));
 
-window.GOVUKFrontend.initAll();
+
+$(document).ready(function() {
+    window.GOVUKFrontend.initAll();
+});
