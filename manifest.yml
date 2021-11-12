@@ -10,7 +10,6 @@ applications:
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminEmail: lorenzo.lane2@beis.gov.uk
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminUsername: admin
     OrchardCore__OrchardCore_AutoSetup__AutoSetupPath: $(AutoPath)
-    OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix: $(Index)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteTimeZone: Europe/London
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: $(SiteName)
     OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider: $(DbProvider)
@@ -18,7 +17,6 @@ applications:
     OrchardCore__OrchardCore_Redis__Configuration: $(RedisConfig)
     OrchardCore__OrchardCore_Shells_Database__DatabaseProvider: $(DbProvider)
     OrchardCore__OrchardCore_Shells_Database__ConnectionString: $(DbConnection2)
-    OrchardCore__OrchardCore_Shells_Database__TablePrefix: $(Index)
     OrchardCore__OrchardCore_Shells_Database__MigrateFromFiles: True
     OrchardCore__OrchardCore_Shells_Azure__ConnectionString: $(AzureBlob)
     OrchardCore__OrchardCore_Shells_Azure__ContainerName: $(BlobDir)
