@@ -58,6 +58,9 @@
     <PackageReference Include="OrchardCore.ContentFields" Version="1.1.0" />
   </ItemGroup>
 	<ItemGroup>
+	  <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
+	</ItemGroup>
+	<ItemGroup>
 	  <EmbeddedResource Update="wwwroot\css\main.css">
 	    <CopyToPublishDirectory>Never</CopyToPublishDirectory>
 	  </EmbeddedResource>

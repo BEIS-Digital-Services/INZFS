@@ -1,22 +1,19 @@
 ﻿@using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC
-@using Microsoft.Extensions.Configuration
-@inject IConfiguration Configuration
-
-@{
-    var GoogleTag = @Configuration.GetSection("GoogleAnalyticsTag").Value;
-}
+@using INZFS.MVC.Settings
+@using Microsoft.Extensions.Options;
+@inject IOptions<ApplicationOption> ApplicationConfiguration
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=@GoogleTag"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=@ApplicationConfiguration.Value.GoogleAnalyticsTag"></script>
     <!-- Google Tag Manager -->
     <script nonce="07ED454C512D5F59126C0842FE64FC3E4E214A31B7EB6B45A0061B0CA00D6975">
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        gtag('config', '@GoogleTag');
+        gtag('config', '@ApplicationConfiguration.Value.GoogleAnalyticsTag');
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="utf-8">
