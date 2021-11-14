@@ -45,7 +45,8 @@ namespace INZFS.Web.Middleware
                     (isAdmin ? "'unsafe-inline' 'unsafe-hashes' 'unsafe-eval' " :
                     "'sha256-E041E97A2AEEDAB8A6BB8C125A11C5F399004569D3681967DCEAE852F5D26EB1' " +
                     "'sha256-5BF7094BFF6D37EFF5AB6973DAADE41133478BC82216EA8CDB033D850C3EC4E1' " +
-                    "'nonce-BB60C4898C5AC94547F875BA438739DC6B2299EC3152ADAE0E0C3370F31BC35A' ") +
+                    "'nonce-BB60C4898C5AC94547F875BA438739DC6B2299EC3152ADAE0E0C3370F31BC35A' "  +
+                    "'nonce-07ED454C512D5F59126C0842FE64FC3E4E214A31B7EB6B45A0061B0CA00D6975' ") +
                     "https://www.googletagmanager.com/gtag/ " +
                     "https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js " +
                     "https://code.jquery.com/jquery-3.6.0.js " +
