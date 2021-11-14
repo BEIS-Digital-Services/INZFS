@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Prometheus;
 using Microsoft.AspNetCore.Http;
+using Joonasw.AspNetCore.SecurityHeaders;
 
 namespace INZFS
 {
@@ -45,6 +46,7 @@ namespace INZFS
                     options.InstanceName = "EEF";
                 });
             }
+            services.AddCsp(nonceByteAmount: 32);
             services.AddSession(options =>
             {
                 options.Cookie.HttpOnly = true;
@@ -64,9 +66,35 @@ namespace INZFS
             {
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+               
             }
             app.UseMiddleware<SecurityHeaderMiddleware>();
+            app.UseCsp(csp =>
+            {
+                csp.AllowImages
+                           .FromSelf()
+                           .From("https://www.google-analytics.com")
+                           .From("http://www.w3.org/2000/svg")
+                           .From("https://www.zcloud.net");
+                csp.AllowBaseUri
+                            .FromSelf();
+                csp.AllowFraming
+                            .FromNowhere();
+                csp.AllowAudioAndVideo
+                            .FromNowhere();
+                csp.AllowScripts
+                        .FromSelf()
+                        .From("ajax.aspnetcdn.com")
+                        .From("https://www.googletagmanager.com/gtag/")
+                        .WithStrictDynamic()
+                        .From("https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js")
+                        .From("https://code.jquery.com/jquery-3.6.0.js")
+                        .From("https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js")
+                        .AddNonce();
+                csp.AllowStyles
+                        .FromSelf()
+                        .AddNonce();
+            });
             app.UseSession();
             app.UseCookiePolicy(new CookiePolicyOptions
             {

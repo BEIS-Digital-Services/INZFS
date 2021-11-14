@@ -11,7 +11,14 @@
 <html lang="en">
 <head>
     <script async src="https://www.googletagmanager.com/gtag/js?id=@GoogleTag"></script>
-    <script src="~/js/GoogleAnalytics.js"></script>
+    <!-- Google Tag Manager -->
+    <script asp-add-nonce="true">
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', '@GoogleTag');
+    </script>
+    <!-- End Google Tag Manager -->
     <meta charset="utf-8">
     <title>@ViewData["Title"] - Apply for the Energy Entrepreneurs Fund: phase 9</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -29,6 +36,14 @@
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+    <style asp-add-nonce="true">
+        #signOut {
+            color: white;
+        }
+        #yourAccount {
+            margin-top:10px;
+        }
+    </style>
 </head>
 <body class="govuk-template__body app-body-class js-enabled" data-test="My value" data-other="report:details">
 
@@ -56,7 +71,7 @@
                 @if (User.Identity?.IsAuthenticated ?? false)
                 {
                     <span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
-                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" style="color:white;" href="/INZFS.Theme/Account/LogOff">
+                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" style="color:white;" href="/INZFS.Theme/Account/LogOff" id="signOut">
                             Sign out
                         </a>
                     </span>
@@ -138,7 +153,7 @@
             </div>
 
             <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
-                <p style="margin-top:10px;">
+                <p id="yourAccount">
                     <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">
                         Your account
                     </a>
