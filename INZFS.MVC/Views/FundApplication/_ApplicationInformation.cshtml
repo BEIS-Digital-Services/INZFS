@@ -23,10 +23,8 @@
         <aside class="app-related-items" role="complementary">
             <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
             <p class="govuk-body-s">Download your answers as a PDF with your uploaded files.</p>
-            <a asp-controller="Report" asp-action="DownloadPdf">
-                <button class="govuk-button govuk-button--secondary" type="button">
+            <a asp-controller="Report" asp-action="DownloadPdf" class="govuk-button govuk-button--secondary">
                     Download your application
-                </button>
             </a>
             <a asp-controller="Report" asp-action="GenerateOdt">
                 Download an accessible text version
