@@ -12,24 +12,31 @@
             <div class="govuk-grid-column-two-thirds">
                 <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
                 <p class="govuk-body govuk-!-font-weight-bold">Sign in to an existing account</p>
-                <div class="govuk-form-group" asp-validation-error-class-for="EmailAddress">
-                    <label class="govuk-label" asp-for="EmailAddress">
-                        Your email address
-                    </label>
-                    <span asp-validation-for="EmailAddress" class="govuk-error-message"></span>
-                    <input class="govuk-input govuk-input--width-20" asp-for="EmailAddress" spellcheck="false" autocomplete="email">
-                </div>
-                <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
-                    <label class="govuk-label" asp-for="Password">
-                        Password
-                    </label>
-                    <span asp-validation-for="Password" class="govuk-error-message"></span>
-                    <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
-                        <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
-                        <button class="show-password__toggle password-changer" data-control="Password" type="button" aria-label="Show password" id="buttonText">Show</button>
-                        <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                <fieldset class="govuk-fieldset">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend">
+                        <h2 class="govuk-fieldset__heading govuk-visually-hidden">
+                              Sign in details
+                        </h2>
+                    </legend>
+                    <div class="govuk-form-group" asp-validation-error-class-for="EmailAddress">
+                        <label class="govuk-label" asp-for="EmailAddress">
+                            Your email address
+                        </label>
+                        <span asp-validation-for="EmailAddress" class="govuk-error-message"></span>
+                        <input class="govuk-input govuk-input--width-20" asp-for="EmailAddress" spellcheck="false" autocomplete="email">
                     </div>
-                </div>
+                    <div class="govuk-form-group govuk-!-margin-bottom-2" asp-validation-error-class-for="Password">
+                        <label class="govuk-label" asp-for="Password">
+                            Password
+                        </label>
+                        <span asp-validation-for="Password" class="govuk-error-message"></span>
+                        <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
+                            <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
+                            <button class="show-password__toggle password-changer" data-control="Password" type="button" aria-label="Show password" id="buttonText">Show</button>
+                            <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
+                        </div>
+                    </div>
+                </fieldset>
                 <p class="govuk-body-s"><a class="govuk-link" asp-area="INZFS.Theme" asp-controller="Account" asp-action="ForgotPassword" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Forgotten your password?</a></p>
                 <button class="govuk-button" data-module="govuk-button">Sign in</button>
                 <p class="govuk-body-s"><a asp-area="INZFS.Theme" asp-controller="Registration" asp-action="Register" asp-route-returnurl="@Url.GetQuery("ReturnUrl")">Register as a new user</a></p>
