@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.IO.Compression;
+using INZFS.MVC.Services;
 
 namespace INZFS.MVC.Controllers
 {
@@ -24,15 +26,34 @@ namespace INZFS.MVC.Controllers
             _reportService = reportService;
             _env = env;
         }
-        [HttpGet]
-        public async Task<FileContentResult> DownloadPdf()
+
+        public async Task<FileContentResult> DownloadApplication()
+        {
+            var reportContent = await GetPdfContent();
+
+            using (MemoryStream ms = new())
+            {
+                using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    var zipArchiveEntry = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.pdf", CompressionLevel.Fastest);
+                    using (var zipStream = zipArchiveEntry.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
+                }
+                return File(ms.ToArray(), "application/zip", $"{reportContent.ApplicationNumber}.zip");
+            }
+        }
+
+        private async Task<ReportContent> GetPdfContent()
         {
             string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             var reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
-            string type = "application/pdf";
-            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+            return reportContent;
+        }
 
-            return File(reportContent.FileContents, type, name);
+        [HttpGet]
+        public async Task<FileContentResult> DownloadPdf()
+        {
+            var reportContent = await GetPdfContent();
+            return File(reportContent.FileContents, "application/pdf", $"Application Form {reportContent.ApplicationNumber}.pdf");
         }
         public async Task<FileContentResult> GenerateOdt()
         {

@@ -20,19 +20,24 @@
     </aside>
     @if (ViewData["ShowDownload"] != null && ViewData["ShowDownload"] == "true")
     {
-        <aside class="app-related-items" role="complementary">
-            <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
-            <p class="govuk-body-s">Download your answers as a PDF with your uploaded files.</p>
-            <a asp-controller="Report" asp-action="DownloadPdf">
-                <button class="govuk-button govuk-button--secondary" type="button">
-                    Download your application
-                </button>
-            </a>
-            <a asp-controller="Report" asp-action="GenerateOdt">
-                Download an accessible text version
-            </a>
+<aside class="app-related-items" role="complementary">
+    <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
+    <p class="govuk-body-s">Download your answers as a PDF with your uploaded files.</p>
+    <a asp-controller="Report" asp-action="DownloadPdf">
+        <button class="govuk-button govuk-button--secondary" type="button">
+            Download your application
+        </button>
+    </a>
+    <a asp-controller="Report" asp-action="DownloadApplication">
+        <button class="govuk-button govuk-button--secondary" type="button">
+            Download your application ZIP
+        </button>
+    </a>
+    <a asp-controller="Report" asp-action="GenerateOdt">
+        Download an accessible text version
+    </a>
 
-        </aside>
+</aside>
         <br/>
     }
     
