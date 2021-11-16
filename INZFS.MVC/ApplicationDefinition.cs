@@ -253,11 +253,9 @@ namespace INZFS.MVC
 
     public class ParsedExcelData
     {
-        public string? ParsedTotalProjectCost { get; set; }
-        public string? ParsedTotalGrantFunding { get; set; }
-        public string? ParsedTotalGrantFundingPercentage { get; set; }
-        public string? ParsedTotalMatchFunding { get; set; }
-        public string? ParsedTotalMatchFundingPercentage { get; set; }
+        public double? ParsedTotalProjectCost { get; set; }
+        public double? ParsedTotalGrantFunding { get; set; }
+        public double? ParsedTotalMatchFunding { get; set; }
     }
 
     public class Action

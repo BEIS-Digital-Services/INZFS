@@ -3,6 +3,7 @@
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
 @using INZFS.MVC
+@using System.Globalization
 
 @{
     string extensions = string.Join(",", Model.AcceptableFileExtensions.Split(',').Select(x => "." + x.Trim()));
@@ -128,10 +129,10 @@
                                 Total BEIS grant applied for
                             </td>
                             <td class="govuk-table__cell">
-                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding : "-")
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding?.ToString("C", new CultureInfo("en-GB")) : "-")
                             </td>
                             <td class="govuk-table__cell">
-                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFundingPercentage : "-")
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalGrantFunding != null ? (((100/Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost * Model.UploadedFile.ParsedExcelData.ParsedTotalGrantFunding)/100)?.ToString("P", CultureInfo.InvariantCulture)) : "-")
                             </td>
                         </tr>
 
@@ -140,10 +141,10 @@
                                 Total match funding contribution
                             </td>
                             <td class="govuk-table__cell">
-                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding : "-")
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding?.ToString("C", new CultureInfo("en-GB")) : "-")
                             </td>
                             <td class="govuk-table__cell">
-                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFundingPercentage != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFundingPercentage : "-")
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalMatchFunding != null ? (((100/Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost * Model.UploadedFile.ParsedExcelData.ParsedTotalMatchFunding)/100)?.ToString("P", CultureInfo.InvariantCulture)) : "-")
                             </td>
                         </tr>
 
@@ -152,7 +153,7 @@
                                 Total project cost
                             </td>
                             <td class="govuk-table__cell">
-                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost : "-")
+                                @(Model.UploadedFile?.ParsedExcelData?.ParsedTotalProjectCost != null ? @Model.UploadedFile.ParsedExcelData.ParsedTotalProjectCost?.ToString("C", new CultureInfo("en-GB")) : "-")
                             </td>
                             <td class="govuk-table__cell">
                             </td>
