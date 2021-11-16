@@ -274,9 +274,9 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault<IXLCell>();
-                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault(cell => cell.GetString() == "Total match funding contribution");
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault(cell => cell.GetString() == "Total project costs");
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
@@ -290,7 +290,7 @@ namespace INZFS.MVC.Controllers
                                             var parsedTotalMatchFunding = Double.Parse(totalMatchFunding.CellRight().CachedValue.ToString());
                                             if (parsedTotalProjectCost > 0D)
                                             {
-                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost.ToString("C", new CultureInfo("en-GB"));
+                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost;
                                                 contentToSave.TotalProjectCost = parsedTotalProjectCost;
                                             }
                                             else
@@ -298,12 +298,10 @@ namespace INZFS.MVC.Controllers
                                                 return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
                                                             "Total project costs should be more than zero.");
                                             }
-                                            parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding.ToString("C", new CultureInfo("en-GB"));
-                                            parsedExcelData.ParsedTotalGrantFundingPercentage = Double.Parse(totalGrantFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding;
                                             contentToSave.TotalGrantFunding = parsedTotalGrantFunding;
 
-                                            parsedExcelData.ParsedTotalMatchFunding = parsedTotalMatchFunding.ToString("C", new CultureInfo("en-GB"));
-                                            parsedExcelData.ParsedTotalMatchFundingPercentage = Double.Parse(totalMatchFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            parsedExcelData.ParsedTotalMatchFunding = parsedTotalMatchFunding;
                                             contentToSave.TotalMatchFunding = parsedTotalMatchFunding;
 
                                             uploadedFile.ParsedExcelData = parsedExcelData;
