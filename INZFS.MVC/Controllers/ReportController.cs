@@ -15,6 +15,7 @@ using System.IO.Compression;
 using INZFS.MVC.Services;
 using System.Text.Json;
 using OrchardCore.Media;
+using OrchardCore.FileStorage;
 
 namespace INZFS.MVC.Controllers
 {
@@ -65,8 +66,7 @@ namespace INZFS.MVC.Controllers
 
                     foreach(var file in uploadedFiles)
                     {
-                        //var zipArchiveEntry = archive.CreateEntryFromFile(Path.Combine(_env.WebRootPath, file.FileLocation), file.Name);
-                        var stream = _mediaFileStore.GetFileStreamAsync(file.FileLocation);
+                        var zipArchiveEntry = archive.CreateEntryFromFile(_mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation), Path.Combine("Uploaded Documents", file.Name));
                     }
                 }
 
