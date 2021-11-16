@@ -64,9 +64,12 @@ namespace INZFS.MVC.Controllers
                     var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
                     using (var zipStream = applicationForm.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
 
+                    string env = _env.EnvironmentName;
+
                     foreach(var file in uploadedFiles)
                     {
-                        var zipArchiveEntry = archive.CreateEntryFromFile(_mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation), Path.Combine("Uploaded Documents", file.Name));
+                        string path = (env == "Development") ? _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation) : _mediaFileStore.NormalizePath(file.FileLocation);
+                        var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
                     }
                 }
 
