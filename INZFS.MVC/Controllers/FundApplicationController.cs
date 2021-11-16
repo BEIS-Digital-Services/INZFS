@@ -274,9 +274,9 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault<IXLCell>();
-                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault(cell => cell.GetString() == "Total match funding contribution");
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault(cell => cell.GetString() == "Total project costs");
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
