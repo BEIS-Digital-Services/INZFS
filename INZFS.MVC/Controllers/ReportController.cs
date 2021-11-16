@@ -30,15 +30,29 @@ namespace INZFS.MVC.Controllers
 
         }
 
-        public async Task<FileContentResult> DownloadApplication()
+        public async Task<FileContentResult> DownloadApplication(string filetype)
         {
-            var reportContent = await GetPdfContent();
+            ReportContent reportContent;
+
+            switch(filetype)
+            {
+                case "odt":
+                    reportContent = await GetOdtContent();
+                    break;
+                case "pdf":
+                    reportContent = await GetPdfContent();
+                    break;
+                default:
+                    reportContent = await GetPdfContent();
+                    filetype = "pdf";
+                    break;
+            }
 
             using (MemoryStream ms = new())
             {
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
-                    var zipArchiveEntry = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.pdf", CompressionLevel.Fastest);
+                    var zipArchiveEntry = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
                     using (var zipStream = zipArchiveEntry.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
                 }
                 return File(ms.ToArray(), "application/zip", $"{reportContent.ApplicationNumber}.zip");
@@ -55,19 +69,6 @@ namespace INZFS.MVC.Controllers
         {
             var reportContent = await _reportService.GenerateOdtReport(GetUserId(), _logoFilepath);
             return reportContent;
-        }
-
-        [HttpGet]
-        public async Task<FileContentResult> DownloadPdf()
-        {
-            var reportContent = await GetPdfContent();
-            return File(reportContent.FileContents, "application/pdf", $"Application Form {reportContent.ApplicationNumber}.pdf");
-        }
-
-        public async Task<FileContentResult> DownloadOdt()
-        {
-            var reportContent = await GetOdtContent();
-            return File(reportContent.FileContents, "application/vnd.oasis.opendocument.text", $"Application Form {reportContent.ApplicationNumber}.odt");
         }
 
         private string GetUserId()
