@@ -30,7 +30,7 @@ namespace INZFS.MVC.TagHelpers
                 {
                     // PostContent correspond to the text just before closing tag
                     output.PostContent
-                        .AppendHtml("<script async src='https://www.googletagmanager.com/gtag/js?id=")
+                        .AppendHtml("<script src='https://www.googletagmanager.com/gtag/js?id=")
                         .AppendHtml(trackingCode)
                         .AppendHtml("'></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date);gtag('config','")
                         .AppendHtml(trackingCode)
