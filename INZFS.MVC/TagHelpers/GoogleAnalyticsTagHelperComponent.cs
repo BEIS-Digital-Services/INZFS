@@ -17,18 +17,16 @@ namespace INZFS.MVC.TagHelpers
         {
             _googleAnalyticsOptions = googleAnalyticsOptions.Value;
         }
-
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if(string.Equals(output.TagName, "head", StringComparison.OrdinalIgnoreCase))
-            // Inject the code only in the head element
+            
             if (string.Equals(output.TagName, "head", StringComparison.OrdinalIgnoreCase))
-            {
-                // Get the tracking code from the configuration
+            { 
                 var trackingCode = _googleAnalyticsOptions.TrackingCode;
                 if (!string.IsNullOrEmpty(trackingCode))
                 {
-                    // PostContent correspond to the text just before closing tag
+                  
                     output.PostContent
                         .AppendHtml("<script src='https://www.googletagmanager.com/gtag/js?id=")
                         .AppendHtml(trackingCode)
