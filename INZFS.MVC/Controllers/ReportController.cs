@@ -77,6 +77,24 @@ namespace INZFS.MVC.Controllers
             }
         }
 
+        public async Task<FileContentResult> DownloadPdf()
+        {
+            var reportContent = await GetPdfContent();
+            string type = "application/pdf";
+            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+
+            return File(reportContent.FileContents, type, name);
+        }
+
+        public async Task<FileContentResult> DownloadOdt()
+        {
+            var reportContent = await GetOdtContent();
+            string type = "application/vnd.oasis.opendocument.text";
+            string name = $"Application Form {reportContent.ApplicationNumber}.odt";
+
+            return File(reportContent.FileContents, type, name);
+        }
+
         private async Task<ReportContent> GetPdfContent()
         {
             var reportContent = await _reportService.GeneratePdfReport(GetUserId(), _logoFilepath);
