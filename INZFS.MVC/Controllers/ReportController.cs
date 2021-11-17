@@ -68,7 +68,8 @@ namespace INZFS.MVC.Controllers
 
                     foreach(var file in uploadedFiles)
                     {
-                        string path = (env == "Development") ? _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation) : _mediaFileStore.NormalizePath(file.FileLocation);
+                        //string path = (env == "Development") ? _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation) : _mediaFileStore.NormalizePath(file.FileLocation);
+                        string path = _mediaFileStore.NormalizePath(file.FileLocation);
                         var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
                     }
                 }
