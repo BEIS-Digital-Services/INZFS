@@ -62,6 +62,14 @@
                             @eligibility.Content.EligibilityChecker.Header1.Text
                         </h1>
                     </legend>
+
+                    @if (@eligibility.Content.EligibilityChecker.Hint.Text != null)
+                    {
+                        <div id="question-hint" class="govuk-hint">
+                            @eligibility.Content.EligibilityChecker.Hint.Text
+                        </div>
+                    }
+
                     @if (!listenabled)
                     {
                         <ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
@@ -74,7 +82,7 @@
                             }
                         </ul>
                     }
-                    
+
                     <div class="govuk-radios govuk-radios--inline">
                         <div class="govuk-radios__item">
                             <input id="checkYes" class="govuk-radios__input" type="radio" value="1" required asp-for=@questionSettingA>
@@ -89,7 +97,7 @@
                             </label>
                         </div>
                     </div>
-                    
+
                 </fieldset>
 
             </div>
@@ -144,36 +152,36 @@
             @if (@eligibility.Content.EligibilityChecker.Accordion2.Text != null)
             {
                 <div class="govuk-accordion__section ">
-                <div class="govuk-accordion__section-header">
-                    <h2 class="govuk-accordion__section-heading">
-                        <button type="button" id="accordion-default-heading-1" aria-controls="accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
-                            @eligibility.Content.EligibilityChecker.Accordion2.Text
-                            <span class="govuk-accordion__icon" aria-hidden="true"></span>
-                        </button>
-                    </h2>
+                    <div class="govuk-accordion__section-header">
+                        <h2 class="govuk-accordion__section-heading">
+                            <button type="button" id="accordion-default-heading-1" aria-controls="accordion-default-content-1" class="govuk-accordion__section-button govuk-!-font-size-19" aria-expanded="false">
+                                @eligibility.Content.EligibilityChecker.Accordion2.Text
+                                <span class="govuk-accordion__icon" aria-hidden="true"></span>
+                            </button>
+                        </h2>
+                    </div>
+                    <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
+
+                        <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details1.Text</p>
+                        <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details2?.Text</p>
+
+                        <ul class="govuk-body-s govuk-list govuk-list--bullet">
+
+                            @if (@eligibility.Content.EligibilityChecker.Accordion2Bullet1.Text != null)
+                            {
+                                <li>@eligibility.Content.EligibilityChecker.Accordion2Bullet1.Text</li>
+                            }
+
+                            @if (@eligibility.Content.EligibilityChecker.Accordion2Bullet2.Text != null)
+                            {
+                                <li>@eligibility.Content.EligibilityChecker.Accordion2Bullet2.Text</li>
+                            }
+
+                        </ul>
+
+                        <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details3?.Text</p>
+                    </div>
                 </div>
-                <div id="accordion-default-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-1">
-
-                    <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details1.Text</p>
-                    <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details2?.Text</p>
-
-                    <ul class="govuk-body-s govuk-list govuk-list--bullet">
-
-                        @if (@eligibility.Content.EligibilityChecker.Accordion2Bullet1.Text != null)
-                        {
-                            <li>@eligibility.Content.EligibilityChecker.Accordion2Bullet1.Text</li>
-                        }
-
-                        @if (@eligibility.Content.EligibilityChecker.Accordion2Bullet2.Text != null)
-                        {
-                            <li>@eligibility.Content.EligibilityChecker.Accordion2Bullet2.Text</li>
-                        }
-
-                    </ul>
-
-                    <p class='govuk-body-s'>@eligibility.Content.EligibilityChecker.Accordion2Details3?.Text</p>
-                </div>
-            </div>
             }
         </div>
 
