@@ -29,6 +29,7 @@ namespace INZFS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddHealthChecks();
             if (_environment.IsDevelopment())
             {
                 services.AddOrchardCms().AddSetupFeatures("OrchardCore.AutoSetup");
@@ -77,6 +78,10 @@ namespace INZFS
             app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapHealthChecks("/health");
+            });
             app.UseMetricServer();
             app.UseHttpMetrics();
             app.UseSerilogRequestLogging();
