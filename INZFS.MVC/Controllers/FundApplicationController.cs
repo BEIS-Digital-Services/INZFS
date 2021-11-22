@@ -422,7 +422,6 @@ namespace INZFS.MVC.Controllers
                 //Get all pages that depends on the current field and its value
                 var dependantPages = _applicationDefinition.Application.AllPages.Where(page => page.DependsOn?.FieldName == currentPage.FieldName);
 
-
                 foreach (var dependantPage in dependantPages)
                 {
                     if(dependantPage.DependsOn.Value != datafieldForCurrentPage.Data)
@@ -438,8 +437,7 @@ namespace INZFS.MVC.Controllers
                     currentPage.FieldType == FieldType.gdsMultiLineRadio || 
                     currentPage.FieldType == FieldType.gdsSingleRadioSelectOption)
                 {
-                    var preSaveField = contentToSave.Fields.FirstOrDefault(f => f.Name == currentPage.FieldName);
-                    preSaveField.Data = _sanitizer.Sanitize(preSaveField.Data);
+                    datafieldForCurrentPage.Data = _sanitizer.Sanitize(datafieldForCurrentPage.Data);
                 }
 
                 _session.Save(contentToSave);
