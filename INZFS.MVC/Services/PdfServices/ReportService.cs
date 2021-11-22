@@ -1,6 +1,5 @@
 using Aspose.Words;
 using Azure.Storage.Blobs;
-using Ganss.XSS;
 using INZFS.MVC;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -22,7 +21,6 @@ namespace INZFS.MVC.Services.PdfServices
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IContentRepository _contentRepository;
         private readonly IConfiguration _configuration;
-        private HtmlSanitizer _sanitizer;
         private string _logoFilepath;
 
         public ReportService(IContentRepository contentRepository, ApplicationDefinition applicationDefinition, IConfiguration configuration)
@@ -30,9 +28,6 @@ namespace INZFS.MVC.Services.PdfServices
             _contentRepository = contentRepository;
             _applicationDefinition = applicationDefinition;
             _configuration = configuration;
-            _sanitizer = new HtmlSanitizer();
-
-            _sanitizer.AllowedAttributes.Clear();
 
             BinaryData lic = FetchLicenceFromBlobStorage();
 
@@ -240,7 +235,7 @@ namespace INZFS.MVC.Services.PdfServices
             }
             else
             {
-                return _sanitizer.Sanitize(answer.Data);
+                return answer.Data;
             }
         }
     }
