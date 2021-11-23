@@ -441,6 +441,7 @@ namespace INZFS.MVC.Controllers
                 }
 
                 _session.Save(contentToSave);
+                await _session.SaveChangesAsync();
 
                 if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
                 {
