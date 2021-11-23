@@ -60,8 +60,7 @@
             "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "previousPageName": "eligibility-to-apply-for-fund",
-            "customValidator": "SanitisedStringValidator"
+            "previousPageName": "eligibility-to-apply-for-fund"
           },
           {
             "name": "job-title",
@@ -78,8 +77,7 @@
             "maxLength": 100,
             "maxLengthValidationType": "Character",
             "showMarkComplete": true,
-            "continueButtonText": "Save and return to your details and eligibility",
-            "customValidator": "SanitisedStringValidator"
+            "continueButtonText": "Save and return to your details and eligibility"
           }
         ]
       },
@@ -108,8 +106,7 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "balance-sheet-date",
@@ -226,8 +223,7 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "organisation-website",
@@ -244,8 +240,7 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "organisation-address",
@@ -261,8 +256,7 @@
             "accordianReference": "OrganisationAddress",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "company-registration-number",
@@ -296,8 +290,7 @@
             "maxLength": 400,
             "maxLengthValidationType": "Word",
             "hint": "",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "type-of-organisation",
@@ -453,7 +446,6 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "customValidator": "SanitisedStringValidator",
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
@@ -474,7 +466,6 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "customValidator": "SanitisedStringValidator",
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
@@ -622,7 +613,6 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "customValidator": "SanitisedStringValidator",
             "showMarkComplete": true,
             "dependsOn": {
               "fieldName": "parent-organisation",
@@ -674,8 +664,7 @@
             "accordianReference": "",
             "maxLength": 50,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "estimated-start-date",
@@ -739,8 +728,7 @@
             "hint": "Give a brief introduction to your project. Highlight any work you’ve done, including scientific studies or market research for example. You should also explain what your project aims to achieve.",
             "showMarkComplete": true,
             "gridDisplayType": "FullPage",
-            "continueButtonText": "Save and return to Proposal summary",
-            "customValidator": "SanitisedStringValidator"
+            "continueButtonText": "Save and return to Proposal summary"
           }
         ]
       },
@@ -770,8 +758,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-proposal-evidence",
@@ -802,8 +789,7 @@
             "maxLength": 800,
             "maxLengthValidationType": "Word",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-technology-readiness",
@@ -819,8 +805,7 @@
             "maxLength": 800,
             "maxLengthValidationType": "Word",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-upload-trl-evidence",
@@ -870,8 +855,7 @@
             "maxLength": 600,
             "maxLengthValidationType": "Word",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-upload-cost-and-performance-figures",
@@ -903,8 +887,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-environmental-impact",
@@ -920,8 +903,7 @@
             "maxLength": 300,
             "maxLengthValidationType": "Word",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-regulations",
@@ -937,8 +919,7 @@
             "maxLength": 300,
             "maxLengthValidationType": "Word",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-impact-on-climate-change",
@@ -955,8 +936,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-upload-evidence-for-impact",
@@ -988,8 +968,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-project-plan-document",
@@ -1021,8 +1000,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-upload-risk-register",
@@ -1054,8 +1032,7 @@
             "maxLengthValidationType": "Word",
             "hint": "",
             "showMarkComplete": true,
-            "gridDisplayType": "FullPage",
-            "customValidator": "SanitisedStringValidator"
+            "gridDisplayType": "FullPage"
           },
           {
             "name": "business-skills-and-experience-document",
@@ -1351,8 +1328,7 @@
             "maxLengthValidationType": "Word",
             "gridDisplayType": "FullPage",
             "mandatory": true,
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "value-for-money",
@@ -1368,9 +1344,7 @@
             "mandatory": true,
             "showMarkComplete": true,
             "gridDisplayType": "FullPage",
-            "continueButtonText": "Save and return to the financial proposal overview",
-            "customValidator": "SanitisedStringValidator"
-
+            "continueButtonText": "Save and return to the financial proposal overview"
           }
         ]
       },
@@ -1420,8 +1394,7 @@
             "accordianReference": "",
             "maxLength": 3,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "fte-jobs-retained",
@@ -1438,8 +1411,7 @@
             "accordianReference": "",
             "maxLength": 3,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "fte-jobs-created",
@@ -1455,8 +1427,7 @@
             "accordianReference": "",
             "maxLength": 3,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "number-of-partner-organisations",
@@ -1473,8 +1444,7 @@
             "accordianReference": "",
             "maxLength": 2,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "consumer-trials",
@@ -1506,8 +1476,7 @@
             "accordianReference": "",
             "maxLength": 3,
             "maxLengthValidationType": "Character",
-            "showMarkComplete": true,
-            "customValidator": "SanitisedStringValidator"
+            "showMarkComplete": true
           },
           {
             "name": "trl-at-project-start",
