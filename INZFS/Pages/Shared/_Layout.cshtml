@@ -139,33 +139,36 @@
             </div>
         </div>
 
-
-
         <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
             <div class="govuk-width-container">
 
-                <div class="govuk-grid-row">
-
                     @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
                     {
-                        <div class="govuk-grid-column-two-thirds">
-                            @RenderBody()
-                        </div>
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-two-thirds">
+                                @RenderBody()
+                            </div>
 
-                        <div class="govuk-grid-column-one-third">
+                            <div class="govuk-grid-column-one-third">
+                            </div>
                         </div>
                     }
                     else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
                     {
-                        <div class="govuk-grid-column-full">
-                            @RenderBody()
+
+                        <div class="govuk-grid-row">
+                            <div class="govuk-grid-column-full">
+                                @RenderBody()
+                            </div>
                         </div>
+
+
+
                     }
                     else
                     {
                         @RenderBody()
                     }
-                </div>
 
             </div>
         </main>
