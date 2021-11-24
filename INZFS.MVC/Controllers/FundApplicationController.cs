@@ -373,7 +373,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
-                        OtherOption = model.GetOtherSelected(),
+                        OtherOption = _sanitizer.Sanitize(model.GetOtherSelected()),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null,
                         FieldStatus = GetFieldStatus(currentPage, model)
@@ -407,7 +407,7 @@ namespace INZFS.MVC.Controllers
                     existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
                     if (!string.IsNullOrEmpty(existingFieldData.Data) && existingFieldData.Data.Contains("Other"))
                     {
-                        existingFieldData.OtherOption = model.GetOtherSelected();
+                        existingFieldData.OtherOption = _sanitizer.Sanitize(model.GetOtherSelected());
                     }
                     else
                     {
