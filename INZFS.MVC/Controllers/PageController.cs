@@ -20,7 +20,7 @@ namespace INZFS.MVC.Controllers
         {
             return View();
         }
-        public IActionResult CookiePolicy()
+        public IActionResult Cookies()
         {
             return View();
         }
