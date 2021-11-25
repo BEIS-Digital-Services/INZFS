@@ -8,9 +8,9 @@ route:
 #    group_wait: 30s
 #    group_interval: 5m
 #    repeat_interval: 3h
--  receiver: 'pagerduty-notifications'
+ receiver: 'pagerduty-notifications'
 
-# receivers:
+receivers:
 # - name: 'zulip-notifications'
 #   webhook_configs:
 #   - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=$(zulip_api_key)'
