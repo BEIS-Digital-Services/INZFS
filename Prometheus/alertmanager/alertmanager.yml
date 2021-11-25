@@ -2,19 +2,19 @@ global:
   resolve_timeout: 1m
   pagerduty_url: https://events.eu.pagerduty.com/generic/2010-04-15/create_event.json
 
-routes:
+route:
   # group_by: ['app']
--  receiver: 'zulip-notifications'
-   group_wait: 30s
-   group_interval: 5m
-   repeat_interval: 3h
+# -  receiver: 'zulip-notifications'
+#    group_wait: 30s
+#    group_interval: 5m
+#    repeat_interval: 3h
 -  receiver: 'pagerduty-notifications'
 
-receivers:
-- name: 'zulip-notifications'
-  webhook_configs:
-  - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=$(zulip_api_key)'
-    send_resolved: true
+# receivers:
+# - name: 'zulip-notifications'
+#   webhook_configs:
+#   - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=$(zulip_api_key)'
+#     send_resolved: true
 
 - name: 'pagerduty-notifications'
   pagerduty_configs:
