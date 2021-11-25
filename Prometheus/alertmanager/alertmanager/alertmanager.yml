@@ -11,5 +11,5 @@ route:
 receivers:
 - name: 'zulip-notifications'
   webhook_configs:
-  - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=kyE0xjHUv8tMoT0VABpSvzdMhpbGtn0w=stream%20name&name=host&desc=AlertManager'
+  - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=kyE0xjHUv8tMoT0VABpSvzdMhpbGtn0w&=stream%20name&name=host&desc=AlertManager'
     send_resolved: true
