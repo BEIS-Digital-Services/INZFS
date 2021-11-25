@@ -4,6 +4,9 @@ global:
 route:
   # group_by: ['app']
   receiver: 'zulip-notifications'
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 3h
 
 receivers:
 - name: 'zulip-notifications'
