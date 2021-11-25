@@ -1,5 +1,5 @@
 global:
-  scrape_interval: 30s
+  scrape_interval: 60s
   scrape_timeout: 15s
 
 # Alertmanager configuration
@@ -16,12 +16,6 @@ rule_files:
   - 'prometheus.rules.yml'
 
 scrape_configs:
-  - job_name: 'prometheus'
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-prom.london.cloudapps.digital']
-
   - job_name: 'exporter'
     scrape_interval: 60s
     metrics_path: /metrics
@@ -32,16 +26,25 @@ scrape_configs:
           env: develop
 
   - job_name: 'lab-exporter'
-    scrape_interval: 60s
+    scrape_interval: 5m
     metrics_path: /metrics
     scheme: https
     static_configs:
       - targets: ['inzfs-lab.london.cloudapps.digital']
         labels:
           env: lab
+    
+  - job_name: 'lab3-health'
+    scrape_interval: 5m
+    metrics_path: /
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab3.london.cloudapps.digital']
+        labels:
+          env: lab3
 
   - job_name: 'sandbox-exporter'
-    scrape_interval: 60s
+    scrape_interval: 2m
     metrics_path: /metrics
     scheme: https
     static_configs:
@@ -50,7 +53,7 @@ scrape_configs:
           env: sandbox
 
   - job_name: 'uat-exporter'
-    scrape_interval: 60s
+    scrape_interval: 2m
     metrics_path: /metrics
     scheme: https
     static_configs:

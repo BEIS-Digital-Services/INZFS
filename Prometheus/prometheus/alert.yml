@@ -1,10 +1,10 @@
 groups:
-  - name: DemoAlerts
+  - name: Alerts
     rules:
   # Alert for any instance that is unreachable for >2 minutes.
       - alert: InstanceDown
         expr: up == 0
-        for: 2m
+        for: 1m
         labels:
           severity: critical
         annotations:
@@ -14,7 +14,7 @@ groups:
   # Alert for any instance that is sttus crashed for >2 minutes.
       - alert: InstanceCrashed
         expr: crash>0
-        for: 2m
+        for: 1m
         labels:
           severity: critical
         annotations:
