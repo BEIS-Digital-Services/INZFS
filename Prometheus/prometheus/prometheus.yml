@@ -36,7 +36,7 @@ scrape_configs:
     
   - job_name: 'lab3-health'
     scrape_interval: 5m
-    metrics_path: /
+    metrics_path: /admin
     scheme: https
     static_configs:
       - targets: ['inzfs-lab3.london.cloudapps.digital']
