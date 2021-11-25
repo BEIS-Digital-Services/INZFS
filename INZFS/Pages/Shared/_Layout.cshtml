@@ -1,6 +1,11 @@
 ﻿@using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC
 
+@{
+    bool isCookiePage = Context.Request.Path.Value.ToLower().Contains("page/cookies");
+
+}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,18 +24,23 @@
     <!--
     <link rel="stylesheet" media="all" href="~/assets/frontend/application.css"  />
     -->
-    
-
     <!--<![endif]-->
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-</head>
-@{ 
-    bool isCookiePage = Context.Request.Path.Value.ToLower().Contains("page/cookies");
+    @if (isCookiePage)
+    {
+        <style>
+            .cookie-settings__confirmation {
+                display: none;
+            }
+        </style>
+    }
 
-}
+</head>
+
+
 <body class="govuk-template__body app-body-class " data-other="report:details">
     <script>
         document.body.className = document.body.className ? document.body.className + " js-enabled" : "js-enabled";
@@ -154,37 +164,37 @@
                 </p>
             </div>
         </div>
-        
+
         <main class="govuk-main-wrapper app-main-class group help-page cookie-settings" id="main-content" role="main">
             <div class="govuk-width-container">
 
-                    @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
-                    {
-                        <div class="govuk-grid-row">
-                            <div class="govuk-grid-column-two-thirds">
-                                @RenderBody()
-                            </div>
-
-                            <div class="govuk-grid-column-one-third">
-                            </div>
-                        </div>
-                    }
-                    else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
-                    {
-
-                        <div class="govuk-grid-row">
-                            <div class="govuk-grid-column-full">
-                                @RenderBody()
-                            </div>
+                @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
+                {
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-two-thirds">
+                            @RenderBody()
                         </div>
 
+                        <div class="govuk-grid-column-one-third">
+                        </div>
+                    </div>
+                }
+                else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
+                {
+
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @RenderBody()
+                        </div>
+                    </div>
 
 
-                    }
-                    else
-                    {
-                        @RenderBody()
-                    }
+
+                }
+                else
+                {
+                    @RenderBody()
+                }
 
             </div>
         </main>
@@ -198,7 +208,7 @@
                     <h2 class="govuk-visually-hidden">Support links</h2>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href=""/page/privacynotice"">
+                            <a class="govuk-footer__link" href="" /page/privacynotice"">
                                 Privacy notice
                             </a>
                         </li>
@@ -238,7 +248,7 @@
 
     <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
-    
+
     <script src="~/assets/frontend/application.js"></script>
     <script src="~/assets/static/header-footer-only.js"></script>
 
