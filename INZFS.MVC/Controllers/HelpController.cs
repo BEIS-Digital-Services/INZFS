@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Controllers
 {
-    public class PageController : Controller
+    public class HelpController : Controller
     {
         public IActionResult Accessibility()
         {
