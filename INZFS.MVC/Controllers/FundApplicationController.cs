@@ -251,14 +251,13 @@ namespace INZFS.MVC.Controllers
                 {
                     if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
-                        var directoryName = Guid.NewGuid().ToString();
+                        var directoryName = GetUserId();
                         try
                         {
                             publicUrl = await _fileUploadService.SaveFile(file, directoryName);
                         }
                         catch (Exception ex)
                         {
-
                             ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
                         }
                         
