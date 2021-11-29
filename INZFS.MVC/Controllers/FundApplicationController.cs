@@ -39,6 +39,7 @@ using Microsoft.Extensions.Options;
 using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
+using Ganss.XSS;
 
 namespace INZFS.MVC.Controllers
 {
@@ -54,6 +55,8 @@ namespace INZFS.MVC.Controllers
         private readonly ApplicationOption _applicationOption;
         private readonly IReportService _reportService;
         private readonly IWebHostEnvironment _env;
+        private HtmlSanitizer _sanitizer;
+        
 
         public FundApplicationController(
             IMediaFileStore mediaFileStore, 
@@ -75,6 +78,11 @@ namespace INZFS.MVC.Controllers
             _applicationOption = applicationOption.Value;
             _reportService = reportService;
             _env = env;
+
+            _sanitizer = new HtmlSanitizer();
+            _sanitizer.AllowedAttributes.Clear();
+            _sanitizer.AllowedTags.Clear();
+            _sanitizer.AllowedCssProperties.Clear();
         }
 
         [HttpGet]
@@ -365,7 +373,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
-                        OtherOption = model.GetOtherSelected(),
+                        OtherOption = _sanitizer.Sanitize(model.GetOtherSelected()),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null,
                         FieldStatus = GetFieldStatus(currentPage, model)
@@ -399,7 +407,7 @@ namespace INZFS.MVC.Controllers
                     existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
                     if (!string.IsNullOrEmpty(existingFieldData.Data) && existingFieldData.Data.Contains("Other"))
                     {
-                        existingFieldData.OtherOption = model.GetOtherSelected();
+                        existingFieldData.OtherOption = _sanitizer.Sanitize(model.GetOtherSelected());
                     }
                     else
                     {
@@ -414,7 +422,6 @@ namespace INZFS.MVC.Controllers
                 //Get all pages that depends on the current field and its value
                 var dependantPages = _applicationDefinition.Application.AllPages.Where(page => page.DependsOn?.FieldName == currentPage.FieldName);
 
-
                 foreach (var dependantPage in dependantPages)
                 {
                     if(dependantPage.DependsOn.Value != datafieldForCurrentPage.Data)
@@ -423,6 +430,15 @@ namespace INZFS.MVC.Controllers
                     }
                 }
 
+                //Sanitize any field where a user can possibly input a string to prevent XSS attempts being saved to the DB 
+                if(currentPage.FieldType == FieldType.gdsAddressTextBox || 
+                    currentPage.FieldType == FieldType.gdsTextArea || 
+                    currentPage.FieldType == FieldType.gdsTextBox || 
+                    currentPage.FieldType == FieldType.gdsMultiLineRadio || 
+                    currentPage.FieldType == FieldType.gdsSingleRadioSelectOption)
+                {
+                    datafieldForCurrentPage.Data = _sanitizer.Sanitize(datafieldForCurrentPage.Data);
+                }
 
                 _session.Save(contentToSave);
 
