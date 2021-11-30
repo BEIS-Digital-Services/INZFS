@@ -1,0 +1,2919 @@
+{
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "gnetId": null,
+    "graphTooltip": 0,
+    "id": 4,
+    "iteration": 1629886485610,
+    "links": [],
+    "panels": [
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 0
+        },
+        "id": 50,
+        "panels": [],
+        "title": "Production",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 0,
+          "y": 1
+        },
+        "hiddenSeries": false,
+        "id": 48,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (response_time_count{app=\"inzfs-prod\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total Requests",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 120
+                },
+                {
+                  "color": "red",
+                  "value": 160
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 5,
+          "y": 1
+        },
+        "id": 51,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^\\{app=\"inzfs\\-prod\", env=\"develop\"\\}$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space, le) (rate(response_time_bucket{app=\"inzfs-prod\"}[15m]))",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Average Response Time / 15m",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "The response time value for a transaction below which 90% of the response times lie",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 9,
+          "y": 1
+        },
+        "hiddenSeries": false,
+        "id": 44,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": " histogram_quantile(0.90, sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (rate(response_time_bucket{app=\"inzfs-prod\", status_range=\"2xx\"}[5m])))",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "90th Percentile Response Time",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "dtdurations",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "description": "cpu_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 1
+        },
+        "id": 43,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^CPU$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(cpu{app=\"inzfs-prod\"}[5m]))",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "CPU",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU %",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 193
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "app_version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "assebmly_name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 178
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 77
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 81
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": ".NET Version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 111
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 19,
+          "y": 1
+        },
+        "id": 55,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Info",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": true,
+                "__name__": true,
+                "assembly_name": true,
+                "domainname": true,
+                "job": true,
+                "machine": true,
+                "nodename": true,
+                "os": true,
+                "product": true,
+                "runtime": true,
+                "sysname": true,
+                "version": false
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 8,
+                "__name__": 1,
+                "instance": 3,
+                "job": 4,
+                "os": 2,
+                "product": 5,
+                "runtime": 6,
+                "version": 7
+              },
+              "renameByName": {
+                "app_version": "App Version",
+                "assebmly_name": "Assembly Name",
+                "dotnet_version": ".NET Version",
+                "instance": "Instance"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "description": "memory_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 5
+        },
+        "id": 54,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^Memory$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(memory_utilization{app=\"inzfs-prod\"})",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Memory",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Memory %",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 9
+        },
+        "id": 47,
+        "panels": [],
+        "title": "Staging",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 0,
+          "y": 10
+        },
+        "hiddenSeries": false,
+        "id": 40,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (response_time_count{app=\"inzfs-staging\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total Requests",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 120
+                },
+                {
+                  "color": "red",
+                  "value": 160
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 5,
+          "y": 10
+        },
+        "id": 41,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^\\{app=\"inzfs\\-staging\", env=\"develop\"\\}$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space, le) (rate(response_time_bucket{app=\"inzfs-staging\"}[15m]))",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Average Response Time / 15m",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "The response time value for a transaction below which 90% of the response times lie",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 9,
+          "y": 10
+        },
+        "hiddenSeries": false,
+        "id": 52,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": " histogram_quantile(0.90, sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (rate(response_time_bucket{app=\"inzfs-staging\", status_range=\"2xx\"}[5m])))",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "90th Percentile Response Time",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "dtdurations",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "description": "cpu_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percentunit"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 10
+        },
+        "id": 53,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^CPU$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(cpu{app=\"inzfs-staging\"}[5m]))",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "CPU",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU %",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 193
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "app_version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "assebmly_name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 178
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 77
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 81
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": ".NET Version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 111
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 19,
+          "y": 10
+        },
+        "id": 39,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Info",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": true,
+                "__name__": true,
+                "assembly_name": true,
+                "domainname": true,
+                "job": true,
+                "machine": true,
+                "nodename": true,
+                "os": true,
+                "product": true,
+                "runtime": true,
+                "sysname": true,
+                "version": false
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 8,
+                "__name__": 1,
+                "instance": 3,
+                "job": 4,
+                "os": 2,
+                "product": 5,
+                "runtime": 6,
+                "version": 7
+              },
+              "renameByName": {
+                "app_version": "App Version",
+                "assebmly_name": "Assembly Name",
+                "dotnet_version": ".NET Version",
+                "instance": "Instance"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "description": "memory_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 14
+        },
+        "id": 42,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^Memory$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(memory_utilization{app=\"inzfs-staging\"})",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Memory",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Memory %",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 18
+        },
+        "id": 8,
+        "panels": [],
+        "title": "UAT",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 0,
+          "y": 19
+        },
+        "hiddenSeries": false,
+        "id": 16,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (response_time_count{app=\"inzfs-uat\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total Requests",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 120
+                },
+                {
+                  "color": "red",
+                  "value": 160
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 5,
+          "y": 19
+        },
+        "id": 17,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^\\{app=\"inzfs\\-uat\", env=\"develop\"\\}$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "auto"
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space, le) (rate(response_time_bucket{app=\"inzfs-uat\"}[15m]))",
+            "format": "time_series",
+            "instant": false,
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Average Response Time / 15m",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "The response time value for a transaction below which 90% of the response times lie",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 9,
+          "y": 19
+        },
+        "hiddenSeries": false,
+        "id": 2,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "histogram_quantile(0.90, sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (rate(response_time_bucket{app=\"inzfs-uat\", status_range=\"2xx\"}[5m])))",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "90th Percentile Response Time",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "dtdurations",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "description": "cpu_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 19
+        },
+        "id": 33,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^CPU$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(cpu{app=\"inzfs-uat\"}[5m]))",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "CPU",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU %",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 193
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "app_version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "assebmly_name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 178
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 77
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 81
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": ".NET Version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 111
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 19,
+          "y": 19
+        },
+        "id": 31,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Info",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": true,
+                "__name__": true,
+                "assembly_name": true,
+                "domainname": true,
+                "job": true,
+                "machine": true,
+                "nodename": true,
+                "os": true,
+                "product": true,
+                "runtime": true,
+                "sysname": true,
+                "version": false
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 8,
+                "__name__": 1,
+                "instance": 3,
+                "job": 4,
+                "os": 2,
+                "product": 5,
+                "runtime": 6,
+                "version": 7
+              },
+              "renameByName": {
+                "app_version": "App Version",
+                "assebmly_name": "Assembly Name",
+                "dotnet_version": ".NET Version",
+                "instance": "Instance"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "description": "memory_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 23
+        },
+        "id": 37,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^Memory$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(memory_utilization{app=\"inzfs-staging\"})",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Memory",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Memory %",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 27
+        },
+        "id": 57,
+        "panels": [],
+        "title": "Sandbox",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 0,
+          "y": 28
+        },
+        "hiddenSeries": false,
+        "id": 60,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (response_time_count{app=\"inzfs-sandbox\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total Requests",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 120
+                },
+                {
+                  "color": "red",
+                  "value": 160
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 5,
+          "y": 28
+        },
+        "id": 35,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^\\{app=\"inzfs\\-sandbox\", env=\"develop\"\\}$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space, le) (rate(response_time_bucket{app=\"inzfs-sandbox\"}[15m]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Average Response Time / 15m",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "The response time value for a transaction below which 90% of the response times lie",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 9,
+          "y": 28
+        },
+        "hiddenSeries": false,
+        "id": 36,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "histogram_quantile(0.90, sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (rate(response_time_bucket{app=\"inzfs-sandbox\", status_range=\"2xx\"}[5m])))",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "90th Percentile Response Time",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "dtdurations",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "description": "cpu_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 28
+        },
+        "id": 38,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^CPU$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(cpu{app=\"inzfs-sandbox\"}[5m]))",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "CPU",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU %",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 193
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "app_version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "assebmly_name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 178
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 77
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 81
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": ".NET Version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 111
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 19,
+          "y": 28
+        },
+        "id": 45,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Info",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": true,
+                "__name__": true,
+                "assembly_name": true,
+                "domainname": true,
+                "job": true,
+                "machine": true,
+                "nodename": true,
+                "os": true,
+                "product": true,
+                "runtime": true,
+                "sysname": true,
+                "version": false
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 8,
+                "__name__": 1,
+                "instance": 3,
+                "job": 4,
+                "os": 2,
+                "product": 5,
+                "runtime": 6,
+                "version": 7
+              },
+              "renameByName": {
+                "app_version": "App Version",
+                "assebmly_name": "Assembly Name",
+                "dotnet_version": ".NET Version",
+                "instance": "Instance"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "description": "memory_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 32
+        },
+        "id": 32,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^Memory$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(memory_utilization{app=\"inzfs-sandbox\"})",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Memory",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Memory %",
+        "type": "gauge"
+      },
+      {
+        "collapsed": false,
+        "datasource": null,
+        "gridPos": {
+          "h": 1,
+          "w": 24,
+          "x": 0,
+          "y": 36
+        },
+        "id": 59,
+        "panels": [],
+        "title": "LAB",
+        "type": "row"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 0,
+          "y": 37
+        },
+        "hiddenSeries": false,
+        "id": 34,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (response_time_count{app=\"inzfs-lab\"})",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "Total Requests",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 120
+                },
+                {
+                  "color": "red",
+                  "value": 160
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 5,
+          "y": 37
+        },
+        "id": 61,
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto",
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^\\{app=\"inzfs\\-lab\", env=\"develop\"\\}$/",
+            "values": false
+          },
+          "text": {},
+          "textMode": "value"
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space, le) (rate(response_time_bucket{app=\"inzfs-lab\"}[15m]))",
+            "format": "time_series",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Average Response Time / 15m",
+        "type": "stat"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": null,
+        "description": "The response time value for a transaction below which 90% of the response times lie",
+        "fieldConfig": {
+          "defaults": {
+            "links": []
+          },
+          "overrides": []
+        },
+        "fill": 1,
+        "fillGradient": 0,
+        "gridPos": {
+          "h": 8,
+          "w": 5,
+          "x": 9,
+          "y": 37
+        },
+        "hiddenSeries": false,
+        "id": 62,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "nullPointMode": "null",
+        "options": {
+          "alertThreshold": true
+        },
+        "percentage": false,
+        "pluginVersion": "8.1.1",
+        "pointradius": 2,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [],
+        "spaceLength": 10,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "histogram_quantile(0.90, sum without(instance, exported_instance, alertstate, endpoint, job, organisation, guid, status_range, space) (rate(response_time_bucket{app=\"inzfs-lab\", status_range=\"2xx\"}[5m])))",
+            "interval": "",
+            "legendFormat": "{{instance}}",
+            "refId": "A"
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": null,
+        "timeRegions": [],
+        "timeShift": null,
+        "title": "90th Percentile Response Time",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "format": "dtdurations",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "format": "short",
+            "label": null,
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ],
+        "yaxis": {
+          "align": false,
+          "alignLevel": null
+        }
+      },
+      {
+        "datasource": null,
+        "description": "cpu_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "#EAB839",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 37
+        },
+        "id": 63,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^CPU$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "sum(rate(cpu{app=\"inzfs-lab\"}[5m]))",
+            "interval": "",
+            "intervalFactor": 1,
+            "legendFormat": "CPU",
+            "refId": "B"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "CPU %",
+        "type": "gauge"
+      },
+      {
+        "datasource": null,
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": null,
+              "displayMode": "auto"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 193
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "app_version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 113
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "assebmly_name"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 178
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Instance"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 77
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 81
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": ".NET Version"
+              },
+              "properties": [
+                {
+                  "id": "custom.width",
+                  "value": 111
+                }
+              ]
+            }
+          ]
+        },
+        "gridPos": {
+          "h": 8,
+          "w": 4,
+          "x": 19,
+          "y": 37
+        },
+        "id": 65,
+        "options": {
+          "showHeader": true,
+          "sortBy": []
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "",
+            "format": "table",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Info",
+        "transformations": [
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {
+                "Time": true,
+                "Value": true,
+                "__name__": true,
+                "assembly_name": true,
+                "domainname": true,
+                "job": true,
+                "machine": true,
+                "nodename": true,
+                "os": true,
+                "product": true,
+                "runtime": true,
+                "sysname": true,
+                "version": false
+              },
+              "indexByName": {
+                "Time": 0,
+                "Value": 8,
+                "__name__": 1,
+                "instance": 3,
+                "job": 4,
+                "os": 2,
+                "product": 5,
+                "runtime": 6,
+                "version": 7
+              },
+              "renameByName": {
+                "app_version": "App Version",
+                "assebmly_name": "Assembly Name",
+                "dotnet_version": ".NET Version",
+                "instance": "Instance"
+              }
+            }
+          }
+        ],
+        "type": "table"
+      },
+      {
+        "datasource": null,
+        "description": "memory_utilization Memory currently in use in percent (0-100)",
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": null
+                },
+                {
+                  "color": "orange",
+                  "value": 80
+                },
+                {
+                  "color": "red",
+                  "value": 90
+                }
+              ]
+            },
+            "unit": "percent"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "h": 4,
+          "w": 5,
+          "x": 14,
+          "y": 41
+        },
+        "id": 64,
+        "options": {
+          "orientation": "auto",
+          "reduceOptions": {
+            "calcs": [
+              "mean"
+            ],
+            "fields": "/^Memory$/",
+            "values": false
+          },
+          "showThresholdLabels": false,
+          "showThresholdMarkers": true,
+          "text": {}
+        },
+        "pluginVersion": "8.1.1",
+        "targets": [
+          {
+            "exemplar": true,
+            "expr": "avg(memory_utilization{app=\"inzfs-lab\"})",
+            "instant": true,
+            "interval": "",
+            "legendFormat": "Memory",
+            "refId": "A"
+          }
+        ],
+        "timeFrom": null,
+        "timeShift": null,
+        "title": "Memory %",
+        "type": "gauge"
+      }
+    ],
+    "refresh": "10s",
+    "schemaVersion": 30,
+    "style": "dark",
+    "tags": [],
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "isNone": true,
+            "selected": true,
+            "text": "None",
+            "value": ""
+          },
+          "datasource": null,
+          "definition": "",
+          "description": null,
+          "error": null,
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "query0",
+          "options": [],
+          "query": {
+            "query": "",
+            "refId": "Prometheus-query0-Variable-Query"
+          },
+          "refresh": 1,
+          "regex": "",
+          "skipUrlSync": false,
+          "sort": 0,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-5m",
+      "to": "now"
+    },
+    "timepicker": {
+      "refresh_intervals": [
+        "10s",
+        "30s",
+        "1m",
+        "5m",
+        "15m",
+        "30m",
+        "1h",
+        "2h",
+        "1d"
+      ]
+    },
+    "timezone": "",
+    "title": "eef-webapp",
+    "uid": "AaKD1fn7k",
+    "version": 19
+  }
