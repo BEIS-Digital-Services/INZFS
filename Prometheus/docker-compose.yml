@@ -20,4 +20,17 @@ services:
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
       - prometheus_data:/prometheus
-
+    remote_write:
+      - url: "https://eeffa.azurewebsites.net/api/Write"
+        remote_timeout: 30s
+        queue_config:
+            capacity: 100000
+            max_shards: 1000
+            max_samples_per_send: 1000
+            batch_send_deadline: 5s
+            max_retries: 10
+            min_backoff: 30ms
+            max_backoff: 100ms
+    remote_read:
+      - url: "https://eeffa.azurewebsites.net/api/Read"
+        read_recent: true
