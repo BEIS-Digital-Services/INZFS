@@ -123,7 +123,7 @@ namespace INZFS.MVC.Controllers
             }
             catch (Exception e)
             {
-                Console.WriteLine($"Error getting file {file.Name} from Blob Storage: " + e.Message);
+                Console.Error.WriteLine($"Error getting file {file.Name} from Blob Storage: " + e.Message);
                 return null;
             }
         }
