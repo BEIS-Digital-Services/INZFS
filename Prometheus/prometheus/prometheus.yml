@@ -3,7 +3,7 @@ global:
   scrape_timeout: 15s
 
 remote_write:
-  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/write?db=defaultdb"
+  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/write?u=$(influxdbuser)&p=$(influxdbpass)&db=defaultdb"
     # remote_timeout: 30s
     # queue_config:
     #     capacity: 100000
@@ -14,7 +14,7 @@ remote_write:
     #     min_backoff: 30ms
     #     max_backoff: 100ms
 remote_read:
-  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/read?db=defaultdb"
+  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/read?u=$(influxdbuser)&p=$(influxdbpass)&db=defaultdb"
     # read_recent: true
 
 # Alertmanager configuration
@@ -57,6 +57,15 @@ scrape_configs:
       - targets: ['inzfs-lab3.london.cloudapps.digital']
         labels:
           env: lab3
+  
+  - job_name: 'lab2-health'
+    scrape_interval: 5m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab2.london.cloudapps.digital']
+        labels:
+          env: lab2
 
   - job_name: 'sandbox-exporter'
     scrape_interval: 2m
