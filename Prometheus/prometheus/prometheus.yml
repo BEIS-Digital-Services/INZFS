@@ -4,19 +4,19 @@ global:
 
 remote_write:
   - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/write?db=defaultdb"
-    remote_timeout: 30s
-    queue_config:
-        capacity: 100000
-        max_shards: 1000
-        max_samples_per_send: 1000
-        batch_send_deadline: 5s
-        max_retries: 10
-        min_backoff: 30ms
-        max_backoff: 100ms
+    # remote_timeout: 30s
+    # queue_config:
+    #     capacity: 100000
+    #     max_shards: 1000
+    #     max_samples_per_send: 1000
+    #     batch_send_deadline: 5s
+    #     max_retries: 10
+    #     min_backoff: 30ms
+    #     max_backoff: 100ms
 remote_read:
   - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/read?db=defaultdb"
-    read_recent: true
-    
+    # read_recent: true
+
 # Alertmanager configuration
 alerting:
   alertmanagers:
