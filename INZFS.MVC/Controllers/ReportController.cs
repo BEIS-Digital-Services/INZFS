@@ -16,6 +16,8 @@ using INZFS.MVC.Services;
 using System.Text.Json;
 using OrchardCore.Media;
 using OrchardCore.FileStorage;
+using Microsoft.Extensions.Configuration;
+using Azure.Storage.Blobs;
 
 namespace INZFS.MVC.Controllers
 {
@@ -27,14 +29,16 @@ namespace INZFS.MVC.Controllers
         private string _logoFilepath;
         private readonly IContentRepository _contentRepository;
         private readonly IMediaFileStore _mediaFileStore;
+        private readonly IConfiguration _configuration;
 
-        public ReportController(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore)
+        public ReportController(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
         {
             _reportService = reportService;
             _env = env;
             _logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             _contentRepository = contentRepository;
             _mediaFileStore = mediaFileStore;
+            _configuration = configuration;
         }
 
         public async Task<FileContentResult> DownloadApplication(string filetype)
@@ -68,8 +72,18 @@ namespace INZFS.MVC.Controllers
 
                     foreach(var file in uploadedFiles)
                     {
-                        //string path = (env == "Development") ? _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation) : _mediaFileStore.NormalizePath(file.FileLocation);
-                        var zipArchiveEntry = archive.CreateEntryFromFile(file.FileLocation, Path.Combine("Uploaded Documents", file.Name));
+                        BinaryData binaryData = await GetFileFromBlobStorage(file);
+                        var stream = binaryData.ToStream();
+
+                        byte[] bytes;
+                        using (var streamReader = new MemoryStream())
+                        {
+                            stream.CopyTo(streamReader);
+                            bytes = streamReader.ToArray();
+                        }
+
+                        var fileToArchive = archive.CreateEntry($"{file.Name}", CompressionLevel.Fastest);
+                        using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
                 }
 
@@ -93,6 +107,25 @@ namespace INZFS.MVC.Controllers
             string name = $"Application Form {reportContent.ApplicationNumber}.odt";
 
             return File(reportContent.FileContents, type, name);
+        }
+
+        private async Task<BinaryData> GetFileFromBlobStorage(UploadedFile file)
+        {
+            try
+            {
+                string connectionString = _configuration["AzureBlobStorage"];
+                //TODO: Remove this hardcoded container name to env var
+                string containerName = "appdatasandbox";
+                string blobName = file.FileLocation;
+
+                var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
+                return blob.Content;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine($"Error getting file {file.Name} from Blob Storage: " + e.Message);
+                return null;
+            }
         }
 
         private async Task<ReportContent> GetPdfContent()
