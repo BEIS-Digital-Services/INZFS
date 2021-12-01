@@ -19,14 +19,14 @@ groups:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has crashed."
 
-      - alert: PrometheusJobMissing
-        expr: absent(up{job="prometheus"})
-        for: 0m
-        labels:
-          severity: warning
-        annotations:
-          summary: Prometheus job missing (instance {{ $labels.instance }})
-          description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      # - alert: PrometheusJobMissing
+      #   expr: absent(up{job="prometheus"})
+      #   for: 0m
+      #   labels:
+      #     severity: warning
+      #   annotations:
+      #     summary: Prometheus job missing (instance {{ $labels.instance }})
+      #     description: "A Prometheus job has disappeared\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: PrometheusAllTargetsMissing
         expr: count by (job) (up) == 0
@@ -47,7 +47,7 @@ groups:
           description: "Host network interfaces are probably receiving too much data (> 100 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: HostLowDiskSpace
-        expr: disk_utilization > 50
+        expr: disk_utilization > 60
         for: 2m
         labels:
           severity: warning
@@ -74,7 +74,7 @@ groups:
           description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: http response time slow
-        expr: (rate(response_time_bucket{le="0.5",status_range="2xx"}[24h])) > 0.1
+        expr: (rate(response_time_bucket{le="0.5",status_range="2xx"}[24h])) > 1
         for: 1m
         labels:
           severity: warning
@@ -83,11 +83,10 @@ groups:
           description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: Response Time Slow
-        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx"}[24h]))) > 0.1
+        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx"}[24h]))) > 1
         for: 1m
         labels:
           severity: warning
         annotations:
           summary: probe slow HTTP (instance {{ $labels.instance }})
           description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
-
