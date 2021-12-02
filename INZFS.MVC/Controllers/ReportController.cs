@@ -82,7 +82,7 @@ namespace INZFS.MVC.Controllers
                             bytes = streamReader.ToArray();
                         }
 
-                        var fileToArchive = archive.CreateEntry($"{file.Name}", CompressionLevel.Fastest);
+                        var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
                         using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
                 }
