@@ -116,7 +116,7 @@ namespace INZFS.MVC.Controllers
                 string connectionString = _configuration["AzureBlobStorage"];
                 //TODO: Remove this hardcoded container name to env var
                 string containerName = "appdatasandbox";
-                string blobName = file.FileLocation;
+                string blobName = file.FileLocation.Replace("/media", "EEF");
 
                 var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
                 return blob.Content;
