@@ -39,6 +39,7 @@ using Microsoft.Extensions.Options;
 using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
+using Ganss.XSS;
 
 namespace INZFS.MVC.Controllers
 {
@@ -54,6 +55,8 @@ namespace INZFS.MVC.Controllers
         private readonly ApplicationOption _applicationOption;
         private readonly IReportService _reportService;
         private readonly IWebHostEnvironment _env;
+        private HtmlSanitizer _sanitizer;
+        
 
         public FundApplicationController(
             IMediaFileStore mediaFileStore, 
@@ -75,6 +78,11 @@ namespace INZFS.MVC.Controllers
             _applicationOption = applicationOption.Value;
             _reportService = reportService;
             _env = env;
+
+            _sanitizer = new HtmlSanitizer();
+            _sanitizer.AllowedAttributes.Clear();
+            _sanitizer.AllowedTags.Clear();
+            _sanitizer.AllowedCssProperties.Clear();
         }
 
         [HttpGet]
@@ -183,7 +191,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage);
+                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
@@ -201,14 +209,21 @@ namespace INZFS.MVC.Controllers
                         {
                             if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "No file was uploaded.");
+                                if(currentPage.Mandatory)
+                                {
+                                    ModelState.AddModelError("DataInput", "This section has a mandatory file upload. You must first choose your file and then upload it using the upload button below.");
+                                }
+                                else
+                                {
+                                    ModelState.AddModelError("DataInput", "You have not uploaded any evidence. Please upload a file before marking as complete. If this step is not relevant to your application please select 'not applicable'.");
+                                }
                             }
                         }
                         if (fieldStatus == FieldStatus.NotApplicable)
                         {
                             if (submitAction != "DeleteFile" && !string.IsNullOrEmpty(existingData?.AdditionalInformation))
                             {
-                                ModelState.AddModelError("DataInput", "Please remove the uploaded file if this question is not applicable.");
+                                ModelState.AddModelError("DataInput", "You have told us this step is not applicable, your evidence will not be added to your proposal. Please select 'mark this step as complete' if you would like your evidence to be reviewed. Otherwise, please remove the file.");
                                 return PopulateViewModel(currentPage, model, existingData);
                             }
                         }
@@ -236,14 +251,13 @@ namespace INZFS.MVC.Controllers
                 {
                     if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
-                        var directoryName = Guid.NewGuid().ToString();
+                        var directoryName = GetUserId();
                         try
                         {
                             publicUrl = await _fileUploadService.SaveFile(file, directoryName);
                         }
                         catch (Exception ex)
                         {
-
                             ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
                         }
                         
@@ -267,9 +281,9 @@ namespace INZFS.MVC.Controllers
                                 try
                                 {
                                     IXLWorksheet ws = wb.Worksheet("A. Summary");
-                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault<IXLCell>();
-                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault<IXLCell>();
-                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault<IXLCell>();
+                                    IXLCell totalGrantFunding = ws.Search("Total BEIS grant applied for").FirstOrDefault();
+                                    IXLCell totalMatchFunding = ws.Search("Total match funding contribution").FirstOrDefault(cell => cell.GetString() == "Total match funding contribution");
+                                    IXLCell totalProjectFunding = ws.Search("Total project costs").FirstOrDefault(cell => cell.GetString() == "Total project costs");
 
                                     bool spreadsheetValid = totalGrantFunding != null && totalMatchFunding != null && totalProjectFunding != null;
 
@@ -283,7 +297,7 @@ namespace INZFS.MVC.Controllers
                                             var parsedTotalMatchFunding = Double.Parse(totalMatchFunding.CellRight().CachedValue.ToString());
                                             if (parsedTotalProjectCost > 0D)
                                             {
-                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost.ToString("C", new CultureInfo("en-GB"));
+                                                parsedExcelData.ParsedTotalProjectCost = parsedTotalProjectCost;
                                                 contentToSave.TotalProjectCost = parsedTotalProjectCost;
                                             }
                                             else
@@ -291,12 +305,10 @@ namespace INZFS.MVC.Controllers
                                                 return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
                                                             "Total project costs should be more than zero.");
                                             }
-                                            parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding.ToString("C", new CultureInfo("en-GB"));
-                                            parsedExcelData.ParsedTotalGrantFundingPercentage = Double.Parse(totalGrantFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding;
                                             contentToSave.TotalGrantFunding = parsedTotalGrantFunding;
 
-                                            parsedExcelData.ParsedTotalMatchFunding = parsedTotalMatchFunding.ToString("C", new CultureInfo("en-GB"));
-                                            parsedExcelData.ParsedTotalMatchFundingPercentage = Double.Parse(totalMatchFunding.CellRight().CellRight().CachedValue.ToString()).ToString("0.00%");
+                                            parsedExcelData.ParsedTotalMatchFunding = parsedTotalMatchFunding;
                                             contentToSave.TotalMatchFunding = parsedTotalMatchFunding;
 
                                             uploadedFile.ParsedExcelData = parsedExcelData;
@@ -360,7 +372,7 @@ namespace INZFS.MVC.Controllers
                     contentToSave.Fields.Add(new Field {
                         Name = currentPage.FieldName,
                         Data = model.GetData(),
-                        OtherOption = model.GetOtherSelected(),
+                        OtherOption = _sanitizer.Sanitize(model.GetOtherSelected()),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null,
                         FieldStatus = GetFieldStatus(currentPage, model)
@@ -394,7 +406,7 @@ namespace INZFS.MVC.Controllers
                     existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
                     if (!string.IsNullOrEmpty(existingFieldData.Data) && existingFieldData.Data.Contains("Other"))
                     {
-                        existingFieldData.OtherOption = model.GetOtherSelected();
+                        existingFieldData.OtherOption = _sanitizer.Sanitize(model.GetOtherSelected());
                     }
                     else
                     {
@@ -409,7 +421,6 @@ namespace INZFS.MVC.Controllers
                 //Get all pages that depends on the current field and its value
                 var dependantPages = _applicationDefinition.Application.AllPages.Where(page => page.DependsOn?.FieldName == currentPage.FieldName);
 
-
                 foreach (var dependantPage in dependantPages)
                 {
                     if(dependantPage.DependsOn.Value != datafieldForCurrentPage.Data)
@@ -418,8 +429,18 @@ namespace INZFS.MVC.Controllers
                     }
                 }
 
+                //Sanitize any field where a user can possibly input a string to prevent XSS attempts being saved to the DB 
+                if(currentPage.FieldType == FieldType.gdsAddressTextBox || 
+                    currentPage.FieldType == FieldType.gdsTextArea || 
+                    currentPage.FieldType == FieldType.gdsTextBox || 
+                    currentPage.FieldType == FieldType.gdsMultiLineRadio || 
+                    currentPage.FieldType == FieldType.gdsSingleRadioSelectOption)
+                {
+                    datafieldForCurrentPage.Data = _sanitizer.Sanitize(datafieldForCurrentPage.Data);
+                }
 
                 _session.Save(contentToSave);
+                await _session.SaveChangesAsync();
 
                 if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
                 {

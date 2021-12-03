@@ -18,7 +18,10 @@
 	<ItemGroup>
     <PackageReference Include="Aspose.Words" Version="21.9.0" />
     <PackageReference Include="GovukNotify" Version="4.0.1" />
+		<PackageReference Include="Cloudmersive.APIClient.NETCore.Validate" Version="2.2.4" />
+		<PackageReference Include="Cloudmersive.APIClient.NETCore.VirusScan" Version="2.0.8" />
 		<PackageReference Include="Azure.Storage.Blobs" Version="12.9.1" />
+		<PackageReference Include="HtmlSanitizer" Version="6.0.453" />
 		<PackageReference Include="Microsoft.DotNet.PlatformAbstractions" Version="3.1.6" />
 		<PackageReference Include="OrchardCore.ContentManagement.Abstractions" Version="1.1.0" />
 		<PackageReference Include="OrchardCore.Forms" Version="1.1.0" />

@@ -1,86 +1,56 @@
 ﻿using INZFS.MVC.Models;
 using Microsoft.AspNetCore.Http;
-using nClam;
 using System;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Cloudmersive.APIClient.NETCore.VirusScan.Api;
+using Cloudmersive.APIClient.NETCore.VirusScan.Client;
+using Cloudmersive.APIClient.NETCore.VirusScan.Model;
+
 
 namespace INZFS.MVC.Services.VirusScan
 {
     public class VirusScanService : IVirusScanService
     {
-        private readonly ClamClient _clam;
-        public VirusScanService(ClamClient clam)
+        public bool ScanFile(IFormFile file, string cloudmersiveApiKey)
         {
-            _clam = clam;
-        }
-        public async Task<bool> ScanFile(IFormFile file)
-        {
-            var log = new List<ScanResult>();
-            if (file.Length > 0)
+            Configuration.Default.AddApiKey("Apikey", cloudmersiveApiKey);
+            var apiInstance = new ScanApi();
+            var inputFile = file.OpenReadStream(); 
+            var allowExecutables = false;  
+            var allowInvalidFiles = false;  
+            var allowScripts = false;  
+            var allowPasswordProtectedFiles = false;  
+            var allowMacros = true;  
+            var allowXmlExternalEntities = true;  
+            var restrictFileTypes = ".xlsx,.xlx,.pdf,.doc,.docx,.ppt,.pptx, .gif, .jpeg, .png";  
+
+            try
             {
-                var extension = file.FileName.Contains('.')
-                    ? file.FileName.Substring(file.FileName.LastIndexOf('.'), file.FileName.Length - file.FileName.LastIndexOf('.'))
-                    : string.Empty;
-                var newfile = new Models.File
+                
+                VirusScanAdvancedResult result = apiInstance.ScanFileAdvanced(inputFile, allowExecutables, allowInvalidFiles, allowScripts, allowPasswordProtectedFiles, allowMacros, allowXmlExternalEntities, restrictFileTypes);
+                Debug.WriteLine(result);
+                if(result.FoundViruses != null)
                 {
-                    Name = $"{Guid.NewGuid()}{extension}",
-                    Alias = file.FileName,
-                    ContentType = file.ContentType,
-                    Size = file.Length,
-                    Uploaded = DateTime.UtcNow,
-                };
-                var ping = await _clam.PingAsync();
-
-                if (ping)
-                {
-                    
-                    var result = await _clam.SendAndScanFileAsync(file.OpenReadStream());
-
-                    newfile.ScanResult = result.Result.ToString();
-                    newfile.Infected = result.Result == ClamScanResults.VirusDetected;
-                    newfile.Scanned = DateTime.UtcNow;
-                    if (result.InfectedFiles != null)
-                    {
-                        foreach (var infectedFile in result.InfectedFiles)
-                        {
-                            newfile.Viruses.Add(new Virus
-                            {
-                                Name = infectedFile.VirusName
-                            });
-                        }
-                        return false;
-                    }
-                    else
-                    {
-                        var metaData = new Dictionary<string, string>
-                        {
-                            { "av-status", result.Result.ToString() },
-                            { "av-timestamp", DateTime.UtcNow.ToString() },
-                            { "alias", newfile.Alias }
-                        };
-
-                        var scanResult = new ScanResult()
-                        {
-                            FileName = file.FileName,
-                            Result = result.Result.ToString(),
-                            Message = result.InfectedFiles?.FirstOrDefault()?.VirusName,
-                            RawResult = result.RawResult
-                        };
-                        log.Add(scanResult);
-                    }
+                    Debug.WriteLine("The following viruses were found: " + result.FoundViruses.ToString());
                     return true;
+                   
                 }
                 else
                 {
-                   
+                    Debug.WriteLine("Virus scanning complete. Your upload is virus-free!");
                     return false;
                 }
-
             }
-            return false;
+            catch (Exception e)
+            {
+                Debug.WriteLine("Exception when calling ScanApi.ScanFileAdvanced: " + e.Message);
+                return true;
+            }
         }
+     
     }
 }

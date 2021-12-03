@@ -1,6 +1,8 @@
 @model ApplicationSentModel
 @using INZFS.MVC.Models
-
+@using INZFS.MVC
+@using INZFS.MVC.Extensions
+ 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
         <h1 class="govuk-heading-l">Your application</h1>
@@ -11,25 +13,37 @@
 
     <div class="govuk-grid-column-two-thirds">
 
+        @if (Model.ApplicationStatus == ApplicationStatus.NotSubmitted.ToStatusString())
+        {
+            <h2 class="govuk-heading-m">The Energy Entrepreneurs Fund: phase 9 is now closed</h2>
+            <p class="govuk-body">
+                The deadline for submissions has passed. Your application has not been submitted.
+            </p>
+            <p class="govuk-body">
+                You can download a copy of your unsubmitted application for your records.
+            </p>
+            <p class="govuk-body">You may be able to find funding from another source. Or, you can apply to the Energy Entrepreneurs Fund in future rounds.</p>
+        }
+        else
+        {
+            <h2 class="govuk-heading-m">What happens after you submit your application</h2>
 
-        <h2 class="govuk-heading-m">What happens after you submit your application</h2>
+            <p class="govuk-body">Your application will be assigned to an assessor.</p>
+            <p class="govuk-body">The current timelines are as follows: </p>
+            <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Eligibility checks </p>
+            <p class="govuk-body">1 April - 9 April 2021</p>
+            <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Independent assessments </p>
+            <p class="govuk-body">14 April - 28 May 2021</p>
+            <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Moderation </p>
+            <p class="govuk-body">Early June 2021</p>
+            <p class="govuk-body">Eligibility checks </p>
+            <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Final results</p>
+            <p class="govuk-body">Mid/late June 2021</p>
+            <p class="govuk-body">We'll update you if these timelines change. </p>
+            <p class="govuk-body">We'll email you to let you know if your application has been successful after the assessment is complete. </p>
+        }
 
-        <p class="govuk-body">Your application will be assigned to an assessor.</p>
-        <p class="govuk-body">The current timelines are as follows: </p>
-        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Eligibility checks </p>
-        <p class="govuk-body">1 April - 9 April 2021</p>
-        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Independent assessments </p>
-        <p class="govuk-body">14 April - 28 May 2021</p>
-        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Moderation </p>
-        <p class="govuk-body">Early June 2021</p>
-        <p class="govuk-body">Eligibility checks </p>
-        <p class="govuk-body govuk-colour--mid-grey govuk-!-margin-bottom-0">Final results</p>
-        <p class="govuk-body">Mid/late June 2021</p>
-        <p class="govuk-body">We'll update you if these timelines change. </p>
-        <p class="govuk-body">We'll email you to let you know if your application has been successful after the assessment is complete. </p>
         <p class="govuk-body">If you have any questions you can contact the fund team at <a href="#">contact.EEF@BEIS.gov.uk</a> </p>
-
-
 
     </div>
 
@@ -43,7 +57,7 @@
             <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.ApplicationNumber</p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Status</p>
-            <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10">@Model.ApplicationStatus</p>
+            <p class="govuk-body-m govuk-colour--blue govuk-!-margin-bottom-10"><strong>@Model.ApplicationStatus</strong></p>
 
             <p class="govuk-body-m govuk-colour--mid-grey govuk-!-margin-bottom-0">Date submitted</p>
             <p class="govuk-body-m govuk-!-margin-bottom-10">@Model.SubmittedDate.ToString("dd MMMM yyyy")</p>
@@ -55,13 +69,11 @@
             <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
             <p class="govuk-body-s">Download your answers as a PDF with attached files.</p>
             
-            <a asp-controller="Report" asp-action="DownloadPdf">
-                <button class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" data-module="govuk-button">
+            <a asp-controller="Report" asp-action="DownloadPdf" class="govuk-button govuk-button--secondary govuk-!-margin-bottom-3" data-module="govuk-button">
                     Download your application
-                </button>
             </a>
 
-            <p class="govuk-body-m"><a class="govuk-link" asp-controller="Report" asp-action="GenerateOdt">Download an accessible text version</a></p>
+            <p class="govuk-body-m"><a class="govuk-link" asp-controller="Report" asp-action="DownloadOdt">Download an accessible text version</a></p>
         </aside>
 
     </div>

@@ -51,7 +51,7 @@
                         <span asp-validation-for="Password" class="govuk-error-message"></span>
                         <div class="show-password__input-wrapper govuk-!-margin-bottom-6">
                             <input asp-for="Password" asp-validation-govuk-for="Password" type="password" class="govuk-input govuk-input--width-20" aria-describedby="create-password-hint" spellcheck="false">
-                            <button class="show-password__toggle password-changer" data-control="Password" aria-controls="password-create" type="button" aria-label="Show password" id="buttonText">Show</button>
+                            <button class="show-password__toggle password-changer" data-control="Password" type="button" aria-label="Show password" id="buttonText">Show</button>
                             <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
                         </div>
                     </div>
@@ -60,14 +60,14 @@
                         <span asp-validation-for="ConfirmPassword" class="govuk-error-message"></span>
                         <div class="show-password__input-wrapper">
                             <input asp-for="ConfirmPassword" asp-validation-govuk-for="ConfirmPassword" type="password" class="govuk-input govuk-input--width-20" spellcheck="false">
-                            <button class="show-password__toggle password-changer" data-control="ConfirmPassword" aria-controls="password-confirm" type="button" aria-label="Show password" id="buttonText1">Show</button>
+                            <button class="show-password__toggle password-changer" data-control="ConfirmPassword" type="button" aria-label="Show password" id="buttonText1">Show</button>
                             <span class="govuk-visually-hidden" aria-live="polite">Your password is hidden</span>
                         </div>
 
                     </div>
 
                 </fieldset>
-                    <p class="govuk-body-s">Review our <a class="govuk-link" href="/page/privacynotice">privacy notice</a></p>
+                    <p class="govuk-body-s">Review our <a class="govuk-link" href="/help/privacynotice">privacy notice</a></p>
                     <div class="govuk-form-group" >
                         <fieldset class="govuk-fieldset">
                             <legend class="govuk-fieldset__legend govuk-fieldset__legend--m govuk-visually-hidden">
@@ -114,7 +114,7 @@
                     </details>
                     <button class="govuk-button" data-module="govuk-button">Create and continue</button>
                     <p class="govuk-body-s"><a class="govuk-link" href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">Already have an account?</a></p>
-                    <p class="govuk-body-s"><a class="govuk-link" href="../page/help">Need help signing in or creating an account?</a></p>
+                    <p class="govuk-body-s"><a class="govuk-link" href="../help/help">Need help signing in or creating an account?</a></p>
             </div>
         </div>
     </form>

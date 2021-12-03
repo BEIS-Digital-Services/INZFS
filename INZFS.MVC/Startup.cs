@@ -13,7 +13,6 @@ using OrchardCore.Modules;
 using Microsoft.Extensions.Options;
 using OrchardCore.Environment.Shell;
 using System.IO;
-using nClam;
 using Microsoft.Extensions.Configuration;
 using INZFS.MVC.Navigations;
 using OrchardCore.Navigation;
@@ -38,6 +37,7 @@ using System.Linq;
 using INZFS.MVC.Migrations;
 using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 
 namespace INZFS.MVC
 {
@@ -53,18 +53,6 @@ namespace INZFS.MVC
         public IConfiguration Configuration { get; }
         public override void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ClamClient>(x =>
-            {
-                var host = Configuration["ClamAVServerHost"];
-                if (int.TryParse(Configuration["ClamAVServerPort"], out var port))
-                {
-                    return new ClamClient(host, port);
-                }
-                else
-                {
-                    return new ClamClient(host);
-                }
-            });
             services.AddTagHelpers<AddClassTagHelper>();
             services.AddTagHelpers<ValidationMessageTagHelper>();
             services.AddTagHelpers<ValidationHighLighterTagHelper>();
@@ -128,7 +116,8 @@ namespace INZFS.MVC
             services.AddScoped<ApplicationRedirectionAttribute>();
 
             services.Configure<ApplicationOption>(Configuration.GetSection("Application"));
-
+            services.Configure<GoogleAnalyticsOptions>(options => Configuration.GetSection("GoogleAnalytics").Bind(options));
+            services.AddTransient<ITagHelperComponent, GoogleAnalyticsTagHelperComponent>();
             RegisterCustomValidators(services);
             services.AddHttpContextAccessor();
         }
