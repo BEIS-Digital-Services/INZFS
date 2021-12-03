@@ -20,3 +20,14 @@ receivers:
   pagerduty_configs:
   - service_key: $(pagerduty_servicekey)
     send_resolved: true
+
+
+cf cups sumologic-drain -l 'https://endpoint1.collection.eu.sumologic.com/receiver/v1/http/ZaVnC4dhaV33ZeAjIk_eqyZXFkc4cf4tziF7jKq7xnNVeb2L_5-bBhEGDYxbrnFpIMGSAm-ZMTRqHDo1DIbV7f8ohuqIOB6G-oNYDOtFpr_DgErfUstbYw=='
+cf bind-service inzfs-prod sumologic-drain 
+cf restage inzfs-prod
+
+cf bind-service inzfs-sandbox sumologic-drain 
+cf bind-service inzfs-uat sumologic-drain 
+cf restage inzfs-lab
+cf restage inzfs-sandbox
+cf restage inzfs-uat

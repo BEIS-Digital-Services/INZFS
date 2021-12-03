@@ -2,5 +2,5 @@
 applications:
 - instances: 2
   memory: 1G
-  disk_quota: 2G
+  disk_quota: 6G
   route-path: london.cloudapps.digital

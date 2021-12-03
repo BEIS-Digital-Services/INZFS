@@ -16,3 +16,11 @@ datasources:
   url: https://inzfs-prom.london.cloudapps.digital
   editable: true                        # whether it should be editable
   is_default: true                      # whether this should be the default DS
+
+- name: InfluxDB
+  type: influxdb
+  access: proxy
+  database: defaultdb
+  user: $(influxdbuser)
+  password: $(influxdbpass)
+  url: https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676
