@@ -82,7 +82,7 @@ namespace INZFS.MVC.Controllers
                             bytes = streamReader.ToArray();
                         }
 
-                        var fileToArchive = archive.CreateEntry($"{file.Name}", CompressionLevel.Fastest);
+                        var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
                         using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
                 }
@@ -114,8 +114,7 @@ namespace INZFS.MVC.Controllers
             try
             {
                 string connectionString = _configuration["AzureBlobStorage"];
-                //TODO: Remove this hardcoded container name to env var
-                string containerName = "appdatasandbox";
+                string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
                 string blobName = file.FileLocation.Replace("/media", "EEF");
 
                 var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
