@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace INZFS.MVC.Controllers
 {
-    public class PageController : Controller
+    public class HelpController : Controller
     {
         public IActionResult Accessibility()
         {
@@ -20,7 +20,7 @@ namespace INZFS.MVC.Controllers
         {
             return View();
         }
-        public IActionResult CookiePolicy()
+        public IActionResult Cookies()
         {
             return View();
         }
