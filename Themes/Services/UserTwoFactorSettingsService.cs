@@ -26,7 +26,7 @@ namespace INZFS.Theme.Services
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
             userTwoFactorSettings.AuthenticatorKey = key;
-            SaveSettings(userTwoFactorSettings);
+            await SaveSettings(userTwoFactorSettings);
             return true;
         }
 
@@ -34,7 +34,7 @@ namespace INZFS.Theme.Services
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
             userTwoFactorSettings.IsTwoFactorEnabled = true;
-            SaveSettings(userTwoFactorSettings);
+            await SaveSettings(userTwoFactorSettings);
             return true;
         }
 
@@ -48,7 +48,7 @@ namespace INZFS.Theme.Services
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
             userTwoFactorSettings.PhoneNumber = phoneNumber;
-            SaveSettings(userTwoFactorSettings);
+            await  SaveSettings(userTwoFactorSettings);
             return true;
         }
 
@@ -70,7 +70,7 @@ namespace INZFS.Theme.Services
             userTwoFactorSettings.IsPhoneNumberConfirmed = confirmed;
             userTwoFactorSettings.TwoFactorActiveMethod = AuthenticationMethod.Phone;
 
-            SaveSettings(userTwoFactorSettings);
+            await SaveSettings(userTwoFactorSettings);
             return true;
         }
 
@@ -80,7 +80,7 @@ namespace INZFS.Theme.Services
             userTwoFactorSettings.IsAuthenticatorConfirmed = confirmed;
             userTwoFactorSettings.TwoFactorActiveMethod = AuthenticationMethod.Authenticator;
 
-            SaveSettings(userTwoFactorSettings);
+            await SaveSettings(userTwoFactorSettings);
             return true;
         }
 
@@ -100,15 +100,14 @@ namespace INZFS.Theme.Services
         {
             var userTwoFactorSettings = await GetUserTwoFactorSettings(userId);
             userTwoFactorSettings.TwoFactorActiveMethod = method;
-            SaveSettings(userTwoFactorSettings);
+            await SaveSettings(userTwoFactorSettings);
             return true;
         }
 
-        private void SaveSettings(UserTwoFactorSettings userTwoFactorSettings)
+        private async Task SaveSettings(UserTwoFactorSettings userTwoFactorSettings)
         {
             _session.Save(userTwoFactorSettings);
-            //TODO: FM need to check how save works for YesSql with multi-threaded env
-            //await _session.CommitAsync();
+            await _session.SaveChangesAsync();
 
         }
 
@@ -128,6 +127,10 @@ namespace INZFS.Theme.Services
                 };
 
                 _session.Save(twoFactorSettings);
+                await _session.SaveChangesAsync();
+
+                query = _session.Query<UserTwoFactorSettings, UserTwoFactorSettingsIndex>();
+                query = query.With<UserTwoFactorSettingsIndex>(index => index.UserId == userId);
                 userTwoFactorSettings = await query.FirstOrDefaultAsync();
             }
 
