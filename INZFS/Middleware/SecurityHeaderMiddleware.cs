@@ -55,7 +55,7 @@ namespace INZFS.Web.Middleware
                     "https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js; "
             )); ;
 
-            return _next(context);
+          return _next(context);
         }
     }
 
