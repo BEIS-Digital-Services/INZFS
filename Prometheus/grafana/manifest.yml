@@ -1,5 +1,5 @@
 ---
 applications:
-- instances: 1
-  memory: 2G
+- instances: 2
+  memory: 3G
   route-path: london.cloudapps.digital
