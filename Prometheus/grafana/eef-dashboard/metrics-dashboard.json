@@ -21,7 +21,7 @@
     "editable": true,
     "gnetId": null,
     "graphTooltip": 0,
-    "id": 2,
+    "id": 3,
     "links": [],
     "panels": [
       {
@@ -284,6 +284,6 @@
     "timepicker": {},
     "timezone": "",
     "title": "eef-dashboard",
-    "uid": "AzUcqScnk",
-    "version": 3
+    "uid": "YgsiOutnz",
+    "version": 2
   }
