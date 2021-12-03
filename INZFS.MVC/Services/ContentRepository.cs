@@ -42,6 +42,7 @@ namespace INZFS.MVC
                 content.ModifiedUtc = DateTime.UtcNow;
                 content.SubmittedUtc = DateTime.UtcNow;
                 _session.Save(content);
+                await _session.SaveChangesAsync();
             }
         }
 
@@ -62,7 +63,7 @@ namespace INZFS.MVC
             contentToSave.ApplicationNumber = await GetNewApplicationNumber();
             contentToSave.ApplicationStatus = ApplicationStatus.InProgress;
             _session.Save(contentToSave);
-
+            await _session.SaveChangesAsync();
             return contentToSave;
 
         }
