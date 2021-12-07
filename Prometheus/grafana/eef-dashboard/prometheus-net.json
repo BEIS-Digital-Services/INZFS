@@ -19,19 +19,17 @@
       ]
     },
     "editable": true,
-    "fiscalYearStartMonth": 0,
     "gnetId": 10427,
     "graphTooltip": 0,
-    "id": 4,
-    "iteration": 1638877500551,
+    "iteration": 1638890373358,
     "links": [],
-    "liveNow": false,
     "panels": [
       {
         "aliasColors": {},
         "bars": false,
         "dashLength": 10,
         "dashes": false,
+        "datasource": null,
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -66,7 +64,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -90,7 +88,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "The duration of HTTP requests",
         "tooltip": {
           "shared": true,
@@ -99,7 +99,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -124,6 +126,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
+        "datasource": null,
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -160,7 +163,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -184,7 +187,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "Requests currently in progress",
         "tooltip": {
           "shared": true,
@@ -193,7 +198,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -218,10 +225,7 @@
         }
       },
       {
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": null,
         "description": "",
         "fieldConfig": {
           "defaults": {
@@ -278,9 +282,10 @@
             "fields": "",
             "values": false
           },
+          "text": {},
           "textMode": "auto"
         },
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "targets": [
           {
             "expr": "process_start_time_seconds{instance =~ \"$instances\"} * 1000",
@@ -298,6 +303,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
+        "datasource": null,
         "fieldConfig": {
           "defaults": {
             "links": []
@@ -333,7 +339,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -357,7 +363,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "GC collection count",
         "tooltip": {
           "shared": true,
@@ -366,7 +374,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -392,10 +402,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": null,
         "decimals": 0,
         "fieldConfig": {
           "defaults": {
@@ -431,7 +438,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -449,7 +456,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "Total known allocated memory",
         "tooltip": {
           "shared": true,
@@ -458,7 +467,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -486,10 +497,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": null,
         "decimals": 0,
         "description": "",
         "fieldConfig": {
@@ -526,7 +534,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -544,7 +552,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "Total number of threads",
         "tooltip": {
           "shared": true,
@@ -553,7 +563,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -579,10 +591,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": null,
         "decimals": 0,
         "description": "",
         "fieldConfig": {
@@ -620,7 +629,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -639,7 +648,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "Number of open handles",
         "tooltip": {
           "shared": true,
@@ -648,7 +659,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -674,10 +687,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": {
-          "type": "prometheus",
-          "uid": "PBFA97CFB590B2093"
-        },
+        "datasource": null,
         "decimals": 0,
         "fieldConfig": {
           "defaults": {
@@ -713,7 +723,7 @@
           "alertThreshold": true
         },
         "percentage": false,
-        "pluginVersion": "8.3.0",
+        "pluginVersion": "8.0.7",
         "pointradius": 2,
         "points": false,
         "renderer": "flot",
@@ -732,7 +742,9 @@
           }
         ],
         "thresholds": [],
+        "timeFrom": null,
         "timeRegions": [],
+        "timeShift": null,
         "title": "Process working set",
         "tooltip": {
           "shared": true,
@@ -741,7 +753,9 @@
         },
         "type": "graph",
         "xaxis": {
+          "buckets": null,
           "mode": "time",
+          "name": null,
           "show": true,
           "values": []
         },
@@ -766,7 +780,7 @@
       }
     ],
     "refresh": false,
-    "schemaVersion": 33,
+    "schemaVersion": 30,
     "style": "dark",
     "tags": [
       "prometheus-net",
@@ -786,7 +800,10 @@
             "text": "1m",
             "value": "1m"
           },
+          "description": null,
+          "error": null,
           "hide": 0,
+          "label": null,
           "name": "interval",
           "options": [
             {
@@ -851,6 +868,7 @@
           "type": "interval"
         },
         {
+          "allValue": null,
           "current": {
             "selected": false,
             "text": "All",
@@ -861,6 +879,8 @@
             "uid": "PBFA97CFB590B2093"
           },
           "definition": "label_values(http_requests_received_total, instance)",
+          "description": null,
+          "error": {},
           "hide": 0,
           "includeAll": true,
           "label": "instances",
@@ -914,6 +934,5 @@
     "timezone": "",
     "title": "prometheus-net",
     "uid": "zyAf4i4Zz",
-    "version": 2,
-    "weekStart": ""
+    "version": 1
   }
