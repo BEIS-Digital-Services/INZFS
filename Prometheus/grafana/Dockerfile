@@ -4,8 +4,8 @@ ADD provisioning/datasources/prometheus_ds.yml /etc/grafana/provisioning/datasou
 ADD provisioning/dashboard-provider.yml /etc/grafana/provisioning/dashboards/
 ADD provisioning/dashboards/ /var/lib/grafana/dashboards/
 ADD provisioning/init.sh .
-RUN ls -l init.sh
 USER root
 RUN chmod +x init.sh
-RUN ls -l init.sh
+RUN sudo apt install curl
+RUN curl --version
 RUN ./init.sh
