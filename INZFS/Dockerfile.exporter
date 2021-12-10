@@ -13,6 +13,11 @@ COPY . .
 WORKDIR "/src/"
 RUN dotnet build "INZFS/INZFS.Web.csproj" -c Release -o /app/build
 
+# perf counter exporter
+FROM dockersamples/aspnet-monitoring-exporter:4.7.2 AS exporter
+
+
+
 ENV EXPORTER_ROOT=/aspnet-exporter
 WORKDIR ${EXPORTER_ROOT}
 COPY --from=dockersamples/aspnet-monitoring-exporter:4.7.2 \aspnet-exporter .
