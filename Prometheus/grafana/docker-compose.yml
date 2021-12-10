@@ -15,5 +15,5 @@ services:
     restart: always
     volumes:
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/dashboards
       - grafana_data:/var/lib/grafana
-
