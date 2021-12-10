@@ -6,6 +6,6 @@ ADD provisioning/dashboards/ /var/lib/grafana/dashboards/
 ADD provisioning/init.sh .
 USER root
 RUN chmod +x init.sh
-RUN apt install curl
+RUN apk add --update curl
 RUN curl --version
 RUN ./init.sh
