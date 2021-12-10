@@ -10,7 +10,7 @@ curl \
  -XPOST \
  -H "Content-Type: application/json" \
  -d '{ "name":"viewer", "email":"viewer@org.com", "login":"viewer",  "password":"readonly" }' \
- http://admin:admin@https://inzfs-prom-grafana.london.cloudapps.digital/api/admin/users 
+ http://admin:admin@localhost:3000/api/admin/users 
 
 curl \
  -X PUT \
