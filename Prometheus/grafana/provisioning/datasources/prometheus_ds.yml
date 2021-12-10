@@ -15,7 +15,7 @@ datasources:
   # <string> url
   url: https://inzfs-prom.london.cloudapps.digital
   editable: true                        # whether it should be editable
-  is_default: true                      # whether this should be the default DS
+  isDefault: true                      # whether this should be the default DS
 
 - name: InfluxDB
   type: influxdb
