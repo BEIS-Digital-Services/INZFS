@@ -6,6 +6,6 @@ ADD provisioning/dashboards/ /var/lib/grafana/dashboards/
 ADD provisioning/init.sh .
 RUN ls -l init.sh
 USER root
-RUN chmod +x /init.sh
+RUN chmod +x init.sh
 RUN ls -l init.sh
 RUN ./init.sh
