@@ -25,23 +25,12 @@ namespace INZFS.MVC.Controllers
     [Authorize]
     public class ReportController : Controller
     {
-        private readonly IReportService _reportService;
-        private IWebHostEnvironment _env;
-        private string _logoFilepath;
-        private readonly IContentRepository _contentRepository;
-        private readonly IMediaFileStore _mediaFileStore;
-        private readonly IConfiguration _configuration;
         private readonly IZipService _zipService;
 
-        public ReportController(IReportService reportService, IZipService zipService,IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
+        public ReportController (IZipService zipService)
         {
-            _reportService = reportService;
             _zipService = zipService;
-            _env = env;
-            _logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
-            _contentRepository = contentRepository;
-            _mediaFileStore = mediaFileStore;
-            _configuration = configuration;
+
         }
 
         public async Task<FileContentResult> DownloadApplication(string filetype)
