@@ -1,23 +1,14 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Diagnostics;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OrchardCore.Media;
-using OrchardCore.FileStorage;
 using System.IO;
 using System.IO.Compression;
-using Microsoft.AspNetCore.Mvc;
 using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Storage.Blobs;
 using System.Text.Json;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Mvc.Controllers;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -67,8 +58,6 @@ namespace INZFS.MVC.Services.Zip
                 {
                     var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
                     using (var zipStream = applicationForm.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
-
-                    string env = _env.EnvironmentName;
 
                     foreach (var file in uploadedFiles)
                     {

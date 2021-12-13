@@ -1,24 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using INZFS.MVC.Services.PdfServices;
 using INZFS.MVC.Services.Zip;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using System.IO.Compression;
-using INZFS.MVC.Services;
-using System.Text.Json;
-using OrchardCore.Media;
-using OrchardCore.FileStorage;
-using Microsoft.Extensions.Configuration;
-using Azure.Storage.Blobs;
 
 namespace INZFS.MVC.Controllers
 {
@@ -30,7 +14,6 @@ namespace INZFS.MVC.Controllers
         public ReportController (IZipService zipService)
         {
             _zipService = zipService;
-
         }
 
         public async Task<FileContentResult> DownloadApplication(string filetype)
