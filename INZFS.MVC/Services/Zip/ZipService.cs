@@ -70,27 +70,28 @@ namespace INZFS.MVC.Services.Zip
 
                     string env = _env.EnvironmentName;
 
-                    //foreach (var file in uploadedFiles)
-                    //{
-                    //    BinaryData binaryData = await GetFileFromBlobStorage(file);
-                    //    var stream = binaryData.ToStream();
-
-                    //    byte[] bytes;
-                    //    using (var streamReader = new MemoryStream())
-                    //    {
-                    //        stream.CopyTo(streamReader);
-                    //        bytes = streamReader.ToArray();
-                    //    }
-
-                    //    var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
-                    //    using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
-                    //}
-
-                    foreach(var file in uploadedFiles)
+                    foreach (var file in uploadedFiles)
                     {
-                        string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
-                        var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
+                        BinaryData binaryData = await GetFileFromBlobStorage(file);
+                        var stream = binaryData.ToStream();
+
+                        byte[] bytes;
+                        using (var streamReader = new MemoryStream())
+                        {
+                            stream.CopyTo(streamReader);
+                            bytes = streamReader.ToArray();
+                        }
+
+                        var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
+                        using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
+
+                    //LOCAL DEVELOPMENT WORKAROUND
+                    //foreach(var file in uploadedFiles)
+                    //{
+                    //    string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
+                    //    var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
+                    //}
                 }
 
                 return ms.ToArray();
