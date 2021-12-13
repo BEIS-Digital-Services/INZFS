@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using INZFS.MVC.Services.PdfServices;
+using INZFS.MVC.Services.Zip;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using Microsoft.AspNetCore.Authorization;
@@ -30,10 +31,12 @@ namespace INZFS.MVC.Controllers
         private readonly IContentRepository _contentRepository;
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IConfiguration _configuration;
+        private readonly IZipService _zipService;
 
-        public ReportController(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
+        public ReportController(IReportService reportService, IZipService zipService,IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
         {
             _reportService = reportService;
+            _zipService = zipService;
             _env = env;
             _logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
             _contentRepository = contentRepository;
@@ -43,52 +46,10 @@ namespace INZFS.MVC.Controllers
 
         public async Task<FileContentResult> DownloadApplication(string filetype)
         {
-            ReportContent reportContent;
+            var bytes = await _zipService.GetZipFileBytes(filetype, GetUserId());
+            var applicationNumber = _zipService.GetApplicationId(GetUserId());
 
-            switch(filetype)
-            {
-                case "odt":
-                    reportContent = await GetOdtContent();
-                    break;
-                case "pdf":
-                    reportContent = await GetPdfContent();
-                    break;
-                default:
-                    reportContent = await GetPdfContent();
-                    filetype = "pdf";
-                    break;
-            }
-
-            List<UploadedFile> uploadedFiles = await GetApplicationFiles();
-
-            using (MemoryStream ms = new())
-            {
-                using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
-                {
-                    var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
-                    using (var zipStream = applicationForm.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
-
-                    string env = _env.EnvironmentName;
-
-                    foreach(var file in uploadedFiles)
-                    {
-                        BinaryData binaryData = await GetFileFromBlobStorage(file);
-                        var stream = binaryData.ToStream();
-
-                        byte[] bytes;
-                        using (var streamReader = new MemoryStream())
-                        {
-                            stream.CopyTo(streamReader);
-                            bytes = streamReader.ToArray();
-                        }
-
-                        var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
-                        using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
-                    }
-                }
-
-                return File(ms.ToArray(), "application/zip", $"{reportContent.ApplicationNumber}.zip");
-            }
+            return File(bytes, "application/zip", $"{applicationNumber}.zip");
         }
 
         public async Task<FileContentResult> DownloadPdf()
