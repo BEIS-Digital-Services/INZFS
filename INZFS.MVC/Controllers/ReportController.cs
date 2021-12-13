@@ -36,7 +36,7 @@ namespace INZFS.MVC.Controllers
         public async Task<FileContentResult> DownloadApplication(string filetype)
         {
             var bytes = await _zipService.GetZipFileBytes(filetype, GetUserId());
-            var applicationNumber = _zipService.GetApplicationId(GetUserId());
+            var applicationNumber = await _zipService.GetApplicationId(GetUserId());
 
             return File(bytes, "application/zip", $"{applicationNumber}.zip");
         }
