@@ -52,69 +52,6 @@ namespace INZFS.MVC.Controllers
             return File(bytes, "application/zip", $"{applicationNumber}.zip");
         }
 
-        public async Task<FileContentResult> DownloadPdf()
-        {
-            var reportContent = await GetPdfContent();
-            string type = "application/pdf";
-            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
-
-            return File(reportContent.FileContents, type, name);
-        }
-
-        public async Task<FileContentResult> DownloadOdt()
-        {
-            var reportContent = await GetOdtContent();
-            string type = "application/vnd.oasis.opendocument.text";
-            string name = $"Application Form {reportContent.ApplicationNumber}.odt";
-
-            return File(reportContent.FileContents, type, name);
-        }
-
-        private async Task<BinaryData> GetFileFromBlobStorage(UploadedFile file)
-        {
-            try
-            {
-                string connectionString = _configuration["AzureBlobStorage"];
-                string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
-                string blobName = file.FileLocation.Replace("/media", "EEF");
-
-                var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
-                return blob.Content;
-            }
-            catch (Exception e)
-            {
-                Console.Error.WriteLine($"Error getting file {file.Name} from Blob Storage: " + e.Message);
-                return null;
-            }
-        }
-
-        private async Task<ReportContent> GetPdfContent()
-        {
-            var reportContent = await _reportService.GeneratePdfReport(GetUserId(), _logoFilepath);
-            return reportContent;
-        }
-
-        private async Task<ReportContent> GetOdtContent()
-        {
-            var reportContent = await _reportService.GenerateOdtReport(GetUserId(), _logoFilepath);
-            return reportContent;
-        }
-
-        private async Task<List<UploadedFile>> GetApplicationFiles()
-        {
-            var uploadedFiles = new List<UploadedFile>();
-
-            var applicationContent = await _contentRepository.GetApplicationContent(GetUserId());
-            var uploadedFileFields = applicationContent.Fields.FindAll(field => field.AdditionalInformation != null);
-
-            foreach(var field in uploadedFileFields)
-            {
-                UploadedFile file = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
-                uploadedFiles.Add(file);
-            }
-            return uploadedFiles;
-        }
-
         private string GetUserId()
         {
             return User.FindFirstValue(ClaimTypes.NameIdentifier);
