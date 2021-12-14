@@ -22,6 +22,7 @@ using Microsoft.Extensions.Logging;
 using INZFS.MVC.Models.DynamicForm;
 using INZFS.MVC.Services.FileUpload;
 using INZFS.MVC.Services.VirusScan;
+using INZFS.MVC.Services.Zip;
 using System.Text.Json;
 using ClosedXML.Excel;
 using OrchardCore.FileStorage;
@@ -40,6 +41,7 @@ using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
 using Ganss.XSS;
+using System.IO.Compression;
 
 namespace INZFS.MVC.Controllers
 {
@@ -54,6 +56,7 @@ namespace INZFS.MVC.Controllers
         private readonly IApplicationEmailService _applicationEmailService;
         private readonly ApplicationOption _applicationOption;
         private readonly IReportService _reportService;
+        private readonly IZipService _zipService;
         private readonly IWebHostEnvironment _env;
         private HtmlSanitizer _sanitizer;
         
@@ -67,6 +70,7 @@ namespace INZFS.MVC.Controllers
             IApplicationEmailService applicationEmailService,
             IOptions<ApplicationOption> applicationOption,
             IReportService reportService,
+            IZipService zipService,
             IWebHostEnvironment env)
         {
             _mediaFileStore = mediaFileStore;
@@ -77,6 +81,7 @@ namespace INZFS.MVC.Controllers
             _applicationEmailService = applicationEmailService;
             _applicationOption = applicationOption.Value;
             _reportService = reportService;
+            _zipService = zipService;
             _env = env;
 
             _sanitizer = new HtmlSanitizer();
@@ -538,14 +543,14 @@ namespace INZFS.MVC.Controllers
             if(applicationOverviewContentModel.TotalSections == applicationOverviewContentModel.TotalSectionsCompleted 
                                     && DateTime.UtcNow <= _applicationOption.EndDate)
             {
-                bool applicationUploadSuccess = await AddApplicationToBlobStorage();
-                bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
+                //bool applicationUploadSuccess = await AddApplicationToBlobStorage();
+                //bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
 
-                if(!applicationUploadSuccess || !jsonUploadSuccess)
-                {
-                    TempData[TempDataKeys.ApplicationOverviewError] = true;
-                    return RedirectToAction("section", new { pagename = "application-overview" });
-                }
+                //if(!applicationUploadSuccess || !jsonUploadSuccess)
+                //{
+                //    TempData[TempDataKeys.ApplicationOverviewError] = true;
+                //    return RedirectToAction("section", new { pagename = "application-overview" });
+                //}
 
                 TempData.Remove(TempDataKeys.ApplicationOverviewError);
                 var model = new CommonModel
@@ -563,7 +568,26 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        public async Task<bool> GenerateApplicationSummaryJson() 
+        public async Task<FileContentResult> AddApplicationZipToBlobStorage()
+        {
+            byte[] zipBytes = await _zipService.GetZipFileBytes("pdf", GetUserId());
+
+            byte[] jsonFileBytes = await GenerateApplicationSummaryJson();
+
+            using (MemoryStream zipStream = new())
+            {
+                zipStream.Write(zipBytes, 0, zipBytes.Length);
+
+                using (var archive = new ZipArchive(zipStream, ZipArchiveMode.Update, true))
+                {
+                    var jsonArchiveEntry = archive.CreateEntry($"{GetUserId()}.json", CompressionLevel.Fastest);
+                    using (var jsonStream = jsonArchiveEntry.Open()) jsonStream.Write(jsonFileBytes, 0, jsonFileBytes.Length);
+                }
+                return File(zipStream.ToArray(), "application/zip", "Test.zip");
+            }
+        }
+
+        public async Task<byte[]> GenerateApplicationSummaryJson() 
         {
             var content = _contentRepository.GetApplicationContent(GetUserId());
             string name = $"{GetUserId()}.json";
@@ -572,11 +596,12 @@ namespace INZFS.MVC.Controllers
            
 
             MemoryStream ms = new(encoded);
-            FormFile file = new(ms, 0, encoded.Length, name, name);
+            return ms.ToArray();
+            //FormFile file = new(ms, 0, encoded.Length, name, name);
 
-            var url = await AddFileToBlobStorage(file);
+            //var url = await AddFileToBlobStorage(file);
 
-            return url != null ? true : false;
+            //return url != null ? true : false;
         }
 
         public async Task<bool> AddApplicationToBlobStorage()

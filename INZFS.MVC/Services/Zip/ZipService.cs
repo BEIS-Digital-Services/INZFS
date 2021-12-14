@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Storage.Blobs;
 using System.Text.Json;
+using OrchardCore.FileStorage;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -59,28 +60,28 @@ namespace INZFS.MVC.Services.Zip
                     var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
                     using (var zipStream = applicationForm.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
 
-                    foreach (var file in uploadedFiles)
-                    {
-                        BinaryData binaryData = await GetFileFromBlobStorage(file);
-                        var stream = binaryData.ToStream();
+                    //foreach (var file in uploadedFiles)
+                    //{
+                    //    BinaryData binaryData = await GetFileFromBlobStorage(file);
+                    //    var stream = binaryData.ToStream();
 
-                        byte[] bytes;
-                        using (var streamReader = new MemoryStream())
-                        {
-                            stream.CopyTo(streamReader);
-                            bytes = streamReader.ToArray();
-                        }
+                    //    byte[] bytes;
+                    //    using (var streamReader = new MemoryStream())
+                    //    {
+                    //        stream.CopyTo(streamReader);
+                    //        bytes = streamReader.ToArray();
+                    //    }
 
-                        var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
-                        using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
-                    }
+                    //    var fileToArchive = archive.CreateEntry($"Uploaded Files/{file.Name}", CompressionLevel.Fastest);
+                    //    using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
+                    //}
 
                     //LOCAL DEVELOPMENT WORKAROUND
-                    //foreach(var file in uploadedFiles)
-                    //{
-                    //    string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
-                    //    var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
-                    //}
+                    foreach (var file in uploadedFiles)
+                    {
+                        string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
+                        var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
+                    }
                 }
 
                 return ms.ToArray();
