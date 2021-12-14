@@ -67,18 +67,18 @@ namespace INZFS
                 app.UseHsts();
             }
             app.UseMiddleware<SecurityHeaderMiddleware>();
-            app.UseSession();
+            //app.UseSession();
             app.UseCookiePolicy(new CookiePolicyOptions
             {
                 HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
                 MinimumSameSitePolicy = SameSiteMode.Strict,
                 Secure = CookieSecurePolicy.Always
             });
-            app.UseVcapSession();
+            //app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseMetricServer();
-            app.UseHttpMetrics();
+            //app.UseMetricServer();
+            //app.UseHttpMetrics();
             app.UseSerilogRequestLogging();
             app.UseHttpsRedirection();
             app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
