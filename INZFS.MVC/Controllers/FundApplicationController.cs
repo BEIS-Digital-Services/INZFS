@@ -397,6 +397,7 @@ namespace INZFS.MVC.Controllers
                             if(submitAction == "DeleteFile")
                             {
                                 additionalInformation = null;
+                                model.UploadedFile = null;
                             }
 
                         }
