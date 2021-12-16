@@ -91,9 +91,10 @@ namespace INZFS.MVC.Services.Zip
         {
             try
             {
-                string connectionString = _configuration["AzureBlobStorage"];
+                string connectionString = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ConnectionString");
                 string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
-                string blobName = file.FileLocation.Replace("/media", "EEF");
+                string basePath = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__BasePath");
+                string blobName = file.FileLocation.Replace("/media", basePath);
 
                 var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
                 return blob.Content;
