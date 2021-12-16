@@ -134,7 +134,7 @@ namespace INZFS.MVC.Services.Zip
 
         public async Task<string> GetApplicationId(string userId)
         {
-            var applicationContent = await _contentRepository.GetApplicationContent(_userId);
+            var applicationContent = await _contentRepository.GetApplicationContent(userId);
             return applicationContent.ApplicationNumber;
         }
     }
