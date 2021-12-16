@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Storage.Blobs;
 using System.Text.Json;
+using OrchardCore.FileStorage;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -75,8 +76,8 @@ namespace INZFS.MVC.Services.Zip
                         using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
 
-                    //LOCAL DEVELOPMENT WORKAROUND
-                    //foreach(var file in uploadedFiles)
+                    //LOCAL DEVELOPMENT WORKAROUND comment out above foreach loop and uncomment the below
+                    //foreach (var file in uploadedFiles)
                     //{
                     //    string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
                     //    var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
