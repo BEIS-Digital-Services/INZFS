@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Storage.Blobs;
 using System.Text.Json;
+using OrchardCore.FileStorage;
+using Microsoft.Extensions.Logging;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -21,6 +23,7 @@ namespace INZFS.MVC.Services.Zip
         private readonly IMediaFileStore _mediaFileStore;
         private readonly IConfiguration _configuration;
         private string _userId;
+        private readonly ILogger<ZipService> _logger;
 
         public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
         {
@@ -75,8 +78,8 @@ namespace INZFS.MVC.Services.Zip
                         using (var zipStream = fileToArchive.Open()) zipStream.Write(bytes, 0, bytes.Length);
                     }
 
-                    //LOCAL DEVELOPMENT WORKAROUND
-                    //foreach(var file in uploadedFiles)
+                    //LOCAL DEVELOPMENT WORKAROUND comment out above foreach loop and uncomment the below
+                    //foreach (var file in uploadedFiles)
                     //{
                     //    string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
                     //    var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
@@ -89,19 +92,19 @@ namespace INZFS.MVC.Services.Zip
 
         private async Task<BinaryData> GetFileFromBlobStorage(UploadedFile file)
         {
+            string connectionString = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ConnectionString");
+            string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
+            string basePath = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__BasePath");
+            string blobName = file.FileLocation.Replace("/media", basePath);
+
             try
             {
-                string connectionString = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ConnectionString");
-                string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
-                string basePath = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__BasePath");
-                string blobName = file.FileLocation.Replace("/media", basePath);
-
                 var blob = new BlobClient(connectionString, containerName, blobName).DownloadContent().Value;
                 return blob.Content;
             }
             catch (Exception e)
             {
-                Console.Error.WriteLine($"Error getting file {file.Name} from Blob Storage: " + e.Message);
+                _logger.LogError(e, $"Failed to get file.Name {file.Name} from Blob Storage using connectionString {connectionString}, containerName {containerName}, basePath {basePath} and blobName {blobName}, using File.Location {file.FileLocation}");
                 return null;
             }
         }
