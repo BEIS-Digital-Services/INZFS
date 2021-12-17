@@ -66,6 +66,10 @@ namespace INZFS.MVC.Services.Zip
                     foreach (var file in uploadedFiles)
                     {
                         BinaryData binaryData = await GetFileFromBlobStorage(file);
+                        if (binaryData == null)
+                        {
+                            continue;
+                        }
                         var stream = binaryData.ToStream();
 
                         byte[] bytes;
