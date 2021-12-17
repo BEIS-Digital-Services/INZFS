@@ -25,7 +25,7 @@ namespace INZFS.MVC.Services.Zip
         private string _userId;
         private readonly ILogger<ZipService> _logger;
 
-        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration)
+        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger,)
         {
             _reportService = reportService;
             _env = env;
@@ -33,6 +33,7 @@ namespace INZFS.MVC.Services.Zip
             _contentRepository = contentRepository;
             _mediaFileStore = mediaFileStore;
             _configuration = configuration;
+            _logger = logger;
         }
         public async Task<byte[]> GetZipFileBytes(string filetype, string userId)
         {
