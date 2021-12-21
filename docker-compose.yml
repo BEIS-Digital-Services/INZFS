@@ -1,12 +1,12 @@
 version: '3.5'
 services:
   inzfs:
-    image: ${DOCKER_REGISTRY-}inzfs
+    image: ${DOCKER_REGISTRY-}trigsy1/inzfs
     build:
       context: ./
       dockerfile: ./INZFS/Dockerfile
   webapplication-tests:
-    image: ${DOCKER_REGISTRY-}webapplication-tests
+    image: ${DOCKER_REGISTRY-}trigsy1/webapplication-tests
     build:
       context: ./
       dockerfile: ./INZFS/Dockerfile   
