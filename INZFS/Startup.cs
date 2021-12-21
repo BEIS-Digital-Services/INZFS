@@ -74,7 +74,7 @@ namespace INZFS
                 MinimumSameSitePolicy = SameSiteMode.Strict,
                 Secure = CookieSecurePolicy.Always
             });
-            app.UseVcapSession();
+            //app.UseVcapSession();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseMetricServer();
