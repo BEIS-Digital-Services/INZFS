@@ -25,7 +25,7 @@ namespace INZFS.MVC.Services.Zip
         private string _userId;
         private readonly ILogger<ZipService> _logger;
 
-        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger,)
+        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger)
         {
             _reportService = reportService;
             _env = env;
@@ -109,7 +109,7 @@ namespace INZFS.MVC.Services.Zip
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Failed to get file.Name {file.Name} from Blob Storage using connectionString {connectionString}, containerName {containerName}, basePath {basePath} and blobName {blobName}, using File.Location {file.FileLocation}");
+                _logger.LogError(e.Message, $"Failed to get file.Name {file.Name} from Blob Storage using connectionString {connectionString}, containerName {containerName}, basePath {basePath} and blobName {blobName}, using File.Location {file.FileLocation}");
                 return null;
             }
         }
