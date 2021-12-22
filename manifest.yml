@@ -32,3 +32,4 @@ applications:
     OrchardCore__OrchardCore_Media_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
     CloudMersiveApiKey: $(CloudMersiveApiKey)
+    CF_DOCKER_PASSWORD: $(CF_DOCKER_PASSWORD)
