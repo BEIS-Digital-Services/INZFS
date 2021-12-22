@@ -135,8 +135,15 @@ namespace INZFS.MVC.Services.Zip
 
             foreach (var field in uploadedFileFields)
             {
-                UploadedFile file = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
-                uploadedFiles.Add(file);
+                try
+                {
+                    UploadedFile file = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
+                    uploadedFiles.Add(file);
+                }
+                catch(Exception e)
+                {
+                    continue;
+                }
             }
             return uploadedFiles;
         }
