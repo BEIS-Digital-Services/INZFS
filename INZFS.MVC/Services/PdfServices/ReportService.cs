@@ -213,9 +213,14 @@ namespace INZFS.MVC.Services.PdfServices
                 {
                     String questionHtml;
 
+                    if(page.Name == "subsidy-requirements")
+                    {
+                        continue;
+                    }
+
                     switch (page.FieldType)
                     {
-                        case FieldType.gdsFileUpload:
+                        case FieldType.gdsFileUpload: 
                             if (page.Name == "project-cost-breakdown")
                             {
                                 questionHtml = $@"
