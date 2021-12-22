@@ -109,7 +109,7 @@ namespace INZFS.MVC.Services.Zip
             }
             catch (Exception e)
             {
-                _logger.LogError(e, $"Failed to get file.Name {file.Name} from Blob Storage using connectionString {connectionString}, containerName {containerName}, basePath {basePath} and blobName {blobName}, using File.Location {file.FileLocation}");
+                _logger.LogError(e.Message, $"Failed to get file.Name {file.Name} from Blob Storage using connectionString {connectionString}, containerName {containerName}, basePath {basePath} and blobName {blobName}, using File.Location {file.FileLocation}");
                 return null;
             }
         }
