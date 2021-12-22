@@ -25,7 +25,7 @@ namespace INZFS.MVC.Services.Zip
         private string _userId;
         private readonly ILogger<ZipService> _logger;
 
-        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger,)
+        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger)
         {
             _reportService = reportService;
             _env = env;
