@@ -2,8 +2,74 @@
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "storageAccounts_eefblobstaging_name": {
-            "value": null
+        "location": {
+            "value": "uksouth"
+        },
+        "storageAccountName": {
+            "value": "eefblobstaging"
+        },
+        "accountType": {
+            "value": "Standard_RAGRS"
+        },
+        "kind": {
+            "value": "StorageV2"
+        },
+        "accessTier": {
+            "value": "Hot"
+        },
+        "minimumTlsVersion": {
+            "value": "TLS1_2"
+        },
+        "supportsHttpsTrafficOnly": {
+            "value": true
+        },
+        "allowBlobPublicAccess": {
+            "value": true
+        },
+        "allowSharedKeyAccess": {
+            "value": true
+        },
+        "allowCrossTenantReplication": {
+            "value": true
+        },
+        "defaultOAuth": {
+            "value": false
+        },
+        "networkAclsBypass": {
+            "value": "AzureServices"
+        },
+        "networkAclsDefaultAction": {
+            "value": "Deny"
+        },
+        "isContainerRestoreEnabled": {
+            "value": true
+        },
+        "containerRestorePeriodDays": {
+            "value": 6
+        },
+        "isBlobSoftDeleteEnabled": {
+            "value": true
+        },
+        "blobSoftDeleteRetentionDays": {
+            "value": 7
+        },
+        "isContainerSoftDeleteEnabled": {
+            "value": true
+        },
+        "containerSoftDeleteRetentionDays": {
+            "value": 7
+        },
+        "changeFeed": {
+            "value": true
+        },
+        "isVersioningEnabled": {
+            "value": true
+        },
+        "isShareSoftDeleteEnabled": {
+            "value": true
+        },
+        "shareSoftDeleteRetentionDays": {
+            "value": 7
         }
     }
 }
