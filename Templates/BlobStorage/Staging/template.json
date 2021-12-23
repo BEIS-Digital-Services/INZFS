@@ -77,7 +77,7 @@
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2021-06-01",
-            "name": "[parameters('storageAccounts_eefblobstaging_name')]",
+            "name": "[parameters('storageAccountName')]",
             "location": "uksouth",
             "sku": {
                 "name": "Standard_RAGRS",
@@ -139,9 +139,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/blobServices",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('storageAccounts_eefblobstaging_name'), '/default')]",
+            "name": "[concat(parameters('storageAccountName'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblobstaging_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
             ],
             "sku": {
                 "name": "Standard_RAGRS",
@@ -171,9 +171,9 @@
         {
             "type": "Microsoft.Storage/storageAccounts/fileServices",
             "apiVersion": "2021-06-01",
-            "name": "[concat(parameters('storageAccounts_eefblobstaging_name'), '/default')]",
+            "name": "[concat(parameters('storageAccountName'), '/default')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_eefblobstaging_name'))]"
+                "[resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccountName'))]"
             ],
             "sku": {
                 "name": "Standard_RAGRS",
