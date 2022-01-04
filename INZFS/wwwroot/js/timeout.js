@@ -1251,9 +1251,9 @@ TimeoutWarning.prototype.countIdleTime = function () {
     // Set last interactive time on server by periodically ping server
     // with AJAX when user interacts with client side
     // See setLastActiveTimeOnServer()
-    if (window.localStorage) {
-      window.localStorage.setItem('timeUserLastInteractedWithPage', new Date());
-    }
+    //if (window.localStorage) {
+    //  window.localStorage.setItem('timeUserLastInteractedWithPage', new Date());
+    //}
   }
 };
 
@@ -1450,24 +1450,27 @@ TimeoutWarning.prototype.escClose = function (event) {
 // Do a timestamp comparison with server when the page regains focus to check
 // if the user should have been timed out already.
 // This could happen but because the computer went to sleep, the browser crashed etc.
-TimeoutWarning.prototype.checkIfShouldHaveTimedOut = function () {
-  if (window.localStorage) {
-    // TO DO - client/server interaction
-    // GET last interactive time from server before timing out user
-    // to ensure that user hasn’t interacted with site in another tab
+    TimeoutWarning.prototype.checkIfShouldHaveTimedOut = function () {
+        //this.redirect.bind(this);
+        //  if (window.localStorage) {
 
-    // If less time than data-minutes-idle-timeout left, call this.openDialog.bind(this)
-    var timeUserLastInteractedWithPage = new Date(window.localStorage.getItem('timeUserLastInteractedWithPage'));
+        //  // TO DO - client/server interaction
+        //  // GET last interactive time from server before timing out user
+        //  // to ensure that user hasn’t interacted with site in another tab
 
-    var seconds = Math.abs((timeUserLastInteractedWithPage - new Date()) / 1000);
+        //  // If less time than data-minutes-idle-timeout left, call this.openDialog.bind(this)
+        //  var timeUserLastInteractedWithPage = new Date(window.localStorage.getItem('timeUserLastInteractedWithPage'));
 
-    // TO DO: use both idlemin and timemodalvisible
-    if (seconds > this.idleMinutesBeforeTimeOut * 60) {
-      // if (seconds > 60) {
-      this.redirect.bind(this);
-    }
-  }
-};
+        //  var seconds = Math.abs((timeUserLastInteractedWithPage - new Date()) / 1000);
+
+        //  // TO DO: use both idlemin and timemodalvisible
+        //  if (seconds > this.idleMinutesBeforeTimeOut * 60) {
+        //    // if (seconds > 60) {
+        //    this.redirect.bind(this);
+        //  }
+        //}
+    };
+
 TimeoutWarning.prototype.redirect = function () {
   window.location.replace(this.timeOutRedirectUrl);
 };
