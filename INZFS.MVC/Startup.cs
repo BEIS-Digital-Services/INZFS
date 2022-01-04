@@ -119,7 +119,7 @@ namespace INZFS.MVC
 
             services.Configure<ApplicationOption>(Configuration.GetSection("Application"));
             services.Configure<GoogleAnalyticsOptions>(options => Configuration.GetSection("GoogleAnalytics").Bind(options));
-            services.AddTransient<ITagHelperComponent, GoogleAnalyticsTagHelperComponent>();
+            
             RegisterCustomValidators(services);
             services.AddHttpContextAccessor();
         }
