@@ -140,7 +140,7 @@ namespace INZFS.MVC.Services.Zip
                     UploadedFile file = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     uploadedFiles.Add(file);
                 }
-                catch(Exception e)
+                catch(JsonException e)
                 {
                     continue;
                 }
