@@ -2,8 +2,8 @@
 
 
 <!-- Start: modal window -->
-<dialog class="govuk-timeout-warning dialog" data-module="govuk-timeout-warning" id="js-timeout-warning" data-minutes-idle-timeout="0.2"
-        data-minutes-modal-visible="0.1" data-url-redirect="@Url.Action("TimeOut", "Account" , new {area="INZFS.Theme" })" role="dialog" aria-live="polite" aria-labelledby="dialog-title" aria-describedby="at-timer">
+<dialog class="govuk-timeout-warning dialog" data-module="govuk-timeout-warning" id="js-timeout-warning" data-minutes-idle-timeout="@(timeOptions?.Value.WarningStart ?? 20)"
+        data-minutes-modal-visible="@(timeOptions?.Value.WarningDuration ?? 10)" data-url-redirect="@Url.Action("TimeOut", "Account" , new {area="INZFS.Theme" })" aria-live="polite" aria-labelledby="dialog-title" aria-describedby="at-timer">
     <h1 id="dialog-title" class="govuk-heading-l">Your application will time out soon</h1>
     <div class="govuk-body">
         <div class="timer" aria-hidden="true" aria-relevant="additions"></div>

@@ -24,21 +24,17 @@
 
 
 
-        <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="complete">
-            <button class="govuk-button" data-module="govuk-button">
+        <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="complete" class="govuk-button" data-module="govuk-button">
                 Accept and send application
-            </button>
         </a>
 
         <br>
 
-        <a asp-controller="Report" asp-action="DownloadPdf">
-            <button class="govuk-button govuk-button--secondary" data-module="govuk-button">
+        <a asp-controller="Report" asp-action="DownloadPdf" class="govuk-button govuk-button--secondary" data-module="govuk-button">
                 Download your application
-            </button>
         </a>
 
-        <p class="govuk-body-m"><a class="govuk-link" asp-controller="Report" asp-action="GenerateOdt">Download an accessible text version</a></p>
+        <p class="govuk-body-m"><a class="govuk-link" asp-controller="Report" asp-action="DownloadOdt">Download an accessible text version</a></p>
 
         <p class="govuk-body-s">
             <a asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section"

@@ -1,47 +1,39 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
-using INZFS.MVC.Services.PdfServices;
-using Microsoft.AspNetCore.Hosting;
-using System.IO;
+using INZFS.MVC.Services.Zip;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 
 namespace INZFS.MVC.Controllers
 {
     [Authorize]
     public class ReportController : Controller
     {
-        private readonly IReportService _reportService;
-        private IWebHostEnvironment _env;
-        public ReportController(IReportService reportService, IWebHostEnvironment env)
-        {
-            _reportService = reportService;
-            _env = env;
-        }
-        [HttpGet]
-        public async Task<FileContentResult> DownloadPdf()
-        {
-            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
-            var reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
-            string type = "application/pdf";
-            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+        private readonly IZipService _zipService;
+        private readonly ILogger _logger;
 
-            return File(reportContent.FileContents, type, name);
-        }
-        public async Task<FileContentResult> GenerateOdt()
+        public ReportController (IZipService zipService, ILogger<ReportController> logger)
         {
-            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
-            var reportContent = await _reportService.GenerateOdtReport(GetUserId(), logoFilepath);
-            string type = "application/vnd.oasis.opendocument.text";
-            string name = $"Application Form {reportContent.ApplicationNumber}.odt";
+            _zipService = zipService;
+            _logger = logger;
+        }
 
-            return File(reportContent.FileContents, type, name);
+        public async Task<FileContentResult> DownloadApplication(string filetype)
+        {
+            try
+            {
+                var bytes = await _zipService.GetZipFileBytes(filetype, GetUserId());
+                var applicationNumber = await _zipService.GetApplicationId(GetUserId());
+
+                return File(bytes, "application/zip", $"{applicationNumber}.zip");
+            }
+            catch(System.Exception e)
+            {
+                _logger.LogError(e.Message);
+                return null;
+            }
+
         }
 
         private string GetUserId()

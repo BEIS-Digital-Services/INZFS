@@ -3,6 +3,7 @@ using Azure.Storage.Blobs;
 using INZFS.MVC;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -210,18 +211,90 @@ namespace INZFS.MVC.Services.PdfServices
         {
             foreach (var page in section.Pages) if (!page.HideFromSummary)
                 {
-                    String questionHtml = $@"
-                <table { tableStyle }>
-                  <tr { questionTableStyle }>
-                    <th { questionHeaderStyle }>{ page.SectionTitle }</th>
-                  </tr>
-                  <tr>
-                    <td { answerCellStyle }>{ GetAnswer(page, applicationContent) }</td>
-                  </tr>
-                </table>
-                <div style=""min-height: 5mm;""></div>
-                ";
-                    html = html + questionHtml;
+                    String questionHtml;
+
+                    if(page.Name == "subsidy-requirements")
+                    {
+                        continue;
+                    }
+
+                    switch (page.FieldType)
+                    {
+                        case FieldType.gdsFileUpload: 
+                            if (page.Name == "project-cost-breakdown")
+                            {
+                                questionHtml = $@"
+                                    <table { tableStyle }>
+                                      <tr { questionTableStyle }>
+                                        <th { questionHeaderStyle }>{ page.SectionTitle }</th>
+                                      </tr>
+                                      <tr>
+                                        <td { answerCellStyle }>
+                                            <table>
+                                                <thead>
+                                                    <tr>
+                                                        <th>Project funding source</th>
+                                                        <th>Value</th>
+                                                        <th>Percentage of total value</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>Total BEIS grant applied for<td>
+                                                        <td>{applicationContent.TotalGrantFunding.ToString("C", new CultureInfo("en-GB"))}</td>
+                                                        <td>{((100 / applicationContent.TotalProjectCost * applicationContent.TotalGrantFunding) / 100).ToString("P", CultureInfo.InvariantCulture)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total match funding contribution<td>
+                                                        <td>{applicationContent.TotalMatchFunding.ToString("C", new CultureInfo("en-GB"))}</td>
+                                                        <td>{((100 / applicationContent.TotalProjectCost * applicationContent.TotalMatchFunding) / 100).ToString("P", CultureInfo.InvariantCulture)}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Total project cost<td>
+                                                        <td>{applicationContent.TotalProjectCost.ToString("C", new CultureInfo("en-GB"))}</td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <div style=""min-height: 5mm;""></div>
+                                    ";
+                                html = html + questionHtml;
+                            }
+                            else
+                            {
+                                questionHtml = $@"
+                                    <table { tableStyle }>
+                                      <tr { questionTableStyle }>
+                                        <th { questionHeaderStyle }>{ page.SectionTitle }</th>
+                                      </tr>
+                                      <tr>
+                                        <td { answerCellStyle }>{ GetAnswer(page, applicationContent) }</td>
+                                      </tr>
+                                    </table>
+                                    <div style=""min-height: 5mm;""></div>
+                                    ";
+                                html = html + questionHtml;
+                            }
+                            break;
+
+                        default:
+                             questionHtml = $@"
+                                <table { tableStyle }>
+                                  <tr { questionTableStyle }>
+                                    <th { questionHeaderStyle }>{ page.SectionTitle }</th>
+                                  </tr>
+                                  <tr>
+                                    <td { answerCellStyle }>{ GetAnswer(page, applicationContent) }</td>
+                                  </tr>
+                                </table>
+                                <div style=""min-height: 5mm;""></div>
+                                ";
+                             html = html + questionHtml;
+                             break;
+                    }
                 }
         }
 

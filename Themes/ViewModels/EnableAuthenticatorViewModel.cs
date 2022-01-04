@@ -128,7 +128,7 @@ namespace INZFS.Theme.ViewModels
     public class ValidationConstant
     {
         public const string PhoneRegex =
-            @"^(((\+44\s?\d{4}|\(?0\d{4}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\d{3}|\(?0\d{3}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?0\d{2}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$";
+            @"^(((\+44\s?\7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3})|((\+44\s?\7\d{2}|\(?07\d{2}\)?)\s?\d{3}\s?\d{4})|((\+44\s?\d{2}|\(?07\d{1}\)?)\s?\d{4}\s?\d{4}))(\s?\#(\d{4}|\d{3}))?$";
 
         public const string PhoneMessage =
             "Enter a telephone number, like 07700900982, 07700 900 982 or +44 7700 900 982";

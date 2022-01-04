@@ -17,8 +17,8 @@
                         <div class="govuk-radios govuk-radios">
                             @foreach (var item in Model.Methods)
                             {<div class="govuk-radios__item">
-                                 <input asp-for="AuthenticationMethod" type="radio" value="@(item.Method)" class="govuk-radios__input" />
-                                 <label class="govuk-label govuk-radios__label">
+                                 <input asp-for="AuthenticationMethod" type="radio" value="@(item.Method)" id="@(item.Method)" class="govuk-radios__input" />
+                                 <label for="@(item.Method)" class="govuk-label govuk-radios__label">
                                      @item.Title
                                  </label>
                              </div>
