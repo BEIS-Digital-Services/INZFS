@@ -45,7 +45,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Galebra.Security.Headers.Csp\Galebra.Security.Headers.Csp.csproj" />
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>

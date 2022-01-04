@@ -21,6 +21,8 @@
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="gem-c-layout-for-public govuk-template__body mainstream" data-other="report:details">
@@ -29,7 +31,7 @@
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-    <header class="govuk-header" role="banner">
+    <header class="govuk-header " role="banner" data-module="govuk-header">
         <div class="govuk-header__container govuk-width-container">
             <div class="govuk-header__logo">
                 <a href="#" class="govuk-header__link govuk-header__link--homepage">
@@ -120,6 +122,7 @@
                 else if (Model is CommonModel)
                 {
                     var backModel = (CommonModel)Model;
+
                     if (backModel.ShowBackLink)
                     {
                         <a href="@backModel.BackLinkUrl" class="govuk-back-link">@backModel.BackLinkText</a>
@@ -136,6 +139,7 @@
                     <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">
                         Your account
                     </a>
+
                 </p>
             </div>
         </div>
@@ -173,6 +177,7 @@
 
             </div>
         </main>
+
     </div>
 
     <footer class="govuk-footer " role="contentinfo">
@@ -219,9 +224,10 @@
     </footer>
 
     @await RenderSectionAsync("Scripts", required: false)
-    <resources type="FootScript" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
     <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
+
     <script src="~/assets/frontend/application.js"></script>
     <script src="~/assets/static/header-footer-only.js"></script>
 
