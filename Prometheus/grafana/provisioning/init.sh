@@ -16,4 +16,4 @@ curl \
  -X PUT \
  -H 'Content-Type: application/json' \
  -d '{ "homeDashboardId":4 }' \
- http://viewer:readonly@localhost:3000/api/user/preferences
+ http://viewer:$(viewer_password)@localhost:3000/api/user/preferences
