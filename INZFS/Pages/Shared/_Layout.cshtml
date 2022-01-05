@@ -221,9 +221,11 @@
     @await RenderSectionAsync("Scripts", required: false)
     <resources type="FootScript" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-    <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
     <script src="~/assets/frontend/application.js"></script>
     <script src="~/assets/static/header-footer-only.js"></script>
+    <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+    <script src="~/js/GovFrontendInit.js"></script>
+    <script src="~/js/EnableJs.js"></script>
 
     <partial name="_TimeoutJavascript" />
 </body>
