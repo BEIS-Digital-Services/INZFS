@@ -11,6 +11,8 @@ using Azure.Storage.Blobs;
 using System.Text.Json;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -137,6 +139,11 @@ namespace INZFS.MVC.Services.Zip
             {
                 try
                 {
+                    bool isValid = CheckJsonValidity(field.AdditionalInformation);
+                    if (!isValid)
+                    {
+                        continue;
+                    }
                     UploadedFile file = JsonSerializer.Deserialize<UploadedFile>(field.AdditionalInformation);
                     uploadedFiles.Add(file);
                 }
@@ -146,6 +153,19 @@ namespace INZFS.MVC.Services.Zip
                 }
             }
             return uploadedFiles;
+        }
+
+        public bool CheckJsonValidity(string jsonInput)
+        {
+            try
+            {
+                JToken.Parse(jsonInput);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public async Task<string> GetApplicationId(string userId)
