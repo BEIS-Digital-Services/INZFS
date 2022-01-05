@@ -9,7 +9,7 @@ sleep 10 &&
 curl \
  -XPOST \
  -H "Content-Type: application/json" \
- -d '{ "name":"viewer", "email":"viewer@org.com", "login":"viewer",  "password":"readonly" }' \
+ -d '{ "name":"viewer", "email":"viewer@org.com", "login":"viewer",  "password":"$(viewer_password)" }' \
  http://admin:admin@localhost:3000/api/admin/users 
 
 curl \
