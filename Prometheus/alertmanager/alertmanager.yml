@@ -6,7 +6,7 @@ global:
   smtp_smarthost: 'smtp.sendgrid.net:587'
   smtp_from: 'Alertmanager <alertmanager@beis.gov.uk>'
   smtp_auth_username: 'apikey'
-  smtp_auth_password: '$(smtp_api_key)'
+  smtp_auth_password: '$(SMTP_APIKEY)'
 
 receivers:
 # - name: 'zulip-notifications'
