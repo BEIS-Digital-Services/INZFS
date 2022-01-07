@@ -2,13 +2,11 @@ global:
   resolve_timeout: 1m
   pagerduty_url: https://events.eu.pagerduty.com/generic/2010-04-15/create_event.json
 
-route:
-  # group_by: ['app']
-# -  receiver: 'zulip-notifications'
-#    group_wait: 30s
-#    group_interval: 5m
-#    repeat_interval: 3h
- receiver: 'pagerduty-notifications'
+  # Sendgrid SMTP properties.
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'Alertmanager <alertmanager@beis.gov.uk>'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: '$(SMTP_APIKEY)'
 
 receivers:
 # - name: 'zulip-notifications'
@@ -20,3 +18,35 @@ receivers:
   pagerduty_configs:
   - service_key: $(pagerduty_servicekey)
     send_resolved: true
+    
+- name: mail
+  email_configs:
+  - to: "inzfs.alerts@beis.gov.uk"
+    headers:
+      Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
+    html: |
+      Greetings,
+      <p>
+      You have the following firing alerts:
+      <ul>
+      {{ range .Alerts }}
+      <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
+      <li>Labels:</li>
+      <li>{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}Annotations:</li>
+      <li>{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}---</li>
+      {{ end }}
+      </ul>
+      </p>
+      
+  route:
+    group_wait: 10s
+    group_interval: 5m
+    receiver: mail
+    repeat_interval: 10s
+    routes:
+    - match:
+        severity: Critical
+      repeat_interval: 1m
+      receiver: pagerduty-notifications

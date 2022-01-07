@@ -99,3 +99,75 @@ groups:
         annotations:
           summary: probe slow HTTP (instance {{ $labels.instance }})
           description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: LAB2 InstanceDown Critical!!
+        expr: up{env="lab2"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+
+      - alert: HostUnusualNetworkThroughputIn  LAB2
+        expr: (rate(http_request_duration_seconds_bucket{code="200",method="GET",controller="",action="",le="1.024",instance="inzfs-lab2.london.cloudapps.digital:443"}[5m])) > 1
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Host unusual network throughput in (instance {{ $labels.instance }})
+          description: "Host network interfaces are probably receiving too much data (> 100 MB/s)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostLowDiskSpace  LAB2
+        expr: disk_utilization{organisation="beis-netzero",app="inzfs-lab2"} > 60
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Host out low disk space (instance {{ $labels.instance }})
+          description: "Disk is 60%  full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: HostHighCpuLoad + 75%  LAB2
+        expr: cpu{organisation="beis-netzero",app="inzfs-lab2"}  > 75
+        for: 0m
+        labels:
+          severity: critical
+        annotations:
+          summary: Host high CPU load (instance {{ $labels.instance }})
+          description: "CPU load is > 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: MemoryUsage + 75%  LAB2
+        expr: sum(rate(memory_utilization{organisation="beis-netzero",app="inzfs-lab2"}[5m])) > 75
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Server memory Usage (instance {{ $labels.instance }})
+          description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: http response time slow 2xx  LAB2
+        expr: (rate(response_time_bucket{le="0.5",status_range="2xx",app="inzfs-lab2"}[5m])) > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary:  probe slow HTTP (instance {{ $labels.instance }})
+          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: Response Time Slow 2xx  LAB2
+        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx",app="inzfs-lab2"}[5m])))  > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: probe slow HTTP (instance {{ $labels.instance }})
+          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: Response Time Slow  Requests  LAB2
+        expr: (rate(response_time_bucket{organisation="beis-netzero",app="inzfs-lab2"}[5m])) > 1
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: probe slow HTTP (instance {{ $labels.instance }})
+          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
