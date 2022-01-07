@@ -47,6 +47,6 @@ receivers:
     repeat_interval: 10s
     routes:
     - match:
-        severity: High
+        severity: critical
       repeat_interval: 1m
       receiver: pagerduty-notifications
