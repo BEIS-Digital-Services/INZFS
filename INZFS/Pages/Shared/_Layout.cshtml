@@ -14,7 +14,7 @@
     <!--[if !IE 8]><!-->
     <link rel="stylesheet" media="all" href="/css/application.css">
     <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
-    <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
+    <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css" asp-append-version="true">
     <link rel="stylesheet" media="all" href="~/assets/static/core-layout.css" />
 
     <!--<![endif]-->
@@ -214,6 +214,7 @@
                 <div class="govuk-footer__meta-item">
                     <a class="govuk-footer__link govuk-footer__copyright-logo" href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/">© Crown copyright</a>
                 </div>
+                <partial name="_TimeoutMessage" />
             </div>
         </div>
     </footer>
