@@ -154,7 +154,7 @@ namespace INZFS.MVC.Services.PdfServices
            <html lang=""en"">
            <head>
            </head>
-          <body style=""font-family: ""GDS Transport"", arial, sans-serif;"">
+          <body style=""font-family: arial, helvetica, sans-serif;"">
 
             <div class=""page"" style=""height:297mm; margin-bottom:60mm;"">
                 <img src=""{_logoFilepath}"" style=""float:left; width: 40mm; ""></img>
