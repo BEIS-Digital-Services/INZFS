@@ -281,3 +281,11 @@
     .app-related-items li {
         margin-bottom: 10px
     }
+
+.govuk-timeout-warning-fallback {
+    display: none;
+}
+
+.govuk-!-display-block{
+    display: block;
+}
