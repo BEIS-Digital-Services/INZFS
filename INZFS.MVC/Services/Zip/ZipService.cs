@@ -11,6 +11,7 @@ using Azure.Storage.Blobs;
 using System.Text.Json;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
+using System.Text;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -35,7 +36,7 @@ namespace INZFS.MVC.Services.Zip
             _configuration = configuration;
             _logger = logger;
         }
-        public async Task<byte[]> GetZipFileBytes(string filetype, string userId)
+        public async Task<byte[]> GetZipFileBytes(string filetype, string userId, bool includeJsonSummary = false)
         {
             ReportContent reportContent;
             _userId = userId;
@@ -89,6 +90,17 @@ namespace INZFS.MVC.Services.Zip
                     //    string path = _mediaFileStore.NormalizePath("/App_Data/Sites/Default" + file.FileLocation);
                     //    var zipArchiveEntry = archive.CreateEntryFromFile(path, Path.Combine("Uploaded Documents", file.Name));
                     //}
+
+                    if (includeJsonSummary)
+                    {
+                        var content = await _contentRepository.GetApplicationContent(userId);
+                        string name = $"{content.ApplicationNumber}.json";
+                        string jsonStr = JsonSerializer.Serialize(content);
+                        byte[] encodedBytes = Encoding.UTF8.GetBytes(jsonStr);
+
+                        var jsonFileEntry = archive.CreateEntry($"{userId}.json", CompressionLevel.Fastest);
+                        using (var zipStream = jsonFileEntry.Open()) zipStream.Write(encodedBytes, 0, encodedBytes.Length);
+                    }
                 }
 
                 return ms.ToArray();
