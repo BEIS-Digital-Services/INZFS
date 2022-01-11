@@ -16,7 +16,7 @@ receivers:
 
 - name: 'pagerduty-notifications'
   pagerduty_configs:
-  - service_key: $(pagerduty_servicekey)
+  - service_key: $(PAGER_DUTY_SERVICEKEY)
     send_resolved: true
     
 - name: mail
