@@ -29,6 +29,11 @@
                             }
                         </ul>
                     </div>
+                    <a href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">
+                        <button class="govuk-button govuk-button govuk-!-margin-top-6" data-module="govuk-button">
+                            Sign in to your account
+                        </button>
+                    </a>
                 </div>
             }
             else
