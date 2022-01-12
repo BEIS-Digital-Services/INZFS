@@ -33,4 +33,4 @@ applications:
     OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
     CloudMersiveApiKey: $(CloudMersiveApiKey)
     Serilog__WriteTo__1__Args__sourceName: $(env)
-    Serilog__WriteTo__1__Args__loglevel: $(loglevel)
+    Serilog__MinumumLevel: $(loglevel)
