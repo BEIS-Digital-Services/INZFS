@@ -1,0 +1,9 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+@if (!Model.HideQuestionCounter)
+{
+    <span class="govuk-caption-l">Step @Model.QuestionNumber of @Model.TotalQuestions</span>
+}

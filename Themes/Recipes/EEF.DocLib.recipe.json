@@ -1,0 +1,708 @@
+{
+  "name": "EEF Document Library",
+  "displayName": "EEF Document Library",
+  "description": "Content, Content Types, and Templates for EEF Document Library",
+  "author": "Richard Anderson",
+  "website": "",
+  "version": "1.1",
+  "issetuprecipe": false,
+  "categories": [],
+  "tags": [],
+    "steps": [
+        {
+            "name": "content",
+            "data": [
+                {
+                    "ContentItemId": "456b96wgjww6g07jay6rycxqc1",
+                    "ContentItemVersionId": "4gd9709k5xkej5ftn4vs0xhdxt",
+                    "ContentType": "EEFDocLibPage",
+                    "DisplayText": "Guidance Documents for the Energy Entrepreneurs Fund: phase 9",
+                    "Latest": true,
+                    "Published": true,
+                    "ModifiedUtc": "2021-09-15T14:48:38.5961715Z",
+                    "PublishedUtc": "2021-09-15T14:48:38.8470423Z",
+                    "CreatedUtc": "2021-07-30T01:04:27.9681863Z",
+                    "Owner": "4c6yyhsadypap06pxtskzyppx8",
+                    "Author": "richard.anderson@beis.gov.uk",
+                    "EEFDocLibPage": {
+                        "Description": {
+                            "Html": "<p class=\"govuk-body\">This page contains all the documents will need to complete your application.</p>\n\n      <p class=\"govuk-body\"> This includes:</p>\n\n      <ul class=\"govuk-list govuk-list--bullet\"><li>all the questions you need to answer</li><li>guidance for your application</li><li>templates which you need to complete and upload</li><li>optional templates for supporting evidence</li></ul>"
+                        }
+                    },
+                    "AutoroutePart": {
+                        "Path": "all-eef-documents",
+                        "SetHomepage": false,
+                        "Disabled": false,
+                        "RouteContainedItems": false,
+                        "Absolute": false
+                    },
+                    "TitlePart": {
+                        "Title": "Guidance Documents for the Energy Entrepreneurs Fund: phase 9"
+                    },
+                    "DocumentSection": {
+                        "ContentItems": [
+                            {
+                                "ContentItemId": "44djqqs3q84gx19qh3kbv65qd1",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EEFDocSection",
+                                "DisplayText": "Guidance and questions",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-09-15T14:48:38.6204635Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "richard.anderson@beis.gov.uk",
+                                "EEFDocSection": {
+                                    "Description": {
+                                        "Text": ""
+                                    },
+                                    "EEFDocumentLibraryPickerField": {
+                                        "Paths": [
+                                            "Energy Entrepreneurs Fund phase 9. Guidance document.pdf",
+                                            "Energy Entrepreneurs Fund phase 9.docx"
+                                        ],
+                                        "MediaTexts": [
+                                            "",
+                                            ""
+                                        ]
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Guidance and questions"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4ntxqjyzwbjsnwbyw9v0djzwxx",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Energy Entrepreneurs Fund phase 9. Guidance document",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.6282125Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Energy Entrepreneurs Fund phase 9. Guidance document.pdf"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [
+                                                        "Energy Entrepreneurs Fund phase 9.docx"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "Description": {
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "PDF, 13.2KB, 55 pages"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Energy Entrepreneurs Fund phase 9. Guidance document"
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4gk569tq8xjbw689vv7xe9484k",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Energy Entrepreneurs Fund phase 9. Application questions",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.6493693Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Energy Entrepreneurs Fund phase 9. Guidance document.pdf"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [],
+                                                    "MediaTexts": []
+                                                },
+                                                "Description": {
+                                                    "Html": "<p>This file is in an&nbsp;<a class=\"govuk-link\" href=\"https://agreeable-water-01ff24c03.azurestaticapps.net/downloadDocs.html#\">OpenDocument</a>&nbsp;text format<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "ODT, 19.5KB, 14 pages"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Energy Entrepreneurs Fund phase 9. Application questions"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "ContentItemId": "4kpm939v6qx39tves31s2n0d5m",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EEFDocSection",
+                                "DisplayText": "Templates for mandatory supporting documents",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-09-15T14:48:38.6899246Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "richard.anderson@beis.gov.uk",
+                                "EEFDocSection": {
+                                    "Description": {
+                                        "Text": "These templates are used to support your answers to the application."
+                                    },
+                                    "EEFDocumentLibraryPickerField": {
+                                        "Paths": [
+                                            "Project cost breakdown form.xlsx",
+                                            "Consortium partner details.xlsx"
+                                        ],
+                                        "MediaTexts": [
+                                            "",
+                                            ""
+                                        ]
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Templates for mandatory supporting documents"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4vtd29werkxhx5q68dccss6snf",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Project cost breakdown form",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.6977847Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Project cost breakdown form.xlsx"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [],
+                                                    "MediaTexts": []
+                                                },
+                                                "Description": {
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "MS Excel Spreadsheet, 108KB"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc2.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Project cost breakdown form"
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4t1v0vsvnqehp54dz218qdc8dq",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Consortium partner details",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.7189835Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Consortium partner details.xlsx"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [],
+                                                    "MediaTexts": []
+                                                },
+                                                "Description": {
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "MS Excel Spreadsheet, 108KB"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc2.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Consortium partner details"
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "ContentItemId": "4hnab4kx59qvg3nsjacxxx0rdf",
+                                "ContentItemVersionId": null,
+                                "ContentType": "EEFDocSection",
+                                "DisplayText": "Optional templates for supporting documents",
+                                "Latest": false,
+                                "Published": false,
+                                "ModifiedUtc": "2021-09-15T14:48:38.7532969Z",
+                                "PublishedUtc": null,
+                                "CreatedUtc": null,
+                                "Owner": "",
+                                "Author": "richard.anderson@beis.gov.uk",
+                                "EEFDocSection": {
+                                    "Description": {
+                                        "Text": "You can use these templates to support your questions if you want to, however you can upload the information in a format that works for you."
+                                    },
+                                    "EEFDocumentLibraryPickerField": {
+                                        "Paths": [
+                                            "Gantt chart.xlsx",
+                                            "Risk register.xlsx"
+                                        ],
+                                        "MediaTexts": [
+                                            "",
+                                            ""
+                                        ]
+                                    }
+                                },
+                                "TitlePart": {
+                                    "Title": "Optional templates for supporting documents"
+                                },
+                                "BagPart": {
+                                    "ContentItems": [
+                                        {
+                                            "ContentItemId": "4zr6fzysfr0p7zqnjxd12xjsda",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Risk register",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.7615552Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Risk register.xlsx"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [],
+                                                    "MediaTexts": []
+                                                },
+                                                "Description": {
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "MS Excel Spreadsheet, 108KB"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc2.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Risk register"
+                                            }
+                                        },
+                                        {
+                                            "ContentItemId": "4n7xg2cykksfhyek6wsp3a645z",
+                                            "ContentItemVersionId": null,
+                                            "ContentType": "EEFGuidanceDocument",
+                                            "DisplayText": "Gantt chart",
+                                            "Latest": false,
+                                            "Published": false,
+                                            "ModifiedUtc": "2021-09-15T14:48:38.7823382Z",
+                                            "PublishedUtc": null,
+                                            "CreatedUtc": null,
+                                            "Owner": "",
+                                            "Author": "richard.anderson@beis.gov.uk",
+                                            "EEFGuidanceDocument": {
+                                                "MainDocument": {
+                                                    "Paths": [
+                                                        "Gantt chart.xlsx"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                },
+                                                "AccessibleDocument": {
+                                                    "Paths": [],
+                                                    "MediaTexts": []
+                                                },
+                                                "Description": {
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
+                                                },
+                                                "SubTitle": {
+                                                    "Text": "MS Excel Spreadsheet, 108KB"
+                                                },
+                                                "FileTypeIcon": {
+                                                    "Paths": [
+                                                        "guidancedoc2.png"
+                                                    ],
+                                                    "MediaTexts": [
+                                                        ""
+                                                    ]
+                                                }
+                                            },
+                                            "TitlePart": {
+                                                "Title": "Gantt chart"
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Templates",
+            "Templates": {
+                "Content__EEFDocLibPage": {
+                    "Content": "<div class=\"govuk-grid-row\" style=\"position: relative;transform: translateY(-50%);\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <nav aria-label=\"breadcrumb\" class=\"govuk-breadcrumbs\">\r\n        <ol class=\"govuk-breadcrumbs__list\">\r\n          <li class=\"govuk-breadcrumbs__list-item\">\r\n            <a class=\"govuk-breadcrumbs__link\" href=\"/FundApplication/section/application-overview\">Apply for the Energy Entrepreneurs Fund: phase 9</a>\r\n          </li>\r\n          <li class=\"govuk-breadcrumbs__list-item\" aria-current=\"page\">\r\n           Download documents\r\n          </li>\r\n        </ol>\r\n      </nav>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-youraccount-right\">  \r\n      <p><a class=\"govuk-body-m govuk-link\" href=\"/admin\">Your account</a></p>\r\n    </div>\r\n  </div>\r\n<main class=\"govuk-main-wrapper \" id=\"main-content\" role=\"main\">\r\n\r\n    <div class=\"govuk-grid-row\">\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n        <h1 class=\"govuk-heading-xl\">{{ Model.ContentItem.Content.TitlePart.Title }}</h1>\r\n      </div>\r\n    </div>\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    \r\n    <div class=\"govuk-grid-column-two-thirds\">\r\n      \r\n      {{ Model.ContentItem.Content.EEFDocLibPage.Description.Html | liquid }}\r\n\r\n      {% for doc_section in Model.ContentItem.Content.DocumentSection.ContentItems %}\r\n      <h2 class=\"govuk-heading-m\">{{ doc_section.DisplayText }}</h2>\r\n      <p class=\"govuk-body-s\">{{ doc_section.EEFDocSection.Description.Text }}</p>\t  \r\n\r\n      {% for eef_doc in doc_section.BagPart.ContentItems %}\r\n      <div class=\"govuk-grid-row\">\r\n        <div class=\"govuk-grid-column-one-quarter govuk-!-padding-left-0\">\r\n          <img src=\"/media/{{ eef_doc.EEFGuidanceDocument.FileTypeIcon.Paths }}\" alt=\"Document download\">\r\n        </div>\r\n        <div class=\"govuk-grid-column-three-quarters govuk-!-margin-top-3\">\r\n          <p class=\"govuk-body-l govuk-!-margin-bottom-1\"><a class=\"govuk-link\" href=\"/media/{{ eef_doc.EEFGuidanceDocument.MainDocument.Paths[0] }}\">{{ eef_doc.TitlePart.Title }}</a></p>\r\n          <p class=\"govuk-body govuk-!-margin-bottom-1 govuk-colour--mid-grey\">{{ eef_doc.EEFGuidanceDocument.SubTitle.Text }}</p>\r\n          <p class=\"govuk-body govuk-!-margin-bottom-6\">{{ eef_doc.EEFGuidanceDocument.Description.Html | liquid }}</p>\r\n          {% if eef_doc.EEFGuidanceDocument.AccessibleDocument.Paths[0] %}\r\n          <p class=\"govuk-body-m\"><a class=\"govuk-link\" href=\"/media/{{ eef_doc.EEFGuidanceDocument.AccessibleDocument.Paths[0] }}\">Download an accessible text version</a></p>\r\n\t\t  {% endif %}\r\n        </div>\r\n      </div>\r\n\t  {% endfor %}\r\n\r\n\t  {% endfor %}\r\n\r\n    </div>\r\n\r\n    <div class=\"govuk-grid-column-one-third\">\r\n\r\n      <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->\r\n\r\n      <aside class=\"app-related-items\" role=\"complementary\">\r\n\r\n        <h3 class=\"govuk-heading-s\" id=\"subsection-title-3\">Related content</h3>\r\n        <p class=\"govuk-body-m govuk-!-margin-bottom-3\"><a class=\"govuk-body-m govuk-!-margin-bottom-10\" href=\"/eligibilityInfo/Eligibility-Start\">Check if EEF is the right fund for you</a></p>\r\n<p class=\"govuk-body-m govuk-!-margin-bottom-3\"><a class=\"govuk-link\" href=\"https://www.gov.uk/business-finance-support\">Find finance and support for your business</a></p>\r\n \r\n\r\n        \r\n\r\n      </aside>\r\n\r\n    </div>\r\n  </div>\r\n  </main>",
+                    "Description": "Liquid Template for EEF Document Library"
+                }
+            }
+        },
+        {
+            "name": "ContentDefinition",
+            "ContentTypes": [
+                {
+                    "Name": "EEFDocSection",
+                    "DisplayName": "EEF Document Section",
+                    "Settings": {
+                        "ContentTypeSettings": {},
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EEFDocSection",
+                            "Name": "EEFDocSection",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "BagPart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Documents",
+                                    "Description": "Collection of EEF Guidance Documents",
+                                    "Position": "2"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "EEFGuidanceDocument"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EEFDocLibPage",
+                    "DisplayName": "EEF Document Library Page",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EEFDocLibPage",
+                            "Name": "EEFDocLibPage",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "AutoroutePart",
+                            "Name": "AutoroutePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                },
+                                "AutoroutePartSettings": {
+                                    "AllowCustomPath": true
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "BagPart",
+                            "Name": "DocumentSection",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "DisplayName": "Document Section",
+                                    "Description": "Document Section",
+                                    "Position": "3"
+                                },
+                                "BagPartSettings": {
+                                    "ContainedContentTypes": [
+                                        "EEFDocSection"
+                                    ]
+                                },
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EEFGuidanceDocument",
+                    "DisplayName": "EEF Guidance Document",
+                    "Settings": {
+                        "ContentTypeSettings": {
+                            "Creatable": true,
+                            "Listable": true,
+                            "Draftable": true,
+                            "Versionable": true,
+                            "Securable": true
+                        },
+                        "FullTextAspectSettings": {}
+                    },
+                    "ContentTypePartDefinitionRecords": [
+                        {
+                            "PartName": "EEFGuidanceDocument",
+                            "Name": "EEFGuidanceDocument",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "1"
+                                }
+                            }
+                        },
+                        {
+                            "PartName": "TitlePart",
+                            "Name": "TitlePart",
+                            "Settings": {
+                                "ContentTypePartSettings": {
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ],
+            "ContentParts": [
+                {
+                    "Name": "AutoroutePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a custom url for your content item."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "BagPart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Reusable": true,
+                            "Description": "Provides a collection behavior for your content item where you can place other content items."
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "TitlePart",
+                    "Settings": {
+                        "ContentPartSettings": {
+                            "Attachable": true,
+                            "Description": "Provides a Title for your content item.",
+                            "DefaultPosition": "0"
+                        }
+                    },
+                    "ContentPartFieldDefinitionRecords": []
+                },
+                {
+                    "Name": "EEFDocSection",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "TextField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Position": "0"
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EEFDocLibPage",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
+                                    "Position": "0"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        }
+                    ]
+                },
+                {
+                    "Name": "EEFGuidanceDocument",
+                    "Settings": {},
+                    "ContentPartFieldDefinitionRecords": [
+                        {
+                            "FieldName": "MediaField",
+                            "Name": "MainDocument",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Main Document",
+                                    "Position": "0"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "MediaField",
+                            "Name": "AccessibleDocument",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Accessible Document",
+                                    "Position": "2"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "HtmlField",
+                            "Name": "Description",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "Description",
+                                    "Editor": "Wysiwyg",
+                                    "Position": "3"
+                                },
+                                "HtmlFieldSettings": {},
+                                "ContentIndexSettings": {}
+                            }
+                        },
+                        {
+                            "FieldName": "TextField",
+                            "Name": "SubTitle",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "SubTitle",
+                                    "Position": "4"
+                                }
+                            }
+                        },
+                        {
+                            "FieldName": "MediaField",
+                            "Name": "FileTypeIcon",
+                            "Settings": {
+                                "ContentPartFieldSettings": {
+                                    "DisplayName": "File Type Icon",
+                                    "Position": "1"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

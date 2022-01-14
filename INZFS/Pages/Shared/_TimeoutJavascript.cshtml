@@ -1,0 +1,17 @@
+﻿@inject Microsoft.Extensions.Options.IOptions<INZFS.Theme.Models.TimeOutOption> timeOptions
+
+@if (User.Identity?.IsAuthenticated ?? false)
+{
+<!-- Start: modal window -->
+<dialog class="govuk-timeout-warning dialog" data-module="govuk-timeout-warning" id="js-timeout-warning" data-minutes-idle-timeout="@(timeOptions?.Value.WarningStart ?? 20)"
+        data-minutes-modal-visible="@(timeOptions?.Value.WarningDuration ?? 10)" data-url-redirect="@Url.Action("TimeOut", "Account" , new {area="INZFS.Theme" })" aria-live="polite" aria-labelledby="dialog-title" aria-describedby="at-timer">
+    <h1 id="dialog-title" class="govuk-heading-l">Your application will time out soon</h1>
+    <div class="govuk-body">
+        <div class="timer" aria-hidden="true" aria-relevant="additions"></div>
+        <div class="at-timer govuk-visually-hidden" role="status" id="at-timer"></div>
+    </div>
+    <button class="govuk-button dialog-button js-dialog-close" data-module="govuk-button">Stay signed in</button>
+</dialog>
+<script src="~/js/timeout.js"></script>
+<!-- End: modal window -->
+}

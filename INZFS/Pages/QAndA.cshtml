@@ -1,0 +1,82 @@
+﻿@page "/help/qanda"
+@inject OrchardCore.IOrchardHelper Orchard
+
+@{
+    var govpage = await Orchard.GetContentItemByHandleAsync($"alias:qanda");
+    Layout = "_LayoutWithoutBackBtn";
+    ViewData["Title"] = "Energy Entrepreneurs Fund 9: questions and answers";
+}
+
+@Orchard.ConsoleLog(govpage)
+
+<div class="govuk-width-container">
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                <ol class="govuk-breadcrumbs__list">
+                    <li class="govuk-breadcrumbs__list-item">
+                        <a class="govuk-breadcrumbs__link" href="/">
+                            Apply for the Energy Entrepreneurs Fund: phase 9
+                        </a>
+                    </li>
+                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                        Questions and answers
+                    </li>
+                </ol>
+            </nav>
+        </div>
+        <div class="govuk-grid-column-one-quarter govuk-youraccount-right"></div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            <h1 class="govuk-heading-xl">
+                @govpage.Content.qanda.Heading1.Text
+            </h1>
+        </div>
+    </div>
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-two-thirds">
+            @if (govpage.Content.ListOfFAQs?.ContentItems.Count == 0)
+            {
+                <h2 class="govuk-heading-m">@govpage.Content.qanda.Heading2.Text</h2>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body1.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body2.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body3.Text)
+                </p>
+
+                <p class="govuk-body-l">
+                    @Html.Raw(govpage.Content.qanda.Body4.Text)
+                </p>
+            }
+            else
+            {
+                foreach (var faq in govpage.Content.ListOfFAQs.ContentItems)
+                {
+                    <h2 class="govuk-heading-m">@faq.FAQ.Question.Text</h2>
+
+                    <p class="govuk-body-l">
+                        @faq.FAQ.Answer.Text
+                    </p>
+                }
+            }
+        </div>
+
+        <div class="govuk-grid-column-one-third">
+
+            <aside class="app-related-items" role="complementary">
+                <h3 class="govuk-heading-s govuk-!-margin-top-3" id="subsection-title">Need support?</h3>
+                <p class="govuk-body-m">You can get help with your application at our <a class="govuk-link" href="/help/help">support page</a></p>
+            </aside>
+        </div>
+    </div>
+</div>

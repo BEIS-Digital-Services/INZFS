@@ -1,0 +1,44 @@
+
+@model TextInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+
+@Html.Partial("_Steps")
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(TextInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+        <h1 class="govuk-label-wrapper">
+            <label class="govuk-label govuk-label--l" for="@Model.FieldName">
+                @Model.Question
+            </label>
+        </h1>
+        @Html.Partial("_Hint", Model.Hint)
+
+        <span asp-validation-for="@Model.DataInput" class="govuk-error-message"></span>
+
+        @Html.Partial($"../TextBoxTypes/_{Model.TextType}.cshtml", Model)
+
+    </div>
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+
+@Html.Partial("_BackButton", Model)

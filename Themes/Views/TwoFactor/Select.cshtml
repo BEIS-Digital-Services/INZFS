@@ -1,0 +1,40 @@
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.ChooseVerificationMethodViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Choose primary verification method";
+}
+
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row" asp-validation-error-class-for="AuthenticationMethod">
+            <div class="govuk-grid-column-two-thirds">
+                <span asp-validation-for="AuthenticationMethod" class="govuk-error-message"></span>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
+                            <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
+                        </legend>
+                        <div class="govuk-radios govuk-radios">
+                            <div class="govuk-radios__item">
+                                <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Authenticator)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    Authenticator app (Google or Microsoft)
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                <input asp-for="AuthenticationMethod" type="radio" value="@(AuthenticationMethod.Phone)" class="govuk-radios__input" />
+                                <label class="govuk-label govuk-radios__label">
+                                    SMS
+                                </label>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+
+        </div>
+        <button class="govuk-button" data-module="govuk-button">Continue</button>
+    </form>
+</main>

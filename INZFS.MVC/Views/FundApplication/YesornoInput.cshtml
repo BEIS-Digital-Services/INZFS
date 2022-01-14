@@ -1,0 +1,47 @@
+
+@model YesornoInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+@Html.Partial("_Steps")
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(YesornoInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")" asp-validation-error-class-for="@Model.Question">
+
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            @Html.Partial("_QuestionDescription", Model.PageName)
+            @Html.Partial("_Hint", Model.Hint)
+            @Html.Partial($"../YesNoRadioTypes/_{Model.YesNoInput}.cshtml", Model)
+        </fieldset>
+
+
+
+    </div>
+
+    @Html.Partial("_QuestionDescriptionBottom", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+</form>
+@Html.Partial("_Accordion", Model.PageName)
+
+@Html.Partial("_BackButton", Model)

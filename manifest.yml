@@ -1,0 +1,36 @@
+---
+applications:
+- instances: $(instanceNumber)
+  memory: 2G
+  route-path: london.cloudapps.digital
+  env:
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__RecipeName: $(Recipe)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseConnectionString: $(DbConnection)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__ShellName: $(ShellName)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminEmail: lorenzo.lane2@beis.gov.uk
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminUsername: admin
+    OrchardCore__OrchardCore_AutoSetup__AutoSetupPath: $(AutoPath)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseTablePrefix: $(Index)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteTimeZone: Europe/London
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__SiteName: $(SiteName)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__DatabaseProvider: $(DbProvider)
+    OrchardCore__OrchardCore_AutoSetup__Tenants__0__AdminPassword: $(DbPassword)
+    OrchardCore__OrchardCore_Redis__Configuration: $(RedisConfig)
+    OrchardCore__OrchardCore_Shells_Database__DatabaseProvider: $(DbProvider)
+    OrchardCore__OrchardCore_Shells_Database__ConnectionString: $(DbConnection2)
+    OrchardCore__OrchardCore_Shells_Database__TablePrefix: $(Index)
+    OrchardCore__OrchardCore_Shells_Database__MigrateFromFiles: True
+    OrchardCore__OrchardCore_Shells_Azure__ConnectionString: $(AzureBlob)
+    OrchardCore__OrchardCore_Shells_Azure__ContainerName: $(BlobDir)
+    OrchardCore__OrchardCore_Shells_Azure__BasePath: $(BlobBasePath)
+    OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
+    GovNotifyApiKey: $(GovNotifyApiKey)
+    TwoFactor__Status: $(2FA-Status)
+    TwoFactor__AccountName: "$(2FA-AccountName)"
+    OrchardCore__OrchardCore_Media_Azure__ConnectionString: $(AzureBlob)
+    OrchardCore__OrchardCore_Media_Azure__ContainerName: $(BlobDir)
+    OrchardCore__OrchardCore_Media_Azure__BasePath: $(BlobBasePath)
+    OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
+    CloudMersiveApiKey: $(CloudMersiveApiKey)
+    Serilog__WriteTo__1__Args__sourceName: $(env)
+    Serilog__MinumumLevel: $(loglevel)

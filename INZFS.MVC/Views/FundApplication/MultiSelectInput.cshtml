@@ -1,0 +1,59 @@
+
+@model MultiSelectInputModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+
+
+@Html.Partial("_Steps")
+
+<form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+    <input type="hidden" name="PageName" value="@Model.PageName" />
+    <input type="hidden" name="Kind" value="@nameof(MultiSelectInputModel)" />
+
+    @Html.Partial("_ErrorMessage")
+
+    <div class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+        <fieldset class="govuk-fieldset">
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                <h1 class="govuk-fieldset__heading">
+                    @Model.Question
+                </h1>
+            </legend>
+            @Html.Partial("_Hint", Model.Hint)
+            <span asp-validation-for="@Model.UserOptionsSelected" class="govuk-error-message"></span>
+            <div class="govuk-checkboxes">
+                @foreach (var item in Model.SelectedOptions)
+                {
+                    <div class="govuk-checkboxes__item">
+                        <input class="govuk-checkboxes__input" id="checkboxSelect-@item.Replace(" ","-").ToLower()" name="UserInput" type="checkbox" value="@item.ToString()" @if (Model.UserInput != null) { @if (Model.UserInput.Contains(@item)) { <text> checked="checked" </text> } }>
+                        <label class="govuk-label govuk-checkboxes__label" for="checkboxSelect-@item.Replace(" ","-").ToLower()">
+                            @item
+                        </label>
+                    </div>
+                }
+        </fieldset>
+    </div>
+
+    @if (Model.HasOtherOption)
+    {
+        @Html.Partial("_OtheroptionMultiSelect", Model)
+    }
+
+
+    @Html.Partial("_Accordion", Model.PageName)
+
+    @Html.Partial("_InsetText", Model.PageName)
+
+    @if (Model.ShowMarkAsComplete)
+    {
+        @Html.Partial("_MarkAsComplete", Model)
+    }
+
+    @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+</form>
+
+@Html.Partial("_BackButton", Model)
+
+
+<script src="~/js/ToggleOtherOption.js"></script>

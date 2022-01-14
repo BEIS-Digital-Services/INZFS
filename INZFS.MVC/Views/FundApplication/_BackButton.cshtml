@@ -1,0 +1,22 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+@if (!string.IsNullOrEmpty(Model.PreviousPageName))
+{
+    @if (Model.PageName.StartsWith("eq"))
+    {
+        <p class="govuk-body-s">
+            <a id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPage.text"
+               class="govuk-link govuk-!-font-weight-regular">Back to previous step</a>
+        </p>
+    }
+    else
+    {
+        <p class="govuk-body-s">
+            <a id="BackButton" asp-area="INZFS.MVC" asp-controller="FundApplication" asp-action="section" asp-route-pagename="@Model.PreviousPageName"
+               class="govuk-link govuk-!-font-weight-regular">Back to previous step</a>
+        </p>
+    }
+}

@@ -1,0 +1,9 @@
+@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    <div id="question-hint" class="govuk-hint">
+        @Model
+    </div>
+}
+

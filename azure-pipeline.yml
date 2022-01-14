@@ -1,0 +1,29 @@
+trigger:
+- inzfs-docker
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  CF_DOCKER_PASSWORD: '$(CF_DOCKER_PASSWORD)'
+  env: dev
+
+steps:
+- task: ms-vsts.cloud-foundry-build-extension.cloud-foundry-cli-install-task.CloudFoundryCLIInstall@0
+  displayName: 'Install Cloud Foundry CLI 7.2.0'
+  inputs:
+    cfVersion: 7.2.0
+
+- task: ms-vsts.cloud-foundry-build-extension.cloud-foundry-task.CloudFoundry@1
+  displayName: 'Push to Cloud Foundry'
+  inputs:
+    cfEndpoint: 'LL-GovPaas'
+    org: 'beis-netzero'
+    space: sandbox
+    deploymentOptions: manual
+    name: '$(dockerAppName)-$(env)'
+    instances: 1
+    memoryLimit: 2G
+    useRoute: false
+    additionalDeployArgs: '--docker-image $(dockerRegistry)/$(dockerRepository):sandbox --docker-username $(dockerRegistryUsername) --var CF_DOCKER_PASSWORD=$(CF_DOCKER_PASSWORD)
+  enabled: false

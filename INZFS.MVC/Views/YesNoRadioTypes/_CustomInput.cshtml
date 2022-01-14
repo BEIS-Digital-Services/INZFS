@@ -1,0 +1,25 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+
+@{ 
+    int i = 0;
+}
+
+<div class="govuk-radios govuk-radios--conditional" data-module="govuk-radios">
+    <span asp-validation-for="@Model.Question" class="govuk-error-message"></span>
+
+    @foreach (var item in Model.SelectedOptions)
+    {
+        <div class="govuk-radios__item">
+
+            <input class="govuk-radios__input" id="radiobutton-@i.ToString()" name="DataInput" type="radio" value=@i.ToString()
+                    @if (Model.DataInput == i.ToString()) { <text> checked="checked" </text> }>
+            <label class="govuk-label govuk-radios__label" for="radiobutton-@i.ToString()">
+                @item
+            </label>
+        </div>
+
+        i += 1;
+    }
+
+</div>

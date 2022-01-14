@@ -1,55 +1,36 @@
-﻿<!DOCTYPE html>
+﻿@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>@ViewData["Title"] - OrchardCMSCore Test Site</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<meta name="theme-color" content="blue">
+    <meta charset="utf-8">
+    <title>@ViewData["Title"] - Apply for the Energy Entrepreneurs Fund: phase 9</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#0b0c0c">
 
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-	<!--[if gt IE 8]><!-->
-	<link rel="stylesheet" media="screen" href="/assets/static/govuk-template.css">
-	<!--<![endif]-->
-	<!--[if IE 8]><link rel="stylesheet" media="screen" href="/assets/static/govuk-template-ie8.css" /><![endif]-->
-	<link rel="stylesheet" media="print" href="/assets/static/govuk-template-print.css">
+    <!--[if !IE 8]><!-->
+    <link rel="stylesheet" media="all" href="/css/application.css">
+    <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
+    <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
+    <link rel="stylesheet" media="all" href="~/assets/static/core-layout.css" />
 
-	<link rel="stylesheet" media="all" href="/assets/static/fonts.css">
-	<!--[if lt IE 9]><script src="/assets/static/ie.js"></script><![endif]-->
-
-	<link rel="shortcut icon" href="/assets/static/favicon.ico" type="image/x-icon">
-	<link rel="mask-icon" href="/assets/static/gov.uk_logotype_crown.svg" color="#0b0c0c">
-	<link rel="apple-touch-icon" sizes="180x180" href="/assets/static/apple-touch-icon-180x180.png">
-	<link rel="apple-touch-icon" sizes="167x167" href="/assets/static/apple-touch-icon-167x167.png">
-	<link rel="apple-touch-icon" sizes="152x152" href="/assets/static/apple-touch-icon-152x152.png">
-	<link rel="apple-touch-icon" href="/assets/static/apple-touch-icon.png">
-
-	<meta name="theme-color" content="#0b0c0c">
-
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-
-	<link rel="stylesheet" media="screen" href="/assets/static/core-layout.css">
-	<!--[if lte IE 8]><link rel="stylesheet" media="screen" href="/assets/static/core-layout-ie8.css" /><script>var ieVersion = 8;</script><![endif]-->
-
-	<link rel="stylesheet" media="print" href="/assets/static/core-layout-print.css">
-
-    <meta property="og:image" content="/assets/static/opengraph-image.png">
-	<link title="Search" rel="search" type="application/opensearchdescription+xml" href="/search/opensearch.xml">
-	<link rel="stylesheet" media="screen" href="/assets/frontend/application.css">
-	<link rel="stylesheet" media="print" href="/assets/frontend/print.css">
-	<!-- <link rel="canonical" href="https://www.gov.uk/"> -->
-	<meta name="govuk:rendering-application" content="frontend">
+    <!--<![endif]-->
+    <!--[if IE 8]>
+        <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
+    <![endif]-->
 </head>
-<body class="govuk-template__body app-body-class" data-test="My value" data-other="report:details">
-    <script>
-        document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
 
-    </script>
+<body class="gem-c-layout-for-public govuk-template__body mainstream" data-other="report:details">
+
+    <partial name="_Cookies" />
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
 
-    <header class="govuk-header " role="banner" data-module="govuk-header">
-        <div class="govuk-header__container app-width-container">
+    <header class="govuk-header" role="banner">
+        <div class="govuk-header__container govuk-width-container">
             <div class="govuk-header__logo">
                 <a href="#" class="govuk-header__link govuk-header__link--homepage">
                     <span class="govuk-header__logotype">
@@ -64,31 +45,17 @@
                 </a>
             </div>
             <div class="govuk-header__content">
-                <a href="#" class="govuk-header__link govuk-header__link--service-name">
-                    Netzero Test Fund
-                </a>
-                <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
-                <nav>
-                    <ul id="navigation" class="govuk-header__navigation " aria-label="Navigation menu">
-                        <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
-                            <a class="govuk-header__link" href="/Admin">
-                                Admin
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" href="/Login">
-                                Login
-                            </a>
-                        </li>
-                        <li class="govuk-header__navigation-item">
-                            <a class="govuk-header__link" href="/Register">
-                                Register
-                            </a>
-                        </li>
-                      
-                    </ul>
-
-                </nav>
+                <span class="govuk-header__link--service-name">
+                    Apply for the Energy Entrepreneurs Fund: phase 9
+                </span>
+                @if (User.Identity?.IsAuthenticated ?? false)
+                {
+                    <span class="govuk-header__link govuk-header__link--signout govuk-!-margin-top-1">
+                        <a class="govuk-link govuk-link--inverse govuk-link--no-underline govuk-!-font-size-19" style="color:white;" href="/INZFS.Theme/Account/LogOff">
+                            Sign out
+                        </a>
+                    </span>
+                }
             </div>
         </div>
     </header>
@@ -97,19 +64,114 @@
         <div class="govuk-phase-banner">
             <p class="govuk-phase-banner__content">
                 <strong class="govuk-tag govuk-phase-banner__content__tag">
-                    alpha
+                    BETA
                 </strong>
                 <span class="govuk-phase-banner__text">
-                    This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+                    This is a new service – your <a class="govuk-link" href="https://www.gov.uk/done/apply-energy-entrepreneurs-fund" target="_blank" rel="noopener noreferrer">feedback</a> will help us to improve it.
                 </span>
             </p>
         </div>
 
-        <a href="/" class="govuk-back-link">Back</a>
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-three-quarters">
+                @if ((Model is BaseModel && !Model.HideBreadCrumbs) || Model is SectionContent)
+                {
+                    <nav aria-label="breadcrumb" class="govuk-breadcrumbs">
+                        <ol class="govuk-breadcrumbs__list">
+                            <li class="govuk-breadcrumbs__list-item">
+                                <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                   asp-controller="FundApplication" asp-action="section"
+                                   asp-route-pagename="application-overview">Application overview</a>
+                            </li>
+                            @{
+                                var pageTitle = Model is BaseModel ? Model.SectionTitle : null;
 
-        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
-            @RenderBody()
+                                var sectionTitle = Model is BaseModel ? Model.SectionInfo.OverviewTitle : Model.OverviewTitle;
+                                var sectionUrl = Model is BaseModel ? Model.SectionUrl : null;
+                            }
 
+                            @if (!string.IsNullOrEmpty(sectionTitle))
+                            {
+                                @if (!string.IsNullOrEmpty(pageTitle))
+                                {
+                                    <li class="govuk-breadcrumbs__list-item">
+                                        <a class="govuk-breadcrumbs__link" asp-area="INZFS.MVC"
+                                           asp-controller="FundApplication" asp-action="section"
+                                           asp-route-pagename="@sectionUrl">@sectionTitle</a>
+                                    </li>
+
+                                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                                        @pageTitle
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li class="govuk-breadcrumbs__list-item" aria-current="page">
+                                        @sectionTitle
+                                    </li>
+                                }
+
+                            }
+
+                        </ol>
+
+                    </nav>
+                }
+                else if (Model is CommonModel)
+                {
+                    var backModel = (CommonModel)Model;
+                    if (backModel.ShowBackLink)
+                    {
+                        <a href="@backModel.BackLinkUrl" class="govuk-back-link">@backModel.BackLinkText</a>
+                    }
+                }
+                else
+                {
+                    <text>&nbsp;</text>
+                }
+            </div>
+
+            <div class="govuk-grid-column-one-quarter govuk-youraccount-right">
+                <p style="margin-top:10px;">
+                    <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">
+                        Your account
+                    </a>
+                </p>
+            </div>
+        </div>
+
+        <main class="govuk-main-wrapper app-main-class group help-page cookie-settings" id="main-content" role="main">
+            <div class="govuk-width-container">
+
+                @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
+                {
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-two-thirds">
+                            @RenderBody()
+                        </div>
+
+                        <div class="govuk-grid-column-one-third">
+                        </div>
+                    </div>
+                }
+                else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
+                {
+
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @RenderBody()
+                        </div>
+                    </div>
+
+
+
+                }
+                else
+                {
+                    @RenderBody()
+                }
+
+            </div>
         </main>
     </div>
 
@@ -120,23 +182,23 @@
                     <h2 class="govuk-visually-hidden">Support links</h2>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#1">
-                                Help
+                            <a class="govuk-footer__link" href="/help/privacynotice">
+                                Privacy notice
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#2">
+                            <a class="govuk-footer__link" href="/help/cookies">
                                 Cookies
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#3">
-                                Contact
+                            <a class="govuk-footer__link" href="/help/accessibility">
+                                Accessibility statement
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#4">
-                                Terms and conditions
+                            <a class="govuk-footer__link" href="/help/help">
+                                How to get help with this service
                             </a>
                         </li>
                     </ul>
@@ -156,8 +218,16 @@
         </div>
     </footer>
 
-
     @await RenderSectionAsync("Scripts", required: false)
+    <resources type="FootScript" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
+    <script src="~/assets/frontend/application.js"></script>
+    <script src="~/assets/static/header-footer-only.js"></script>
+    <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+    <script src="~/js/GovFrontendInit.js"></script>
+    <script src="~/js/EnableJs.js"></script>
+
+    <partial name="_TimeoutJavascript" />
 </body>
 
 </html>

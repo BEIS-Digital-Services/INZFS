@@ -1,0 +1,132 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-l">Applying under aid for research and development</h1>
+
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-padding-bottom-6">Your minimum contribution towards the total eligible costs depends on your project's research category.</p>
+
+
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
+                <tr class="govuk-table__row govuk-body-s">
+                    <th scope="col" class="govuk-table__header app-custom-class">Research category</th>
+                    <th scope="col" class="govuk-table__header app-custom-class">Your minimum contribution</th>
+                    <th scope="col" class="govuk-table__header app-custom-class">Maximum amount of aid towards eligible project costs</th>
+                </tr>
+            </thead>
+            <tbody class="govuk-table__body govuk-body-s">
+
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        Feasibility study
+                    </td>
+                    <td class="govuk-table__cell">
+                        30%
+                    </td>
+                    <td class="govuk-table__cell">
+                        70%
+                    </td>
+                </tr>
+
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        Industrial research
+                    </td>
+                    <td class="govuk-table__cell">
+                        30%
+                    </td>
+                    <td class="govuk-table__cell">
+                        70%
+                    </td>
+                </tr>
+
+                <tr class="govuk-table__row">
+                    <td class="govuk-table__cell">
+                        Experimental development
+                    </td>
+                    <td class="govuk-table__cell">
+                        55%
+                    </td>
+                    <td class="govuk-table__cell">
+                        45%
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+
+
+
+        <div class="govuk-warning-text">
+            <span class="govuk-warning-text__icon govuk-warning-text__icon--twolines" aria-hidden="true">!</span>
+            <strong class="govuk-warning-text__text">
+                <span class="govuk-warning-text__assistive">Warning</span>
+                You will need these figures to complete the project cost breakdown form in the next question
+            </strong>
+        </div>
+
+
+        <form asp-action="save" asp-route-pagename="@Model.PageName" method="post" enctype="multipart/form-data">
+
+            @Html.Partial("_ResultAcknowledged", Model)
+
+            <div class="govuk-button-group">
+
+                @Html.Partial("_SaveContinue", Model.ContinueButtonText)
+
+                <a href="subsidy-requirements">
+                    <button class="govuk-button govuk-button--secondary" data-module="govuk-button" type="button">
+                        Start again
+                    </button>
+                </a>
+            </div>
+            <p class="govuk-body-s"><a class="govuk-link govuk-!-font-weight-regular" href="@Model.PreviousPageName">Back to previous step</a></p>
+</form>
+
+
+
+
+
+        <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-default">
+
+            <div class="govuk-accordion__section ">
+                <div class="govuk-accordion__section-header">
+                    <h2 class="govuk-accordion__section-heading">
+                        <span class="govuk-accordion__section-button govuk-!-font-size-19" id="accordion-default-heading-2">
+                            Rules for subsidies in scope of the Northern Ireland Protocol
+                        </span>
+                    </h2>
+                </div>
+                <div id="accordion-default-content-2" class="govuk-accordion__section-content" aria-labelledby="accordion-default-heading-2">
+                    <p class='govuk-body'>The European Commission will give further scrutiny to grants awarded to applicants and partners from Northern Ireland.</p>
+
+                    <p class='govuk-body'>This is in accordance of Article 10 of the Northern Ireland Protocol in the UK/EU withdrawal agreement.</p>
+
+                    <p class='govuk-body'>If the European Commission finds you have been given grant funding incorrectly, it's likely that you will have to repay any aid received to the value of the gross grant equivalent.</p>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+
+
+
+
+    </div>
+
+
+    <div class="govuk-grid-column-one-quarter">
+
+    </div>
+
+
+
+
+</div>

@@ -1,0 +1,40 @@
+﻿@using INZFS.Theme.ViewModels
+@model INZFS.Theme.ViewModels.ChooseAlternativeMethodViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Choose alternative verification method";
+}
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row" asp-validation-error-class-for="AuthenticationMethod">
+            <div class="govuk-grid-column-two-thirds">
+                <span asp-validation-for="AuthenticationMethod" class="govuk-error-message"></span>
+                <div class="govuk-form-group">
+                    <fieldset class="govuk-fieldset">
+                        <legend class="govuk-fieldset__legend govuk-!-margin-bottom-1">
+                            <h1 class="govuk-heading-l">@ViewData["Title"]</h1>
+                        </legend>
+                        <div class="govuk-radios govuk-radios">
+                            @foreach (var item in Model.Methods)
+                            {<div class="govuk-radios__item">
+                                 <input asp-for="AuthenticationMethod" type="radio" value="@(item.Method)" id="@(item.Method)" class="govuk-radios__input" />
+                                 <label for="@(item.Method)" class="govuk-label govuk-radios__label">
+                                     @item.Title
+                                 </label>
+                             </div>
+                            }
+                        </div>
+                    </fieldset>
+                </div>  
+            </div>
+        </div>
+        @if (Model.Methods.Any())
+        {
+            <button class="govuk-button" data-module="govuk-button">Continue</button>
+        }
+        else
+        {
+            <p class="govuk-body-l">There is no alternative method active</p>
+        }
+    </form>
+</main>

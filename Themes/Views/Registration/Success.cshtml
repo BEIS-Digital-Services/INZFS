@@ -1,0 +1,45 @@
+@model INZFS.Theme.ViewModels.RegistrationSuccessViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Verify your email address";
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <div class="govuk-grid-row">
+
+        <div class="govuk-grid-column-two-thirds">
+            <!-- <form action="" method="post" novalidate> -->
+
+            <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
+            <p class="govuk-body-l govuk-!-margin-bottom-0">You'll need to verify your email address to continue. </p>
+            <p class="govuk-body-l">We have sent a verification link to your email address, click this link to verify your account.</p>
+            
+            @if (Model.VerificationRequired)
+            {
+                <div class="govuk-warning-text">
+                    <span class="govuk-warning-text__icon govuk-warning-text__icon--twolines" aria-hidden="true">!</span>
+                    <strong class="govuk-warning-text__text">
+                        <span class="govuk-warning-text__assistive">Warning</span>
+                        You did not verify your email address. <br>You need to verify it to continue.
+                    </strong>
+                </div>          
+            }
+            
+            <p class="govuk-body govuk-!-margin-bottom-0">Your email address</p>
+            <p class="govuk-body">@Model.Email</p>
+            <input asp-for="Email" type="hidden"/>
+
+            <a href="@Url.Action("resend", "Registration", new {area = "", token = Url.GetQuery("token"), toVerify = Url.GetQuery("toVerify")})">
+                <button class="govuk-button govuk-button govuk-!-margin-top-6" data-module="govuk-button">
+                    Resend email
+                </button>
+            </a>
+            
+        </div>
+
+
+
+
+
+    </div>
+</main>

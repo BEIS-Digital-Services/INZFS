@@ -1,0 +1,27 @@
+﻿@model INZFS.Theme.ViewModels.ChangePhoneNumberViewModel
+@{
+    ViewLayout = "LayoutRegistration";
+    ViewData["Title"] = "Add your phone number";
+    ViewData["Breadcrumbs"] = new INZFS.Theme.Models.BreadcrumbsModel() { IsDisplay = false };
+}
+
+<main class="govuk-main-wrapper " id="main-content" role="main">
+    <form method="post">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
+                <p class="govuk-body govuk-!-margin-bottom-3">You currently get an access code as a text message sent to: <strong>@Model.CurrentPhoneNumber</strong>.</p>
+                <div class="govuk-form-group" asp-validation-error-class-for="PhoneNumber">
+                    <label class="govuk-label" for="phone">Your phone number </label>
+                    <span asp-validation-for="PhoneNumber" class="govuk-error-message"></span>
+                    <div class="govuk-form-group">
+                        <input asp-for="PhoneNumber" type="text" class="govuk-input govuk-input--width-20" spellcheck="false" autocomplete="off">
+                    </div>
+                </div>
+                <button class="govuk-button" data-module="govuk-button">
+                    Continue
+                </button>
+            </div>
+        </div>
+    </form>
+</main>

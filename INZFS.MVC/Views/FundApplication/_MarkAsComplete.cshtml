@@ -1,0 +1,46 @@
+@model BaseModel
+@using INZFS.MVC.Models.DynamicForm
+@using INZFS.MVC.TagHelpers
+@using INZFS.MVC
+
+
+@if ((Model.Mandatory.HasValue && Model.Mandatory.Value == true) || Model.FieldType != FieldType.gdsFileUpload)
+{
+    <div class="govuk-form-group">
+        <div class="govuk-checkboxes">
+            <div class="govuk-checkboxes__item">
+                <input class="govuk-checkboxes__input" asp-for="MarkAsComplete" type="checkbox" value="true">
+                <label class="govuk-label govuk-checkboxes__label" asp-for="MarkAsComplete">
+                    Mark this step as complete
+                </label>
+            </div>
+        </div>
+    </div>
+}
+else if(Model is BaseModel && Model.FieldType == FieldType.gdsFileUpload)
+{
+    <div class="govuk-form-group">
+    <fieldset class="govuk-fieldset">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend">
+            <h2 class="govuk-fieldset__heading govuk-visually-hidden">
+                Mark the step as complete or not applicable
+            </h2>
+        </legend>
+        <div class="govuk-radios govuk-!-margin-bottom-3">
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="fileUploadMarkComplete" name="FieldStatus" type="radio" value="@FieldStatus.Completed"  asp-for="FieldStatus">
+                <label class="govuk-label govuk-radios__label" for="fileUploadMarkComplete">
+                    Mark this step as complete
+                </label>
+            </div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="fileUploadNotComplete" name="FieldStatus" type="radio" value="@FieldStatus.NotApplicable" asp-for="FieldStatus">
+                <label class="govuk-label govuk-radios__label" for="fileUploadNotComplete">
+                    Not applicable
+                </label>
+            </div>
+        </div>
+
+    </fieldset>
+</div>
+}
