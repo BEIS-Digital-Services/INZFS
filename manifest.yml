@@ -26,9 +26,11 @@ applications:
     OrchardCore__OrchardCore_Shells_Azure__MigrateFromFiles: True
     GovNotifyApiKey: $(GovNotifyApiKey)
     TwoFactor__Status: $(2FA-Status)
-    TwoFactor__AccountName: "INZFS-Dev"
+    TwoFactor__AccountName: "$(2FA-AccountName)"
     OrchardCore__OrchardCore_Media_Azure__ConnectionString: $(AzureBlob)
     OrchardCore__OrchardCore_Media_Azure__ContainerName: $(BlobDir)
     OrchardCore__OrchardCore_Media_Azure__BasePath: $(BlobBasePath)
     OrchardCore__OrchardCore_Media_Azure__CreateContainer: True
     CloudMersiveApiKey: $(CloudMersiveApiKey)
+    Serilog__WriteTo__1__Args__sourceName: $(env)
+    Serilog__MinumumLevel: $(loglevel)

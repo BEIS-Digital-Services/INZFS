@@ -41,10 +41,11 @@
       	<PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
       	<PackageReference Include="Serilog.Sinks.MSSqlServer" Version="5.6.0" />
       	<PackageReference Include="Serilog.Sinks.Network" Version="2.0.2.68" />
-      	<PackageReference Include="Serilog.Sinks.Seq" Version="5.0.1" />
+      	<PackageReference Include="SumoLogic.Logging.Serilog" Version="1.0.1.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Galebra.Security.Headers.Csp\Galebra.Security.Headers.Csp.csproj" />
     <ProjectReference Include="..\INZFS.MVC\INZFS.MVC.csproj" />
     <ProjectReference Include="..\Themes\INZFS.Theme.csproj" />
   </ItemGroup>

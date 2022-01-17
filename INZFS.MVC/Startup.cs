@@ -30,6 +30,7 @@ using System.Reflection;
 using Notify.Interfaces;
 using Notify.Client;
 using INZFS.MVC.Services.PdfServices;
+using INZFS.MVC.Services.Zip;
 using INZFS.MVC.Validators;
 using System.Collections.Generic;
 using Microsoft.Extensions.DependencyModel;
@@ -64,6 +65,7 @@ namespace INZFS.MVC
             services.AddScoped<INavigationProvider, AdminMenu>();
             services.AddScoped<IReportService, ReportService>();
             services.AddScoped<IFileUploadService, FileUploadService>();
+            services.AddScoped<IZipService, ZipService>();
             services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
@@ -117,7 +119,7 @@ namespace INZFS.MVC
 
             services.Configure<ApplicationOption>(Configuration.GetSection("Application"));
             services.Configure<GoogleAnalyticsOptions>(options => Configuration.GetSection("GoogleAnalytics").Bind(options));
-            services.AddTransient<ITagHelperComponent, GoogleAnalyticsTagHelperComponent>();
+            
             RegisterCustomValidators(services);
             services.AddHttpContextAccessor();
         }
