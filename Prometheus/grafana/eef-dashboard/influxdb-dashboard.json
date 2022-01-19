@@ -3,7 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": "InfluxDb",
+        "datasource": "influxdb",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -38,6 +38,10 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -84,7 +88,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -109,7 +114,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P3C6603E967DC8568"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
@@ -165,10 +170,14 @@
           ]
         }
       ],
-      "title": "resqusts",
+      "title": "Requests Count",
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -241,7 +250,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P3C6603E967DC8568"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
@@ -289,6 +298,10 @@
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -338,7 +351,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -363,7 +377,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P3C6603E967DC8568"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
@@ -402,7 +416,7 @@
               },
               {
                 "params": [
-                  95
+                  "90"
                 ],
                 "type": "percentile"
               }
@@ -417,10 +431,14 @@
           ]
         }
       ],
-      "title": "Response Time Bucket 95 percentile",
+      "title": "Response Time Bucket 90 percentile",
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -493,7 +511,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P3C6603E967DC8568"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
@@ -537,10 +555,14 @@
           ]
         }
       ],
-      "title": "CPU mean",
+      "title": "CPU mean %",
       "type": "timeseries"
     },
     {
+      "datasource": {
+        "type": "influxdb",
+        "uid": "P951FEA4DE68E13C5"
+      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -551,7 +573,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 35,
+            "fillOpacity": 50,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -559,13 +581,16 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
-            "lineWidth": 4,
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -587,9 +612,18 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "number"
+            },
+            "properties": []
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -600,7 +634,9 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -612,7 +648,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P3C6603E967DC8568"
+            "uid": "P951FEA4DE68E13C5"
           },
           "groupBy": [
             {
@@ -642,10 +678,8 @@
                 "type": "field"
               },
               {
-                "params": [
-                  95
-                ],
-                "type": "percentile"
+                "params": [],
+                "type": "sum"
               }
             ]
           ],
@@ -662,7 +696,7 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
+  "refresh": "5s",
   "schemaVersion": 34,
   "style": "dark",
   "tags": [],
@@ -670,7 +704,7 @@
     "list": []
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
