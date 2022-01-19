@@ -9,14 +9,8 @@ sleep 10 &&
 curl \
  -XPOST \
  -H "Content-Type: application/json" \
- -d '{ "name":"Admin", "email":"admin@org.com", "isAdmin": true, "isDisabled": false, "login":"admin",  "password":"$(admin_password)" }' \
- http://admin:admin@localhost:3000/api/admin/users 
-
-curl \
- -XPOST \
- -H "Content-Type: application/json" \
  -d '{ "name":"viewer", "email":"viewer@org.com", "login":"viewer",  "password":"$(viewer_password)" }' \
- http://admin:$(admin_password)@localhost:3000/api/admin/users 
+ http://$(grafana_admin):$(grafana_password)@localhost:3000/api/admin/users 
 
 curl \
  -X PUT \
