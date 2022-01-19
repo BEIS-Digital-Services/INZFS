@@ -13,9 +13,6 @@ datasources:
   # <int> org id. will default to orgId 1 if not specified
   orgId: 1
   # <string> url
-  url: https://inzfs-prom.london.cloudapps.digital
-  editable: true                        # whether it should be editable
-  isDefault: true                      # whether this should be the default DS
 
 - name: influxdb
   type: influxdb
@@ -24,3 +21,5 @@ datasources:
   user: $(influxdbuser)
   password: $(influxdbpass)
   url: $(influxdburl):19676
+  editable: true                        # whether it should be editable
+  isDefault: true                      # whether this should be the default DS
