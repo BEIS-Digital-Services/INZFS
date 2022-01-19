@@ -13,7 +13,9 @@ datasources:
   # <int> org id. will default to orgId 1 if not specified
   orgId: 1
   # <string> url
-
+  editable: true                        # whether it should be editable
+  isDefault: true                      # whether this should be the default DS
+  
 - name: influxdb
   type: influxdb
   access: proxy
@@ -22,4 +24,3 @@ datasources:
   password: $(influxdbpass)
   url: $(influxdburl):19676
   editable: true                        # whether it should be editable
-  isDefault: true                      # whether this should be the default DS
