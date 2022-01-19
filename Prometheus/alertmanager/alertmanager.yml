@@ -62,12 +62,13 @@ receivers:
       </p>
       
 route:
+  receiver: mail-dev
+  group_by: [alertname, environment]
   group_wait: 1m
   group_interval: 5m
-  receiver: mail-dev
   repeat_interval: 1m
   routes:
-  - match:
-      severity: critical
+  - receiver: mail-prod
     repeat_interval: 1m
-    receiver: mail-prod
+    matchers: 
+     - severity="critical"
