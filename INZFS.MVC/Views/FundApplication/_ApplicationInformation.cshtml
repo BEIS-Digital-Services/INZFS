@@ -21,6 +21,9 @@
     @if (ViewData["ShowDownload"] != null && ViewData["ShowDownload"] == "true")
     {
     <aside class="app-related-items" role="complementary">
+        <a asp-controller="FundApplication" asp-action="ThisMethodWillCauseAnError" class="govuk-button govuk-button--secondary">
+            Cause an error
+        </a>
         <p class="govuk-body-m govuk-colour--mid-grey">Review your answers</p>
         <p class="govuk-body-s">Download your answers as a PDF with your uploaded files.</p>
         <a asp-controller="Report" asp-action="DownloadApplication" asp-route-filetype="pdf" class="govuk-button govuk-button--secondary">
