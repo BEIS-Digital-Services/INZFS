@@ -20,3 +20,4 @@ services:
       - GF_SECURITY_ADMIN_USER=$(grafana_admin)
       - GF_SECURITY_ADMIN_PASSWORD=$(grafana_password)
       - GF_USERS_ALLOW_SIGN_UP=false
+    restart: unless-stopped
