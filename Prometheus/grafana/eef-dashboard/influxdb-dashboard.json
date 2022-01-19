@@ -88,7 +88,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -169,7 +170,7 @@
           ]
         }
       ],
-      "title": "resqusts",
+      "title": "Requests Count",
       "type": "timeseries"
     },
     {
@@ -350,7 +351,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -414,7 +416,7 @@
               },
               {
                 "params": [
-                  95
+                  "90"
                 ],
                 "type": "percentile"
               }
@@ -429,7 +431,7 @@
           ]
         }
       ],
-      "title": "Response Time Bucket 95 percentile",
+      "title": "Response Time Bucket 90 percentile",
       "type": "timeseries"
     },
     {
@@ -553,7 +555,7 @@
           ]
         }
       ],
-      "title": "CPU mean",
+      "title": "CPU mean %",
       "type": "timeseries"
     },
     {
@@ -571,7 +573,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 35,
+            "fillOpacity": 50,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -579,13 +581,16 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
-            "lineWidth": 4,
+            "lineStyle": {
+              "fill": "solid"
+            },
+            "lineWidth": 2,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
             "showPoints": "auto",
-            "spanNulls": false,
+            "spanNulls": true,
             "stacking": {
               "group": "A",
               "mode": "none"
@@ -607,9 +612,18 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byType",
+              "options": "number"
+            },
+            "properties": []
+          }
+        ]
       },
       "gridPos": {
         "h": 5,
@@ -620,7 +634,9 @@
       "id": 12,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "lastNotNull"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -662,10 +678,8 @@
                 "type": "field"
               },
               {
-                "params": [
-                  95
-                ],
-                "type": "percentile"
+                "params": [],
+                "type": "sum"
               }
             ]
           ],
@@ -682,15 +696,15 @@
       "type": "timeseries"
     }
   ],
-  "refresh": "",
-  "schemaVersion": 33,
+  "refresh": "5s",
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-2d",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {},
