@@ -17,7 +17,7 @@ datasources:
   editable: true                        # whether it should be editable
   isDefault: true                      # whether this should be the default DS
 
-- name: InfluxDb
+- name: influxdb
   type: influxdb
   access: proxy
   database: defaultdb
