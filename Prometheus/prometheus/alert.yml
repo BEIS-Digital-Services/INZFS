@@ -73,32 +73,32 @@ groups:
           summary: Server memory Usage (instance {{ $labels.instance }})
           description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-      - alert: http response time slow 2xx All Nodes
-        expr: (rate(response_time_bucket{le="0.5",status_range="2xx"}[5m])) > 1
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary:  probe slow HTTP (instance {{ $labels.instance }})
-          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      #- alert: http response time slow 2xx All Nodes
+      #  expr: (rate(response_time_bucket{le="0.5",status_range="2xx"}[5m])) > 1
+      #  for: 1m
+      #  labels:
+      #    severity: warning
+      #  annotations:
+      #    summary:  probe slow HTTP (instance {{ $labels.instance }})
+      #    description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-      - alert: Response Time Slow 2xx All Nodes
-        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx"}[5m]))) > 1
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: probe slow HTTP (instance {{ $labels.instance }})
-          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      #- alert: Response Time Slow 2xx All Nodes
+      #  expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx"}[5m]))) > 1
+      #  for: 1m
+      #  labels:
+      #    severity: warning
+      #  annotations:
+      #    summary: probe slow HTTP (instance {{ $labels.instance }})
+      #    description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
-      - alert: Response Time Slow All Requests All Nodes
-        expr: (rate(response_time_bucket{organisation="beis-netzero"}[5m])) > 1
-        for: 1m
-        labels:
-          severity: warning
-        annotations:
-          summary: probe slow HTTP (instance {{ $labels.instance }})
-          description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+      #- alert: Response Time Slow All Requests All Nodes
+      #  expr: (rate(response_time_bucket{organisation="beis-netzero"}[5m])) > 1
+      #  for: 1m
+      #  labels:
+      #    severity: warning
+      #  annotations:
+      #    summary: probe slow HTTP (instance {{ $labels.instance }})
+      #    description: "HTTP request took more than 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
       - alert: LAB2 InstanceDown Critical!!
         expr: up{env="lab2"} == 0
