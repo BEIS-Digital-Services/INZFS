@@ -38,10 +38,6 @@
       "type": "row"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -113,7 +109,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+            "uid": "P3C6603E967DC8568"
           },
           "groupBy": [
             {
@@ -173,10 +169,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -249,7 +241,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+            "uid": "P3C6603E967DC8568"
           },
           "groupBy": [
             {
@@ -297,10 +289,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -375,7 +363,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+            "uid": "P3C6603E967DC8568"
           },
           "groupBy": [
             {
@@ -433,10 +421,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -509,7 +493,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+            "uid": "P3C6603E967DC8568"
           },
           "groupBy": [
             {
@@ -557,10 +541,6 @@
       "type": "timeseries"
     },
     {
-      "datasource": {
-        "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
-      },
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -632,7 +612,7 @@
         {
           "datasource": {
             "type": "influxdb",
-            "uid": "P951FEA4DE68E13C5"
+            "uid": "P3C6603E967DC8568"
           },
           "groupBy": [
             {
@@ -683,7 +663,7 @@
     }
   ],
   "refresh": "",
-  "schemaVersion": 33,
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
