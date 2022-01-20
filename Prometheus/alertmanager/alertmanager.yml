@@ -4,7 +4,7 @@ global:
 
   # Sendgrid SMTP properties.
   smtp_smarthost: 'smtp.sendgrid.net:587'
-  smtp_from: 'Alertmanager <inzfs.alerts@beis.gov.uk>'
+  smtp_from: 'inzfs.prod-alerts@beis.gov.uk'
   smtp_auth_username: 'apikey'
   smtp_auth_password: '$(SMTP_APIKEY)'
 
