@@ -1,33 +1,18 @@
 {
   "annotations": {
-    "list": [
-      {
-        "builtIn": 1,
-        "datasource": "InfluxDb",
-        "enable": true,
-        "hide": true,
-        "iconColor": "rgba(0, 211, 255, 1)",
-        "name": "Annotations & Alerts",
-        "target": {
-          "limit": 100,
-          "matchAny": false,
-          "tags": [],
-          "type": "dashboard"
-        },
-        "type": "dashboard"
-      }
-    ]
+    "list": []
   },
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
+  "id": 6,
   "links": [],
   "liveNow": false,
   "panels": [
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "P504729783BF11E73"
       },
       "fieldConfig": {
         "defaults": {
@@ -75,7 +60,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -98,6 +84,10 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P504729783BF11E73"
+          },
           "groupBy": [
             {
               "params": [
@@ -115,6 +105,8 @@
           "measurement": "cpu",
           "orderByTime": "ASC",
           "policy": "default",
+          "query": "\"SELECT mean(\\\"value\\\") FROM \\\"response_time_bucket\\\" WHERE $timeFilter GROUP BY time($__interval) fill(null)\"",
+          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -126,10 +118,8 @@
                 "type": "field"
               },
               {
-                "params": [
-                  95
-                ],
-                "type": "percentile"
+                "params": [],
+                "type": "mean"
               }
             ]
           ],
@@ -137,7 +127,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "inzfs-prod"
+              "value": "inzfs-lab2"
             }
           ]
         }
@@ -148,7 +138,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "P504729783BF11E73"
       },
       "fieldConfig": {
         "defaults": {
@@ -219,6 +209,10 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P504729783BF11E73"
+          },
           "groupBy": [
             {
               "params": [
@@ -248,7 +242,7 @@
               },
               {
                 "params": [],
-                "type": "integral"
+                "type": "mean"
               }
             ]
           ],
@@ -256,7 +250,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "inzfs-prod"
+              "value": "inzfs-lab2"
             }
           ]
         }
@@ -267,7 +261,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "P504729783BF11E73"
       },
       "fieldConfig": {
         "defaults": {
@@ -341,18 +335,16 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P504729783BF11E73"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
-            },
-            {
-              "params": [
-                "app"
-              ],
-              "type": "tag"
             },
             {
               "params": [
@@ -364,8 +356,6 @@
           "measurement": "response_time_bucket",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT mean(\"value\") FROM \"response_time_bucket\" WHERE $timeFilter GROUP BY time($__interval) fill(null)",
-          "rawQuery": false,
           "refId": "A",
           "resultFormat": "time_series",
           "select": [
@@ -378,7 +368,7 @@
               },
               {
                 "params": [
-                  95
+                  "90"
                 ],
                 "type": "percentile"
               }
@@ -388,7 +378,7 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "inzfs-prod"
+              "value": "inzfs-lab2"
             }
           ]
         }
@@ -399,7 +389,7 @@
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "P504729783BF11E73"
       },
       "fieldConfig": {
         "defaults": {
@@ -411,7 +401,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 13,
+            "fillOpacity": 33,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -419,6 +409,9 @@
               "viz": false
             },
             "lineInterpolation": "linear",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 3,
             "pointSize": 5,
             "scaleDistribution": {
@@ -447,7 +440,8 @@
                 "value": 80
               }
             ]
-          }
+          },
+          "unit": "none"
         },
         "overrides": []
       },
@@ -460,7 +454,9 @@
       "id": 4,
       "options": {
         "legend": {
-          "calcs": [],
+          "calcs": [
+            "count"
+          ],
           "displayMode": "list",
           "placement": "bottom"
         },
@@ -470,6 +466,10 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P504729783BF11E73"
+          },
           "groupBy": [
             {
               "params": [
@@ -479,13 +479,7 @@
             },
             {
               "params": [
-                "app"
-              ],
-              "type": "tag"
-            },
-            {
-              "params": [
-                "none"
+                "null"
               ],
               "type": "fill"
             }
@@ -513,24 +507,18 @@
             {
               "key": "app",
               "operator": "=",
-              "value": "inzfs-prod"
-            },
-            {
-              "condition": "AND",
-              "key": "organisation",
-              "operator": "=",
-              "value": "beis-netzero"
+              "value": "inzfs-lab2"
             }
           ]
         }
       ],
-      "title": "resqusts",
+      "title": "Requests",
       "type": "timeseries"
     },
     {
       "datasource": {
         "type": "influxdb",
-        "uid": "P951FEA4DE68E13C5"
+        "uid": "P504729783BF11E73"
       },
       "fieldConfig": {
         "defaults": {
@@ -579,7 +567,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "percent"
         },
         "overrides": []
       },
@@ -604,15 +592,25 @@
       },
       "targets": [
         {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "P504729783BF11E73"
+          },
           "groupBy": [
             {
               "params": [
                 "$__interval"
               ],
               "type": "time"
+            },
+            {
+              "params": [
+                "null"
+              ],
+              "type": "fill"
             }
           ],
-          "measurement": "up",
+          "measurement": "memory_utilization",
           "orderByTime": "ASC",
           "policy": "default",
           "refId": "A",
@@ -627,38 +625,32 @@
               },
               {
                 "params": [],
-                "type": "count"
+                "type": "mean"
               }
             ]
           ],
-          "tags": [
-            {
-              "key": "instance",
-              "operator": "=",
-              "value": "inzfs-staging.london.cloudapps.digital:443"
-            }
-          ]
+          "tags": []
         }
       ],
-      "title": "Staging UP",
+      "title": "Memory utilization %",
       "type": "timeseries"
     }
   ],
-  "refresh": "",
-  "schemaVersion": 33,
+  "refresh": "5s",
+  "schemaVersion": 34,
   "style": "dark",
   "tags": [],
   "templating": {
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-6h",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "influxdb",
-  "uid": "-EPcemhnk",
-  "version": 1,
+  "title": "influxdb2",
+  "uid": "-EPcemhfdsfs",
+  "version": 2,
   "weekStart": ""
 }
