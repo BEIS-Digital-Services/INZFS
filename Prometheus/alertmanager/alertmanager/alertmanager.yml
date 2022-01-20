@@ -42,7 +42,7 @@ receivers:
 
 - name: mail-prod
   email_configs:
-  - to: "inzfs.alerts-prod@beis.gov.uk"
+  - to: "inzfs.prod-alerts@beis.gov.uk"
     headers:
       Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
     html: |
