@@ -121,7 +121,8 @@ namespace INZFS.Theme.Controllers
                 UserName = model.Email,
                 Email = model.Email,
                 IsLockoutEnabled = true,
-                UserClaims = claims
+                UserClaims = claims,
+                EmailConfirmed = true
             };
 
 
@@ -191,16 +192,22 @@ namespace INZFS.Theme.Controllers
             var email = _encodingService.GetStringFromHex(idtoken);
             var user = await FindUserAsync(email);
 
-            if (user != null && !await _userManager.IsEmailConfirmedAsync(user))
+            if (user != null)
             {
-                var result = await _userManager.ConfirmEmailAsync(user, token);
-
-                if (result.Succeeded)
+                if (!await _userManager.IsEmailConfirmedAsync(user))
                 {
-                    await SendRegistrationSuccessEmail(user);
+                    var result = await _userManager.ConfirmEmailAsync(user, token);
+
+                    if (result.Succeeded)
+                    {
+                        await SendRegistrationSuccessEmail(user);
+                        return View("Verified");
+                    }
+                } else
+                {
+                    ModelState.AddModelError("", "Account already verified");
                     return View("Verified");
                 }
-               
             }
 
             ModelState.AddModelError("", "Invalid Token");

@@ -103,7 +103,7 @@
                                                     ]
                                                 },
                                                 "Description": {
-                                                    "Html": "<p>This file may not be suitable for users of assistive technology.<br></p>"
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
                                                 },
                                                 "SubTitle": {
                                                     "Text": "PDF, 13.2KB, 55 pages"
@@ -226,7 +226,7 @@
                                                     "MediaTexts": []
                                                 },
                                                 "Description": {
-                                                    "Html": "<p>This file may not be suitable for users of assistive technology.<br></p>"
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
                                                 },
                                                 "SubTitle": {
                                                     "Text": "MS Excel Spreadsheet, 108KB"
@@ -270,7 +270,7 @@
                                                     "MediaTexts": []
                                                 },
                                                 "Description": {
-                                                    "Html": "<p>This file may not be suitable for users of assistive technology.<br></p>"
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
                                                 },
                                                 "SubTitle": {
                                                     "Text": "MS Excel Spreadsheet, 108KB"
@@ -349,7 +349,7 @@
                                                     "MediaTexts": []
                                                 },
                                                 "Description": {
-                                                    "Html": "<p>This file may not be suitable for users of assistive technology.<br></p>"
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
                                                 },
                                                 "SubTitle": {
                                                     "Text": "MS Excel Spreadsheet, 108KB"
@@ -393,7 +393,7 @@
                                                     "MediaTexts": []
                                                 },
                                                 "Description": {
-                                                    "Html": "<p>This file may not be suitable for users of assistive technology.<br></p>"
+                                                    "Html": "<p class=\"govuk-body\">This file may not be suitable for users of assistive technology.<br></p>"
                                                 },
                                                 "SubTitle": {
                                                     "Text": "MS Excel Spreadsheet, 108KB"
