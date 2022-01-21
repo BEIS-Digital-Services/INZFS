@@ -289,3 +289,7 @@
 .govuk-!-display-block{
     display: block;
 }
+
+.govuk-!-display-none {
+    display: none;
+}
