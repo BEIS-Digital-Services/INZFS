@@ -67,8 +67,6 @@ route:
   group_wait: 1m
   group_interval: 5m
   repeat_interval: 1m
-  matchers: 
-     - env="test"
   routes:
   - receiver: mail-prod
     repeat_interval: 1m
