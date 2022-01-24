@@ -282,10 +282,15 @@
         margin-bottom: 10px
     }
 
+
 .govuk-timeout-warning-fallback {
     display: none;
 }
 
-.govuk-!-display-block{
+.govuk-!-display-block {
     display: block;
+}
+
+.govuk-!-display-none {
+    display: none;
 }
