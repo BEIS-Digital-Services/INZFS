@@ -3,10 +3,16 @@ global:
 #  pagerduty_url: https://events.eu.pagerduty.com/generic/2010-04-15/create_event.json
 
   # Sendgrid SMTP properties.
-  smtp_smarthost: 'smtp.sendgrid.net:587'
+  #smtp_smarthost: 'smtp.sendgrid.net:587'
+  #smtp_from: 'inzfs.prod-alerts@beis.gov.uk'
+  #smtp_auth_username: 'apikey'
+  #smtp_auth_password: '$(SMTP_APIKEY)'
+
+  smtp_smarthost: 'mail1.fathir.co.uk:25'
   smtp_from: 'inzfs.prod-alerts@beis.gov.uk'
-  smtp_auth_username: 'apikey'
-  smtp_auth_password: '$(SMTP_APIKEY)'
+  smtp_auth_username: 'beis@fathir.co.uk'
+  smtp_auth_password: '$(SMTP_PASSWORD)'
+
 
 receivers:
 # - name: 'zulip-notifications'
