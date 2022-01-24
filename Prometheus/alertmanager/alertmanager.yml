@@ -23,11 +23,11 @@ receivers:
   email_configs:
   - to: "inzfs.alerts@beis.gov.uk"
     headers:
-      Subject: "Alert {{ .CommonLabels.env }} : {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
+      Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
     html: |
       Greetings,
       <p>
-      You have the following firing {{ .CommonLabels.severity }} alerts:
+      You have the following firing alerts:
       <ul>
       {{ range .Alerts }}
       <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
@@ -44,11 +44,11 @@ receivers:
   email_configs:
   - to: "inzfs.prod-alerts@beis.gov.uk"
     headers:
-      Subject: "Alert {{ .CommonLabels.env }} ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
+      Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
     html: |
       Greetings,
       <p>
-      You have the following firing {{ .CommonLabels.severity }} alerts:
+      You have the following firing critical alerts:
       <ul>
       {{ range .Alerts }}
       <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
