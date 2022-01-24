@@ -72,3 +72,7 @@ route:
     repeat_interval: 1m
     matchers: 
      - env="prod"
+  - receiver: mail-dev
+    repeat_interval: 1m
+    matchers: 
+     - env="test"
