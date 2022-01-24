@@ -64,10 +64,7 @@ receivers:
       
 route:
   receiver: mail-dev
-  group_by: [alertname, env]
-  group_wait: 1m
-  group_interval: 5m
-  repeat_interval: 1m
+  group_by: [...]
   routes:
   - receiver: mail-prod
     repeat_interval: 1m
