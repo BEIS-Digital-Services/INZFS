@@ -1172,6 +1172,7 @@ function TimeoutWarning ($module) {
   this.$cancelButton = $module.querySelector('.js-dialog-cancel');
   this.overLayClass = 'govuk-timeout-warning-overlay';
   this.$fallBackElement = document.querySelector('.govuk-timeout-warning-fallback');
+  this.$fallBackDialog = document.querySelector('.govuk-timeout-warning');
   this.timers = [];
   // UI countdown timer specific markup
   this.$countdown = $module.querySelector('.timer');
@@ -1219,6 +1220,7 @@ TimeoutWarning.prototype.dialogSupported = function () {
     } catch (error) {
       // Doesn't support polyfill (IE8) - display fallback element
       this.$fallBackElement.classList.add('govuk-!-display-block');
+      this.$fallBackDialog.classList.add('govuk-!-display-none');
       return false;
     }
   }
