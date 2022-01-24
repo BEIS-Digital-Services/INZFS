@@ -2,7 +2,7 @@ groups:
   - name: Alerts
     rules:
       - alert: InstanceDown Critical!!
-        expr: up{env!="lab2"}
+        expr: up{env!="lab2"} == 0
         for: 1m
         labels:
           severity: critical
