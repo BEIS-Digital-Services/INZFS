@@ -22,7 +22,7 @@ receivers:
 - name: mail-dev
   email_configs:
   - to: "inzfs.alerts@beis.gov.uk"
-  - from: "inzfs.alerts@beis.gov.uk"
+    from: "inzfs.alerts@beis.gov.uk"
     headers:
       Subject: "Alert {{ .CommonLabels.env }} : {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
     html: |
