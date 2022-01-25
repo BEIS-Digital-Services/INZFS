@@ -11,7 +11,7 @@ groups:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
-      - alert: InstanceDown Critical!!
+      - alert: InstanceDown Critical - prod
         expr: up{env="prod"} == 0
         for: 1m
         labels:
@@ -22,7 +22,17 @@ groups:
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
       - alert: High average CPU usage
-        expr: avg(cpu{app="inzfs-lab2"}) > 200
+        expr: cpu{app!="inzfs-prod"} > 200
+        for: 1m
+        labels:
+          severity: warning
+          env: test
+        annotations:
+          summary: Host high CPU load (instance {{ $labels.instance }})
+          description: "CPU load is > 95%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: High average CPU usage - prod
+        expr: avg(cpu{app="inzfs-prod"}) > 200
         for: 1m
         labels:
           severity: warning
@@ -30,4 +40,25 @@ groups:
         annotations:
           summary: Host high CPU load (instance {{ $labels.instance }})
           description: "CPU load is > 95%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+      - alert: High usage of Disk Space
+        expr: disk_utilization{app!="inzfs-prod"} > 70
+        for: 1m
+        labels:
+          severity: critical
+          env: test
+        annotations:
+          summary: Host out low disk space (instance {{ $labels.instance }})
+          description: "Disk is 60%  full (< 10% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+
+      - alert: High usage of Disk Space - prod
+        expr: avg_over_time(disk_utilization{app = "inzfs-prod"}[15m]) > 70
+        for: 1m
+        labels:
+          severity: critical
+          env: prod
+        annotations:
+          summary: Host out low disk space (instance {{ $labels.instance }})
+          description: "Disk is 70%  full (< 20% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
