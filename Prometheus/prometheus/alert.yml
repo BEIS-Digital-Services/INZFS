@@ -11,9 +11,8 @@ groups:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
-
-      - alert: LAB2 InstanceDown Critical!!
-        expr: up{env="lab2"} == 0
+      - alert: InstanceDown Critical!!
+        expr: up{env="prod"} == 0
         for: 1m
         labels:
           severity: critical
@@ -22,4 +21,13 @@ groups:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
+      - alert: High average CPU usage
+        expr: avg(cpu{app="inzfs-lab2"}) > 200
+        for: 1m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary: Host high CPU load (instance {{ $labels.instance }})
+          description: "CPU load is > 95%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
