@@ -26,4 +26,4 @@ services:
     #- '--cluster.advertise-address=0.0.0.0:9094'
     - '--cluster.listen-address=0.0.0.0:9094'
     - '--cluster.settle-timeout=2m'
-    - '--cluster.peer=inzfs-prom-alertmanager1.london.cloudapps.digital:9094'
+    - '--cluster.peer=10.255.151.228:9094'
