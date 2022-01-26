@@ -23,7 +23,9 @@ alerting:
     - scheme: https
       static_configs:
       - targets:
-        - inzfs-prom-alertmanager.london.cloudapps.digital
+        #- inzfs-prom-alertmanager.london.cloudapps.digital
+        - inzfs-prom-alertmanager1.london.cloudapps.digital
+        - inzfs-prom-alertmanager2.london.cloudapps.digital
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
