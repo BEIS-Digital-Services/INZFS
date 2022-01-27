@@ -5,20 +5,15 @@ version: '3.7'
 
 services:
   prometheus:
-    image: ${DOCKER_REGISTRY-}prom
+    image: ${DOCKER_REGISTRY-}prom-blackbox
     build:
       context: ./
-      dockerfile: ./prometheus/Dockerfile2
-    container_name: prom
+      dockerfile: ./prometheus/Dockerfile1
     ports:
-      - 9090:9090
       - 9115:9115
-    restart: always
     command:
-      - '--web.enable-lifecycle'
-      - '--config.file=/etc/prometheus/prometheus.yml'
       - '--config.file=/etc/blackboxexporter/config.yml'
-      # - '--storage.tsdb.path=/prometheus'
+    restart: always
     volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - ./config.yml:/etc/blackboxexporter/config.yml:ro
       # - prometheus_data:/prometheus
