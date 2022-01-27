@@ -30,3 +30,6 @@ services:
     command:
       - '--config.file=/etc/blackboxexporter/config.yml'
     restart: always
+    volumes:
+      - ./config.yml:/etc/blackboxexporter/config.yml:ro
+      # - prometheus_data:/prometheus
