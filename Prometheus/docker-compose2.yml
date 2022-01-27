@@ -12,8 +12,8 @@ services:
     ports:
       - 9115:9115
     command:
-      - '--config.file=/etc/blackboxexporter/config.yml'
+      - '--config.file=/etc/blackbox_exporter/config.yml'
     restart: always
     volumes:
-      - ./config.yml:/etc/blackboxexporter/config.yml:ro
+      - ./config.yml:/etc/blackbox_exporter/config.yml:ro
       # - prometheus_data:/prometheus
