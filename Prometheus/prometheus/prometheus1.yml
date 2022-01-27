@@ -1,0 +1,116 @@
+global:
+  scrape_interval: 60s
+  scrape_timeout: 15s
+
+remote_write:
+  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/write?u=$(influxdbuser)&p=$(influxdbpass)&db=defaultdb"
+    # remote_timeout: 30s
+    # queue_config:
+    #     capacity: 100000
+    #     max_shards: 1000
+    #     max_samples_per_send: 1000
+    #     batch_send_deadline: 5s
+    #     max_retries: 10
+    #     min_backoff: 30ms
+    #     max_backoff: 100ms
+remote_read:
+  - url: "https://prod-lon-4602c7bc-01c1-4043-9230-966b9e11014b-paas-cf-prod.aivencloud.com:19676/api/v1/prom/read?u=$(influxdbuser)&p=$(influxdbpass)&db=defaultdb"
+    # read_recent: true
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - scheme: https
+      static_configs:
+      - targets:
+        #- inzfs-prom-alertmanager.london.cloudapps.digital
+        - inzfs-prom-alertmanager1.london.cloudapps.digital
+        - inzfs-prom-alertmanager2.london.cloudapps.digital
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  - 'alert.yml'
+  - 'prometheus.rules.yml'
+
+
+scrape_configs:
+  - job_name: 'blackbox'
+    metrics_path: /probe
+    params:
+      module: [http_2xx]
+    static_configs:
+      - targets:
+        - https://pagertree.com # edit here
+        - https://google.com # edit here
+
+  - job_name: 'exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
+        labels:
+          env: develop
+
+  - job_name: 'lab-exporter'
+    scrape_interval: 5m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab.london.cloudapps.digital']
+        labels:
+          env: lab
+    
+  - job_name: 'lab3-health'
+    scrape_interval: 5m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab3.london.cloudapps.digital']
+        labels:
+          env: lab3
+  
+  - job_name: 'lab2-health'
+    scrape_interval: 5m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-lab2.london.cloudapps.digital']
+        labels:
+          env: lab2
+
+  - job_name: 'sandbox-exporter'
+    scrape_interval: 2m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-sandbox.london.cloudapps.digital']
+        labels:
+          env: sandbox
+
+  - job_name: 'uat-exporter'
+    scrape_interval: 2m
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-uat.london.cloudapps.digital']
+        labels:
+          env: uat
+
+  - job_name: 'staging-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-staging.london.cloudapps.digital']
+        labels:
+          env: staging
+
+  - job_name: 'prod-exporter'
+    scrape_interval: 60s
+    metrics_path: /metrics
+    scheme: https
+    static_configs:
+      - targets: ['inzfs-prod.london.cloudapps.digital']
+        labels:
+          env: prod
