@@ -40,28 +40,18 @@ scrape_configs:
     metrics_path: /probe
     params:
       module: [http_2xx]  # Look for a HTTP 200 response.
-    dns_sd_configs:
-      - names:
-         - inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy
-         - inzfs-lab2.london.cloudapps.digital/
-         - google.com
-        type: A
-        port: 443
-        #- http://prometheus.io    # Target to probe with http.
-        #- https://prometheus.io   # Target to probe with https.
+    static_configs:
+      - targets:
+        - http://prometheus.io    # Target to probe with http.
+        - https://prometheus.io   # Target to probe with https.
         #- http://example.com:8080 # Target to probe with http on port 8080.
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
-        replacement: https://$1/  # Make probe URL be like https://1.2.3.4:443/
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
         replacement: inzfs-prom-blackbox.london.cloudapps.digital:443  # The blackbox exporter's real hostname:port.
-      - source_labels: [__meta_dns_name]
-        target_label: __param_hostname  # Make domain name become 'Host' header for probe requests
-      - source_labels: [__meta_dns_name]
-        target_label: vhost  # and store it in 'vhost' label
 
   - job_name: 'exporter'
     scrape_interval: 60s

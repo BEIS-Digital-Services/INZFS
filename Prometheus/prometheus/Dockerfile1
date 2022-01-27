@@ -1,3 +1,2 @@
 FROM prom/blackbox-exporter
-
 ADD prometheus/config.yml /etc/blackboxexporter/config.yml
