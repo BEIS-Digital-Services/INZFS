@@ -1,7 +1,7 @@
 version: '3.7'
 
-# volumes:
-#     prometheus_data: {}
+volumes:
+     blackbox_data: {}
 
 services:
   prometheus:
@@ -12,8 +12,8 @@ services:
     ports:
       - 9115:9115
     command:
-      - '--config.file=/etc/blackboxexporter/config.yml'
+      - '--config.file=/etc/blackbox/config.yml'
     restart: always
     volumes:
-      - ./config.yml:/etc/blackboxexporter/config.yml:ro
-      # - prometheus_data:/prometheus
+      - ./config.yml:/etc/blackbox/config.yml
+      - blackbox_data:/blackbox
