@@ -2,7 +2,7 @@ groups:
   - name: Alerts
     rules:
       - alert: InstanceDown Critical!!
-        expr: up{env!="lab2"} == 0
+        expr: up{env!="prod"} == 0
         for: 1m
         labels:
           severity: critical
@@ -61,4 +61,27 @@ groups:
         annotations:
           summary: Host out low disk space (instance {{ $labels.instance }})
           description: "Disk is 70%  full (< 20% left)\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+
+      - alert: High usage of Memory
+        expr: avg_over_time(memory_utilization{app!="inzfs-lab2"}[5m]) > 75
+        for: 1m
+        labels:
+          severity: warning
+          env: test
+        annotations:
+          summary: Server memory Usage (instance {{ $labels.instance }})
+          description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+
+      - alert: High usage of Memory - prod
+        expr: avg_over_time(memory_utilization{app="inzfs-lab2"}[5m]) > 75
+        for: 1m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary: Server memory Usage (instance {{ $labels.instance }})
+          description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
 
