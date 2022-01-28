@@ -32,9 +32,6 @@ rule_files:
   - 'alert.yml'
   - 'prometheus.rules.yml'
 
-
-
-
 scrape_configs:
   - job_name: 'blackbox'
     metrics_path: /probe
