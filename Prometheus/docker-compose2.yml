@@ -16,4 +16,4 @@ services:
     restart: always
     volumes:
       - ./config.yml:/etc/blackbox/config.yml
-      - blackbox_data:/blackbox
+      - blackbox_data:/blackbox/

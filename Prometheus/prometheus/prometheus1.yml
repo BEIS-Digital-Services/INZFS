@@ -50,6 +50,8 @@ scrape_configs:
       - target_label: __address__
         replacement: inzfs-prom-blackbox.london.cloudapps.digital:443  # The blackbox exporter's real hostname:port.
 
+# https://inzfs-prom-blackbox.london.cloudapps.digital/probe?target=inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy&module=http_2xx&debug=true
+
   - job_name: 'exporter'
     scrape_interval: 60s
     metrics_path: /metrics
