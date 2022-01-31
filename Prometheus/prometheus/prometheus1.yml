@@ -41,7 +41,7 @@ scrape_configs:
       - targets:
         #- http://prometheus.io    # Target to probe with http.
         #- https://prometheus.io   # Target to probe with https.
-        - inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy # Target to probe with http on port 8080.
+        - inzfs-prom-alertmanager.london.cloudapps.digital:443/-/healthy # Target to probe with http on port 8080.
     relabel_configs:
       - source_labels: [__address__]
         target_label: __param_target
