@@ -86,7 +86,7 @@ groups:
 
 
       - alert: Slow HTTP response times
-        expr: sum without(env) (rate(response_time_sum{app!="inzfs-lab2", status_range="2xx"} [5m]))/sum without(env) (rate(response_time_count{app="inzfs-lab2", status_range="2xx"} [5m]))> 3
+        expr: sum without(exported_instance) (rate(response_time_sum{app!="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (rate(response_time_count{app!="inzfs-lab2",status_range="2xx"}[5m])) > 3
         for: 2m
         labels:
           severity: warning
@@ -97,7 +97,7 @@ groups:
 
 
       - alert: Slow HTTP response times - prod
-        expr: sum without(env) (rate(response_time_sum{app="inzfs-lab2", status_range="2xx"} [5m]))/sum without(env) (rate(response_time_count{app="inzfs-lab2", status_range="2xx"} [5m]))> 3
+        expr: sum without(exported_instance) (rate(response_time_sum{app="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (rate(response_time_count{app="inzfs-lab2",status_range="2xx"}[5m])) > 3
         for: 2m
         labels:
           severity: warning
