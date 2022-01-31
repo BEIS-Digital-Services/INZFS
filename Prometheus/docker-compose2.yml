@@ -10,7 +10,7 @@ services:
       context: ./
       dockerfile: ./prometheus/Dockerfile1
     ports:
-      - 443:9115
+      - 443:443
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
     restart: always
