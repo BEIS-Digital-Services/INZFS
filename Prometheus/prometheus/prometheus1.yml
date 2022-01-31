@@ -48,7 +48,7 @@ scrape_configs:
       - source_labels: [__param_target]
         target_label: instance
       - target_label: __address__
-        replacement: inzfs-prom-blackbox.london.cloudapps.digital:443  # The blackbox exporter's real hostname:port.
+        replacement: inzfs-prom-blackbox.london.cloudapps.digital:9115  # The blackbox exporter's real hostname:port.
 
 # https://inzfs-prom-blackbox.london.cloudapps.digital/probe?target=inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy&module=http_2xx&debug=true
 
