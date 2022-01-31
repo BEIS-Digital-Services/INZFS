@@ -11,9 +11,10 @@ services:
       dockerfile: ./prometheus/Dockerfile1
     ports:
       - 443:443
+      - 9115:9115
     command:
       - '--config.file=/etc/blackbox/blackbox.yml'
     restart: always
     volumes:
-      - ./config.yml:/etc/blackbox/blackbox.yml
+      - ./blackbox.yml:/etc/blackbox/blackbox.yml
       - blackbox_data:/etc/blackbox/
