@@ -1,5 +1,5 @@
 FROM prom/blackbox-exporter
 #ADD prometheus/config.yml /etc/blackbox_exporter/config.yml
-ADD prometheus/config.yml /etc/blackbox/config.yml
+ADD prometheus/blackbox.yml /etc/blackbox/blackbox.yml
 RUN chown -R root:root /etc/blackbox/*
 RUN chown -R bin:bin /etc/blackbox/*
