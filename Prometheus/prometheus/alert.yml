@@ -1,7 +1,7 @@
 groups:
   - name: Alerts
     rules:
-      - alert: InstanceDown Critical!!
+      - alert: Instance Down Critical
         expr: up{env!="prod"} == 0
         for: 1m
         labels:
@@ -11,7 +11,7 @@ groups:
           summary: "Instance {{ $labels.instance }} down"
           description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
 
-      - alert: InstanceDown Critical - prod
+      - alert: Instance Down Critical - prod
         expr: up{env="prod"} == 0
         for: 1m
         labels:
@@ -64,7 +64,7 @@ groups:
 
 
       - alert: High usage of Memory
-        expr: avg_over_time(memory_utilization{app!="inzfs-lab2"}[5m]) > 75
+        expr: avg_over_time(memory_utilization{app!="inzfs-prod"}[5m]) > 75
         for: 1m
         labels:
           severity: warning
@@ -75,7 +75,7 @@ groups:
 
 
       - alert: High usage of Memory - prod
-        expr: avg_over_time(memory_utilization{app="inzfs-lab2"}[5m]) > 75
+        expr: avg_over_time(memory_utilization{app="inzfs-prod"}[5m]) > 75
         for: 1m
         labels:
           severity: warning
@@ -85,3 +85,23 @@ groups:
           description: "Memory usage is more than 75%\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
 
+      - alert: Slow HTTP response times
+        expr: sum without(env) (rate(response_time_sum{app!="inzfs-lab2", status_range="2xx"} [5m]))/sum without(env) (rate(response_time_count{app="inzfs-lab2", status_range="2xx"} [5m]))> 3
+        for: 2m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary:  probe slow HTTP (instance {{ $labels.instance }})
+          description: "HTTP request took more than 3s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+
+      - alert: Slow HTTP response times - prod
+        expr: sum without(env) (rate(response_time_sum{app="inzfs-lab2", status_range="2xx"} [5m]))/sum without(env) (rate(response_time_count{app="inzfs-lab2", status_range="2xx"} [5m]))> 3
+        for: 2m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary:  probe slow HTTP (instance {{ $labels.instance }})
+          description: "HTTP request took more than 3s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
