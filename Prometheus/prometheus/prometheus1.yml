@@ -39,10 +39,10 @@ scrape_configs:
     - targets:
       - inzfs-prom-blackbox.london.cloudapps.digital:443 # For Windows and macOS replace with - host.docker.internal:9115
 
-- job_name: blackbox-http
+- job_name: blackbox-http # To get metrics about the exporter’s targets
   metrics_path: /probe
-   params:
-     module: [http_2xx]  # Look for a HTTP 200 response.
+  params:
+    module: [http_2xx]
   static_configs:
     - targets:
       #- http://prometheus.io    # Target to probe with http.
