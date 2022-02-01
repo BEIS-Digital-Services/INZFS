@@ -108,7 +108,7 @@ groups:
 
 
       - alert: Response time threshold exceeds
-        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx",app!="inzfs-lab2"}[5m])))  > 3
+        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app!="inzfs-lab2",status_range="2xx"}[5m])))) > 3
         for: 2m
         labels:
           severity: warning
@@ -120,7 +120,7 @@ groups:
           
           
       - alert: Response time threshold exceeds - prod
-        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx",app="inzfs-lab2"}[5m])))  > 3
+        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app="inzfs-lab2",status_range="2xx"}[5m])))) > 3
         for: 2m
         labels:
           severity: warning
