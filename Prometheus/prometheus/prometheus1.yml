@@ -49,10 +49,13 @@ scrape_configs:
   scheme: https
   static_configs:
     - targets:
-      #- http://prometheus.io    # Target to probe with http.
-      #- https://prometheus.io   # Target to probe with https.
-      -  inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy # Target to probe with http on port 8080.
-      -  prometheus.io 
+      - inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy
+      - inzfs-prom-grafana.london.cloudapps.digital/healthz
+      - inzfs-prom.london.cloudapps.digital/healthy
+      - www.apply-energy-entrepreneurs-fund.service.gov.uk/admin
+      - inzfs-prod.london.cloudapps.digital/admin
+      - inzfs-uat.london.cloudapps.digital/admin
+      - inzfs-staging.london.cloudapps.digital/admin
   relabel_configs:
     - source_labels: [__address__]
       target_label: __param_target
@@ -60,6 +63,7 @@ scrape_configs:
       target_label: instance
     - target_label: __address__
       replacement: inzfs-prom-blackbox.london.cloudapps.digital:443 # The blackbox exporter's real hostname:port.
+
 
         # "http://prometheus.io/probe?module=http_2xx". 
         # After relabeling it will look like this 
