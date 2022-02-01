@@ -65,7 +65,7 @@ groups:
 
       - alert: High usage of Memory
         expr: avg_over_time(memory_utilization{app!="inzfs-prod"}[5m]) > 75
-        for: 1m
+        for: 10m
         labels:
           severity: warning
           env: test
@@ -76,7 +76,7 @@ groups:
 
       - alert: High usage of Memory - prod
         expr: avg_over_time(memory_utilization{app="inzfs-prod"}[5m]) > 75
-        for: 1m
+        for: 10m
         labels:
           severity: warning
           env: prod
@@ -86,7 +86,7 @@ groups:
 
 
       - alert: Slow HTTP response times
-        expr: sum without(exported_instance) (delta(response_time_sum{app!="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app!="inzfs-lab2",status_range="2xx"}[5m])) > 4
+        expr: sum without(exported_instance) (delta(response_time_sum{app!="inzfs-prod",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app!="inzfs-prod",status_range="2xx"}[5m])) > 4
         for: 3m
         labels:
           severity: warning
@@ -97,7 +97,7 @@ groups:
 
 
       - alert: Slow HTTP response times - prod
-        expr: sum without(exported_instance) (delta(response_time_sum{app="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app="inzfs-lab2",status_range="2xx"}[5m])) > 4
+        expr: sum without(exported_instance) (delta(response_time_sum{app="inzfs-prod",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app="inzfs-prod",status_range="2xx"}[5m])) > 4
         for: 3m
         labels:
           severity: warning
@@ -108,7 +108,7 @@ groups:
 
 
       - alert: Response time threshold exceeds
-        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app!="inzfs-lab2",status_range="2xx"}[5m])))) > 3
+        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app!="inzfs-prod",status_range="2xx"}[5m])))) > 3
         for: 2m
         labels:
           severity: warning
@@ -120,7 +120,7 @@ groups:
           
           
       - alert: Response time threshold exceeds - prod
-        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app="inzfs-lab2",status_range="2xx"}[5m])))) > 3
+        expr: histogram_quantile(0.95, (avg without(exported_instance) (delta(response_time_bucket{app="inzfs-prod",status_range="2xx"}[5m])))) > 3
         for: 2m
         labels:
           severity: warning
@@ -129,7 +129,27 @@ groups:
           summary: 95 percentile response time exceeds 3 seconds   (instance {{ $labels.instance }})
           description: "HTTP request took more than 3 seconds 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           
+
+      - alert: Too many open connections in the database
+        expr: max_over_time(threads_connected{service!="inzfs-mysql-prod"}[1m]) / max_connections{service!="inzfs-mysql-prod"} * 100 > 70
+        for: 2m
+        labels:
+          severity: warning
+          env: test
+        annotations:
+          summary: Database too many connections (> 70%) (instance {{ $labels.instance }})
+          description: "More than 70% of database connections are in use on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           
+          
+      - alert: Too many open connections in the database - prod
+        expr: max_over_time(threads_connected{service="inzfs-mysql-prod"}[1m]) / max_connections{service="inzfs-mysql-prod"} * 100 > 70
+        for: 2m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary: Database too many connections (> 70%) (instance {{ $labels.instance }})
+          description: "More than 70% of database connections are in use on {{ $labels.instance }}\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
           
           
           
