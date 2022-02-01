@@ -86,22 +86,50 @@ groups:
 
 
       - alert: Slow HTTP response times
-        expr: sum without(exported_instance) (rate(response_time_sum{app!="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (rate(response_time_count{app!="inzfs-lab2",status_range="2xx"}[5m])) > 4
-        for: 2m
+        expr: sum without(exported_instance) (delta(response_time_sum{app!="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app!="inzfs-lab2",status_range="2xx"}[5m])) > 4
+        for: 3m
         labels:
           severity: warning
-          env: prod
+          env: test
         annotations:
           summary:  probe slow HTTP (instance {{ $labels.instance }})
           description: "HTTP request took more than 3s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
 
 
       - alert: Slow HTTP response times - prod
-        expr: sum without(exported_instance) (rate(response_time_sum{app="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (rate(response_time_count{app="inzfs-lab2",status_range="2xx"}[5m])) > 4
-        for: 2m
+        expr: sum without(exported_instance) (delta(response_time_sum{app="inzfs-lab2",status_range="2xx"}[5m])) / sum without(exported_instance) (delta(response_time_count{app="inzfs-lab2",status_range="2xx"}[5m])) > 4
+        for: 3m
         labels:
           severity: warning
           env: prod
         annotations:
           summary:  probe slow HTTP (instance {{ $labels.instance }})
           description: "HTTP request took more than 3s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+
+
+      - alert: Response time threshold exceeds
+        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx",app!="inzfs-lab2"}[5m])))  > 3
+        for: 2m
+        labels:
+          severity: warning
+          env: test
+        annotations:
+          summary: 95 percentile response time exceeds 3 seconds   (instance {{ $labels.instance }})
+          description: "HTTP request took more than 3 seconds 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          
+          
+          
+      - alert: Response time threshold exceeds - prod
+        expr: histogram_quantile(0.95, (rate(response_time_bucket{status_range="2xx",app="inzfs-lab2"}[5m])))  > 3
+        for: 2m
+        labels:
+          severity: warning
+          env: prod
+        annotations:
+          summary: 95 percentile response time exceeds 3 seconds   (instance {{ $labels.instance }})
+          description: "HTTP request took more than 3 seconds 1s\n  VALUE = {{ $value }}\n  LABELS = {{ $labels }}"
+          
+          
+          
+          
+          
