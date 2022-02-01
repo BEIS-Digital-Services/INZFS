@@ -39,8 +39,7 @@ scrape_configs:
   scrape_interval: 10s
   scheme: https
   static_configs:
-    - targets:
-      - inzfs-prom-blackbox.london.cloudapps.digital:443 # For Windows and macOS replace with - host.docker.internal:9115
+    - targets: ['inzfs-prom-blackbox.london.cloudapps.digital'] # For Windows and macOS replace with - host.docker.internal
 
 - job_name: blackbox-http # To get metrics about the exporter’s targets
   metrics_path: /probe
@@ -52,8 +51,8 @@ scrape_configs:
     - targets:
       #- http://prometheus.io    # Target to probe with http.
       #- https://prometheus.io   # Target to probe with https.
-      -  https://inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy # Target to probe with http on port 8080.
-      -  https://prometheus.io 
+      -  inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy # Target to probe with http on port 8080.
+      -  prometheus.io 
   relabel_configs:
     - source_labels: [__address__]
       target_label: __param_target
