@@ -34,36 +34,6 @@ rule_files:
 
 scrape_configs:
 
-- job_name: blackbox # To get metrics about the exporter itself
-  metrics_path: /metrics
-  scrape_interval: 10s
-  scheme: https
-  static_configs:
-    - targets: ['inzfs-prom-blackbox.london.cloudapps.digital'] # For Windows and macOS replace with - host.docker.internal
-
-- job_name: blackbox-http # To get metrics about the exporter’s targets
-  metrics_path: /probe
-  params:
-    module: [http_2xx]
-  scrape_interval: 10s
-  scheme: https
-  static_configs:
-    - targets:
-      - inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy
-      - inzfs-prom-grafana.london.cloudapps.digital/healthz
-      - inzfs-prom.london.cloudapps.digital/healthy
-      - www.apply-energy-entrepreneurs-fund.service.gov.uk/admin
-      - inzfs-prod.london.cloudapps.digital/admin
-      - inzfs-uat.london.cloudapps.digital/admin
-      - inzfs-staging.london.cloudapps.digital/admin
-  relabel_configs:
-    - source_labels: [__address__]
-      target_label: __param_target
-    - source_labels: [__param_target]
-      target_label: instance
-    - target_label: __address__
-      replacement: inzfs-prom-blackbox.london.cloudapps.digital:443 # The blackbox exporter's real hostname:port.
-
 
         # "http://prometheus.io/probe?module=http_2xx". 
         # After relabeling it will look like this 

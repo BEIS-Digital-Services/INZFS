@@ -24,8 +24,7 @@ alerting:
       static_configs:
       - targets:
         #- inzfs-prom-alertmanager.london.cloudapps.digital
-        - inzfs-prom-alertmanager1.london.cloudapps.digital
-        - inzfs-prom-alertmanager2.london.cloudapps.digital
+        - inzfs-prom-alertmanager.london.cloudapps.digital
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
@@ -34,74 +33,104 @@ rule_files:
 
 
 scrape_configs:
-  - job_name: 'exporter'
-    scrape_interval: 60s
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
-        labels:
-          env: develop
+- job_name: blackbox # To get metrics about the exporter itself
+  metrics_path: /metrics
+  scrape_interval: 60s
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-prom-blackbox.london.cloudapps.digital'] # For Windows and macOS replace with - host.docker.internal
 
-  - job_name: 'lab-exporter'
-    scrape_interval: 5m
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-lab.london.cloudapps.digital']
-        labels:
-          env: lab
-    
-  - job_name: 'lab3-health'
-    scrape_interval: 5m
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-lab3.london.cloudapps.digital']
-        labels:
-          env: lab3
+- job_name: blackbox-http # To get metrics about the exporter’s targets
+  metrics_path: /probe
+  params:
+    module: [http_2xx]
+  scrape_interval: 60s
+  scheme: https
+  static_configs:
+    - targets:
+      - inzfs-prom-alertmanager.london.cloudapps.digital/-/healthy
+      - inzfs-prom-grafana.london.cloudapps.digital/healthz
+      - inzfs-prom.london.cloudapps.digital/healthy
+      - www.apply-energy-entrepreneurs-fund.service.gov.uk/admin
+      - inzfs-prod.london.cloudapps.digital/admin
+      - inzfs-uat.london.cloudapps.digital/admin
+      - inzfs-staging.london.cloudapps.digital/admin
+  relabel_configs:
+    - source_labels: [__address__]
+      target_label: __param_target
+    - source_labels: [__param_target]
+      target_label: instance
+    - target_label: __address__
+      replacement: inzfs-prom-blackbox.london.cloudapps.digital:443
+
+- job_name: 'exporter'
+  scrape_interval: 60s
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['prometheus-exporter-beis-netzero.london.cloudapps.digital']
+      labels:
+        env: develop
+
+- job_name: 'lab-exporter'
+  scrape_interval: 5m
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-lab.london.cloudapps.digital']
+      labels:
+        env: lab
   
-  - job_name: 'lab2-health'
-    scrape_interval: 5m
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-lab2.london.cloudapps.digital']
-        labels:
-          env: lab2
+- job_name: 'lab3-health'
+  scrape_interval: 5m
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-lab3.london.cloudapps.digital']
+      labels:
+        env: lab3
 
-  - job_name: 'sandbox-exporter'
-    scrape_interval: 2m
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-sandbox.london.cloudapps.digital']
-        labels:
-          env: sandbox
+- job_name: 'lab2-health'
+  scrape_interval: 5m
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-lab2.london.cloudapps.digital']
+      labels:
+        env: lab2
 
-  - job_name: 'uat-exporter'
-    scrape_interval: 2m
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-uat.london.cloudapps.digital']
-        labels:
-          env: uat
+- job_name: 'sandbox-exporter'
+  scrape_interval: 2m
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-sandbox.london.cloudapps.digital']
+      labels:
+        env: sandbox
 
-  - job_name: 'staging-exporter'
-    scrape_interval: 60s
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-staging.london.cloudapps.digital']
-        labels:
-          env: staging
+- job_name: 'uat-exporter'
+  scrape_interval: 2m
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-uat.london.cloudapps.digital']
+      labels:
+        env: uat
 
-  - job_name: 'prod-exporter'
-    scrape_interval: 60s
-    metrics_path: /metrics
-    scheme: https
-    static_configs:
-      - targets: ['inzfs-prod.london.cloudapps.digital']
-        labels:
-          env: prod
+- job_name: 'staging-exporter'
+  scrape_interval: 60s
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-staging.london.cloudapps.digital']
+      labels:
+        env: staging
+
+- job_name: 'prod-exporter'
+  scrape_interval: 60s
+  metrics_path: /metrics
+  scheme: https
+  static_configs:
+    - targets: ['inzfs-prod.london.cloudapps.digital']
+      labels:
+        env: prod
