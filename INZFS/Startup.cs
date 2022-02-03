@@ -65,18 +65,20 @@ namespace INZFS
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            
+            app.UseHsts();
+            app.UseSession();
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                Secure = CookieSecurePolicy.Always
+            });
+            app.UseStaticFiles();
+            app.UseRouting();
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSession();
-                app.UseCookiePolicy(new CookiePolicyOptions
-                {
-                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
-                    MinimumSameSitePolicy = SameSiteMode.Strict,
-                    Secure = CookieSecurePolicy.Always
-                });
-                app.UseStaticFiles();
-                app.UseRouting();
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapGet("/", context =>
@@ -84,58 +86,24 @@ namespace INZFS
                         return Task.Run(() => context.Response.Redirect("https://reroutetest.london.cloudapps.digital"));
                     });
                 });
-                app.UseMetricServer();
-                app.UseHttpMetrics();
-                app.UseSerilogRequestLogging();
-                app.UseHttpsRedirection();
-                app.UseContentSecurityPolicy();
-                app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
             }
-            else if (env.EnvironmentName == "sandbox")
+            if (env.EnvironmentName == "sandbox" || env.EnvironmentName == "lab2")
             {
-                app.UseSession();
-                app.UseCookiePolicy(new CookiePolicyOptions
-                {
-                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
-                    MinimumSameSitePolicy = SameSiteMode.Strict,
-                    Secure = CookieSecurePolicy.Always
-                });
-                app.UseStaticFiles();
-                app.UseRouting();
                 app.UseEndpoints(endpoints =>
                 {
                     endpoints.MapGet("/", context =>
                     {
-                        return Task.Run(() => context.Response.Redirect("https://inzfs-uat.london.cloudapps.digital"));
+                        return Task.Run(() => context.Response.Redirect("https://reroutetest.london.cloudapps.digital"));
                     });
                 });
-                app.UseMetricServer();
-                app.UseHttpMetrics();
-                app.UseSerilogRequestLogging();
-                app.UseHttpsRedirection();
-                app.UseContentSecurityPolicy();
-                app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
             }
-            else
-            {
                 app.UseExceptionHandler("/Error");
-                app.UseHsts();
-                app.UseSession();
-                app.UseCookiePolicy(new CookiePolicyOptions
-                {
-                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
-                    MinimumSameSitePolicy = SameSiteMode.Strict,
-                    Secure = CookieSecurePolicy.Always
-                });
-                app.UseStaticFiles();
-                app.UseRouting();
                 app.UseMetricServer();
                 app.UseHttpMetrics();
                 app.UseSerilogRequestLogging();
                 app.UseHttpsRedirection();
                 app.UseContentSecurityPolicy();
                 app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
-            }
 
         }
     }
