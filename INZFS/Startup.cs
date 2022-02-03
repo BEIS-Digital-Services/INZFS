@@ -68,29 +68,75 @@ namespace INZFS
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSession();
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+                    MinimumSameSitePolicy = SameSiteMode.Strict,
+                    Secure = CookieSecurePolicy.Always
+                });
+                app.UseStaticFiles();
+                app.UseRouting();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapGet("/", context =>
+                    {
+                        return Task.Run(() => context.Response.Redirect("https://reroutetest.london.cloudapps.digital"));
+                    });
+                });
+                app.UseMetricServer();
+                app.UseHttpMetrics();
+                app.UseSerilogRequestLogging();
+                app.UseHttpsRedirection();
+                app.UseContentSecurityPolicy();
+                app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
+            }
+            else if (env.EnvironmentName == "sandbox")
+            {
+                app.UseSession();
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+                    MinimumSameSitePolicy = SameSiteMode.Strict,
+                    Secure = CookieSecurePolicy.Always
+                });
+                app.UseStaticFiles();
+                app.UseRouting();
+                app.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapGet("/", context =>
+                    {
+                        return Task.Run(() => context.Response.Redirect("https://inzfs-uat.london.cloudapps.digital"));
+                    });
+                });
+                app.UseMetricServer();
+                app.UseHttpMetrics();
+                app.UseSerilogRequestLogging();
+                app.UseHttpsRedirection();
+                app.UseContentSecurityPolicy();
+                app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
             }
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+                app.UseSession();
+                app.UseCookiePolicy(new CookiePolicyOptions
+                {
+                    HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
+                    MinimumSameSitePolicy = SameSiteMode.Strict,
+                    Secure = CookieSecurePolicy.Always
+                });
+                app.UseStaticFiles();
+                app.UseRouting();
+                app.UseMetricServer();
+                app.UseHttpMetrics();
+                app.UseSerilogRequestLogging();
+                app.UseHttpsRedirection();
+                app.UseContentSecurityPolicy();
+                app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
             }
-            app.UseSession();
-            app.UseCookiePolicy(new CookiePolicyOptions
-            {
-                HttpOnly = Microsoft.AspNetCore.CookiePolicy.HttpOnlyPolicy.Always,
-                MinimumSameSitePolicy = SameSiteMode.Strict,
-                Secure = CookieSecurePolicy.Always
-            });
-            //app.UseVcapSession();
-            app.UseStaticFiles();
-            app.UseRouting();
-            app.UseMetricServer();
-            app.UseHttpMetrics();
-            app.UseSerilogRequestLogging();
-            app.UseHttpsRedirection();
-            app.UseContentSecurityPolicy();
-            app.UseOrchardCore(c => c.UseSerilogTenantNameLogging());
+
         }
     }
 }
