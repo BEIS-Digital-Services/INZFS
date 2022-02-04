@@ -87,7 +87,7 @@ namespace INZFS
                     });
                 });
             }
-            if (env.EnvironmentName == "sandbox" || env.EnvironmentName == "lab2")
+            if (env.EnvironmentName == "sandbox" || env.EnvironmentName == "lab3")
             {
                 app.UseEndpoints(endpoints =>
                 {
