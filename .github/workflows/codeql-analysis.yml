@@ -34,6 +34,10 @@ jobs:
         # https://docs.github.com/en/free-pro-team@latest/github/finding-security-vulnerabilities-and-errors-in-your-code/configuring-code-scanning#changing-the-languages-that-are-analyzed
 
     steps:
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.13
     - name: Checkout repository
       uses: actions/checkout@v2
 
@@ -60,7 +64,7 @@ jobs:
     #    uses a compiled language
 
     - run: |
-       dotnet build csharp
+       dotnet build csharp /p:UseSharedCompilation=false
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v1
 
