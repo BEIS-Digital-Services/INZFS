@@ -62,5 +62,5 @@ jobs:
     - run: |
        dotnet build csharp
     - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@main
+      uses: github/codeql-action/analyze@v1
 
