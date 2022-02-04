@@ -34,3 +34,4 @@ applications:
     CloudMersiveApiKey: $(CloudMersiveApiKey)
     Serilog__WriteTo__1__Args__sourceName: $(env)
     Serilog__MinumumLevel: $(loglevel)
+    ASPNETCORE_ENVIRONMENT: $(env)
