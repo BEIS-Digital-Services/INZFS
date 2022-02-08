@@ -52,16 +52,15 @@ jobs:
     - if: matrix.language == 'javascript' 
       name: Autobuild
       uses: github/codeql-action/autobuild@v1
-    - if: matrix.language == 'csharp' 
-        run:|      
+    - if: matrix.language == 'csharp'       
     - uses: actions/checkout@v2
     - name: Build CSharp
       uses: actions/setup-dotnet@v1.7.2
       with:
           dotnet-version: ${{ matrix.dotnet-version }}
     - name: Install dependencies
-    - run: dotnet restore
+      run: dotnet restore
     - name: dotnet build
-    - run: dotnet build --configuration Release --no-restore
+      run: dotnet build --configuration Release --no-restore
  
 
