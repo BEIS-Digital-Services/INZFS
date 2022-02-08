@@ -54,11 +54,7 @@ jobs:
       name: Autobuild
       uses: github/codeql-action/autobuild@v1
     - if: matrix.language == 'csharp'       
-      name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
-      uses: actions/setup-dotnet@v1.7.2
-      with:
-          dotnet-version: ${{ matrix.dotnet-version }}
-    - run : dotnet restore
-    - run : dotnet build
+      name: dotnetBuild
+      uses: .github/workflows/dotnetbuild@main
  
 
