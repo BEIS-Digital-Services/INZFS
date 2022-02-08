@@ -53,6 +53,7 @@ jobs:
       name: Autobuild
       uses: github/codeql-action/autobuild@v1
     - if: matrix.language == 'csharp' 
+        run:|      
     - uses: actions/checkout@v2
     - name: Build CSharp
       uses: actions/setup-dotnet@v1.7.2
