@@ -1,4 +1,4 @@
-name: "DotnetBuild"
+name: "dotnetbuild"
 
 on: 
   workflow_call:
