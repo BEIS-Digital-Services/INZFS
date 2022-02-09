@@ -54,5 +54,13 @@ jobs:
       name: Autobuild
       uses: github/codeql-action/autobuild@v1
     - if: matrix.language == 'csharp'       
-      name: dotnetBuild
-      uses: ./.github/workflows/dotnet.yml
+      name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x  
+    - if: matrix.language == 'csharp'  
+      name: Restore dependencies
+      run: dotnet restore
+    - if: matrix.language == 'csharp'  
+      name: Build
+      run: dotnet build --no-restore
