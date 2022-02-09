@@ -54,6 +54,6 @@ jobs:
       uses: github/codeql-action/autobuild@v1
     - if: matrix.language == 'csharp'       
       name: dotnetBuild
-      uses: actions/.Net@v1
+      uses: github/workflows/.Net@v1
  
 
