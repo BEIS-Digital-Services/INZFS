@@ -64,4 +64,3 @@ jobs:
     #   make release
 
     - name: Perform CodeQL Analysis
-      uses: ./.github/workflows/dotnet.yml
