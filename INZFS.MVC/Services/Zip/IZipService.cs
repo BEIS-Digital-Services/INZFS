@@ -11,5 +11,7 @@ namespace INZFS.MVC.Services.Zip
     {
         public Task<byte[]> GetZipFileBytes(string filetype, string userId, bool includeJsonSummary = false);
         public Task<string> GetApplicationId(string userId);
+
+        public Task<string> GetApplicationCompanyName(string userId);
     }
 }

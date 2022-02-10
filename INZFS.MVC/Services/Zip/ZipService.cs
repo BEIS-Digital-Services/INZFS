@@ -12,6 +12,7 @@ using System.Text.Json;
 using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using System.Linq;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -164,6 +165,20 @@ namespace INZFS.MVC.Services.Zip
         {
             var applicationContent = await _contentRepository.GetApplicationContent(userId);
             return applicationContent.ApplicationNumber;
+        }
+
+        public async Task<string> GetApplicationCompanyName(string userId)
+        {
+            var applicationContent = await _contentRepository.GetApplicationContent(userId);
+            var companyName = applicationContent.Fields.FirstOrDefault(f => f.Name.Equals("organisation-name"));
+            if(companyName == null)
+            {
+                return "NO-COMPANY-NAME";
+            }
+            else
+            {
+                return companyName.Data;
+            }
         }
     }
 }
