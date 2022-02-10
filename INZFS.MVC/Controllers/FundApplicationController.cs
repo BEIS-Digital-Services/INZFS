@@ -565,8 +565,9 @@ namespace INZFS.MVC.Controllers
 
         public async Task<bool> AddApplicationToBlobStorage()
         {
+            string userId = await _zipService.GetApplicationId(GetUserId());
             byte[] zipFileBytes = await _zipService.GetZipFileBytes("pdf", GetUserId(), true);
-            string name = $"{_zipService.GetApplicationId(GetUserId())}.zip";
+            string name = $"{userId}.zip";
 
             MemoryStream ms = new(zipFileBytes);
             FormFile file = new(ms, 0, zipFileBytes.Length, name, name);
