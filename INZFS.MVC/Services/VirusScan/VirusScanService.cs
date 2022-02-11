@@ -15,7 +15,7 @@ namespace INZFS.MVC.Services.VirusScan
 {
     public class VirusScanService : IVirusScanService
     {
-        public bool ScanFile(IFormFile file, string cloudmersiveApiKey)
+        public string ScanFile(IFormFile file, string cloudmersiveApiKey)
         {
             Configuration.Default.AddApiKey("Apikey", cloudmersiveApiKey);
             var apiInstance = new ScanApi();
@@ -36,19 +36,19 @@ namespace INZFS.MVC.Services.VirusScan
                 if(result.FoundViruses != null)
                 {
                     Debug.WriteLine("The following viruses were found: " + result.FoundViruses.ToString());
-                    return true;
+                    return "Virus";
                    
                 }
                 else
                 {
                     Debug.WriteLine("Virus scanning complete. Your upload is virus-free!");
-                    return false;
+                    return "Clean";
                 }
             }
             catch (Exception e)
             {
                 Debug.WriteLine("Exception when calling ScanApi.ScanFileAdvanced: " + e.Message);
-                return true;
+                return "Exception";
             }
         }
      
