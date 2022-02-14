@@ -5,31 +5,20 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Routing;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Display;
-using OrchardCore.ContentManagement.Metadata;
-using INZFS.MVC.ViewModels;
-using OrchardCore.DisplayManagement;
-using OrchardCore.DisplayManagement.ModelBinding;
-using OrchardCore.DisplayManagement.Notify;
 using OrchardCore.Routing;
 using Microsoft.AspNetCore.Authorization;
 using INZFS.MVC.Models;
-using INZFS.MVC.Forms;
 using Microsoft.AspNetCore.Http;
 using OrchardCore.Media;
 using Microsoft.Extensions.Logging;
 using INZFS.MVC.Models.DynamicForm;
 using INZFS.MVC.Services.FileUpload;
-using INZFS.MVC.Services.VirusScan;
 using System.Text.Json;
 using ClosedXML.Excel;
-using OrchardCore.FileStorage;
 using System.IO;
 using ClosedXML.Excel.CalcEngine.Exceptions;
 using System.Globalization;
 using INZFS.MVC.Services;
-using INZFS.MVC.Records;
 using System.Security.Claims;
 using INZFS.MVC.Extensions;
 using INZFS.MVC.Constants;
@@ -37,7 +26,6 @@ using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Hosting;
-using System.Text;
 using Ganss.XSS;
 using INZFS.MVC.Services.Zip;
 
@@ -56,6 +44,7 @@ namespace INZFS.MVC.Controllers
         private readonly IZipService _zipService;
         private readonly IWebHostEnvironment _env;
         private HtmlSanitizer _sanitizer;
+        private ILogger _logger;
         
 
         public FundApplicationController(
@@ -67,7 +56,8 @@ namespace INZFS.MVC.Controllers
             IApplicationEmailService applicationEmailService,
             IOptions<ApplicationOption> applicationOption,
             IZipService zipService,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env,
+            ILogger<FundApplicationController> logger)
         {
             _mediaFileStore = mediaFileStore;
             _session = session;
@@ -78,6 +68,7 @@ namespace INZFS.MVC.Controllers
             _applicationOption = applicationOption.Value;
             _zipService = zipService;
             _env = env;
+            _logger = logger;
 
             _sanitizer = new HtmlSanitizer();
             _sanitizer.AllowedAttributes.Clear();
@@ -258,6 +249,7 @@ namespace INZFS.MVC.Controllers
                         }
                         catch (Exception ex)
                         {
+                            _logger.LogError(ex.Message);
                             ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
                         }
                         
@@ -315,11 +307,13 @@ namespace INZFS.MVC.Controllers
                                         }
                                         catch (DivisionByZeroException e)
                                         {
+                                            _logger.LogError(e.Message);   
                                             return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
                                                 "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                         catch (FormatException e)
                                         {
+                                            _logger.LogError(e.Message);
                                             return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", 
                                                 "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
@@ -331,19 +325,23 @@ namespace INZFS.MVC.Controllers
                                 }
                                 catch (ArgumentException e)
                                 {
+                                    _logger.LogError(e.Message);
                                     return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                                 catch (InvalidOperationException e)
                                 {
+                                    _logger.LogError(e.Message);
                                     return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                             }
                             catch (InvalidDataException e)
                             {
+                                _logger.LogError(e.Message);
                                 return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded");
                             }
                             catch (Exception ex)
                             {
+                                _logger.LogError(ex.Message);
                                 return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded - try again.");
                             }
                         }
@@ -588,6 +586,7 @@ namespace INZFS.MVC.Controllers
             }
             catch (Exception e)
             {
+                _logger.LogError(e.Message);
                 return null;
             }
         }
@@ -623,7 +622,7 @@ namespace INZFS.MVC.Controllers
         }
 
         [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
-        public async Task<IActionResult> ApplicationEquality()
+        public IActionResult ApplicationEquality()
         {
             SetPageTitle("Equality questions");
             var model = new CommonModel
@@ -646,16 +645,16 @@ namespace INZFS.MVC.Controllers
                 SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow
             } );
         }
-        
+
 
         [HttpPost, ActionName("ApplicationComplete")]
-        public async Task<IActionResult> ApplicationComplete(string equality)
+        public IActionResult ApplicationComplete(string equality)
         {
             if (equality == "1")
             {
                 return RedirectToAction("section", new { pagename = "eq-survey-question-one" });
             }
-            else 
+            else
             {
                 return RedirectToAction("ApplicationSent");
             }

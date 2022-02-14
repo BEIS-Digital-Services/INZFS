@@ -1,22 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Display;
-using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.ContentManagement.Records;
-using OrchardCore.DisplayManagement;
-using OrchardCore.DisplayManagement.ModelBinding;
-using OrchardCore.DisplayManagement.Notify;
-using OrchardCore.Settings;
-using YesSql;
-using INZFS.MVC.Models;
-using INZFS.MVC.Forms;
-using OrchardCore.Flows.Models;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace INZFS.MVC.Controllers
 {
@@ -32,7 +14,7 @@ namespace INZFS.MVC.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetApplicationsSearch(string companyName)
+        public IActionResult GetApplicationsSearch(string companyName)
         {
             return View(null);
         }

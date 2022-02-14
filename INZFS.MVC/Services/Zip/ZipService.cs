@@ -67,7 +67,7 @@ namespace INZFS.MVC.Services.Zip
 
                     foreach (var file in uploadedFiles)
                     {
-                        BinaryData binaryData = await GetFileFromBlobStorage(file);
+                        BinaryData binaryData = GetFileFromBlobStorage(file);
                         if (binaryData == null)
                         {
                             continue;
@@ -108,7 +108,7 @@ namespace INZFS.MVC.Services.Zip
             }
         }
 
-        private async Task<BinaryData> GetFileFromBlobStorage(UploadedFile file)
+        private BinaryData GetFileFromBlobStorage(UploadedFile file)
         {
             string connectionString = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ConnectionString");
             string containerName = Environment.GetEnvironmentVariable("OrchardCore__OrchardCore_Shells_Azure__ContainerName");
@@ -155,6 +155,7 @@ namespace INZFS.MVC.Services.Zip
                 }
                 catch(JsonException e)
                 {
+                    _logger.LogError(e.Message);
                     continue;
                 }
             }
