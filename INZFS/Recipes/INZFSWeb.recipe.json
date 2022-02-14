@@ -146,6 +146,222 @@
       ]
     },
     {
+      "name": "deployment",
+      "Plans": [
+        {
+          "Name": "Export content to deployment plan target",
+          "Steps": [
+            {
+              "Type": "ExportContentToDeploymentTargetDeploymentStep",
+              "Step": {
+                "Id": "4z6grxfhra0ec5bvgym1xwctmh",
+                "Name": "ExportContentToDeploymentTargetDeploymentStep"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export settings",
+          "Steps": [
+            {
+              "Type": "AdminSettings_SiteSettingsPropertyDeploymentStep",
+              "Step": {
+                "Id": "27db2cccb0eb48338b02f67745261d72",
+                "Name": "AdminSettings_SiteSettingsPropertyDeploymentStep"
+              }
+            },
+            {
+              "Type": "LoginSettings_SiteSettingsPropertyDeploymentStep",
+              "Step": {
+                "Id": "9da44e919ae7494ebe106eee63ba4753",
+                "Name": "LoginSettings_SiteSettingsPropertyDeploymentStep"
+              }
+            },
+            {
+              "Type": "RegistrationSettings_SiteSettingsPropertyDeploymentStep",
+              "Step": {
+                "Id": "eed0951acc97468492d58d01384e4300",
+                "Name": "RegistrationSettings_SiteSettingsPropertyDeploymentStep"
+              }
+            },
+            {
+              "Type": "ResetPasswordDeploymentStartup_SiteSettingsPropertyDeploymentStep",
+              "Step": {
+                "Id": "bb05c0be9220439f8119d8be0fe38109",
+                "Name": "ResetPasswordDeploymentStartup_SiteSettingsPropertyDeploymentStep"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export features",
+          "Steps": [
+            {
+              "Type": "AllFeaturesDeploymentStep",
+              "Step": {
+                "IgnoreDisabledFeatures": false,
+                "Id": "62f1c6086c3840f087b4a26f81bcef71",
+                "Name": "AllFeatures"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export workflows and themes",
+          "Steps": [
+            {
+              "Type": "AllWorkflowTypeDeploymentStep",
+              "Step": {
+                "Id": "67fc233473b04c0793c2caad7398a916",
+                "Name": "AllWorkflowType"
+              }
+            },
+            {
+              "Type": "AllTemplatesDeploymentStep",
+              "Step": {
+                "ExportAsFiles": true,
+                "Id": "09620d770918494f93bab51e41ad8ca7",
+                "Name": "AllTemplates"
+              }
+            },
+            {
+              "Type": "AllShortcodeTemplatesDeploymentStep",
+              "Step": {
+                "Id": "00af0189f3b349f980a3d55360fe58f3",
+                "Name": "AllShortcodeTemplates"
+              }
+            },
+            {
+              "Type": "ThemesDeploymentStep",
+              "Step": {
+                "Id": "dd66e31a0f5d448aa258e74bbe67977f",
+                "Name": "Themes"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export media files",
+          "Steps": [
+            {
+              "Type": "MediaDeploymentStep",
+              "Step": {
+                "IncludeAll": false,
+                "FilePaths": [
+                  "Consortium partner details.xlsx",
+                  "EEF9 Q3.10. Consortium Information.xlsx",
+                  "EEF9 Q5.15. Gantt chart template.xlsx",
+                  "EEF9 Q5.17. Risk register template.xlsx",
+                  "EEF9 Q5.8. Cost and performance pathway template.xlsx",
+                  "EEF9 Q6.2. Project cost breakdown template.xlsx",
+                  "EEF9 offline application form.docx",
+                  "Energy Entrepreneurs Fund Phase 9 Guidance document.odt",
+                  "Energy Entrepreneurs Fund Phase 9 Guidance document.pdf",
+                  "Energy Entrepreneurs Fund phase 9 Application questions.odt",
+                  "Gantt chart.xlsx",
+                  "Project cost breakdown form.xlsx",
+                  "Risk register.xlsx",
+                  "guidancedoc.png",
+                  "guidancedoc2.png",
+                  "tenants.json"
+                ],
+                "DirectoryPaths": [],
+                "Id": "685a84c480834c4fb9111ff4ac8dedc4",
+                "Name": "Media"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export Content Definitions",
+          "Steps": [
+            {
+              "Type": "ContentDefinitionDeploymentStep",
+              "Step": {
+                "IncludeAll": true,
+                "ContentTypes": [],
+                "ContentParts": [],
+                "Id": "5e55c80e72b940deb71b0f733621cabf",
+                "Name": "ContentDefinition"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export content items",
+          "Steps": [
+            {
+              "Type": "ContentDeploymentStep",
+              "Step": {
+                "ContentTypes": [
+                  "ApplicationDocument",
+                  "Button",
+                  "CompanyDetails",
+                  "Complete",
+                  "ContactAndOrgDetails",
+                  "ContentMenuItem",
+                  "County",
+                  "DeploymentSurvival",
+                  "EEFDocLibPage",
+                  "EEFDocSection",
+                  "EEFGuidanceDocument",
+                  "EligibilityChecker",
+                  "EligibilityInfo",
+                  "EligibilityResult",
+                  "EqualityQuestion",
+                  "FAQ",
+                  "FinanceBalanceSheet",
+                  "FinanceBarriers",
+                  "FinanceRecoverVat",
+                  "FinanceTurnover",
+                  "Form",
+                  "FundApplication",
+                  "Funding",
+                  "GovPage",
+                  "HtmlMenuItem",
+                  "Input",
+                  "INZFSApplicationContainer",
+                  "Label",
+                  "LinkMenuItem",
+                  "Menu",
+                  "OrgFundingPart",
+                  "PersonPage",
+                  "ProjectDetailsPart",
+                  "ProjectExperience",
+                  "ProjectProposalDetails",
+                  "ProjectSummaryPart",
+                  "ProposalSummaryPart",
+                  "qanda",
+                  "registerToAttend",
+                  "Select",
+                  "TextArea",
+                  "Validation",
+                  "ValidationSummary"
+                ],
+                "ExportAsSetupRecipe": true,
+                "Id": "1efa837a4bd14b758bf79de764babb09",
+                "Name": "ContentDeploymentStep"
+              }
+            }
+          ]
+        },
+        {
+          "Name": "Sandbox export deployment plans",
+          "Steps": [
+            {
+              "Type": "DeploymentPlanDeploymentStep",
+              "Step": {
+                "IncludeAll": true,
+                "DeploymentPlanNames": [],
+                "Id": "89be370fba9449cfb4ba2cf441841277",
+                "Name": "DeploymentPlan"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
       "name": "Settings",
       "AdminSettings": {
         "DisplayDarkMode": true,
@@ -4270,6 +4486,19 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Templates",
+      "Templates": {
+        "Content__EQSurveyPage": {
+          "Content": "<!-- main content component -->\r\n<div class=\"govuk-width-container\">\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <a href=\"#\"  onclick=\"history.back(-1)\" class=\"govuk-back-link\">Back</a>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-signout-right\">  \r\n    </div>\r\n  </div>\r\n\r\n    <div class=\"govuk-grid-row\">\r\n\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n\r\n{{ Model.ContentItem.Content.LiquidPart.Liquid | liquid }}\r\n<div class=\"govuk-form-group {% if Request.QueryString contains \"err\" %}govuk-form-group--error{% endif %}\">\r\n  <fieldset class=\"govuk-fieldset\">\r\n    <legend class=\"govuk-fieldset__legend govuk-fieldset__legend--l\">\r\n      <h1 class=\"govuk-fieldset__heading\">\r\n        {{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\r\n      </h1>\r\n    </legend>\r\n    {% if Request.QueryString contains \"err\" %}\r\n    <span id=\"no-response\" class=\"govuk-error-message\">\r\n      <span class=\"govuk-visually-hidden\">Error:</span> Please select a response\r\n    </span>\r\n    {% endif %}\r\n    <div class=\"govuk-radios\">\r\n      {% for response in Model.ContentItem.Content.BagPart.ContentItems[0].BagPart.ContentItems %}\r\n      <div class=\"govuk-radios__item\">\r\n        <input class=\"govuk-radios__input\" id=\"EqResponseTxt\" name=\"EqResponseTxt\" type=\"radio\" value=\"{{ response.EqResponse.ResponseText.Text }} - {{ response.EqResponse.ResponseJump.ContentItemIds[0] }}\">\r\n        <label class=\"govuk-label govuk-radios__label\" for=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text | slugify }}\">\r\n          {{ response.EqResponse.ResponseText.Text }}\r\n        </label>\r\n      </div>\r\n      {% endfor %}\r\n    </div>\r\n  </fieldset>\r\n</div>\r\n<input type=\"hidden\" id=\"EqQuestionNum\" name=\"EqQuestionNum\" value=\"{{ Model.ContentItem.Content.EQSurveyPage.PageNumber.Value }}\">\r\n<input type=\"hidden\" id=\"EqQuestionTxt\" name=\"EqQuestionTxt\" value=\"{{ Model.ContentItem.Content.BagPart.ContentItems[0].EqualityQuestion.Question.Text }}\">\r\n<button class=\"govuk-button\" data-module=\"govuk-button\">\r\n  Continue\r\n</button>\r\n\r\n      </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n<!-- end main content component -->",
+          "Description": "Liquid Template for Equality Survey Page"
+        },
+        "Content__EEFDocLibPage": {
+          "Content": "<div class=\"govuk-grid-row\" style=\"position: relative;transform: translateY(-50%);\">\r\n    <div class=\"govuk-grid-column-three-quarters\"> \r\n      <nav aria-label=\"breadcrumb\" class=\"govuk-breadcrumbs\">\r\n        <ol class=\"govuk-breadcrumbs__list\">\r\n          <li class=\"govuk-breadcrumbs__list-item\">\r\n            <a class=\"govuk-breadcrumbs__link\" href=\"/FundApplication/section/application-overview\">Apply for the Energy Entrepreneurs Fund: phase 9</a>\r\n          </li>\r\n          <li class=\"govuk-breadcrumbs__list-item\" aria-current=\"page\">\r\n           Download documents\r\n          </li>\r\n        </ol>\r\n      </nav>\r\n    </div>\r\n    <div class=\"govuk-grid-column-one-quarter govuk-youraccount-right\">  \r\n      <p><a class=\"govuk-body-m govuk-link\" href=\"/admin\">Your account</a></p>\r\n    </div>\r\n  </div>\r\n\r\n    <div class=\"govuk-grid-row\">\r\n      <div class=\"govuk-grid-column-two-thirds\">\r\n        <h1 class=\"govuk-heading-xl\">{{ Model.ContentItem.Content.TitlePart.Title }}</h1>\r\n      </div>\r\n    </div>\r\n\r\n  <div class=\"govuk-grid-row\">\r\n    \r\n    <div class=\"govuk-grid-column-two-thirds\">\r\n      \r\n      {{ Model.ContentItem.Content.EEFDocLibPage.Description.Html | liquid }}\r\n\r\n      {% for doc_section in Model.ContentItem.Content.DocumentSection.ContentItems %}\r\n      <h2 class=\"govuk-heading-m\">{{ doc_section.DisplayText }}</h2>\r\n      <p class=\"govuk-body-s\">{{ doc_section.EEFDocSection.Description.Text }}</p>\t  \r\n\r\n      {% for eef_doc in doc_section.BagPart.ContentItems %}\r\n      <div class=\"govuk-grid-row\">\r\n        <div class=\"govuk-grid-column-one-quarter govuk-!-padding-left-0\">\r\n          <img src=\"/media/{{ eef_doc.EEFGuidanceDocument.FileTypeIcon.Paths }}\" alt=\"Document download\">\r\n        </div>\r\n        <div class=\"govuk-grid-column-three-quarters govuk-!-margin-top-3\">\r\n          <p class=\"govuk-body-l govuk-!-margin-bottom-1\"><a class=\"govuk-link\" href=\"/media/{{ eef_doc.EEFGuidanceDocument.MainDocument.Paths[0] }}\">{{ eef_doc.TitlePart.Title }}</a></p>\r\n          <p class=\"govuk-body govuk-!-margin-bottom-1 govuk-colour--mid-grey\">{{ eef_doc.EEFGuidanceDocument.SubTitle.Text }}</p>\r\n          <p class=\"govuk-body govuk-!-margin-bottom-6\">{{ eef_doc.EEFGuidanceDocument.Description.Html | liquid }}</p>\r\n          {% if eef_doc.EEFGuidanceDocument.AccessibleDocument.Paths[0] %}\r\n          <p class=\"govuk-body-m\"><a class=\"govuk-link\" href=\"/media/{{ eef_doc.EEFGuidanceDocument.AccessibleDocument.Paths[0] }}\" download>Download an accessible text version</a></p>\r\n\t\t  {% endif %}\r\n        </div>\r\n      </div>\r\n\t  {% endfor %}\r\n\r\n\t  {% endfor %}\r\n\r\n    </div>\r\n\r\n    <div class=\"govuk-grid-column-one-third\">\r\n\r\n      <!-- The Related items component is not part of GOV.UK Frontend but will be styled if used in the Prototype Kit -->\r\n\r\n      <aside class=\"app-related-items\" role=\"complementary\">\r\n\r\n        <h3 class=\"govuk-heading-s\" id=\"subsection-title\">Related content</h3>\r\n        <p class=\"govuk-body-m govuk-!-margin-bottom-3\"><a class=\"govuk-body-m govuk-!-margin-bottom-10\" href=\"/eligibilityInfo/Eligibility-Start\">Check you are eligible</a></p>\r\n<p class=\"govuk-body-m govuk-!-margin-bottom-3\"><a class=\"govuk-link\" href=\"https://www.gov.uk/business-finance-support\">Find finance and support for your business</a></p>\r\n \r\n\r\n        \r\n\r\n      </aside>\r\n\r\n    </div>\r\n  </div>\r\n",
+          "Description": "Liquid Template for EEF Document Library"
+        }
+      }
     },
     {
       "name": "content",
