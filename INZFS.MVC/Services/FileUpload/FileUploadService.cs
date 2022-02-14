@@ -66,9 +66,9 @@ namespace INZFS.MVC.Services.FileUpload
             return string.IsNullOrEmpty(ext) || !permittedExtensions.ToLower().Contains(ext.ToLower().Replace(".", "")); ;
         }
 
-        public async Task<string> Validate(IFormFile file, Page currentPage, bool virusScanningEnabled, string cloudmersiveApiKey)
+        public string Validate(IFormFile file, Page currentPage, bool virusScanningEnabled, string cloudmersiveApiKey)
         {
-            
+
             if (file == null)
             {
                 return currentPage.ErrorMessage;
@@ -89,13 +89,34 @@ namespace INZFS.MVC.Services.FileUpload
             {
                 return "The selected file must be smaller than 20MB";
             }
-
-            var containsVirus = virusScanningEnabled ? _virusScanService.ScanFile(file, cloudmersiveApiKey) : false;
-            if (containsVirus)
+            string containsVirus = null;
+            if (virusScanningEnabled)
             {
-                return "The selected file contains a virus";
+                var virusScanResult = _virusScanService.ScanFile(file, cloudmersiveApiKey);
+                switch (virusScanResult)
+                {
+                    case "Virus":
+                        containsVirus = "true";
+                        break;
+                    case "Clean":
+                        containsVirus = "false";
+                        break;
+                    case "Exception":
+                        containsVirus = "error";
+                        break;
+                }
             }
-
+            switch (containsVirus)
+            {
+                case "true":
+                    return "The selected file contains a virus";
+                case "false":
+                    return string.Empty;
+                case "error":
+                    return "There has been an error using the Virus scanning API";
+                case null:
+                    return "Virus scanning has not been enabled";
+            }
             return string.Empty;
         }
         public async Task<bool> CreateDirectory(string directoryName)
