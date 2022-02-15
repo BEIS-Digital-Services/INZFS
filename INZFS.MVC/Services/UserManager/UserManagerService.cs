@@ -17,10 +17,14 @@ namespace INZFS.MVC.Services.UserManager
         {
             _userManager = userManager;
         }
-        public async Task<string> ReturnUserEmail(string userId)
+        public async Task<IUser> GetUserAsync(string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            var userEmail = await _userManager.GetEmailAsync(user);
+            return user;
+        }
+        public async Task<string> ReturnUserEmail(string userId)
+        {
+            var userEmail = await _userManager.GetEmailAsync(GetUserAsync(userId).Result);
             return userEmail;
         }
     }
