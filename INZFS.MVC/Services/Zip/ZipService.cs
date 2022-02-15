@@ -13,6 +13,7 @@ using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Linq;
+using INZFS.MVC.Services.UserManager;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -26,8 +27,9 @@ namespace INZFS.MVC.Services.Zip
         private readonly IConfiguration _configuration;
         private string _userId;
         private readonly ILogger<ZipService> _logger;
+        private readonly IUserManagerService _userManager;
 
-        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger)
+        public ZipService(IReportService reportService, IWebHostEnvironment env, IContentRepository contentRepository, IMediaFileStore mediaFileStore, IConfiguration configuration, ILogger<ZipService> logger, IUserManagerService userManager)
         {
             _reportService = reportService;
             _env = env;
@@ -36,6 +38,7 @@ namespace INZFS.MVC.Services.Zip
             _mediaFileStore = mediaFileStore;
             _configuration = configuration;
             _logger = logger;
+            _userManager = userManager;
         }
         public async Task<byte[]> GetZipFileBytes(string filetype, string userId, bool includeJsonSummary = false)
         {
@@ -96,8 +99,11 @@ namespace INZFS.MVC.Services.Zip
                     {
                         var content = await _contentRepository.GetApplicationContent(userId);
                         string name = $"{content.ApplicationNumber}.json";
+                        string email = await _userManager.ReturnUserEmail(userId);
                         string jsonStr = JsonSerializer.Serialize(content);
-                        byte[] encodedBytes = Encoding.UTF8.GetBytes(jsonStr);
+                        string emailJsonInsert = ", \"email \": \"" + $"{email}" + "\"";
+                        string appendedStr = jsonStr.Insert((jsonStr.Length - 1),emailJsonInsert);
+                        byte[] encodedBytes = Encoding.UTF8.GetBytes(appendedStr);
 
                         var jsonFileEntry = archive.CreateEntry($"{userId}.json", CompressionLevel.Fastest);
                         using (var zipStream = jsonFileEntry.Open()) zipStream.Write(encodedBytes, 0, encodedBytes.Length);
