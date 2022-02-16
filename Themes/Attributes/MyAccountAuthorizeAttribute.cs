@@ -1,7 +1,6 @@
 ﻿using System;
 using INZFS.Theme.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace INZFS.Theme.Attributes
 {

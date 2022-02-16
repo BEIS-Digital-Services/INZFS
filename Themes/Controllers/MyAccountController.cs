@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Castle.Core.Logging;
 using INZFS.Theme.Attributes;
 using INZFS.Theme.Models;
 using INZFS.Theme.Services;

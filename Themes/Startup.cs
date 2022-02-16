@@ -1,11 +1,7 @@
 using System;
-using INZFS.Theme.Migrations;
-using INZFS.Theme.Models;
-using INZFS.Theme.Records;
 using INZFS.Theme.Services;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,11 +9,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Notify.Client;
 using Notify.Interfaces;
-using OrchardCore.Data.Migration;
 using OrchardCore.Modules;
 using OrchardCore.ResourceManagement;
-using OrchardCore.Users;
-using YesSql.Indexes;
 
 namespace INZFS.Theme
 {
