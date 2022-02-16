@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INZFS.MVC.Services
+namespace INZFS.MVC.Models.Application
 {
-    public class ReportContent
+    public class ApplicationSentModel
     {
         public string ApplicationNumber { get; set; }
-        public byte[] FileContents { get; set; }
+        public string ApplicationStatus { get; set; }
+        public DateTime SubmittedDate { get; set; }
     }
 }

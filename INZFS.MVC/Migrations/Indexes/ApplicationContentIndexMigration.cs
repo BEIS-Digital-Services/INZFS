@@ -1,7 +1,5 @@
 ﻿using System;
 using INZFS.MVC.Records;
-using OrchardCore.ContentManagement.Metadata;
-using OrchardCore.ContentManagement.Metadata.Settings;
 using OrchardCore.Data.Migration;
 using YesSql.Sql;
 

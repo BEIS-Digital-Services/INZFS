@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Diagnostics;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using OrchardCore.Media;
 using OrchardCore.FileStorage;
 using System.IO;
 using INZFS.MVC.Services.VirusScan;
+using INZFS.MVC.Models.Application;
 
 namespace INZFS.MVC.Services.FileUpload
 {

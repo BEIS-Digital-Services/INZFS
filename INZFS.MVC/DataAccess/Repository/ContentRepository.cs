@@ -1,18 +1,12 @@
-﻿using INZFS.MVC.Forms;
+﻿using INZFS.MVC.Models.Application;
 using INZFS.MVC.Records;
-using INZFS.MVC.Services;
-using OrchardCore.ContentManagement;
-using OrchardCore.ContentManagement.Records;
-using OrchardCore.Flows.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
 using YesSql;
 
-namespace INZFS.MVC
+namespace INZFS.MVC.Services
 {
     public interface IContentRepository
     {

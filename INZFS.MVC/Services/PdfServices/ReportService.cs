@@ -1,12 +1,13 @@
 using Aspose.Words;
 using Azure.Storage.Blobs;
-using INZFS.MVC;
+using INZFS.MVC.Models.Application;
+using INZFS.MVC.Models.Report;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
-
+using Section = INZFS.MVC.Models.Application.Section;
 
 namespace INZFS.MVC.Services.PdfServices
 {
@@ -65,11 +66,11 @@ namespace INZFS.MVC.Services.PdfServices
 
         }
 
-        public async Task<ReportContent> GeneratePdfReport(string userId, string logoFilepath)
+        public async Task<ReportContentModel> GeneratePdfReport(string userId, string logoFilepath)
         {
             _logoFilepath = logoFilepath;
             var applicationContent = await _contentRepository.GetApplicationContent(userId);
-            var reportContent = new ReportContent
+            var reportContent = new ReportContentModel
             {
                 ApplicationNumber = applicationContent.ApplicationNumber
             };
@@ -92,10 +93,10 @@ namespace INZFS.MVC.Services.PdfServices
             }
         }
 
-        public async Task<ReportContent> GenerateOdtReport(string userId, string logoFilepath)
+        public async Task<ReportContentModel> GenerateOdtReport(string userId, string logoFilepath)
         {
             var applicationContent = await _contentRepository.GetApplicationContent(userId);
-            var reportContent = new ReportContent
+            var reportContent = new ReportContentModel
             {
                 ApplicationNumber = applicationContent.ApplicationNumber
             };
@@ -207,7 +208,7 @@ namespace INZFS.MVC.Services.PdfServices
             }
         }
 
-        private void PopulateHtmlQuestions(INZFS.MVC.Section section, ApplicationContent applicationContent)
+        private void PopulateHtmlQuestions(Section section, ApplicationContent applicationContent)
         {
             foreach (var page in section.Pages) if (!page.HideFromSummary)
                 {

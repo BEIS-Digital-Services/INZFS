@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using INZFS.MVC.Models.Application;
+using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace INZFS.MVC.Services.FileUpload

@@ -9,11 +9,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Azure.Storage.Blobs;
 using System.Text.Json;
-using OrchardCore.FileStorage;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Linq;
 using INZFS.MVC.Services.UserManager;
+using INZFS.MVC.Models.Report;
+using INZFS.MVC.Models.Application;
 
 namespace INZFS.MVC.Services.Zip
 {
@@ -42,7 +43,7 @@ namespace INZFS.MVC.Services.Zip
         }
         public async Task<byte[]> GetZipFileBytes(string filetype, string userId, bool includeJsonSummary = false)
         {
-            ReportContent reportContent;
+            ReportContentModel reportContent;
             _userId = userId;
 
             switch (filetype)
@@ -133,13 +134,13 @@ namespace INZFS.MVC.Services.Zip
             }
         }
 
-        private async Task<ReportContent> GetPdfContent()
+        private async Task<ReportContentModel> GetPdfContent()
         {
             var reportContent = await _reportService.GeneratePdfReport(_userId, _logoFilepath);
             return reportContent;
         }
 
-        private async Task<ReportContent> GetOdtContent()
+        private async Task<ReportContentModel> GetOdtContent()
         {
             var reportContent = await _reportService.GenerateOdtReport(_userId, _logoFilepath);
             return reportContent;

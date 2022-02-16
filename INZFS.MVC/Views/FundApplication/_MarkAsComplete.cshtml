@@ -1,7 +1,7 @@
 @model BaseModel
 @using INZFS.MVC.Models.DynamicForm
 @using INZFS.MVC.TagHelpers
-@using INZFS.MVC
+@using INZFS.MVC.Models.Application
 
 
 @if ((Model.Mandatory.HasValue && Model.Mandatory.Value == true) || Model.FieldType != FieldType.gdsFileUpload)

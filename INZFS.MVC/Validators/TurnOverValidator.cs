@@ -1,10 +1,7 @@
-﻿using INZFS.MVC.Models.DynamicForm;
-using System;
+﻿using INZFS.MVC.Models.Application;
+using INZFS.MVC.Models.DynamicForm;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace INZFS.MVC.Validators
 {

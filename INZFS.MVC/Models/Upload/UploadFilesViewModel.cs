@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace INZFS.MVC.Models
+namespace INZFS.MVC.Models.Upload
 {
     public class UploadFilesViewModel
     {

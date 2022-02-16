@@ -1,4 +1,5 @@
-﻿using System;
+﻿using INZFS.MVC.Models.Application;
+using System;
 using YesSql.Indexes;
 
 namespace INZFS.MVC.Records
