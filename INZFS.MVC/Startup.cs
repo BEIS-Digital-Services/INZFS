@@ -39,6 +39,7 @@ using INZFS.MVC.Migrations;
 using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.AspNetCore.Razor.TagHelpers;
+using INZFS.MVC.Services.UserManager;
 
 namespace INZFS.MVC
 {
@@ -68,6 +69,7 @@ namespace INZFS.MVC
             services.AddScoped<IZipService, ZipService>();
             services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
+            services.AddScoped<IUserManagerService, UserManagerService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
