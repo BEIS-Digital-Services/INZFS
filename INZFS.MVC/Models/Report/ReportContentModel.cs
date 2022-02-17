@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace INZFS.MVC.Models.Report
+﻿namespace INZFS.MVC.Models.Report
 {
     public class ReportContentModel
     {
