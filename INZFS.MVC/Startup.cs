@@ -151,12 +151,14 @@ namespace INZFS.MVC
 
         private void ConfigureContent(IServiceCollection services)
         {
-            
             services.AddScoped<IDataMigration, ApplicationContentIndexMigration>();
             services.AddSingleton<IIndexProvider, ApplicationContentIndexProvider>();
 
             services.AddScoped<IDataMigration, ApplicationContentUserIdIndexMigration>();
-            services.AddSingleton<IIndexProvider, ApplicationContentUserIdIndexProvider>();
+            services.AddSingleton<IIndexProvider, ApplicationContentUserIdIndexProvider>(); 
+            
+            services.AddScoped<IDataMigration, ApplicationOutcomeStatusIdIndexMigration>();
+            services.AddSingleton<IIndexProvider, ApplicationOutcomeStatusIdIndexProvider>();
 
         }
         public override void Configure(IApplicationBuilder builder, IEndpointRouteBuilder routes, IServiceProvider serviceProvider)

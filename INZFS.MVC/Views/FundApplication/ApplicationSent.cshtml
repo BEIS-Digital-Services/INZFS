@@ -13,7 +13,7 @@
 
     <div class="govuk-grid-column-two-thirds">
 
-        @if (Model.ApplicationStatus == ApplicationStatus.NotSubmitted.ToStatusString())
+        @if (Model.Status == ApplicationStatus.NotSubmitted)
         {
             <h2 class="govuk-heading-m">The Energy Entrepreneurs Fund: phase 9 is now closed</h2>
             <p class="govuk-body">
@@ -26,6 +26,7 @@
         }
         else
         {
+
             <h2 class="govuk-heading-m">What happens after you submit your application</h2>
 
             <p class="govuk-body">Your application will be assigned to an assessor.</p>

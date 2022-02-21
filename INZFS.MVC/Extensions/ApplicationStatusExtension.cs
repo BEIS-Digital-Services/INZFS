@@ -16,20 +16,41 @@ namespace INZFS.MVC.Extensions
                     return "In Progress";
                 case ApplicationStatus.Submitted:
                     return "Submitted";
-                case ApplicationStatus.Assessment:
-                    return "Submitted";
-                case ApplicationStatus.IndependentAssessment:
-                    return "Independent Assessment";
-                case ApplicationStatus.Successful:
-                    return "Successful";
-                case ApplicationStatus.Unsuccessful:
-                    return "Unsuccessful";
                 case ApplicationStatus.Withdrawn:
                     return "Withdrawn";
                 case ApplicationStatus.NotSubmitted:
                     return "Not Submitted";
                 default:
                     throw new Exception("Invalid status");
+            }
+        }
+        
+        public static string ToOutcomeStatusString(this ApplicationOutcomeStatusType outcome, ApplicationStatus status)
+        {
+            if (outcome == ApplicationOutcomeStatusType.None)
+            {
+                return status.ToStatusString();
+            }
+
+            switch (outcome)
+            {
+                case ApplicationOutcomeStatusType.InReview:
+                    return "In Review";
+
+                case ApplicationOutcomeStatusType.InModeration:
+                    return "In Independent Assessment";
+
+                case ApplicationOutcomeStatusType.ModerationComplete:
+                    return "Assessment completed";
+
+                case ApplicationOutcomeStatusType.Successful:
+                    return "Successful";
+
+                case ApplicationOutcomeStatusType.Unsuccessful:
+                    return "Unsuccessful";
+
+                default:
+                    throw new Exception("Invalid outcome status");
             }
         }
     }
