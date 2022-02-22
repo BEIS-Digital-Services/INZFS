@@ -27,15 +27,14 @@ namespace INZFS.Theme.Services
         {
             var questionnaire = await GetRegistrationQuestionnaire(userId);
             questionnaire.OrganisationName = organisationName;
-            SaveQuestionnaire(questionnaire);
+            await SaveQuestionnaire(questionnaire);
             return true;
         }
 
-        private void SaveQuestionnaire(RegistrationQuestionnaire questionnaire)
+        private async Task SaveQuestionnaire(RegistrationQuestionnaire questionnaire)
         {
             _session.Save(questionnaire);
-            //TODO: FM need to check how save works for YesSql with multi-threaded env
-            //await _session.CommitAsync();
+            await _session.SaveChangesAsync();
 
         }
 
@@ -54,6 +53,9 @@ namespace INZFS.Theme.Services
                 };
 
                 _session.Save(registrationQuestionnaire);
+                await _session.SaveChangesAsync();
+                query = _session.Query<RegistrationQuestionnaire, RegistrationQuestionnaireIndex>();
+                query = query.With<RegistrationQuestionnaireIndex>(index => index.UserId == userId);
                 questionnaire = await query.FirstOrDefaultAsync();
             }
 

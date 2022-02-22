@@ -29,12 +29,17 @@
                             }
                         </ul>
                     </div>
+                    <a href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">
+                        <button class="govuk-button govuk-button govuk-!-margin-top-6" data-module="govuk-button">
+                            Sign in to your account
+                        </button>
+                    </a>
                 </div>
             }
             else
             {
         <h1 class="govuk-heading-xl">@ViewData["Title"]</h1>
-                <p class="govuk-body-l govuk-!-margin-bottom-0">Thank you for verifying your email. We have some questions which we'd like you to answer to create your account.</p>
+                <p class="govuk-body-l govuk-!-margin-bottom-0">Thank you for verifying your email.</p>
 
                 <a href="@Url.Action("Login", "Account", new {area = "INZFS.Theme", returnUrl=Url.GetQuery("returnUrl")})">
                     <button class="govuk-button govuk-button govuk-!-margin-top-6" data-module="govuk-button">

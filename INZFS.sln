@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.UnitTests", "INZFS.Un
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "INZFS.Workflows", "INZFS.Workflows\INZFS.Workflows.csproj", "{3E2BEE15-A98C-44AA-9F08-B6FA05B230E7}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Galebra.Security.Headers.Csp", "Galebra.Security.Headers.Csp\Galebra.Security.Headers.Csp.csproj", "{2620C11E-AADB-49CB-A037-998292F91DC2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{3E2BEE15-A98C-44AA-9F08-B6FA05B230E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E2BEE15-A98C-44AA-9F08-B6FA05B230E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E2BEE15-A98C-44AA-9F08-B6FA05B230E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2620C11E-AADB-49CB-A037-998292F91DC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2620C11E-AADB-49CB-A037-998292F91DC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2620C11E-AADB-49CB-A037-998292F91DC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2620C11E-AADB-49CB-A037-998292F91DC2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

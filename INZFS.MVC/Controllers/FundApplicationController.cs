@@ -36,10 +36,10 @@ using INZFS.MVC.Constants;
 using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.Extensions.Options;
-using INZFS.MVC.Services.PdfServices;
 using Microsoft.AspNetCore.Hosting;
 using System.Text;
 using Ganss.XSS;
+using INZFS.MVC.Services.Zip;
 
 namespace INZFS.MVC.Controllers
 {
@@ -53,7 +53,7 @@ namespace INZFS.MVC.Controllers
         private readonly ApplicationDefinition _applicationDefinition;
         private readonly IApplicationEmailService _applicationEmailService;
         private readonly ApplicationOption _applicationOption;
-        private readonly IReportService _reportService;
+        private readonly IZipService _zipService;
         private readonly IWebHostEnvironment _env;
         private HtmlSanitizer _sanitizer;
         
@@ -66,7 +66,7 @@ namespace INZFS.MVC.Controllers
             ApplicationDefinition applicationDefinition, 
             IApplicationEmailService applicationEmailService,
             IOptions<ApplicationOption> applicationOption,
-            IReportService reportService,
+            IZipService zipService,
             IWebHostEnvironment env)
         {
             _mediaFileStore = mediaFileStore;
@@ -76,7 +76,7 @@ namespace INZFS.MVC.Controllers
             _applicationDefinition = applicationDefinition;
             _applicationEmailService = applicationEmailService;
             _applicationOption = applicationOption.Value;
-            _reportService = reportService;
+            _zipService = zipService;
             _env = env;
 
             _sanitizer = new HtmlSanitizer();
@@ -191,7 +191,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
+                    var errorMessage =  _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
@@ -251,14 +251,13 @@ namespace INZFS.MVC.Controllers
                 {
                     if (file != null || submitAction.ToLower() == "UploadFile".ToLower())
                     {
-                        var directoryName = Guid.NewGuid().ToString();
+                        var directoryName = GetUserId();
                         try
                         {
                             publicUrl = await _fileUploadService.SaveFile(file, directoryName);
                         }
                         catch (Exception ex)
                         {
-
                             ModelState.AddModelError("DataInput", "The selected file could not be uploaded - try again");
                         }
                         
@@ -398,6 +397,7 @@ namespace INZFS.MVC.Controllers
                             if(submitAction == "DeleteFile")
                             {
                                 additionalInformation = null;
+                                model.UploadedFile = null;
                             }
 
                         }
@@ -441,6 +441,7 @@ namespace INZFS.MVC.Controllers
                 }
 
                 _session.Save(contentToSave);
+                await _session.SaveChangesAsync();
 
                 if (currentPage != null && currentPage.Actions != null && currentPage.Actions.Count > 0)
                 {
@@ -539,9 +540,8 @@ namespace INZFS.MVC.Controllers
                                     && DateTime.UtcNow <= _applicationOption.EndDate)
             {
                 bool applicationUploadSuccess = await AddApplicationToBlobStorage();
-                bool jsonUploadSuccess = await GenerateApplicationSummaryJson();
 
-                if(!applicationUploadSuccess || !jsonUploadSuccess)
+                if(!applicationUploadSuccess)
                 {
                     TempData[TempDataKeys.ApplicationOverviewError] = true;
                     return RedirectToAction("section", new { pagename = "application-overview" });
@@ -563,30 +563,16 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        public async Task<bool> GenerateApplicationSummaryJson() 
-        {
-            var content = _contentRepository.GetApplicationContent(GetUserId());
-            string name = $"{GetUserId()}.json";
-            string jsonStr = JsonSerializer.Serialize(content);
-            byte[] encoded = Encoding.UTF8.GetBytes(jsonStr);
-           
-
-            MemoryStream ms = new(encoded);
-            FormFile file = new(ms, 0, encoded.Length, name, name);
-
-            var url = await AddFileToBlobStorage(file);
-
-            return url != null ? true : false;
-        }
-
         public async Task<bool> AddApplicationToBlobStorage()
         {
-            string logoFilepath = Path.Combine(_env.WebRootPath, "assets", "images", "beis_logo.png");
-            ReportContent reportContent = await _reportService.GeneratePdfReport(GetUserId(), logoFilepath);
-            string name = $"Application Form {reportContent.ApplicationNumber}.pdf";
+            string userId = GetUserId();
+            string applicationId = await _zipService.GetApplicationId(userId);
+            byte[] zipFileBytes = await _zipService.GetZipFileBytes("pdf", userId, true);
+            string companyName = await _zipService.GetApplicationCompanyName(userId);
+            string name = $"_{companyName}_{applicationId}.zip";
 
-            MemoryStream ms = new(reportContent.FileContents);
-            FormFile file = new(ms, 0, reportContent.FileContents.Length, name, name);
+            MemoryStream ms = new(zipFileBytes);
+            FormFile file = new(ms, 0, zipFileBytes.Length, name, name);
 
             var url = await AddFileToBlobStorage(file);
 

@@ -1,5 +1,4 @@
-﻿@inject OrchardCore.IOrchardHelper Orchard
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -17,12 +16,12 @@
     <link rel="stylesheet" media="all" href="/css/application.css">
     <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
     <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
+    <link rel="stylesheet" media="all" href="~/assets/static/core-layout.css" />
     <!--<![endif]-->
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
 
-    <link type="image/x-icon" rel="shortcut icon" href="~/INZFS.Theme/favicon.ico" />
     <resources type="Meta" />
     <resources type="HeadLink" />
     <resources type="Stylesheet" />
@@ -88,22 +87,22 @@
                     <nav>
                         <ul class="govuk-footer__inline-list">
                             <li class="govuk-footer__inline-list-item">
-                                <a class="govuk-footer__link" href="/page/privacynotice">
+                                <a class="govuk-footer__link" href="/help/privacynotice">
                                     Privacy notice
                                 </a>
                             </li>
                             <li class="govuk-footer__inline-list-item">
-                                <a class="govuk-footer__link" href="/page/cookies">
+                                <a class="govuk-footer__link" href="/help/cookies">
                                     Cookies
                                 </a>
                             </li>
                             <li class="govuk-footer__inline-list-item">
-                                <a class="govuk-footer__link" href="/page/accessibility">
+                                <a class="govuk-footer__link" href="/help/accessibility">
                                     Accessibility statement
                                 </a>
                             </li>
                             <li class="govuk-footer__inline-list-item">
-                                <a class="govuk-footer__link" href="/page/help">
+                                <a class="govuk-footer__link" href="/help/help">
                                     How to get help with this service
                                 </a>
                             </li>
@@ -125,8 +124,8 @@
             </div>
         </div>
     </footer>
+    <resources type="FootScript" />
     <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
-    <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
     <script src="~/js/EnableJs.js"></script>
     <script src="~/assets/frontend/application.js"></script>
     <script src="~/assets/static/header-footer-only.js"></script>

@@ -15,34 +15,21 @@
     <link rel="stylesheet" media="all" href="/css/application.css">
     <link rel="stylesheet" href="/css/govuk-frontend-3.12.0.min.css" />
     <link rel="stylesheet" media="all" href="/css/dbeis-overrides.css">
-
-    <!--
-    <link rel="stylesheet" media="all" href="~/assets/frontend/application.css"  />
-    -->
-    
+    <link rel="stylesheet" media="all" href="~/assets/static/core-layout.css" />
 
     <!--<![endif]-->
     <!--[if IE 8]>
         <link rel="stylesheet" href="/INZFS.Theme/css/govuk-frontend-ie8-3.12.0.min.css" />
     <![endif]-->
-    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
 </head>
-@{ 
-    bool isCookiePage = Context.Request.Path.Value.ToLower().Contains("page/cookies");
 
-}
-<body class="govuk-template__body app-body-class " data-other="report:details">
-    <script>
-        document.body.className = document.body.className ? document.body.className + " js-enabled" : "js-enabled";
-    </script>
+<body class="gem-c-layout-for-public govuk-template__body mainstream" data-other="report:details">
+
+    <partial name="_Cookies" />
 
     <a href="#main-content" class="govuk-skip-link">Skip to main content</a>
-    @if (!isCookiePage)
-    {
-        <partial name="_Cookies" />
-    }
 
-    <header class="govuk-header " role="banner" data-module="govuk-header">
+    <header class="govuk-header" role="banner">
         <div class="govuk-header__container govuk-width-container">
             <div class="govuk-header__logo">
                 <a href="#" class="govuk-header__link govuk-header__link--homepage">
@@ -133,7 +120,6 @@
                 else if (Model is CommonModel)
                 {
                     var backModel = (CommonModel)Model;
-
                     if (backModel.ShowBackLink)
                     {
                         <a href="@backModel.BackLinkUrl" class="govuk-back-link">@backModel.BackLinkText</a>
@@ -150,45 +136,43 @@
                     <a class="govuk-body-m govuk-link" href="@Url.Action("Index", "MyAccount", new {area = "INZFS.Theme"})" style="float:right">
                         Your account
                     </a>
-
                 </p>
             </div>
         </div>
-        
+
         <main class="govuk-main-wrapper app-main-class group help-page cookie-settings" id="main-content" role="main">
             <div class="govuk-width-container">
 
-                    @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
-                    {
-                        <div class="govuk-grid-row">
-                            <div class="govuk-grid-column-two-thirds">
-                                @RenderBody()
-                            </div>
-
-                            <div class="govuk-grid-column-one-third">
-                            </div>
-                        </div>
-                    }
-                    else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
-                    {
-
-                        <div class="govuk-grid-row">
-                            <div class="govuk-grid-column-full">
-                                @RenderBody()
-                            </div>
+                @if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.TwoThird)
+                {
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-two-thirds">
+                            @RenderBody()
                         </div>
 
+                        <div class="govuk-grid-column-one-third">
+                        </div>
+                    </div>
+                }
+                else if (Model is BaseModel && Model.GridDisplayType == GridDisplayType.FullPage)
+                {
+
+                    <div class="govuk-grid-row">
+                        <div class="govuk-grid-column-full">
+                            @RenderBody()
+                        </div>
+                    </div>
 
 
-                    }
-                    else
-                    {
-                        @RenderBody()
-                    }
+
+                }
+                else
+                {
+                    @RenderBody()
+                }
 
             </div>
         </main>
-
     </div>
 
     <footer class="govuk-footer " role="contentinfo">
@@ -198,22 +182,22 @@
                     <h2 class="govuk-visually-hidden">Support links</h2>
                     <ul class="govuk-footer__inline-list">
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href=""/page/privacynotice"">
+                            <a class="govuk-footer__link" href="/help/privacynotice">
                                 Privacy notice
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/cookies">
+                            <a class="govuk-footer__link" href="/help/cookies">
                                 Cookies
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/accessibility">
+                            <a class="govuk-footer__link" href="/help/accessibility">
                                 Accessibility statement
                             </a>
                         </li>
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="/page/help">
+                            <a class="govuk-footer__link" href="/help/help">
                                 How to get help with this service
                             </a>
                         </li>
@@ -235,12 +219,13 @@
     </footer>
 
     @await RenderSectionAsync("Scripts", required: false)
-
-    <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.6.0.min.js"></script>
-    <script src="https://design-system.service.gov.uk/javascripts/govuk-frontend-d7b7e40c8ac2bc81d184bb2e92d680b9.js"></script>
-    
+    <resources type="FootScript" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" crossorigin="anonymous"></script>
     <script src="~/assets/frontend/application.js"></script>
     <script src="~/assets/static/header-footer-only.js"></script>
+    <script src="~/js/govuk-frontend-3.12.0.min.js"></script>
+    <script src="~/js/GovFrontendInit.js"></script>
+    <script src="~/js/EnableJs.js"></script>
 
     <partial name="_TimeoutJavascript" />
 </body>
