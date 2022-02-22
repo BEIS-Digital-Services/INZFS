@@ -8,6 +8,7 @@ global:
   smtp_auth_username: 'apikey'
   smtp_auth_password: '$(SMTP_APIKEY)'
 
+
 receivers:
 # - name: 'zulip-notifications'
 #   webhook_configs:
@@ -22,12 +23,13 @@ receivers:
 - name: mail-dev
   email_configs:
   - to: "inzfs.alerts@beis.gov.uk"
+    from: "inzfs.alerts@beis.gov.uk"
     headers:
-      Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
+      Subject: "[TEST Alert]: {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }}) - ({{ .Status }})"
     html: |
       Greetings,
       <p>
-      You have the following firing alerts:
+      You have the following firing {{ .CommonLabels.severity }} alerts:
       <ul>
       {{ range .Alerts }}
       <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
@@ -44,11 +46,11 @@ receivers:
   email_configs:
   - to: "inzfs.prod-alerts@beis.gov.uk"
     headers:
-      Subject: "Alert ({{ .Status }}): {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }})"
+      Subject: "[PROD Alert]: {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }}) - ({{ .Status }})"
     html: |
       Greetings,
       <p>
-      You have the following firing critical alerts:
+      You have the following firing {{ .CommonLabels.severity }} alerts:
       <ul>
       {{ range .Alerts }}
       <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
@@ -63,12 +65,16 @@ receivers:
       
 route:
   receiver: mail-dev
-  group_by: [alertname, environment]
-  group_wait: 1m
+  group_by: ['env']
+  group_wait: 30s
   group_interval: 5m
-  repeat_interval: 1m
+  repeat_interval: 30m
   routes:
   - receiver: mail-prod
     repeat_interval: 1m
     matchers: 
-     - severity="critical"
+     - env="prod"
+  - receiver: mail-dev
+    repeat_interval: 1m
+    matchers: 
+     - env="test"
