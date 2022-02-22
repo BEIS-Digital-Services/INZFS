@@ -15,4 +15,13 @@ datasources:
   # <string> url
   url: https://inzfs-prom.london.cloudapps.digital
   editable: true                        # whether it should be editable
-  is_default: true                      # whether this should be the default DS
+  isDefault: true                      # whether this should be the default DS
+  
+- name: InfluxDb
+  type: influxdb
+  access: proxy
+  database: defaultdb
+  user: $(influxdbuser)
+  password: $(influxdbpass)
+  url: $(influxdburl):19676
+  editable: true                        # whether it should be editable
