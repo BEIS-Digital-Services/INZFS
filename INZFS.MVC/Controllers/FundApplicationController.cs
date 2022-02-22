@@ -640,10 +640,14 @@ namespace INZFS.MVC.Controllers
             SetPageTitle("Your application");
             var content = await _contentRepository.GetApplicationContent(GetUserId());
             var status = content.ApplicationStatus == ApplicationStatus.InProgress ? ApplicationStatus.NotSubmitted : content.ApplicationStatus;
+            var outcomeStatus = await _contentRepository.GetApplicationOutcomeStatusAsync(content.Id, content.UserId);
+
             return View("ApplicationSent", new ApplicationSentModel { 
                 ApplicationNumber = content.ApplicationNumber ?? "N/A",
-                ApplicationStatus = status.ToStatusString(),
-                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow
+                ApplicationStatus = outcomeStatus.ToOutcomeStatusString(status),
+                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow,
+                Status = status,
+                OutcomeStatus = outcomeStatus
             } );
         }
         
