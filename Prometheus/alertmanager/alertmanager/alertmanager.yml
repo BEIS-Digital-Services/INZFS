@@ -1,7 +1,5 @@
 global:
   resolve_timeout: 1m
-#  pagerduty_url: https://events.eu.pagerduty.com/generic/2010-04-15/create_event.json
-
   # Sendgrid SMTP properties.
   smtp_smarthost: 'smtp.sendgrid.net:587'
   smtp_from: 'inzfs.prod-alerts@beis.gov.uk'
@@ -10,16 +8,6 @@ global:
 
 
 receivers:
-# - name: 'zulip-notifications'
-#   webhook_configs:
-#   - url: 'https://inzfs.zulipchat.com/api/v1/external/alertmanager?api_key=$(zulip_api_key)'
-#     send_resolved: true
-
-#- name: 'pagerduty-notifications'
-#  pagerduty_configs:
-#  - service_key: $(PAGER_DUTY_SERVICEKEY)
-#    send_resolved: true
-    
 - name: mail-dev
   email_configs:
   - to: "inzfs.alerts@beis.gov.uk"
