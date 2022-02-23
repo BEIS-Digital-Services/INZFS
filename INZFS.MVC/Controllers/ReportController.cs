@@ -23,10 +23,12 @@ namespace INZFS.MVC.Controllers
         {
             try
             {
-                var bytes = await _zipService.GetZipFileBytes(filetype, GetUserId());
-                var applicationNumber = await _zipService.GetApplicationId(GetUserId());
+                var userId = GetUserId();
+                var bytes = await _zipService.GetZipFileBytes(filetype, userId);
+                var applicationNumber = await _zipService.GetApplicationId(userId);
+                var companyName = _zipService.GetApplicationCompanyName(userId).Result;
 
-                return File(bytes, "application/zip", $"{applicationNumber}.zip");
+                return File(bytes, "application/zip", $"{applicationNumber}_{companyName}.zip");
             }
             catch(System.Exception e)
             {

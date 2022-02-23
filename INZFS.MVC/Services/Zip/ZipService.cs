@@ -65,7 +65,8 @@ namespace INZFS.MVC.Services.Zip
             {
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
-                    var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}.{filetype}", CompressionLevel.Fastest);
+                    var companyName = GetApplicationCompanyName(userId).Result;
+                    var applicationForm = archive.CreateEntry($"Application Form {reportContent.ApplicationNumber}_{companyName}.{filetype}", CompressionLevel.Fastest);
                     using (var zipStream = applicationForm.Open()) zipStream.Write(reportContent.FileContents, 0, reportContent.FileContents.Length);
 
                     foreach (var file in uploadedFiles)
@@ -98,14 +99,14 @@ namespace INZFS.MVC.Services.Zip
                     if (includeJsonSummary)
                     {
                         var content = await _contentRepository.GetApplicationContent(userId);
-                        string name = $"{content.ApplicationNumber}.json";
+                        string name = $"{companyName}.json";
                         string email = await _userManager.ReturnUserEmail(userId);
                         string jsonStr = JsonSerializer.Serialize(content);
                         string emailJsonInsert = ", \"email \": \"" + $"{email}" + "\"";
                         string appendedStr = jsonStr.Insert((jsonStr.Length - 1),emailJsonInsert);
                         byte[] encodedBytes = Encoding.UTF8.GetBytes(appendedStr);
 
-                        var jsonFileEntry = archive.CreateEntry($"{userId}.json", CompressionLevel.Fastest);
+                        var jsonFileEntry = archive.CreateEntry(name, CompressionLevel.Fastest);
                         using (var zipStream = jsonFileEntry.Open()) zipStream.Write(encodedBytes, 0, encodedBytes.Length);
                     }
                 }
