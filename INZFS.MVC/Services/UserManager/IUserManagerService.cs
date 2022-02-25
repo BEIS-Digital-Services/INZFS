@@ -11,5 +11,6 @@ namespace INZFS.MVC.Services.UserManager
     {
         public Task<IUser> GetUserAsync(string userId);
         public Task<string> ReturnUserEmail(string userId);
+        public string GetUserId();
     }
 }

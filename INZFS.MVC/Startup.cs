@@ -40,6 +40,8 @@ using INZFS.MVC.Filters;
 using INZFS.MVC.Settings;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using INZFS.MVC.Services.UserManager;
+using INZFS.MVC.Services.AzureStorage;
+using INZFS.MVC.Services.FundApplication;
 
 namespace INZFS.MVC
 {
@@ -70,6 +72,9 @@ namespace INZFS.MVC
             services.AddScoped<IVirusScanService, VirusScanService>();
             services.AddScoped<IApplicationNumberGenerator, ApplicationNumberGenerator>();
             services.AddScoped<IUserManagerService, UserManagerService>();
+            services.AddScoped<IAzureBlobService, AzureBlobService>();
+            services.AddScoped<IApplicationGeneratorService, ApplicationGeneratorService>();
+            services.AddScoped<IDynamicFormGenerator, DynamicFormGenerator>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 
