@@ -213,6 +213,7 @@
         "pages": [
           {
             "name": "organisation-name",
+            "hint": "Your organisation’s full name, as it’s registered with Companies House",
             "sectionTitle": "3.1. Organisation name",
             "question": "What is your organisation’s name?",
             "description": "Description",
@@ -231,7 +232,7 @@
             "name": "organisation-website",
             "sectionTitle": "3.2. Organisation website",
             "question": "What is your organisation’s website?",
-            "hint": "Enter your organisation's website address, if you have one",
+            "hint": "Enter your organisation’s website, if you have one.",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
@@ -327,7 +328,7 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less (micro enterprise)",
+              "10 or fewer (micro enterprise)",
               "11 to 50 (small enterprise)",
               "51 to 250 (medium enterprise)",
               "251 or more (large enterprise)"
@@ -345,8 +346,8 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "Pre-startup",
-              "Startup (less than 1 year)",
+              "Pre start-up",
+              "Start-up (less than 1 year)",
               "1 to 5 years",
               "6 to 10 years",
               "11 years or over"
@@ -393,7 +394,7 @@
             "showMarkComplete": true,
             "selectOptions": [
               "Yes, I am a sole applicant",
-              "No, I am applying with businesses as a partnership (consortium)"
+              "No, I’m applying with other companies as a partnership (consortium)"
             ]
           },
           {
@@ -437,6 +438,7 @@
           {
             "name": "parent-organisation-name",
             "sectionTitle": "3.12. Parent organisation’s name",
+            "hint": "Your parent organisation’s full name, as it’s registered with Companies House",
             "question": "What is your parent organisation’s name?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation’s name",
@@ -528,7 +530,7 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less (micro enterprise)",
+              "10 or fewer (micro enterprise)",
               "11 to 50 (small enterprise)",
               "51 to 250 (medium enterprise)",
               "251 or more (large enterprise)"
@@ -550,8 +552,8 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "Pre-startup",
-              "Startup (less than 1 year)",
+              "Pre start-up",
+              "Start-up (less than 1 year)",
               "1 to 5 years",
               "6 to 10 years",
               "11 years or over"
@@ -565,7 +567,7 @@
             "name": "parent-recent-turnover",
             "sectionTitle": "3.18. Parent organisation’s most recent annual turnover",
             "question": "What is your parent organisation’s most recent annual turnover?",
-            "hint": "The amount of money your business has taken over a period of 12 months.",
+            "hint": "The amount of money your parent organisation has taken over a period of 12 months.",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
             "fieldType": "gdsTextBox",
@@ -587,6 +589,7 @@
             "name": "parent-recent-turnover-date",
             "sectionTitle": "3.19. Parent organisation’s most recent annual turnover date",
             "question": "What is your parent’s organisations most recent annual turnover date?",
+            "hint": "The date you calculated your parent organisation’s most recent annual turnover. For example, 26 3 2022.",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
@@ -625,6 +628,7 @@
             "name": "parent-balance-sheet-date",
             "sectionTitle": "3.21. Parent organisation’s balance sheet date",
             "question": "What is your parent organisation’s balance sheet date?",
+            "hint": "The date you calculated your parent organisation’s balance sheet. For example, 26 3 2022.",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
