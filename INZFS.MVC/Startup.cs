@@ -75,6 +75,7 @@ namespace INZFS.MVC
             services.AddScoped<IAzureBlobService, AzureBlobService>();
             services.AddScoped<IApplicationGeneratorService, ApplicationGeneratorService>();
             services.AddScoped<IDynamicFormGenerator, DynamicFormGenerator>();
+            services.AddScoped<IPersistenceService, PersistenceService>();
             services.AddSingleton<IGovFileStore>(serviceProvider =>
             {
 

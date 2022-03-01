@@ -49,6 +49,7 @@ namespace INZFS.MVC.Controllers
         private readonly IUserManagerService _userManagerService;
         private readonly IAzureBlobService _azureBlobService;
         private readonly IDynamicFormGenerator _dynamicFormGenerator;
+        private readonly IPersistenceService _persistenceService;
         private HtmlSanitizer _sanitizer;
         
 
@@ -65,7 +66,8 @@ namespace INZFS.MVC.Controllers
             IApplicationGeneratorService applicationGeneratorService,
             IUserManagerService userManagerService,
             IAzureBlobService azureBlobService,
-            IDynamicFormGenerator dynamicFormGenerator)
+            IDynamicFormGenerator dynamicFormGenerator,
+            IPersistenceService persistenceService)
         {
             _mediaFileStore = mediaFileStore;
             _session = session;
@@ -80,6 +82,7 @@ namespace INZFS.MVC.Controllers
             _userManagerService = userManagerService;
             _azureBlobService = azureBlobService;
             _dynamicFormGenerator = dynamicFormGenerator;
+            _persistenceService = persistenceService;
 
             _sanitizer = new HtmlSanitizer();
             _sanitizer.AllowedAttributes.Clear();
@@ -94,17 +97,6 @@ namespace INZFS.MVC.Controllers
             return await _applicationGeneratorService.GetSection(pagename, id);
         }
 
-       
-
-        public async Task<bool> CreateDirectory(string directoryName)
-        {
-            if(directoryName == null)
-            {
-                return false;
-            }
-            await _mediaFileStore.TryCreateDirectoryAsync(directoryName);
-            return true;
-        }
 
         [Route("FundApplication/section/{pageName}")]
         [HttpPost, ActionName("save")]
@@ -112,55 +104,23 @@ namespace INZFS.MVC.Controllers
         [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Save([Bind(Prefix = "submit.Publish")] string submitAction, string returnUrl, string pageName, IFormFile? file, BaseModel model)
         {
-            var currentPage = _applicationDefinition.Application.AllPages.FirstOrDefault(p => p.Name.ToLower().Equals(pageName));
+            var currentPage = _persistenceService.GetCurrentPage(pageName);
+            var userId = _userManagerService.GetUserId();
             if (currentPage.FieldType == FieldType.gdsFileUpload)
             {
                 if (file != null || submitAction == "UploadFile")
                 {
-                    ModelState.Clear();
-                    var errorMessage =  _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
-                    if (!string.IsNullOrEmpty(errorMessage))
-                    {
-                        ModelState.AddModelError("DataInput", errorMessage);
-                    }
+                    _persistenceService.CheckValidityOfFile(file, currentPage);
                 }
 
                 if(ModelState.IsValid && submitAction != "UploadFile")
                 {
-                    var fieldStatus = GetFieldStatus(currentPage, model);
-                    var userId = _userManagerService.GetUserId();
-                    var contentToSave = _applicationGeneratorService.GetApplicationConent(userId).Result;
-                    if (contentToSave != null)
-                    {
-                        var existingData = contentToSave.Fields.FirstOrDefault(f => f.Name.Equals(currentPage.FieldName));
-                        if (fieldStatus == FieldStatus.Completed)
-                        {
-                            if (submitAction != "DeleteFile" && string.IsNullOrEmpty(existingData?.AdditionalInformation))
-                            {
-                                if(currentPage.Mandatory)
-                                {
-                                    ModelState.AddModelError("DataInput", "This section has a mandatory file upload. You must first choose your file and then upload it using the upload button below.");
-                                }
-                                else
-                                {
-                                    ModelState.AddModelError("DataInput", "You have not uploaded any evidence. Please upload a file before marking as complete. If this step is not relevant to your application please select 'not applicable'.");
-                                }
-                            }
-                        }
-                        if (fieldStatus == FieldStatus.NotApplicable)
-                        {
-                            if (submitAction != "DeleteFile" && !string.IsNullOrEmpty(existingData?.AdditionalInformation))
-                            {
-                                ModelState.AddModelError("DataInput", "You have told us this step is not applicable, your evidence will not be added to your proposal. Please select 'mark this step as complete' if you would like your evidence to be reviewed. Otherwise, please remove the file.");
-                                return _dynamicFormGenerator.PopulateViewModel(currentPage, model, existingData);
-                            }
-                        }
-                    }
+                    
+                    _persistenceService.CheckFieldStatus(pageName, submitAction,model,userId);
                 }
             }
             if (ModelState.IsValid || submitAction == "DeleteFile")
             {
-                var userId = _userManagerService.GetUserId();
                 var contentToSave = _applicationGeneratorService.GetApplicationConent(userId).Result;
 
                 if (contentToSave == null)
@@ -231,7 +191,7 @@ namespace INZFS.MVC.Controllers
                                             }
                                             else
                                             {
-                                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                                return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
                                                             "Total project costs should be more than zero.");
                                             }
                                             parsedExcelData.ParsedTotalGrantFunding = parsedTotalGrantFunding;
@@ -244,36 +204,36 @@ namespace INZFS.MVC.Controllers
                                         }
                                         catch (DivisionByZeroException e)
                                         {
-                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
+                                            return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput",
                                                 "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                         catch (FormatException e)
                                         {
-                                            return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", 
+                                            return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", 
                                                 "Uploaded spreadsheet is incomplete. Complete all mandatory information within the template.");
                                         }
                                     }
                                     else
                                     {
-                                        return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                        return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                     }
                                 }
                                 catch (ArgumentException e)
                                 {
-                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                    return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                                 catch (InvalidOperationException e)
                                 {
-                                    return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
+                                    return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Uploaded spreadsheet does not match the template. Use the provided template.");
                                 }
                             }
                             catch (InvalidDataException e)
                             {
-                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded");
+                                return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded");
                             }
                             catch (Exception ex)
                             {
-                                return AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded - try again.");
+                                return _dynamicFormGenerator.AddErrorAndPopulateViewModel(currentPage, model, "DataInput", "Invalid file uploaded - try again.");
                             }
                         }
 
@@ -304,7 +264,7 @@ namespace INZFS.MVC.Controllers
                         OtherOption = _sanitizer.Sanitize(model.GetOtherSelected()),
                         MarkAsComplete = model.ShowMarkAsComplete ? model.MarkAsComplete : null,
                         AdditionalInformation = currentPage.FieldType == FieldType.gdsFileUpload ? additionalInformation : null,
-                        FieldStatus = GetFieldStatus(currentPage, model)
+                        FieldStatus = _dynamicFormGenerator.GetFieldStatus(currentPage, model)
                     });
                 }
                 else
@@ -333,7 +293,7 @@ namespace INZFS.MVC.Controllers
 
                     }
                     existingFieldData.Data = model.GetData();
-                    existingFieldData.FieldStatus = GetFieldStatus(currentPage, model);
+                    existingFieldData.FieldStatus = _dynamicFormGenerator.GetFieldStatus(currentPage, model);
                     if (!string.IsNullOrEmpty(existingFieldData.Data) && existingFieldData.Data.Contains("Other"))
                     {
                         existingFieldData.OtherOption = _sanitizer.Sanitize(model.GetOtherSelected());
@@ -444,16 +404,9 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        private ViewResult AddErrorAndPopulateViewModel(Page currentPage, BaseModel currentModel,string fieldName, string errorMessage)
-        {
-            ModelState.AddModelError(fieldName, errorMessage);
-            return _dynamicFormGenerator.PopulateViewModel(currentPage, currentModel);
-        }
-
-
         public async Task<IActionResult> Submit()
         {
-            SetPageTitle("Submit application");
+           _dynamicFormGenerator.SetPageTitle("Submit application");
             var userId = _userManagerService.GetUserId();
             var content = _applicationGeneratorService.GetApplicationConent(userId).Result;
             if(content.ApplicationStatus != ApplicationStatus.InProgress)
@@ -489,7 +442,7 @@ namespace INZFS.MVC.Controllers
         [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> Complete()
         {
-            SetPageTitle("Application completed");
+            _dynamicFormGenerator.SetPageTitle("Application completed");
             var userId = _userManagerService.GetUserId();
             var content = _applicationGeneratorService.GetApplicationConent(userId).Result;
             if (content.ApplicationStatus != ApplicationStatus.InProgress)
@@ -520,7 +473,7 @@ namespace INZFS.MVC.Controllers
         [ServiceFilter(typeof(ApplicationRedirectionAttribute))]
         public async Task<IActionResult> ApplicationEquality()
         {
-            SetPageTitle("Equality questions");
+           _dynamicFormGenerator.SetPageTitle("Equality questions");
             var model = new CommonModel
             {
                 ShowBackLink = true,
@@ -532,7 +485,7 @@ namespace INZFS.MVC.Controllers
 
         public async Task<IActionResult> ApplicationSent()
         {
-            SetPageTitle("Your application");
+            _dynamicFormGenerator.SetPageTitle("Your application");
             var userId = _userManagerService.GetUserId();
             var content = await _contentRepository.GetApplicationContent(userId);
             var status = content.ApplicationStatus == ApplicationStatus.InProgress ? ApplicationStatus.NotSubmitted : content.ApplicationStatus;
@@ -561,32 +514,6 @@ namespace INZFS.MVC.Controllers
             }
         }
 
-        private void SetPageTitle(string title)
-        {
-            ViewData["Title"] = $"{title}";
-        }
-
-        private FieldStatus GetFieldStatus(Page currentPage, BaseModel model)
-        {
-            if(currentPage.FieldType == FieldType.gdsFileUpload && model.Mandatory.HasValue && model.Mandatory.Value == false)
-            {
-                // Use the values from the radio buttons
-               return model.FieldStatus == null ? FieldStatus.InProgress : (FieldStatus)model.FieldStatus;
-            }
-
-            if (model.ShowMarkAsComplete)
-            {
-                if (model.MarkAsComplete)
-                {
-                    return FieldStatus.Completed;
-                }
-                else
-                {
-                    return FieldStatus.InProgress;
-                }
-            }
-
-            return FieldStatus.NotStarted;
-        }
+        
     }
 }

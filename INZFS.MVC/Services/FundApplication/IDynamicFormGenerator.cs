@@ -14,5 +14,7 @@ namespace INZFS.MVC.Services.FundApplication
         public ViewResult PopulateViewModel(Page currentPage, BaseModel currentModel, Field field = null);
         public ViewResult GetViewModel(Page currentPage, Field field);
         public void SetPageTitle(string title);
+        public FieldStatus GetFieldStatus(Page currentPage, BaseModel model);
+        public ViewResult AddErrorAndPopulateViewModel(Page currentPage, BaseModel currentModel, string fieldName, string errorMessage);
     }
 }

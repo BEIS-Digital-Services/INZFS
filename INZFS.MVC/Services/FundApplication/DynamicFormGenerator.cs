@@ -218,5 +218,32 @@ namespace INZFS.MVC.Services.FundApplication
         {
             ViewData["Title"] = $"{title}";
         }
+        public ViewResult AddErrorAndPopulateViewModel(Page currentPage, BaseModel currentModel, string fieldName, string errorMessage)
+        {
+            ModelState.AddModelError(fieldName, errorMessage);
+            return PopulateViewModel(currentPage, currentModel);
+        }
+        public FieldStatus GetFieldStatus(Page currentPage, BaseModel model)
+        {
+            if (currentPage.FieldType == FieldType.gdsFileUpload && model.Mandatory.HasValue && model.Mandatory.Value == false)
+            {
+                // Use the values from the radio buttons
+                return model.FieldStatus == null ? FieldStatus.InProgress : (FieldStatus)model.FieldStatus;
+            }
+
+            if (model.ShowMarkAsComplete)
+            {
+                if (model.MarkAsComplete)
+                {
+                    return FieldStatus.Completed;
+                }
+                else
+                {
+                    return FieldStatus.InProgress;
+                }
+            }
+
+            return FieldStatus.NotStarted;
+        }
     }
 }
