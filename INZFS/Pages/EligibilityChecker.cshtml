@@ -72,15 +72,23 @@
 
                     @if (!listenabled)
                     {
-                        <ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
-                            <li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
-                            <li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
-                            <li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
-                            @if (eligibility.Content.EligibilityChecker.Bullet4.Text != null)
-                            {
-                                <li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
-                            }
-                        </ul>
+				<ul class="govuk-!-margin-bottom-6 govuk-list govuk-list--bullet">
+					<li>@eligibility.Content.EligibilityChecker.Bullet1.Text</li>
+					<li>@eligibility.Content.EligibilityChecker.Bullet2.Text</li>
+					<li>@eligibility.Content.EligibilityChecker.Bullet3.Text</li>
+					@if (eligibility.Content.EligibilityChecker.Bullet4.Text != null)
+					{
+						<li>@eligibility.Content.EligibilityChecker.Bullet4.Text</li>
+					}
+					@if (eligibility.Content.EligibilityChecker.Bullet5.Text != null)
+					{
+						<li>@eligibility.Content.EligibilityChecker.Bullet5.Text</li>
+					}
+					@if (eligibility.Content.EligibilityChecker.Bullet6.Text != null)
+					{
+						<li>@eligibility.Content.EligibilityChecker.Bullet6.Text</li>
+					}
+				</ul>
                     }
 
                     <div class="govuk-radios govuk-radios--inline">

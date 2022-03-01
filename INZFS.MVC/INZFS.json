@@ -112,6 +112,7 @@
             "name": "balance-sheet-date",
             "sectionTitle": "2.2. Balance sheet date",
             "question": "What is your organisation’s balance sheet date?",
+            "hint": "The date which you calculated your balance sheet total. For example, 26 3 2022.",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -158,7 +159,7 @@
             "name": "recent-turnover",
             "sectionTitle": "2.4. Turnover",
             "question": "Most recent annual turnover",
-            "hint": "The amount of money your business has taken over a period of 12 months.",
+            "hint": "Your most recent annual turnover which you reported to Companies House",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
             "fieldType": "gdsTextBox",
@@ -180,6 +181,7 @@
           {
             "name": "recent-turnover-date",
             "sectionTitle": "2.4. Turnover",
+            "hint": "The date you calculated your most recent annual turnover. For example, 26 3 2022.",
             "question": "Most recent turnover date",
             "description": "Description",
             "errorMessage": "Select a valid date",
@@ -211,6 +213,7 @@
         "pages": [
           {
             "name": "organisation-name",
+            "hint": "Your organisation’s full name, as it’s registered with Companies House",
             "sectionTitle": "3.1. Organisation name",
             "question": "What is your organisation’s name?",
             "description": "Description",
@@ -229,7 +232,7 @@
             "name": "organisation-website",
             "sectionTitle": "3.2. Organisation website",
             "question": "What is your organisation’s website?",
-            "hint": "Enter your organisation's website address, if you have one",
+            "hint": "Enter your organisation’s website, if you have one.",
             "description": "Description",
             "errorMessage": "Please enter organisation name website",
             "fieldType": "gdsTextBox",
@@ -325,7 +328,7 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less (micro enterprise)",
+              "10 or fewer (micro enterprise)",
               "11 to 50 (small enterprise)",
               "51 to 250 (medium enterprise)",
               "251 or more (large enterprise)"
@@ -343,8 +346,8 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "Pre-startup",
-              "Startup (less than 1 year)",
+              "Pre start-up",
+              "Start-up (less than 1 year)",
               "1 to 5 years",
               "6 to 10 years",
               "11 years or over"
@@ -391,7 +394,7 @@
             "showMarkComplete": true,
             "selectOptions": [
               "Yes, I am a sole applicant",
-              "No, I am applying with businesses as a partnership (consortium)"
+              "No, I’m applying with other companies as a partnership (consortium)"
             ]
           },
           {
@@ -435,6 +438,7 @@
           {
             "name": "parent-organisation-name",
             "sectionTitle": "3.12. Parent organisation’s name",
+            "hint": "Your parent organisation’s full name, as it’s registered with Companies House",
             "question": "What is your parent organisation’s name?",
             "description": "Description",
             "errorMessage": "Please enter parent organisation’s name",
@@ -526,7 +530,7 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "10 or less (micro enterprise)",
+              "10 or fewer (micro enterprise)",
               "11 to 50 (small enterprise)",
               "51 to 250 (medium enterprise)",
               "251 or more (large enterprise)"
@@ -548,8 +552,8 @@
             "accordianReference": "",
             "showMarkComplete": true,
             "selectOptions": [
-              "Pre-startup",
-              "Startup (less than 1 year)",
+              "Pre start-up",
+              "Start-up (less than 1 year)",
               "1 to 5 years",
               "6 to 10 years",
               "11 years or over"
@@ -563,7 +567,7 @@
             "name": "parent-recent-turnover",
             "sectionTitle": "3.18. Parent organisation’s most recent annual turnover",
             "question": "What is your parent organisation’s most recent annual turnover?",
-            "hint": "The amount of money your business has taken over a period of 12 months.",
+            "hint": "The amount of money your parent organisation has taken over a period of 12 months.",
             "description": "Description",
             "errorMessage": "Please enter 12 month turnover value",
             "fieldType": "gdsTextBox",
@@ -585,6 +589,7 @@
             "name": "parent-recent-turnover-date",
             "sectionTitle": "3.19. Parent organisation’s most recent annual turnover date",
             "question": "What is your parent’s organisations most recent annual turnover date?",
+            "hint": "The date you calculated your parent organisation’s most recent annual turnover. For example, 26 3 2022.",
             "description": "Description",
             "errorMessage": "Select a valid date",
             "fieldType": "gdsDateBox",
@@ -623,6 +628,7 @@
             "name": "parent-balance-sheet-date",
             "sectionTitle": "3.21. Parent organisation’s balance sheet date",
             "question": "What is your parent organisation’s balance sheet date?",
+            "hint": "The date you calculated your parent organisation’s balance sheet. For example, 26 3 2022.",
             "description": "Description",
             "errorMessage": "Select a Valid Date",
             "fieldType": "gdsDateBox",
@@ -778,7 +784,7 @@
           {
             "name": "business-plan",
             "question": "Business plan",
-            "sectionTitle": "5.3. Business Plan",
+            "sectionTitle": "5.3. Business plan",
             "description": "Description",
             "errorMessage": "Enter business plan",
             "fieldType": "gdsTextArea",
@@ -796,7 +802,7 @@
             "sectionTitle": "5.4. Technology Readiness Level (TRL)",
             "question": "Technology Readiness Level (TRL)",
             "description": "Description",
-            "errorMessage": "Enter technology readiness level",
+            "errorMessage": "Enter Technology Readiness Level",
             "fieldType": "gdsTextArea",
             "friendlyFieldName": "Technology Readiness Level",
             "fieldName": "business-technology-readiness",
@@ -826,6 +832,7 @@
             "name": "business-technology-benefit",
             "sectionTitle": "5.6. Type of technology benefit",
             "question": "Which of these options does your project relate to?",
+            "hint": "Select all that apply",
             "errorMessage": "Select option",
             "fieldType": "gdsMultiSelect",
             "friendlyFieldName": "Type of technology benefit",
@@ -1406,7 +1413,7 @@
             "textType": "NumberBox",
             "friendlyFieldName": "Full-Time Employment (FTE) jobs retained",
             "fieldName": "fte-jobs-retained",
-            "hint": "Number of full-time jobs retained",
+            "hint": "Number of full-time jobs your project will allow you to complete if successful",
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 3,
@@ -1417,6 +1424,7 @@
             "name": "fte-jobs-created",
             "sectionTitle": "7.4. Full-Time Employment (FTE) jobs created",
             "question": "How many full-time jobs will your innovation create?",
+            "hint": "Number of full-time jobs your project could create if successful",
             "description": "Description",
             "errorMessage": "Enter Full-Time Employment (FTE) jobs created before marking as complete",
             "fieldType": "gdsTextBox",
@@ -1543,20 +1551,20 @@
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
             "selectOptions": [
-              "Accessing export markets",
-              "Accessing UK markets/customers",
-              "Availability of finance",
-              "Expensive demonstration phases",
-              "High levels of competition",
-              "Lack of clarity on government policy",
-              "Lack of industry standards",
-              "Large established firms using proven technology",
-              "Target sector prefers proven technologies",
-              "Unable to fulfil an increase in orders",
+              "accessing export markets",
+              "accessing UK markets/customers",
+              "availability of finance",
+              "expensive demonstration phases",
+              "high levels of competition",
+              "lack of clarity on government policy",
+              "lack of industry standards",
+              "large established firms using proven technology",
+              "target sector prefers proven technologies",
+              "unable to fulfil an increase in orders",
               "UK government regulations",
-              "None of the above",
-              "Does not apply",
-              "Other"
+              "none of the above",
+              "does not apply",
+              "other"
             ]
           },
           {
@@ -1574,13 +1582,13 @@
             "displayQuestionCounter": true,
             "continueButtonText": "Save and return to performance data",
             "selectOptions": [
-              "Increasing investment in the UK",
-              "Reducing the cost of a technology",
-              "Lowering UK carbon emissions",
-              "Route to commercialisation is established",
-              "UK supply chain built",
-              "Creating high-value science and engineering jobs",
-              "None of the above"
+              "increasing investment in the UK",
+              "reducing the cost of a technology",
+              "lowering UK carbon emissions",
+              "route to commercialisation is established",
+              "increasing the UK supply chain",
+              "creating high-value science and engineering jobs",
+              "other"
             ]
           }
         ]
