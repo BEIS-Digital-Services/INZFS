@@ -1413,7 +1413,7 @@
             "textType": "NumberBox",
             "friendlyFieldName": "Full-Time Employment (FTE) jobs retained",
             "fieldName": "fte-jobs-retained",
-            "hint": "Number of full-time jobs retained",
+            "hint": "Number of full-time jobs your project will allow you to complete if successful",
             "mandatory": true,
             "accordianReference": "",
             "maxLength": 3,
@@ -1424,6 +1424,7 @@
             "name": "fte-jobs-created",
             "sectionTitle": "7.4. Full-Time Employment (FTE) jobs created",
             "question": "How many full-time jobs will your innovation create?",
+            "hint": "Number of full-time jobs your project could create if successful",
             "description": "Description",
             "errorMessage": "Enter Full-Time Employment (FTE) jobs created before marking as complete",
             "fieldType": "gdsTextBox",
@@ -1550,20 +1551,20 @@
             "showSaveProgessButton": false,
             "displayQuestionCounter": true,
             "selectOptions": [
-              "Accessing export markets",
-              "Accessing UK markets/customers",
-              "Availability of finance",
-              "Expensive demonstration phases",
-              "High levels of competition",
-              "Lack of clarity on government policy",
-              "Lack of industry standards",
-              "Large established firms using proven technology",
-              "Target sector prefers proven technologies",
-              "Unable to fulfil an increase in orders",
+              "accessing export markets",
+              "accessing UK markets/customers",
+              "availability of finance",
+              "expensive demonstration phases",
+              "high levels of competition",
+              "lack of clarity on government policy",
+              "lack of industry standards",
+              "large established firms using proven technology",
+              "target sector prefers proven technologies",
+              "unable to fulfil an increase in orders",
               "UK government regulations",
-              "None of the above",
-              "Does not apply",
-              "Other"
+              "none of the above",
+              "does not apply",
+              "other"
             ]
           },
           {
@@ -1581,13 +1582,13 @@
             "displayQuestionCounter": true,
             "continueButtonText": "Save and return to performance data",
             "selectOptions": [
-              "Increasing investment in the UK",
-              "Reducing the cost of a technology",
-              "Lowering UK carbon emissions",
-              "Route to commercialisation is established",
-              "UK supply chain built",
-              "Creating high-value science and engineering jobs",
-              "None of the above"
+              "increasing investment in the UK",
+              "reducing the cost of a technology",
+              "lowering UK carbon emissions",
+              "route to commercialisation is established",
+              "increasing the UK supply chain",
+              "creating high-value science and engineering jobs",
+              "other"
             ]
           }
         ]
