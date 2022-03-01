@@ -3177,7 +3177,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Body2",
-                  "Position": "19"
+                  "Position": "20"
                 }
               }
             },
@@ -3187,7 +3187,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Header1",
-                  "Position": "1"
+                  "Position": "2"
                 }
               }
             },
@@ -3197,7 +3197,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Header2",
-                  "Position": "2"
+                  "Position": "3"
                 }
               }
             },
@@ -3207,7 +3207,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion1",
-                  "Position": "3"
+                  "Position": "4"
                 }
               }
             },
@@ -3217,7 +3217,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Boolean1",
-                  "Position": "25"
+                  "Position": "26"
                 }
               }
             },
@@ -3227,7 +3227,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Boolean2",
-                  "Position": "26"
+                  "Position": "27"
                 }
               }
             },
@@ -3237,7 +3237,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Button1",
-                  "Position": "24"
+                  "Position": "25"
                 }
               }
             },
@@ -3247,7 +3247,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Bullet1",
-                  "Position": "20"
+                  "Position": "21"
                 }
               }
             },
@@ -3257,7 +3257,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Bullet2",
-                  "Position": "21"
+                  "Position": "22"
                 }
               }
             },
@@ -3267,7 +3267,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Bullet3",
-                  "Position": "22"
+                  "Position": "23"
                 }
               }
             },
@@ -3277,7 +3277,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Bullet4",
-                  "Position": "23"
+                  "Position": "24"
                 }
               }
             },
@@ -3287,7 +3287,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionDetails1",
-                  "Position": "4"
+                  "Position": "5"
                 }
               }
             },
@@ -3297,7 +3297,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionDetails2",
-                  "Position": "5"
+                  "Position": "6"
                 }
               }
             },
@@ -3307,7 +3307,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionDetails3",
-                  "Position": "6"
+                  "Position": "7"
                 }
               }
             },
@@ -3317,7 +3317,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionBullet1",
-                  "Position": "8"
+                  "Position": "9"
                 }
               }
             },
@@ -3327,7 +3327,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionBullet2",
-                  "Position": "9"
+                  "Position": "10"
                 }
               }
             },
@@ -3337,7 +3337,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionBullet3",
-                  "Position": "10"
+                  "Position": "11"
                 }
               }
             },
@@ -3347,7 +3347,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionBullet4",
-                  "Position": "11"
+                  "Position": "12"
                 }
               }
             },
@@ -3357,7 +3357,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionBullet5",
-                  "Position": "12"
+                  "Position": "13"
                 }
               }
             },
@@ -3367,7 +3367,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "AccordionDetails4",
-                  "Position": "7"
+                  "Position": "8"
                 }
               }
             },
@@ -3377,7 +3377,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2",
-                  "Position": "13"
+                  "Position": "14"
                 }
               }
             },
@@ -3387,7 +3387,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2Details1",
-                  "Position": "14"
+                  "Position": "15"
                 }
               }
             },
@@ -3397,7 +3397,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2Details2",
-                  "Position": "15"
+                  "Position": "16"
                 }
               }
             },
@@ -3407,7 +3407,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2Bullet1",
-                  "Position": "17"
+                  "Position": "18"
                 }
               }
             },
@@ -3417,7 +3417,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2Bullet2",
-                  "Position": "18"
+                  "Position": "19"
                 }
               }
             },
@@ -3427,7 +3427,7 @@
               "Settings": {
                 "ContentPartFieldSettings": {
                   "DisplayName": "Accordion2Details3",
-                  "Position": "16"
+                  "Position": "17"
                 }
               }
             },
@@ -3436,7 +3436,26 @@
               "Name": "Hint",
               "Settings": {
                 "ContentPartFieldSettings": {
-                  "DisplayName": "Hint"
+                  "DisplayName": "Hint",
+                  "Position": "1"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Bullet5",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Bullet5"
+                }
+              }
+            },
+            {
+              "FieldName": "TextField",
+              "Name": "Bullet6",
+              "Settings": {
+                "ContentPartFieldSettings": {
+                  "DisplayName": "Bullet6"
                 }
               }
             }
@@ -4707,168 +4726,6 @@
         },
         {
           "ContentItemId": "[js: uuid()]",
-          "ContentType": "EligibilityChecker",
-          "DisplayText": "Question2",
-          "Latest": true,
-          "Published": true,
-          "Owner": "[js: parameters('AdminUserId')]",
-          "Author": "[js: parameters('AdminUsername')]",
-          "EligibilityChecker": {
-            "Body1": {
-              "Text": "Step 2 of 6"
-            },
-            "Body2": {
-              "Text": null
-            },
-            "Header1": {
-              "Text": "Have you applied to this fund on more than two occasions for your proposed project?"
-            },
-            "Header2": {
-              "Text": null
-            },
-            "Accordion1": {
-              "Text": "Previous applications"
-            },
-            "Boolean1": {
-              "Value": false
-            },
-            "Boolean2": {
-              "Value": false
-            },
-            "Button1": {
-              "Text": "/eligibilityChecker/Question3"
-            },
-            "Bullet1": {
-              "Text": null
-            },
-            "Bullet2": {
-              "Text": null
-            },
-            "Bullet3": {
-              "Text": null
-            },
-            "Bullet4": {
-              "Text": null
-            },
-            "AccordionDetails1": {
-              "Text": "If you’ve applied for an EEF grant for your technology once before but were unsuccessful, you may apply again. BEIS will not consider an application if the technology has already been submitted twice."
-            },
-            "AccordionDetails2": {
-              "Text": null
-            },
-            "AccordionDetails3": {
-              "Text": null
-            },
-            "AccordionBullet1": {
-              "Text": null
-            },
-            "AccordionBullet2": {
-              "Text": null
-            },
-            "AccordionBullet3": {
-              "Text": null
-            },
-            "AccordionBullet4": {
-              "Text": null
-            },
-            "AccordionBullet5": {
-              "Text": null
-            },
-            "AccordionDetails4": {
-              "Text": null
-            }
-          },
-          "AliasPart": {
-            "Alias": "Question2"
-          },
-          "PreviewPart": {},
-          "TitlePart": {
-            "Title": "Question2"
-          }
-        },
-        {
-          "ContentItemId": "[js: uuid()]",
-          "ContentType": "EligibilityChecker",
-          "DisplayText": "Question4",
-          "Latest": true,
-          "Published": true,
-          "Owner": "[js: parameters('AdminUserId')]",
-          "Author": "[js: parameters('AdminUsername')]",
-          "EligibilityChecker": {
-            "Body1": {
-              "Text": "Step 4 of 6"
-            },
-            "Body2": {
-              "Text": null
-            },
-            "Header1": {
-              "Text": "Are you applying for funding up to and including £1 million?"
-            },
-            "Header2": {
-              "Text": null
-            },
-            "Accordion1": {
-              "Text": "Grants in excess of £1 million"
-            },
-            "Boolean1": {
-              "Value": false
-            },
-            "Boolean2": {
-              "Value": false
-            },
-            "Button1": {
-              "Text": "/eligibilityChecker/Question5"
-            },
-            "Bullet1": {
-              "Text": null
-            },
-            "Bullet2": {
-              "Text": null
-            },
-            "Bullet3": {
-              "Text": null
-            },
-            "Bullet4": {
-              "Text": null
-            },
-            "AccordionDetails1": {
-              "Text": "Successful applicants can get up to £1 million from EEF, depending on their project. If you need extra funding for your project, it may come from another source, excluding other public funds. The project's total value must not be more than £2.5 million."
-            },
-            "AccordionDetails2": {
-              "Text": null
-            },
-            "AccordionDetails3": {
-              "Text": null
-            },
-            "AccordionBullet1": {
-              "Text": null
-            },
-            "AccordionBullet2": {
-              "Text": null
-            },
-            "AccordionBullet3": {
-              "Text": null
-            },
-            "AccordionBullet4": {
-              "Text": null
-            },
-            "AccordionBullet5": {
-              "Text": null
-            },
-            "AccordionDetails4": {
-              "Text": null
-            }
-          },
-          "AliasPart": {
-            "Alias": "Question4"
-          },
-          "PreviewPart": {},
-          "TitlePart": {
-            "Title": "Question4"
-          }
-        },
-        {
-          "ContentItemId": "[js: uuid()]",
           "ContentType": "EligibilityResult",
           "DisplayText": "EligibilityResult2",
           "Latest": true,
@@ -5225,87 +5082,6 @@
           "PreviewPart": {},
           "TitlePart": {
             "Title": "EligibilityResult6"
-          }
-        },
-        {
-          "ContentItemId": "[js: uuid()]",
-          "ContentType": "EligibilityChecker",
-          "DisplayText": "Question6",
-          "Latest": true,
-          "Published": true,
-          "Owner": "[js: parameters('AdminUserId')]",
-          "Author": "[js: parameters('AdminUsername')]",
-          "EligibilityChecker": {
-            "Body1": {
-              "Text": "Step 6 of 6"
-            },
-            "Body2": {
-              "Text": null
-            },
-            "Header1": {
-              "Text": "Does your project relate to one or more of the following:"
-            },
-            "Header2": {
-              "Text": null
-            },
-            "Accordion1": {
-              "Text": "Technology scope"
-            },
-            "Boolean1": {
-              "Value": false
-            },
-            "Boolean2": {
-              "Value": false
-            },
-            "Button1": {
-              "Text": "/eligibilityResult/EligibilityResult7"
-            },
-            "Bullet1": {
-              "Text": "energy efficiency "
-            },
-            "Bullet2": {
-              "Text": "power generation"
-            },
-            "Bullet3": {
-              "Text": "heat generation"
-            },
-            "Bullet4": {
-              "Text": "energy storage"
-            },
-            "AccordionDetails1": {
-              "Text": "The EEF welcomes applications from a broad range of carbon reduction technologies. Your proposal must address either the Government’s 2050 Net Zero carbon targets or security of UK energy supply to be eligible."
-            },
-            "AccordionDetails2": {
-              "Text": null
-            },
-            "AccordionDetails3": {
-              "Text": null
-            },
-            "AccordionBullet1": {
-              "Text": null
-            },
-            "AccordionBullet2": {
-              "Text": null
-            },
-            "AccordionBullet3": {
-              "Text": null
-            },
-            "AccordionBullet4": {
-              "Text": null
-            },
-            "AccordionBullet5": {
-              "Text": null
-            },
-            "AccordionDetails4": {
-              "Text": null
-            }
-          },
-          "AliasPart": {
-            "Alias": "Question6"
-          },
-          "PreviewPart": {},
-          "TitlePart": {
-            "Title": "Question6"
           }
         },
         {
@@ -5932,210 +5708,6 @@
         },
         {
           "ContentItemId": "[js: uuid()]",
-          "ContentType": "EligibilityChecker",
-          "DisplayText": "Question5",
-          "Latest": true,
-          "Published": true,
-          "Owner": "[js: parameters('AdminUserId')]",
-          "Author": "[js: parameters('AdminUsername')]",
-          "EligibilityChecker": {
-            "Body1": {
-              "Text": "Step 5 of 6"
-            },
-            "Body2": {
-              "Text": null
-            },
-            "Header1": {
-              "Text": "Can you match at least 10% of your total project costs?"
-            },
-            "Header2": {
-              "Text": null
-            },
-            "Accordion1": {
-              "Text": "Your minimum company contribution"
-            },
-            "Boolean1": {
-              "Value": false
-            },
-            "Boolean2": {
-              "Value": false
-            },
-            "Button1": {
-              "Text": "/eligibilityChecker/Question6"
-            },
-            "Bullet1": {
-              "Text": null
-            },
-            "Bullet2": {
-              "Text": null
-            },
-            "Bullet3": {
-              "Text": null
-            },
-            "Bullet4": {
-              "Text": null
-            },
-            "AccordionDetails1": {
-              "Text": "You must have funding in place to cover a certain percentage of your total eligible project costs. This is referred to as ‘match funding’. "
-            },
-            "AccordionDetails2": {
-              "Text": "Your minimum contribution depends on factors including your organisation, the type of project work you’ll be doing and how much you’re applying for."
-            },
-            "AccordionDetails3": {
-              "Text": "Your match funding contribution may come from sources including bank loans, private investors, friends and family or your money. It may not come from other public funds."
-            },
-            "AccordionBullet1": {
-              "Text": null
-            },
-            "AccordionBullet2": {
-              "Text": null
-            },
-            "AccordionBullet3": {
-              "Text": null
-            },
-            "AccordionBullet4": {
-              "Text": null
-            },
-            "AccordionBullet5": {
-              "Text": null
-            },
-            "AccordionDetails4": {
-              "Text": "You can find detailed information on match funding in section 5 ‘(Funding levels and subsidy requirements’) of the EEF Phase 9 Guidance Document."
-            },
-            "Accordion2": {
-              "Text": null
-            },
-            "Accordion2Details1": {
-              "Text": null
-            },
-            "Accordion2Details2": {
-              "Text": null
-            },
-            "Accordion2Bullet1": {
-              "Text": null
-            },
-            "Accordion2Bullet2": {
-              "Text": null
-            },
-            "Accordion2Details3": {
-              "Text": null
-            },
-            "Hint": {
-              "Text": "Learn more about technology readiness levels in the guidance below"
-            }
-          },
-          "AliasPart": {
-            "Alias": "Question5"
-          },
-          "PreviewPart": {},
-          "TitlePart": {
-            "Title": "Question5"
-          }
-        },
-        {
-          "ContentItemId": "[js: uuid()]",
-          "ContentType": "EligibilityChecker",
-          "DisplayText": "Question3",
-          "Latest": true,
-          "Published": true,
-          "Owner": "[js: parameters('AdminUserId')]",
-          "Author": "[js: parameters('AdminUsername')]",
-          "EligibilityChecker": {
-            "Body1": {
-              "Text": "Step 3 of 6"
-            },
-            "Body2": {
-              "Text": null
-            },
-            "Header1": {
-              "Text": "Has your project reached technology readiness level (TRL) 3: proof of concept?"
-            },
-            "Header2": {
-              "Text": null
-            },
-            "Accordion1": {
-              "Text": "Technology readiness level (TRL)"
-            },
-            "Boolean1": {
-              "Value": false
-            },
-            "Boolean2": {
-              "Value": false
-            },
-            "Button1": {
-              "Text": "/eligibilityChecker/Question4"
-            },
-            "Bullet1": {
-              "Text": null
-            },
-            "Bullet2": {
-              "Text": null
-            },
-            "Bullet3": {
-              "Text": null
-            },
-            "Bullet4": {
-              "Text": null
-            },
-            "AccordionDetails1": {
-              "Text": "Technology Readiness Level (TRL) is a way of judging the development of a innovation. BEIS uses this system in its assessment process. Your project must be at a minimum of TRL 3 (Proof of Concept) to get an EEF grant."
-            },
-            "AccordionDetails2": {
-              "Text": "Projects which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
-            },
-            "AccordionDetails3": {
-              "Text": "To prove that your innovation is feasible you should be able to:"
-            },
-            "AccordionBullet1": {
-              "Text": "your project can be built or developed"
-            },
-            "AccordionBullet2": {
-              "Text": "results from testing for real-life application"
-            },
-            "AccordionBullet3": {
-              "Text": "how it works"
-            },
-            "AccordionBullet4": {
-              "Text": null
-            },
-            "AccordionBullet5": {
-              "Text": null
-            },
-            "AccordionDetails4": {
-              "Text": "You can find a full guide to TRL in the EEF 9 Guidance Document"
-            },
-            "Accordion2": {
-              "Text": null
-            },
-            "Accordion2Details1": {
-              "Text": null
-            },
-            "Accordion2Details2": {
-              "Text": null
-            },
-            "Accordion2Bullet1": {
-              "Text": null
-            },
-            "Accordion2Bullet2": {
-              "Text": null
-            },
-            "Accordion2Details3": {
-              "Text": null
-            },
-            "Hint": {
-              "Text": "Learn more about technology readiness levels in the guidance below"
-            }
-          },
-          "AliasPart": {
-            "Alias": "Question3"
-          },
-          "PreviewPart": {},
-          "TitlePart": {
-            "Title": "Question3"
-          }
-        },
-        {
-          "ContentItemId": "[js: uuid()]",
           "ContentType": "EligibilityResult",
           "DisplayText": "EligibilityResult3",
           "Latest": true,
@@ -6654,6 +6226,522 @@
           },
           "ListOfFAQs": {
             "ContentItems": []
+          }
+        },
+        {
+          "ContentItemId": "[js: uuid()]",
+          "ContentType": "EligibilityChecker",
+          "DisplayText": "Question2",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "EligibilityChecker": {
+            "Body1": {
+              "Text": "Step 2 of 6"
+            },
+            "Body2": {
+              "Text": null
+            },
+            "Header1": {
+              "Text": "Have you applied to this fund on more than two occasions for your proposed project?"
+            },
+            "Header2": {
+              "Text": null
+            },
+            "Accordion1": {
+              "Text": "Previous applications"
+            },
+            "Boolean1": {
+              "Value": false
+            },
+            "Boolean2": {
+              "Value": false
+            },
+            "Button1": {
+              "Text": "/eligibilityChecker/Question3"
+            },
+            "Bullet1": {
+              "Text": null
+            },
+            "Bullet2": {
+              "Text": null
+            },
+            "Bullet3": {
+              "Text": null
+            },
+            "Bullet4": {
+              "Text": null
+            },
+            "AccordionDetails1": {
+              "Text": "If you’ve applied to EEF in previous rounds but were unsuccessful, you are welcome to apply again. You can only apply for funding for a specific project or innovation twice. If you’ve been unsuccessful on two occasions, you cannot submit the same project a third time. "
+            },
+            "AccordionDetails2": {
+              "Text": "If you’ve received money from EEF in previous rounds, you can apply for funding for new projects or additional activities under this phase. This work must extend the scope of previous work to new applications or processes. "
+            },
+            "AccordionDetails3": {
+              "Text": "All applications will be treated equally, there is no advantage for applicants who’ve won funding in past rounds. "
+            },
+            "AccordionBullet1": {
+              "Text": null
+            },
+            "AccordionBullet2": {
+              "Text": null
+            },
+            "AccordionBullet3": {
+              "Text": null
+            },
+            "AccordionBullet4": {
+              "Text": null
+            },
+            "AccordionBullet5": {
+              "Text": null
+            },
+            "AccordionDetails4": {
+              "Text": null
+            },
+            "Accordion2": {
+              "Text": null
+            },
+            "Accordion2Details1": {
+              "Text": null
+            },
+            "Accordion2Details2": {
+              "Text": null
+            },
+            "Accordion2Bullet1": {
+              "Text": null
+            },
+            "Accordion2Bullet2": {
+              "Text": null
+            },
+            "Accordion2Details3": {
+              "Text": null
+            },
+            "Hint": {
+              "Text": null
+            }
+          },
+          "AliasPart": {
+            "Alias": "Question2"
+          },
+          "PreviewPart": {},
+          "TitlePart": {
+            "Title": "Question2"
+          }
+        },
+        {
+          "ContentItemId": "[js: uuid()]",
+          "ContentType": "EligibilityChecker",
+          "DisplayText": "Question3",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "EligibilityChecker": {
+            "Body1": {
+              "Text": "Step 3 of 6"
+            },
+            "Body2": {
+              "Text": null
+            },
+            "Header1": {
+              "Text": "Has your project reached Technology Readiness Level (TRL) 3: proof of concept?"
+            },
+            "Header2": {
+              "Text": null
+            },
+            "Accordion1": {
+              "Text": "Technology Readiness Level (TRL)"
+            },
+            "Boolean1": {
+              "Value": false
+            },
+            "Boolean2": {
+              "Value": false
+            },
+            "Button1": {
+              "Text": "/eligibilityChecker/Question4"
+            },
+            "Bullet1": {
+              "Text": null
+            },
+            "Bullet2": {
+              "Text": null
+            },
+            "Bullet3": {
+              "Text": null
+            },
+            "Bullet4": {
+              "Text": null
+            },
+            "AccordionDetails1": {
+              "Text": "Technology Readiness Level (TRL) is a way of judging the development of a innovation. BEIS uses this system in its assessment process. Your project must be at a minimum of TRL 3 (proof of concept) to get an EEF grant."
+            },
+            "AccordionDetails2": {
+              "Text": "Projects which have reached TRL3 have ‘proof of concept’. This means that work has been done to prove that an idea can be made into reality."
+            },
+            "AccordionDetails3": {
+              "Text": "To prove that your innovation is feasible you should be able to:"
+            },
+            "AccordionBullet1": {
+              "Text": "your project can be built or developed"
+            },
+            "AccordionBullet2": {
+              "Text": "results from testing for real-life application"
+            },
+            "AccordionBullet3": {
+              "Text": "how it works"
+            },
+            "AccordionBullet4": {
+              "Text": null
+            },
+            "AccordionBullet5": {
+              "Text": null
+            },
+            "AccordionDetails4": {
+              "Text": "You can find a full guide to TRL in the EEF 9 Guidance Document"
+            },
+            "Accordion2": {
+              "Text": null
+            },
+            "Accordion2Details1": {
+              "Text": null
+            },
+            "Accordion2Details2": {
+              "Text": null
+            },
+            "Accordion2Bullet1": {
+              "Text": null
+            },
+            "Accordion2Bullet2": {
+              "Text": null
+            },
+            "Accordion2Details3": {
+              "Text": null
+            },
+            "Hint": {
+              "Text": "Learn more about Technology Readiness Levels in the guidance below"
+            }
+          },
+          "AliasPart": {
+            "Alias": "Question3"
+          },
+          "PreviewPart": {},
+          "TitlePart": {
+            "Title": "Question3"
+          }
+        },
+        {
+          "ContentItemId": "[js: uuid()]",
+          "ContentType": "EligibilityChecker",
+          "DisplayText": "Question5",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "EligibilityChecker": {
+            "Body1": {
+              "Text": "Step 5 of 6"
+            },
+            "Body2": {
+              "Text": null
+            },
+            "Header1": {
+              "Text": "Can you match at least 10% of your total project costs?"
+            },
+            "Header2": {
+              "Text": null
+            },
+            "Accordion1": {
+              "Text": "Your minimum company contribution"
+            },
+            "Boolean1": {
+              "Value": false
+            },
+            "Boolean2": {
+              "Value": false
+            },
+            "Button1": {
+              "Text": "/eligibilityChecker/Question6"
+            },
+            "Bullet1": {
+              "Text": null
+            },
+            "Bullet2": {
+              "Text": null
+            },
+            "Bullet3": {
+              "Text": null
+            },
+            "Bullet4": {
+              "Text": null
+            },
+            "AccordionDetails1": {
+              "Text": "You need private funding in place to cover the balance of your eligible project costs. This is referred to as ‘match funding’. "
+            },
+            "AccordionDetails2": {
+              "Text": "As a minimum, the match funding must be at least 10% of the eligible total project costs. The amount will depend on your organisation size, grant amount, and whether you apply as part of a consortium. "
+            },
+            "AccordionDetails3": {
+              "Text": "Your total contribution will depend on which subsidy category you apply for.  This may come from: "
+            },
+            "AccordionBullet1": {
+              "Text": "your own money "
+            },
+            "AccordionBullet2": {
+              "Text": "private investors, like bank loans or angel investors for example "
+            },
+            "AccordionBullet3": {
+              "Text": "friends or family "
+            },
+            "AccordionBullet4": {
+              "Text": null
+            },
+            "AccordionBullet5": {
+              "Text": null
+            },
+            "AccordionDetails4": {
+              "Text": "Your match funding contribution may not come from any other public fund or in-kind contributions.  You can find detailed information on match funding in section 5 ‘(Funding levels and subsidy requirements’) of the EEF Phase 9 Guidance Document. "
+            },
+            "Accordion2": {
+              "Text": null
+            },
+            "Accordion2Details1": {
+              "Text": null
+            },
+            "Accordion2Details2": {
+              "Text": null
+            },
+            "Accordion2Bullet1": {
+              "Text": null
+            },
+            "Accordion2Bullet2": {
+              "Text": null
+            },
+            "Accordion2Details3": {
+              "Text": null
+            },
+            "Hint": {
+              "Text": "Learn more about match funding in the guidance below"
+            }
+          },
+          "AliasPart": {
+            "Alias": "Question5"
+          },
+          "PreviewPart": {},
+          "TitlePart": {
+            "Title": "Question5"
+          }
+        },
+        {
+          "ContentItemId": "[js: uuid()]",
+          "ContentType": "EligibilityChecker",
+          "DisplayText": "Question4",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "EligibilityChecker": {
+            "Body1": {
+              "Text": "Step 4 of 6"
+            },
+            "Body2": {
+              "Text": null
+            },
+            "Header1": {
+              "Text": "Are you applying for funding up to and including £1 million?"
+            },
+            "Header2": {
+              "Text": null
+            },
+            "Accordion1": {
+              "Text": "Grants in excess of £1 million"
+            },
+            "Boolean1": {
+              "Value": false
+            },
+            "Boolean2": {
+              "Value": false
+            },
+            "Button1": {
+              "Text": "/eligibilityChecker/Question5"
+            },
+            "Bullet1": {
+              "Text": null
+            },
+            "Bullet2": {
+              "Text": null
+            },
+            "Bullet3": {
+              "Text": null
+            },
+            "Bullet4": {
+              "Text": null
+            },
+            "AccordionDetails1": {
+              "Text": "Your total project costs must not exceed £2.5 million. "
+            },
+            "AccordionDetails2": {
+              "Text": "You can apply for a grant of up to £1 million from EEF towards your project. "
+            },
+            "AccordionDetails3": {
+              "Text": null
+            },
+            "AccordionBullet1": {
+              "Text": null
+            },
+            "AccordionBullet2": {
+              "Text": null
+            },
+            "AccordionBullet3": {
+              "Text": null
+            },
+            "AccordionBullet4": {
+              "Text": null
+            },
+            "AccordionBullet5": {
+              "Text": null
+            },
+            "AccordionDetails4": {
+              "Text": null
+            },
+            "Accordion2": {
+              "Text": null
+            },
+            "Accordion2Details1": {
+              "Text": null
+            },
+            "Accordion2Details2": {
+              "Text": null
+            },
+            "Accordion2Bullet1": {
+              "Text": null
+            },
+            "Accordion2Bullet2": {
+              "Text": null
+            },
+            "Accordion2Details3": {
+              "Text": null
+            },
+            "Hint": {
+              "Text": null
+            }
+          },
+          "AliasPart": {
+            "Alias": "Question4"
+          },
+          "PreviewPart": {},
+          "TitlePart": {
+            "Title": "Question4"
+          }
+        },
+        {
+          "ContentItemId": "[js: uuid()]",
+          "ContentType": "EligibilityChecker",
+          "DisplayText": "Question6",
+          "Latest": true,
+          "Published": true,
+          "Owner": "[js: parameters('AdminUserId')]",
+          "Author": "[js: parameters('AdminUsername')]",
+          "EligibilityChecker": {
+            "Body1": {
+              "Text": "Step 6 of 6"
+            },
+            "Body2": {
+              "Text": null
+            },
+            "Header1": {
+              "Text": "Does your project relate to one or more of the following:"
+            },
+            "Header2": {
+              "Text": null
+            },
+            "Accordion1": {
+              "Text": "Technology scope"
+            },
+            "Boolean1": {
+              "Value": false
+            },
+            "Boolean2": {
+              "Value": false
+            },
+            "Button1": {
+              "Text": "/eligibilityResult/EligibilityResult7"
+            },
+            "Bullet1": {
+              "Text": "energy efficiency "
+            },
+            "Bullet2": {
+              "Text": "power generation"
+            },
+            "Bullet3": {
+              "Text": "heat generation"
+            },
+            "Bullet4": {
+              "Text": "energy storage"
+            },
+            "AccordionDetails1": {
+              "Text": "The EEF welcomes applications from a broad range of carbon reduction technologies. Your proposal must address either the Government’s 2050 Net Zero carbon targets or security of UK energy supply to be eligible."
+            },
+            "AccordionDetails2": {
+              "Text": null
+            },
+            "AccordionDetails3": {
+              "Text": null
+            },
+            "AccordionBullet1": {
+              "Text": null
+            },
+            "AccordionBullet2": {
+              "Text": null
+            },
+            "AccordionBullet3": {
+              "Text": null
+            },
+            "AccordionBullet4": {
+              "Text": null
+            },
+            "AccordionBullet5": {
+              "Text": null
+            },
+            "AccordionDetails4": {
+              "Text": null
+            },
+            "Accordion2": {
+              "Text": null
+            },
+            "Accordion2Details1": {
+              "Text": null
+            },
+            "Accordion2Details2": {
+              "Text": null
+            },
+            "Accordion2Bullet1": {
+              "Text": null
+            },
+            "Accordion2Bullet2": {
+              "Text": null
+            },
+            "Accordion2Details3": {
+              "Text": null
+            },
+            "Hint": {
+              "Text": null
+            },
+            "Bullet5": {
+              "Text": "reducing greenhouse gas emissions "
+            },
+            "Bullet6": {
+              "Text": "improving UK energy security "
+            }
+          },
+          "AliasPart": {
+            "Alias": "Question6"
+          },
+          "PreviewPart": {},
+          "TitlePart": {
+            "Title": "Question6"
           }
         }
       ]
