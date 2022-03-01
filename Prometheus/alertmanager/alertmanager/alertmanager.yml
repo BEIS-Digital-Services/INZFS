@@ -1,12 +1,68 @@
 global:
   resolve_timeout: 1m
+  # Sendgrid SMTP properties.
+  smtp_smarthost: 'smtp.sendgrid.net:587'
+  smtp_from: 'inzfs.prod-alerts@beis.gov.uk'
+  smtp_auth_username: 'apikey'
+  smtp_auth_password: '$(SMTP_APIKEY)'
 
-route:
-  # group_by: ['app']
-  receiver: 'zulip-notifications'
 
 receivers:
-- name: 'zulip-notifications'
-  webhook_configs:
-  - url: 'https://eef.zulipchat.com/api/v1/external/alertmanager?api_key=yrHqcJEK0Pabi2zWPvf2uCzjSVx8RBOm&stream=Prometheus'
-    send_resolved: true
+- name: mail-dev
+  email_configs:
+  - to: "inzfs.alerts@beis.gov.uk"
+    from: "inzfs.alerts@beis.gov.uk"
+    headers:
+      Subject: "[TEST Alert]: {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }}) - ({{ .Status }})"
+    html: |
+      Greetings,
+      <p>
+      You have the following firing {{ .CommonLabels.severity }} alerts:
+      <ul>
+      {{ range .Alerts }}
+      <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
+      <li>Labels:</li>
+      <li>{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}Annotations:</li>
+      <li>{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}---</li>
+      {{ end }}
+      </ul>
+      </p>
+
+- name: mail-prod
+  email_configs:
+  - to: "inzfs.prod-alerts@beis.gov.uk"
+    headers:
+      Subject: "[PROD Alert]: {{ .CommonLabels.severity }} {{ .CommonAnnotations.message }} ({{ .CommonLabels.alertname }}) - ({{ .Status }})"
+    html: |
+      Greetings,
+      <p>
+      You have the following firing {{ .CommonLabels.severity }} alerts:
+      <ul>
+      {{ range .Alerts }}
+      <li>{{.Labels.alertname}} on {{.Labels.instance}}</li>
+      <li>Labels:</li>
+      <li>{{ range .Labels.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}Annotations:</li>
+      <li>{{ range .Annotations.SortedPairs }} - {{ .Name }} = {{ .Value }}</li>
+      <li>{{ end }}---</li>
+      {{ end }}
+      </ul>
+      </p>
+      
+route:
+  receiver: mail-dev
+  group_by: ['env']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 30m
+  routes:
+  - receiver: mail-prod
+    repeat_interval: 1m
+    matchers: 
+     - env="prod"
+  - receiver: mail-dev
+    repeat_interval: 1m
+    matchers: 
+     - env="test"

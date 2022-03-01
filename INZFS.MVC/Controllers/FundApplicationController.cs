@@ -191,7 +191,7 @@ namespace INZFS.MVC.Controllers
                 if (file != null || submitAction == "UploadFile")
                 {
                     ModelState.Clear();
-                    var errorMessage = await _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
+                    var errorMessage =  _fileUploadService.Validate(file, currentPage, _applicationOption.VirusScanningEnabled, _applicationOption.CloudmersiveApiKey);
                     if (!string.IsNullOrEmpty(errorMessage))
                     {
                         ModelState.AddModelError("DataInput", errorMessage);
@@ -565,8 +565,11 @@ namespace INZFS.MVC.Controllers
 
         public async Task<bool> AddApplicationToBlobStorage()
         {
-            byte[] zipFileBytes = await _zipService.GetZipFileBytes("pdf", GetUserId(), true);
-            string name = $"{_zipService.GetApplicationId(GetUserId())}.zip";
+            string userId = GetUserId();
+            string applicationId = await _zipService.GetApplicationId(userId);
+            byte[] zipFileBytes = await _zipService.GetZipFileBytes("pdf", userId, true);
+            string companyName = await _zipService.GetApplicationCompanyName(userId);
+            string name = $"_{companyName}_{applicationId}.zip";
 
             MemoryStream ms = new(zipFileBytes);
             FormFile file = new(ms, 0, zipFileBytes.Length, name, name);
@@ -637,10 +640,14 @@ namespace INZFS.MVC.Controllers
             SetPageTitle("Your application");
             var content = await _contentRepository.GetApplicationContent(GetUserId());
             var status = content.ApplicationStatus == ApplicationStatus.InProgress ? ApplicationStatus.NotSubmitted : content.ApplicationStatus;
+            var outcomeStatus = await _contentRepository.GetApplicationOutcomeStatusAsync(content.Id, content.UserId);
+
             return View("ApplicationSent", new ApplicationSentModel { 
                 ApplicationNumber = content.ApplicationNumber ?? "N/A",
-                ApplicationStatus = status.ToStatusString(),
-                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow
+                ApplicationStatus = outcomeStatus.ToOutcomeStatusString(status),
+                SubmittedDate = content.SubmittedUtc.HasValue ? content.SubmittedUtc.Value : DateTime.UtcNow,
+                Status = status,
+                OutcomeStatus = outcomeStatus
             } );
         }
         

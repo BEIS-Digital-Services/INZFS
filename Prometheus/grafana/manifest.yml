@@ -1,5 +1,6 @@
 ---
 applications:
-- instances: 1
-  memory: 2G
+# grafana dows not operate correctly with 2 instances 
+- instances: 1 
+  memory: 4G
   route-path: london.cloudapps.digital

@@ -142,10 +142,6 @@ namespace INZFS.MVC
     {
         InProgress,
         Submitted,
-        Assessment,
-        IndependentAssessment,
-        Successful,
-        Unsuccessful,
         Withdrawn,
         NotSubmitted,
     }
@@ -270,4 +266,21 @@ namespace INZFS.MVC
         public string text { get; set; }
     }
 
+    public class ApplicationOutcomeStatus
+    {
+        public int ApplicationId { get; set; }
+        public string UserId { get; set; }
+        public ApplicationOutcomeStatusType Status { get; set; }
+        public DateTime LastUpdated { get; set; }
+    }
+
+    public enum ApplicationOutcomeStatusType
+    {
+        None,
+        InReview,
+        InModeration,
+        ModerationComplete,
+        Successful,
+        Unsuccessful
+    }
 }

@@ -16,11 +16,12 @@ namespace INZFS.MVC
 {
     public interface IContentRepository
     {
-        public Task<ApplicationContent> GetApplicationContent(string userId);
-        public Task<ApplicationContent> CreateApplicationContent(string userId);
-        public Task UpdateStatus(string userId, ApplicationStatus newStatus);
-
+        Task<ApplicationContent> GetApplicationContent(string userId);
+        Task<ApplicationContent> CreateApplicationContent(string userId);
+        Task UpdateStatus(string userId, ApplicationStatus newStatus);
+        Task<ApplicationOutcomeStatusType> GetApplicationOutcomeStatusAsync(int contentId, string userId);
     }
+
     public class ContentRepository : IContentRepository
     {
         private readonly ISession _session;
@@ -44,6 +45,14 @@ namespace INZFS.MVC
                 _session.Save(content);
                 await _session.SaveChangesAsync();
             }
+        }
+
+        public async Task<ApplicationOutcomeStatusType> GetApplicationOutcomeStatusAsync(int applicationId, string userId)
+        {
+            var query = _session.Query<ApplicationOutcomeStatus, ApplicationOutcomeStatusIdIndex>();
+            query = query.With<ApplicationOutcomeStatusIdIndex>(x => x.ApplicationId == applicationId);
+            var outcomeStatus = await query.FirstOrDefaultAsync();
+            return outcomeStatus?.Status ?? ApplicationOutcomeStatusType.None;
         }
 
         public async Task<ApplicationContent> GetApplicationContent(string userId)

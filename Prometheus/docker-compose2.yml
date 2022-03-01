@@ -1,0 +1,20 @@
+version: '3.7'
+
+volumes:
+     blackbox_data: {}
+
+services:
+  prometheus:
+    image: ${DOCKER_REGISTRY-}prom-blackbox
+    build:
+      context: ./
+      dockerfile: ./prometheus/Dockerfile1
+    ports:
+      - 443:443
+      - 9115:9115
+    command:
+      - '--config.file=/etc/blackbox/blackbox.yml'
+    restart: always
+    volumes:
+      - ./blackbox.yml:/etc/blackbox/blackbox.yml
+      - blackbox_data:/etc/blackbox/
