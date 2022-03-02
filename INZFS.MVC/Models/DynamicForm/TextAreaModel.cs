@@ -16,7 +16,16 @@ namespace INZFS.MVC.Models.DynamicForm
             {
                 if (string.IsNullOrEmpty(DataInput))
                 {
-                    yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
+                    if(CurrentPage.FriendlyFieldName == "Technology Readiness Level")
+                    {
+                        yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName} before marking as complete", new[] { nameof(DataInput) });
+
+                    }
+                    else
+                    {
+                        yield return new ValidationResult($"Enter {CurrentPage.FriendlyFieldName.ToLower()} before marking as complete", new[] { nameof(DataInput) });
+
+                    }
                 }
             }
             if (!string.IsNullOrEmpty(DataInput))

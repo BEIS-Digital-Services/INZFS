@@ -23,10 +23,10 @@
             <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
                 <h1 class="govuk-fieldset__heading">@Model.Question</h1>
             </legend>
-            <div id="estimated-project-end-date-hint" class="govuk-hint">
-                For example, @sampleDate.Day @sampleDate.Month @sampleDate.Year
+            <div id="@Model.FieldName" class="govuk-hint">
+                @Model.Hint
             </div>
-            <div class="govuk-date-input" id="estimated-project-end-date">
+            <div class="govuk-date-input" id="@Model.FieldName">
                 <div class="govuk-date-input__item">
                     <div class="govuk-form-group">
                         <label class="govuk-label govuk-date-input__label" for="Day">
