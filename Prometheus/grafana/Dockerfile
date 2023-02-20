@@ -1,4 +1,4 @@
-FROM grafana/grafana
+FROM grafana/grafana:9.4.0-beta1-ubuntu
 WORKDIR /src
 ADD provisioning/datasources/prometheus_ds.yml /etc/grafana/provisioning/datasources/prometheus_ds.yml
 # ADD provisioning/dashboard-provider.yml /etc/grafana/provisioning/dashboards/
